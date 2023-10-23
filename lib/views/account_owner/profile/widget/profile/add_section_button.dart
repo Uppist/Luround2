@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '../../../../../utils/colors/app_theme.dart';
+
+
+
+
+class AddSectionButton extends StatelessWidget {
+  AddSectionButton({super.key, required this.onPressed});
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        alignment: Alignment.center,
+        height: 50,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: AppColor.bgColor,
+          borderRadius: BorderRadius.circular(40),
+          border: Border.all(
+            color: AppColor.darkGreyColor
+          )
+        ),
+        child: Text(
+          'Add Section',
+          style: GoogleFonts.poppins(
+            textStyle: TextStyle(
+              color: AppColor.darkGreyColor,
+              fontSize: 18,
+              //fontWeight: FontWeight.w500
+            )
+          )
+        ),
+      )
+    );
+  }
+}

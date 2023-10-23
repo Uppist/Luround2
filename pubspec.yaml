@@ -1,0 +1,55 @@
+name: luround
+description: A new Flutter project.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  intl: any
+  cupertino_icons: ^1.0.2
+  
+  #state management
+  get: ^4.6.0
+
+  font_awesome_flutter: ^9.1.0
+  flutter_svg: ^2.0.7
+  #swipe_cards: ^2.0.0+1
+  flutter_otp_text_field: ^1.1.1
+  file_picker: ^3.0.0
+  #swipe_to: 1.0.2
+  #carousel_slider: ^4.2.1
+  dots_indicator: ^2.1.1
+  
+  google_fonts: ^6.0.0
+  country_code_picker: ^3.0.0
+  flutter_rating_bar: ^4.0.1
+  url_launcher: ^6.1.14
+  get_storage: ^2.0.3
+  calendar_date_picker2: ^0.5.3
+
+  #for network calls
+  http: ^1.1.0
+
+  #for images
+  cached_network_image: ^3.3.0
+  cloudinary: ^1.2.0
+  image_picker: ^1.0.4
+  qr_flutter: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/
+    - assets/svg/

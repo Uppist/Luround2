@@ -6,6 +6,7 @@ import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
+import '../edit_profile/edit_profile_page.dart';
 
 
 
@@ -52,7 +53,9 @@ class AddSectionPage extends StatelessWidget {
               SizedBox(height: 30,),
               //Photo
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => EditPhotoPage());
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Container(

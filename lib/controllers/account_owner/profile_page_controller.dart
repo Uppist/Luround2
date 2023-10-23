@@ -11,7 +11,18 @@ import '../../views/account_owner/profile/screen/profile_screen.dart';
 
 class ProfilePageController extends getx.GetxController {
   
-  
+  //EDIT PHOTO & INTRO PAGE
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController occupationController = TextEditingController();
+  final nameFocus = false.obs;
+  final professionFocus = false.obs;
+  updateNameFocus(bool val) {
+    nameFocus.value = val;
+  }
+  updateOccupationFocus(bool val) {
+    professionFocus.value = val;
+  }
+  ////////////
   bool isEmpty = true;
 
   //svg pictures
@@ -47,5 +58,12 @@ class ProfilePageController extends getx.GetxController {
     'Twitter',
   ];
 
-
+  //Disspose
+  @override
+  void dispose() {
+    // TODO: implement onInit
+    nameController.dispose();
+    occupationController.dispose();
+    super.dispose();
+  }
 }

@@ -9,6 +9,7 @@ import 'package:luround/views/account_owner/profile/widget/profile/about_section
 import 'package:luround/views/account_owner/profile/widget/profile/add_section_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 import '../../../../controllers/account_owner/profile_page_controller.dart';
+import '../widget/edit_profile/edit_profile_page.dart';
 import '../widget/profile/education_&_certifications_section.dart';
 import '../widget/profile/other_details_section.dart';
 import '../widget/reviews/reviews_screen.dart';
@@ -56,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                         SizedBox(width: 20,),
                         InkWell(
                           onTap: () {
-                            //Get.to(() => EditProfilePage());
+                            Get.to(() => EditPhotoPage());
                           },
                           child: SvgPicture.asset('assets/svg/edit.svg'),
                         )

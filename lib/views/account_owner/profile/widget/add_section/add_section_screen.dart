@@ -44,6 +44,89 @@ class AddSectionPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 10),
+              Container(
+                color: AppColor.greyColor,
+                width: double.infinity,
+                height: 7,
+              ),
+              SizedBox(height: 30,),
+              //Photo
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Container(
+                    color: AppColor.bgColor,
+                    child: Text(
+                      'Photo & Intro',
+                      style: GoogleFonts.poppins(
+                        color: AppColor.textGreyColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500
+                      )
+                    ),
+                  ),
+                ),
+              ),
+              Divider(color: AppColor.darkGreyColor, thickness: 0.2),
+              //About
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Container(
+                    color: AppColor.bgColor,
+                    child: Text(
+                      'About',
+                      style: GoogleFonts.poppins(
+                        color: AppColor.textGreyColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500
+                      )
+                    ),
+                  ),
+                ),
+              ),
+              Divider(color: AppColor.darkGreyColor, thickness: 0.2),
+              //education
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Container(
+                    color: AppColor.bgColor,
+                    child: Text(
+                      'Education & Certifications',
+                      style: GoogleFonts.poppins(
+                        color: AppColor.textGreyColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500
+                      )
+                    ),
+                  ),
+                ),
+              ),
+              Divider(color: AppColor.darkGreyColor, thickness: 0.2),
+              //Others
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Container(
+                    color: AppColor.bgColor,
+                    child: Text(
+                      'Others',
+                      style: GoogleFonts.poppins(
+                        color: AppColor.textGreyColor,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500
+                      )
+                    ),
+                  ),
+                ),
+              ),
+              Divider(color: AppColor.darkGreyColor, thickness: 0.2)
+
             ]
           )
         )

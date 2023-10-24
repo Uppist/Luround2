@@ -12,32 +12,33 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class EducationTextField extends StatefulWidget {
-  const EducationTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue, required this.onSuffixIconTapped,});
-  final String initialValue;
+
+
+class CertificationTextField extends StatefulWidget {
+  const CertificationTextField({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.onFocusChange, required this.textController,});
+  final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
-  final VoidCallback onSuffixIconTapped;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
+  final void Function(bool)? onFocusChange;
+
 
   @override
-  State<EducationTextField > createState() => _EducationTextFieldState();
+  State<CertificationTextField> createState() => _CertificationTextFieldState();
 }
 
-class _EducationTextFieldState extends State<EducationTextField> {
+class _CertificationTextFieldState extends State<CertificationTextField> {
 
   var controller = Get.put(ProfilePageController());
 
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: (hasFocus) {
-        controller.updateEducationFocus(hasFocus);
-      },
+      onFocusChange: widget.onFocusChange,
       child: TextFormField(
         onChanged: widget.onChanged,
-        initialValue: widget.initialValue,
+        controller: widget.textController,
         keyboardType: widget.keyboardType,
         autocorrect: true,
         inputFormatters: const [],
@@ -59,22 +60,22 @@ class _EducationTextFieldState extends State<EducationTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14),              
+          hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 13),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          suffixIcon:InkWell(
+          /*suffixIcon:InkWell(
             onTap: widget.onSuffixIconTapped,
             child: controller.isSuffixIconTapped.value ? Icon(
-              CupertinoIcons.chevron_up, 
+              CupertinoIcons.chevron_down, 
               color: AppColor.textGreyColor, 
               size: 20,
             ) 
             : Icon(
-                CupertinoIcons.chevron_down, 
+                CupertinoIcons.chevron_up, 
                 color: AppColor.textGreyColor, 
                 size: 20,
               )
-          )
+          )*/
         ),
       ),
     );

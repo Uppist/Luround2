@@ -54,7 +54,7 @@ class ReviewsPage extends StatelessWidget {
               //Ratings Card
               Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,
                 ),
@@ -111,7 +111,7 @@ class ReviewsPage extends StatelessWidget {
                 separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
@@ -122,7 +122,7 @@ class ReviewsPage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColor.mainColor,
-                          radius: 30,
+                          radius: 33,
                           child: Text(
                             "F",
                             style: GoogleFonts.poppins(
@@ -173,7 +173,7 @@ class ReviewsPage extends StatelessWidget {
                                 'dddddddddthfthfjtyutyusthethrttttttttttttttttttttttttttttttttttttttttttrstgfxrhzthth',
                                 style: GoogleFonts.poppins(
                                   textStyle: TextStyle(
-                                    color: AppColor.darkGreyColor,
+                                    color: AppColor.textGreyColor,
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500
                                   )

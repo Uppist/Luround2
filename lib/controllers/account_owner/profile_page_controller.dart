@@ -10,10 +10,12 @@ import '../../views/account_owner/profile/screen/profile_screen.dart';
 
 
 
+
+
 class ProfilePageController extends getx.GetxController {
   
 
-  //EDIT PHOTO & INTRO PAGE 
+  //EDIT PHOTO & INTRO PAGE///////////////////////////////////////// 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController occupationController = TextEditingController();
   final nameFocus = false.obs;
@@ -37,37 +39,26 @@ class ProfilePageController extends getx.GetxController {
   //////////////////////////////////////////////////////////////////
   
 
-  //EDIT EDUCATION & CERTIFICATION PAGE
+  //EDIT EDUCATION & CERTIFICATION PAGE//////////////////
   final TextEditingController educationController = TextEditingController();
+  final TextEditingController issuingOrganizationController = TextEditingController();
+  final TextEditingController issueDateController = TextEditingController();
+  final TextEditingController expirationDateController = TextEditingController();
+  final TextEditingController certicateIDController = TextEditingController();
+  final TextEditingController certificateURLController = TextEditingController();
   final educationFocus = false.obs;
+  final isSuffixIconTapped = false.obs;
+  //for certificate details form
+  final formKey = GlobalKey();
   updateEducationFocus(bool val) {
     educationFocus.value = val;
   }
   //////////////////////////////////////////////////////////////////
 
 
-  //EDIT OTHERS SECTION
-  //get the list of icons in consideratio
-  var iconList = <String> [
-    'assets/svg/location_icon.svg',
-    'assets/svg/call_icon.svg',
-    'assets/svg/email_icon.svg',
-    'assets/svg/site_icon.svg',
-    'assets/svg/linkedin_icon.svg',
-    'assets/svg/facebook_icon.svg',
-  ];
+  //EDIT OTHERS SECTION//////////////////////////////////////////////
 
-  //get the title of the icons about
-  var iconTitleList = <String> [
-    'Location',
-    'Mobile',
-    'Email',
-    'Website',
-    'LinkedIn',
-    'Facebook',
-  ];
-
-  //create textcontrollers for the above list
+  //create textcontrollers for the others icons
   final TextEditingController locationController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -112,7 +103,7 @@ class ProfilePageController extends getx.GetxController {
     facebookFocus.value = val
   };
   
-  //country code picker (append with mobile controller and save to db)
+  //country code picker (append with mobile controller.text and save to db)
   var code = "".obs; 
 
   void onCountryChange(CountryCode countryCode) {
@@ -124,6 +115,8 @@ class ProfilePageController extends getx.GetxController {
   
   //////////////////////////////////////////////////////////////////
   
+
+  ///////////////serenren for testing purposes
   
   bool isEmpty = true;
 
@@ -159,6 +152,8 @@ class ProfilePageController extends getx.GetxController {
     'Facebook',
     'Twitter',
   ];
+  //////////////////////////////////////////////////
+  
 
   //dispose function from getX
   @override
@@ -168,6 +163,11 @@ class ProfilePageController extends getx.GetxController {
     occupationController.dispose();
     aboutController.dispose();
     educationController.dispose();
+    issuingOrganizationController.dispose();
+    issueDateController.dispose();
+    expirationDateController.dispose();
+    certicateIDController.dispose();
+    certificateURLController.dispose();
     //
     locationController.dispose();
     mobileNumberController.dispose();

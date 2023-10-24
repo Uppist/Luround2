@@ -78,6 +78,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+
                     //Text
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,9 +102,9 @@ class _EditOthersPageState extends State<EditOthersPage> {
                       ],
                     ),
                     SizedBox(height: 20,),
-                    //ListView.builder here////////////////
 
 
+                    //ListView.builder here//////////////////////////
                     controller.isLocationSelected.value ? 
                     CustomFieldWidget(               
                       svgAssetName: "assets/svg/location_icon.svg", 
@@ -255,10 +256,10 @@ class _EditOthersPageState extends State<EditOthersPage> {
                     SizedBox(height: 40),
 
 
-                    //tap an icon custom row grid here
+                    //tap an icon custom row grid here///////////////////////////
                     //1
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         CustomTapIcon(
                           svgAssetName: "assets/svg/location_icon.svg",
@@ -269,7 +270,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             });
                           },
                         ),
-                        //SizedBox(width: 30,),
+                        SizedBox(width: 118,), //120
                         CustomTapIcon(
                           svgAssetName: "assets/svg/call_icon.svg",
                           iconTitle: 'Mobile',
@@ -279,7 +280,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             });
                           },
                         ),
-                        //SizedBox(width: 30,),
+                        SizedBox(width: 140,),
                         CustomTapIcon(
                           svgAssetName: "assets/svg/email_icon.svg",
                           iconTitle: 'Email',
@@ -328,8 +329,9 @@ class _EditOthersPageState extends State<EditOthersPage> {
                         )
                       ],
                     ),
+                    ///////////////////////////////////////////////////////
 
-                    
+
                     SizedBox(height: 20,),
                   ]
                 )

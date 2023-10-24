@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/custom_textfield_for_education.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -64,6 +65,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    
                     //About
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -83,6 +85,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       ],
                     ),
                     SizedBox(height: 10),
+
+
                     //List view.builder that shows a list of all certificates from the user
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,14 +115,82 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         )
                       ],
                     ),
+                    /////////////////////////////////////////////////////////////
+
                     SizedBox(height: 30),
                     EducationTextField(
                       onChanged: (val) {},
                       initialValue: controller.educationController.text,
-                      hintText: 'Certified Professional Specialist',
+                      hintText: 'Certificate Specialization',
                       keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.done,                   
+                      textInputAction: TextInputAction.done, 
+                      onSuffixIconTapped: () {
+                        setState(() {
+                          controller.isSuffixIconTapped.value = !controller.isSuffixIconTapped.value;
+                        });
+                      },                   
                     ),
+
+                    //////////////////////////////////////////
+                    controller.isSuffixIconTapped.value ?
+                    Form(
+                      key: controller.formKey,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            CertificationTextField(
+                              onFocusChange: (hasFocus) {},
+                              onChanged: (val) {},
+                              textController: controller.issuingOrganizationController,
+                              hintText: 'Issuing organization',
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            CertificationTextField(
+                              onFocusChange: (hasFocus) {},
+                              onChanged: (val) {},
+                              textController: controller.issueDateController,
+                              hintText: 'Issue date',
+                              keyboardType: TextInputType.datetime,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            CertificationTextField(
+                              onFocusChange: (hasFocus) {},
+                              onChanged: (val) {},
+                              textController: controller.expirationDateController,
+                              hintText: 'Expiration date',
+                              keyboardType: TextInputType.datetime,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            CertificationTextField(
+                              onFocusChange: (hasFocus) {},
+                              onChanged: (val) {},
+                              textController: controller.certicateIDController,
+                              hintText: 'Certificate ID',
+                              keyboardType: TextInputType.number, //text
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            CertificationTextField(
+                              onFocusChange: (hasFocus) {},
+                              onChanged: (val) {},
+                              textController: controller.certificateURLController,
+                              hintText: 'Certificate URL',
+                              keyboardType: TextInputType.url,
+                              textInputAction: TextInputAction.done,              
+                            ),
+                            //SizedBox(height: 10,),
+                          ],
+                        ),
+                      ),
+                    ) : SizedBox(),
+                    /////////////////////////////////////
+                    
                     SizedBox(height: 500,),  //500
                     ReusableButton(
                       color: AppColor.mainColor,

@@ -7,7 +7,7 @@ import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
 import '../../../../../utils/components/title_text.dart';
-import 'edit_photo_dialogue_box.dart';
+import 'edit_photo_bottomsheet.dart';
 import 'name_textfield.dart';
 import 'occupation_textfield.dart';
 

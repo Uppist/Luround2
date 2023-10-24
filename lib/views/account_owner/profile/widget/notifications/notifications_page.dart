@@ -61,7 +61,7 @@ class NotificationsPage extends StatelessWidget {
                 separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
@@ -82,7 +82,7 @@ class NotificationsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 20),
                         /*RichText(
                           text: TextSpan(
                             children: [
@@ -136,7 +136,7 @@ class NotificationsPage extends StatelessWidget {
                                   )
                                 )
                               ),
-                              SizedBox(height: 5,),
+                              SizedBox(height: 20,),
                               Text(
                                 "Jun 24 at 10:00",  //recepient name
                                 style: GoogleFonts.poppins(

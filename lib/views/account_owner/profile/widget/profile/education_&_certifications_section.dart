@@ -36,7 +36,7 @@ class EducationAndCertificationSection extends StatelessWidget {
               )
             ),
             InkWell(
-              onTap: () {},
+              onTap: onPressedEdit,
               child: SvgPicture.asset('assets/svg/edit.svg')
             )
           ],

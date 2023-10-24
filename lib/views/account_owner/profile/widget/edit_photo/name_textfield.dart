@@ -13,8 +13,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class NameTextField extends StatefulWidget {
-  const NameTextField ({super.key, required this.controller, required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction,});
-  final TextEditingController controller;
+  const NameTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
+  final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
@@ -36,7 +36,7 @@ class _NameTextFieldState extends State<NameTextField> {
       },
       child: TextFormField(
         onChanged: widget.onChanged,
-        controller: widget.controller,
+        initialValue: widget.initialValue,
         keyboardType: widget.keyboardType,
         autocorrect: true,
         inputFormatters: const [],
@@ -55,7 +55,7 @@ class _NameTextFieldState extends State<NameTextField> {
             borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+            borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
           hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14),              

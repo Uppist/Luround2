@@ -12,19 +12,19 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class OccupationTextField extends StatefulWidget {
-  const OccupationTextField ({super.key, required this.controller, required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction,});
-  final TextEditingController controller;
+class EducationTextField extends StatefulWidget {
+  const EducationTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
+  final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
 
   @override
-  State<OccupationTextField > createState() => _OccupationTextFieldState();
+  State<EducationTextField > createState() => _EducationTextFieldState();
 }
 
-class _OccupationTextFieldState extends State<OccupationTextField> {
+class _EducationTextFieldState extends State<EducationTextField> {
 
   var controller = Get.put(ProfilePageController());
 
@@ -32,11 +32,11 @@ class _OccupationTextFieldState extends State<OccupationTextField> {
   Widget build(BuildContext context) {
     return Focus(
       onFocusChange: (hasFocus) {
-        controller.updateOccupationFocus(hasFocus);
+        controller.updateEducationFocus(hasFocus);
       },
       child: TextFormField(
         onChanged: widget.onChanged,
-        controller: widget.controller,
+        initialValue: widget.initialValue,
         keyboardType: widget.keyboardType,
         autocorrect: true,
         inputFormatters: const [],
@@ -55,13 +55,13 @@ class _OccupationTextFieldState extends State<OccupationTextField> {
             borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+            borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
           hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+          suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),
     );

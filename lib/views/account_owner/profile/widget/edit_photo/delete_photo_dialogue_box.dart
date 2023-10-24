@@ -1,0 +1,126 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/utils/colors/app_theme.dart';
+
+
+
+
+
+
+
+
+///Alert Dialog
+Future deletePhotoDialogueBox({required BuildContext context}) {
+  return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        alignment: Alignment.center,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        backgroundColor: AppColor.bgColor,
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 30,
+        ),
+        content: SizedBox(
+          height: 200, //150
+          width: 500,
+          child: Column(
+            //mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'Delete Photo',
+                style: GoogleFonts.poppins(
+                  color: AppColor.blackColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+              SizedBox(height: 40,),
+              Text(
+                'Are you sure you want to delete this photo ?',
+                style: GoogleFonts.poppins(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 14,
+                  //fontWeight: FontWeight.bold
+                )
+              ),
+              SizedBox(height: 40,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  //cancel button
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        alignment: Alignment.center,
+                        height: 50,
+                        //width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColor.bgColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColor.darkGreyColor
+                          )
+                        ),
+                        child: Text(
+                          "Cancel",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 18,
+                              //fontWeight: FontWeight.w500
+                            )
+                          )
+                        ),
+                      )
+                    ),
+                  ),
+                  SizedBox(width: 30,),
+                  //Yes button
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        alignment: Alignment.center,
+                        height: 50,
+                        //width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: AppColor.redColor,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                            color: AppColor.redColor
+                          )
+                        ),
+                        child: Text(
+                          "Delete",
+                          style: GoogleFonts.poppins(
+                            textStyle: TextStyle(
+                              color: AppColor.bgColor,
+                              fontSize: 18,
+                              //fontWeight: FontWeight.w500
+                            )
+                          )
+                        ),
+                      )
+                    ),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      );
+    }
+  );
+}

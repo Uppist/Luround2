@@ -11,7 +11,8 @@ import '../../views/account_owner/profile/screen/profile_screen.dart';
 
 class ProfilePageController extends getx.GetxController {
   
-  //EDIT PHOTO & INTRO PAGE
+
+  //EDIT PHOTO & INTRO PAGE 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController occupationController = TextEditingController();
   final nameFocus = false.obs;
@@ -22,7 +23,29 @@ class ProfilePageController extends getx.GetxController {
   updateOccupationFocus(bool val) {
     professionFocus.value = val;
   }
-  ////////////
+  //////////////////////////////////////////////////////////////////
+  
+
+  //EDIT ABOUT PAGE 
+  final TextEditingController aboutController = TextEditingController();
+  final int maxLength = 500; // Maximum character count
+  final aboutFocus = false.obs;
+  updateAboutFocus(bool val) {
+    aboutFocus.value = val;
+  }
+  //////////////////////////////////////////////////////////////////
+  
+
+  //EDIT EDUCATION & CERTIFICATION PAGE
+  final TextEditingController educationController = TextEditingController();
+  final educationFocus = false.obs;
+  updateEducationFocus(bool val) {
+    educationFocus.value = val;
+  }
+
+  //////////////////////////////////////////////////////////////////
+  
+  
   bool isEmpty = true;
 
   //svg pictures
@@ -58,12 +81,14 @@ class ProfilePageController extends getx.GetxController {
     'Twitter',
   ];
 
-  //Disspose
+  //dispose function from getX
   @override
   void dispose() {
     // TODO: implement onInit
     nameController.dispose();
     occupationController.dispose();
+    aboutController.dispose();
+    educationController.dispose();
     super.dispose();
   }
 }

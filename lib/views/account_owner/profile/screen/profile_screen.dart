@@ -5,11 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/edit_education_page.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/about_section.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/add_section_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 import '../../../../controllers/account_owner/profile_page_controller.dart';
-import '../widget/edit_profile/edit_profile_page.dart';
+import '../widget/edit_about/edit_about_page.dart';
+import '../widget/edit_photo/edit_photo_page.dart';
 import '../widget/profile/education_&_certifications_section.dart';
 import '../widget/profile/other_details_section.dart';
 import '../widget/reviews/reviews_screen.dart';
@@ -185,13 +187,18 @@ class ProfilePage extends StatelessWidget {
                     //STRUCTURED WIDGETS COMES IN
                     //ProfileEmptyState(onPressed: () {},)
                     AboutSection(
-                      onPressed: () {},
+                      onPressed: () {
+                        Get.to(() => EditAboutPage());
+                      },
                       text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
                     ),
                     SizedBox(height: 30),
                     EducationAndCertificationSection(
                       itemCount: 2,
-                      onPressedEdit: () {},
+                      onPressedEdit: () {
+                        Get.to(() => EditEducationPage());
+                      },
+
                       onPressedShowCertificte: () {},
                       certificateTitle: 'Certified Professional Specialist',
                       institution: 'London Business School',

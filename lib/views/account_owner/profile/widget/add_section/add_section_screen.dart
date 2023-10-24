@@ -6,7 +6,9 @@ import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
-import '../edit_profile/edit_profile_page.dart';
+import '../edit_about/edit_about_page.dart';
+import '../edit_education/edit_education_page.dart';
+import '../edit_photo/edit_photo_page.dart';
 
 
 
@@ -74,7 +76,9 @@ class AddSectionPage extends StatelessWidget {
               Divider(color: AppColor.darkGreyColor, thickness: 0.2),
               //About
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => EditAboutPage());
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Container(
@@ -93,7 +97,9 @@ class AddSectionPage extends StatelessWidget {
               Divider(color: AppColor.darkGreyColor, thickness: 0.2),
               //education
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => EditEducationPage());
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Container(
@@ -112,7 +118,9 @@ class AddSectionPage extends StatelessWidget {
               Divider(color: AppColor.darkGreyColor, thickness: 0.2),
               //Others
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  //Get.to(() => EditOthersPage());
+                },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Container(

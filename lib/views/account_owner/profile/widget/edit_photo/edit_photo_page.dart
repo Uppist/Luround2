@@ -94,7 +94,7 @@ class EditPhotoPage extends StatelessWidget {
                     //name textfield
                     NameTextField(
                       onChanged: (val) {},
-                      controller: controller.nameController,
+                      initialValue: controller.nameController.text,
                       hintText: 'Enter your name',
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
@@ -102,12 +102,12 @@ class EditPhotoPage extends StatelessWidget {
                     SizedBox(height: 10,),
                     OccupationTextField(
                       onChanged: (val) {},
-                      controller: controller.occupationController,
+                      initialValue: controller.occupationController.text,
                       hintText: 'What do you do ?',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
                     ),
-                    SizedBox(height: 200,),  //160
+                    SizedBox(height: 250,),  //160
                     ReusableButton(
                       color: AppColor.mainColor,
                       text: 'Save',

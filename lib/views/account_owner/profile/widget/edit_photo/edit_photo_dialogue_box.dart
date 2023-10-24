@@ -4,7 +4,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-
 import 'delete_photo_dialogue_box.dart';
 
 
@@ -30,7 +29,7 @@ Future editPhotoDialogueBox({required BuildContext context}) {
         ),
         content: SizedBox(
           height: 140, //150
-          width: double.infinity,
+          width: 500, //double.infinity,
           child: Column(
             //mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

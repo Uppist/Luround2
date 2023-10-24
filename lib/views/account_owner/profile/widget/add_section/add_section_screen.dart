@@ -8,6 +8,7 @@ import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 import '../edit_about/edit_about_page.dart';
 import '../edit_education/edit_education_page.dart';
+import '../edit_others/edit_others_page.dart';
 import '../edit_photo/edit_photo_page.dart';
 
 
@@ -119,7 +120,7 @@ class AddSectionPage extends StatelessWidget {
               //Others
               InkWell(
                 onTap: () {
-                  //Get.to(() => EditOthersPage());
+                  Get.to(() => EditOthersPage());
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

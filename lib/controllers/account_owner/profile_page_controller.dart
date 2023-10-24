@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,7 +43,85 @@ class ProfilePageController extends getx.GetxController {
   updateEducationFocus(bool val) {
     educationFocus.value = val;
   }
+  //////////////////////////////////////////////////////////////////
 
+
+  //EDIT OTHERS SECTION
+  //get the list of icons in consideratio
+  var iconList = <String> [
+    'assets/svg/location_icon.svg',
+    'assets/svg/call_icon.svg',
+    'assets/svg/email_icon.svg',
+    'assets/svg/site_icon.svg',
+    'assets/svg/linkedin_icon.svg',
+    'assets/svg/facebook_icon.svg',
+  ];
+
+  //get the title of the icons about
+  var iconTitleList = <String> [
+    'Location',
+    'Mobile',
+    'Email',
+    'Website',
+    'LinkedIn',
+    'Facebook',
+  ];
+
+  //create textcontrollers for the above list
+  final TextEditingController locationController = TextEditingController();
+  final TextEditingController mobileNumberController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController linkedInController = TextEditingController();
+  final TextEditingController websiteController = TextEditingController();
+  final TextEditingController facebookController = TextEditingController();
+  
+
+  //list out the focuses for each fields
+  final locationFocus = false.obs;
+  final mobileNumberFocus = false.obs;
+  final emailFocus = false.obs;
+  final websiteFocus = false.obs;
+  final linkedInFocus = false.obs;
+  final facebookFocus = false.obs;
+
+  //list out all the false booleans for each field
+  final isLocationSelected = false.obs;
+  final isMobileSelected = false.obs;
+  final isEmailSelected = false.obs;
+  final isWebsiteSelected = false.obs;
+  final isLinkedInSelected = false.obs;
+  final isFacebookSelected = false.obs;
+
+  //list out the focus functions for all textfields (let me try an use anonymous fuctions)
+  updateLocationFocus(bool val) => {
+    locationFocus.value = val
+  };
+  updateMobileFocus(bool val) => {
+    mobileNumberFocus.value = val
+  };
+  updateEmailFocus(bool val) => {
+    emailFocus.value = val
+  };
+  updateWebsiteFocus(bool val) => {
+    websiteFocus.value = val
+  };
+  updateLinkedInFocus(bool val) => {
+    linkedInFocus.value = val
+  };
+  updateFacebookFocus(bool val) => {
+    facebookFocus.value = val
+  };
+  
+  //country code picker (append with mobile controller and save to db)
+  var code = "".obs; 
+
+  void onCountryChange(CountryCode countryCode) {
+    //TODO : manipulate the selected country code here
+    code.value = countryCode.dialCode.toString();
+    debugPrint("New Country selected: ${code.value}");
+    update();
+  }
+  
   //////////////////////////////////////////////////////////////////
   
   
@@ -89,6 +168,13 @@ class ProfilePageController extends getx.GetxController {
     occupationController.dispose();
     aboutController.dispose();
     educationController.dispose();
+    //
+    locationController.dispose();
+    mobileNumberController.dispose();
+    emailController.dispose();
+    linkedInController.dispose();
+    websiteController.dispose();
+    facebookController.dispose();
     super.dispose();
   }
 }

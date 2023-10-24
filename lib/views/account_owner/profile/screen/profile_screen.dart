@@ -6,6 +6,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_education_page.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/edit_others_page.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/about_section.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/add_section_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
@@ -193,6 +194,7 @@ class ProfilePage extends StatelessWidget {
                       text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
                     ),
                     SizedBox(height: 30),
+                    
                     EducationAndCertificationSection(
                       itemCount: 2,
                       onPressedEdit: () {
@@ -208,7 +210,9 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(height: 30),
                     OtherDetailsSection(
                       itemCount: controller.subtitleText.length,
-                      onPressedEdit: () {},
+                      onPressedEdit: () {
+                        Get.to(() => EditOthersPage());
+                      },
                       profileController: controller,
                     ),
                     SizedBox(height: 50),

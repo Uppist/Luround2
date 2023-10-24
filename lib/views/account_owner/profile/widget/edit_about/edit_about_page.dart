@@ -83,7 +83,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                           });
                           debugPrint("you have reached max length");
                         } 
-                        setState(() {}); // Update the UI
+                        //setState(() {}); // Update the UI
                       },
                       initialValue: controller.aboutController.text,
                       hintText: 'Enter a brief summary of your experience, skills and achievements',

@@ -82,17 +82,44 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         )
                       ],
                     ),
-                    //SizedBox(height: 20)
+                    SizedBox(height: 10),
                     //List view.builder that shows a list of all certificates from the user
-                    SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Certification name*',
+                          style: GoogleFonts.poppins(
+                            color: AppColor.blackColor,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Remove',
+                            style: GoogleFonts.poppins(
+                              textStyle: TextStyle(
+                                decoration: TextDecoration.underline,
+                                color: AppColor.textGreyColor,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 30),
                     EducationTextField(
                       onChanged: (val) {},
                       initialValue: controller.educationController.text,
-                      hintText: 'Education and qualification',
+                      hintText: 'Certified Professional Specialist',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,                   
                     ),
-                    SizedBox(height: 550,),  //250
+                    SizedBox(height: 500,),  //500
                     ReusableButton(
                       color: AppColor.mainColor,
                       text: 'Save',

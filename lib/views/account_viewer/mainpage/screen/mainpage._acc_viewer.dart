@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import '../../../../controllers/account_owner/mainpage_controller.dart';
+import '../../../../controllers/account_viewer/mainpage_controller_acc_viewer.dart';
 import '../widget/bottom_bar_widget_acc_viewer.dart';
 
 
 
 
 
-class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+class MainPageAccViewer extends StatefulWidget {
+  const MainPageAccViewer({super.key});
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<MainPageAccViewer> createState() => _MainPageAccViewerState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageAccViewerState extends State<MainPageAccViewer> {
 
-  final MainPageController controller = MainPageController();
+  final MainPageControllerAccViewer controller = MainPageControllerAccViewer();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -29,7 +30,7 @@ class _MainPageState extends State<MainPage> {
       body: Center(
         child: controller.widgetOptions.elementAt(controller.selectedIndex),
       ),
-      bottomNavigationBar: BottomNavBar(
+      bottomNavigationBar: BottomNavBarAccViewer(
         selectedIndex: controller.selectedIndex,
         onItemTapped: _onItemTapped,
       ),

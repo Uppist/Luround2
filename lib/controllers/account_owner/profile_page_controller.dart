@@ -31,7 +31,7 @@ class ProfilePageController extends getx.GetxController {
 
   //EDIT ABOUT PAGE 
   final TextEditingController aboutController = TextEditingController();
-  final int maxLength = 500; // Maximum character count
+  int maxLength = 500; // Maximum character count
   final aboutFocus = false.obs;
   updateAboutFocus(bool val) {
     aboutFocus.value = val;

@@ -15,22 +15,27 @@ dependencies:
   
   #state management
   get: ^4.6.0
-
-  font_awesome_flutter: ^9.1.0
-  flutter_svg: ^2.0.7
-  #swipe_cards: ^2.0.0+1
-  flutter_otp_text_field: ^1.1.1
-  file_picker: ^3.0.0
-  #swipe_to: 1.0.2
-  #carousel_slider: ^4.2.1
-  dots_indicator: ^2.1.1
   
+  #(might use)
+  flutter_otp_text_field: ^1.1.1
+
+  #for picking documents
+  file_picker: ^3.0.0
+  
+  #ui customizations
   google_fonts: ^6.0.0
+  dots_indicator: ^2.1.1
+  flutter_svg: ^2.0.7
+
+  #contrycode_picker,
   country_code_picker: ^3.0.0
-  flutter_rating_bar: ^4.0.1
+  #for launching urls
   url_launcher: ^6.1.14
+
+  #for local storage
   get_storage: ^2.0.3
-  calendar_date_picker2: ^0.5.3
+
+  #calendar_date_picker2: ^0.5.3
 
   #for network calls
   http: ^1.1.0
@@ -39,7 +44,13 @@ dependencies:
   cached_network_image: ^3.3.0
   cloudinary: ^1.2.0
   image_picker: ^1.0.4
+
+  #for generating qr codes icons
   qr_flutter: ^4.1.0
+  pretty_qr_code: ^3.0.0
+
+  #rating_bar indicator
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:

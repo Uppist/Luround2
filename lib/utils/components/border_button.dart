@@ -7,8 +7,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class BorderButton extends StatelessWidget {
-  const BorderButton({super.key, required this.onPressed, required this.text});
+  const BorderButton({super.key, required this.onPressed, required this.text, required this.textColor});
   final VoidCallback onPressed;
+  final Color textColor;
   final String text;
   
   @override
@@ -16,7 +17,7 @@ class BorderButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         alignment: Alignment.center,
         height: 50,
         width: double.infinity,
@@ -24,14 +25,15 @@ class BorderButton extends StatelessWidget {
           color: AppColor.bgColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: AppColor.textGreyColor
+            color: textColor,
+            width: 2.0,
           )
         ),
         child: Text(
           text,
           style: GoogleFonts.poppins(
             textStyle: TextStyle(
-              color: AppColor.textGreyColor,
+              color: textColor,
               fontSize: 18,
               //fontWeight: FontWeight.w500
             )

@@ -19,21 +19,26 @@ class CustomTapIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Column(             
-        crossAxisAlignment: CrossAxisAlignment.center,
-        //mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SvgPicture.asset(svgAssetName),
-          SizedBox(height: 20,),
-          Text(
-            iconTitle,
-            style: GoogleFonts.poppins(
-              color: AppColor.textGreyColor,
-              fontSize: 15,
-              fontWeight: FontWeight.w500
+      child: Container(
+        color: Colors.transparent,
+        width: 100,
+        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+        child: Column(             
+          crossAxisAlignment: CrossAxisAlignment.center,
+          //mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(svgAssetName),
+            SizedBox(height: 20,),
+            Text(
+              iconTitle,
+              style: GoogleFonts.poppins(
+                color: AppColor.textGreyColor,
+                fontSize: 15,
+                fontWeight: FontWeight.w500
+              ),
             ),
-          ),
-        ]
+          ]
+        ),
       ),
     );
   }

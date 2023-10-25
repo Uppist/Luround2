@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
+import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
@@ -15,10 +17,10 @@ import '../../../../../utils/components/title_text.dart';
 
 
 
-class ReviewsPage extends StatelessWidget {
-  ReviewsPage({super.key});
+class AccViewerReviewsPage extends StatelessWidget {
+  AccViewerReviewsPage({super.key});
 
-  var controller = Get.put(ProfilePageController());
+  var controller = Get.put(ProfilePageAccViewerController());
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +50,29 @@ class ReviewsPage extends StatelessWidget {
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                height: 60,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => WriteReviewsPage());
+                      }, 
+                      child: Text(
+                        'Write a review',
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: AppColor.mainColor,
+                            decoration: TextDecoration.underline,
+                            fontSize: 15, //14
+                            fontWeight: FontWeight.w500
+                          )
+                        )
+                      )
+                    ),
+                  ],
+                ),
               ),
               //ReviewEmptyState(onPressed: () {},),
               //ListView.builder & CO

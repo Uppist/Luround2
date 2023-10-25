@@ -259,7 +259,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                     //tap an icon custom row grid here///////////////////////////
                     //1
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CustomTapIcon(
                           svgAssetName: "assets/svg/location_icon.svg",
@@ -270,7 +270,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             });
                           },
                         ),
-                        SizedBox(width: 118,), //120
+                        //SizedBox(width: 118,), //120
                         CustomTapIcon(
                           svgAssetName: "assets/svg/call_icon.svg",
                           iconTitle: 'Mobile',
@@ -280,7 +280,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             });
                           },
                         ),
-                        SizedBox(width: 140,),
+                        //SizedBox(width: 140,),
                         CustomTapIcon(
                           svgAssetName: "assets/svg/email_icon.svg",
                           iconTitle: 'Email',

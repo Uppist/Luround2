@@ -15,7 +15,7 @@ class ReusableButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       alignment: Alignment.center,
       height: 50,
       width: double.infinity,

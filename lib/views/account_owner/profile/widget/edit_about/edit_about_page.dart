@@ -77,13 +77,11 @@ class _EditAboutPageState extends State<EditAboutPage> {
                       onChanged: (val) {
                         // Check if character count exceeds the maximum
                         if (val.length > controller.maxLength) {
-                          // Remove extra characters
-                          setState(() {
-                            controller.aboutController.text = val.substring(0, controller.maxLength);
-                          });
+                          // Remove extra characters        
+                          controller.aboutController.text = val.substring(0, controller.maxLength);
                           debugPrint("you have reached max length");
                         } 
-                        //setState(() {}); // Update the UI
+                        setState(() {}); // Update the UI
                       },
                       initialValue: controller.aboutController.text,
                       hintText: 'Enter a brief summary of your experience, skills and achievements',

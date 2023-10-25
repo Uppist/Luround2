@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 
 
@@ -38,20 +39,10 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Luround',
-      home: MainPage(),  //account owner
+      home: MainPageAccViewer(),  //MainPage()
       supportedLocales: [
         Locale('en'), // English
-        Locale('ar'), // Arabic
-      ],
-      localeResolutionCallback: (deviceLocale, supportedLocales) {
-        for (var locale in supportedLocales) {
-          if (locale.languageCode == deviceLocale!.languageCode &&
-              locale.countryCode == deviceLocale.countryCode) {
-            return deviceLocale;
-          }
-        }
-        return supportedLocales.first;
-      },
+      ]
 
       //home: SplashScreen(),
     );

@@ -48,11 +48,7 @@ class _Step3ScreenState extends State<Step3Screen> {
             textColor: AppColor.bgColor,
             color: AppColor.mainColor,
             text: "Next", 
-            onPressed: controller.isButtonEnabled4.value ? 
-            widget.onSubmit
-            : () {
-              print('nothing');
-            },
+            onPressed: widget.onSubmit,
           ),
           SizedBox(height: 20,),
         ],

@@ -26,6 +26,7 @@ class BookAppointmentScreen extends StatefulWidget {
 }
 
 class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
+  
   var controller = Get.put(AccViewerServicesController());
 
   @override
@@ -158,7 +159,6 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
               title: Text(""), 
               isActive: controller.curentStep >= 2,
               content: Step3Screen(
-                onTime: () {},
                 onSubmit: () {},
               ),
             )

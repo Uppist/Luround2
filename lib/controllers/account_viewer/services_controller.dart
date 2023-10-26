@@ -60,7 +60,9 @@ class AccViewerServicesController extends getx.GetxController {
   String step1Appointment = "selected option";
   //select date
   var dates = <DateTime?>[];
-  //save the date below to db
+  //selected index
+  int selectedindex = -1; // Initialize to -1 to indicate no selection
+  //(save the date below to db)
   String getDate () {
     var result = dates[0].toString();
     var refinedList = result.split(" ")[0];

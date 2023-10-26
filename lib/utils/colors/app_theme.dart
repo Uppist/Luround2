@@ -16,6 +16,8 @@ class AppColor {
   static Color greenColor = Color.fromRGBO(0, 163, 163, 1);  //mostly for bottomtab icon
   static Color darkGreyColor = Color.fromRGBO(29, 46, 46, 0.8);
   static Color mainColor = Color.fromRGBO(0, 204, 204, 1);
+  static Color lightMainColor = Color.fromRGBO(235, 255, 255, 0.35);
+
   static Color emptyPic = Color.fromRGBO(211, 216, 225, 1);
   static Color yellowStar = Color.fromRGBO(251, 177, 60, 1);
 

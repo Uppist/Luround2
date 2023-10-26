@@ -26,16 +26,19 @@ dependencies:
   google_fonts: ^6.0.0
   dots_indicator: ^2.1.1
   flutter_svg: ^2.0.7
+  dotted_border: ^2.1.0
 
   #contrycode_picker,
   country_code_picker: ^3.0.0
+
   #for launching urls
   url_launcher: ^6.1.14
 
   #for local storage
   get_storage: ^2.0.3
 
-  #calendar_date_picker2: ^0.5.3
+  #calendar (very awesome package)
+  table_calendar: ^3.0.9
 
   #for network calls
   http: ^1.1.0

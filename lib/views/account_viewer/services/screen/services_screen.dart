@@ -1,12 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_viewer/services/widgets/in-person_meeting.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/book_a_service.dart';
+import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
+import 'package:luround/views/account_viewer/services/widgets/services/in-person_meeting.dart';
+import 'package:luround/views/account_viewer/services/widgets/services/virtual_meeting.dart';
 
-import '../widgets/virtual_meeting.dart';
+
 
 
 
@@ -70,7 +75,7 @@ class AccViewerServicesPage extends StatelessWidget {
                 physics: NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20), //external paddin
                 itemCount: 8,
-                separatorBuilder: (context, index) => SizedBox(height: 20,),
+                separatorBuilder: (context, index) => SizedBox(height: 25,),
                 itemBuilder: (context, index) {
                   return Container(
                     //height: 500,
@@ -87,10 +92,147 @@ class AccViewerServicesPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //check if the account owner selected in-person or virtual
-                              Center(child: InpersonContainer()),
+                              //VirtualContainer()  //InpersonContainer()
+                              Center(            
+                                child: VirtualContainer()
+                              ),
+                              SizedBox(height: 40,),
+                              Text(
+                                "Personal Training",
+                                style: GoogleFonts.poppins(
+                                  color: AppColor.blackColor,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "Mon-Fri . 9:00AM - 10:00PM",
+                                style: GoogleFonts.poppins(
+                                  color: AppColor.textGreyColor,
+                                  fontSize: 15,
+                                  //fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "zgshxttttttttttttttttttttttthxgfhfcgjcfgjhgyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuxs",
+                                style: GoogleFonts.poppins(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              //link 1
+                              InkWell(
+                                onTap: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset("assets/svg/link_icon.svg"),
+                                    SizedBox(width: 10,),
+                                    Text(
+                                      "https://www.link.com",
+                                      style: GoogleFonts.poppins(
+                                        color: AppColor.blueColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              //link 1
+                              InkWell(
+                                onTap: () {},
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset("assets/svg/link_icon.svg"),
+                                    SizedBox(width: 10,),
+                                    Text(
+                                      "https://www.link.com",
+                                      style: GoogleFonts.poppins(
+                                        color: AppColor.blueColor,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 30,),
+                              //price/session
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    //price
+                                    TextSpan(
+                                      text: "N25,000",
+                                      style: GoogleFonts.poppins(
+                                        color: AppColor.blackColor,
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                    //time
+                                    TextSpan(
+                                      text: "/30mins",
+                                      style: GoogleFonts.poppins(
+                                        color: AppColor.darkGreyColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                    //session
+                                    TextSpan(
+                                      text: " per session",
+                                      style: GoogleFonts.poppins(
+                                        color: AppColor.textGreyColor,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    )
+                                  ]
+                                ),
+                              ),
+                              SizedBox(height: 30,),
 
-                            ],
-                          ),
+                              //request quote                        
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  //price
+                                  Text(
+                                    "Require a personalized touch?",
+                                    style: GoogleFonts.poppins(
+                                      color: AppColor.textGreyColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  //SizedBox(width: 5,),
+                                  //time
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.to(() => RequestQuoteScreen());
+                                    },
+                                    child: Text(
+                                      "Request Quote",
+                                        style: GoogleFonts.poppins(
+                                        color: AppColor.yellowStar,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        decoration: TextDecoration.underline
+                                      ),
+                                    ),
+                                  ),
+                                ]
+                              )
+                            ]
+                          )                                           
                         ),
                         //
                         Container(
@@ -100,7 +242,9 @@ class AccViewerServicesPage extends StatelessWidget {
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                           child: ReusableButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Get.to(() => BookAppointmentScreen());
+                            },
                             color: AppColor.mainColor,
                             text: "Book Now",
                           ),

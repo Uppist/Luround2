@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_2.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_3.dart';
 
 
 
@@ -82,7 +84,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 color: controller.curentStep >= stepIndex ? AppColor.mainColor : AppColor.textGreyColor.withOpacity(0.1),
               ),
               child: controller.curentStep >= stepIndex ?
-                controller.curentStep == 0 ? 
+                /*controller.curentStep == 0 ?*/ 
                 Text(
                   "${stepIndex + 1}",
                   style: GoogleFonts.poppins(
@@ -91,7 +93,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                     color: AppColor.bgColor
                   )
                 ) 
-                :Icon(CupertinoIcons.check_mark, color: AppColor.bgColor, size: 15,)
+                /*:Icon(CupertinoIcons.check_mark, color: AppColor.bgColor, size: 15,)*/
               :Text(
                 "${stepIndex + 1}",
                 style: GoogleFonts.poppins(
@@ -122,12 +124,43 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             Step(
               title: Text(""), 
               isActive: controller.curentStep >= 1,
-              content: Step2Screen(),
+              content: Step2Screen(
+                onApply: () {
+                  /*if(controller.curentStep < 2) {
+                    setState(() {
+                      controller.curentStep = controller.curentStep + 1;
+                    });
+                    print("current step: ${controller.curentStep}");
+                  }*/
+                  LuroundSnackBar.successSnackBar(
+                    message: "Date has been confirmed", 
+                  );
+                },
+                onSubmit: () {
+                  if(controller.curentStep < 2) {
+                    setState(() {
+                      controller.curentStep = controller.curentStep + 1;
+                    });
+                    print("current step: ${controller.curentStep}");
+                  }
+                },
+                onCancel: () {
+                  if(controller.curentStep < 2) {
+                    setState(() {
+                      controller.curentStep = controller.curentStep - 1;
+                    });
+                    print("current step: ${controller.curentStep}");
+                  }
+                },
+              ),
             ),
             Step(
               title: Text(""), 
               isActive: controller.curentStep >= 2,
-              content: SizedBox(),
+              content: Step3Screen(
+                onTime: () {},
+                onSubmit: () {},
+              ),
             )
           ]
         ),

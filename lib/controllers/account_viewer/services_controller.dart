@@ -1,7 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 
 
@@ -59,6 +58,17 @@ class AccViewerServicesController extends getx.GetxController {
   int curentStep = 0;
   //radio widget for bookin an appontment (saved appointment option to db)
   String step1Appointment = "selected option";
+  //select date
+  var dates = <DateTime?>[];
+  //save the date below to db
+  String getDate () {
+    var result = dates[0].toString();
+    var refinedList = result.split(" ")[0];
+    //print(refinedList);
+    return refinedList;
+  }
+
+  
 
   /////////////////////////////////////////////////////////////////
 

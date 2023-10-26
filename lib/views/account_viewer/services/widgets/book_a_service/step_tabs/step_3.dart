@@ -36,7 +36,7 @@ class _Step3ScreenState extends State<Step3Screen> {
             "Select time",
             style: GoogleFonts.poppins(
               color: AppColor.blackColor,
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -45,10 +45,10 @@ class _Step3ScreenState extends State<Step3Screen> {
           TimeGridView(),
           SizedBox(height: 100,),
           RebrandedReusableButton(
-            textColor: controller.isButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
-            color: controller.isButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
+            textColor: controller.isButtonEnabled4.value ? AppColor.bgColor : AppColor.darkGreyColor,
+            color: controller.isButtonEnabled4.value ? AppColor.mainColor : AppColor.lightPurple, 
             text: "Next", 
-            onPressed: controller.isButtonEnabled.value ? 
+            onPressed: controller.isButtonEnabled4.value ? 
             widget.onSubmit
             : () {
               print('nothing');

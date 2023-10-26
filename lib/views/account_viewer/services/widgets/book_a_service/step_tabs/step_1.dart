@@ -34,7 +34,7 @@ class _Step1ScreenState extends State<Step1Screen> {
     controller.serviceNameBAController.addListener(() {
       setState(() {
         // Check if the text field is empty or not
-        controller.isButtonEnabled.value = controller.serviceNameBAController.text.isNotEmpty;
+        controller.isButtonEnabled2.value = controller.serviceNameBAController.text.isNotEmpty;
       });
     });
     super.initState();
@@ -142,10 +142,10 @@ class _Step1ScreenState extends State<Step1Screen> {
           ),
           SizedBox(height: 80,),
           RebrandedReusableButton(
-            textColor: controller.isButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
-            color: controller.isButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
+            textColor: controller.isButtonEnabled2.value ? AppColor.bgColor : AppColor.darkGreyColor,
+            color: controller.isButtonEnabled2.value ? AppColor.mainColor : AppColor.lightPurple, 
             text: "Next", 
-            onPressed: controller.isButtonEnabled.value ? 
+            onPressed: controller.isButtonEnabled2.value ? 
             widget.onSubmit
             : () {
               print('nothing');

@@ -38,7 +38,7 @@ class _Step2ScreenState extends State<Step2Screen> {
             "Select day",
             style: GoogleFonts.poppins(
               color: AppColor.blackColor,
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -50,6 +50,9 @@ class _Step2ScreenState extends State<Step2Screen> {
             config: CalendarDatePicker2Config(),
             value: controller.dates,
             onValueChanged: (dates) {
+              setState(() {
+                controller.isButtonEnabled3.value = true;
+              });
               controller.dates = dates;
               debugPrint("${controller.dates}");
               debugPrint("splitted date: ${controller.getDate()}");
@@ -120,10 +123,10 @@ class _Step2ScreenState extends State<Step2Screen> {
           //
           SizedBox(height: 80,),
           RebrandedReusableButton(
-            textColor: AppColor.bgColor,
-            color: AppColor.mainColor, 
+            textColor: controller.isButtonEnabled3.value ? AppColor.bgColor : AppColor.darkGreyColor,
+            color: controller.isButtonEnabled3.value ? AppColor.mainColor : AppColor.lightPurple, 
             text: "Next", 
-            onPressed: controller.isButtonEnabled.value ? 
+            onPressed: controller.isButtonEnabled3.value ? 
             widget.onSubmit
             : () {
               print('nothing');

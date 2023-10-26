@@ -29,7 +29,7 @@ class AccViewerServicesPage extends StatelessWidget {
       backgroundColor: AppColor.greyColor,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
+          physics: const ClampingScrollPhysics(), //BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -37,11 +37,11 @@ class AccViewerServicesPage extends StatelessWidget {
               Container(
                 color: AppColor.bgColor,
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Image(
@@ -49,7 +49,7 @@ class AccViewerServicesPage extends StatelessWidget {
                         ),
                       ]
                     ),
-                    SizedBox(height: 30,),
+                    const SizedBox(height: 30,),
                     Center(
                       child: Text(
                         "Services",
@@ -66,16 +66,16 @@ class AccViewerServicesPage extends StatelessWidget {
               ),         
               /////////////////
               ///
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
 
               //Futurebuilder will start from here (will wrap this listview)
               ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20), //external paddin
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20), //external paddin
                 itemCount: 8,
-                separatorBuilder: (context, index) => SizedBox(height: 25,),
+                separatorBuilder: (context, index) => const SizedBox(height: 25,),
                 itemBuilder: (context, index) {
                   return Container(
                     //height: 500,
@@ -87,16 +87,16 @@ class AccViewerServicesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //check if the account owner selected in-person or virtual
                               //VirtualContainer()  //InpersonContainer()
-                              Center(            
-                                child: VirtualContainer()
+                              const Center(            
+                                child: InpersonContainer()
                               ),
-                              SizedBox(height: 40,),
+                              const SizedBox(height: 40,),
                               Text(
                                 "Personal Training",
                                 style: GoogleFonts.poppins(
@@ -105,7 +105,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
                               Text(
                                 "Mon-Fri . 9:00AM - 10:00PM",
                                 style: GoogleFonts.poppins(
@@ -114,7 +114,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   //fontWeight: FontWeight.w500
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
                               Text(
                                 "zgshxttttttttttttttttttttttthxgfhfcgjcfgjhgyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuxs",
                                 style: GoogleFonts.poppins(
@@ -123,7 +123,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
                               //link 1
                               InkWell(
                                 onTap: () {},
@@ -131,7 +131,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    SizedBox(width: 10,),
+                                    const SizedBox(width: 10,),
                                     Text(
                                       "https://www.link.com",
                                       style: GoogleFonts.poppins(
@@ -143,7 +143,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 20,),
+                              const SizedBox(height: 20,),
                               //link 1
                               InkWell(
                                 onTap: () {},
@@ -151,7 +151,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    SizedBox(width: 10,),
+                                    const SizedBox(width: 10,),
                                     Text(
                                       "https://www.link.com",
                                       style: GoogleFonts.poppins(
@@ -163,7 +163,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   ],
                                 ),
                               ),
-                              SizedBox(height: 30,),
+                              const SizedBox(height: 30,),
                               //price/session
                               RichText(
                                 text: TextSpan(
@@ -198,7 +198,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   ]
                                 ),
                               ),
-                              SizedBox(height: 30,),
+                              const SizedBox(height: 30,),
 
                               //request quote                        
                               Row(
@@ -240,7 +240,7 @@ class AccViewerServicesPage extends StatelessWidget {
                           width: double.infinity,
                           color: AppColor.bgColor,
                           alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                           child: ReusableButton(
                             onPressed: () {
                               Get.to(() => BookAppointmentScreen());

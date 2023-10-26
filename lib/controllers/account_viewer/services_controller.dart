@@ -13,10 +13,8 @@ import 'package:get/get.dart' as getx;
 class AccViewerServicesController extends getx.GetxController {
   
 
-  //final isVirtualSelected = false.obs;
 
-
-  //REQUEST QUOTE//////////////////////////
+  //REQUEST QUOTE//////////////////////////(save to db)
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
@@ -26,7 +24,7 @@ class AccViewerServicesController extends getx.GetxController {
   final formKey = GlobalKey();
   //radio widget (saved appointment option to db)
   String apppointment = "selected option";
-  //country code picker (append with mobile controller.text and save to db)
+  //country code picker (append with phone number controller.text and save to db)
   var code = "".obs; 
   void onCountryChange(CountryCode countryCode) {
     //TODO : manipulate the selected country code here
@@ -47,6 +45,7 @@ class AccViewerServicesController extends getx.GetxController {
   ///Book Appointment///////////////////////////////////////////
   //formKey
   final formKeyBA = GlobalKey();
+  //(save to db)
   final TextEditingController nameBAController = TextEditingController();
   final TextEditingController emailBAController = TextEditingController();
   final TextEditingController phoneNumberBAController = TextEditingController();
@@ -69,10 +68,23 @@ class AccViewerServicesController extends getx.GetxController {
     //print(refinedList);
     return refinedList;
   }
-
-  
-
   /////////////////////////////////////////////////////////////////
+
+  //proceed to pay screen (save to db)
+  final TextEditingController cardholderNameController = TextEditingController();
+  final TextEditingController cardNumberController = TextEditingController();
+  final TextEditingController expiryDateController = TextEditingController();
+  final TextEditingController cvvController = TextEditingController();
+  //booleans (very important)
+  final isCVVEnabled = false.obs; 
+  final isButtonEnabled2 = false.obs; //step1
+  final isButtonEnabled3 = false.obs;  //step2
+  final isButtonEnabled4 = false.obs;  //step3
+  final isButtonEnabled5 = false.obs;  //payment
+
+  ////////////////////
+
+
 
 
 
@@ -85,17 +97,23 @@ class AccViewerServicesController extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
+    //
     nameController.dispose();
     emailController.dispose();
     phoneNumberController.dispose();
     serviceNameController.dispose();
     messageController.dispose();
-    //BA
+    //BA (Book appointment controllers)
     nameBAController.dispose();
     emailBAController.dispose();
     phoneNumberBAController.dispose();
     //serviceNameBAController.dispose();
     messageBAController.dispose();
+    //proceed to pay controllers
+    cardholderNameController.dispose();
+    cardNumberController.dispose();
+    expiryDateController.dispose();
+    cvvController.dispose();
     super.dispose();
   }
 

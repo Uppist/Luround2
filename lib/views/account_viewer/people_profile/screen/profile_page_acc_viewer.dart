@@ -321,6 +321,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             text: "Remind me later",
                             textColor: AppColor.mainColor,
                           ),
+                          SizedBox(height: 20,),
                         ],
                       ),
                     ),

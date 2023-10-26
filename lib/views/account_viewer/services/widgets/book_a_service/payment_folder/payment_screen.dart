@@ -6,6 +6,7 @@ import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'payment_textfield.dart';
 
 
@@ -129,6 +130,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     onPressed: controller.isCVVEnabled.value  
                     ? () {
                       print("yayyyy");
+                      Get.to(() => TransactionSuccesscreen());
                     }
                     : () {
                       print('nothing');

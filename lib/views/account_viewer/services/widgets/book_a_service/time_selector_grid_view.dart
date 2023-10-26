@@ -38,7 +38,6 @@ class _TimeGridViewState extends State<TimeGridView> {
             setState(() {
               controller.selectedindex = index;
               print(index);
-              controller.isButtonEnabled.value = true;
             });
           },
           child: Container(

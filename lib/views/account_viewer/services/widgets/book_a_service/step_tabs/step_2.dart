@@ -84,7 +84,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
-                        fontSize: 18,
+                        fontSize: 16,
                         //fontWeight: FontWeight.w500
                       )
                     )
@@ -111,7 +111,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
                         color: AppColor.bgColor,
-                        fontSize: 18,
+                        fontSize: 16,
                         //fontWeight: FontWeight.w500
                       )
                     )

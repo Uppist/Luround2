@@ -45,8 +45,8 @@ class _Step3ScreenState extends State<Step3Screen> {
           TimeGridView(),
           SizedBox(height: 100,),
           RebrandedReusableButton(
-            textColor: controller.isButtonEnabled4.value ? AppColor.bgColor : AppColor.darkGreyColor,
-            color: controller.isButtonEnabled4.value ? AppColor.mainColor : AppColor.lightPurple, 
+            textColor: AppColor.bgColor,
+            color: AppColor.mainColor,
             text: "Next", 
             onPressed: controller.isButtonEnabled4.value ? 
             widget.onSubmit

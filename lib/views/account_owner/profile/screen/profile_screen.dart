@@ -231,10 +231,11 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        extendedPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         foregroundColor: AppColor.redColor,
         backgroundColor: AppColor.redColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15)
+          borderRadius: BorderRadius.circular(20)
         ),
         onPressed: () {},
         label: Text(

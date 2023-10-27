@@ -6,10 +6,7 @@ import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/booking_details/booking_details.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_2.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_3.dart';
+import 'step_tabs/step_1.dart';
 
 
 
@@ -111,9 +108,8 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
           steps: [
             Step(
               title: Text(""), 
-              content: SizedBox(),
-              /*Step1Screen(
-                onSubmit: () {
+              content: Step1Page(
+                onNext: () {
                   if(controller.curentStep < 2) {
                     setState(() {
                       controller.curentStep = controller.curentStep + 1;
@@ -121,7 +117,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                     print("current step: ${controller.curentStep}");
                   }
                 },
-              ),*/
+              ),
               isActive: controller.curentStep >= 0,
             ),
             Step(

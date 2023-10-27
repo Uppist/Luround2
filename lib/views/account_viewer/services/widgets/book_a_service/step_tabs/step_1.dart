@@ -152,6 +152,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             },
           ),
           SizedBox(height: 20,),
+
         ],                     
       ),
     );            

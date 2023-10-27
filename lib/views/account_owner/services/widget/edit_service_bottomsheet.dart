@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'delete_photo_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/delete_service_bottomsheet.dart';
 
 
 
@@ -14,7 +13,7 @@ import 'delete_photo_bottomsheet.dart';
 
 
 ///Alert Dialog
-Future<void> editPhotoDialogueBox({required BuildContext context}) async {
+Future<void> editServiceDialogueBox({required BuildContext context, required String titleText}) async {
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -55,7 +54,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                       SvgPicture.asset('assets/svg/pen_photo.svg'),
                       SizedBox(width: 20,),
                       Text(
-                        'Edit profile photo',
+                        'Edit',
                         style: GoogleFonts.poppins(
                           color: AppColor.textGreyColor,
                           fontSize: 15,
@@ -72,10 +71,10 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset('assets/svg/replace_photo.svg'),
+                      SvgPicture.asset('assets/svg/share_service.svg'),
                       SizedBox(width: 20,),
                       Text(
-                        'Replace profile photo',
+                        'Share service link',
                         style: GoogleFonts.poppins(
                           color: AppColor.textGreyColor,
                           fontSize: 15,
@@ -89,7 +88,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                 //1
                 InkWell(
                   onTap: () {
-                    deletePhotoDialogueBox(context: context);
+                    deleteServiceDialogueBox(context: context, titleText: titleText);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +96,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                       SvgPicture.asset('assets/svg/delete_photo.svg'),
                       SizedBox(width: 20,),
                       Text(
-                        'Delete profile photo',
+                        'Delete',
                         style: GoogleFonts.poppins(
                           color: AppColor.textGreyColor,
                           fontSize: 15,

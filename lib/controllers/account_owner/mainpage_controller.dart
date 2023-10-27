@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/views/account_owner/services/screen/service_screen.dart';
 import '../../views/account_owner/profile/screen/profile_screen.dart';
 
 
@@ -17,7 +18,7 @@ class MainPageController extends getx.GetxController {
   //widget options
   final List<Widget> widgetOptions = <Widget>[
     ProfilePage(),
-    SizedBox(),
+    ServicesPage(),
     SizedBox(),
     SizedBox(),
   ];

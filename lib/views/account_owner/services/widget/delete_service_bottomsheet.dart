@@ -13,7 +13,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 ///Alert Dialog
-Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
+Future<void> deleteServiceDialogueBox({required BuildContext context, required String titleText}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -46,7 +46,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Delete Photo',
+                  'Delete "${titleText}"',
                   style: GoogleFonts.poppins(
                     color: AppColor.blackColor,
                     fontSize: 18,
@@ -55,7 +55,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                 ),
                 SizedBox(height: 40,),
                 Text(
-                  'Are you sure you want to delete this photo ?',
+                  'Are you sure you want to delete this service ?',
                   style: GoogleFonts.poppins(
                     color: AppColor.darkGreyColor,
                     fontSize: 14,
@@ -129,7 +129,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                     )
                   ],
                 ),
-                SizedBox(height: 10,),
+                //SizedBox(height: 10,),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
@@ -20,22 +21,82 @@ class ServicesController extends getx.GetxController {
 
 
   //add service stepper//////////////////////////////////
-  String step1Appointment = "okay";
-  //formKey
+  //(save to db)
+  String selectDurationRadio = "Tap to select duration";
+
+  //checks the selected radio
+  final isradio1 = false.obs;
+  final isradio2 = false.obs;
+  final isradio3 = false.obs;
+
+
+  var dates = <DateTime?>[];
+  //selected index
+  //int selectedindex = -1; // Initialize to -1 to indicate no selection
+  //(save both dates below to db)
+  String startDate () {
+    if(dates.isNotEmpty) {
+      var result = dates[0].toString();
+      var refinedList = result.substring(0, 10);
+      print(refinedList);
+      return refinedList;
+    }
+    return "from";
+  }
+  String endDate () {
+    if(dates.isNotEmpty) {
+      var result = dates[1].toString();
+      var refinedList = result.substring(0, 10);
+      print(refinedList);
+      return refinedList;
+    }
+    return "to";
+  }
+
+  //to calendar to select date range
+  /*Future<void> showRangeCalendar({required BuildContext context}) async{
+    var results = await showCalendarDatePicker2Dialog(
+      context: context,
+      config: CalendarDatePicker2WithActionButtonsConfig (
+        calendarType: CalendarDatePicker2Type.range,
+      ),
+      dialogSize: const Size(325, 400),
+      value: dates,
+      borderRadius: BorderRadius.circular(15),
+    );
+    //set the empty list to equate the result
+    dates = results!;
+    debugPrint("date range: $dates");
+    print("start date: ${startDate()}");
+    print("end date: ${endDate()}");
+    update();
+  }*/
+
+  //formKey for step 1 and 2.
   final formKey = GlobalKey();
   final formKey2 = GlobalKey();
+
+  //to add other links 
   final toggleLink = false.obs;
+
   //(save to db)
   final TextEditingController serviceNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController addLinksController = TextEditingController();
   final TextEditingController inPersonController = TextEditingController();
   final TextEditingController virtualController = TextEditingController();
+
+  //checks if the user has inputed their prices for the type of dr
   final ispriceButtonEnabled = false.obs;
+
   //description textcontroller count
   int maxLength = 500;
   //for Stepper widget
   int curentStep = 0;
+  //select duration in minutes(save to db)
+  Duration duration = const Duration(hours: 0, minutes: 0);
+  
+
   ///////////////////////////////////////////////////////////////////////
   
 

@@ -37,9 +37,11 @@ dependencies:
   #for local storage
   get_storage: ^2.0.3
 
-  #calendar (very awesome package)
+  #date and time packages (very awesome packages)
   calendar_date_picker2: ^0.5.3
-  syncfusion_flutter_datepicker: ^23.1.42
+  #syncfusion_flutter_datepicker: ^23.1.42
+  duration_picker: ^1.1.1
+  from_to_time_picker: ^1.1.1
 
   #for network calls
   http: ^1.1.0

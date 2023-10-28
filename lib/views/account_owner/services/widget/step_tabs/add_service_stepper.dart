@@ -7,7 +7,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/services/widget/step_tabs/step_2.dart';
-import 'step_tabs/step_1.dart';
+import 'package:luround/views/account_owner/services/widget/step_tabs/step_3.dart';
+import 'step_1.dart';
 
 
 
@@ -138,7 +139,9 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
             Step(
               title: Text(""), 
               isActive: controller.curentStep >= 2,
-              content: SizedBox()
+              content: Step3Page(
+                onNext: () {},
+              )
             )
           ]
         ),

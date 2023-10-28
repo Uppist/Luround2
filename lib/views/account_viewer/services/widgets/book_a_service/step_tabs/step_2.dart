@@ -47,7 +47,23 @@ class _Step2ScreenState extends State<Step2Screen> {
             /*config: CalendarDatePicker2Config(
               calendarType: CalendarDatePicker2Type.range,
             ),*/
-            config: CalendarDatePicker2Config(),
+            config: CalendarDatePicker2Config(           
+              weekdayLabelTextStyle:  GoogleFonts.poppins(
+                color: AppColor.mainColor
+              ),
+              selectedYearTextStyle:  GoogleFonts.poppins(
+                color: AppColor.mainColor
+              ),
+              selectedRangeDayTextStyle:  GoogleFonts.poppins(
+                color: AppColor.bgColor
+              ),
+              selectedRangeHighlightColor: AppColor.mainColor.withOpacity(0.2),
+              selectedDayTextStyle:  GoogleFonts.poppins(
+                color: AppColor.bgColor
+              ),
+              selectedDayHighlightColor: AppColor.mainColor,
+              //calendarViewMode: DatePickerMode.day
+            ),
             value: controller.dates,
             onValueChanged: (dates) {
               setState(() {

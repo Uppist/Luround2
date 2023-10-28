@@ -8,7 +8,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
-import 'package:luround/views/account_owner/services/widget/add_service_stepper.dart';
+import 'package:luround/views/account_owner/services/widget/step_tabs/add_service_stepper.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/book_a_service.dart';

@@ -46,7 +46,7 @@ class AdditionalInfoSection extends StatelessWidget {
                 SvgPicture.asset(
                   profileController.svgPictures[index],
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 15,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -61,6 +61,7 @@ class AdditionalInfoSection extends StatelessWidget {
                         )
                       )
                     ),
+                    SizedBox(height: 5,),
                     //Subtitle text
                     Text(
                       profileController.subtitleText[index],

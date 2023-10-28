@@ -39,6 +39,7 @@ dependencies:
 
   #calendar (very awesome package)
   calendar_date_picker2: ^0.5.3
+  syncfusion_flutter_datepicker: ^23.1.42
 
   #for network calls
   http: ^1.1.0

@@ -20,8 +20,10 @@ class ServicesController extends getx.GetxController {
 
 
   //add service stepper//////////////////////////////////
+  String step1Appointment = "okay";
   //formKey
   final formKey = GlobalKey();
+  final formKey2 = GlobalKey();
   final toggleLink = false.obs;
   //(save to db)
   final TextEditingController serviceNameController = TextEditingController();

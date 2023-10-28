@@ -21,15 +21,18 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Education & Certifications',
-          style: GoogleFonts.poppins(
-            textStyle: TextStyle(
-              color: AppColor.blackColor,
-              fontSize: 18,
-              fontWeight: FontWeight.bold
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            'Education & Certifications',
+            style: GoogleFonts.poppins(
+              textStyle: TextStyle(
+                color: AppColor.blackColor,
+                fontSize: 18,
+                fontWeight: FontWeight.bold
+              )
             )
-          )
+          ),
         ),
         
         SizedBox(height: 20),
@@ -41,7 +44,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
           itemCount: itemCount,
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
@@ -65,7 +68,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(height: 5,),
                       Text(
                         institution,
                         style: GoogleFonts.poppins(
@@ -76,7 +79,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(height: 5,),
                       Text(
                         issuedDate,
                         style: GoogleFonts.poppins(
@@ -87,7 +90,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(height: 5,),
                       Text(
                         credentialID,
                         style: GoogleFonts.poppins(
@@ -98,7 +101,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(height: 10,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
                         onTap: onPressedShowCertificte,
@@ -106,7 +109,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           alignment: Alignment.center,
                           height: 50,
-                          width: 250,
+                          width: 200,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
                             borderRadius: BorderRadius.circular(10),
@@ -119,7 +122,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 14,
+                                fontSize: 16,
                                 //fontWeight: FontWeight.w500
                               )
                             )

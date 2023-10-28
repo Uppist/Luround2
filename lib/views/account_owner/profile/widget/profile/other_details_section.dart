@@ -56,7 +56,7 @@ class OtherDetailsSection extends StatelessWidget {
                 SvgPicture.asset(
                   profileController.svgPictures[index],
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 15,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -71,6 +71,7 @@ class OtherDetailsSection extends StatelessWidget {
                         )
                       )
                     ),
+                    SizedBox(height: 5,), //10
                     //Subtitle text
                     Text(
                       profileController.subtitleText[index],

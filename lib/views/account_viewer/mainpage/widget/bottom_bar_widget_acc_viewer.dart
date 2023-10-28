@@ -36,9 +36,10 @@ class _BottomNavBarAccViewerState extends State<BottomNavBarAccViewer> {
       currentIndex: widget.selectedIndex,
       iconSize: 29,
       onTap: widget.onItemTapped,
-      elevation: 0, //5,
+      elevation: 8, //5,
       selectedLabelStyle: GoogleFonts.poppins(),
       unselectedLabelStyle: GoogleFonts.poppins(),
+      enableFeedback: true,
     );
   }
 }

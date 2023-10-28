@@ -77,18 +77,19 @@ class _EditAboutPageState extends State<EditAboutPage> {
                       onChanged: (val) {
                         // Check if character count exceeds the maximum
                         if (val.length > controller.maxLength) {
-                          // Remove extra characters        
+                          // Remove extra characters       
                           controller.aboutController.text = val.substring(0, controller.maxLength);
                           debugPrint("you have reached max length");
                         } 
                         setState(() {}); // Update the UI
                       },
-                      initialValue: controller.aboutController.text,
+                      //initial value is the one causing it
+                      initialValue: controller.aboutController.text, 
                       hintText: 'Enter a brief summary of your experience, skills and achievements',
                       keyboardType: TextInputType.multiline,
                       textInputAction: TextInputAction.done,                   
                     ),
-                    SizedBox(height: 20),
+                    /*SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -101,7 +102,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                           )
                         ),
                       ],
-                    ),
+                    ),*/
                     SizedBox(height: 500,),  //250
                     ReusableButton(
                       color: AppColor.mainColor,

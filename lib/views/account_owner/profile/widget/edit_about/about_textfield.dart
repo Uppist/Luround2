@@ -39,6 +39,7 @@ class _AboutTextFieldState extends State<AboutTextField> {
       child: TextFormField(
         onChanged: widget.onChanged,
         initialValue: widget.initialValue,
+        //controller: ,
         keyboardType: widget.keyboardType,
         maxLines: 2,
         autocorrect: true,

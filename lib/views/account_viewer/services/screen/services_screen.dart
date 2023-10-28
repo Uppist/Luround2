@@ -73,7 +73,7 @@ class AccViewerServicesPage extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20), //external paddin
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //external paddin
                 itemCount: 8,
                 separatorBuilder: (context, index) => const SizedBox(height: 25,),
                 itemBuilder: (context, index) {

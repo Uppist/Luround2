@@ -6,6 +6,7 @@ import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/title_text.dart';
+import 'package:luround/views/account_owner/services/widget/step_tabs/step_2.dart';
 import 'step_tabs/step_1.dart';
 
 
@@ -123,20 +124,8 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
             Step(
               title: Text(""), 
               isActive: controller.curentStep >= 1,
-              content: SizedBox()
-              /*Step2Screen(
-                onApply: () {
-                  /*if(controller.curentStep < 2) {
-                    setState(() {
-                      controller.curentStep = controller.curentStep + 1;
-                    });
-                    print("current step: ${controller.curentStep}");
-                  }*/
-                  LuroundSnackBar.successSnackBar(
-                    message: "Date has been confirmed", 
-                  );
-                },
-                onSubmit: () {
+              content: Step2Page(
+                onNext: () {
                   if(controller.curentStep < 2) {
                     setState(() {
                       controller.curentStep = controller.curentStep + 1;
@@ -144,15 +133,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                     print("current step: ${controller.curentStep}");
                   }
                 },
-                onCancel: () {
-                  if(controller.curentStep < 2) {
-                    setState(() {
-                      controller.curentStep = controller.curentStep - 1;
-                    });
-                    print("current step: ${controller.curentStep}");
-                  }
-                },
-              ),*/
+              )
             ),
             Step(
               title: Text(""), 

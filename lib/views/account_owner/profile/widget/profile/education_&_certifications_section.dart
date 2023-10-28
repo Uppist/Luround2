@@ -75,7 +75,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(height: 5,),
                       Text(
                         institution,
                         style: GoogleFonts.poppins(
@@ -86,7 +86,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(height: 5,),
                       Text(
                         issuedDate,
                         style: GoogleFonts.poppins(
@@ -97,7 +97,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 3,),
+                      SizedBox(height: 5,),
                       Text(
                         credentialID,
                         style: GoogleFonts.poppins(
@@ -108,7 +108,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           )
                         )
                       ),
-                      SizedBox(height: 8,),
+                      SizedBox(height: 10,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
                         onTap: onPressedShowCertificte,
@@ -116,7 +116,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           alignment: Alignment.center,
                           height: 50,
-                          width: 250,
+                          width: 200,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
                             borderRadius: BorderRadius.circular(10),
@@ -129,7 +129,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 14,
+                                fontSize: 16,
                                 //fontWeight: FontWeight.w500
                               )
                             )

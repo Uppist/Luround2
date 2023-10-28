@@ -37,6 +37,13 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
+      /*appBar: AppBar(
+        elevation: 0,
+        backgroundColor: AppColor.bgColor,
+        leading: Image(
+          image: AssetImage('assets/images/luround_logo.png'),
+        ),
+      ),*/
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -64,65 +71,6 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 height: 7,
                 width: double.infinity,
               ),
-              SizedBox(height: 20,),
-
-              //RATINGS OF THE CLIENT BEING VIEWED AND SUBSEQUENT WIDGETS
-              
-              //Ratings Card
-              Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '4.7',
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: AppColor.blackColor,
-                          //decoration: TextDecoration.underline,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
-                        )
-                      )
-                    ),
-                    SizedBox(width: 20,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //rating indicator
-                        RatingBarIndicator(                      
-                          unratedColor: AppColor.textGreyColor.withOpacity(0.2),
-                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                          rating: 4.0,  //fetch from db
-                          itemBuilder: (context, index) => Icon(
-                            CupertinoIcons.star_fill,
-                            color: AppColor.yellowStar,
-                          ),
-                          itemCount: 5,
-                          itemSize: 20.0, //30
-                          direction: Axis.horizontal,
-                        ),
-                        SizedBox(height: 10,),
-                        Text(
-                          'based on 12 ratings',
-                          style: GoogleFonts.poppins(
-                            textStyle: TextStyle(
-                              color: AppColor.darkGreyColor,
-                              fontSize: 14,
-                              //fontWeight: FontWeight.w500
-                            )
-                          )
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              ///////////////////////////////
               
               SizedBox(height: 30,),
 
@@ -144,10 +92,13 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             'See all reviews',
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
-                                color: AppColor.darkGreyColor,
+                                color: AppColor.textGreyColor,
                                 decoration: TextDecoration.underline,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w500
+                                //fontWeight: FontWeight.w500
+                                decorationColor: AppColor.darkGreyColor,
+                                decorationThickness: 2,
+                                decorationStyle: TextDecorationStyle.solid
                               )
                             )
                           )
@@ -188,15 +139,29 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                   ),
                 ),
                 SizedBox(height: 10,),
+                //Where the person works
+                Center(
+                  child: Text(
+                    'Brinext Ltd.',
+                    style: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                        color: AppColor.blackColor,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500
+                      )
+                    )
+                  ),
+                ),
+                SizedBox(height: 10,),
                 //OWNER'S OCCUPATION Here
                 Center(
                   child: Text(
                     'Professional Specialist',
                     style: GoogleFonts.poppins(
                       textStyle: TextStyle(
-                        color: AppColor.blackColor,
+                        color: AppColor.darkGreyColor,
                         fontSize: 15,
-                        fontWeight: FontWeight.w500
+                        //fontWeight: FontWeight.w500
                       )
                     )
                   ),
@@ -215,22 +180,27 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 //About section here
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Column(
-                    children: [
-                      AccViewerAboutSection(
-                        text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
-                      ),
-                      SizedBox(height: 30),                 
-                      AccViewerEducationAndCertificationSection(
-                        itemCount: 2,
-                        onPressedShowCertificte: () {},
-                        certificateTitle: 'Certified Professional Specialist',
-                        institution: 'London Business School',
-                        issuedDate: 'Issued Oct 2023',
-                        credentialID: 'CREDENTIAL ID: 7380030',
-                      ),
-                    ],
+                  child: AccViewerAboutSection(
+                    text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
                   ),
+                ),
+                SizedBox(height: 30),
+                Container(
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: AppColor.greyColor
+                  ),
+                  height: 7,
+                  width: double.infinity,
+                ),
+                SizedBox(height: 30),                 
+                AccViewerEducationAndCertificationSection(
+                  itemCount: 2,
+                  onPressedShowCertificte: () {},
+                  certificateTitle: 'Certified Professional Specialist',
+                  institution: 'London Business School',
+                  issuedDate: 'Issued Oct 2023',
+                  credentialID: 'CREDENTIAL ID: 7380030',
                 ),
                 SizedBox(height: 30),
                 Container(
@@ -282,7 +252,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             });
                           }, 
                           icon: Icon(CupertinoIcons.xmark),
-                          iconSize: 30,
+                          //iconSize: 30,
                         ),
                       ],
                     ),

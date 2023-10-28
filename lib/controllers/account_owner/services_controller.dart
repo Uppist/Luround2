@@ -1,6 +1,7 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart' as getx;
 
 
@@ -72,7 +73,7 @@ class ServicesController extends getx.GetxController {
     update();
   }*/
 
-  //formKey for step 1 and 2.
+  //formKey for step 1 and 2 screens.
   final formKey = GlobalKey();
   final formKey2 = GlobalKey();
 
@@ -93,10 +94,11 @@ class ServicesController extends getx.GetxController {
   int maxLength = 500;
   //for Stepper widget
   int curentStep = 0;
+
   //select duration in minutes(save to db)
   Duration duration = const Duration(hours: 0, minutes: 0);
 
-  ////////////step 3 screen///////////
+  ////////////step 3 screen///////////(save to db by index from ui)
   List<Map<String, dynamic>> daysOfTheWeekCheckBox = [
     {
       "day": "Monday",
@@ -127,8 +129,16 @@ class ServicesController extends getx.GetxController {
       "isChecked": false,     
     },
   ];
+
   //to active the button instep 3 screen
   final isCheckBoxActive = false.obs;
+
+  //to select time frame for a service to be rendered (both are to be saved to db)
+  var startTime = 'from'.obs;
+  var endTime = 'to'.obs;
+
+  var startMinute = '00'.obs;
+  var endMinute = '00'.obs;
   ///////////////////////////////////
   
 

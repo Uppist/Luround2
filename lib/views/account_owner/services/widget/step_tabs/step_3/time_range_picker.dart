@@ -2,6 +2,7 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
@@ -23,61 +24,59 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
   
   var controller = Get.put(ServicesController());
 
-  
-  //to calendar to select date range
-  Future<void> showRangeCalendar({required BuildContext context}) async{
-    var results = await showCalendarDatePicker2Dialog(
+  Future<void> showLightTimePicker({required BuildContext context}) async{
+    showDialog(
       context: context,
-      config: CalendarDatePicker2WithActionButtonsConfig (
-        calendarType: CalendarDatePicker2Type.range,
-        cancelButtonTextStyle: GoogleFonts.poppins(
-          color: AppColor.mainColor
-        ),
-        okButtonTextStyle: GoogleFonts.poppins(
-          color: AppColor.mainColor
-        ),
-        weekdayLabelTextStyle:  GoogleFonts.poppins(
-          color: AppColor.mainColor
-        ),
-        selectedYearTextStyle:  GoogleFonts.poppins(
-          color: AppColor.mainColor
-        ),
-        selectedRangeDayTextStyle:  GoogleFonts.poppins(
-          color: AppColor.bgColor
-        ),
-        selectedRangeHighlightColor: AppColor.mainColor.withOpacity(0.2),
-        selectedDayTextStyle:  GoogleFonts.poppins(
-          color: AppColor.bgColor
-        ),
-        selectedDayHighlightColor: AppColor.mainColor,
-        //calendarViewMode: DatePickerMode.day
-      ),
-      dialogSize: const Size(325, 400),
-      value: controller.dates,
-      borderRadius: BorderRadius.circular(15),
+        builder: (_) => FromToTimePicker(
+          /*dialogBackgroundColor: Color(0xFF121212),
+          fromHeadlineColor: Colors.white,
+          toHeadlineColor: Colors.white,
+          upIconColor: Colors.white,
+          downIconColor: Colors.white,
+          timeBoxColor: Color(0xFF1E1E1E),
+          timeHintColor: Colors.grey,
+          timeTextColor: Colors.white,
+          dividerColor: Color(0xFF121212),
+          doneTextColor: Colors.white,
+          dismissTextColor: Colors.white,
+          defaultDayNightColor: Color(0xFF1E1E1E),
+          defaultDayNightTextColor: Colors.white,
+          colonColor: Colors.white,*/
+          doneTextColor: AppColor.mainColor,
+          dismissTextColor: AppColor.mainColor,
+          showHeaderBullet: true,
+          onTab: (from, to) {
+            //POST REQUEST GO RUN THINGS FROM HERE
+            print('from $from to $to');
+            setState(() {
+              //hour
+              controller.startTime.value = from.hour.toString();
+              controller.endTime.value = to.hour.toString();
+              //minute
+              controller.startMinute.value = from.minute.toString();
+              controller.endMinute.value = to.minute.toString();
+            });
+            print('from cv ${controller.startTime.value} to cv ${controller.endTime.value}');
+        },
+      )
     );
-    //set the empty list to equate the result
-    setState(() {
-      controller.dates = results!;
-    });
-    debugPrint("date range: ${controller.dates}");
-    print("start date: ${controller.startDate()}");
-    print("end date: ${controller.endDate()}");
   }
+
+  
+  
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        //controller.showRangeCalendar(context: context);
-        showRangeCalendar(context: context);
+        showLightTimePicker(context: context);
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Container(
+        //padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
           color: AppColor.bgColor,
           width: double.infinity,
-          //onTap: () {},
+          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -99,7 +98,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      controller.startDate(),
+                      "${controller.startTime.value}: ${controller.startMinute.value}",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
@@ -109,7 +108,10 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                       )
                     ),
                     SizedBox(width: 20,),
-                    SvgPicture.asset("assets/svg/calendar_icon.svg")
+                    Icon(
+                      CupertinoIcons.time,
+                      color: AppColor.textGreyColor,
+                    )
                   ],
                 ),
               ),
@@ -143,7 +145,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      controller.endDate(),
+                      "${controller.endTime.value}: ${controller.endMinute.value}",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
@@ -153,7 +155,10 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                       )
                     ),
                     SizedBox(width: 20,),
-                    SvgPicture.asset("assets/svg/calendar_icon.svg")
+                    Icon(
+                      CupertinoIcons.time,
+                      color: AppColor.textGreyColor,
+                    )
                   ],
                 ),
               )

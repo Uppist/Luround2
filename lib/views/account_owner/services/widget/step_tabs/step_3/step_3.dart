@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/services/widget/step_tabs/step_3/time_range_picker.dart';
 
 
 
@@ -104,7 +105,7 @@ class _Step3PageState extends State<Step3Page> {
                 ],
               ),
               subtitle: controller.daysOfTheWeekCheckBox[index]["isChecked"] == true 
-              ?SizedBox()
+              ?TimeRangeSelector()
               :SizedBox(),
             );
           }, 

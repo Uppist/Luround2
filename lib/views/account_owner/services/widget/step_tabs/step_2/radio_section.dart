@@ -35,13 +35,12 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
             Radio.adaptive(
               activeColor: AppColor.mainColor,
               toggleable: true,
-              //tileColor: AppColor.bgColor,
               value: "Future timeframe", 
               groupValue: controller.selectDurationRadio, 
               onChanged: (val) {
                 setState(() {
                   controller.selectDurationRadio = val.toString();
-                  controller.isradio1.value = true;
+                  //controller.isradio1.value = true;
                   controller.isradio2.value = false;
                   print("radio 1: ${controller.selectDurationRadio}");
                 });
@@ -69,7 +68,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
               activeColor: AppColor.mainColor,
               toggleable: true,
               //tileColor: AppColor.bgColor,
-              value: "Date range timeframe", 
+              value: "${controller.startDate()} - ${controller.endDate()}", //"Date range timeframe", 
               groupValue: controller.selectDurationRadio, 
               onChanged: (val) {
                 setState(() {
@@ -109,7 +108,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
               onChanged: (val) {
                 setState(() {
                   controller.selectDurationRadio = val.toString();
-                  controller.isradio3.value = true;
+                  //controller.isradio3.value = true;
                   controller.isradio2.value = false;
                   print("radio 3: ${controller.selectDurationRadio}");
                 });

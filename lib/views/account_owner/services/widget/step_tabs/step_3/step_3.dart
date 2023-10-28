@@ -1,4 +1,3 @@
-import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -82,6 +81,7 @@ class _Step3PageState extends State<Step3Page> {
               onChanged: (value) {
                 setState(() {
                   controller.daysOfTheWeekCheckBox[index]["isChecked"] = value;
+                  //to activate the done button
                   controller.isCheckBoxActive.value = true;
                 });
                 print("$index, ${controller.daysOfTheWeekCheckBox[index]["day"]}");
@@ -105,7 +105,7 @@ class _Step3PageState extends State<Step3Page> {
                 ],
               ),
               subtitle: controller.daysOfTheWeekCheckBox[index]["isChecked"] == true 
-              ?TimeRangeSelector()
+              ?TimeRangeSelector(index: index)
               :SizedBox(),
             );
           }, 
@@ -114,7 +114,7 @@ class _Step3PageState extends State<Step3Page> {
         RebrandedReusableButton(
           textColor: controller.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
-          text: "Next", 
+          text: "Done", 
           onPressed: controller.isCheckBoxActive.value ? 
           widget.onNext
           : () {

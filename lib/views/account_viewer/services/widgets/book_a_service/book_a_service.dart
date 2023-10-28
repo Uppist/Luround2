@@ -7,9 +7,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/booking_details/booking_details.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_2.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_3.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1/step_1.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_2/step_2.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_3/step_3.dart';
 
 
 

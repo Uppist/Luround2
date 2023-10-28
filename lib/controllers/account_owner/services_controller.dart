@@ -1,7 +1,5 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart' as getx;
 
 
@@ -23,14 +21,14 @@ class ServicesController extends getx.GetxController {
 
   //add service stepper//////////////////////////////////
   //(save to db)
-  String selectDurationRadio = "Tap to select duration";
+  String selectDurationRadio = "select something";
 
   //checks the selected radio
   final isradio1 = false.obs;
   final isradio2 = false.obs;
   final isradio3 = false.obs;
 
-
+  //list of dates for "calendar_picker" package
   var dates = <DateTime?>[];
   //selected index
   //int selectedindex = -1; // Initialize to -1 to indicate no selection
@@ -53,25 +51,6 @@ class ServicesController extends getx.GetxController {
     }
     return "to";
   }
-
-  //to calendar to select date range
-  /*Future<void> showRangeCalendar({required BuildContext context}) async{
-    var results = await showCalendarDatePicker2Dialog(
-      context: context,
-      config: CalendarDatePicker2WithActionButtonsConfig (
-        calendarType: CalendarDatePicker2Type.range,
-      ),
-      dialogSize: const Size(325, 400),
-      value: dates,
-      borderRadius: BorderRadius.circular(15),
-    );
-    //set the empty list to equate the result
-    dates = results!;
-    debugPrint("date range: $dates");
-    print("start date: ${startDate()}");
-    print("end date: ${endDate()}");
-    update();
-  }*/
 
   //formKey for step 1 and 2 screens.
   final formKey = GlobalKey();
@@ -133,17 +112,36 @@ class ServicesController extends getx.GetxController {
   //to active the button instep 3 screen
   final isCheckBoxActive = false.obs;
 
-  //to select time frame for a service to be rendered (both are to be saved to db)
+  //to select time frame for a service to be rendered (all are to be saved to db)
   var startTime = 'from'.obs;
   var endTime = 'to'.obs;
 
-  var startMinute = '00'.obs;
-  var endMinute = '00'.obs;
+  var startMinute = ''.obs;
+  var endMinute = ''.obs;
+
+  var startMeridian = "".obs;
+  var endMeridian = "".obs;
   ///////////////////////////////////
   
 
   ///////////////////////////////////////////////////////////////////////
+
   
+
+
+  
+  ///BOOKINGS SECTION/////////////////////////////////////////////////
+  
+   
+
+
+  ///////////////////////////////////////////////////////////////////
+  
+
+
+
+
+
 
 
 

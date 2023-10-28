@@ -1,4 +1,3 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,8 +12,13 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
+
+
+
+
 class TimeRangeSelector extends StatefulWidget {
-  TimeRangeSelector({super.key});
+  TimeRangeSelector({super.key, required this.index});
+  final int index;
 
   @override
   State<TimeRangeSelector> createState() => _TimeRangeSelectorState();
@@ -55,8 +59,22 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
               //minute
               controller.startMinute.value = from.minute.toString();
               controller.endMinute.value = to.minute.toString();
+              //meridian (AM/PM)
+              controller.startMeridian.value = from.period.toString();
+              controller.endMeridian.value = to.period.toString();
+              //update the list
+              controller.daysOfTheWeekCheckBox[widget.index].addAll({
+                "from": "${controller.startTime.value}:${controller.startMinute.value}", 
+                "to": "${controller.endTime.value}:${ controller.endMinute.value}",
+                "from_meridian": "${ controller.startMeridian.value}",
+                "to_meridian": "${controller.endMeridian.value}",
+              });
             });
-            print('from cv ${controller.startTime.value} to cv ${controller.endTime.value}');
+
+            //let see log the outcomes
+            debugPrint("${controller.daysOfTheWeekCheckBox}");
+            debugPrint("${controller.daysOfTheWeekCheckBox[widget.index]}");
+            debugPrint('from cv ${controller.startTime.value} ${controller.startMeridian} to cv ${controller.endTime.value} ${controller.endMeridian}');
         },
       )
     );
@@ -98,7 +116,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${controller.startTime.value}: ${controller.startMinute.value}",
+                      controller.daysOfTheWeekCheckBox[widget.index]['from'] ?? "from", //"${controller.startTime.value}: ${controller.startMinute.value}",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
@@ -145,7 +163,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "${controller.endTime.value}: ${controller.endMinute.value}",
+                      controller.daysOfTheWeekCheckBox[widget.index]['to'] ?? "to", //"${controller.endTime.value}: ${controller.endMinute.value}",
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,

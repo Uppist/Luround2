@@ -95,6 +95,41 @@ class ServicesController extends getx.GetxController {
   int curentStep = 0;
   //select duration in minutes(save to db)
   Duration duration = const Duration(hours: 0, minutes: 0);
+
+  ////////////step 3 screen///////////
+  List<Map<String, dynamic>> daysOfTheWeekCheckBox = [
+    {
+      "day": "Monday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Tuesday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Wednesday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Thursday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Friday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Saturday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Sunday",
+      "isChecked": false,     
+    },
+  ];
+  //to active the button instep 3 screen
+  final isCheckBoxActive = false.obs;
+  ///////////////////////////////////
   
 
   ///////////////////////////////////////////////////////////////////////

@@ -12,14 +12,14 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class TimeRangePickerWidget extends StatefulWidget {
-  TimeRangePickerWidget({super.key});
+class TimeRangeSelector extends StatefulWidget {
+  TimeRangeSelector({super.key});
 
   @override
-  State<TimeRangePickerWidget> createState() => _TimeRangePickerWidgetState();
+  State<TimeRangeSelector> createState() => _TimeRangeSelectorState();
 }
 
-class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
+class _TimeRangeSelectorState extends State<TimeRangeSelector> {
   
   var controller = Get.put(ServicesController());
 

@@ -15,6 +15,8 @@ class BookingsController extends getx.GetxController {
   
   final TextEditingController searchController = TextEditingController();
   final isFieldTapped = false.obs;
+  final isExpanded = false.obs;
+  int selectedIndex = -1;
 
 
 

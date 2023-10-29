@@ -27,74 +27,73 @@ class ServicesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.greyColor, //controller.isServicePresent.value ? AppColor.bgColor : AppColor.greyColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(), //BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ///Header Section
-              Container(
-                color: AppColor.bgColor,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/images/luround_logo.png'),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => NotificationsPage());
-                              },
-                              child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                            ),
-                            SizedBox(width: 20,),
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => AddServiceScreen());
-                              },
-                              child: SvgPicture.asset("assets/svg/add_service.svg"),
-                            ),
-                          ],
-                        )
-                      ]
-                    ),
-                    const SizedBox(height: 30,),
-                    Center(
-                      child: Text(
-                        "Services",
-                        style: GoogleFonts.poppins(
-                          color: AppColor.blackColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
-                        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ///Header Section
+            Container(
+              color: AppColor.bgColor,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/luround_logo.png'),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => NotificationsPage());
+                            },
+                            child: SvgPicture.asset("assets/svg/notify_active.svg"),
+                          ),
+                          SizedBox(width: 20,),
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => AddServiceScreen());
+                            },
+                            child: SvgPicture.asset("assets/svg/add_service.svg"),
+                          ),
+                        ],
+                      )
+                    ]
+                  ),
+                  const SizedBox(height: 30,),
+                  Center(
+                    child: Text(
+                      "Services",
+                      style: GoogleFonts.poppins(
+                        color: AppColor.blackColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
                       ),
                     ),
-                    //SizedBox(height: 10,),
-                  ],
-                ),
-              ),         
-              /////////////////
-              
+                  ),
+                  //SizedBox(height: 10,),
+                ],
+              ),
+            ),         
+            /////////////////
+            
 
-              const SizedBox(height: 20,),
+            const SizedBox(height: 20,),
 
 
-              //Futurebuilder will start from here (will wrap this listview)
-              //
-              //controller.isServicePresent.value ? ServiceEmptyState(onPressed: () {  },) :
-              ListView.separated(
+            //Futurebuilder will start from here (will wrap this listview)
+            //
+            //controller.isServicePresent.value ? ServiceEmptyState(onPressed: () {  },) :
+            Expanded(
+              child: ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //external paddin
+                physics: const BouncingScrollPhysics(),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0), //external paddin
                 itemCount: 8,
                 separatorBuilder: (context, index) => const SizedBox(height: 25,),
                 itemBuilder: (context, index) {
@@ -244,10 +243,10 @@ class ServicesPage extends StatelessWidget {
                     ),
                   );
                 }
-              ),           
-              ///
-            ]
-          )
+              ),
+            ),           
+            ///
+          ]
         )
       )
     );

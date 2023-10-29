@@ -47,11 +47,12 @@ class EducationAndCertificationSection extends StatelessWidget {
         ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
+          //padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
           physics: NeverScrollableScrollPhysics(),
           itemCount: itemCount,
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 3, vertical: 10),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
@@ -61,7 +62,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.asset('assets/svg/award_icon.svg'),
-                  SizedBox(width: 20,),
+                  SizedBox(width: 15,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -116,7 +117,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           alignment: Alignment.center,
                           height: 50,
-                          width: 200,
+                          //width: 200,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
                             borderRadius: BorderRadius.circular(10),
@@ -129,7 +130,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 16,
+                                fontSize: 15,
                                 //fontWeight: FontWeight.w500
                               )
                             )

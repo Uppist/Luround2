@@ -11,4 +11,5 @@ import 'package:get/get.dart' as getx;
 
 
 
-class BookingsController extends getx.GetxController {}
+class BookingsController extends getx.GetxController {
+}

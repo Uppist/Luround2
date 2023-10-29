@@ -132,7 +132,7 @@ class ReviewsPage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColor.mainColor,
-                          radius: 33,
+                          radius: 25,
                           child: Text(
                             "F",
                             style: GoogleFonts.poppins(
@@ -142,7 +142,7 @@ class ReviewsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 15),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -157,9 +157,9 @@ class ReviewsPage extends StatelessWidget {
                                   )
                                 )
                               ),
-                              SizedBox(height: 30,),
+                              SizedBox(height: 25,),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   //rating indicator
                                   RatingBarIndicator(                      
@@ -174,7 +174,7 @@ class ReviewsPage extends StatelessWidget {
                                     itemSize: 20.0, //30
                                     direction: Axis.horizontal,
                                   ),
-                                  SizedBox(width: 40,),
+                                  //SizedBox(width: 40,),
                                   Text(
                                     '14 Sept. 2023',
                                     style: GoogleFonts.poppins(

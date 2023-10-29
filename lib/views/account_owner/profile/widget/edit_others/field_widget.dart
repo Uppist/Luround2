@@ -28,7 +28,7 @@ class CustomFieldWidget extends StatelessWidget {
       children: [
         //Icon
         SvgPicture.asset(svgAssetName), 
-        SizedBox(width: 20,),
+        SizedBox(width: 15,),
         //expanded column
         Expanded(
           child: Column(
@@ -52,7 +52,7 @@ class CustomFieldWidget extends StatelessWidget {
             ]
           ),
         ),
-        SizedBox(width: 10,),
+        SizedBox(width: 5,),
         //cancelIcon
         IconButton(
           onPressed: onCancel, 

@@ -28,51 +28,50 @@ class AccViewerServicesPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.greyColor,
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(), //BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ///Header Section
-              Container(
-                color: AppColor.bgColor,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image(
-                          image: AssetImage('assets/images/luround_logo.png'),
-                        ),
-                      ]
-                    ),
-                    const SizedBox(height: 30,),
-                    Center(
-                      child: Text(
-                        "Services",
-                        style: GoogleFonts.poppins(
-                          color: AppColor.blackColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
-                        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            ///Header Section
+            Container(
+              color: AppColor.bgColor,
+              alignment: Alignment.center,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Image(
+                        image: AssetImage('assets/images/luround_logo.png'),
+                      ),
+                    ]
+                  ),
+                  const SizedBox(height: 30,),
+                  Center(
+                    child: Text(
+                      "Services",
+                      style: GoogleFonts.poppins(
+                        color: AppColor.blackColor,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500
                       ),
                     ),
-                    //SizedBox(height: 10,),
-                  ],
-                ),
-              ),         
-              /////////////////
-              ///
-              const SizedBox(height: 20,),
+                  ),
+                  //SizedBox(height: 10,),
+                ],
+              ),
+            ),         
+            /////////////////
+            ///
+            const SizedBox(height: 20,),
 
-              //Futurebuilder will start from here (will wrap this listview)
-              ListView.separated(
+            //Futurebuilder will start from here (will wrap this listview)
+            Expanded(
+              child: ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //external paddin
                 itemCount: 8,
                 separatorBuilder: (context, index) => const SizedBox(height: 25,),
@@ -199,7 +198,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 30,),
-
+            
                               //request quote                        
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -254,10 +253,10 @@ class AccViewerServicesPage extends StatelessWidget {
                   );
                 }
               ),
-              
-              ///
-            ]
-          )
+            ),
+            
+            ///
+          ]
         )
       )
     );

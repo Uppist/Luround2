@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookins_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/bookings/widget/filter_container.dart';
+import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -14,9 +16,14 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-class BookingsPage extends StatelessWidget {
+class BookingsPage extends StatefulWidget {
   BookingsPage({super.key});
 
+  @override
+  State<BookingsPage> createState() => _BookingsPageState();
+}
+
+class _BookingsPageState extends State<BookingsPage> {
   var controller = Get.put(BookingsController());
 
   @override
@@ -67,20 +74,46 @@ class BookingsPage extends StatelessWidget {
                   ),
                   SizedBox(height: 50,),
                   //search textfield
+                  SearchTextField(
+                    onFocusChanged: (val) {},
+                    onFieldSubmitted: (p0) {
+                      setState(() {
+                        controller.isFieldTapped.value = false;
+                      });
+                    },
+                    hintText: "Search",
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.done,  //.search,
+                    textController: controller.searchController,
+                    onTap: () {
+                      setState(() {
+                        controller.isFieldTapped.value = true;
+                      });
+                    },
+                  ),
                 ],
               ),
             ),         
-            /////////////////
-            
+            ////////////////////////////////////////////////////////          
 
             const SizedBox(height: 20,),
-            
-            //Filter here
-
+            //Filter widget here
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  FilterContainer(
+                    onTaped: () {
+                      //open bottomsheet
+                    },
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20,),
 
             //Futurebuilder will start from here (will wrap this listview)
-            //
-            //controller.isServicePresent.value ? ServiceEmptyState(onPressed: () {  },) :
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,

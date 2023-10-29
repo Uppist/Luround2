@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/bookins_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -9,56 +11,78 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-class DescriptionTextField extends StatefulWidget {
-  const DescriptionTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged,});
+class SearchTextField extends StatefulWidget {
+  const SearchTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
-  final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
   final void Function(bool)? onFocusChanged;
+  final void Function()? onTap;
   
 
   @override
-  State<DescriptionTextField> createState() => _DescriptionTextFieldState();
+  State<SearchTextField> createState() => _SearchTextFieldState();
 }
 
-class _DescriptionTextFieldState extends State<DescriptionTextField> {
+class _SearchTextFieldState extends State<SearchTextField> {
+
+  var controller = Get.put(BookingsController());
 
   @override
   Widget build(BuildContext context) {
-    return Focus(
-      onFocusChange: widget.onFocusChanged,
-      child: TextFormField(
-        onChanged: widget.onChanged,
-        controller: widget.textController,
-        keyboardType: widget.keyboardType,
-        maxLines: 2,
-        autocorrect: true,
-        inputFormatters: const [],
-        enableSuggestions: true,
-        enableInteractiveSelection: true,
-        cursorColor: AppColor.blackColor,
-        style: GoogleFonts.poppins(color: AppColor.blackColor),
-        textCapitalization: TextCapitalization.sentences,
-        textInputAction: widget.textInputAction,          
-        scrollPhysics: const BouncingScrollPhysics(),
-        decoration: InputDecoration(        
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none, // Remove the border
+    return SizedBox(
+      height: 50,
+      child: Focus(
+        onFocusChange: widget.onFocusChanged,
+        child: TextFormField(
+          onFieldSubmitted: widget.onFieldSubmitted,
+          //onChanged: widget.onChanged,
+          onTap: widget.onTap,
+          controller: widget.textController,
+          keyboardType: widget.keyboardType,
+          maxLines: 1,
+          autocorrect: true,
+          inputFormatters: const [],
+          enableSuggestions: true,
+          enableInteractiveSelection: true,
+          cursorColor: AppColor.textGreyColor,
+          style: GoogleFonts.poppins(color: AppColor.textGreyColor),
+          textCapitalization: TextCapitalization.sentences,
+          textInputAction: widget.textInputAction,          
+          scrollPhysics: const BouncingScrollPhysics(),
+          decoration: InputDecoration(        
+            /*border: OutlineInputBorder(
+              borderSide: BorderSide.none, // Remove the border
+            ),*/
+            contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColor.textGreyColor.withOpacity(0.1)), // Set the color you prefer
+              borderRadius: BorderRadius.circular(12)
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+              borderRadius: BorderRadius.circular(12)
+            ),     
+            hintText: widget.hintText,
+            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14),              
+            filled: true,
+            fillColor: AppColor.bgColor,
+            prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),
+            suffixIcon: controller.isFieldTapped.value == true ?
+            IconButton(
+              onPressed:() {
+                controller.searchController.clear();
+              },
+              icon: Icon(
+                CupertinoIcons.xmark, 
+                color: AppColor.textGreyColor, 
+                size: 20
+              ),
+            )
+             : null
           ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
-          ),     
-          hintText: widget.hintText,
-          hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 13),              
-          //filled: true,
-          //fillColor: swapSpaceWhiteColor,
-          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),
     );

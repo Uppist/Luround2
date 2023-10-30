@@ -64,7 +64,7 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                 SizedBox(height: 20,),
                 Text(
                   "Create your own account",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: AppColor.darkGreyColor
@@ -73,7 +73,7 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                 SizedBox(height: 20,),
                 Text(
                   "By setting up your own account, others can \n         schedule and book your services.",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: AppColor.darkGreyColor

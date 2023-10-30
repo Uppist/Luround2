@@ -34,7 +34,7 @@ class _Step3ScreenState extends State<Step3Screen> {
         children: [
           Text(
             "Select time",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 16,
               fontWeight: FontWeight.w500

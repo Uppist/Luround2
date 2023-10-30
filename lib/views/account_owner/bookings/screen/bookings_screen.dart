@@ -68,7 +68,7 @@ class _BookingsPageState extends State<BookingsPage> {
                         )
                       ]
                     ),
-                    const SizedBox(height: 40,),
+                    const SizedBox(height: 10,), //40
                     Center(
                       child: Text(
                         "Bookings",
@@ -446,7 +446,7 @@ class _BookingsPageState extends State<BookingsPage> {
                     );
                   }
                 ),
-              ),           
+              ),         
               ///
               const SizedBox(height: 20,)
             ]

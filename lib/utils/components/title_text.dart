@@ -13,7 +13,7 @@ class CustomAppBarTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.poppins(
+      style: GoogleFonts.inter(
         color: AppColor.blackColor,
         fontSize: 18,
         fontWeight: FontWeight.w500

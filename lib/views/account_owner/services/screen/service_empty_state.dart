@@ -32,7 +32,7 @@ class ServiceEmptyState extends StatelessWidget {
           SizedBox(height: 60,),
           Text(
             'No services yet',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
                 fontSize: 22,
@@ -46,7 +46,7 @@ class ServiceEmptyState extends StatelessWidget {
               children: [
                 TextSpan(
                   text:'Click on',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16,
@@ -56,7 +56,7 @@ class ServiceEmptyState extends StatelessWidget {
                 ),
                 TextSpan(
                   text:' "Add Section" ',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
                       fontSize: 16,
@@ -66,7 +66,7 @@ class ServiceEmptyState extends StatelessWidget {
                 ),
                 TextSpan(
                   text:'button to start \n             adding your services',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16,
@@ -95,7 +95,7 @@ class ServiceEmptyState extends StatelessWidget {
               ),
               child: Text(
                 'Add Section',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
                     fontSize: 16,

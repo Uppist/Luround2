@@ -44,7 +44,7 @@ class _AppointmentTypeState extends State<AppointmentType> {
             SizedBox(width: 10,),
             Text(
               "In-person",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500
@@ -73,7 +73,7 @@ class _AppointmentTypeState extends State<AppointmentType> {
             SizedBox(width: 10,),
             Text(
               "Virtual",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
                 fontSize: 16,
                 fontWeight: FontWeight.w500

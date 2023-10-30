@@ -47,7 +47,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
               children: [
                 Text(
                   'Delete "${titleText}"',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 18,
                     fontWeight: FontWeight.bold
@@ -56,7 +56,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                 SizedBox(height: 40,),
                 Text(
                   'Are you sure you want to delete this service ?',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14,
                     //fontWeight: FontWeight.bold
@@ -86,7 +86,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                           ),
                           child: Text(
                             "Cancel",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 18,
@@ -116,7 +116,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                           ),
                           child: Text(
                             "Delete",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
                                 fontSize: 18,

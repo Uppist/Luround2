@@ -72,7 +72,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       children: [
                         Text(
                           'Education & Certification',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 18,
                             fontWeight: FontWeight.bold
@@ -93,7 +93,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       children: [
                         Text(
                           'Certification name*',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 15,
                             fontWeight: FontWeight.w500
@@ -103,7 +103,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                           onPressed: () {},
                           child: Text(
                             'Remove',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 decoration: TextDecoration.underline,
                                 color: AppColor.textGreyColor,

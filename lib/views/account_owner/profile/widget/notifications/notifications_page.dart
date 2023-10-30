@@ -75,7 +75,7 @@ class NotificationsPage extends StatelessWidget {
                           radius: 30,
                           child: Text(
                             "J",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
@@ -127,7 +127,7 @@ class NotificationsPage extends StatelessWidget {
                             children: [
                               Text(
                                 "Yester Moron booked a Personal Training session.",  //recepient name
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     overflow: TextOverflow.visible,
                                     color: AppColor.blackColor,
@@ -139,7 +139,7 @@ class NotificationsPage extends StatelessWidget {
                               SizedBox(height: 20,),
                               Text(
                                 "Jun 24 at 10:00",  //recepient name
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   //fontWeight: FontWeight.w500,
                                   fontSize: 14

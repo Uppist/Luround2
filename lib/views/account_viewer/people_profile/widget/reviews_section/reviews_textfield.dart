@@ -46,7 +46,7 @@ class _ReviewTextFieldState extends State<ReviewTextField> {
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,
-        style: GoogleFonts.poppins(color: AppColor.blackColor),
+        style: GoogleFonts.inter(color: AppColor.blackColor),
         textCapitalization: TextCapitalization.sentences,
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),
@@ -61,7 +61,7 @@ class _ReviewTextFieldState extends State<ReviewTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 13),              
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)

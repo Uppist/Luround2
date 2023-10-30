@@ -59,7 +59,7 @@ class _EducationTextFieldState extends State<EducationTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14),              
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           suffixIcon:InkWell(

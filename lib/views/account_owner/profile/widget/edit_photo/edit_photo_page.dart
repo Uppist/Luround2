@@ -84,7 +84,7 @@ class EditPhotoPage extends StatelessWidget {
                     //Personal Details
                     Text(
                       'Personal Details',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 18,
                         fontWeight: FontWeight.bold

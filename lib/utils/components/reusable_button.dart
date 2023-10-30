@@ -28,7 +28,7 @@ class ReusableButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
               fontSize: 18,

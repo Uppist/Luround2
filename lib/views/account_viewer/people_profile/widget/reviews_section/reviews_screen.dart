@@ -61,7 +61,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                       }, 
                       child: Text(
                         'Write a review',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.mainColor,
                             decoration: TextDecoration.underline,
@@ -88,7 +88,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                   children: [
                     Text(
                       '4.0',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
                           //decoration: TextDecoration.underline,
@@ -117,7 +117,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                         SizedBox(height: 10,),
                         Text(
                           'based on 12 ratings',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.darkGreyColor,
                               fontSize: 14,
@@ -159,7 +159,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                           radius: 33,
                           child: Text(
                             "F",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 20,
                               fontWeight: FontWeight.bold
@@ -173,7 +173,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                             children: [
                               Text(
                                 'Fredy Isma',
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.blackColor,
                                     fontSize: 16,
@@ -201,7 +201,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                                   SizedBox(width: 40,),
                                   Text(
                                     '14 Sept. 2023',
-                                    style: GoogleFonts.poppins(
+                                    style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         color: AppColor.textGreyColor,
                                         fontSize: 14,
@@ -214,7 +214,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                               SizedBox(height: 15),
                               Text(
                                 'dddddddddthfthfjtyutyusthethrttttttttttttttttttttttttttttttttttttttttttrstgfxrhzthth',
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.textGreyColor,
                                     fontSize: 15,

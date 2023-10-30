@@ -89,7 +89,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 /*controller.curentStep == 0 ?*/ 
                 Text(
                   "${stepIndex + 1}",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
                     color: AppColor.bgColor
@@ -98,7 +98,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 /*:Icon(CupertinoIcons.check_mark, color: AppColor.bgColor, size: 15,)*/
               :Text(
                 "${stepIndex + 1}",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
                   color: AppColor.bgColor

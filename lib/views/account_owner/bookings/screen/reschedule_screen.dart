@@ -29,10 +29,10 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.greyColor, //controller.isServicePresent.value ? AppColor.bgColor : AppColor.greyColor,
+      backgroundColor: AppColor.bgColor,
       body: SafeArea(
-        child: Container(
-          //physics: NeverScrollableScrollPhysics(),
+        child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -90,7 +90,37 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     //SizedBox(height: 30,),
                   ]
                 )
-              )
+              ),
+              Container(
+                height: 7,
+                width: double.infinity,
+                color: AppColor.greyColor,
+              ),
+              SizedBox(height: 20,),
+              //WAT
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset("assets/svg/earth.svg"),
+                  SizedBox(width: 5),
+                  Text(
+                    "Reschedule",
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      //decoration: TextDecoration.underline,
+                      //decorationStyle: TextDeco
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  /*TextButton(
+                    onPressed: (), 
+                    child: child
+                  )*/
+                ],
+              ),
+
             ]
           )
         )

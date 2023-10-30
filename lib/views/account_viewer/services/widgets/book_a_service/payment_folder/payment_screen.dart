@@ -83,7 +83,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   SizedBox(height: 20,),
                   Text(
                     "Enter your payment details",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w500

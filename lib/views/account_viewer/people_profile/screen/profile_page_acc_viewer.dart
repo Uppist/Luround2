@@ -90,7 +90,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           }, 
                           child: Text(
                             'See all reviews',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
                                 decoration: TextDecoration.underline,
@@ -129,7 +129,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 Center(
                   child: Text(
                     'Ronald Richard',
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.blackColor,
                         fontSize: 20,
@@ -143,7 +143,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 Center(
                   child: Text(
                     'Brinext Ltd.',
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.blackColor,
                         fontSize: 15,
@@ -157,7 +157,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 Center(
                   child: Text(
                     'Professional Specialist',
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,
                         fontSize: 15,
@@ -259,7 +259,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                     SizedBox(height: 20,),
                     Text(
                       "Create your own account",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: AppColor.darkGreyColor
@@ -268,7 +268,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                     SizedBox(height: 20,),
                     Text(
                       "By setting up your own account, others can \n         schedule and book your services.",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor

@@ -31,7 +31,7 @@ class CustomTapIcon extends StatelessWidget {
             SizedBox(height: 20,),
             Text(
               iconTitle,
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.textGreyColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500

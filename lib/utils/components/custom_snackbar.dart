@@ -24,7 +24,7 @@ class LuroundSnackBar {
               children: [
                 Text(
                   message,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.bgColor
                   ),
                 ),
@@ -66,7 +66,7 @@ class LuroundSnackBar {
               children: [
                 Text(
                   '$message $message2',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.textGreyColor,
                     fontWeight: FontWeight.w400,
                     height: 1.6,
@@ -102,7 +102,7 @@ class LuroundSnackBar {
               children: [
                 Text(
                   message,
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,
                       fontSize: 14,

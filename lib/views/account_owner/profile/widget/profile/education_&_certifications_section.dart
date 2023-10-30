@@ -27,7 +27,7 @@ class EducationAndCertificationSection extends StatelessWidget {
           children: [
             Text(
               'Education & Certifications',
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
                   fontSize: 18,
@@ -68,7 +68,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                     children: [
                       Text(
                         certificateTitle,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
                             fontSize: 16,
@@ -79,7 +79,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         institution,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
                             fontSize: 14,
@@ -90,7 +90,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         issuedDate,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
                             fontSize: 14,
@@ -101,7 +101,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       SizedBox(height: 5,),
                       Text(
                         credentialID,
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
                             fontSize: 14,
@@ -127,7 +127,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                           ),
                           child: Text(
                             'Show Certificate',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 15,

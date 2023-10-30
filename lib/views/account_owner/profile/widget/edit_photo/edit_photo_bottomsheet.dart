@@ -56,7 +56,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                       SizedBox(width: 20,),
                       Text(
                         'Edit profile photo',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
                           fontSize: 15,
                           fontWeight: FontWeight.w500
@@ -76,7 +76,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                       SizedBox(width: 20,),
                       Text(
                         'Replace profile photo',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
                           fontSize: 15,
                           fontWeight: FontWeight.w500
@@ -98,7 +98,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                       SizedBox(width: 20,),
                       Text(
                         'Delete profile photo',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
                           fontSize: 15,
                           fontWeight: FontWeight.w500

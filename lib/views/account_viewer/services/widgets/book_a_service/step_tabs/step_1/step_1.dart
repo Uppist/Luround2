@@ -74,7 +74,7 @@ class _Step1ScreenState extends State<Step1Screen> {
           SizedBox(height: 30),
           Text(
             "Service name*",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 14,
               fontWeight: FontWeight.w500
@@ -91,7 +91,7 @@ class _Step1ScreenState extends State<Step1Screen> {
           SizedBox(height: 30),
           Text(
             "Appointment type*",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 14,
               fontWeight: FontWeight.w500
@@ -103,7 +103,7 @@ class _Step1ScreenState extends State<Step1Screen> {
           SizedBox(height: 20,),
           Text(
             "Message (optional)",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.darkGreyColor,
               fontSize: 14,
               fontWeight: FontWeight.w500
@@ -132,7 +132,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             children: [
               Text(
                 "${controller.messageBAController.text.length}/${controller.maxLength}",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500

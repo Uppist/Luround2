@@ -68,7 +68,7 @@ class ServicesPage extends StatelessWidget {
                   Center(
                     child: Text(
                       "Services",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 20,
                         fontWeight: FontWeight.w500
@@ -135,7 +135,7 @@ class ServicesPage extends StatelessWidget {
                               const SizedBox(height: 40,),
                               Text(
                                 "Personal Training",
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500
@@ -144,7 +144,7 @@ class ServicesPage extends StatelessWidget {
                               const SizedBox(height: 20,),
                               Text(
                                 "Mon-Fri . 9:00AM - 10:00PM",
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
                                   fontSize: 15,
                                   //fontWeight: FontWeight.w500
@@ -153,7 +153,7 @@ class ServicesPage extends StatelessWidget {
                               const SizedBox(height: 20,),
                               Text(
                                 "zgshxttttttttttttttttttttttthxgfhfcgjcfgjhgyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuxs",
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500
@@ -170,7 +170,7 @@ class ServicesPage extends StatelessWidget {
                                     const SizedBox(width: 10,),
                                     Text(
                                       "https://www.link.com",
-                                      style: GoogleFonts.poppins(
+                                      style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500
@@ -190,7 +190,7 @@ class ServicesPage extends StatelessWidget {
                                     const SizedBox(width: 10,),
                                     Text(
                                       "https://www.link.com",
-                                      style: GoogleFonts.poppins(
+                                      style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w500
@@ -207,7 +207,7 @@ class ServicesPage extends StatelessWidget {
                                     //price
                                     TextSpan(
                                       text: "N25,000",
-                                      style: GoogleFonts.poppins(
+                                      style: GoogleFonts.inter(
                                         color: AppColor.blackColor,
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold
@@ -216,7 +216,7 @@ class ServicesPage extends StatelessWidget {
                                     //time
                                     TextSpan(
                                       text: "/30mins",
-                                      style: GoogleFonts.poppins(
+                                      style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500
@@ -225,7 +225,7 @@ class ServicesPage extends StatelessWidget {
                                     //session
                                     TextSpan(
                                       text: " per session",
-                                      style: GoogleFonts.poppins(
+                                      style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w500

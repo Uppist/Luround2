@@ -36,7 +36,7 @@ class _Step2ScreenState extends State<Step2Screen> {
         children: [
           Text(
             "Select day",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
@@ -48,17 +48,17 @@ class _Step2ScreenState extends State<Step2Screen> {
               calendarType: CalendarDatePicker2Type.range,
             ),*/
             config: CalendarDatePicker2Config(           
-              weekdayLabelTextStyle:  GoogleFonts.poppins(
+              weekdayLabelTextStyle:  GoogleFonts.inter(
                 color: AppColor.mainColor
               ),
-              selectedYearTextStyle:  GoogleFonts.poppins(
+              selectedYearTextStyle:  GoogleFonts.inter(
                 color: AppColor.mainColor
               ),
-              selectedRangeDayTextStyle:  GoogleFonts.poppins(
+              selectedRangeDayTextStyle:  GoogleFonts.inter(
                 color: AppColor.bgColor
               ),
               selectedRangeHighlightColor: AppColor.mainColor.withOpacity(0.2),
-              selectedDayTextStyle:  GoogleFonts.poppins(
+              selectedDayTextStyle:  GoogleFonts.inter(
                 color: AppColor.bgColor
               ),
               selectedDayHighlightColor: AppColor.mainColor,
@@ -97,7 +97,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                   ),
                   child: Text(
                     "Cancel",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
                         fontSize: 16,
@@ -124,7 +124,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                   ),
                   child: Text(
                     "Apply",
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.bgColor,
                         fontSize: 16,

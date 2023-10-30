@@ -26,7 +26,7 @@ class OtherDetailsSection extends StatelessWidget {
           children: [
             Text(
               'Other Details',
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
                   fontSize: 18,
@@ -63,7 +63,7 @@ class OtherDetailsSection extends StatelessWidget {
                     //Title text
                     Text(
                       profileController.titleText[index],
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
                           fontSize: 16,
@@ -75,7 +75,7 @@ class OtherDetailsSection extends StatelessWidget {
                     //Subtitle text
                     Text(
                       profileController.subtitleText[index],
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
                           fontSize: 14,

@@ -55,7 +55,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                     //
                     Text(
                       "Transaction Successful",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 22,
                         fontWeight: FontWeight.w500
@@ -67,7 +67,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                         children: [
                           TextSpan(
                             text :'You have successfully booked',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: AppColor.darkGreyColor
@@ -75,7 +75,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                           ),
                           TextSpan(
                             text :' "Ronald Richie"          \n',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: AppColor.darkGreyColor
@@ -83,7 +83,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                           ),
                           TextSpan(
                             text :'            for a',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               fontSize: 18,
                               fontWeight: FontWeight.w500,
                               color: AppColor.darkGreyColor
@@ -91,7 +91,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                           ),
                           TextSpan(
                             text :' "Personal Training Session".',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: AppColor.darkGreyColor

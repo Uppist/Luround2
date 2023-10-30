@@ -75,7 +75,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
         showRangeCalendar(context: context);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 60),
         child: Container(
           color: AppColor.bgColor,
           width: double.infinity,
@@ -102,7 +102,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                   children: [
                     Text(
                       controller.startDate(),
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
                           fontSize: 16,
@@ -110,7 +110,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                         )
                       )
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(width: 5,),
                     SvgPicture.asset("assets/svg/calendar_icon.svg")
                   ],
                 ),
@@ -118,7 +118,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
     
               Text(
                 "-",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.textGreyColor,
                     fontSize: 16,
@@ -146,7 +146,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                   children: [
                     Text(
                       controller.endDate(),
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
                           fontSize: 16,
@@ -154,7 +154,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                         )
                       )
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(width: 5,),
                     SvgPicture.asset("assets/svg/calendar_icon.svg")
                   ],
                 ),

@@ -85,7 +85,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                       children: [
                         Text(
                           'Others',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 18,
                             fontWeight: FontWeight.bold
@@ -93,7 +93,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                         ),
                         Text(
                           'Hold field to re-order',
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             color: AppColor.yellowStar,
                             //fontWeight: FontWeight.w500,
                             fontSize: 14
@@ -245,13 +245,12 @@ class _EditOthersPageState extends State<EditOthersPage> {
                     SizedBox(height: 40),
                     Text(
                       'Tap on icon to add',
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 18,
                         fontWeight: FontWeight.bold
                       )
                     ),
-
 
                     SizedBox(height: 40),
 

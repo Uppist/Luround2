@@ -117,7 +117,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   children: [
                     Text(
                       controller.daysOfTheWeekCheckBox[widget.index]['from'] ?? "from", //"${controller.startTime.value}: ${controller.startMinute.value}",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
                           fontSize: 16,
@@ -136,7 +136,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
     
               Text(
                 "-",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.textGreyColor,
                     fontSize: 16,
@@ -164,7 +164,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   children: [
                     Text(
                       controller.daysOfTheWeekCheckBox[widget.index]['to'] ?? "to", //"${controller.endTime.value}: ${controller.endMinute.value}",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.textGreyColor,
                           fontSize: 16,

@@ -23,7 +23,7 @@ class ProfileEmptyState extends StatelessWidget {
           SizedBox(height: 30,),
           Text(
             'No profile details yet',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
                 fontSize: 20,
@@ -37,7 +37,7 @@ class ProfileEmptyState extends StatelessWidget {
               children: [
                 TextSpan(
                   text:'Click on',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16,
@@ -47,7 +47,7 @@ class ProfileEmptyState extends StatelessWidget {
                 ),
                 TextSpan(
                   text:' "Add Section" ',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
                       fontSize: 16,
@@ -57,7 +57,7 @@ class ProfileEmptyState extends StatelessWidget {
                 ),
                 TextSpan(
                   text:'button to start \n             adding to your profile',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16,
@@ -86,7 +86,7 @@ class ProfileEmptyState extends StatelessWidget {
               ),
               child: Text(
                 'Add Section',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
                     fontSize: 16,

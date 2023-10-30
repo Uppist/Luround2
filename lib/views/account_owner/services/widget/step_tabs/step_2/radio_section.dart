@@ -49,7 +49,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
             SizedBox(width: 10,),
             Text(
               "Future booking timeframe",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.blackColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w500
@@ -81,7 +81,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
             SizedBox(width: 10,),
             Text(
               "Within a date range",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.blackColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w500
@@ -117,7 +117,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
             SizedBox(width: 10,),
             Text(
               "Indefinitely to the future timeframe",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.blackColor,
                 fontSize: 14,
                 fontWeight: FontWeight.w500

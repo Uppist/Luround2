@@ -57,7 +57,7 @@ class _Step1PageState extends State<Step1Page> {
           SizedBox(height: 30),
           Text(
             "Description (optional)",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
@@ -86,7 +86,7 @@ class _Step1PageState extends State<Step1Page> {
             children: [
               Text(
                 "${controller.descriptionController.text.length}/${controller.maxLength}",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w500
@@ -100,7 +100,7 @@ class _Step1PageState extends State<Step1Page> {
             children: [
               Text(
                 "Add links (optional)",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16,
                   fontWeight: FontWeight.w500
@@ -144,7 +144,7 @@ class _Step1PageState extends State<Step1Page> {
           SizedBox(height: 20,),
           Text(
             "Add links to contents that relates to this service",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.textGreyColor, 
               fontSize: 13
             ),
@@ -154,7 +154,7 @@ class _Step1PageState extends State<Step1Page> {
           SizedBox(height: 20,),
           Text(
             "Service charge per session",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
@@ -166,7 +166,7 @@ class _Step1PageState extends State<Step1Page> {
             children: [
               Text(
                 "In-person",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor, 
                   fontSize: 15,
                   fontWeight: FontWeight.w500
@@ -190,7 +190,7 @@ class _Step1PageState extends State<Step1Page> {
             children: [
               Text(
                 "Virtual",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor, 
                   fontSize: 15,
                   fontWeight: FontWeight.w500

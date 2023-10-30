@@ -56,7 +56,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
             ),
             child: Text(
               "Post",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500
@@ -95,7 +95,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       radius: 33,
                       child: Text(
                         "R",
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           color: AppColor.bgColor,
                           fontSize: 20,
                           fontWeight: FontWeight.bold
@@ -109,7 +109,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                         children: [
                           Text(
                             'Ronald Richards',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.blackColor,
                                 fontSize: 16,
@@ -120,7 +120,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                           SizedBox(height: 30,),                           
                           Text(
                             'Reviews are public and include your account info.',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
                                 fontSize: 15,
@@ -151,7 +151,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                   children: [
                     Text(
                       "Rate this person",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w500
@@ -199,7 +199,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                   children: [
                     Text(
                       "Write a review",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 16,
                         fontWeight: FontWeight.w500
@@ -208,7 +208,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                     SizedBox(height: 10,),
                     Text(
                       "Share your thoughts with others",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 13,
                         //fontWeight: FontWeight.w500
@@ -237,7 +237,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       children: [
                         Text(
                           "${controller.reviewController.text.length}/${controller.maxLength}",
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             color: AppColor.textGreyColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w500

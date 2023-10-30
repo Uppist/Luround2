@@ -26,7 +26,7 @@ class NotificationEmptyState extends StatelessWidget {
           SizedBox(height: 30,),
           Text(
             'No notifications yet',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
                 fontSize: 22,
@@ -37,7 +37,7 @@ class NotificationEmptyState extends StatelessWidget {
           SizedBox(height: 15,),
           Text(
             "When you get notifications, they'll\n                 show up here",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.darkGreyColor,
                 fontSize: 16,
@@ -63,7 +63,7 @@ class NotificationEmptyState extends StatelessWidget {
               ),
               child: Text(
                 'Refresh',
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
                     fontSize: 16,

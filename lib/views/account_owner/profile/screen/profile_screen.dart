@@ -101,7 +101,7 @@ class ProfilePage extends StatelessWidget {
                           }, 
                           child: Text(
                             'See all reviews',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
                                 decoration: TextDecoration.underline,
@@ -135,7 +135,7 @@ class ProfilePage extends StatelessWidget {
                     Center(
                       child: Text(
                         'Ronald Richard',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
                             fontSize: 20,
@@ -149,7 +149,7 @@ class ProfilePage extends StatelessWidget {
                     Center(
                       child: Text(
                         'Professional Specialist',
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
                             fontSize: 16,
@@ -166,7 +166,7 @@ class ProfilePage extends StatelessWidget {
                         TextButton(
                           onPressed: () {},
                           child: Text('https://www.mylink.com',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.blueColor,
                                 fontSize: 14,
@@ -240,7 +240,7 @@ class ProfilePage extends StatelessWidget {
         onPressed: () {},
         label: Text(
           'Share Profile',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
               fontSize: 15,

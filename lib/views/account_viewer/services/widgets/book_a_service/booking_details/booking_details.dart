@@ -60,7 +60,7 @@ class BookingDetails extends StatelessWidget {
                     Center(
                       child: Text(
                         "Booking Details",
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           color: AppColor.blackColor,
                           fontSize: 16,
                           fontWeight: FontWeight.w500
@@ -86,7 +86,7 @@ class BookingDetails extends StatelessWidget {
                     SizedBox(height: 20,),
                     Text(
                       "Message",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 15,
                         fontWeight: FontWeight.w500
@@ -95,7 +95,7 @@ class BookingDetails extends StatelessWidget {
                     SizedBox(height: 20,),
                     Text(
                       "gzfgxdfgdffhfghfghfgggggggggggggggggggggggggggggggggsfssssssssssssssssssssssssssssss",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 15,
                         //fontWeight: FontWeight.w500

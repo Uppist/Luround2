@@ -28,7 +28,7 @@ class UploadFileWidget extends StatelessWidget {
           children: [
             Text(
               "Drag file here or click the button below",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.textGreyColor,
                 fontSize: 14,
                 //fontWeight: FontWeight.w500
@@ -47,7 +47,7 @@ class UploadFileWidget extends StatelessWidget {
                 ),
                 child: Text(
                   "Upload file",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.bgColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500

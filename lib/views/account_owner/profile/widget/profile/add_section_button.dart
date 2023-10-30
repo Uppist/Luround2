@@ -27,7 +27,7 @@ class AddSectionButton extends StatelessWidget {
         ),
         child: Text(
           'Add Section',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
               fontSize: 18,

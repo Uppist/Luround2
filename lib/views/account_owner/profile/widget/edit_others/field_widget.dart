@@ -40,7 +40,7 @@ class CustomFieldWidget extends StatelessWidget {
               //textfield name
               Text(
                 fieldName,
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
                   fontSize: 14,
                   //fontWeight: FontWeight.w500

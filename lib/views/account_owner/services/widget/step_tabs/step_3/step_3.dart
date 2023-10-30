@@ -35,7 +35,7 @@ class _Step3PageState extends State<Step3Page> {
       children: [
         Text(
           "Day and Time availability*",
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 16,
             fontWeight: FontWeight.w500
@@ -52,7 +52,7 @@ class _Step3PageState extends State<Step3Page> {
             SizedBox(width: 10,),
             Text(
               "West Africa Standard Time",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 color: AppColor.mainColor,
                 fontSize: 15,
                 fontWeight: FontWeight.w500
@@ -77,7 +77,7 @@ class _Step3PageState extends State<Step3Page> {
               activeColor: AppColor.mainColor,
               controlAffinity: ListTileControlAffinity.leading,
               value: controller.daysOfTheWeekCheckBox[index]["isChecked"],
-              contentPadding: EdgeInsets.symmetric(horizontal: 5),
+              contentPadding: EdgeInsets.symmetric(horizontal: 5,),
               onChanged: (value) {
                 setState(() {
                   controller.daysOfTheWeekCheckBox[index]["isChecked"] = value;
@@ -89,17 +89,24 @@ class _Step3PageState extends State<Step3Page> {
               tileColor: AppColor.bgColor,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     controller.daysOfTheWeekCheckBox[index]["day"],
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 15,
                       fontWeight: FontWeight.w500
                     ),
                   ),
                   InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      setState(() {
+                        controller.daysOfTheWeekCheckBox[index]["isChecked"] = !controller.daysOfTheWeekCheckBox[index]["isChecked"];
+                        //to activate the done button
+                        controller.isCheckBoxActive.value = true;
+                      });
+                    },
                     child: SvgPicture.asset("assets/svg/add_icon.svg"),
                   )
                 ],

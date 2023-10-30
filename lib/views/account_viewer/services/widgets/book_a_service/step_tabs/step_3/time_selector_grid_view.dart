@@ -57,7 +57,7 @@ class _TimeGridViewState extends State<TimeGridView> {
               children: [
                 Text(
                   "9:50AM ${index}",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: controller.selectedindex == index ? AppColor.mainColor : AppColor.blackColor,
                     fontSize: 16,
                     fontWeight: FontWeight.w500

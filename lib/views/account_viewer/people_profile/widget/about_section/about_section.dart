@@ -20,7 +20,7 @@ class AccViewerAboutSection extends StatelessWidget {
       children: [
         Text(
           'About',
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.blackColor,
               fontSize: 18,
@@ -31,7 +31,7 @@ class AccViewerAboutSection extends StatelessWidget {
         SizedBox(height: 20),
         Text(
           text,
-          style: GoogleFonts.poppins(
+          style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
               fontSize: 14,

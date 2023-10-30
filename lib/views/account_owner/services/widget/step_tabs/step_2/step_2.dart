@@ -36,7 +36,7 @@ class _Step2PageState extends State<Step2Page> {
         children: [
           Text(
             "Service duration*",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
@@ -78,7 +78,7 @@ class _Step2PageState extends State<Step2Page> {
                 children: [
                   Text(
                     "${controller.duration}".substring(0, 7),
-                    style: GoogleFonts.poppins(
+                    style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
                         fontSize: 16,
@@ -97,7 +97,7 @@ class _Step2PageState extends State<Step2Page> {
           SizedBox(height: 30,),
           Text(
             "This service can be scheduled...",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 14,
               fontWeight: FontWeight.w500

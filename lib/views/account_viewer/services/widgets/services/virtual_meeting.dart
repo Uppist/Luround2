@@ -33,7 +33,7 @@ class VirtualContainer extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 "In-person",
-                style: GoogleFonts.poppins(
+                style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.textGreyColor,
                     fontSize: 15,
@@ -59,7 +59,7 @@ class VirtualContainer extends StatelessWidget {
                 ),
                 child: Text(
                   "Virtual",
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,
                       fontSize: 14,

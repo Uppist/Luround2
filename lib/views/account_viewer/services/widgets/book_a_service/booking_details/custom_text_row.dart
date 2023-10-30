@@ -22,7 +22,7 @@ class CustomTextRow extends StatelessWidget {
         children: [
           Text(
             leftText,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.textGreyColor,
               fontSize: 15,
               fontWeight: FontWeight.w500
@@ -30,7 +30,7 @@ class CustomTextRow extends StatelessWidget {
           ),
           Text(
             rightText,
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 15,
               fontWeight: FontWeight.w500

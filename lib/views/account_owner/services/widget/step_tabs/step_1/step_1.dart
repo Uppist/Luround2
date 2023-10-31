@@ -32,9 +32,9 @@ class _Step1PageState extends State<Step1Page> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.virtualController.addListener(() {
+    controller.serviceNameController.addListener(() {
       setState(() {
-        controller.ispriceButtonEnabled.value = controller.virtualController.text.isNotEmpty;
+        controller.ispriceButtonEnabled.value = controller.serviceNameController.text.isNotEmpty;
       });
     });
     super.initState();
@@ -47,6 +47,15 @@ class _Step1PageState extends State<Step1Page> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            "Service name",
+            style: GoogleFonts.inter(
+              color: AppColor.blackColor,
+              fontSize: 16,
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          SizedBox(height: 10),
           ReusableTextField(  
             onChanged: (val) {},
             hintText: "Service name*",

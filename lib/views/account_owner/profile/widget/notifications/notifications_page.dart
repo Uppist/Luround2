@@ -82,7 +82,7 @@ class NotificationsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 15),
                         /*RichText(
                           text: TextSpan(
                             children: [
@@ -132,7 +132,7 @@ class NotificationsPage extends StatelessWidget {
                                     overflow: TextOverflow.visible,
                                     color: AppColor.blackColor,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 16,
+                                    fontSize: 15,
                                   )
                                 )
                               ),

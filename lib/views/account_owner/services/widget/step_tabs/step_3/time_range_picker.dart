@@ -46,8 +46,8 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
           defaultDayNightColor: Color(0xFF1E1E1E),
           defaultDayNightTextColor: Colors.white,
           colonColor: Colors.white,*/
-          doneTextColor: AppColor.mainColor,
-          dismissTextColor: AppColor.mainColor,
+          doneTextColor: AppColor.blackColor,
+          dismissTextColor: AppColor.blackColor,
           showHeaderBullet: true,
           onTab: (from, to) {
             //POST REQUEST GO RUN THINGS FROM HERE
@@ -90,7 +90,6 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
         showLightTimePicker(context: context);
       },
       child: Container(
-        //padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Container(
           color: AppColor.bgColor,
           width: double.infinity,
@@ -102,7 +101,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
               Container(
                 alignment: Alignment.center,
                 height: 40,
-                //width: 80,
+                width: 110,
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,
@@ -133,6 +132,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   ],
                 ),
               ),
+              SizedBox(width: 10,),
     
               Text(
                 "-",
@@ -144,12 +144,13 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   )
                 )
               ),
-    
+              
+              SizedBox(width: 10,),
               //to container
               Container(
                 alignment: Alignment.center,
                 height: 40,
-                //width: 80,
+                width: 110,
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,

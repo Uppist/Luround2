@@ -34,7 +34,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               value: "Future timeframe", 
               groupValue: controller.selectDurationRadio, 
               onChanged: (val) {
@@ -66,7 +66,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "${controller.startDate()} - ${controller.endDate()}", //"Date range timeframe", 
               groupValue: controller.selectDurationRadio, 
@@ -101,7 +101,7 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Indefinitely to the future timeframe", 
               groupValue: controller.selectDurationRadio, 

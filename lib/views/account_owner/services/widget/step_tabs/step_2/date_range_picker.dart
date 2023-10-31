@@ -75,7 +75,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
         showRangeCalendar(context: context);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 60),
+        padding: const EdgeInsets.symmetric(horizontal: 50),
         child: Container(
           color: AppColor.bgColor,
           width: double.infinity,
@@ -84,37 +84,40 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //from container
-              Container(
-                alignment: Alignment.center,
-                height: 40,
-                //width: 80,
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: AppColor.textGreyColor,
-                    width: 1.0, //2
-                  )
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      controller.startDate(),
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16,
-                          //fontWeight: FontWeight.w500
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  width: 90,
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: AppColor.bgColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: AppColor.textGreyColor,
+                      width: 1.0, //2
+                    )
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        controller.startDate(),
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16,
+                            //fontWeight: FontWeight.w500
+                          )
                         )
-                      )
-                    ),
-                    SizedBox(width: 5,),
-                    SvgPicture.asset("assets/svg/calendar_icon.svg")
-                  ],
+                      ),
+                      SizedBox(width: 5,),
+                      SvgPicture.asset("assets/svg/calendar_icon.svg")
+                    ],
+                  ),
                 ),
               ),
+              SizedBox(width: 10,),
     
               Text(
                 "-",
@@ -126,37 +129,40 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                   )
                 )
               ),
-    
+
+              SizedBox(width: 10,),
               //to container
-              Container(
-                alignment: Alignment.center,
-                height: 40,
-                //width: 80,
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: AppColor.textGreyColor,
-                    width: 1.0, //2
-                  )
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      controller.endDate(),
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16,
-                          //fontWeight: FontWeight.w500
+              Expanded(
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 40,
+                  width: 90,
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  decoration: BoxDecoration(
+                    color: AppColor.bgColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: AppColor.textGreyColor,
+                      width: 1.0, //2
+                    )
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        controller.endDate(),
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16,
+                            //fontWeight: FontWeight.w500
+                          )
                         )
-                      )
-                    ),
-                    SizedBox(width: 5,),
-                    SvgPicture.asset("assets/svg/calendar_icon.svg")
-                  ],
+                      ),
+                      SizedBox(width: 5,),
+                      SvgPicture.asset("assets/svg/calendar_icon.svg")
+                    ],
+                  ),
                 ),
               )
             ],

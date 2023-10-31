@@ -57,7 +57,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                 width: double.infinity,
                 height: 7,
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
@@ -72,7 +72,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                         fontWeight: FontWeight.bold
                       )
                     ),
-                    SizedBox(height: 40),
+                    SizedBox(height: 30),
                     AboutTextField(
                       onChanged: (val) {
                         // Check if character count exceeds the maximum
@@ -84,12 +84,13 @@ class _EditAboutPageState extends State<EditAboutPage> {
                         setState(() {}); // Update the UI
                       },
                       //initial value is the one causing it
-                      initialValue: controller.aboutController.text, 
+                      //initialValue: controller.aboutController.text,
+                      controller: controller.aboutController, 
                       hintText: 'Enter a brief summary of your experience, skills and achievements',
                       keyboardType: TextInputType.multiline,
                       textInputAction: TextInputAction.done,                   
                     ),
-                    /*SizedBox(height: 20),
+                    SizedBox(height: 20),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -102,8 +103,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
                           )
                         ),
                       ],
-                    ),*/
-                    SizedBox(height: 500,),  //250
+                    ),
+                    SizedBox(height: 480,),  //250
                     ReusableButton(
                       color: AppColor.mainColor,
                       text: 'Save',

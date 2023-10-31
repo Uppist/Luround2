@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_photo/other_textfields.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -19,9 +20,14 @@ import 'occupation_textfield.dart';
 
 
 
-class EditPhotoPage extends StatelessWidget {
+class EditPhotoPage extends StatefulWidget {
   EditPhotoPage({super.key});
 
+  @override
+  State<EditPhotoPage> createState() => _EditPhotoPageState();
+}
+
+class _EditPhotoPageState extends State<EditPhotoPage> {
   var controller = Get.put(ProfilePageController());
 
   @override
@@ -54,7 +60,7 @@ class EditPhotoPage extends StatelessWidget {
                 width: double.infinity,
                 height: 7,
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 20,),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Column(
@@ -81,6 +87,7 @@ class EditPhotoPage extends StatelessWidget {
                       )
                     ),
                     SizedBox(height: 40,),
+                    
                     //Personal Details
                     Text(
                       'Personal Details',
@@ -91,11 +98,84 @@ class EditPhotoPage extends StatelessWidget {
                       )
                     ),
                     SizedBox(height: 20,),
+
                     //name textfield
                     NameTextField(
                       onChanged: (val) {},
                       initialValue: controller.nameController.text,
                       hintText: 'Enter your name',
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      onSuffixIconTapped: () {
+                        setState(() {
+                          controller.isSuffixIconTapped2.value = !controller.isSuffixIconTapped2.value;
+                        });
+                      },
+                    ),
+
+
+                    /////////////////////////////////////////
+                    controller.isSuffixIconTapped2.value ?
+                    Form(
+                      key: controller.formKey2,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            OtherSpecialTextField(
+                              onChanged: (val) {},
+                              initialValue: controller.titleController.text,
+                              hintText: 'Enter your title',
+                              keyboardType: TextInputType.text,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            OtherSpecialTextField(
+                              onChanged: (val) {},
+                              initialValue: controller.firstNameController.text,
+                              hintText: 'Enter your first name',
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            OtherSpecialTextField(
+                              onChanged: (val) {},
+                              initialValue: controller.middleNameController.text,
+                              hintText: 'Enter your middle name',
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            OtherSpecialTextField(
+                              onChanged: (val) {},
+                              initialValue: controller.lastNameController.text,
+                              hintText: 'Enter your last name',
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            SizedBox(height: 10,),
+                            OtherSpecialTextField(
+                              onChanged: (val) {},
+                              initialValue: controller.userNameController.text,
+                              hintText: 'Enter your username',
+                              keyboardType: TextInputType.name,
+                              textInputAction: TextInputAction.next,              
+                            ),
+                            //SizedBox(height: 10,),
+                          ],
+                        ),
+                      ),
+                    ) : SizedBox(),
+
+                    /////////////////////////////////////
+                    
+
+                    SizedBox(height: 10,),
+                    OccupationTextField(
+                      onChanged: (val) {},
+                      initialValue: controller.companyNameController.text,
+                      hintText: 'Enter your company name',
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
                     ),
@@ -107,19 +187,24 @@ class EditPhotoPage extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
                     ),
-                    SizedBox(height: 250,),  //160
+                    
+                    SizedBox(height: 20,),    
+        
+                    /////////////////////////         
+        
+                    SizedBox(height: 80,),  //160
                     ReusableButton(
                       color: AppColor.mainColor,
                       text: 'Save',
                       onPressed: () {},
                     ),
                     SizedBox(height: 20,),
-
-                  ],
-                ),
-              ),
+                      
+                  ]
+                )
+              )              
             ]
-          )
+          ),
         )
       )
     );

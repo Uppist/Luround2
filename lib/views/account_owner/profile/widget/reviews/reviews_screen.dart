@@ -164,7 +164,7 @@ class ReviewsPage extends StatelessWidget {
                                   //rating indicator
                                   RatingBarIndicator(                      
                                     unratedColor: AppColor.textGreyColor.withOpacity(0.2),
-                                    itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                                    itemPadding: EdgeInsets.symmetric(horizontal: 2),
                                     rating: 4.0,  //fetch from db
                                     itemBuilder: (context, index) => Icon(
                                       CupertinoIcons.star_fill,

@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_screen.dart';
-
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 
 
@@ -71,7 +70,7 @@ class OtherDetailsSection extends StatelessWidget {
                         )
                       )
                     ),
-                    SizedBox(height: 5,), //10
+                    SizedBox(height: 7,), //10
                     //Subtitle text
                     Text(
                       profileController.subtitleText[index],

@@ -15,12 +15,13 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class AboutTextField extends StatefulWidget {
-  const AboutTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
-  final String initialValue;
+  const AboutTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.controller,});
+  //final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
+  final TextEditingController controller;
 
   @override
   State<AboutTextField > createState() => _AboutTextFieldState();
@@ -38,10 +39,11 @@ class _AboutTextFieldState extends State<AboutTextField> {
       },
       child: TextFormField(
         onChanged: widget.onChanged,
-        initialValue: widget.initialValue,
-        //controller: ,
+        //initialValue: widget.initialValue,
+        controller: widget.controller,
         keyboardType: widget.keyboardType,
-        maxLines: 4,
+        minLines: 1,
+        maxLines: 10,
         autocorrect: true,
         inputFormatters: const [],
         enableSuggestions: true,

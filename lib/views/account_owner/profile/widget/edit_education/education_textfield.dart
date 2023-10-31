@@ -13,11 +13,11 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class EducationTextField extends StatefulWidget {
-  const EducationTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue, required this.onSuffixIconTapped,});
-  final String initialValue;
+  const EducationTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.controller,});
   final TextInputType keyboardType;
   final String hintText;
-  final VoidCallback onSuffixIconTapped;
+  //final VoidCallback onSuffixIconTapped;
+  final TextEditingController controller;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
 
@@ -36,11 +36,14 @@ class _EducationTextFieldState extends State<EducationTextField> {
         controller.updateEducationFocus(hasFocus);
       },
       child: TextFormField(
+        //onTap: widget.onSuffixIconTapped,
         onChanged: widget.onChanged,
-        initialValue: widget.initialValue,
+        controller: widget.controller,
         keyboardType: widget.keyboardType,
         autocorrect: true,
         inputFormatters: const [],
+        minLines: 1,
+        maxLines: 10,
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,
@@ -62,7 +65,7 @@ class _EducationTextFieldState extends State<EducationTextField> {
           hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          suffixIcon:InkWell(
+          /*suffixIcon:InkWell(
             onTap: widget.onSuffixIconTapped,
             child: controller.isSuffixIconTapped.value ? Icon(
               CupertinoIcons.chevron_up, 
@@ -74,7 +77,7 @@ class _EducationTextFieldState extends State<EducationTextField> {
                 color: AppColor.textGreyColor, 
                 size: 20,
               )
-          )
+          )*/
         ),
       ),
     );

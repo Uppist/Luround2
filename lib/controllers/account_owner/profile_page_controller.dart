@@ -15,8 +15,19 @@ class ProfilePageController extends getx.GetxController {
   //EDIT PHOTO & INTRO PAGE///////////////////////////////////////// 
   final TextEditingController nameController = TextEditingController();
   final TextEditingController occupationController = TextEditingController();
+  final TextEditingController companyNameController = TextEditingController();
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController middleNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController userNameController = TextEditingController();
+
+
+
   final nameFocus = false.obs;
   final professionFocus = false.obs;
+  final isSuffixIconTapped2 = false.obs;
+  final formKey2 = GlobalKey();
   updateNameFocus(bool val) {
     nameFocus.value = val;
   }
@@ -43,6 +54,10 @@ class ProfilePageController extends getx.GetxController {
   final TextEditingController expirationDateController = TextEditingController();
   final TextEditingController certicateIDController = TextEditingController();
   final TextEditingController certificateURLController = TextEditingController();
+  //////////*Specially for adding multiple certificates (max = 20)////////////////////
+ 
+  //save to db
+  /////////////////////////////////////
   final educationFocus = false.obs;
   final isSuffixIconTapped = false.obs;
   //for certificate details form
@@ -158,6 +173,12 @@ class ProfilePageController extends getx.GetxController {
     // TODO: implement onInit
     nameController.dispose();
     occupationController.dispose();
+    companyNameController.dispose();
+    titleController.dispose();
+    firstNameController.dispose();
+    middleNameController.dispose();
+    lastNameController.dispose();
+    userNameController.dispose();
     aboutController.dispose();
     educationController.dispose();
     issuingOrganizationController.dispose();
@@ -172,6 +193,12 @@ class ProfilePageController extends getx.GetxController {
     linkedInController.dispose();
     websiteController.dispose();
     facebookController.dispose();
+
+    //
+    /*for (var controller in controllers) {
+      controller.dispose();
+    }*/
+    //
     super.dispose();
   }
 }

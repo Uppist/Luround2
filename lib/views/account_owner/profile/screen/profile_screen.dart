@@ -45,9 +45,7 @@ class ProfilePage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Image(
-                      image: AssetImage('assets/images/luround_logo.png'),
-                    ),
+                    Image.asset('assets/images/luround_logo.png'),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [

@@ -13,12 +13,13 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class NameTextField extends StatefulWidget {
-  const NameTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
+  const NameTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue, required this.onSuffixIconTapped,});
   final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
+  final VoidCallback onSuffixIconTapped;
 
   @override
   State<NameTextField > createState() => _NameTextFieldState();
@@ -59,9 +60,20 @@ class _NameTextFieldState extends State<NameTextField> {
           ),     
           hintText: widget.hintText,
           hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
-          //filled: true,
-          //fillColor: swapSpaceWhiteColor,
-          suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+          suffixIcon:InkWell(
+            onTap: widget.onSuffixIconTapped,
+            child: controller.isSuffixIconTapped2.value ? Icon(
+              CupertinoIcons.chevron_up, 
+              color: AppColor.textGreyColor, 
+              size: 20,
+            ) 
+            : Icon(
+                CupertinoIcons.chevron_down, 
+                color: AppColor.textGreyColor, 
+                size: 20,
+              )
+          )
         ),
       ),
     );

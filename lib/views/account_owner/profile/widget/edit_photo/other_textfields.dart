@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -10,32 +12,30 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class DescriptionTextField extends StatefulWidget {
-  const DescriptionTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged,});
-  final TextEditingController textController;
+class OtherSpecialTextField extends StatefulWidget {
+  const OtherSpecialTextField({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
+  final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
-  final void Function(bool)? onFocusChanged;
-  
 
   @override
-  State<DescriptionTextField> createState() => _DescriptionTextFieldState();
+  State<OtherSpecialTextField> createState() => _OtherSpecialTextFieldState();
 }
 
-class _DescriptionTextFieldState extends State<DescriptionTextField> {
+class _OtherSpecialTextFieldState extends State<OtherSpecialTextField> {
+
+  var controller = Get.put(ProfilePageController());
 
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: widget.onFocusChanged,
+      onFocusChange: (hasFocus) {},
       child: TextFormField(
         onChanged: widget.onChanged,
-        controller: widget.textController,
+        initialValue: widget.initialValue,
         keyboardType: widget.keyboardType,
-        maxLines: 10,
-        minLines: 2,
         autocorrect: true,
         inputFormatters: const [],
         enableSuggestions: true,
@@ -56,9 +56,7 @@ class _DescriptionTextFieldState extends State<DescriptionTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13),              
-          //filled: true,
-          //fillColor: swapSpaceWhiteColor,
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),

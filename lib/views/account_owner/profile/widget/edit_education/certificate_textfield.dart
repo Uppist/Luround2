@@ -42,6 +42,8 @@ class _CertificationTextFieldState extends State<CertificationTextField> {
         keyboardType: widget.keyboardType,
         autocorrect: true,
         inputFormatters: const [],
+        minLines: 1,
+        maxLines: 10,
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,

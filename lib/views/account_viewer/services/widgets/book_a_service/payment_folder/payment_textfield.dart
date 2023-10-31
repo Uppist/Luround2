@@ -55,8 +55,8 @@ class _PaymentTextFieldState extends State<PaymentTextField> {
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.mainColor), // Set the color you prefer
           ),     
-          hintText: widget.hintText,
-          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13),              
+          labelText: widget.hintText,
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: widget.icon,

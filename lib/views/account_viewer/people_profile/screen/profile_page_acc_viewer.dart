@@ -45,264 +45,271 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
         ),
       ),*/
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image(
-                      image: AssetImage('assets/images/luround_logo.png'),
-                    ),
-                  ]
-                ),         
-              ),
-              SizedBox(height: 10),
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColor.greyColor
-                ),
-                height: 7,
-                width: double.infinity,
-              ),
-              
-              SizedBox(height: 30,),
-
-
-              //SEE ALL REVIEWS and image
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+        child: Column(
+          children: [
+            //////HEADER SECTION/////
+            SizedBox(height: 10),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image(
+                    image: AssetImage('assets/images/luround_logo.png'),
+                  ),
+                ]
+              ),         
+            ),
+            SizedBox(height: 10),
+            
+            ///////CUSTOM BODY SECTION/////
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Get.to(() => AccViewerReviewsPage());
-                          }, 
-                          child: Text(
-                            'See all reviews',
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.textGreyColor,
-                                decoration: TextDecoration.underline,
-                                fontSize: 14,
-                                //fontWeight: FontWeight.w500
-                                decorationColor: AppColor.darkGreyColor,
-                                decorationThickness: 2,
-                                decorationStyle: TextDecorationStyle.solid
+                  children: <Widget>[
+                    Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColor.greyColor
+                      ),
+                      height: 7,
+                      width: double.infinity,
+                    ),     
+                    SizedBox(height: 30,),
+            
+                    //SEE ALL REVIEWS and image
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              TextButton(
+                                onPressed: () {
+                                  Get.to(() => AccViewerReviewsPage());
+                                }, 
+                                child: Text(
+                                  'See all reviews',
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      color: AppColor.textGreyColor,
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 14,
+                                      //fontWeight: FontWeight.w500
+                                      decorationColor: AppColor.darkGreyColor,
+                                      decorationThickness: 2,
+                                      decorationStyle: TextDecorationStyle.solid
+                                    )
+                                  )
+                                )
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          //IMAGE
+                          Container(
+                            alignment: Alignment.center,
+                            height: 300,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              //color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
+                                fit: BoxFit.cover
                               )
+                            ),
+                          ),
+                        ],
+                      ),
+                    ), 
+            
+                      SizedBox(height: 30,),
+            
+                      //OWNER'S NAME
+                      Center(
+                        child: Text(
+                          'Ronald Richard',
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.blackColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold
                             )
                           )
                         ),
-                      ],
+                      ),
+                      SizedBox(height: 10,),
+                      //Where the person works
+                      Center(
+                        child: Text(
+                          'Brinext Ltd.',
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.blackColor,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                            )
+                          )
+                        ),
+                      ),
+                      SizedBox(height: 10,),
+                      //OWNER'S OCCUPATION Here
+                      Center(
+                        child: Text(
+                          'Professional Specialist',
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 15,
+                              //fontWeight: FontWeight.w500
+                            )
+                          )
+                        ),
+                      ),
+                      SizedBox(height: 30,),
+                      Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColor.greyColor
+                        ),
+                        height: 7,
+                        width: double.infinity,
+                      ),
+                      SizedBox(height: 30),
+                      /////////////////////////////
+                      //About section here
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        child: AccViewerAboutSection(
+                          text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColor.greyColor
+                        ),
+                        height: 7,
+                        width: double.infinity,
+                      ),
+                      SizedBox(height: 30),                 
+                      AccViewerEducationAndCertificationSection(
+                        itemCount: 2,
+                        onPressedShowCertificte: () {},
+                        certificateTitle: 'Certified Professional Specialist',
+                        institution: 'London Business School',
+                        issuedDate: 'Issued Oct 2023',
+                        credentialID: 'CREDENTIAL ID: 7380030',
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColor.greyColor
+                        ),
+                        height: 7,
+                        width: double.infinity,
+                      ),
+            
+                    SizedBox(height: 30,),
+                    //Additional information
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: AdditionalInfoSection(
+                        itemCount: 6,
+                        profileController: controller,
+                      ),
                     ),
-                    SizedBox(height: 10,),
-                    //IMAGE
+                    SizedBox(height: 30),
+            
                     Container(
                       alignment: Alignment.center,
-                      height: 300,
-                      width: double.infinity,
                       decoration: BoxDecoration(
-                        //color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
-                          fit: BoxFit.cover
-                        )
+                        color: AppColor.greyColor
                       ),
+                      height: 7,
+                      width: double.infinity,
                     ),
-                  ],
-                ),
-              ), 
-
-                SizedBox(height: 30,),
-
-                //OWNER'S NAME
-                Center(
-                  child: Text(
-                    'Ronald Richard',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold
-                      )
-                    )
-                  ),
-                ),
-                SizedBox(height: 10,),
-                //Where the person works
-                Center(
-                  child: Text(
-                    'Brinext Ltd.',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500
-                      )
-                    )
-                  ),
-                ),
-                SizedBox(height: 10,),
-                //OWNER'S OCCUPATION Here
-                Center(
-                  child: Text(
-                    'Professional Specialist',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 15,
-                        //fontWeight: FontWeight.w500
-                      )
-                    )
-                  ),
-                ),
-                SizedBox(height: 30,),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppColor.greyColor
-                  ),
-                  height: 7,
-                  width: double.infinity,
-                ),
-                SizedBox(height: 30),
-                /////////////////////////////
-                //About section here
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: AccViewerAboutSection(
-                    text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
-                  ),
-                ),
-                SizedBox(height: 30),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppColor.greyColor
-                  ),
-                  height: 7,
-                  width: double.infinity,
-                ),
-                SizedBox(height: 30),                 
-                AccViewerEducationAndCertificationSection(
-                  itemCount: 2,
-                  onPressedShowCertificte: () {},
-                  certificateTitle: 'Certified Professional Specialist',
-                  institution: 'London Business School',
-                  issuedDate: 'Issued Oct 2023',
-                  credentialID: 'CREDENTIAL ID: 7380030',
-                ),
-                SizedBox(height: 30),
-                Container(
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: AppColor.greyColor
-                  ),
-                  height: 7,
-                  width: double.infinity,
-                ),
-
-              SizedBox(height: 30,),
-              //Additional information
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: AdditionalInfoSection(
-                  itemCount: 6,
-                  profileController: controller,
-                ),
-              ),
-              SizedBox(height: 30),
-
-              Container(
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: AppColor.greyColor
-                ),
-                height: 7,
-                width: double.infinity,
-              ),
-              SizedBox(height: 20,), 
-
-
-              //Sign Me Up section///////////////////////////
-              controller.showSignMeUpSection.value ?
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    //Cancel button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            setState(() {
-                              controller.showSignMeUpSection.value = false;
-                            });
-                          }, 
-                          icon: Icon(CupertinoIcons.xmark),
-                          //iconSize: 30,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20,),
-                    Text(
-                      "Create your own account",
-                      style: GoogleFonts.inter(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.darkGreyColor
-                      ),
-                    ),
-                    SizedBox(height: 20,),
-                    Text(
-                      "By setting up your own account, others can \n         schedule and book your services.",
-                      style: GoogleFonts.inter(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.darkGreyColor
-                      ),
-                    ),
-                    SizedBox(height: 30,),
-                    //buttons
+                    SizedBox(height: 20,), 
+            
+            
+                    //Sign Me Up section///////////////////////////
+                    controller.showSignMeUpSection.value ?
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          ReusableButton(
-                            onPressed: () {},
-                            color: AppColor.mainColor,
-                            text: 'Sign me up',
-                          ),
-                          SizedBox(height: 30,),
-                          BorderButton(
-                            onPressed: (){},
-                            text: "Remind me later",
-                            textColor: AppColor.mainColor,
+                          //Cancel button
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    controller.showSignMeUpSection.value = false;
+                                  });
+                                }, 
+                                icon: Icon(CupertinoIcons.xmark),
+                                //iconSize: 30,
+                              ),
+                            ],
                           ),
                           SizedBox(height: 20,),
-                        ],
+                          Text(
+                            "Create your own account",
+                            style: GoogleFonts.inter(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: AppColor.darkGreyColor
+                            ),
+                          ),
+                          SizedBox(height: 20,),
+                          Text(
+                            "By setting up your own account, others can \n         schedule and book your services.",
+                            style: GoogleFonts.inter(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.darkGreyColor
+                            ),
+                          ),
+                          SizedBox(height: 30,),
+                          //buttons
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child: Column(
+                              children: [
+                                ReusableButton(
+                                  onPressed: () {},
+                                  color: AppColor.mainColor,
+                                  text: 'Sign me up',
+                                ),
+                                SizedBox(height: 30,),
+                                BorderButton(
+                                  onPressed: (){},
+                                  text: "Remind me later",
+                                  textColor: AppColor.mainColor,
+                                ),
+                                SizedBox(height: 20,),
+                              ],
+                            ),
+                          ),
+                        ]
                       ),
-                    ),
-                  ]
-                ),
-              ) : SizedBox()
-              //////////////////////////////////////////////////   
+                    ) : SizedBox()
+                    //////////////////////////////////////////////////   
+                      
                 
-          
-            ]
-          )
+                  ]
+                )
+              ),
+            ),
+          ],
         )
       )
     );

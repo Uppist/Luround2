@@ -30,7 +30,7 @@ class _AppointmentTypeBAState extends State<AppointmentTypeBA> {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "In-person", 
               groupValue: controller.step1Appointment, 
@@ -59,7 +59,7 @@ class _AppointmentTypeBAState extends State<AppointmentTypeBA> {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Virtual", 
               groupValue: controller.step1Appointment, 

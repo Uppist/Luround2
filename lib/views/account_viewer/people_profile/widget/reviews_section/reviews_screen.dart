@@ -156,7 +156,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColor.mainColor,
-                          radius: 33,
+                          radius: 30,
                           child: Text(
                             "F",
                             style: GoogleFonts.inter(
@@ -166,7 +166,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(width: 20),
+                        SizedBox(width: 15),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -181,14 +181,14 @@ class AccViewerReviewsPage extends StatelessWidget {
                                   )
                                 )
                               ),
-                              SizedBox(height: 30,),
+                              SizedBox(height: 25,),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   //rating indicator
                                   RatingBarIndicator(                      
                                     unratedColor: AppColor.textGreyColor.withOpacity(0.2),
-                                    itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                                    itemPadding: EdgeInsets.symmetric(horizontal: 3),
                                     rating: 4.0,  //fetch from db
                                     itemBuilder: (context, index) => Icon(
                                       CupertinoIcons.star_fill,
@@ -198,7 +198,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                                     itemSize: 20.0, //30
                                     direction: Axis.horizontal,
                                   ),
-                                  SizedBox(width: 40,),
+                                  //SizedBox(width: 40,),
                                   Text(
                                     '14 Sept. 2023',
                                     style: GoogleFonts.inter(

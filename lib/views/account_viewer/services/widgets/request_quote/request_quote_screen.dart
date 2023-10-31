@@ -138,7 +138,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 20,),
                           Text(
                             "Upload file (optional)",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 14,
                               fontWeight: FontWeight.w500
@@ -151,7 +151,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 30,),
                           Text(
                             "Message (optional)",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 14,
                               fontWeight: FontWeight.w500

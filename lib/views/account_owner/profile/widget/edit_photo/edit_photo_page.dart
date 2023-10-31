@@ -49,162 +49,171 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
         title: CustomAppBarTitle(text: 'Edit Photo & Intro',),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10),
-              Container(
-                color: AppColor.greyColor,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 10),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7,
+            ),
+            SizedBox(height: 20,),
+            ///
+            //User Photo
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              child: Container(
+                alignment: Alignment.bottomRight,
+                height: 300,
                 width: double.infinity,
-                height: 7,
-              ),
-              SizedBox(height: 20,),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //User Photo
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      height: 300,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
-                          fit: BoxFit.cover
-                        )
-                      ),
-                      child: InkWell(
-                        onTap: () {
-                          editPhotoDialogueBox(context: context);
-                        },
-                        child: SvgPicture.asset("assets/svg/edit_photo_icon.svg"),
-                      )
-                    ),
-                    SizedBox(height: 40,),
-                    
-                    //Personal Details
-                    Text(
-                      'Personal Details',
-                      style: GoogleFonts.inter(
-                        color: AppColor.blackColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                      )
-                    ),
-                    SizedBox(height: 20,),
-
-                    //name textfield
-                    NameTextField(
-                      onChanged: (val) {},
-                      initialValue: controller.nameController.text,
-                      hintText: 'Enter your name',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      onSuffixIconTapped: () {
-                        setState(() {
-                          controller.isSuffixIconTapped2.value = !controller.isSuffixIconTapped2.value;
-                        });
-                      },
-                    ),
-
-
-                    /////////////////////////////////////////
-                    controller.isSuffixIconTapped2.value ?
-                    Form(
-                      key: controller.formKey2,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            OtherSpecialTextField(
-                              onChanged: (val) {},
-                              initialValue: controller.titleController.text,
-                              hintText: 'Enter your title',
-                              keyboardType: TextInputType.text,
-                              textInputAction: TextInputAction.next,              
-                            ),
-                            SizedBox(height: 10,),
-                            OtherSpecialTextField(
-                              onChanged: (val) {},
-                              initialValue: controller.firstNameController.text,
-                              hintText: 'Enter your first name',
-                              keyboardType: TextInputType.name,
-                              textInputAction: TextInputAction.next,              
-                            ),
-                            SizedBox(height: 10,),
-                            OtherSpecialTextField(
-                              onChanged: (val) {},
-                              initialValue: controller.middleNameController.text,
-                              hintText: 'Enter your middle name',
-                              keyboardType: TextInputType.name,
-                              textInputAction: TextInputAction.next,              
-                            ),
-                            SizedBox(height: 10,),
-                            OtherSpecialTextField(
-                              onChanged: (val) {},
-                              initialValue: controller.lastNameController.text,
-                              hintText: 'Enter your last name',
-                              keyboardType: TextInputType.name,
-                              textInputAction: TextInputAction.next,              
-                            ),
-                            SizedBox(height: 10,),
-                            OtherSpecialTextField(
-                              onChanged: (val) {},
-                              initialValue: controller.userNameController.text,
-                              hintText: 'Enter your username',
-                              keyboardType: TextInputType.name,
-                              textInputAction: TextInputAction.next,              
-                            ),
-                            //SizedBox(height: 10,),
-                          ],
-                        ),
-                      ),
-                    ) : SizedBox(),
-
-                    /////////////////////////////////////
-                    
-
-                    SizedBox(height: 10,),
-                    OccupationTextField(
-                      onChanged: (val) {},
-                      initialValue: controller.companyNameController.text,
-                      hintText: 'Enter your company name',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                    ),
-                    SizedBox(height: 10,),
-                    OccupationTextField(
-                      onChanged: (val) {},
-                      initialValue: controller.occupationController.text,
-                      hintText: 'What do you do ?',
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.done,
-                    ),
-                    
-                    SizedBox(height: 20,),    
-        
-                    /////////////////////////         
-        
-                    SizedBox(height: 80,),  //160
-                    ReusableButton(
-                      color: AppColor.mainColor,
-                      text: 'Save',
-                      onPressed: () {},
-                    ),
-                    SizedBox(height: 20,),
-                      
-                  ]
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                decoration: BoxDecoration(
+                  color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
+                    fit: BoxFit.cover
+                  )
+                ),
+                child: InkWell(
+                  onTap: () {
+                    editPhotoDialogueBox(context: context);
+                  },
+                  child: SvgPicture.asset("assets/svg/edit_photo_icon.svg"),
                 )
-              )              
-            ]
-          ),
+              ),
+            ),
+            SizedBox(height: 20,),
+            //Personal Details
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              child: Text(
+                'Personal Details',
+                style: GoogleFonts.inter(
+                  color: AppColor.blackColor,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
+                )
+              ),
+            ),
+            SizedBox(height: 20,),
+            ///
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [               
+                      SizedBox(height: 20,),
+              
+                      //name textfield
+                      NameTextField(
+                        onChanged: (val) {},
+                        initialValue: controller.nameController.text,
+                        hintText: 'Enter your name',
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                        onSuffixIconTapped: () {
+                          setState(() {
+                            controller.isSuffixIconTapped2.value = !controller.isSuffixIconTapped2.value;
+                          });
+                        },
+                      ),
+                       
+                      /////////////////////////////////////////
+                      controller.isSuffixIconTapped2.value ?
+                      Form(
+                        key: controller.formKey2,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              OtherSpecialTextField(
+                                onChanged: (val) {},
+                                initialValue: controller.titleController.text,
+                                hintText: 'Enter your title',
+                                keyboardType: TextInputType.text,
+                                textInputAction: TextInputAction.next,              
+                              ),
+                              SizedBox(height: 10,),
+                              OtherSpecialTextField(
+                                onChanged: (val) {},
+                                initialValue: controller.firstNameController.text,
+                                hintText: 'Enter your first name',
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,              
+                              ),
+                              SizedBox(height: 10,),
+                              OtherSpecialTextField(
+                                onChanged: (val) {},
+                                initialValue: controller.middleNameController.text,
+                                hintText: 'Enter your middle name',
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,              
+                              ),
+                              SizedBox(height: 10,),
+                              OtherSpecialTextField(
+                                onChanged: (val) {},
+                                initialValue: controller.lastNameController.text,
+                                hintText: 'Enter your last name',
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,              
+                              ),
+                              SizedBox(height: 10,),
+                              OtherSpecialTextField(
+                                onChanged: (val) {},
+                                initialValue: controller.userNameController.text,
+                                hintText: 'Enter your username',
+                                keyboardType: TextInputType.name,
+                                textInputAction: TextInputAction.next,              
+                              ),
+                              //SizedBox(height: 10,),
+                            ],
+                          ),
+                        ),
+                      ) : SizedBox(),
+              
+                      /////////////////////////////////////                  
+              
+                      SizedBox(height: 10,),
+                      OccupationTextField(
+                        onChanged: (val) {},
+                        initialValue: controller.companyNameController.text,
+                        hintText: 'Enter your company name',
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,
+                      ),
+                      SizedBox(height: 10,),
+                      OccupationTextField(
+                        onChanged: (val) {},
+                        initialValue: controller.occupationController.text,
+                        hintText: 'What do you do ?',
+                        keyboardType: TextInputType.text,
+                        textInputAction: TextInputAction.done,
+                      ),
+                      
+                      SizedBox(height: 20,),    
+                      
+                      /////////////////////////                               
+                    ]
+                  )
+                ),
+              ),
+            ),
+            SizedBox(height: 5,),  //160
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              child: ReusableButton(
+                color: AppColor.mainColor,
+                text: 'Save',
+                onPressed: () {},
+              ),
+            ),
+            SizedBox(height: 20,),              
+          ]
         )
       )
     );

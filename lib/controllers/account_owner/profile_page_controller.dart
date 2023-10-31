@@ -54,13 +54,11 @@ class ProfilePageController extends getx.GetxController {
   final TextEditingController expirationDateController = TextEditingController();
   final TextEditingController certicateIDController = TextEditingController();
   final TextEditingController certificateURLController = TextEditingController();
-  //////////*Specially for adding multiple certificates (max = 20)////////////////////
  
-  //save to db
+  //save to db//////////////////
   /////////////////////////////////////
   final educationFocus = false.obs;
-  final isSuffixIconTapped = false.obs;
-  //for certificate details form
+  //final isSuffixIconTapped = false.obs;
   final formKey = GlobalKey();
   updateEducationFocus(bool val) {
     educationFocus.value = val;
@@ -69,7 +67,6 @@ class ProfilePageController extends getx.GetxController {
 
 
   //EDIT OTHERS SECTION//////////////////////////////////////////////
-
   //create textcontrollers for the others icons
   final TextEditingController locationController = TextEditingController();
   final TextEditingController mobileNumberController = TextEditingController();

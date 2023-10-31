@@ -33,8 +33,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
   var profileController = Get.put(ProfilePageController());
 
 
-  /////////////////////////
-  
+  /////////////////////////pack all these things to profile page controller later/////
+  TextEditingController textController = TextEditingController(); 
   List<Widget> textFields = []; //done
   List<TextEditingController> controllers = []; //done for certificate naems (save to db)
   List<List<TextEditingController>> subListControllersList = [];  //done for subfields (save to db)
@@ -69,7 +69,18 @@ class _EditEducationPageState extends State<EditEducationPage> {
   }
 
   //for mainfield list
-  
+  void clearMainFieldTextValues() {
+    for (int j = 0; j < controllers.length; j++) {
+      controllers[j].clear();
+    }
+  }
+
+  //for mainField list
+  void disposeMainFieldControllers() {
+    for (int j = 0; j < controllers.length; j++) {
+      controllers[j].dispose();
+    }
+  }
 
   
   //for sublist
@@ -106,14 +117,10 @@ class _EditEducationPageState extends State<EditEducationPage> {
   }
 
 
-
-
-
-
   @override
   void dispose() {
     disposeControllers();
-
+    disposeMainFieldControllers();
     super.dispose();
   }
 
@@ -146,64 +153,113 @@ class _EditEducationPageState extends State<EditEducationPage> {
               width: double.infinity,
               height: 7,
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 20,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Education & Certification',
-                    style: GoogleFonts.inter(
-                      color: AppColor.blackColor,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold
-                    )
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (textFields.length < 20) {
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Education & Certification',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (textFields.length < 20) {
+                            if (subListControllersList.length <= textFields.length) {
 
-                        if (subListControllersList.length <= textFields.length) {
-                          subListControllersList.add(
-                            List<TextEditingController>.generate(
-                              5,(i) => TextEditingController(),
-                            )
-                          );
-                          /////////////////////////
-                          TextEditingController controller = TextEditingController(); 
-                          //add a textController to the list of MainTextControllers
-                          controllers.add(controller);
-                          //add widget below to the list of textfields (very important)
-                          textFields.add(
-                            Column(
-                              children: [
-                                //
-                                EducationTextField(
-                                  onChanged: (val) {},
-                                  controller: controllers[textFields.length],
-                                  hintText: 'Certificate name',  //List<String>
-                                  keyboardType: TextInputType.text, 
-                                  textInputAction: TextInputAction.done,                      
+                              //it adds a generated list of 5 textControllers to the  "subListControllersList"
+                              //thereby giving each of the subfields unique list of text controllers ("list of lists")
+                              subListControllersList.add(
+                                List<TextEditingController>.generate(
+                                  5,(i) => TextEditingController(),
+                                )
+                              );
+    
+                              //add a textController to the list of MainFieldTextControllers
+                              controllers.add(textController);
+                              
+                              //add widget below to the list of textfields (very important)
+                              textFields.add(
+                                Column(
+                                  children: [
+                                    //
+                                    EducationTextField(
+                                      onChanged: (val) {},
+                                      controller: controllers[textFields.length],
+                                      hintText: 'Certificate name',  //List<String>
+                                      keyboardType: TextInputType.text, 
+                                      textInputAction: TextInputAction.done,                      
+                                    ),
+                                    //
+                                  ],
                                 ),
-                                //
-                              ],
-                            ),
-                          );
-                          //log the values to keep track of them in the console
-                          print("number_of_fields: ${textFields.length}");
-                          print("number of mainControllers: ${controllers.length}");
-                          setState(() {});
-                          ////////////////////////
-                        }
-                      }
-                      if (textFields.length >= 20) {
-                        return LuroundSnackBar.errorSnackBar(message: "Maximum numbers of fields is ${textFields.length}");
-                      }                   
-                    },
-                    child: SvgPicture.asset("assets/svg/add_icon.svg"),
+                              );
+
+                              //log the values to keep track of them in the console
+                              print("number_of_fields: ${textFields.length}");
+                              print("number of mainControllers: ${controllers.length}");
+                              setState(() {});
+                              ////////////////////////
+                            }
+                          }
+                          if (textFields.length >= 20) {
+                            return LuroundSnackBar.errorSnackBar(message: "Maximum numbers of fields is ${textFields.length}");
+                          }                   
+                        },
+                        child: SvgPicture.asset("assets/svg/add_icon.svg"),
+                      ),
+                    ],
                   ),
-                ],
+                  SizedBox(height: 20),
+                  //List of certificates from the server {backend}
+                  //wrap with column then listview.builder
+                  SizedBox(
+                    height: 100,
+                    child: ListView.separated(
+                      physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
+                      shrinkWrap: true,
+                      separatorBuilder: (context, index) => SizedBox(height: 5,),
+                      itemCount: 4,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Certificate name*",
+                                style: GoogleFonts.inter(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: AppColor.blackColor
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {},                      
+                                child: Text(
+                                  "Remove",
+                                  style: GoogleFonts.inter(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: AppColor.darkGreyColor
+                                  ),
+                                ),
+                              )
+                            ]
+                          ),
+                        );
+                      }
+                    ),
+                  ),
+                ],                           
               ),
             ),
             
@@ -221,6 +277,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       iconSize: 20,
                       color: AppColor.blackColor,
                       onPressed: () {
+                        clearMainFieldTextValues();
+                        clearTextValues();
                         subListControllersList.removeAt(index);
                         textFields.removeAt(index);
                         setState(() {}); 
@@ -256,9 +314,11 @@ class _EditEducationPageState extends State<EditEducationPage> {
                 },
               ),
             ),
-            SizedBox(height: 30,),  //500
+            ///////////////////////
+      
+            SizedBox(height: 10,),  //500
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: ReusableButton(
                 color: AppColor.mainColor,
                 text: 'Save',
@@ -266,6 +326,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
               ),
             ),
             SizedBox(height: 20,),
+
           ],
         ),
       )

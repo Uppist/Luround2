@@ -79,7 +79,7 @@ class AccViewerServicesPage extends StatelessWidget {
                   return Container(
                     //height: 500,
                     width: double.infinity,
-                    color: index.isEven ? AppColor.lightPink : AppColor.lightPurple,
+                    color: index.isEven ? AppColor.lightRed : AppColor.lightPurple,
                     alignment: Alignment.center,
                     //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Column(

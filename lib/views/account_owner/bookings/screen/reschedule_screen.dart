@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/bookins_controller.dart';
+import 'package:luround/controllers/account_owner/bookings_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/bookings/widget/alert_dialogue/reschedule_success.dart';
+import 'package:luround/views/account_owner/bookings/widget/bottomsheets/select_date_bottomsheet.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -24,6 +28,52 @@ class RescheduleBookingPage extends StatefulWidget {
 
 class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
   var controller = Get.put(BookingsController());
+  String fromTime = "jj";
+  String toTime = "hh";
+  
+  //time picker func
+  Future<void> showLightTimePicker({required BuildContext context}) async{
+    showDialog(
+      context: context,
+        builder: (_) => FromToTimePicker(
+          /*dialogBackgroundColor: Color(0xFF121212),
+          fromHeadlineColor: Colors.white,
+          toHeadlineColor: Colors.white,
+          upIconColor: Colors.white,
+          downIconColor: Colors.white,
+          timeBoxColor: Color(0xFF1E1E1E),
+          timeHintColor: Colors.grey,
+          timeTextColor: Colors.white,
+          dividerColor: Color(0xFF121212),
+          doneTextColor: Colors.white,
+          dismissTextColor: Colors.white,
+          defaultDayNightColor: Color(0xFF1E1E1E),
+          defaultDayNightTextColor: Colors.white,
+          colonColor: Colors.white,*/
+          doneTextColor: AppColor.blackColor,
+          dismissTextColor: AppColor.blackColor,
+          showHeaderBullet: true,
+          onTab: (from, to) {
+            //POST REQUEST GO RUN THINGS FROM HERE
+            print('from $from to $to');
+            setState(() {
+              //hour
+              fromTime = from.hour.toString();
+              toTime = to.hour.toString();
+              //minute
+              controller.startMinute.value = from.minute.toString();
+              controller.endMinute.value = to.minute.toString();
+              //meridian (AM/PM)
+              controller.startMeridian.value = from.period.toString();
+              controller.endMeridian.value = to.period.toString();
+            });
+
+            //let see log the outcomes
+            debugPrint('from ${controller.startMeridian} ---- ${controller.endMeridian}');
+        },
+      )
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +274,18 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     SizedBox(height: 20,),
                     //select date custom button
                     InkWell(
-                      onTap: () async{},
+                      onTap: () {
+                        selectDateBottomSheet(
+                          context: context, 
+                          onCancel: () {
+                            Get.back();
+                          }, 
+                          onApply: () {
+                            //LuroundSnackBar.successSnackBar(message: "Date has been confirmed");
+                            Get.back();
+                          },
+                        );
+                      },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                         alignment: Alignment.centerLeft,
@@ -241,15 +302,19 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "12-09-08",
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.textGreyColor,
-                                  fontSize: 16,
-                                  //fontWeight: FontWeight.w500
-                                )
-                              )           
+                            Obx(
+                              () {
+                                return Text(
+                                  controller.updatedDate(initialDate: "time data"),
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      color: AppColor.textGreyColor,
+                                      fontSize: 16,
+                                      //fontWeight: FontWeight.w500
+                                    )
+                                  )           
+                                );
+                              }
                             ),
                             SvgPicture.asset("assets/svg/calendar_icon.svg"),
                       
@@ -271,7 +336,9 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     SizedBox(height: 20,),
                     //select date custom button
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        showLightTimePicker(context: context);
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -289,7 +356,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                               )
                             ),
                             child: Text(
-                              "9:00am",
+                              fromTime,
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.textGreyColor,
@@ -316,7 +383,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                               )
                             ),
                             child: Text(
-                              "12:00pm",
+                              toTime,
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.textGreyColor,
@@ -333,8 +400,10 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     RebrandedReusableButton(
                       textColor: AppColor.bgColor,
                       color: AppColor.mainColor, 
-                      text: "Next", 
-                      onPressed: () {},
+                      text: "Reschedule", 
+                      onPressed: () {
+                        rescheduleDialogueBox(context: context);
+                      },
                     )
                   ],
                 ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/bookins_controller.dart';
+import 'package:luround/controllers/account_owner/bookings_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/bookings/screen/booking_screen_empty_state.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/bookings_list_bottomsheet.dart';
@@ -79,7 +79,7 @@ class _BookingsPageState extends State<BookingsPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 20,),
                     //search textfield
                     SearchTextField(
                       onFocusChanged: (val) {},
@@ -103,7 +103,7 @@ class _BookingsPageState extends State<BookingsPage> {
               ),         
               ////////////////////////////////////////////////////////          
         
-              const SizedBox(height: 10,),
+              const SizedBox(height: 5,),
               //Filter widget here
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -129,7 +129,7 @@ class _BookingsPageState extends State<BookingsPage> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //external paddin
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0), //external paddin
                   itemCount: 8,
                   separatorBuilder: (context, index) => const SizedBox(height: 25,),
                   itemBuilder: (context, index) {

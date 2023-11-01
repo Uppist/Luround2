@@ -66,7 +66,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
               controller.daysOfTheWeekCheckBox[widget.index].addAll({
                 "from": "${controller.startTime.value}:${controller.startMinute.value}", 
                 "to": "${controller.endTime.value}:${ controller.endMinute.value}",
-                "from_meridian": "${ controller.startMeridian.value}",
+                "from_meridian": "${controller.startMeridian.value}",
                 "to_meridian": "${controller.endMeridian.value}",
               });
             });

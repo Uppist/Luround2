@@ -1,0 +1,147 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/bookings_controller.dart';
+import 'package:luround/utils/colors/app_theme.dart';
+
+
+
+
+
+
+var controller = Get.put(BookingsController());
+
+
+Future<void> selectDateBottomSheet({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
+  showModalBottomSheet(
+    isScrollControlled: true,
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    elevation: 2,
+    isDismissible: true,
+    useSafeArea: true,
+    backgroundColor: AppColor.bgColor,
+    //barrierColor: Theme.of(context).colorScheme.background,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(15)
+      )
+    ),
+    context: context, 
+    builder: (context) {
+      return Wrap(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            decoration: BoxDecoration(
+              //image: DecorationImage(image: AssetImage(''),),
+              color: AppColor.bgColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20),
+                topRight: Radius.circular(20),
+              ),
+            ),
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 20,),
+                CalendarDatePicker2(
+                  /*config: CalendarDatePicker2Config(
+                    calendarType: CalendarDatePicker2Type.range,
+                  ),*/
+                  config: CalendarDatePicker2Config(  
+                    calendarType: CalendarDatePicker2Type.single,         
+                    weekdayLabelTextStyle:  GoogleFonts.inter(
+                      color: AppColor.mainColor
+                    ),
+                    selectedYearTextStyle:  GoogleFonts.inter(
+                      color: AppColor.mainColor
+                    ),
+                    selectedRangeDayTextStyle:  GoogleFonts.inter(
+                      color: AppColor.bgColor
+                    ),
+                    selectedRangeHighlightColor: AppColor.mainColor.withOpacity(0.2),
+                    selectedDayTextStyle:  GoogleFonts.inter(
+                      color: AppColor.bgColor
+                    ),
+                    selectedDayHighlightColor: AppColor.mainColor,
+                    //calendarViewMode: DatePickerMode.day
+                  ),
+                  value: controller.dates,
+                  onValueChanged: (dates) {
+                    controller.selectedDate(dates);
+                    debugPrint("${controller.dates}");
+                  },
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    InkWell(
+                      onTap: onCancel,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: AppColor.bgColor,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: AppColor.textGreyColor,
+                            width: 2.0,
+                          )
+                        ),
+                        child: Text(
+                          "Cancel",
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.textGreyColor,
+                              fontSize: 16,
+                              //fontWeight: FontWeight.w500
+                            )
+                          )
+                        ),
+                      )
+                    ),
+                    InkWell(
+                      onTap: onApply,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        alignment: Alignment.center,
+                        height: 50,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: AppColor.mainColor,
+                          borderRadius: BorderRadius.circular(15),
+                          border: Border.all(
+                            color: AppColor.mainColor,
+                            width: 2.0,
+                          )
+                        ),
+                        child: Text(
+                          "Apply",
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.bgColor,
+                              fontSize: 16,
+                              //fontWeight: FontWeight.w500
+                            )
+                          )
+                        ),
+                      )
+                    ),
+                  ],
+                ),
+                //
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+  );
+}

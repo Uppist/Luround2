@@ -9,6 +9,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 import 'package:luround/views/account_owner/services/widget/add_service_stepper.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_viewer/services/widgets/services/in-person_meeting.dart';
+import 'package:time_range_picker/time_range_picker.dart';
 
 
 
@@ -57,6 +58,11 @@ class ServicesPage extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               Get.to(() => AddServiceScreen());
+                              /*TimeRange result = await showTimeRangePicker(
+                                context: context,
+                                start: TimeOfDay.now()
+                              );
+                              print("result $result");*/
                             },
                             child: SvgPicture.asset("assets/svg/add_service.svg"),
                           ),

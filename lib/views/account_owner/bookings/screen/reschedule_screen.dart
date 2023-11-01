@@ -13,9 +13,6 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-
-
-
 class RescheduleBookingPage extends StatefulWidget {
   RescheduleBookingPage({super.key});
 
@@ -104,7 +101,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                   SvgPicture.asset("assets/svg/earth.svg"),
                   SizedBox(width: 5),
                   Text(
-                    "Reschedule",
+                    "West Africa Standard Time",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 15,

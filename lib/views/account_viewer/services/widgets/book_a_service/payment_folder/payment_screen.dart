@@ -89,7 +89,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       fontWeight: FontWeight.w500
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 30,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "Cardholder name*",
@@ -97,7 +97,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.next,
                     textController: controller.cardholderNameController,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 30,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "Card number*",
@@ -105,7 +105,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.next,
                     textController: controller.cardNumberController,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 30,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "Expiry date*",
@@ -113,7 +113,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.next,
                     textController: controller.expiryDateController,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 30,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "CVV*",
@@ -121,7 +121,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.done,
                     textController: controller.cvvController,
                   ),
-                  SizedBox(height: 350,),
+                  SizedBox(height: 270,),
                   //pay button
                   RebrandedReusableButton(
                     textColor: controller.isCVVEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,

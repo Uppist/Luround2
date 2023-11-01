@@ -101,7 +101,7 @@ class BookingDetails extends StatelessWidget {
                         //fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 70,),
                     RebrandedReusableButton(
                       textColor: AppColor.bgColor,
                       color: AppColor.mainColor,

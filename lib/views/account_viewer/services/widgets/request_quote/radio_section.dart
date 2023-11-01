@@ -30,7 +30,7 @@ class _AppointmentTypeState extends State<AppointmentType> {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "In-person", 
               groupValue: controller.apppointment, 
@@ -59,7 +59,7 @@ class _AppointmentTypeState extends State<AppointmentType> {
           children: [
             Radio.adaptive(
               activeColor: AppColor.mainColor,
-              toggleable: true,
+              toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Virtual", 
               groupValue: controller.apppointment, 

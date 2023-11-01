@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
-import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -13,26 +10,20 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-
-class PhoneNumberTextField extends StatefulWidget {
-  const PhoneNumberTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.countryCodeWidget,});
+class UtilsTextField extends StatefulWidget {
+  const UtilsTextField({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
   final void Function(bool)? onFocusChanged;
-  final Widget countryCodeWidget;
-  
 
   @override
-  State<PhoneNumberTextField> createState() => _PhoneNumberTextFieldState();
+  State<UtilsTextField> createState() => _UtilsTextFieldState();
 }
 
-class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
-
-  //var controller = Get.put(AccViewerServicesController());
+class _UtilsTextFieldState extends State<UtilsTextField> {
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +33,8 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         onChanged: widget.onChanged,
         controller: widget.textController,
         keyboardType: widget.keyboardType,
-        maxLines: 1,
+        maxLines: 10,
+        minLines: 1,
         autocorrect: true,
         inputFormatters: const [],
         enableSuggestions: true,
@@ -63,10 +55,10 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          prefixIcon: widget.countryCodeWidget,
+          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),
     );

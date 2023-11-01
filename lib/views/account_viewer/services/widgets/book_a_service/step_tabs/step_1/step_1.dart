@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1/radio_section.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/country_code_widget.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/phone_number_textfield.dart';
@@ -47,7 +48,7 @@ class _Step1ScreenState extends State<Step1Screen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ReusableTextField(  
+          UtilsTextField(  
             onChanged: (val) {},
             hintText: "Your name*",
             keyboardType: TextInputType.name,
@@ -55,7 +56,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             textController: controller.nameBAController,
           ),
           SizedBox(height: 20),
-          ReusableTextField(  
+          UtilsTextField(  
             onChanged: (val) {},
             hintText: "Email*",
             keyboardType: TextInputType.emailAddress,

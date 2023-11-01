@@ -36,7 +36,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SizedBox(height: 30),
               Container(
@@ -51,7 +51,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 250,),
+                    SizedBox(height: 280,),
                     //
                     Text(
                       "Transaction Successful",
@@ -62,43 +62,45 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                       ),
                     ),
                     SizedBox(height: 20,),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text :'You have successfully booked',
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.darkGreyColor
-                            )
-                          ),
-                          TextSpan(
-                            text :' "Ronald Richie"          \n',
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.darkGreyColor
-                            )
-                          ),
-                          TextSpan(
-                            text :'            for a',
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w500,
-                              color: AppColor.darkGreyColor
-                            )
-                          ),
-                          TextSpan(
-                            text :' "Personal Training Session".',
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.darkGreyColor
-                            )
-                          ),
-                        ]
-                      )
+                    Center(
+                      child: RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text :'    You have successfully booked',
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.darkGreyColor
+                              )
+                            ),
+                            TextSpan(
+                              text :' "Ronald Richie"          \n',
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.darkGreyColor
+                              )
+                            ),
+                            TextSpan(
+                              text :'               for a',
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.darkGreyColor
+                              )
+                            ),
+                            TextSpan(
+                              text :' "Personal Training Session".',
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.darkGreyColor
+                              )
+                            ),
+                          ]
+                        )
+                      ),
                     ),
                     SizedBox(height: 60,),
                     //okay button

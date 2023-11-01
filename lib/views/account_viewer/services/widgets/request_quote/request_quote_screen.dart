@@ -6,6 +6,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/country_code_widget.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/phone_number_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
@@ -82,7 +83,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          ReusableTextField(  
+                          UtilsTextField(  
                             onChanged: (val) {},
                             hintText: "Your name*",
                             keyboardType: TextInputType.name,
@@ -90,7 +91,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textController: controller.nameController,
                           ),
                           SizedBox(height: 20),
-                          ReusableTextField(  
+                          UtilsTextField(  
                             onChanged: (val) {},
                             hintText: "Email*",
                             keyboardType: TextInputType.emailAddress,

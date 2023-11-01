@@ -111,8 +111,8 @@ class _Step3PageState extends State<Step3Page> {
                   )
                 ],
               ),
-              subtitle: controller.daysOfTheWeekCheckBox[index]["isChecked"] == true 
-              ?TimeRangeSelector(index: index)
+              subtitle: controller.daysOfTheWeekCheckBox[index]["isChecked"] 
+              ?TimeRangeSelector(index: index)           
               :SizedBox(),
             );
           }, 

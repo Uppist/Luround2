@@ -43,7 +43,7 @@ class _Step3ScreenState extends State<Step3Screen> {
           SizedBox(height: 20,),
           //time gridview        
           TimeGridView(),
-          SizedBox(height: 100,),
+          SizedBox(height: 210,),
           RebrandedReusableButton(
             textColor: AppColor.bgColor,
             color: AppColor.mainColor,

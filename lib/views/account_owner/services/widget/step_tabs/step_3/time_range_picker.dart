@@ -89,100 +89,111 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
       onTap: () {
         showLightTimePicker(context: context);
       },
-      child: Container(
-        child: Container(
-          color: AppColor.bgColor,
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              //from container
-              Container(
-                alignment: Alignment.center,
-                height: 40,
-                width: 110,
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: AppColor.textGreyColor,
-                    width: 1.0, //2
-                  )
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      controller.daysOfTheWeekCheckBox[widget.index]['from'] ?? "from", //"${controller.startTime.value}: ${controller.startMinute.value}",
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16,
-                          //fontWeight: FontWeight.w500
-                        )
-                      )
-                    ),
-                    SizedBox(width: 20,),
-                    Icon(
-                      CupertinoIcons.time,
-                      color: AppColor.textGreyColor,
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(width: 10,),
-    
-              Text(
-                "-",
-                style: GoogleFonts.inter(
-                  textStyle: TextStyle(
-                    color: AppColor.textGreyColor,
-                    fontSize: 16,
-                    //fontWeight: FontWeight.w500
-                  )
+      child: 
+      Container(
+        color: AppColor.bgColor,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            //from container      
+            Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: 110,
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              decoration: BoxDecoration(
+                color: AppColor.bgColor,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: AppColor.textGreyColor,
+                  width: 1.0, //2
                 )
               ),
-              
-              SizedBox(width: 10,),
-              //to container
-              Container(
-                alignment: Alignment.center,
-                height: 40,
-                width: 110,
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: AppColor.textGreyColor,
-                    width: 1.0, //2
-                  )
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      controller.daysOfTheWeekCheckBox[widget.index]['to'] ?? "to", //"${controller.endTime.value}: ${controller.endMinute.value}",
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16,
-                          //fontWeight: FontWeight.w500
-                        )
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    controller.daysOfTheWeekCheckBox[widget.index]['from'] ?? "from", //"${controller.startTime.value}: ${controller.startMinute.value}",
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.textGreyColor,
+                        fontSize: 16,
+                        //fontWeight: FontWeight.w500
                       )
-                    ),
-                    SizedBox(width: 20,),
-                    Icon(
-                      CupertinoIcons.time,
-                      color: AppColor.textGreyColor,
                     )
-                  ],
-                ),
+                  ),
+                  SizedBox(width: 20,),
+                  Icon(
+                    CupertinoIcons.time,
+                    color: AppColor.textGreyColor,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(width: 10,),
+    
+            Text(
+              "-",
+              style: GoogleFonts.inter(
+                textStyle: TextStyle(
+                  color: AppColor.textGreyColor,
+                  fontSize: 16,
+                  //fontWeight: FontWeight.w500
+                )
               )
-            ],
-          ),
+            ),
+            
+            SizedBox(width: 10,),
+            //to container
+            Container(
+              alignment: Alignment.center,
+              height: 40,
+              width: 110,
+              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              decoration: BoxDecoration(
+                color: AppColor.bgColor,
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  color: AppColor.textGreyColor,
+                  width: 1.0, //2
+                )
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    controller.daysOfTheWeekCheckBox[widget.index]['to'] ?? "to", //"${controller.endTime.value}: ${controller.endMinute.value}",
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.textGreyColor,
+                        fontSize: 16,
+                        //fontWeight: FontWeight.w500
+                      )
+                    )
+                  ),
+                  SizedBox(width: 20,),
+                  Icon(
+                    CupertinoIcons.time,
+                    color: AppColor.textGreyColor,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(width: 5,),
+            //delete icon
+            IconButton(
+              onPressed: () {
+                setState(() {
+                  controller.daysOfTheWeekCheckBox[widget.index]["isChecked"] = false;
+                });
+                print(controller.daysOfTheWeekCheckBox[widget.index]["isChecked"]);
+              }, 
+              icon: Icon(Icons.delete_outline_rounded),
+              color: AppColor.textGreyColor,
+            )
+          ],
         ),
       ),
     );

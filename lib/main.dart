@@ -39,7 +39,7 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Luround',
-      home: MainPage(),  //MainPageAccViewer()
+      home: MainPage(), //MainPageAccViewer(),  //MainPage(),
       supportedLocales: [
         Locale('en'), // English
       ]

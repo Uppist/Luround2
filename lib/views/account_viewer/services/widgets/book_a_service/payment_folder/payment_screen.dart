@@ -38,11 +38,6 @@ class _PaymentScreenState extends State<PaymentScreen> {
         controller.isCVVEnabled.value = controller.cvvController.text.isNotEmpty;
       });
     });
-    //
-    //
-    //
-    //
-    //
     super.initState();
   }
 

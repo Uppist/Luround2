@@ -28,6 +28,7 @@ class _TimeGridViewState extends State<TimeGridView> {
         crossAxisCount: 2,
         crossAxisSpacing: 35, //10,
         mainAxisSpacing: 25, //10,
+        childAspectRatio: 3.0, // Adjust this ratio as needed to control the item size
       ), 
       physics: NeverScrollableScrollPhysics(), //BouncingScrollPhysics(),
       itemCount: 8,
@@ -43,7 +44,7 @@ class _TimeGridViewState extends State<TimeGridView> {
           child: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            height: 30,
+            height: 40,
             //width: 120,
             decoration: BoxDecoration(          
               color: AppColor.bgColor,

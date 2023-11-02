@@ -18,12 +18,12 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
   showDialog(
     useSafeArea: true,
     context: context, 
-    //barrierDismissible: false,
+    barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(15)
+          borderRadius: BorderRadius.all(
+            Radius.circular(15)
           )
         ),
         backgroundColor: AppColor.bgColor,
@@ -54,7 +54,7 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
                   ),
                   SizedBox(height: 20,),
                   Text(
-                    "       This meeting has bee rescheduled.\n  The other party would be informed of\n                      this change.",
+                    "    This meeting has bee rescheduled.\n  The other party would be informed of\n                       this change.",
                     style: GoogleFonts.inter(
                       fontSize: 14,
                       fontWeight: FontWeight.w500,

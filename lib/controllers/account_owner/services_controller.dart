@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:time_range_picker/time_range_picker.dart';
 
 
 
@@ -17,7 +18,6 @@ class ServicesController extends getx.GetxController {
 
   //boolean that checks if the user (account owner) currently doesn't have any service
   final isServicePresent = true.obs;
-
 
   //add service stepper//////////////////////////////////
   //(save to db)
@@ -53,8 +53,8 @@ class ServicesController extends getx.GetxController {
   }
 
   //formKey for step 1 and 2 screens.
-  final formKey = GlobalKey();
-  final formKey2 = GlobalKey();
+  //final formKey = GlobalKey();
+  //final formKey2 = GlobalKey();
 
   //to add other links 
   final toggleLink = false.obs;
@@ -109,7 +109,7 @@ class ServicesController extends getx.GetxController {
     },
   ];
 
-  //to active the button instep 3 screen
+  //to activate the button instep 3 screen
   final isCheckBoxActive = false.obs;
 
   //to select time frame for a service to be rendered (all are to be saved to db)
@@ -121,6 +121,16 @@ class ServicesController extends getx.GetxController {
 
   var startMeridian = "".obs;
   var endMeridian = "".obs;
+
+
+  
+  Future<void> openTimeRangePicker({required BuildContext context}) async{
+    TimeRange result = await showTimeRangePicker(
+      context: context,
+      start: TimeOfDay.now()
+    );
+    print("result ${result.startTime}: ${result.endTime}");
+  }
   ///////////////////////////////////
   
 

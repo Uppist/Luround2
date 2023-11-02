@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:time_range_picker/time_range_picker.dart';
 
 
 
@@ -23,7 +25,6 @@ class BookingsController extends getx.GetxController {
     if (dateList.isNotEmpty) {
       // Remove any previous items, if any
       dates.clear();
-
       // Add the new unique item
       dates.add(dateList[0]);
     }
@@ -38,8 +39,17 @@ class BookingsController extends getx.GetxController {
 
   var startMeridian = "".obs;
   var endMeridian = "".obs;
-  ///////////////////////////////////
 
+
+  Future<void> openTimeRangePicker({required BuildContext context}) async{
+    TimeRange result = await showTimeRangePicker(
+      context: context,
+      start: TimeOfDay.now()
+    );
+    print("result ${result.startTime}: ${result.endTime}");
+  }
+  ///////////////////////////////////
+  //(save to db)
   String updatedDate ({required String initialDate}) {
     if(dates.isNotEmpty) {
       var result = dates[0].toString();

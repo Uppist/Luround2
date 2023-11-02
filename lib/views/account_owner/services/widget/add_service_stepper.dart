@@ -142,7 +142,13 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
               isActive: controller.curentStep >= 2,
               content: Step3Page(
                 onNext: () {
-                  Get.offAll(() => MainPage());
+                  Get.offUntil(
+                    GetPageRoute(
+                      curve: Curves.bounceIn,
+                      page: () => MainPage(),
+                    ), 
+                    (route) => true
+                  );
                   LuroundSnackBar.successSnackBar(message: "Your service has been updated");
                 },
               )

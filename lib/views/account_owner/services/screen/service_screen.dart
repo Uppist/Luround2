@@ -56,13 +56,8 @@ class ServicesPage extends StatelessWidget {
                           ),
                           SizedBox(width: 20,),
                           InkWell(
-                            onTap: () {
+                            onTap: () async{
                               Get.to(() => AddServiceScreen());
-                              /*TimeRange result = await showTimeRangePicker(
-                                context: context,
-                                start: TimeOfDay.now()
-                              );
-                              print("result $result");*/
                             },
                             child: SvgPicture.asset("assets/svg/add_service.svg"),
                           ),

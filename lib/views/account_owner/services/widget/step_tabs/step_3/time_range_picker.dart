@@ -89,8 +89,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
       onTap: () {
         showLightTimePicker(context: context);
       },
-      child: 
-      Container(
+      child: Container(
         color: AppColor.bgColor,
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
@@ -187,6 +186,8 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
               onPressed: () {
                 setState(() {
                   controller.daysOfTheWeekCheckBox[widget.index]["isChecked"] = false;
+                  controller.daysOfTheWeekCheckBox[widget.index]['to'] = "to";
+                  controller.daysOfTheWeekCheckBox[widget.index]['from'] = "from";
                 });
                 print(controller.daysOfTheWeekCheckBox[widget.index]["isChecked"]);
               }, 

@@ -30,7 +30,7 @@ class _Step2PageState extends State<Step2Page> {
 
   Widget build(BuildContext context) {
     return Form(
-      key: controller.formKey2,
+      key: GlobalKey(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

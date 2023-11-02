@@ -43,7 +43,7 @@ class _Step1PageState extends State<Step1Page> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: controller.formKey,
+      key: GlobalKey(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -65,7 +65,8 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
                   ReusableButton(
                     onPressed: () {
                       //let me try this getx navigation technique
-                      Get.offUntil(GetPageRoute(page: () => MainPage()), (route) => true);
+                      //Get.offUntil(GetPageRoute(page: () => MainPage()), (route) => true);
+                      Get.back();
                     },
                     color: AppColor.mainColor,
                     text: 'Okay',

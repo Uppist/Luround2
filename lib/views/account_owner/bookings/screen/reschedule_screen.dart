@@ -22,58 +22,14 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 class RescheduleBookingPage extends StatefulWidget {
   RescheduleBookingPage({super.key});
 
+
   @override
   State<RescheduleBookingPage> createState() => _RescheduleBookingPageState();
 }
 
 class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
   var controller = Get.put(BookingsController());
-  String fromTime = "jj";
-  String toTime = "hh";
   
-  //time picker func
-  Future<void> showLightTimePicker({required BuildContext context}) async{
-    showDialog(
-      context: context,
-        builder: (_) => FromToTimePicker(
-          /*dialogBackgroundColor: Color(0xFF121212),
-          fromHeadlineColor: Colors.white,
-          toHeadlineColor: Colors.white,
-          upIconColor: Colors.white,
-          downIconColor: Colors.white,
-          timeBoxColor: Color(0xFF1E1E1E),
-          timeHintColor: Colors.grey,
-          timeTextColor: Colors.white,
-          dividerColor: Color(0xFF121212),
-          doneTextColor: Colors.white,
-          dismissTextColor: Colors.white,
-          defaultDayNightColor: Color(0xFF1E1E1E),
-          defaultDayNightTextColor: Colors.white,
-          colonColor: Colors.white,*/
-          doneTextColor: AppColor.blackColor,
-          dismissTextColor: AppColor.blackColor,
-          showHeaderBullet: true,
-          onTab: (from, to) {
-            //POST REQUEST GO RUN THINGS FROM HERE
-            print('from $from to $to');
-            setState(() {
-              //hour
-              fromTime = from.hour.toString();
-              toTime = to.hour.toString();
-              //minute
-              controller.startMinute.value = from.minute.toString();
-              controller.endMinute.value = to.minute.toString();
-              //meridian (AM/PM)
-              controller.startMeridian.value = from.period.toString();
-              controller.endMeridian.value = to.period.toString();
-            });
-
-            //let see log the outcomes
-            debugPrint('from ${controller.startMeridian} ---- ${controller.endMeridian}');
-        },
-      )
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -305,7 +261,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             Obx(
                               () {
                                 return Text(
-                                  controller.updatedDate(initialDate: "time data"),
+                                  controller.updatedDate(initialDate: "date data"),
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
@@ -337,61 +293,70 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     //select date custom button
                     InkWell(
                       onTap: () {
-                        showLightTimePicker(context: context);
+                        //showLightTimePicker(context: context);
+                        controller.openTimeRangePicker(context: context);
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                            alignment: Alignment.center,
-                            height: 50,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: AppColor.bgColor,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                color: AppColor.textGreyColor,
-                                width: 1.0, //2
-                              )
-                            ),
-                            child: Text(
-                              fromTime,
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.textGreyColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal
-                                )
-                              )           
-                            ),
+                          Obx(
+                            () {
+                              return Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                alignment: Alignment.center,
+                                height: 50,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  color: AppColor.bgColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: AppColor.textGreyColor,
+                                    width: 1.0, //2
+                                  )
+                                ),
+                                child: Text(
+                                  controller.getStartTime(initialTime: "t1"),
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      color: AppColor.textGreyColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal
+                                    )
+                                  )           
+                                ),
+                              );
+                            }
                           ),
                           //SizedBox(width: 10,),             
                           //SizedBox(width: 10,),
                           //2
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                            alignment: Alignment.center,
-                            height: 50,
-                            width: 150,
-                            decoration: BoxDecoration(
-                              color: AppColor.bgColor,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                color: AppColor.textGreyColor,
-                                width: 1.0, //2
-                              )
-                            ),
-                            child: Text(
-                              toTime,
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.textGreyColor,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.normal
-                                )
-                              )           
-                            ),
+                          Obx(
+                            () {
+                              return Container(
+                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                alignment: Alignment.center,
+                                height: 50,
+                                width: 150,
+                                decoration: BoxDecoration(
+                                  color: AppColor.bgColor,
+                                  borderRadius: BorderRadius.circular(5),
+                                  border: Border.all(
+                                    color: AppColor.textGreyColor,
+                                    width: 1.0, //2
+                                  )
+                                ),
+                                child: Text(
+                                  controller.getStopTime(initialTime: "t2"),
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      color: AppColor.textGreyColor,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.normal
+                                    )
+                                  )           
+                                ),
+                              );
+                            }
                           ),
                         ],
                       ),

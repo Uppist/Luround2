@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/delete_
 
 
 ///Alert Dialog
-Future<void> bookingsListDialogueBox({required BuildContext context, required String serviceName}) async {
+Future<void> bookingsListDialogueBox({required BuildContext context, required String serviceName,}) async {
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -15,34 +15,26 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 
 ///Alert Dialog
 Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}) async{
-  showModalBottomSheet(
-    isScrollControlled: true,
+  showDialog(
+    /*isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 2,
     isDismissible: true,
-    useSafeArea: true,
-    backgroundColor: AppColor.bgColor,
+    backgroundColor: AppColor.bgColor,*/
     //barrierColor: Theme.of(context).colorScheme.background,
-    shape: const RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(
-        top: Radius.circular(15)
-      )
-    ),
+    useSafeArea: true,
     context: context, 
     builder: (context) {
-      return Wrap(
-        children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-            decoration: BoxDecoration(
-              //image: DecorationImage(image: AssetImage(''),),
-              color: AppColor.bgColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Column(
+      return AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(15)
+          )
+        ),
+        contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+        content: Wrap(
+          children: [
+            Column(
               //mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -54,16 +46,16 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                     fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: 30,),
                 Text(
-                  'This meeting has been cancelled. The other party\n                will be informed of this change.',
+                  'This meeting has been cancelled. The other party will be informed of this change.',
                   style: GoogleFonts.poppins(
                     color: AppColor.darkGreyColor,
                     fontSize: 14,
                     //fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: 30,),
                 InkWell(
                   onTap: () {
                     Get.back(closeOverlays: true);
@@ -92,11 +84,12 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                     ),
                   )
                 ),
-      
+                SizedBox(height: 10,),
+        
               ],
             ),
-          ),
-        ],
+          ],
+        ),
       );
     }
   );

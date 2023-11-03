@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting_cancelled_bottomsheet.dart';
+import 'package:luround/views/account_owner/bookings/widget/alert_dialogue/meeting_cancelled_dialog.dart';
 
 
 

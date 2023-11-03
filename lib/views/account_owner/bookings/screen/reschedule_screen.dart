@@ -55,17 +55,12 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         Image(
                           image: AssetImage('assets/images/luround_logo.png'),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => NotificationsPage());
-                              },
-                              child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                            ),
-                          ],
-                        )
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => NotificationsPage());
+                          },
+                          child: SvgPicture.asset("assets/svg/notify_active.svg"),
+                        ),
                       ]
                     ),
                     const SizedBox(height: 20,),
@@ -84,7 +79,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         SizedBox(width: 3,),
                         Text(
                           "Reschedule",
-                          style: GoogleFonts.poppins(
+                          style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 20,
                             fontWeight: FontWeight.w500

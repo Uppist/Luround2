@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:luround/controllers/account_owner/bookings_controller.dart';
+import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/coming_soon_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
@@ -17,7 +18,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 class MorePage extends StatelessWidget {
   MorePage({super.key});
 
-  var controller = Get.put(BookingsController());
+  var controller = Get.put(MoreController());
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +111,9 @@ class MorePage extends StatelessWidget {
                       CustomCard(
                         svgAsset: "assets/svg/feedback.svg",
                         title: "Feedback",
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => FeedbackPage());
+                        },
                       ),
                     ],
                   ),

@@ -16,7 +16,7 @@ class CustomSwitchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 70,
+      height: 75,
       width: double.infinity,
       alignment: Alignment.center,
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

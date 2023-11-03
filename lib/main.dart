@@ -45,7 +45,7 @@ class _MainAppState extends State<MainApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Luround',
-      home: MainPage(), //MainPageAccViewer(),  //MainPage(),
+      home: MainPageAccViewer(),  //MainPage(), //MainPageAccViewer(),
       supportedLocales: [
         Locale('en'), // English
       ]

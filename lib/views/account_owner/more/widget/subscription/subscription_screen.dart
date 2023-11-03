@@ -4,8 +4,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/notification_settings/custom_switch_cards.dart';
-import 'package:luround/views/account_owner/more/widget/notification_settings/switch_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -14,16 +12,16 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-class NotificationSettingScreen extends StatelessWidget {
+class SubscriptionScreen extends StatelessWidget {
 
-  NotificationSettingScreen({super.key});
+  SubscriptionScreen({super.key});
    
   var controller = Get.put(MoreController());
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.greyColor,
+      backgroundColor: AppColor.bgColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,7 +75,7 @@ class NotificationSettingScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 3,),
                   Text(
-                    "Notifications",
+                    "Subscription",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 18,
@@ -87,50 +85,13 @@ class NotificationSettingScreen extends StatelessWidget {
                 ],
               ),
             ),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7,
+            ),
             SizedBox(height: 10,),
-            
-            /////Expanded/////
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomSwitchCard(
-                    title: "Push notification",
-                    switchButton: SwitchWidget(isToggled: controller.isToggled),
-                  ),
-                  SizedBox(height: 30,),
-                  Text(
-                    "Meeting Notifications",
-                    style: GoogleFonts.inter(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  CustomSwitchCard(
-                    title: "New",
-                    switchButton: SwitchWidget(isToggled: controller.isToggled),
-                  ),
-                  SizedBox(height: 25,),
-                  CustomSwitchCard(
-                    title: "Confirmations",
-                    switchButton: SwitchWidget(isToggled: controller.isToggled),
-                  ),
-                  SizedBox(height: 25,),
-                  CustomSwitchCard(
-                    title: "Rescheduled",
-                    switchButton: SwitchWidget(isToggled: controller.isToggled),
-                  ),
-                  SizedBox(height: 25,),
-                  CustomSwitchCard(
-                    title: "Cancelled",
-                    switchButton: SwitchWidget(isToggled: controller.isToggled),
-                  ),
-                ],
-              ),
-            )
+            /////EXPANDED/////
           ]
         )
       )

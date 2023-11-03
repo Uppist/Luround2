@@ -35,9 +35,8 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
               decoration: BoxDecoration(
                 //image: DecorationImage(image: AssetImage(''),),
                 color: AppColor.bgColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20)
                 ),
               ),
               child: Column(

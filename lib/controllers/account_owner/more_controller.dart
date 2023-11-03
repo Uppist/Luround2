@@ -13,7 +13,7 @@ class MoreController extends getx.GetxController {
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   bool isSubmit = false;
-  //notifications setting scren
+  //notifications setting screen
   bool isToggled = false;
 
 

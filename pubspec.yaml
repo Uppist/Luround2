@@ -28,6 +28,7 @@ dependencies:
   flutter_svg: ^2.0.7
   dotted_border: ^2.1.0
 
+
   #contrycode_picker,
   country_code_picker: ^3.0.0
 

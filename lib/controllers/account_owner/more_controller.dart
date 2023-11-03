@@ -21,6 +21,10 @@ class MoreController extends getx.GetxController {
   bool isSubmit = false;
 
 
+  //notifications setting scren
+
+
+
 
 
 

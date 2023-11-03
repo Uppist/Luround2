@@ -55,7 +55,7 @@ class NotificationSettingScreen extends StatelessWidget {
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 5,
+              height: 7,
             ),
             ///Navigation Section/////
             Container(
@@ -91,13 +91,43 @@ class NotificationSettingScreen extends StatelessWidget {
             
             /////Expanded/////
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomSwitchCard(
                     title: "Push notification",
                     switchButton: SwitchWidget(isToggled: controller.isToggled),
-                  )
+                  ),
+                  SizedBox(height: 30,),
+                  Text(
+                    "Meeting Notifications",
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(height: 20,),
+                  CustomSwitchCard(
+                    title: "New",
+                    switchButton: SwitchWidget(isToggled: controller.isToggled),
+                  ),
+                  SizedBox(height: 25,),
+                  CustomSwitchCard(
+                    title: "Confirmations",
+                    switchButton: SwitchWidget(isToggled: controller.isToggled),
+                  ),
+                  SizedBox(height: 25,),
+                  CustomSwitchCard(
+                    title: "Rescheduled",
+                    switchButton: SwitchWidget(isToggled: controller.isToggled),
+                  ),
+                  SizedBox(height: 25,),
+                  CustomSwitchCard(
+                    title: "Cancelled",
+                    switchButton: SwitchWidget(isToggled: controller.isToggled),
+                  ),
                 ],
               ),
             )

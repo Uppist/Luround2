@@ -48,7 +48,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
                 ),
                 SizedBox(height: 30,),
                 Text(
-                  'Enhance your meeting experience by integrating\n                your favorite apps and tools.\n                             (coming soon)',
+                  '       Enhance your meeting experience by\n    integrating your favorite apps and tools.\n                        (coming soon)',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14,

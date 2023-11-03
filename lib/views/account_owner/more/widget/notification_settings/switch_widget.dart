@@ -19,17 +19,20 @@ class SwitchWidget extends StatefulWidget {
 class _SwitchWidgetState extends State<SwitchWidget> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoSwitch(
-      activeColor: AppColor.mainColor,
-      thumbColor: AppColor.bgColor,
-      trackColor: AppColor.textGreyColor.withOpacity(0.2),
-      value: widget.isToggled,
-      onChanged: (value) {
-        setState(() {
-          this.widget.isToggled = value;
-          debugPrint("toggled: ${widget.isToggled}");
-        });
-      },
+    return Transform.scale(
+      scale: 1.0,
+      child: CupertinoSwitch(
+        activeColor: AppColor.mainColor,
+        thumbColor: AppColor.bgColor,
+        trackColor: AppColor.textGreyColor.withOpacity(0.2),
+        value: widget.isToggled,
+        onChanged: (value) {
+          setState(() {
+            widget.isToggled = value;
+            debugPrint("toggled: ${widget.isToggled}");
+          });
+        },
+      ),
     );
   }
 }

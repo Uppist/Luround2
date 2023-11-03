@@ -83,6 +83,21 @@ class AccViewerServicesController extends getx.GetxController {
   final isButtonEnabled5 = false.obs;  //payment
 
   ////////////////////
+  
+
+
+  ///service_screen list (account viewer section)/// 
+  final selectedIndex = 0.obs; //for toggling price of the services list,
+  final isVirtual = true.obs;  //boolean to switch between prices in the services list
+  List<String> tabs = ['Virtual', "In-Person"];
+  void handleTabTap(int index) {
+    selectedIndex.value = index;
+    isVirtual.value = !isVirtual.value;
+    print("price switch check: ${isVirtual.value}");
+    print("selectedIndex: $selectedIndex");
+    update();
+  }
+  
 
 
 

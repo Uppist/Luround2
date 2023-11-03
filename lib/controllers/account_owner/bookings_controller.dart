@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:luround/utils/colors/app_theme.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 
 
@@ -50,7 +54,7 @@ class BookingsController extends getx.GetxController {
 
   String getStartTime ({required String initialTime}) {
     if(startTimeValue.isNotEmpty) { 
-      print("t1: ${startTimeValue}");
+      debugPrint("t1: $startTimeValue");
       return startTimeValue.value;
     }
     return initialTime;
@@ -58,7 +62,7 @@ class BookingsController extends getx.GetxController {
 
   String getStopTime ({required String initialTime}) {
     if(stopTimeValue.isNotEmpty) { 
-      print("t2: ${stopTimeValue}");
+      print("t2: $stopTimeValue");
       return stopTimeValue.value;
     }
     return initialTime;
@@ -87,6 +91,17 @@ class BookingsController extends getx.GetxController {
     TimeRange result = await showTimeRangePicker(
       context: context,
       //start: TimeOfDay.now()
+      paintingStyle: PaintingStyle.stroke,
+      use24HourFormat: true,
+      //strokeColor: AppColor.mainColor,
+      //handlerColor: AppColor.mainColor,
+      handlerRadius: 12,
+      //selectedColor: AppColor.mainColor,
+      //backgroundColor: AppColor.greyColor,
+      barrierDismissible: false,
+      //timeTextStyle: GoogleFonts.inter(),
+      //activeTimeTextStyle: GoogleFonts.inter()
+
     );
     startTimeValue.value = startTimeFunc(startTime: result.startTime);
     stopTimeValue.value = stopTimeFunc(stopTime: result.endTime);

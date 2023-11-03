@@ -50,7 +50,7 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                     children: [
                       IconButton(
                         onPressed: () {
-                          Get.back();
+                          Get.offAll(() => MainPageAccViewer());
                         }, 
                         icon: Icon(CupertinoIcons.xmark),
                         iconSize: 30,

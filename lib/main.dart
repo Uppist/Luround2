@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
+import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 
 
 
@@ -31,8 +31,14 @@ void main() async{
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {

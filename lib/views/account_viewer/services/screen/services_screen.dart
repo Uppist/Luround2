@@ -8,8 +8,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
-import 'package:luround/views/account_viewer/services/widgets/services/in-person_meeting.dart';
-import 'package:luround/views/account_viewer/services/widgets/services/virtual_meeting.dart';
+import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_accviewer.dart';
 
 
 
@@ -91,9 +90,9 @@ class AccViewerServicesPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //check if the account owner selected in-person or virtual
-                              //VirtualContainer()  //InpersonContainer()
-                              const Center(            
-                                child: InpersonContainer()
+                        
+                              Center(            
+                                child: TogglePriceContainerAccViewer(index: index,)
                               ),
                               const SizedBox(height: 40,),
                               Text(
@@ -164,38 +163,42 @@ class AccViewerServicesPage extends StatelessWidget {
                               ),
                               const SizedBox(height: 30,),
                               //price/session
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    //price
-                                    TextSpan(
-                                      text: "N25,000",
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.blackColor,
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold
-                                      ),
+                              Obx(
+                                () {
+                                  return RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        //price
+                                        TextSpan(
+                                          text: controller.isVirtual.value ? "N28,900" : "N25,000",
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.blackColor,
+                                            fontSize: 25,
+                                            fontWeight: FontWeight.bold
+                                          ),
+                                        ),
+                                        //time
+                                        TextSpan(
+                                          text: "/30mins",
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                        ),
+                                        //session
+                                        TextSpan(
+                                          text: " per session",
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.textGreyColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                        )
+                                      ]
                                     ),
-                                    //time
-                                    TextSpan(
-                                      text: "/30mins",
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                    ),
-                                    //session
-                                    TextSpan(
-                                      text: " per session",
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.textGreyColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                    )
-                                  ]
-                                ),
+                                  );
+                                }
                               ),
                               const SizedBox(height: 20,),
             

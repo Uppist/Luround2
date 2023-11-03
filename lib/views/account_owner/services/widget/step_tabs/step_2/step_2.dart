@@ -45,20 +45,7 @@ class _Step2PageState extends State<Step2Page> {
           SizedBox(height: 30),
           InkWell(
             onTap: () async{
-              var resultingDuration = await showDurationPicker(
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  borderRadius: BorderRadius.circular(20)
-                ),
-                context: context,
-                initialTime: controller.duration,
-              );
-              setState(() {
-                controller.duration = resultingDuration!;
-                controller.ispriceButtonEnabled.value = true;
-              });
-              //debugPrint("duartion: ${resultingDuration}");
-              debugPrint("duration: ${controller.duration}");              
+              controller.showDurationPickerDialog(context: context);         
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -76,15 +63,19 @@ class _Step2PageState extends State<Step2Page> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "${controller.duration}".substring(0, 7),
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.textGreyColor,
-                        fontSize: 16,
-                        //fontWeight: FontWeight.w500
-                      )
-                    )
+                  Obx(
+                    () {
+                      return Text(
+                        "${controller.duration.value}".substring(0, 7),
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16,
+                            //fontWeight: FontWeight.w500
+                          )
+                        )
+                      );
+                    }
                   ),
                   Icon(
                     CupertinoIcons.time,
@@ -110,15 +101,19 @@ class _Step2PageState extends State<Step2Page> {
           ScheduleRadioWidget(),
           
           SizedBox(height: 220,),
-          RebrandedReusableButton(
-            textColor: controller.ispriceButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
-            color: controller.ispriceButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
-            text: "Next", 
-            onPressed: controller.ispriceButtonEnabled.value ? 
-            widget.onNext
-            : () {
-              print('nothing');
-            },
+          Obx(
+            () {
+              return RebrandedReusableButton(
+                textColor: controller.ispriceButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                color: controller.ispriceButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
+                text: "Next", 
+                onPressed: controller.ispriceButtonEnabled.value ? 
+                widget.onNext
+                : () {
+                  print('nothing');
+                },
+              );
+            }
           ),
           SizedBox(height: 20,),
 

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/notification_settings/custom_switch_cards.dart';
+import 'package:luround/views/account_owner/more/widget/notification_settings/switch_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -13,7 +16,9 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 class NotificationSettingScreen extends StatelessWidget {
 
-  const NotificationSettingScreen({super.key});
+   NotificationSettingScreen({super.key});
+   
+  var controller = Get.put(MoreController());
   
   @override
   Widget build(BuildContext context) {
@@ -85,6 +90,17 @@ class NotificationSettingScreen extends StatelessWidget {
             SizedBox(height: 10,),
             
             /////Expanded/////
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Column(
+                children: [
+                  CustomSwitchCard(
+                    title: "Push notification",
+                    switchButton: SwitchWidget(isToggled: controller.isToggled),
+                  )
+                ],
+              ),
+            )
           ]
         )
       )

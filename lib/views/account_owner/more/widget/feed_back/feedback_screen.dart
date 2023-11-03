@@ -9,7 +9,6 @@ import 'package:luround/views/account_owner/more/widget/feed_back/description_te
 import 'package:luround/views/account_owner/more/widget/feed_back/subject_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
-import '../notification_settings/switch_widget.dart';
 
 
 
@@ -59,9 +58,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image(
-                        image: AssetImage('assets/images/luround_logo.png'),
-                      ),
+                      Image.asset('assets/images/luround_logo.png'),
                       InkWell(
                         onTap: () {
                           Get.to(() => NotificationsPage());

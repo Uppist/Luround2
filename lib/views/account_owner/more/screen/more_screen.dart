@@ -7,6 +7,7 @@ import 'package:luround/views/account_owner/more/widget/feed_back/feedback_scree
 import 'package:luround/views/account_owner/more/widget/more_screen/coming_soon_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
+import 'package:luround/views/account_owner/more/widget/notification_settings/notification_settings_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -105,7 +106,9 @@ class MorePage extends StatelessWidget {
                       CustomCard(
                         svgAsset: "assets/svg/notification_more.svg",
                         title: "Notifications",
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => NotificationSettingScreen());
+                        },
                       ),
                       SizedBox(width: 10,),
                       CustomCard(

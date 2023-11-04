@@ -157,7 +157,7 @@ class SubscriptionScreen extends StatelessWidget {
                         scrollDirection: Axis.vertical, 
                         shrinkWrap: true,
                         separatorBuilder: (context, index) => SizedBox(height: 30,), 
-                        itemCount: 2,
+                        itemCount: 1,
                         itemBuilder: (context, index) {
                           return PaymentCard(
                             cardType: "MasterCard",

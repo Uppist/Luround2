@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:luround/test_me.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
@@ -45,7 +46,7 @@ class _MainAppState extends State<MainApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Luround',
-      home: MainPageAccViewer(),  //MainPage(), //MainPageAccViewer(),
+      home: MainPage(), //MainPageAccViewer(),
       supportedLocales: [
         Locale('en'), // English
       ]

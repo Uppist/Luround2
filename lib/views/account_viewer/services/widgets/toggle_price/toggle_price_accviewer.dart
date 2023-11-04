@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+
 
 
 
@@ -40,37 +40,55 @@ class _TogglePriceContainerAccViewerState extends State<TogglePriceContainerAccV
         child: Obx(
           () {
             return Row(
-              children: List.generate(controller.tabs.length, (i) {
-                return GestureDetector(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
                   onTap: () {
-                    controller.handleTabTap(i);
+                    controller.handleTabTap(widget.index);
                   },
-                  child: Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        //height: 70,
-                        width: 100,
-                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                        decoration: BoxDecoration(
-                          color: controller.selectedIndex.value == i ? AppColor.navyBlue : AppColor.bgColor,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Text(
-                          controller.tabs[i],
-                          style: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: controller.selectedIndex.value == i ? AppColor.bgColor : AppColor.textGreyColor,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500
-                            )
-                          )
-                        ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    //height: 70,
+                    width: 100,
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.navyBlue : AppColor.bgColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Text(
+                      'Virtual',
+                      style: GoogleFonts.inter(
+                        color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.textGreyColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500
                       ),
-                    ],
+                    ),
                   ),
-                );
-              }),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    controller.handleTabTap(widget.index);
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    //height: 70,
+                    width: 100,
+                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.navyBlue, //.redColor,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Text(
+                      'In-person',
+                      style: GoogleFonts.inter(
+                        color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.textGreyColor : AppColor.bgColor,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                  ),
+                ),
+              ]
             );
           }
         )

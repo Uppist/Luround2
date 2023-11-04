@@ -217,12 +217,12 @@ class ServicesController extends getx.GetxController {
   ///service_screen list/// 
   final selectedIndex = 0.obs; //for toggling price of the services list,
   final isVirtual = true.obs;  //boolean to switch between prices in the services list
-  List<String> tabs = ['Virtual', "In-Person"];
+  //List<String> tabs = ['Virtual', "In-Person"];
+
   void handleTabTap(int index) {
-    selectedIndex.value = index;
     isVirtual.value = !isVirtual.value;
+    selectedIndex.value = index;
     print("price switch check: ${isVirtual.value}");
-    print("selectedIndex: $selectedIndex");
     update();
   }
   

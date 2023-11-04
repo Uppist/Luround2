@@ -208,7 +208,7 @@ class ServicesPage extends StatelessWidget {
                                       children: [
                                         //price
                                         TextSpan(
-                                          text: controller.isVirtual.value ? "N13,000" : "N25,000",
+                                          text: controller.isVirtual.value && controller.selectedIndex.value == index ? "N13,000" : "N25,000",
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 25,

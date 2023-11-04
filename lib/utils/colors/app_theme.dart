@@ -23,7 +23,9 @@ class AppColor {
 
   static Color emptyPic = Color.fromRGBO(211, 216, 225, 1);
   static Color yellowStar = Color.fromRGBO(251, 177, 60, 1);
+  static Color badGreen = Color.fromRGBO(0, 163, 163, 1);
   static Color darkGreen = Color.fromRGBO(68, 197, 102, 1);
+
 
 
   //for services

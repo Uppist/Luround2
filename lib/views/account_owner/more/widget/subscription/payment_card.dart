@@ -30,7 +30,7 @@ class PaymentCard extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: AppColor.bgColor,
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5) ,//withOpacity(0.2),

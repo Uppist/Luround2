@@ -9,7 +9,10 @@ import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/notification_settings/notification_settings_screen.dart';
 import 'package:luround/views/account_owner/more/widget/subscription/subscription_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/transactions_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
+
+
 
 
 
@@ -89,7 +92,9 @@ class MorePage extends StatelessWidget {
                       CustomCard(
                         svgAsset: "assets/svg/finance.svg",
                         title: "Transactions",
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => TransactionPage());
+                        },
                       ),
                       SizedBox(width: 10,),
                       CustomCard(

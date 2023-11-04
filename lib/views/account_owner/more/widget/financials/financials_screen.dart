@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 
 
 
-
-
-class TransactionPage extends StatelessWidget {
-  const TransactionPage({super.key});
+class FinancialsPage extends StatelessWidget {
+  const FinancialsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

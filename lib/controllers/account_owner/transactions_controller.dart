@@ -7,6 +7,8 @@ import 'package:get/get.dart' as getx;
 
 
 
+
+
 class TransactionsController extends getx.GetxController {
 
   final isTrxAmountToggled = false.obs;

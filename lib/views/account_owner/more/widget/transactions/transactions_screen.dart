@@ -79,25 +79,31 @@ class TransactionPage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20,),
-
+        
             /////HERE/////////
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //TRX DASHBOARD
-                  TrxDashBoard(
-                    amountPaid: "N50,000.00",
-                    amountReceived: "N250,000.00",
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //TRX DASHBOARD
+                      TrxDashBoard(
+                        amountPaid: "N50,000.00",
+                        amountReceived: "N250,000.00",
+                      ),
+                      SizedBox(height: 30,),
+                      //FILTER BUTTON
+                      FilterTrxButton(),
+                      SizedBox(height: 30,),
+                      //List of transactions comes here
+                      TrxHistoryList(),
+                      SizedBox(height: 15,),
+                    ],
                   ),
-                  SizedBox(height: 30,),
-                  //FILTER BUTTON
-                  FilterTrxButton(),
-                  SizedBox(height: 30,),
-                  //List of transactions comes here
-                  TrxHistoryList()
-                ],
+                ),
               ),
             ),
           ]

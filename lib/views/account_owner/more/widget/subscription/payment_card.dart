@@ -55,8 +55,7 @@ class PaymentCard extends StatelessWidget {
               ),
               InkWell(
                 onTap: onDelete,
-                child: Icon(Icons.delete_outline_rounded, color: AppColor.redColor.withOpacity(0.8),)
-                //SvgPicture.asset("assets/svg/delete_card.svg"),
+                child: SvgPicture.asset("assets/svg/delete_card.svg"),
               )
             ],
           ),
@@ -78,13 +77,14 @@ class PaymentCard extends StatelessWidget {
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 20,),
           //edit card button and card logo
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextButton(
-                onPressed: onEditPressed,
+              InkWell(
+                onTap: onEditPressed,
+                //onPressed: onEditPressed,
                 child: Text(
                   "Edit Card Info",
                   style: GoogleFonts.inter(
@@ -102,8 +102,8 @@ class PaymentCard extends StatelessWidget {
                 size: 40,
                 color: AppColor.navyBlue,
               )*/
-              //SvgPicture.asset("assets/svg/master_card.svg"),
-              SvgPicture.asset("assets/svg/visa_card.svg")
+              SvgPicture.asset("assets/svg/master_card.svg"),
+              //SvgPicture.asset("assets/svg/visa_card.svg")
             ],
           ),
 

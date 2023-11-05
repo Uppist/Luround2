@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -24,24 +25,31 @@ class FilterTrxButton extends StatelessWidget {
           children: [
             Container(
               height: 50,
-              width: 150,
+              //width: 150,
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(
-                  color: AppColor.textGreyColor
+                  color: AppColor.greyColor
                 )
               ),
               child: DropdownButton<String>(
-                elevation: 0,
+                style: GoogleFonts.inter(
+                  color: AppColor.textGreyColor,
+                  fontSize: 13,
+                  fontWeight: FontWeight.w500
+                ),
+                elevation: 3,
                 dropdownColor: AppColor.bgColor,
                 underline: const SizedBox(),
                 borderRadius: BorderRadius.circular(5),
                 iconEnabledColor: AppColor.blackColor,
                 icon: Icon(CupertinoIcons.chevron_down),
                 iconSize: 20,
+                enableFeedback: true,
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 value: controller.selectedValue.value,
                 onChanged: (newValue) {
                   // When the user selects an option, update the selectedValue
@@ -49,6 +57,9 @@ class FilterTrxButton extends StatelessWidget {
                 },
                 items: controller.items.map((item) {
                   return DropdownMenuItem(
+                    onTap: () {
+                      debugPrint("drop down menu tapped!!");
+                    },                    
                     value: item,
                     child: Text(item),
                   );

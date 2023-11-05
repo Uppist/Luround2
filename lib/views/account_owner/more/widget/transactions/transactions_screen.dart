@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/filter_trx_button.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_dashboard.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_history_list.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -79,7 +80,7 @@ class TransactionPage extends StatelessWidget {
             ),
             SizedBox(height: 20,),
 
-            //TRANSACTION CARD/DASHBOARD
+            /////HERE/////////
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
               child: Column(
@@ -93,6 +94,9 @@ class TransactionPage extends StatelessWidget {
                   SizedBox(height: 30,),
                   //FILTER BUTTON
                   FilterTrxButton(),
+                  SizedBox(height: 30,),
+                  //List of transactions comes here
+                  TrxHistoryList()
                 ],
               ),
             ),

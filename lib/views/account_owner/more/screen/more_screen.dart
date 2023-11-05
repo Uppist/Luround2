@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/financials_screen.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/coming_soon_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
@@ -80,7 +81,9 @@ class MorePage extends StatelessWidget {
                       CustomCard(
                         svgAsset: "assets/svg/finance.svg",
                         title: "Financials",
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => FinancialsPage());
+                        },
                       ),
                     ],
                   ),

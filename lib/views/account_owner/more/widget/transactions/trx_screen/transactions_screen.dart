@@ -3,9 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/filter_trx_button.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/trx_dashboard.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/trx_history_list.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_content/trx_empty_state.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/filter_trx_button.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_dashboard.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_history_list.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -98,7 +99,8 @@ class TransactionPage extends StatelessWidget {
                       //FILTER BUTTON
                       FilterTrxButton(),
                       SizedBox(height: 30,),
-                      //List of transactions comes here
+                      //List of transactions comes here and it's empty state // //Future building will be used here also
+                      //TrxEmptyState(onRefresh: () {},),
                       TrxHistoryList(),
                       SizedBox(height: 15,),
                     ],

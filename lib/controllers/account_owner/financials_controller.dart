@@ -35,6 +35,10 @@ class FinancialsController extends getx.GetxController {
     selectedValue.value = newValue!;
   }
 
+  //for Speed dial floating action button
+  final isOpened = false.obs;
+
+
 
 
 

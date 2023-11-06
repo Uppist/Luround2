@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/dropdowns/invoice_dropdown.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/dropdowns/quotes_dropdown.dart';
 
 
 
@@ -17,7 +19,7 @@ class FinancialsDisplay extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         boxShadow: [
@@ -45,10 +47,12 @@ class FinancialsDisplay extends StatelessWidget {
                   fontWeight: FontWeight.w500
                 ),
               ),
-              InkWell(
+              /*InkWell(
                 onTap: onPressed, 
                 child: Icon(Icons.more_vert_rounded, color: AppColor.darkGreyColor,),
-              )
+              )*/
+              //QoutesDrpDown()  //ReceiptDropDown()  //InvoiceDropDown()
+              QuoteDropDown()
             ],
           ),
           SizedBox(height: 20,),

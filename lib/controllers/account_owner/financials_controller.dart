@@ -12,12 +12,15 @@ import 'package:get/get.dart' as getx;
 
 
 class FinancialsController extends getx.GetxController {
+
+  //financials list
+  final isFinancialsListEmpty = true.obs;
   
   //search textField
   final isFieldTapped = false.obs;
   final TextEditingController searchController = TextEditingController();
 
-  //filter financials list
+  //filter financials list drop down
   final List<String> items = [
     'All time      ', 
     'Today      ', 

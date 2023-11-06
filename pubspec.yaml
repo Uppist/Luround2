@@ -72,3 +72,5 @@ flutter:
   assets:
     - assets/images/
     - assets/svg/
+    - assets/financials/
+    - assets/lottie/

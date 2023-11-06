@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/filter_financials_button.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/financials_list.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
@@ -30,7 +32,7 @@ class _FinancialsPageState extends State<FinancialsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.greyColor, //AppColor.bgColor,
+      backgroundColor: controller.isFinancialsListEmpty.value ? AppColor.bgColor : AppColor.greyColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,19 +114,36 @@ class _FinancialsPageState extends State<FinancialsPage> {
                     )                
                   ),
                   SizedBox(height: 20,),
+                  //filter button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 13),
                     child: FilterFinancialsButton(),
                   ),
-                  //filter button
                   SizedBox(height: 15,),                 
                 ],
               ),
             ),
-            SizedBox(height: 20,),
+            //SizedBox(height: 20,),
+            //financils list and empty state (run future builder there)
+            FinancialsList()
           ]
         )
-      )
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        //extendedPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        foregroundColor: AppColor.mainColor,
+        backgroundColor: AppColor.mainColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(50))
+        ),
+        onPressed: () {},
+        child: Icon(
+          CupertinoIcons.add,
+          size: 30,
+          color: AppColor.bgColor,
+        ),
+      ),
     );
   }
 }

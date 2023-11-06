@@ -14,6 +14,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
+
 class FinancialsPage extends StatelessWidget {
   FinancialsPage({super.key});
 
@@ -22,7 +23,7 @@ class FinancialsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.bgColor,
+      backgroundColor: AppColor.greyColor, //AppColor.bgColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,7 +51,7 @@ class FinancialsPage extends StatelessWidget {
                 ]
               )
             ),
-            ///Navigation Section/////
+            ///Navigation Section, Search TextField and Filter/////
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 7,),
               height: 70, //65

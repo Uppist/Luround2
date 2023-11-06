@@ -13,13 +13,26 @@ import 'package:get/get.dart' as getx;
 
 class FinancialsController extends getx.GetxController {
   
+  //search textField
   final isFieldTapped = false.obs;
   final TextEditingController searchController = TextEditingController();
 
-  void isFieldTappedFunc() {
-    isFieldTapped.value = !isFieldTapped.value;
-    update();
+  //filter financials list
+  final List<String> items = [
+    'All time      ', 
+    'Today      ', 
+    'Yesterday      ', 
+    'This week      ',
+    'Last 90 days        ', //8
+    "Last 30 days        ", //8
+    "This month      " //6
+  ];
+  final selectedValue = 'All time      '.obs; //SAVED TO DB
+  void filterList(String? newValue) {
+    selectedValue.value = newValue!;
   }
+
+
 
 
 

@@ -22,33 +22,53 @@ class FinancialsEmptyState extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 20,),
-          SvgPicture.asset('assets/svg/no_financials.svg'),
+          SizedBox(height: 100,),
+          SvgPicture.asset('assets/financials/no_financials.svg'),
           SizedBox(height: 30,),
           Text(
             'No Financial documents yet',
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 22,
+                fontSize: 18,
                 fontWeight: FontWeight.bold
               )
             )
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 10,),
           RichText(
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: '',
+                  text: 'Click on the ',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16,
-                      //fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w500
                     )
                   )
-                )
+                ),
+                TextSpan(
+                  text: '"Plus icon"',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      color: AppColor.blackColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    )
+                  )
+                ),
+                TextSpan(
+                  text: 'to create\n          a financial document.',
+                  style: GoogleFonts.poppins(
+                    textStyle: TextStyle(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500
+                    )
+                  )
+                ),
               ]
             ),
           ),

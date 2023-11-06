@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_content/financials_empty_state.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/filter_financials_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/financials_list.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/search_textfield.dart';
@@ -125,6 +126,7 @@ class _FinancialsPageState extends State<FinancialsPage> {
             ),
             //SizedBox(height: 20,),
             //financils list and empty state (run future builder there)
+            //FinancialsEmptyState(),
             FinancialsList()
           ]
         )

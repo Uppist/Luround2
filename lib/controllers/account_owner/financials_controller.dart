@@ -14,7 +14,7 @@ import 'package:get/get.dart' as getx;
 class FinancialsController extends getx.GetxController {
 
   //financials list
-  final isFinancialsListEmpty = true.obs;
+  final isFinancialsListEmpty = false.obs;
   
   //search textField
   final isFieldTapped = false.obs;

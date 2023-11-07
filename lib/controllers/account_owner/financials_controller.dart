@@ -29,16 +29,6 @@ class FinancialsController extends getx.GetxController {
       update();
     }
   }
-  //(save to db) this is the selected date 
-  /*String updatedDate ({required String initialDate}) {
-    if(dates.isNotEmpty) {
-      var result = dates[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
-    }
-    return initialDate;
-  }*/
   //(save both dates below to db)
   String startDate () {
     if(dates.isNotEmpty && dates.length >= 2) {
@@ -62,8 +52,51 @@ class FinancialsController extends getx.GetxController {
   }
   ////////////////////////////
   
-  ///CREATE QUOTE/////
 
+
+  ///CREATE QUOTE SECTION/////
+  int maxLength = 500;
+  //quote date
+  var quoteDate = <DateTime?>[].obs;
+  void selectedQuoteDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      quoteDate.clear();
+      // Add the new unique item
+      quoteDate.add(dateList[0]);
+    }
+  }
+  //(save to db) this is the selected date 
+  String updatedQuoteDate ({required String initialDate}) {
+    if(quoteDate.isNotEmpty) {
+      var result = quoteDate[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
+
+  //due date
+  var dueDate = <DateTime?>[].obs;
+  void selectedDueDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      dueDate.clear();
+      // Add the new unique item
+      dueDate.add(dateList[0]);
+    }
+  }
+  //(save to db) this is the selected date 
+  String updatedDueDate ({required String initialDate}) {
+    if(dueDate.isNotEmpty) {
+      var result = dueDate[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
 
 
 

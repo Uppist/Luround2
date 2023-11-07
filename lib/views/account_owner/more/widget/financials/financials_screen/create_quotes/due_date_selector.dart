@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/bookings_controller.dart';
+import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -11,10 +11,10 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-var controller = Get.put(BookingsController());
+var controller = Get.put(FinancialsController());
 
 
-Future<void> selectDateBottomSheet({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
+Future<void> selectDueDateBottomSheet({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -71,8 +71,8 @@ Future<void> selectDateBottomSheet({required BuildContext context, required Void
                   ),
                   value: controller.dates,
                   onValueChanged: (dates) {
-                    controller.selectedDate(dates);
-                    debugPrint("${controller.dates}");
+                    controller.selectedDueDate(dates);
+                    debugPrint("${controller.dueDate}");
                   },
                 ),
                 SizedBox(height: 20,),

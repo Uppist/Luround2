@@ -5,9 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/custom_container.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/due_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/notes_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/select_client.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/quote_date_selector.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/select_client_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -18,9 +21,14 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-class CreateQuotePage extends StatelessWidget {
+class CreateQuotePage extends StatefulWidget {
   CreateQuotePage({super.key});
 
+  @override
+  State<CreateQuotePage> createState() => _CreateQuotePageState();
+}
+
+class _CreateQuotePageState extends State<CreateQuotePage> {
   var controller = Get.put(FinancialsController());
 
   @override
@@ -160,7 +168,9 @@ class CreateQuotePage extends StatelessWidget {
                           ),
                           SizedBox(height: 20,),
                           //SELECT CLIENT
-                          SelectClientWidget(),
+                          SelectClientWidget(
+                            onTap: () {},
+                          ),
                           SizedBox(height: 20,),
                           Text(
                             "Quote Date*",
@@ -171,10 +181,26 @@ class CreateQuotePage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 20,),
-                          DateContainer(
-                            onTap: () {},
-                            date: "14 September 2023",
-                          ),
+                        
+                          Obx(
+                            () {
+                              return DateContainer(
+                                onTap: () {
+                                  selectQuoteDateBottomSheet(
+                                    context: context,
+                                    onCancel: () {
+                                      Get.back();
+                                    },
+                                    onApply: () {
+                                      Get.back();
+                                    },
+                                  );
+                                },
+                                date: controller.updatedQuoteDate(initialDate: "Select Date"),
+                              );
+                            }
+                          ),                  
+                          
                           SizedBox(height: 30,),
                           Text(
                             "Due Date*",
@@ -185,10 +211,24 @@ class CreateQuotePage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 20,),
-                          DateContainer(
-                            onTap: () {},
-                            date: "14 September 2023",
-                          )
+                          Obx(
+                            () {
+                              return DateContainer(
+                                onTap: () {
+                                  selectDueDateBottomSheet(
+                                    context: context,
+                                    onCancel: () {
+                                      Get.back();
+                                    },
+                                    onApply: () {
+                                      Get.back();
+                                    },
+                                  );
+                                },
+                                date: controller.updatedDueDate(initialDate: "Select Date"),
+                              );
+                            }
+                          ),
                     
                         ],
                       ),
@@ -337,16 +377,54 @@ class CreateQuotePage extends StatelessWidget {
                           ),
                           SizedBox(height: 20,),
                           NotesTextField(
-                            onChanged: (val) {},
+                            onChanged: (val) {
+                              // Check if character count exceeds the maximum
+                              if (val.length > controller.maxLength) {
+                                // Remove extra characters       
+                                controller.quoteNoteController.text = val.substring(0, controller.maxLength);
+                                debugPrint("you have reached max length");
+                              } 
+                              setState(() {}); // Update the UI
+                            },
                             hintText: "Write a short note for the recipient.",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
                             controller: controller.quoteNoteController,
                           ),
+                          SizedBox(height: 20),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                '${controller.quoteNoteController.text.length}/${controller.maxLength}',
+                                style: GoogleFonts.poppins(
+                                  color: AppColor.textGreyColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                            ]
+                          ),
                         ]
                       )
                     ),
-                    SizedBox(height: 50,),
+                    SizedBox(height: 20,),
+                    //style
+                    Container(
+                      height: 7,
+                      width: double.infinity,
+                      color: AppColor.greyColor,
+                    ),
+                    SizedBox(height: 20,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: ReusableButton(
+                        color: AppColor.mainColor,
+                        text: 'Send Quote',
+                        onPressed: () {},
+                      ),
+                    ),
+                    SizedBox(height: 20,),
                   ],
                 ),
               )

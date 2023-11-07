@@ -115,9 +115,9 @@ class _EditAboutPageState extends State<EditAboutPage> {
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               child: ReusableButton(
                 color: AppColor.mainColor,
-                  text: 'Save',
-                  onPressed: () {},
-                ),
+                text: 'Save',
+                onPressed: () {},
+              ),
             ),
             SizedBox(height: 20,),
           ]

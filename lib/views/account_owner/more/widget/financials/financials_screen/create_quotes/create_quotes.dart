@@ -10,6 +10,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/due_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/notes_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/quote_date_selector.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/select_client_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/select_client_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
@@ -169,7 +170,12 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           SizedBox(height: 20,),
                           //SELECT CLIENT
                           SelectClientWidget(
-                            onTap: () {},
+                            clientName: "Select a client",
+                            onTap: () {
+                              selectClientBottomSheet(
+                                context: context,
+                              );
+                            },
                           ),
                           SizedBox(height: 20,),
                           Text(

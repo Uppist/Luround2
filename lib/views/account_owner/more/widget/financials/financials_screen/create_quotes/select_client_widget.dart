@@ -11,8 +11,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class SelectClientWidget extends StatelessWidget {
-  SelectClientWidget({super.key, required this.onTap});
+  SelectClientWidget({super.key, required this.onTap, required this.clientName});
   final VoidCallback onTap;
+  final String clientName;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class SelectClientWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Select a client",
+                clientName,
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
                   fontSize: 16,

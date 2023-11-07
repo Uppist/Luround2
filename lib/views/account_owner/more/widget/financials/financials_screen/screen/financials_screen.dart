@@ -7,9 +7,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/others/filter_financials_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/others/financials_list.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/others/search_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/create_quotes.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/filter_financials_button.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -132,7 +133,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
         ),
       ),  
       
-      //FAB
+      //FAB (floating action bubble / speed dial)
       floatingActionButton: Obx(
         () {
           return SpeedDial(
@@ -158,33 +159,53 @@ class _FinancialsPageState extends State<FinancialsPage>{
             onClose: () {
               controller.isOpened.value = false;
             },
-            spaceBetweenChildren: 10,
+            spaceBetweenChildren: 30,
             //childPadding: EdgeInsets.symmetric(horizontal: 20),
             // Menu items
             onPress: () {},
             children: [
               SpeedDialChild(
-                //label: "ffff",
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                  //color: AppColor.bgColor,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Text(
-                    "Generate Quote",
-                    style: GoogleFonts.inter(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
-                      color: AppColor.darkGreyColor
-                    ),
-                  ),
+                label: "Generate Receipt",
+                labelStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: AppColor.darkGreyColor
                 ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))
+                ),
+                onTap: () {
+                  //Get.off(() => CreateReceiptPage());
+                },
               ),
               SpeedDialChild(
-                label: "ffff",
-                child: Icon(Icons.h_mobiledata)
+                label: "Generate Invoice",
+                labelStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: AppColor.darkGreyColor
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))
+                ),
+                onTap: () {
+                  //Get.off(() => CreateInvoicePage());
+                },
+              ),
+
+              SpeedDialChild(
+                label: "Generate Quote",
+                labelStyle: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 15,
+                  color: AppColor.darkGreyColor
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30))
+                ),
+                onTap: () {
+                  Get.off(() => CreateQuotePage());
+                },
               )
             ],
           );

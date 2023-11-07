@@ -51,7 +51,7 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
                 //1
                 InkWell(
                   onTap: () {
-                    Get.to(() => RescheduleBookingPage());
+                    Get.off(() => RescheduleBookingPage());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

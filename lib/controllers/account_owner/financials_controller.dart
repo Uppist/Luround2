@@ -19,21 +19,57 @@ class FinancialsController extends getx.GetxController {
   //search textField
   final isFieldTapped = false.obs;
   final TextEditingController searchController = TextEditingController();
+  final TextEditingController quoteNoteController = TextEditingController();
 
-  //filter financials list drop down
-  final List<String> items = [
-    'All time      ', 
-    'Today      ', 
-    'Yesterday      ', 
-    'This week      ',
-    'Last 90 days        ', //8
-    "Last 30 days        ", //8
-    "This month      " //6
-  ];
-  final selectedValue = 'All time      '.obs; //SAVED TO DB
-  void filterList(String? newValue) {
-    selectedValue.value = newValue!;
+  //filter by date range
+  var dates = <DateTime?>[].obs;
+  void selectedDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      dates.value = dateList;
+      update();
+    }
   }
+  //(save to db) this is the selected date 
+  /*String updatedDate ({required String initialDate}) {
+    if(dates.isNotEmpty) {
+      var result = dates[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }*/
+  //(save both dates below to db)
+  String startDate () {
+    if(dates.isNotEmpty && dates.length >= 2) {
+      print(dates);
+      var result = dates[0].toString();
+      var refinedList = result.substring(0, 10);
+      print(refinedList);
+      return refinedList;
+    }
+    return "from";
+  }
+  String endDate () {
+    print(dates);
+    if(dates.isNotEmpty && dates.length >= 2) {
+      var result = dates[1].toString();
+      var refinedList = result.substring(0, 10);
+      print(refinedList);
+      return refinedList;
+    }
+    return "to";
+  }
+  ////////////////////////////
+  
+  ///CREATE QUOTE/////
+
+
+
+
+
+
+
 
   //for Speed dial floating action button
   final isOpened = false.obs;
@@ -46,6 +82,7 @@ class FinancialsController extends getx.GetxController {
   @override
   void dispose() {
     searchController.dispose();
+    quoteNoteController.dispose();
     // TODO: implement dispose
     super.dispose();
   }

@@ -7,6 +7,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:luround/views/account_viewer/services/widgets/sign_me_up/sign_up_bottomsheet.dart';
+import 'package:lottie/lottie.dart';
 
 
 
@@ -51,8 +52,10 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 280,),
+                    SizedBox(height: 100,),
                     //
+                    Lottie.asset("assets/lottie/trf_sent.json"),
+                    SizedBox(height: 50,),
                     Text(
                       "Transaction Successful",
                       style: GoogleFonts.inter(
@@ -83,7 +86,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                               )
                             ),
                             TextSpan(
-                              text :'               for a',
+                              text :'                 for a',
                               style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w500,

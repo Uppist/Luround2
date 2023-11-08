@@ -18,13 +18,14 @@ import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewe
 ///Alert Dialog
 Future<void> signMeUpBottomSheet({required BuildContext context}) async{
   showDialog(
-    useSafeArea: true,
-    context: context, 
+    useSafeArea: false,
+    context: context,
+    barrierDismissible: false, 
     builder: (context) {
       return AlertDialog(
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(15)
+          borderRadius: BorderRadius.all(
+            Radius.circular(15)
           )
         ),
         backgroundColor: AppColor.bgColor,
@@ -35,9 +36,9 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
               decoration: BoxDecoration(
                 //image: DecorationImage(image: AssetImage(''),),
                 color: AppColor.bgColor,
-                borderRadius: BorderRadius.all(
+                /*borderRadius: BorderRadius.all(
                   Radius.circular(20)
-                ),
+                ),*/
               ),
               child: Column(
                 //mainAxisAlignment: MainAxisAlignment.start,
@@ -67,7 +68,7 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                   ),
                   SizedBox(height: 20,),
                   Text(
-                    "     By setting up your own account,\n      others can schedule and book\n                    your services.",
+                    " By setting up your own account,\n   others can schedule and book\n                your services.",
                     style: GoogleFonts.inter(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

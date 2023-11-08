@@ -92,7 +92,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                   children: [
                     CircleAvatar(
                       backgroundColor: AppColor.mainColor,
-                      radius: 33,
+                      radius: 30,
                       child: Text(
                         "R",
                         style: GoogleFonts.inter(
@@ -102,7 +102,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 20),
+                    SizedBox(width: 15),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -117,7 +117,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                               )
                             )
                           ),
-                          SizedBox(height: 30,),                           
+                          SizedBox(height: 15,),                           
                           Text(
                             'Reviews are public and include your account info.',
                             style: GoogleFonts.inter(

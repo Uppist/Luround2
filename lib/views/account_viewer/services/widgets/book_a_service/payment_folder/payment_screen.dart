@@ -29,7 +29,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   var controller = Get.put(AccViewerServicesController());
 
-  @override
+  /*@override
   void initState() {
     // Add a listener to the text controller
     controller.cvvController.addListener(() {
@@ -39,7 +39,34 @@ class _PaymentScreenState extends State<PaymentScreen> {
       });
     });
     super.initState();
+  }*/
+
+
+  void cvvListener() {
+    if (mounted) {
+      setState(() {
+        // Check if the text field is empty or not
+        controller.isCVVEnabled.value = controller.cvvController.text.isNotEmpty;
+      });
+    }
   }
+
+  @override
+  void initState() {
+    // Add a listener to the text controller
+    controller.cvvController.addListener(cvvListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // Remove the listener from cvvController when the widget is disposed
+    controller.cvvController.removeListener(cvvListener);
+    super.dispose();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {

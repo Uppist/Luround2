@@ -52,7 +52,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                 color: AppColor.mainColor
               ),
               selectedYearTextStyle:  GoogleFonts.inter(
-                color: AppColor.mainColor
+                color: AppColor.bgColor
               ),
               selectedRangeDayTextStyle:  GoogleFonts.inter(
                 color: AppColor.bgColor

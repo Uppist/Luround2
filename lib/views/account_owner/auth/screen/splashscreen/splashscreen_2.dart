@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/auth/screen/onboarding/splashscreen/splashscreen_2.dart';
+import 'package:luround/views/account_owner/auth/screen/onboarding/screen/onboarding_screen.dart';
 
 
 
@@ -10,18 +10,18 @@ import 'package:luround/views/account_owner/auth/screen/onboarding/splashscreen/
 
 
 
-class SplashScreen1 extends StatelessWidget {
-  const SplashScreen1({super.key});
+class SplashScreen2 extends StatelessWidget {
+  const SplashScreen2({super.key});
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Center(
-        child: Image.asset("assets/splash/splash_1.png")
+        child: Image.asset("assets/splash/splash_2.png")
       ), 
-      nextScreen: SplashScreen2()  ,
+      nextScreen: OnBoardingPage()  ,
       duration: 1000, //4000
-      backgroundColor: AppColor.bgColor,
+      backgroundColor: AppColor.mainColor,
       centered: true,
       //splashIconSize: 500,
       splashTransition: SplashTransition.fadeTransition,

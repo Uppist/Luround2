@@ -54,7 +54,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                   children: [
                     SizedBox(height: 100,),
                     //
-                    Lottie.asset("assets/lottie/trf_sent.json"),
+                    Lottie.asset("assets/lottie/my_g.json"),
                     SizedBox(height: 50,),
                     Text(
                       "Transaction Successful",

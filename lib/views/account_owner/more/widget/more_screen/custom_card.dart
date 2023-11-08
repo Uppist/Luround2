@@ -18,29 +18,31 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
-      child: Container(
-        //height: 100,
-        width: 200,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        decoration: BoxDecoration(
-          color: AppColor.bgColor,
+      child: Expanded(
+        child: Container(
+          //height: 100,
+          width: 200,
+          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          decoration: BoxDecoration(
+            color: AppColor.bgColor,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(svgAsset),
+              SizedBox(height: 20,),
+              Text(
+                title,
+                style: GoogleFonts.inter(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                  color: AppColor.blackColor
+                ),
+              )
+            ],
+          )
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(svgAsset),
-            SizedBox(height: 20,),
-            Text(
-              title,
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
-                color: AppColor.blackColor
-              ),
-            )
-          ],
-        )
       ),
     );
   }

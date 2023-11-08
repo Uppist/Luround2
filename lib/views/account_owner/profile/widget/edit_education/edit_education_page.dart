@@ -119,8 +119,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
 
   @override
   void dispose() {
-    disposeControllers();
-    disposeMainFieldControllers();
+    //disposeControllers();
+    //disposeMainFieldControllers();
     super.dispose();
   }
 

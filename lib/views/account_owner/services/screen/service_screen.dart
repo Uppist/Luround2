@@ -114,16 +114,17 @@ class ServicesPage extends StatelessWidget {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  IconButton(
-                                    icon: Icon(
+                                  InkWell(
+                                    onTap: () {
+                                      editServiceDialogueBox(context: context, titleText: "Personal Training");
+                                    },
+                                    child: Icon(
                                       Icons.more_vert_rounded,
                                       color: AppColor.darkGreyColor,
+                                      size: 30,
                                     ),
-                                    iconSize: 30,
-                                    onPressed: () {
-                                      editServiceDialogueBox(context: context, titleText: "Personal Training");
-                                    }, 
-                                  )
+                                  ),
+                                  
                                 ],
                               ),
                               SizedBox(height: 20,),

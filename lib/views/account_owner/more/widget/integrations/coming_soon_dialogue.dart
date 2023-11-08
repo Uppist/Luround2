@@ -31,7 +31,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
             Radius.circular(15)
           )
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+        contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
         content: Wrap(
           children: [
             Column(
@@ -48,7 +48,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
                 ),
                 SizedBox(height: 30,),
                 Text(
-                  '       Enhance your meeting experience by\n    integrating your favorite apps and tools.\n                        (coming soon)',
+                  '   Enhance your meeting experience by\n integrating your favorite apps and tools.\n                     (coming soon)',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14,

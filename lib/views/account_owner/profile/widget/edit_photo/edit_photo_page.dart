@@ -60,44 +60,6 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
             ),
             SizedBox(height: 20,),
             ///
-            //User Photo
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              child: Container(
-                alignment: Alignment.bottomRight,
-                height: 300,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                decoration: BoxDecoration(
-                  color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
-                    fit: BoxFit.cover
-                  )
-                ),
-                child: InkWell(
-                  onTap: () {
-                    editPhotoDialogueBox(context: context);
-                  },
-                  child: SvgPicture.asset("assets/svg/edit_photo_icon.svg"),
-                )
-              ),
-            ),
-            SizedBox(height: 20,),
-            //Personal Details
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-              child: Text(
-                'Personal Details',
-                style: GoogleFonts.inter(
-                  color: AppColor.blackColor,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
-                )
-              ),
-            ),
-            SizedBox(height: 20,),
-            ///
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -107,6 +69,40 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [               
                       SizedBox(height: 20,),
+                      //User Photo
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        height: 300,
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
+                            fit: BoxFit.cover
+                          )
+                        ),
+                        child: InkWell(
+                          onTap: () {
+                            editPhotoDialogueBox(context: context);
+                          },
+                          child: SvgPicture.asset("assets/svg/edit_photo_icon.svg"),
+                        )
+                      ),
+                      SizedBox(height: 20,),
+                      //Personal Details
+                      Text(
+                        'Personal Details',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        )
+                      ),
+                      SizedBox(height: 20,),
+
+
+
               
                       //name textfield
                       NameTextField(

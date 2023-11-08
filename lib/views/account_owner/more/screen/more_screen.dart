@@ -5,7 +5,7 @@ import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/financials_screen.dart';
-import 'package:luround/views/account_owner/more/widget/more_screen/coming_soon_dialogue.dart';
+import 'package:luround/views/account_owner/more/widget/integrations/coming_soon_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/notification_settings/notification_settings_screen.dart';

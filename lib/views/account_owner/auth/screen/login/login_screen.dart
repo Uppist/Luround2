@@ -139,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 20,),
                     //Rich Text for reading terms and conditions
                     Center(
                       child: InkWell(
@@ -148,21 +148,21 @@ class _LoginPageState extends State<LoginPage> {
                           "Forgot password ?",
                           style: GoogleFonts.inter(
                             color: AppColor.redColor,
-                            fontSize: 15,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500
                           )
                         ),
                       ),
                     ),
 
-                    SizedBox(height: 50,),
+                    SizedBox(height: 70,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
                       onTextButton: () {},
                       firstText: "Don't have an account ?",
                       lastText: "Create account",
                     ),
-                    SizedBox(height: 60,),
+                    SizedBox(height: 90,),
           
                     RebrandedReusableButton(
                       textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,

@@ -30,6 +30,10 @@ class AuthController extends getx.GetxController {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
+  final registerEmailRegex = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
+
   var formKey1 = GlobalKey<FormState>();
   var formKey2 = GlobalKey<FormState>();
 
@@ -43,6 +47,9 @@ class AuthController extends getx.GetxController {
 
 
   String? validateFirstName() {
+    if(firstNameController.text.isEmpty) {
+      return "First name is required";
+    }
     if (GetUtils.isLengthLessThan(firstNameController.text.trim(), 3)) {
       return "First name is too short";
     } 
@@ -51,6 +58,9 @@ class AuthController extends getx.GetxController {
   }
 
   String? validateLastName() {
+    if(lastNameController.text.isEmpty) {
+      return "Last name is required";
+    }
     if (GetUtils.isLengthLessThan(lastNameController.text.trim(), 3)) {
       return "Last name is too short";
     }
@@ -60,13 +70,19 @@ class AuthController extends getx.GetxController {
 
 
   String? validateEmail({required String value}) {
-    if (!GetUtils.isEmail(value)) {
+    if(value.isEmpty) {
+      return "Email address is required";
+    }
+    if (!registerEmailRegex.hasMatch(value) && !GetUtils.isEmail(value)) {
       return "Please enter a valid email address";
     }
     return null;
   }
 
   String? validatePassword() {
+    if(passwordController.text.isEmpty) {
+      return "Password is required";
+    }
     if (GetUtils.isLengthLessThan(passwordController.text.trim(), 6)) {
       return "Password must be of 6 characters or more";
     } 
@@ -75,6 +91,9 @@ class AuthController extends getx.GetxController {
   }
 
   String? validateConfirmPassword() {
+    if(confirmPasswordController.text.isEmpty) {
+      return "Password is required";
+    }
     if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
       return "Passwords do not match";
     }
@@ -107,9 +126,16 @@ class AuthController extends getx.GetxController {
   }
 
 
+
+
+
   //LOGIN SECTION
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPasswordController = TextEditingController();
+
+  final loginEmailRegex = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+  );
 
   var loginFormKey = GlobalKey<FormState>();
 
@@ -118,7 +144,10 @@ class AuthController extends getx.GetxController {
   bool seeLoginPassword = false;
 
   String? validateLoginEmail({required String value}) {
-    if (!GetUtils.isEmail(value)) {
+    if(value.isEmpty) {
+      return "Email address is required";
+    }
+    if (!loginEmailRegex.hasMatch(value) && !GetUtils.isEmail(value)) {
       return "Please enter a valid email address";
     }
     return null;

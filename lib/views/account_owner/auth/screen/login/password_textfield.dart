@@ -10,8 +10,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class RegTextField extends StatefulWidget {
-  const RegTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.validator,});
+class PasswordTextField extends StatefulWidget {
+  PasswordTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.isObscured, required this.validator,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String labelText;
@@ -19,13 +19,15 @@ class RegTextField extends StatefulWidget {
   final void Function(String)? onChanged;
   final void Function(bool)? onFocusChanged;
   final String? Function(String?)? validator;
+  bool isObscured;
+  
   
 
   @override
-  State<RegTextField> createState() => _RegTextFieldState();
+  State<PasswordTextField> createState() => _RegPasswordTextFieldState();
 }
 
-class _RegTextFieldState extends State<RegTextField> {
+class _RegPasswordTextFieldState extends State<PasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
@@ -45,29 +47,39 @@ class _RegTextFieldState extends State<RegTextField> {
         textCapitalization: TextCapitalization.sentences,
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),
+        //
+        obscureText: widget.isObscured,
+        obscuringCharacter: '*',
         decoration: InputDecoration(        
           border: OutlineInputBorder(
             borderSide: BorderSide.none, // Remove the border
           ),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: AppColor.mainColor), // Set the color you prefer
-          ), 
           focusedErrorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.redColor),
           ),
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.redColor),
           ),
-          //errorText: widget.errortext,
-          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13),    
+          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.mainColor), // Set the color you prefer
+          ),     
           labelText: widget.labelText,
           labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
-          //filled: true,
-          //fillColor: swapSpaceWhiteColor,
-          //suffixIcon: widget.icon,
+          suffixIcon: InkWell(
+            onTap: () {
+              setState(() {
+                widget.isObscured = !widget.isObscured;
+              });
+              debugPrint("${widget.isObscured}");
+            },
+            child: widget.isObscured 
+            ? Icon(Icons.visibility_outlined, color: AppColor.textGreyColor,) 
+            : Icon(Icons.visibility_off_outlined, color: AppColor.textGreyColor,) 
+          ),
         ),
         validator: widget.validator,
       ),

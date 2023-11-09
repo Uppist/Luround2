@@ -6,7 +6,7 @@ import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_page.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
-import 'package:luround/views/account_owner/auth/screen/registration/second_page.dart';
+import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
 import '../../views/account_owner/auth/screen/onboarding/page/third_page.dart';
 
 
@@ -23,64 +23,126 @@ class AuthController extends getx.GetxController {
     const ThirdPage(),
   ];
 
-  //REGISTRATION PAGE//
+  //REGISTRATION SECTION//
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
 
+  var formKey1 = GlobalKey<FormState>();
+  var formKey2 = GlobalKey<FormState>();
 
-  var isFirstPageButtonEnabled = false;
-  var isSecondPageButtonEnabled = false;
+
+  var isFirstPageButtonEnabled = true;
+  var isSecondPageButtonEnabled = true;
 
   bool seePassword = false;
   bool seeConfirmPassword = false;
- 
-  var firstNameError = "".obs;
-  var lastNameError = "".obs;
-  var emailError = "".obs;
-  var passwordError = "".obs;
-  var confirmPasswordError = "".obs;
   var isLoading = false.obs;
-  
-  clearFirstNameError(val) => firstNameError.value = "";
-  clearLastNameError(val) => lastNameError.value = "";
-  clearEmailError(val) => emailError.value = "";
-  clearPasswordError(val) => passwordError.value = "";
-  clearConfirmPasswordError(val) => confirmPasswordError.value = "";
-  
-  //validates first page of the registration section
-  void validateFirstPage(BuildContext context) {
+
+
+  String? validateFirstName() {
     if (GetUtils.isLengthLessThan(firstNameController.text.trim(), 3)) {
-      passwordError.value = "First name is too short";
+      return "First name is too short";
     } 
-    else if (GetUtils.isLengthLessThan(lastNameController.text.trim(), 3)) {
-      passwordError.value = "Last name is too short";
+    print("nice one my geee!!!");
+    return null;
+  }
+
+  String? validateLastName() {
+    if (GetUtils.isLengthLessThan(lastNameController.text.trim(), 3)) {
+      return "Last name is too short";
+    }
+    print("nice one my geee!!!");
+    return null;
+  }
+
+
+  String? validateEmail({required String value}) {
+    if (!GetUtils.isEmail(value)) {
+      return "Please enter a valid email address";
+    }
+    return null;
+  }
+
+  String? validatePassword() {
+    if (GetUtils.isLengthLessThan(passwordController.text.trim(), 6)) {
+      return "Password must be of 6 characters or more";
     } 
-    else if (!GetUtils.isEmail(emailController.text.trim())) {
-      emailError.value = "Please enter a valid email address";
+    print("nice one my geee!!!");
+    return null;
+  }
+
+  String? validateConfirmPassword() {
+    if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
+      return "Passwords do not match";
     }
-    //finally, sign the user up!!
-    else {Get.to(() => RegisterPage2());
-      
+    print("nice one my geee!!!");
+    return null;
+  }
+
+  checkFirstPageCredentials() {
+    final isValid = formKey1.currentState!.validate();
+    if(!isValid) {
+      return "Invalid Credentials";
     }
+    print("Nice. Credentilas are valid!!");
+    Get.to(()=> RegisterPage2());
+    return formKey1.currentState!.save();
+  }
+
+  checkSecondPageCredentials() {
+    final isValid = formKey2.currentState!.validate();
+    if(!isValid) {
+      return "Invalid Credentials";
+    }
+    print("Nice. Credentilas are valid!!");
+    firstNameController.clear();
+    lastNameController.clear();
+    emailController.clear();
+    passwordController.clear();
+    confirmPasswordController.clear();
+    return formKey2.currentState!.save();
+  }
+
+
+  //LOGIN SECTION
+  final TextEditingController loginEmailController = TextEditingController();
+  final TextEditingController loginPasswordController = TextEditingController();
+
+  var loginFormKey = GlobalKey<FormState>();
+
+  var isLoginPageButtonEnabled = true;
+
+  bool seeLoginPassword = false;
+
+  String? validateLoginEmail({required String value}) {
+    if (!GetUtils.isEmail(value)) {
+      return "Please enter a valid email address";
+    }
+    return null;
+  }
+
+  String? validateLoginPassword() {
+    if (GetUtils.isLengthLessThan(loginPasswordController.text.trim(), 6)) {
+      return "Password must be of 6 characters or more";
+    } 
+    print("nice one my geee!!!");
+    return null;
+  }
+
+  checkLoginCredentials() {
+    final isValid = loginFormKey.currentState!.validate();
+    if(!isValid) {
+      return "Invalid Credentials";
+    }
+    print("Nice. Credentilas are valid!!");
+    loginEmailController.clear();
+    loginPasswordController.clear();
+    return loginFormKey.currentState!.save();
   }
   
-  //validates last page of the registration section
-  void validateLastPage(BuildContext context) {
-    if (GetUtils.isLengthLessThan(passwordController.text.trim(), 8)) {
-      passwordError.value = "Password is too short";
-    } 
-    else if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
-      confirmPasswordError.value = "Passwords do not match";
-    }
-    //finally, sign the user up!!
-    else {
-      //signUpFunction()
-      print("nice one my geee!!!");
-    }
-  }
  
 
 
@@ -96,14 +158,16 @@ class AuthController extends getx.GetxController {
 
 
   @override
-  void dispose() {
+  void onClose() {
     // TODO: implement dispose
     firstNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
-    super.dispose();
+    loginEmailController.dispose();
+    loginPasswordController.dispose();
+    super.onClose();
   }
 
 

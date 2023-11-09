@@ -10,8 +10,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class RegTextField extends StatefulWidget {
-  const RegTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.validator,});
+class LoginTextField extends StatefulWidget {
+  const LoginTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.validator,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String labelText;
@@ -22,10 +22,10 @@ class RegTextField extends StatefulWidget {
   
 
   @override
-  State<RegTextField> createState() => _RegTextFieldState();
+  State<LoginTextField> createState() => _LoginTextFieldState();
 }
 
-class _RegTextFieldState extends State<RegTextField> {
+class _LoginTextFieldState extends State<LoginTextField> {
 
   @override
   Widget build(BuildContext context) {

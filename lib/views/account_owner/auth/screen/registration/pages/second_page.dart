@@ -30,12 +30,12 @@ class _RegisterPage2State extends State<RegisterPage2> {
   @override
   void initState() {
     // Add a listener to the text controller
-    controller.confirmPasswordController.addListener(() {
+    /*controller.confirmPasswordController.addListener(() {
       setState(() {
         // Check if the text field is empty or not
         controller.isSecondPageButtonEnabled = controller.confirmPasswordController.text.isNotEmpty;
       });
-    });
+    });*/
     super.initState();
   }
 
@@ -107,31 +107,28 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     SizedBox(height: 40,),
                     //Form and textfields
                     Form(
-                      key: GlobalKey(),
+                      key: controller.formKey2,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RegPasswordTextField(
-                            errortext:  controller.passwordError.value.isEmpty
-                            ? null
-                            : controller.passwordError.value,
-                            onChanged: (val) {
-                              controller.clearPasswordError(val);
-                            },
+                            onChanged: (val) {},
+                            validator: (val) {
+                              return controller.validatePassword();
+                            },    
                             labelText: "Password",
                             keyboardType: TextInputType.visiblePassword,
                             textInputAction: TextInputAction.next,
                             textController: controller.passwordController,
-                            isObscured: controller.seePassword,                          
+                            isObscured: controller.seePassword,                       
                           ),
                           SizedBox(height: 20,),
                           RegPasswordTextField(
-                            errortext:  controller.confirmPasswordError.value.isEmpty
-                            ? null
-                            : controller.confirmPasswordError.value,
-                            onChanged: (val) {
-                              controller.clearConfirmPasswordError(val);
-                            },
+                            onChanged: (val) {},
+                            validator: (val) {
+                              return controller.validateConfirmPassword();
+                            },    
                             labelText: "Confirm Password",
                             keyboardType: TextInputType.visiblePassword,
                             textInputAction: TextInputAction.done,
@@ -141,16 +138,92 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 40,),
                     //Rich Text for reading terms and conditions
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: RichText(
+                        textAlign: TextAlign.start,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "By clicking ",
+                              style: GoogleFonts.inter(
+                                color: AppColor.textGreyColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              )
+                            ),
+                            TextSpan(
+                              text: "Create account, ",
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold
+                              )
+                            ),
+                            TextSpan(
+                              text: "you agree to Luround's ",
+                              style: GoogleFonts.inter(
+                                color: AppColor.textGreyColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              )
+                            ),
+                            TextSpan(
+                              text: "Terms of Service ",
+                              style: GoogleFonts.inter(
+                                color: AppColor.mainColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold
+                              ),
+                              onEnter: (event) {},
+                            ),
+                            TextSpan(
+                              text: "and ",
+                              style: GoogleFonts.inter(
+                                color: AppColor.textGreyColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500
+                              )
+                            ),
+                            TextSpan(
+                              text: "Privacy Policy",
+                              style: GoogleFonts.inter(
+                                color: AppColor.mainColor,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold
+                              ),
+                              onEnter: (event) {},
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
 
-                    SizedBox(height: 60,),
+                    SizedBox(height: 50,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
                       onTextButton: () {},
                       firstText: "Already have an account ?",
                       lastText: "Login",
-                    )
+                    ),
+                    SizedBox(height: 60,),
+          
+                    RebrandedReusableButton(
+                      textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
+                      color: controller.isSecondPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
+                      text: "Create account",
+                      onPressed: controller.isSecondPageButtonEnabled  
+                      ? () {
+                        controller.checkSecondPageCredentials();
+                        print("account created");
+                      }
+                      : () {
+                        print('nothing for you chief!!');
+                      },
+                    ),
+                    SizedBox(height: 20,),
 
                   ],
                 ),
@@ -158,10 +231,10 @@ class _RegisterPage2State extends State<RegisterPage2> {
             ),
             
 
-            
+
             //NEXT BUTTON HERE
             //pay button
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: RebrandedReusableButton(
                 textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -169,15 +242,14 @@ class _RegisterPage2State extends State<RegisterPage2> {
                 text: "Create account",
                 onPressed: controller.isSecondPageButtonEnabled  
                 ? () {
-                  print("yayyyy");
-                  controller.validateLastPage(context);
+                  print("account created");
                 }
                 : () {
                   print('nothing for you chief!!');
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20,),*/
           ]
         )
       )

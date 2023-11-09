@@ -7,7 +7,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/reg_textfield.dart';
-import 'package:luround/views/account_owner/auth/screen/registration/second_page.dart';
+
 
 
 
@@ -28,12 +28,12 @@ class _RegisterPage1State extends State<RegisterPage1> {
   @override
   void initState() {
     // Add a listener to the text controller
-    controller.emailController.addListener(() {
+    /*controller.emailController.addListener(() {
       setState(() {
         // Check if the text field is empty or not
         controller.isFirstPageButtonEnabled = controller.emailController.text.isNotEmpty;
       });
-    });
+    });*/
     super.initState();
   }
 
@@ -105,16 +105,15 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     SizedBox(height: 40,),
                     //Form and textfields
                     Form(
-                      key: GlobalKey(),
+                      key: controller.formKey1,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           RegTextField(
-                            errortext:  controller.firstNameError.value.isEmpty
-                            ? null
-                            : controller.firstNameError.value,
-                            onChanged: (val) {
-                              controller.clearFirstNameError(val);
+                            onChanged: (val) {},
+                            validator: (val) {
+                              return controller.validateFirstName();
                             },
                             labelText: "First Name",
                             keyboardType: TextInputType.name,
@@ -123,11 +122,9 @@ class _RegisterPage1State extends State<RegisterPage1> {
                           ),
                           SizedBox(height: 20,),
                           RegTextField(
-                            errortext: controller.lastNameError.value.isEmpty
-                            ? null
-                            : controller.lastNameError.value,
-                            onChanged: (val) {
-                              controller.clearLastNameError(val);
+                            onChanged: (val) {},
+                            validator: (val) {
+                              return controller.validateLastName();
                             },
                             labelText: "Last Name",
                             keyboardType: TextInputType.name,
@@ -136,11 +133,9 @@ class _RegisterPage1State extends State<RegisterPage1> {
                           ),
                           SizedBox(height: 20,),
                           RegTextField(
-                            errortext: controller.emailError.value.isEmpty
-                            ? null
-                            : controller.emailError.value,
-                            onChanged: (val) {
-                              controller.clearEmailError(val);
+                            onChanged: (val) {},
+                            validator: (val) {
+                              return controller.validateEmail(value: val!);
                             },
                             labelText: "Email Address",
                             keyboardType: TextInputType.emailAddress,
@@ -157,7 +152,23 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       onTextButton: () {},
                       firstText: "Already have an account ?",
                       lastText: "Login",
-                    )
+                    ),
+                    SizedBox(height: 60,),
+
+                    RebrandedReusableButton(
+                      textColor: controller.isFirstPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
+                      color: controller.isFirstPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
+                      text: "Next",
+                      onPressed: controller.isFirstPageButtonEnabled  
+                      ? () {
+                        controller.checkFirstPageCredentials();
+                        print("done");
+                      }
+                      : () {
+                        print('nothing for you chief!!');
+                      },
+                    ),
+                    SizedBox(height: 20,),
 
                   ],
                 ),
@@ -169,7 +180,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
             //NEXT BUTTON HERE
             //pay button
-            Padding(
+            /*Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: RebrandedReusableButton(
                 textColor: controller.isFirstPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -177,16 +188,15 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 text: "Next",
                 onPressed: controller.isFirstPageButtonEnabled  
                 ? () {
-                  print("yayyyy");
-                  controller.validateFirstPage(context);
-                  //Get.to(() => RegisterPage2());
+                  controller.checkFirstPageCredentials();
+                  print("done");
                 }
                 : () {
                   print('nothing for you chief!!');
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20,),*/
           ]
         )
       )

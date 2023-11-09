@@ -11,16 +11,16 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class RegPasswordTextField extends StatefulWidget {
-  RegPasswordTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.errortext, required this.isObscured,});
+  RegPasswordTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.isObscured, required this.validator,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String labelText;
-  final String? errortext;
   final TextInputAction textInputAction;
   final void Function(String)? onChanged;
   final void Function(bool)? onFocusChanged;
+  final String? Function(String?)? validator;
   bool isObscured;
-  //final Widget icon;
+  
   
 
   @override
@@ -60,7 +60,6 @@ class _RegPasswordTextFieldState extends State<RegPasswordTextField> {
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.redColor),
           ),
-          errorText: widget.errortext,
           errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
@@ -82,6 +81,7 @@ class _RegPasswordTextFieldState extends State<RegPasswordTextField> {
             : Icon(Icons.visibility_off_outlined, color: AppColor.textGreyColor,) 
           ),
         ),
+        validator: widget.validator,
       ),
     );
   }

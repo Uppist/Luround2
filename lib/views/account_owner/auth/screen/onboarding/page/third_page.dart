@@ -21,16 +21,16 @@ class ThirdPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/svg/3.svg',
+          Image.asset(
+            'assets/images/onb_3.png',
             //height: 400,
             //width: 450,
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 60,),
           Text(
-            'Accept payments in dollars, pounds, euro, naira and more...',
+            'Accept payments in dollars, pounds, euro, naira\n                                and more...',
             style: GoogleFonts.inter(
-              color: AppColor.blackColor,
+              color: AppColor.darkGreyColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
             ),

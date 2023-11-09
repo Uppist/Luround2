@@ -21,16 +21,16 @@ class SecondPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/svg/2.svg',
+          Image.asset(
+            'assets/images/onb_2.png',
             //height: 400,
             //width: 450,
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 60,),
           Text(
-            'Organize your schedule and get booked based on your availability.',
+            'Organize your schedule and get booked based on\n                                your availability.',
             style: GoogleFonts.inter(
-              color: AppColor.blackColor,
+              color: AppColor.darkGreyColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
             ),

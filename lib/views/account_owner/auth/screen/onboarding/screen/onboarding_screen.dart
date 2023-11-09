@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
+
+
+
+
+
 
 
 
@@ -40,10 +45,10 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     return Column(
       children: [        
-        SizedBox(height: 80), //100.h
+        SizedBox(height: 110), //100.h
         //PageView.builder() Widget
         SizedBox(
-          height: 550, //550
+          height: 400, //550
           width: size.width,  //double.infinity
           child: PageView.builder( 
             scrollDirection: Axis.horizontal,
@@ -82,7 +87,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             type: WormType.normal,
           ),
         ),                  
-        SizedBox(height: 30),
+        SizedBox(height: 60),
         //for the two buttons
         Padding(
           padding: EdgeInsets.symmetric(

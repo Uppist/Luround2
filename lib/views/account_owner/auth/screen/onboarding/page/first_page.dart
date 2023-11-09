@@ -21,16 +21,16 @@ class FirstPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SvgPicture.asset(
-            'assets/svg/1.svg',
+          Image.asset(
+            'assets/images/onb_1.png',
             //height: 400,
             //width: 450,
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 60,),
           Text(
-            'Create your profile page, add your services and rate card',
+            'Create your profile page, add your services and\n                                   rate card.',
             style: GoogleFonts.inter(
-              color: AppColor.blackColor,
+              color: AppColor.darkGreyColor,
               fontSize: 16,
               fontWeight: FontWeight.w500
             ),

@@ -1,4 +1,3 @@
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,6 +7,7 @@ import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_pa
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
 import '../../views/account_owner/auth/screen/onboarding/page/third_page.dart';
+
 
 
 
@@ -31,7 +31,7 @@ class AuthController extends getx.GetxController {
   final TextEditingController confirmPasswordController = TextEditingController();
 
   final registerEmailRegex = RegExp(
-    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
   );
 
   var formKey1 = GlobalKey<FormState>();
@@ -134,7 +134,7 @@ class AuthController extends getx.GetxController {
   final TextEditingController loginPasswordController = TextEditingController();
 
   final loginEmailRegex = RegExp(
-    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
   );
 
   var loginFormKey = GlobalKey<FormState>();

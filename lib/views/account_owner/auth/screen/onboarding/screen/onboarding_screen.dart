@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/auth/screen/registration/first_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
@@ -107,7 +108,9 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               RebrandedReusableButton(
                 color: AppColor.bgColor, 
                 text: "Create account", 
-                onPressed: () {}, 
+                onPressed: () {
+                  Get.to(() => RegisterPage1());
+                }, 
                 textColor: AppColor.mainColor
               )
             ],

@@ -21,6 +21,33 @@ class AuthController extends getx.GetxController {
     const ThirdPage(),
   ];
 
+  //REGISTRATION PAGE//
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
+
+  var isFirstPageButtonEnabled = false;
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
 
 }

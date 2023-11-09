@@ -2,6 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/auth/screen/onboarding/screen/onboarding_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_2.dart';
 
 
@@ -19,7 +20,7 @@ class SplashScreen1 extends StatelessWidget {
       splash: Center(
         child: Image.asset("assets/splash/splash_1.png")
       ), 
-      nextScreen: SplashScreen2()  ,
+      nextScreen: OnBoardingPage(),
       duration: 1000, //4000
       backgroundColor: AppColor.bgColor,
       centered: true,

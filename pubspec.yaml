@@ -54,6 +54,9 @@ dependencies:
 
   #for network calls
   http: ^1.1.0
+  
+  #for google auth
+  google_sign_in: "any"  #^6.1.6
 
   #for images
   cached_network_image: ^3.3.0
@@ -66,6 +69,8 @@ dependencies:
 
   #rating_bar indicator
   flutter_rating_bar: ^4.0.1
+  #firebase_core: ^2.22.0
+  #firebase_auth: ^4.13.0
 
 dev_dependencies:
   flutter_test:

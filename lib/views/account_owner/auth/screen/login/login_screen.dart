@@ -6,9 +6,13 @@ import 'package:luround/controllers/account_owner/authentication_controller.dart
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_expired.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/reset_password.dart';
 import 'package:luround/views/account_owner/auth/screen/login/password_textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/login/textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
+import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
 
 
 
@@ -32,13 +36,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    // Add a listener to the text controller
-    /*controller.confirmPasswordController.addListener(() {
-      setState(() {
-        // Check if the text field is empty or not
-        controller.isSecondPageButtonEnabled = controller.confirmPasswordController.text.isNotEmpty;
-      });
-    });*/
     super.initState();
   }
 
@@ -146,6 +143,9 @@ class _LoginPageState extends State<LoginPage> {
                       child: InkWell(
                         onTap: () {
                           Get.to(() => ForgotPasswordPage());
+                          //Get.to(() => PasswordUpdatedPage());
+                          //Get.to(() => ResetPasswordPage());
+                          //Get.to(() => PasswordLinkExpiredPage());
                         },
                         child: Text(
                           "Forgot Password ?",
@@ -160,7 +160,10 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 70,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
-                      onTextButton: () {},
+                      onTextButton: () {
+                        Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);
+                        //Get.to(() => RegisterPage1());
+                      },
                       firstText: "Don't have an account ?",
                       lastText: "Create account",
                     ),

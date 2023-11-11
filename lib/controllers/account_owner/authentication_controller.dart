@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_page.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import '../../views/account_owner/auth/screen/onboarding/page/third_page.dart';
 
 
@@ -22,6 +23,7 @@ class AuthController extends getx.GetxController {
     const SecondPage(),
     const ThirdPage(),
   ];
+  var isNavbarColorChanged = false;
 
 
   //REGISTRATION SECTION//
@@ -39,8 +41,8 @@ class AuthController extends getx.GetxController {
   var formKey2 = GlobalKey<FormState>();
 
 
-  var isFirstPageButtonEnabled = true;
-  var isSecondPageButtonEnabled = true;
+  var isFirstPageButtonEnabled = true;  //for first page
+  var isSecondPageButtonEnabled = true;  //for second page
 
   bool seePassword = false;
   bool seeConfirmPassword = false;
@@ -117,6 +119,7 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
+    Get.to(() => MainPage());
     print("Nice. Credentilas are valid!!");
     firstNameController.clear();
     lastNameController.clear();
@@ -168,6 +171,7 @@ class AuthController extends getx.GetxController {
       return "Invalid Credentials";
     }
     print("Nice. Credentilas are valid!!");
+    Get.to(() => MainPage());
     loginEmailController.clear();
     loginPasswordController.clear();
     return loginFormKey.currentState!.save();
@@ -178,6 +182,57 @@ class AuthController extends getx.GetxController {
   final TextEditingController fpEmailController = TextEditingController();
   var fpFormKey = GlobalKey<FormState>();
   var isfpButtonActivated = true;
+
+  String? validateFpEmail({required String value}) {
+    if(value.isEmpty) {
+      return "Email address is required";
+    }
+    if (!loginEmailRegex.hasMatch(value) && !GetUtils.isEmail(value)) {
+      return "Please enter a valid email address";
+    }
+    return null;
+  }
+
+
+  //RESET PASSWORD SECTION//
+  final TextEditingController resetFpPasswordController = TextEditingController();
+  final TextEditingController resetFpConfirmPasswordController = TextEditingController();
+  var resetFpFormKey = GlobalKey<FormState>();
+  var seeResetFpPassword = false; //for obscure text 
+  var seeResetFpConfirmPassword = false; //for obscure text 
+  var isresetfpButtonActivated = true;
+
+  String? validateResetPassword() {
+    if(resetFpPasswordController.text.isEmpty) {
+      return "Password is required";
+    }
+    if (GetUtils.isLengthLessThan(resetFpPasswordController.text.trim(), 6)) {
+      return "Password must be of 6 characters or more";
+    } 
+    print("nice one my geee!!!");
+    return null;
+  }
+
+  String? validateResetConfirmPassword() {
+    if(resetFpConfirmPasswordController.text.isEmpty) {
+      return "Password is required";
+    }
+    if (resetFpPasswordController.text.trim() != resetFpConfirmPasswordController.text.trim()) {
+      return "Passwords do not match";
+    }
+    print("nice one my geee!!!");
+    return null;
+  }
+
+  passwordUpdated() {
+    final isValid = resetFpFormKey.currentState!.validate();
+    if(!isValid) {
+      return "Invalid Credentials";
+    }
+    print("Nice. Credentilas are valid!!");
+    //Get.to(()=> PasswordUpdatedPage());
+    return resetFpFormKey.currentState!.save();
+  }
   
  
 
@@ -204,6 +259,8 @@ class AuthController extends getx.GetxController {
     loginEmailController.dispose();
     loginPasswordController.dispose();
     fpEmailController.dispose();
+    resetFpPasswordController.dispose();
+    resetFpConfirmPasswordController.dispose();
     super.onClose();
   }
 

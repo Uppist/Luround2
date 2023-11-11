@@ -5,7 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/fp_textfield.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/textfields/reset_password_textfield.dart';
+import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
+import 'package:luround/views/account_owner/auth/screen/registration/reg_password_textfield.dart';
+
+import 'password_updated.dart';
 
 
 
@@ -14,15 +18,14 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/fp_textf
 
 
 
-
-class ForgotPasswordPage extends StatefulWidget {
-  ForgotPasswordPage({super.key});
+class ResetPasswordPage extends StatefulWidget {
+  ResetPasswordPage({super.key});
 
   @override
-  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
 }
 
-class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   //Dependency injection/Composition
   var controller = Get.put(AuthController());
@@ -30,10 +33,10 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   void initState() {
     // Add a listener to the text controller
-    /*controller.fpEmailController.addListener(() {
+    /*controller.resetFpConfirmPasswordController.addListener(() {
       setState(() {
         // Check if the text field is empty or not
-        controller.isfpButtonActivated = controller.fpEmailController.text.isNotEmpty;
+        controller.resetFpConfirmPasswordController  = controller.resetFpConfirmPasswordControlle.text.isNotEmpty;
       });
     });*/
     super.initState();
@@ -88,7 +91,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Forgot Password ?",
+                      "Reset Password",
                       style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -97,7 +100,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     SizedBox(height: 20,),
                     Text(
-                      "Please enter your registered email address.",
+                      "Enter a new password to reset the password in your account.",
                       style: GoogleFonts.inter(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -107,34 +110,47 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     SizedBox(height: 40,),
                     //Form and textfields
                     Form(
-                      key: controller.fpFormKey,
+                      key: controller.formKey2,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          FpEmailTextField(
+                          ResetPasswordTextField(
                             onChanged: (val) {},
                             validator: (val) {
-                              return controller.validateLoginEmail(value: val!);
-                            },
-                            labelText: "Email Address",
-                            keyboardType: TextInputType.emailAddress,
+                              return controller.validateResetPassword();
+                            },    
+                            labelText: "Password",
+                            keyboardType: TextInputType.visiblePassword,
                             textInputAction: TextInputAction.next,
-                            textController: controller.loginEmailController,                          
+                            textController: controller.resetFpPasswordController,
+                            isObscured: controller.seeResetFpPassword,                       
+                          ),
+                          SizedBox(height: 20,),
+                          ResetPasswordTextField(
+                            onChanged: (val) {},
+                            validator: (val) {
+                              return controller.validateResetConfirmPassword();
+                            },    
+                            labelText: "Confirm Password",
+                            keyboardType: TextInputType.visiblePassword,
+                            textInputAction: TextInputAction.done,
+                            textController: controller.resetFpConfirmPasswordController,
+                            isObscured: controller.seeResetFpConfirmPassword,                          
                           ),
                         ],
                       ),
                     ),
-                    
-                    SizedBox(height: MediaQuery.of(context).size.height /1.75,),
+                  
+                    SizedBox(height: MediaQuery.of(context).size.height /2.2,),
           
                     RebrandedReusableButton(
-                      textColor: controller.isfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,
-                      color: controller.isfpButtonActivated ? AppColor.mainColor : AppColor.lightPurple, 
-                      text: "Next",
-                      onPressed: controller.isfpButtonActivated  
+                      textColor: controller.isresetfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,
+                      color: controller.isresetfpButtonActivated ? AppColor.mainColor : AppColor.lightPurple, 
+                      text: "Reset password",
+                      onPressed: controller.isresetfpButtonActivated 
                       ? () {
-                        
+                        Get.to(() => PasswordUpdatedPage());
                       }
                       : () {
                         print('nothing for you chief!!');

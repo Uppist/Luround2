@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/reg_password_textfield.dart';
 
@@ -204,7 +205,9 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     SizedBox(height: 50,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
-                      onTextButton: () {},
+                      onTextButton: () {
+                        Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
+                      },
                       firstText: "Already have an account ?",
                       lastText: "Login",
                     ),

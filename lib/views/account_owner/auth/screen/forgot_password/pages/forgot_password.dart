@@ -5,7 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/fp_textfield.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/textfields/fp_email_textfield.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 
 
 
@@ -115,12 +116,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                           FpEmailTextField(
                             onChanged: (val) {},
                             validator: (val) {
-                              return controller.validateLoginEmail(value: val!);
+                              return controller.validateFpEmail(value: val!);
                             },
                             labelText: "Email Address",
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
-                            textController: controller.loginEmailController,                          
+                            textController: controller.fpEmailController,                          
                           ),
                         ],
                       ),
@@ -134,7 +135,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       text: "Next",
                       onPressed: controller.isfpButtonActivated  
                       ? () {
-                        
+                          Get.to(() => PasswordLinkSentPage());
                       }
                       : () {
                         print('nothing for you chief!!');

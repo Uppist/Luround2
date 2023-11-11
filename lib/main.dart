@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:luround/test_gg.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_2.dart';
@@ -48,7 +47,7 @@ class _MainAppState extends State<MainApp> {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Luround',
-      home: SignInDemo(), //SplashScreen2(), //MainPageAccViewer(), //MainPage(), //SplashScreen1()
+      home: SplashScreen2(), //MainPageAccViewer(), //MainPage(), //SplashScreen1()
       supportedLocales: [
         Locale('en'), // English
       ]

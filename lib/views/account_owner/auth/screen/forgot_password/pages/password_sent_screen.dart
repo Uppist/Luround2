@@ -5,10 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
-import 'package:luround/views/account_owner/auth/screen/login/password_textfield.dart';
-import 'package:luround/views/account_owner/auth/screen/login/textfield.dart';
-import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/fp_textfield.dart';
 
 
 
@@ -18,14 +15,14 @@ import 'package:luround/views/account_owner/auth/screen/registration/google_sign
 
 
 
-class LoginPage extends StatefulWidget {
-  LoginPage({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  ForgotPasswordPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   //Dependency injection/Composition
   var controller = Get.put(AuthController());
@@ -33,10 +30,10 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     // Add a listener to the text controller
-    /*controller.confirmPasswordController.addListener(() {
+    /*controller.fpEmailController.addListener(() {
       setState(() {
         // Check if the text field is empty or not
-        controller.isSecondPageButtonEnabled = controller.confirmPasswordController.text.isNotEmpty;
+        controller.isfpButtonActivated = controller.fpEmailController.text.isNotEmpty;
       });
     });*/
     super.initState();
@@ -91,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Log into account",
+                      "Forgot Password ?",
                       style: GoogleFonts.inter(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -100,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     SizedBox(height: 20,),
                     Text(
-                      "Welcome back!",
+                      "Please enter your registered email address.",
                       style: GoogleFonts.inter(
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
@@ -110,12 +107,12 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: 40,),
                     //Form and textfields
                     Form(
-                      key: controller.loginFormKey,
+                      key: controller.fpFormKey,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          LoginTextField(
+                          FpEmailTextField(
                             onChanged: (val) {},
                             validator: (val) {
                               return controller.validateLoginEmail(value: val!);
@@ -125,56 +122,19 @@ class _LoginPageState extends State<LoginPage> {
                             textInputAction: TextInputAction.next,
                             textController: controller.loginEmailController,                          
                           ),
-                          SizedBox(height: 20,),
-                          PasswordTextField(
-                            onChanged: (val) {},
-                            validator: (val) {
-                              return controller.validateLoginPassword();
-                            },    
-                            labelText: "Password",
-                            keyboardType: TextInputType.visiblePassword,
-                            textInputAction: TextInputAction.done,
-                            textController: controller.loginPasswordController,
-                            isObscured: controller.seeLoginPassword,                          
-                          ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    //Rich Text for reading terms and conditions
-                    Center(
-                      child: InkWell(
-                        onTap: () {
-                          Get.to(() => ForgotPasswordPage());
-                        },
-                        child: Text(
-                          "Forgot Password ?",
-                          style: GoogleFonts.inter(
-                            color: AppColor.redColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 70,),
-                    SignInWithGoogleWidget(
-                      onGoogleSignIn: () {},
-                      onTextButton: () {},
-                      firstText: "Don't have an account ?",
-                      lastText: "Create account",
-                    ),
-
-                    SizedBox(height: 90,),
+                    
+                    SizedBox(height: MediaQuery.of(context).size.height /1.75,),
           
                     RebrandedReusableButton(
-                      textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
-                      color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
-                      text: "Login",
-                      onPressed: controller.isLoginPageButtonEnabled  
+                      textColor: controller.isfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,
+                      color: controller.isfpButtonActivated ? AppColor.mainColor : AppColor.lightPurple, 
+                      text: "Next",
+                      onPressed: controller.isfpButtonActivated  
                       ? () {
-                        controller.checkLoginCredentials();
-                        print("user logged in");
+                        
                       }
                       : () {
                         print('nothing for you chief!!');

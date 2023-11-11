@@ -23,6 +23,7 @@ class AuthController extends getx.GetxController {
     const ThirdPage(),
   ];
 
+
   //REGISTRATION SECTION//
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -129,7 +130,7 @@ class AuthController extends getx.GetxController {
 
 
 
-  //LOGIN SECTION
+  //LOGIN SECTION///
   final TextEditingController loginEmailController = TextEditingController();
   final TextEditingController loginPasswordController = TextEditingController();
 
@@ -171,6 +172,12 @@ class AuthController extends getx.GetxController {
     loginPasswordController.clear();
     return loginFormKey.currentState!.save();
   }
+
+
+  //FORGOT PASSWORD SECTION//
+  final TextEditingController fpEmailController = TextEditingController();
+  var fpFormKey = GlobalKey<FormState>();
+  var isfpButtonActivated = true;
   
  
 
@@ -196,6 +203,7 @@ class AuthController extends getx.GetxController {
     confirmPasswordController.dispose();
     loginEmailController.dispose();
     loginPasswordController.dispose();
+    fpEmailController.dispose();
     super.onClose();
   }
 

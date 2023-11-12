@@ -119,7 +119,7 @@ class _BookingsPageState extends State<BookingsPage> {
                   ],
                 ),
               ),
-              SizedBox(height: 10.h,),
+              //SizedBox(height: 10.h,),
         
               //no booking available widget
               //BookingScreenEmptyState(onPressed: () {},),

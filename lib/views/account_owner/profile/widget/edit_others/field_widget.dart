@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,7 +29,7 @@ class CustomFieldWidget extends StatelessWidget {
       children: [
         //Icon
         SvgPicture.asset(svgAssetName), 
-        SizedBox(width: 15,),
+        SizedBox(width: 15.w,),
         //expanded column
         Expanded(
           child: Column(
@@ -36,13 +37,13 @@ class CustomFieldWidget extends StatelessWidget {
             children: [
               //textfield
               fieldWidget,
-              SizedBox(height: 10,),
+              SizedBox(height: 10.h,),
               //textfield name
               Text(
                 fieldName,
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   //fontWeight: FontWeight.w500
                 )
               ),
@@ -52,7 +53,7 @@ class CustomFieldWidget extends StatelessWidget {
             ]
           ),
         ),
-        SizedBox(width: 5,),
+        SizedBox(width: 5.w,),
         //cancelIcon
         IconButton(
           onPressed: onCancel, 

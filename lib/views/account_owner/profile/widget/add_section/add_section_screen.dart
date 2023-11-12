@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
@@ -47,27 +48,27 @@ class AddSectionPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 30.h,),
               //Photo
               InkWell(
                 onTap: () {
                   Get.to(() => EditPhotoPage());
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Container(
                     color: AppColor.bgColor,
                     child: Text(
                       'Photo & Intro',
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 18,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
@@ -81,14 +82,14 @@ class AddSectionPage extends StatelessWidget {
                   Get.to(() => EditAboutPage());
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Container(
                     color: AppColor.bgColor,
                     child: Text(
                       'About',
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 18,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
@@ -102,14 +103,14 @@ class AddSectionPage extends StatelessWidget {
                   Get.to(() => EditEducationPage());
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Container(
                     color: AppColor.bgColor,
                     child: Text(
                       'Education & Certifications',
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 18,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
@@ -123,14 +124,14 @@ class AddSectionPage extends StatelessWidget {
                   Get.to(() => EditOthersPage());
                 },
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                   child: Container(
                     color: AppColor.bgColor,
                     child: Text(
                       'Others',
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 18,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),

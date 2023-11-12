@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,18 +50,18 @@ class _EditAboutPageState extends State<EditAboutPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -69,11 +70,11 @@ class _EditAboutPageState extends State<EditAboutPage> {
                         'About',
                         style: GoogleFonts.poppins(
                           color: AppColor.blackColor,
-                          fontSize: 18,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold
                         )
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       AboutTextField(
                         onChanged: (val) {
                           // Check if character count exceeds the maximum
@@ -91,7 +92,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                         keyboardType: TextInputType.multiline,
                         textInputAction: TextInputAction.done,                   
                       ),
-                      SizedBox(height: 20),
+                      SizedBox(height: 20.h),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -99,7 +100,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                             '${controller.aboutController.text.length}/${controller.maxLength}',
                             style: GoogleFonts.poppins(
                               color: AppColor.textGreyColor,
-                              fontSize: 15,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500
                             )
                           ),
@@ -110,16 +111,16 @@ class _EditAboutPageState extends State<EditAboutPage> {
                 ),
               ),
             ),
-            SizedBox(height: 50,),  //250
+            //SizedBox(height: 50.h,),  //250
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               child: ReusableButton(
                 color: AppColor.mainColor,
                 text: 'Save',
                 onPressed: () {},
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
           ]
         )
       )

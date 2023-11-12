@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -147,15 +148,15 @@ class _EditEducationPageState extends State<EditEducationPage> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -166,7 +167,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         'Education & Certification',
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 18,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold
                         )
                       ),
@@ -218,15 +219,15 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 20.h),
                   //List of certificates from the server {backend}
                   //wrap with column then listview.builder
                   SizedBox(
-                    height: 100,
+                    height: 100.h,
                     child: ListView.separated(
                       physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
                       shrinkWrap: true,
-                      separatorBuilder: (context, index) => SizedBox(height: 5,),
+                      separatorBuilder: (context, index) => SizedBox(height: 5.h,),
                       itemCount: 4,
                       itemBuilder: (context, index) {
                         return Container(
@@ -236,7 +237,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                               Text(
                                 "Certificate name*",
                                 style: GoogleFonts.inter(
-                                  fontSize: 14,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColor.blackColor
                                 ),
@@ -247,7 +248,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                   "Remove",
                                   style: GoogleFonts.inter(
                                     decoration: TextDecoration.underline,
-                                    fontSize: 14,
+                                    fontSize: 14.sp,
                                     fontWeight: FontWeight.w500,
                                     color: AppColor.darkGreyColor
                                   ),
@@ -289,7 +290,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                     controlAffinity: ListTileControlAffinity.trailing,
                     expandedCrossAxisAlignment: CrossAxisAlignment.center,
                     backgroundColor: AppColor.bgColor, // Set the background color to white
-                    childrenPadding: EdgeInsets.symmetric(horizontal: 80, vertical: 10),
+                    childrenPadding: EdgeInsets.symmetric(horizontal: 80.w, vertical: 10.h),
                     children: List.generate(5, (i) {
                       return CertificationTextField(
                         onFocusChange: (hasFocus) {},
@@ -316,16 +317,16 @@ class _EditEducationPageState extends State<EditEducationPage> {
             ),
             ///////////////////////
       
-            SizedBox(height: 10,),  //500
+            // SizedBox(height: 10.h,),  //500
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               child: ReusableButton(
                 color: AppColor.mainColor,
                 text: 'Save',
                 onPressed: () {},
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
 
           ],
         ),

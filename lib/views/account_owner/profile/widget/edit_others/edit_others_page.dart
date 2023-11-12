@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +58,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
             onPressed: () {},
             text: 'Save',
           ),*/
-          SizedBox(width: 20,),
+          SizedBox(width: 20.w,),
         ],
       ),
       body: SafeArea(
@@ -66,15 +67,15 @@ class _EditOthersPageState extends State<EditOthersPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 30.h,),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -87,7 +88,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           'Others',
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 18,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.bold
                           )
                         ),
@@ -96,12 +97,13 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           style: GoogleFonts.inter(
                             color: AppColor.yellowStar,
                             //fontWeight: FontWeight.w500,
-                            fontSize: 14
+                            fontSize: 14.sp
                           ),
                         )
                       ],
                     ),
-                    SizedBox(height: 20,),
+
+                    SizedBox(height: 20.h,),
 
 
                     //ListView.builder here//////////////////////////
@@ -242,12 +244,12 @@ class _EditOthersPageState extends State<EditOthersPage> {
 
                     
                     ////////////////////////////////
-                    SizedBox(height: 40),
+                    SizedBox(height: 40.h),
                     Text(
                       'Tap on icon to add',
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 18,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.bold
                       )
                     ),
@@ -291,7 +293,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 60,),
+                    SizedBox(height: 60.h,),
                     //2
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -331,7 +333,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                     ///////////////////////////////////////////////////////
 
 
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                   ]
                 )
               )

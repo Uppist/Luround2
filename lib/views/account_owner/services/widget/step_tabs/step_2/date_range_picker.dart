@@ -1,6 +1,7 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +34,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
         //showRangeCalendar(context: context);
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
+        padding: EdgeInsets.symmetric(horizontal: 50.w),
         child: Container(
           color: AppColor.bgColor,
           width: double.infinity,
@@ -45,12 +46,12 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
               Expanded(
                 child: Container(
                   alignment: Alignment.center,
-                  height: 40,
-                  width: 90,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  height: 40.h,
+                  width: 90.w,
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                   decoration: BoxDecoration(
                     color: AppColor.bgColor,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
                       color: AppColor.textGreyColor,
                       width: 1.0, //2
@@ -66,43 +67,43 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 16,
+                                fontSize: 12.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
                           );
                         }
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(width: 5.w,),
                       SvgPicture.asset("assets/svg/calendar_icon.svg")
                     ],
                   ),
                 ),
               ),
-              SizedBox(width: 10,),
+              SizedBox(width: 10.w,),
     
               Text(
                 "-",
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.textGreyColor,
-                    fontSize: 16,
+                    fontSize: 14.sp,
                     //fontWeight: FontWeight.w500
                   )
                 )
               ),
 
-              SizedBox(width: 10,),
+              SizedBox(width: 10.w,),
               //to container
               Expanded(
                 child: Container(
                   alignment: Alignment.center,
-                  height: 40,
-                  width: 90,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+                  height: 40.h,
+                  width: 90.w,
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
                   decoration: BoxDecoration(
                     color: AppColor.bgColor,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
                       color: AppColor.textGreyColor,
                       width: 1.0, //2
@@ -118,14 +119,14 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 16,
+                                fontSize: 12.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
                           );
                         }
                       ),
-                      SizedBox(width: 5,),
+                      SizedBox(width: 5.w,),
                       SvgPicture.asset("assets/svg/calendar_icon.svg")
                     ],
                   ),

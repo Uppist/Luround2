@@ -206,7 +206,7 @@ class _Step1PageState extends State<Step1Page> {
                   fontWeight: FontWeight.w500
                 ),
               ),
-              SizedBox(width: 50.w,),
+              SizedBox(width: 45.w,),
               Expanded(
                 child: AmountTextField(  
                   onChanged: (val) {},

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,11 +38,11 @@ class _Step3PageState extends State<Step3Page> {
           "Day and Time availability*",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 16,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 30),
+        SizedBox(height: 30.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -49,18 +50,18 @@ class _Step3PageState extends State<Step3Page> {
               Icons.circle_rounded,
               color: AppColor.mainColor,
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: 10.w,),
             Text(
               "West Africa Standard Time",
               style: GoogleFonts.inter(
                 color: AppColor.mainColor,
-                fontSize: 15,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
           ],
         ),
-        SizedBox(height: 30),
+        SizedBox(height: 30.h),
         ListView.separated(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -71,13 +72,13 @@ class _Step3PageState extends State<Step3Page> {
             return CheckboxListTile.adaptive(
               checkColor: AppColor.bgColor,
               checkboxShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4)
+                borderRadius: BorderRadius.circular(4.r)
               ),
               enableFeedback: true,
               activeColor: AppColor.mainColor,
               controlAffinity: ListTileControlAffinity.leading,
               value: controller.daysOfTheWeekCheckBox[index]["isChecked"],
-              contentPadding: EdgeInsets.symmetric(horizontal: 5,),
+              contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
               onChanged: (value) {
                 setState(() {
                   controller.daysOfTheWeekCheckBox[index]["isChecked"] = value;
@@ -89,13 +90,13 @@ class _Step3PageState extends State<Step3Page> {
               tileColor: AppColor.bgColor,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                //crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     controller.daysOfTheWeekCheckBox[index]["day"],
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 15,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -117,7 +118,7 @@ class _Step3PageState extends State<Step3Page> {
             );
           }, 
         ),
-        SizedBox(height: 80),
+        SizedBox(height: 90.h),
         RebrandedReusableButton(
           textColor: controller.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
@@ -128,7 +129,7 @@ class _Step3PageState extends State<Step3Page> {
             print('nothing');
           },
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 5.h),
       ]
     );
   }

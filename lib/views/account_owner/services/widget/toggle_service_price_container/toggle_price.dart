@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
@@ -24,13 +25,13 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       duration: Duration(),
-      padding: EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
         alignment: Alignment.center,
-        height: 50,
-        width: 210, //250,
+        height: 50.h,
+        width: 210.w, //250,
         decoration: BoxDecoration(
           color: AppColor.bgColor,
-          borderRadius: BorderRadius.all(Radius.circular(50)),
+          borderRadius: BorderRadius.all(Radius.circular(50.r)),
           border: Border.all(
             color: AppColor.navyBlue,
             width: 2.0,
@@ -48,17 +49,17 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
                   child: Container(
                     alignment: Alignment.center,
                     //height: 70,
-                    width: 100,
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.navyBlue : AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30.r),
                     ),
                     child: Text(
                       'Virtual',
                       style: GoogleFonts.inter(
                         color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.textGreyColor,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
@@ -71,17 +72,17 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
                   child: Container(
                     alignment: Alignment.center,
                     //height: 70,
-                    width: 100,
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                    width: 100.w,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.navyBlue, //.redColor,
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(30.r),
                     ),
                     child: Text(
                       'In-person',
                       style: GoogleFonts.inter(
                         color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.textGreyColor : AppColor.bgColor,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),

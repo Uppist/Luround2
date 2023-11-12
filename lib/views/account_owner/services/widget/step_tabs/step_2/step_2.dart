@@ -1,6 +1,7 @@
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,23 +39,23 @@ class _Step2PageState extends State<Step2Page> {
             "Service duration*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 16,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 30.h),
           InkWell(
             onTap: () async{
               controller.showDurationPickerDialog(context: context);         
             },
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
               alignment: Alignment.centerLeft,
-              height: 50,
+              height: 50.h,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
                   color: AppColor.textGreyColor,
                   width: 1.0, //2
@@ -70,7 +71,7 @@ class _Step2PageState extends State<Step2Page> {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.textGreyColor,
-                            fontSize: 16,
+                            fontSize: 15.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
@@ -85,22 +86,23 @@ class _Step2PageState extends State<Step2Page> {
               ),
             )
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 30.h,),
           Text(
             "This service can be scheduled...",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
 
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
 
           //schedule radio section
           ScheduleRadioWidget(),
           
-          SizedBox(height: 220,),
+          SizedBox(height: 290.h,),
+
           Obx(
             () {
               return RebrandedReusableButton(
@@ -115,7 +117,7 @@ class _Step2PageState extends State<Step2Page> {
               );
             }
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 10.h,),
 
 
         ]

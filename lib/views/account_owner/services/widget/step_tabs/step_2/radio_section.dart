@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
@@ -46,18 +47,18 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
                 });
               },
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: 10.w,),
             Text(
               "Future booking timeframe",
               style: GoogleFonts.inter(
                 color: AppColor.blackColor,
-                fontSize: 14,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
           ],
         ),
-        SizedBox(height: 5,),
+        //SizedBox(height: 5.h,),
         //
         SizedBox(height: 5,),
         //2
@@ -78,23 +79,23 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
                 });
               },
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: 10.w,),
             Text(
               "Within a date range",
               style: GoogleFonts.inter(
                 color: AppColor.blackColor,
-                fontSize: 14,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
           ],
         ),
-        SizedBox(height: 5,),
+        SizedBox(height: 5.h,),
         
         controller.isradio2.value ? 
         TimeRangePickerWidget() : SizedBox(),
 
-        SizedBox(height: 5,),
+        SizedBox(height: 5.h,),
         //3
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -114,18 +115,18 @@ class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
                 });
               },
             ),
-            SizedBox(width: 10,),
+            SizedBox(width: 10.w,),
             Text(
               "Indefinitely to the future timeframe",
               style: GoogleFonts.inter(
                 color: AppColor.blackColor,
-                fontSize: 14,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
           ],
         ),
-        SizedBox(height: 5,),
+        SizedBox(height: 5.h,),
         //
         //SizedBox(height: 5,),
       ],

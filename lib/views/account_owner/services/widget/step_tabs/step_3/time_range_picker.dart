@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
@@ -73,19 +74,19 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
       child: Container(
         color: AppColor.bgColor,
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             //from container      
             Container(
               alignment: Alignment.center,
-              height: 40,
-              width: 130,
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              height: 40.h,
+              width: 115.w,
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
                   color: AppColor.textGreyColor,
                   width: 1.0, //2
@@ -99,12 +100,12 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.normal
                       )
                     )
                   ),                   
-                  SizedBox(width: 5,),
+                  SizedBox(width: 5.w,),
                   Icon(
                     CupertinoIcons.time,
                     color: AppColor.textGreyColor,
@@ -112,27 +113,29 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                 ],
               ),
             ),
-            SizedBox(width: 10,),
+
+            SizedBox(width: 10.w,),
             Text(
               "-",
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.textGreyColor,
-                  fontSize: 16,
+                  fontSize: 14.sp,
                   //fontWeight: FontWeight.w500
                 )
               )
             ),           
-            SizedBox(width: 10,),
+            SizedBox(width: 10.w,),
+
             //to container
             Container(
               alignment: Alignment.center,
-              height: 40,
-              width: 130,
-              padding: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+              height: 40.h,
+              width: 115.w,
+              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
                   color: AppColor.textGreyColor,
                   width: 1.0, //2
@@ -146,12 +149,12 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                       color: AppColor.textGreyColor,
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.normal
                       )
                     )
                   ),                                  
-                  SizedBox(width: 5,),
+                  SizedBox(width: 5.w,),
                   Icon(
                     CupertinoIcons.time,
                     color: AppColor.textGreyColor,
@@ -159,7 +162,8 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                 ],
               ),
             ),
-            SizedBox(width: 5,),
+            SizedBox(width: 5.w,),
+
             //delete icon
             Expanded(
               child: IconButton(

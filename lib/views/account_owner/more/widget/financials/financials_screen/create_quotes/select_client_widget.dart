@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -29,7 +30,7 @@ class SelectClientWidget extends StatelessWidget {
                 clientName,
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 16,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -41,7 +42,7 @@ class SelectClientWidget extends StatelessWidget {
             ],
           ),
         ),
-        SizedBox(height: 3,),
+        SizedBox(height: 3.h,),
         Divider(color: AppColor.textGreyColor, thickness: 0.5,)
       ],
     );

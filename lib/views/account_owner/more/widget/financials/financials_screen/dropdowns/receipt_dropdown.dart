@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -15,7 +16,7 @@ class ReceiptDropDown extends StatelessWidget {
     return PopupMenuButton(
       color: AppColor.bgColor,
       position: PopupMenuPosition.under,
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10.w),
       initialValue: "Quote",
       itemBuilder: (context) {
         return [
@@ -27,7 +28,7 @@ class ReceiptDropDown extends StatelessWidget {
               "View",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppColor.blackColor
               ),
             )
@@ -40,7 +41,7 @@ class ReceiptDropDown extends StatelessWidget {
               "Edit",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppColor.blackColor
               ),
             )
@@ -53,7 +54,7 @@ class ReceiptDropDown extends StatelessWidget {
               "Download",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppColor.blackColor
               ),
             )
@@ -66,7 +67,7 @@ class ReceiptDropDown extends StatelessWidget {
               "Delete",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppColor.blackColor
               ),
             )

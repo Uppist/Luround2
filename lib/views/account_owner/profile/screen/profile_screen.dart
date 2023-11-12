@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,7 +40,7 @@ class ProfilePage extends StatelessWidget {
             /////////////////////////////Header Section/////////////////////
             //SizedBox(height: 10),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -53,7 +54,7 @@ class ProfilePage extends StatelessWidget {
                         },
                         child: SvgPicture.asset('assets/svg/notify_active.svg'),
                       ),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       InkWell(
                         onTap: () {
                           Get.to(() => EditPhotoPage());
@@ -72,12 +73,12 @@ class ProfilePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 10),
+                    SizedBox(height: 10.h),
                     //QRCODE Widget
                     Container(
                       padding: EdgeInsets.symmetric(
-                        horizontal: 40,
-                        vertical: 20
+                        horizontal: 40.w,
+                        vertical: 20.h
                       ),
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -86,11 +87,11 @@ class ProfilePage extends StatelessWidget {
                       width: double.infinity,
                       child: Image.asset('assets/images/qrcode_img.png'),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
             
                     //SEE ALL REVIEWS TEXT BUTTON
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -108,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                                     textStyle: TextStyle(
                                       color: AppColor.darkGreyColor,
                                       decoration: TextDecoration.underline,
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       fontWeight: FontWeight.w500
                                     )
                                   )
@@ -116,13 +117,13 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           //OWNER'S IMAGE
                           InkWell(
                             onTap: () {},
                             child: Container(
                               alignment: Alignment.center,
-                              height: 300,
+                              height: 300.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
@@ -133,7 +134,7 @@ class ProfilePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           //OWNER'S NAME
                           Center(
                             child: Text(
@@ -141,13 +142,13 @@ class ProfilePage extends StatelessWidget {
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
-                                  fontSize: 20,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.bold
                                 )
                               )
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           //OWNER'S OCCUPATION
                           Center(
                             child: Text(
@@ -155,7 +156,7 @@ class ProfilePage extends StatelessWidget {
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 )
                               )
@@ -172,20 +173,20 @@ class ProfilePage extends StatelessWidget {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.blueColor,
-                                      fontSize: 14,
+                                      fontSize: 14.sp,
                                       fontWeight: FontWeight.w500
                                     )
                                   )
                                 )
                               ),
-                              SizedBox(width: 4,),
+                              SizedBox(width: 4.w,),
                               InkWell(
                                 onTap: () {},
                                 child: SvgPicture.asset('assets/svg/copy_link.svg')
                               ),
                             ],
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 30.h),
             
                           /////////////////////////////
                           //STRUCTURED WIDGETS COMES IN
@@ -196,7 +197,7 @@ class ProfilePage extends StatelessWidget {
                             },
                             text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 30.h),
                           
                           EducationAndCertificationSection(
                             itemCount: 2,
@@ -210,7 +211,7 @@ class ProfilePage extends StatelessWidget {
                             issuedDate: 'Issued Oct 2023',
                             credentialID: 'CREDENTIAL ID: 7380030',
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 30.h),
                           OtherDetailsSection(
                             itemCount: controller.subtitleText.length,
                             onPressedEdit: () {
@@ -218,7 +219,7 @@ class ProfilePage extends StatelessWidget {
                             },
                             profileController: controller,
                           ),
-                          SizedBox(height: 50),
+                          SizedBox(height: 50.h),
                           AddSectionButton(
                             onPressed: () {
                               Get.to(() => AddSectionPage());
@@ -227,7 +228,7 @@ class ProfilePage extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 30.h),
                     /////////////////////////////////////
                   ]
                 )
@@ -237,11 +238,11 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        extendedPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         foregroundColor: AppColor.redColor,
         backgroundColor: AppColor.redColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20)
+          borderRadius: BorderRadius.circular(20.r)
         ),
         onPressed: () {},
         label: Text(
@@ -249,7 +250,7 @@ class ProfilePage extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
-              fontSize: 15,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             )
           )

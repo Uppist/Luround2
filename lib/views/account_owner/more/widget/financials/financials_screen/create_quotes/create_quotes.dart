@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -44,7 +45,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -63,10 +64,10 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                 ]
               )
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
             ///Navigation Section, Search TextField and Filter/////
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7,),
+              padding: EdgeInsets.symmetric(horizontal: 7.w,),
               //height: 70, //65
               width: double.infinity,
               color: AppColor.bgColor,
@@ -82,12 +83,12 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                       color: AppColor.blackColor,
                     )
                   ),
-                  SizedBox(width: 120,),
+                  SizedBox(width: 90.w,),
                   Text(
                     "Quote 000001",
                     style: GoogleFonts.inter(
                       color: AppColor.textGreyColor,
-                      fontSize: 18,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -106,30 +107,30 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                   children: [
                     //style
                     Container(
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                       color: AppColor.greyColor,
                     ),
 
                     //1 Header and Date Section
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           //Logged in user details
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical:10),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               //crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CircleAvatar(
-                                  radius: 35,
+                                  radius: 35.r,
                                   backgroundColor: AppColor.mainColor,
                                   //backgroundImage: ,
                                 ),
-                                SizedBox(width: 20),
+                                SizedBox(width: 20.w),
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,                       
@@ -138,16 +139,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         "Ronald Richard",
                                         style: GoogleFonts.inter(
                                           color: AppColor.darkGreyColor,
-                                          fontSize: 16,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.bold
                                         ),
                                       ),
-                                      SizedBox(height: 8,),
+                                      SizedBox(height: 8.h,),
                                       Text(
                                         "richie@gmail.com",
                                         style: GoogleFonts.inter(
                                           color: AppColor.textGreyColor,
-                                          fontSize: 14,
+                                          fontSize: 14.sp,
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
@@ -158,16 +159,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             ),
                           ),
                           Divider(color: Colors.grey, thickness: 0.2,),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           Text(
                             "Send to*",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 16,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           //SELECT CLIENT
                           SelectClientWidget(
                             clientName: "Select a client",
@@ -177,16 +178,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                               );
                             },
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           Text(
                             "Quote Date*",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 16,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                         
                           Obx(
                             () {
@@ -207,16 +208,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             }
                           ),                  
                           
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           Text(
                             "Due Date*",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 16,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           Obx(
                             () {
                               return DateContainer(
@@ -239,18 +240,18 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 15,),
+                    SizedBox(height: 15.h,),
                     //style
                     Container(
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                       color: AppColor.greyColor,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
 
                     //2 add services section
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
                       child: Column(
                         children: [
                           Row(
@@ -260,7 +261,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Add product or service*",
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
-                                  fontSize: 16,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -274,17 +275,17 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Container(
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                       color: AppColor.greyColor,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
 
                     //3 calculations
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                       child: Column(
                         children: [
                           //row1
@@ -295,7 +296,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Subtotal",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -303,13 +304,13 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "N25,000",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           //row2
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -318,7 +319,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Discount",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -326,13 +327,13 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "-N2,000",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
                             ],
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           //row3
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -341,7 +342,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Total",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -349,7 +350,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "N23,000",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -358,18 +359,18 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //style
                     Container(
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                       color: AppColor.greyColor,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
 
                     //4 write notes section
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -377,11 +378,11 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             "Notes (optional)",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 16,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           NotesTextField(
                             onChanged: (val) {
                               // Check if character count exceeds the maximum
@@ -397,7 +398,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             textInputAction: TextInputAction.done,
                             controller: controller.quoteNoteController,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -405,7 +406,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 '${controller.quoteNoteController.text.length}/${controller.maxLength}',
                                 style: GoogleFonts.poppins(
                                   color: AppColor.textGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 )
                               ),
@@ -414,23 +415,23 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         ]
                       )
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //style
                     Container(
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                       color: AppColor.greyColor,
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                       child: ReusableButton(
                         color: AppColor.mainColor,
                         text: 'Send Quote',
                         onPressed: () {},
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                   ],
                 ),
               )

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -34,7 +35,7 @@ class FinancialsDisplay extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 15,),
+          SizedBox(height: 15.h,),
           //1
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,19 +44,15 @@ class FinancialsDisplay extends StatelessWidget {
                 "#0000001",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 15,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
-              /*InkWell(
-                onTap: onPressed, 
-                child: Icon(Icons.more_vert_rounded, color: AppColor.darkGreyColor,),
-              )*/
               //QoutesDrpDown()  //ReceiptDropDown()  //InvoiceDropDown()
               QuoteDropDown()
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           //2
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -64,7 +61,7 @@ class FinancialsDisplay extends StatelessWidget {
                 "Sheldon Cooper",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 15,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -72,13 +69,13 @@ class FinancialsDisplay extends StatelessWidget {
                 "28 Oct 2023",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 15,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.normal
                 ),
               ),
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           //3
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -88,7 +85,7 @@ class FinancialsDisplay extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SvgPicture.asset("assets/financials/invoice.svg"),
-                  SizedBox(width: 10,),
+                  SizedBox(width: 10.w,),
                   SvgPicture.asset("assets/financials/paid.svg"),
                 ],
               ),
@@ -96,7 +93,7 @@ class FinancialsDisplay extends StatelessWidget {
                 "N82,000",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 16,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.bold
                 ),
               ),

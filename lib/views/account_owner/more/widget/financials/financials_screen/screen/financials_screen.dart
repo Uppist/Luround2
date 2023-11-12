@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -43,7 +44,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -64,7 +65,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
             ),
             ///Navigation Section, Search TextField and Filter/////
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7,),
+              padding: EdgeInsets.symmetric(horizontal: 7.w,),
               //height: 70, //65
               width: double.infinity,
               color: AppColor.bgColor,
@@ -83,21 +84,21 @@ class _FinancialsPageState extends State<FinancialsPage>{
                           color: AppColor.blackColor,
                         )
                       ),
-                      SizedBox(width: 3,),
+                      SizedBox(width: 3.w,),
                       Text(
                         "Financials",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 18,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.h,),
                   //search textfield
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 13),
+                    padding: EdgeInsets.symmetric(horizontal: 13.w),
                     child:FinancialsSearchTextField(
                       onTap: () {
                         setState(() {
@@ -115,13 +116,13 @@ class _FinancialsPageState extends State<FinancialsPage>{
                       textController: controller.searchController,
                     )                
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.h,),
                   //filter button
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 13),
+                    padding: EdgeInsets.symmetric(horizontal: 13.w),
                     child: FilterFinancialsButton(),
                   ),
-                  SizedBox(height: 15,),                 
+                  SizedBox(height: 15.h,),                 
                 ],
               ),
             ),
@@ -141,7 +142,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
             foregroundColor: AppColor.mainColor,
             backgroundColor: AppColor.mainColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(50))
+              borderRadius: BorderRadius.all(Radius.circular(50.r))
             ),
             overlayOpacity: 0.4,
             overlayColor: AppColor.blackColor,
@@ -168,11 +169,11 @@ class _FinancialsPageState extends State<FinancialsPage>{
                 label: "Generate Receipt",
                 labelStyle: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: AppColor.darkGreyColor
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))
+                  borderRadius: BorderRadius.all(Radius.circular(30.r))
                 ),
                 onTap: () {
                   //Get.off(() => CreateReceiptPage());
@@ -182,11 +183,11 @@ class _FinancialsPageState extends State<FinancialsPage>{
                 label: "Generate Invoice",
                 labelStyle: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: AppColor.darkGreyColor
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))
+                  borderRadius: BorderRadius.all(Radius.circular(30.r))
                 ),
                 onTap: () {
                   //Get.off(() => CreateInvoicePage());
@@ -197,11 +198,11 @@ class _FinancialsPageState extends State<FinancialsPage>{
                 label: "Generate Quote",
                 labelStyle: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   color: AppColor.darkGreyColor
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))
+                  borderRadius: BorderRadius.all(Radius.circular(30.r))
                 ),
                 onTap: () {
                   Get.off(() => CreateQuotePage());

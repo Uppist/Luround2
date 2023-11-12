@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,18 +21,18 @@ class ProfileEmptyState extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset('assets/svg/profile_empty.svg'),
-          SizedBox(height: 30,),
+          SizedBox(height: 30.h,),
           Text(
             'No profile details yet',
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 20,
+                fontSize: 18.sp,
                 fontWeight: FontWeight.bold
               )
             )
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 15.h,),
           RichText(
             text: TextSpan(
               children: [
@@ -40,7 +41,7 @@ class ProfileEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       //fontWeight: FontWeight.bold
                     )
                   )
@@ -50,7 +51,7 @@ class ProfileEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold
                     )
                   )
@@ -60,7 +61,7 @@ class ProfileEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       //fontWeight: FontWeight.bold
                     )
                   )
@@ -68,18 +69,18 @@ class ProfileEmptyState extends StatelessWidget {
               ]
             )
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 30.h,),
           //ADD SECTION BUTTON
           InkWell(
             onTap: onPressed,
             child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               alignment: Alignment.center,
-              height: 50,
-              width: 350,
+              height: 50.h,
+              width: 350.w,
               decoration: BoxDecoration(
                 color: AppColor. mainColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
                   color: AppColor.mainColor
                 )
@@ -89,7 +90,7 @@ class ProfileEmptyState extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
-                    fontSize: 16,
+                    fontSize: 15.sp,
                     //fontWeight: FontWeight.w500
                   )
                 )

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -21,14 +22,14 @@ class DateContainer extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        height: 55,
+        height: 55.h,
         width: double.infinity,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
         decoration: BoxDecoration(
           color: AppColor.bgColor,
           border: Border.all(color: AppColor.textGreyColor, width: 1),
-          borderRadius: BorderRadius.circular(5)
+          borderRadius: BorderRadius.circular(5.r)
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -37,7 +38,7 @@ class DateContainer extends StatelessWidget {
               date,
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15,
+                fontSize: 15.sp,
                 color: AppColor.blackColor
               ),
             ),

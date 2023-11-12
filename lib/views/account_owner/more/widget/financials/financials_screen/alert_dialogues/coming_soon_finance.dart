@@ -40,7 +40,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Integrations',
+                  'Financials',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 16.sp,
@@ -49,7 +49,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
                 ),
                 SizedBox(height: 30.h,),
                 Text(
-                  '   Enhance your meeting experience by\n integrating your favorite apps and tools.\n                     (coming soon)',
+                  'Generate quotes, invoices and receipts for your clients with just one tap and track your financials seamlessly.\n          (coming soon)',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 13.sp,

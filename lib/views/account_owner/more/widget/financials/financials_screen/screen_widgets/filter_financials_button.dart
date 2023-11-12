@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,13 +37,13 @@ class FilterFinancialsButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            height: 50,
+            height: 50.h,
             //width: 200,
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             decoration: BoxDecoration(
               color: AppColor.bgColor,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(12.r),
               border: Border.all(
                 color: AppColor.textGreyColor
               )
@@ -56,13 +57,13 @@ class FilterFinancialsButton extends StatelessWidget {
                       "${controller.startDate()}  -  ${controller.endDate()}",
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.normal
                       ),
                     );
                   }
                 ),
-                SizedBox(width: 20), 
+                SizedBox(width: 20.w), 
                 SvgPicture.asset("assets/svg/calendar_icon.svg"),
               ],
             )       

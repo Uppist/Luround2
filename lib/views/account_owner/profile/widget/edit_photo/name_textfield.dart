@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/profile_page_controller.dart';
@@ -58,8 +59,8 @@ class _NameTextFieldState extends State<NameTextField> {
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
-          hintText: widget.hintText,
-          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
+          labelText: widget.hintText,
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13.sp),              
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
           suffixIcon:InkWell(
             onTap: widget.onSuffixIconTapped,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
@@ -42,7 +43,7 @@ class NotificationsPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               
               /*Container(
                 color: AppColor.greyColor,
@@ -61,7 +62,7 @@ class NotificationsPage extends StatelessWidget {
                 separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
@@ -72,17 +73,17 @@ class NotificationsPage extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColor.mainColor,
-                          radius: 30,
+                          radius: 30.r,
                           child: Text(
                             "J",
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
-                              fontSize: 20,
+                              fontSize: 20.sp,
                               fontWeight: FontWeight.bold
                             ),
                           ),
                         ),
-                        SizedBox(width: 15),
+                        SizedBox(width: 15.w),
                         /*RichText(
                           text: TextSpan(
                             children: [
@@ -132,17 +133,17 @@ class NotificationsPage extends StatelessWidget {
                                     overflow: TextOverflow.visible,
                                     color: AppColor.blackColor,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 15,
+                                    fontSize: 14.sp,
                                   )
                                 )
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               Text(
                                 "Jun 24 at 10:00",  //recepient name
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   //fontWeight: FontWeight.w500,
-                                  fontSize: 14
+                                  fontSize: 13.sp
                                 )
                               ),
                             ],

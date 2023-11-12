@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,11 +52,11 @@ class _Step1PageState extends State<Step1Page> {
             "Service name",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 16,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           ReusableTextField(  
             onChanged: (val) {},
             hintText: "Service name*",
@@ -63,16 +64,16 @@ class _Step1PageState extends State<Step1Page> {
             textInputAction: TextInputAction.next,
             textController: controller.serviceNameController
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 30.h),
           Text(
             "Description (optional)",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 16,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           DescriptionTextField(  
             onChanged: (val) {
               // Check if character count exceeds the maximum
@@ -88,7 +89,7 @@ class _Step1PageState extends State<Step1Page> {
             textInputAction: TextInputAction.next,
             textController: controller.descriptionController,
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10.h,),
           //max length for message textfield
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -97,13 +98,13 @@ class _Step1PageState extends State<Step1Page> {
                 "${controller.descriptionController.text.length}/${controller.maxLength}",
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 14,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
             ],
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 20.h),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -111,7 +112,7 @@ class _Step1PageState extends State<Step1Page> {
                 "Add links (optional)",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 16,
+                  fontSize: 14.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -125,7 +126,7 @@ class _Step1PageState extends State<Step1Page> {
               )
             ],
           ),
-          SizedBox(height: 10),
+          SizedBox(height: 10.h),
           //textfield
           controller.toggleLink.value ?
           Row(
@@ -150,26 +151,26 @@ class _Step1PageState extends State<Step1Page> {
               )
             ],
           ) : SizedBox(),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Text(
             "Add links to contents that relates to this service",
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor, 
-              fontSize: 13
+              fontSize: 13.sp
             ),
           ),
-          SizedBox(height: 4),
+          SizedBox(height: 4.h),
           Divider(color: AppColor.textGreyColor, thickness: 1,),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Text(
             "Service charge per session",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 16,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -177,11 +178,11 @@ class _Step1PageState extends State<Step1Page> {
                 "In-person",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor, 
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
-              SizedBox(width: 20,),
+              SizedBox(width: 20.w,),
               Expanded(
                 child: AmountTextField(  
                   onChanged: (val) {},
@@ -193,7 +194,7 @@ class _Step1PageState extends State<Step1Page> {
               ),
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -201,11 +202,11 @@ class _Step1PageState extends State<Step1Page> {
                 "Virtual",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor, 
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
-              SizedBox(width: 50,),
+              SizedBox(width: 50.w,),
               Expanded(
                 child: AmountTextField(  
                   onChanged: (val) {},
@@ -217,7 +218,7 @@ class _Step1PageState extends State<Step1Page> {
               ),
             ],
           ),
-          SizedBox(height: 80,),
+          SizedBox(height: 80.h,),
           RebrandedReusableButton(
             textColor: controller.ispriceButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
             color: controller.ispriceButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
@@ -228,7 +229,7 @@ class _Step1PageState extends State<Step1Page> {
               print('nothing');
             },
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
 
 
         ]

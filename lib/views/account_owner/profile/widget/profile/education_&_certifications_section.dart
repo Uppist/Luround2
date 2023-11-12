@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -30,7 +31,7 @@ class EducationAndCertificationSection extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 18,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold
                 )
               )
@@ -42,7 +43,7 @@ class EducationAndCertificationSection extends StatelessWidget {
           ],
         ),
         
-        SizedBox(height: 20),
+        SizedBox(height: 20.h),
 
         ListView.builder(
           scrollDirection: Axis.vertical,
@@ -52,7 +53,7 @@ class EducationAndCertificationSection extends StatelessWidget {
           itemCount: itemCount,
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 3, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 10.h),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
@@ -62,7 +63,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.asset('assets/svg/award_icon.svg'),
-                  SizedBox(width: 15,),
+                  SizedBox(width: 10.w,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -71,56 +72,56 @@ class EducationAndCertificationSection extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
-                            fontSize: 16,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 7,),
+                      SizedBox(height: 7.h,),
                       Text(
                         institution,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 7,),
+                      SizedBox(height: 7.h,),
                       Text(
                         issuedDate,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 7,),
+                      SizedBox(height: 7.h,),
                       Text(
                         credentialID,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 12,),
+                      SizedBox(height: 12.h,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
                         onTap: onPressedShowCertificte,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
-                          height: 50,
-                          width: 240,
+                          height: 50.h,
+                          width: 210.w,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
                               color: AppColor.darkGreyColor
                             )
@@ -130,7 +131,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 16,
+                                fontSize: 15.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

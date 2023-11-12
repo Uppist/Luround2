@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,29 +53,29 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
             ///
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [               
-                      SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                       //User Photo
                       Container(
                         alignment: Alignment.bottomRight,
-                        height: 300,
+                        height: 300.h,
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                         decoration: BoxDecoration(
                           color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
                           image: DecorationImage(
@@ -89,19 +90,17 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                           child: SvgPicture.asset("assets/svg/edit_photo_icon.svg"),
                         )
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 20.h),
                       //Personal Details
                       Text(
                         'Personal Details',
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 18,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.bold
                         )
                       ),
-                      SizedBox(height: 20,),
-
-
+                      SizedBox(height: 20.h,),
 
               
                       //name textfield
@@ -123,7 +122,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                       Form(
                         key: controller.formKey2,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
@@ -134,7 +133,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,              
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 10.h,),
                               OtherSpecialTextField(
                                 onChanged: (val) {},
                                 initialValue: controller.firstNameController.text,
@@ -142,7 +141,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,              
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 10.h,),
                               OtherSpecialTextField(
                                 onChanged: (val) {},
                                 initialValue: controller.middleNameController.text,
@@ -150,7 +149,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,              
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 10.h,),
                               OtherSpecialTextField(
                                 onChanged: (val) {},
                                 initialValue: controller.lastNameController.text,
@@ -158,7 +157,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,              
                               ),
-                              SizedBox(height: 10,),
+                              SizedBox(height: 10.h,),
                               OtherSpecialTextField(
                                 onChanged: (val) {},
                                 initialValue: controller.userNameController.text,
@@ -174,7 +173,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
               
                       /////////////////////////////////////                  
               
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       OccupationTextField(
                         onChanged: (val) {},
                         initialValue: controller.companyNameController.text,
@@ -182,7 +181,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                         keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       OccupationTextField(
                         onChanged: (val) {},
                         initialValue: controller.occupationController.text,
@@ -191,7 +190,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                         textInputAction: TextInputAction.done,
                       ),
                       
-                      SizedBox(height: 20,),    
+                      SizedBox(height: 20.h,),    
                       
                       /////////////////////////                               
                     ]
@@ -199,16 +198,17 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                 ),
               ),
             ),
-            SizedBox(height: 5,),  //160
+            //SizedBox(height: 5,),  //160
+            
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               child: ReusableButton(
                 color: AppColor.mainColor,
                 text: 'Save',
                 onPressed: () {},
               ),
             ),
-            SizedBox(height: 20,),              
+            SizedBox(height: 20.h,),              
           ]
         )
       )

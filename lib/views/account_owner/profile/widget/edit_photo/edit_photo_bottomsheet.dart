@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,9 +24,9 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
     useSafeArea: true,
     backgroundColor: AppColor.bgColor,
     //barrierColor: Theme.of(context).colorScheme.background,
-    shape: const RoundedRectangleBorder(
+    shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
-        top: Radius.circular(15)
+        top: Radius.circular(15.r)
       )
     ),
     context: context, 
@@ -33,13 +34,13 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
       return Wrap(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             decoration: BoxDecoration(
               //image: DecorationImage(image: AssetImage(''),),
               color: AppColor.bgColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
               ),
             ),
             child: Column(
@@ -53,19 +54,19 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset('assets/svg/pen_photo.svg'),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       Text(
                         'Edit profile photo',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30.h,),
                 //2
                 InkWell(
                   onTap: () {},
@@ -73,19 +74,19 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset('assets/svg/replace_photo.svg'),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       Text(
                         'Replace profile photo',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30.h,),
                 //1
                 InkWell(
                   onTap: () {
@@ -95,12 +96,12 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset('assets/svg/delete_photo.svg'),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       Text(
                         'Delete profile photo',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),

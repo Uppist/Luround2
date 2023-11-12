@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,7 +35,7 @@ class ServicesPage extends StatelessWidget {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -53,7 +54,7 @@ class ServicesPage extends StatelessWidget {
                             },
                             child: SvgPicture.asset("assets/svg/notify_active.svg"),
                           ),
-                          SizedBox(width: 20,),
+                          SizedBox(width: 20.w,),
                           InkWell(
                             onTap: () async{
                               Get.to(() => AddServiceScreen());
@@ -64,13 +65,13 @@ class ServicesPage extends StatelessWidget {
                       )
                     ]
                   ),
-                  const SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   Center(
                     child: Text(
                       "Services",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 20,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
@@ -82,7 +83,7 @@ class ServicesPage extends StatelessWidget {
             /////////////////
             
 
-            const SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
 
 
             //Futurebuilder will start from here (will wrap this listview)
@@ -93,9 +94,9 @@ class ServicesPage extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0), //external paddin
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
                 itemCount: 8,
-                separatorBuilder: (context, index) => const SizedBox(height: 25,),
+                separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                 itemBuilder: (context, index) {
                   return Container(
                     //height: 500,
@@ -107,7 +108,7 @@ class ServicesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -127,40 +128,40 @@ class ServicesPage extends StatelessWidget {
                                   
                                 ],
                               ),
-                              SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               //check if the account owner selected in-person or virtual
                               //VirtualContainer()  //InpersonContainer()
                               Center(
                                 child: TogglePriceContainer(index: index,),
                               ),
-                              const SizedBox(height: 40,),
+                              SizedBox(height: 40.h,),
                               Text(
                                 "Personal Training",
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
-                                  fontSize: 18,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.sp,),
                               Text(
                                 "Mon-Fri . 9:00AM - 10:00PM",
                                 style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               Text(
                                 "zgshxttttttttttttttttttttttthxgfhfcgjcfgjhgyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuxs",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               //link 1
                               InkWell(
                                 onTap: () {},
@@ -168,19 +169,19 @@ class ServicesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    const SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                     Text(
                                       "https://www.link.com",
                                       style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               //link 1
                               InkWell(
                                 onTap: () {},
@@ -188,19 +189,19 @@ class ServicesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    const SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                     Text(
                                       "https://www.link.com",
                                       style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 30,),
+                              SizedBox(height: 30.h,),
                               //price/session
                               Obx(
                                 () {
@@ -212,7 +213,7 @@ class ServicesPage extends StatelessWidget {
                                           text: controller.isVirtual.value && controller.selectedIndex.value == index ? "N13,000" : "N25,000",
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
-                                            fontSize: 25,
+                                            fontSize: 22.sp,
                                             fontWeight: FontWeight.bold
                                           ),
                                         ),
@@ -221,7 +222,7 @@ class ServicesPage extends StatelessWidget {
                                           text: "/30mins",
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
-                                            fontSize: 20,
+                                            fontSize: 18.sp,
                                             fontWeight: FontWeight.w500
                                           ),
                                         ),
@@ -230,7 +231,7 @@ class ServicesPage extends StatelessWidget {
                                           text: " per session",
                                           style: GoogleFonts.inter(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 18,
+                                            fontSize: 16.sp,
                                             fontWeight: FontWeight.w500
                                           ),
                                         )
@@ -239,7 +240,7 @@ class ServicesPage extends StatelessWidget {
                                   );
                                 }
                               ),
-                              const SizedBox(height: 30,),
+                              SizedBox(height: 30.h,),
                             ]
                           )
                         )

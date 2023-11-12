@@ -75,7 +75,7 @@ class _BookingsPageState extends State<BookingsPage> {
                         "Bookings",
                         style: GoogleFonts.poppins(
                           color: AppColor.blackColor,
-                          fontSize: 20.sp,
+                          fontSize: 18.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),

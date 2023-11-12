@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -28,7 +29,7 @@ class OtherDetailsSection extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 18,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold
                 )
               )
@@ -39,13 +40,13 @@ class OtherDetailsSection extends StatelessWidget {
             )
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 20.h),
         ListView.separated(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           itemCount: itemCount,
-          separatorBuilder: (context, index) => SizedBox(height: 30),
+          separatorBuilder: (context, index) => SizedBox(height: 30.h),
           itemBuilder: (context, index) {
             return Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -55,7 +56,7 @@ class OtherDetailsSection extends StatelessWidget {
                 SvgPicture.asset(
                   profileController.svgPictures[index],
                 ),
-                SizedBox(width: 15,),
+                SizedBox(width: 15.w,),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -65,19 +66,19 @@ class OtherDetailsSection extends StatelessWidget {
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
-                          fontSize: 16,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       )
                     ),
-                    SizedBox(height: 7,), //10
+                    SizedBox(height: 7.h,), //10
                     //Subtitle text
                     Text(
                       profileController.subtitleText[index],
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
-                          fontSize: 14,
+                          fontSize: 14.sp,
                         )
                       )
                     ),

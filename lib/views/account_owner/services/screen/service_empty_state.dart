@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,23 +25,23 @@ class ServiceEmptyState extends StatelessWidget {
           Container(
             color: AppColor.greyColor,
             width: double.infinity,
-            height: 7,
+            height: 7.h,
           ),
           //SizedBox(height: 30,),
-          SizedBox(height: 60,),
+          SizedBox(height: 60.h,),
           SvgPicture.asset('assets/svg/no_service.svg'),
-          SizedBox(height: 60,),
+          SizedBox(height: 60.h,),
           Text(
             'No services yet',
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 22,
+                fontSize: 20.sp,
                 fontWeight: FontWeight.bold
               )
             )
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 15.h,),
           RichText(
             text: TextSpan(
               children: [
@@ -49,7 +50,7 @@ class ServiceEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       //fontWeight: FontWeight.bold
                     )
                   )
@@ -59,7 +60,7 @@ class ServiceEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.bold
                     )
                   )
@@ -69,7 +70,7 @@ class ServiceEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 16,
+                      fontSize: 15.sp,
                       //fontWeight: FontWeight.bold
                     )
                   )
@@ -77,18 +78,18 @@ class ServiceEmptyState extends StatelessWidget {
               ]
             )
           ),
-          SizedBox(height: 30,),
+          SizedBox(height: 30.h,),
           //ADD SECTION BUTTON
           InkWell(
             onTap: onPressed,
             child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+             //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               alignment: Alignment.center,
-              height: 50,
-              width: 350,
+              height: 50.h,
+              width: 350.w,
               decoration: BoxDecoration(
                 color: AppColor. mainColor,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
                   color: AppColor.mainColor
                 )
@@ -98,7 +99,7 @@ class ServiceEmptyState extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
-                    fontSize: 16,
+                    fontSize: 15.sp,
                     //fontWeight: FontWeight.w500
                   )
                 )

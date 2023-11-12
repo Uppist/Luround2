@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -21,16 +22,16 @@ class PasswordUpdatedPage extends StatelessWidget {
       backgroundColor: AppColor.bgColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height /2.5,),
+              SizedBox(height: MediaQuery.of(context).size.height /2.5.h,),
               Text(
                 "Password Updated",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 20,
+                  fontSize: 20.sp,
                   fontWeight: FontWeight.bold
                 )
               ),
@@ -39,12 +40,13 @@ class PasswordUpdatedPage extends StatelessWidget {
                 "Your password has been updated",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 15,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 )
               ),
 
-              SizedBox(height: MediaQuery.of(context).size.height /2.6,),
+              //SizedBox(height: MediaQuery.of(context).size.height /2.6.h,),
+              SizedBox(height: 320.h,),
               //
               RebrandedReusableButton(
                 textColor: AppColor.bgColor,

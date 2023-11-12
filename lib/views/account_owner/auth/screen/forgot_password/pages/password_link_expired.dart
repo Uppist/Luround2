@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
@@ -41,7 +42,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -58,24 +59,24 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
                 ]
               )
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 30.h),
             //BODY SECTION//
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     "Link Expired",
                     style: GoogleFonts.inter(
-                      fontSize: 20,
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColor.blackColor
                     ),
@@ -84,7 +85,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                   Text(
                     "Password reset link expires every 60 seconds and can be used only once.",
                     style: GoogleFonts.inter(
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.darkGreyColor
                     ),
@@ -92,10 +93,11 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                 ],
               ),
             ),                     
-            SizedBox(height: MediaQuery.of(context).size.height /1.5,),
-
+            //SizedBox(height: MediaQuery.of(context).size.height /1.5.h,),
+            
+            SizedBox(height: 590.h),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: RebrandedReusableButton(
                 textColor: AppColor.bgColor,
                 color: AppColor.mainColor, 
@@ -105,7 +107,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                 },
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
 
           ]
         )

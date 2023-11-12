@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -15,7 +16,7 @@ class CustomAppBarTitle extends StatelessWidget {
       text,
       style: GoogleFonts.inter(
         color: AppColor.blackColor,
-        fontSize: 18,
+        fontSize: 18.sp,
         fontWeight: FontWeight.w500
       ),
     );

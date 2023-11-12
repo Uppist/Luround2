@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
@@ -51,7 +52,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,19 +69,19 @@ class _RegisterPage1State extends State<RegisterPage1> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
                 ]
               )
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 30.h,),
 
             //BODY SECTION//
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
                 child: Column(
@@ -89,7 +90,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     Text(
                       "Create your account",
                       style: GoogleFonts.inter(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
@@ -98,12 +99,12 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     Text(
                       "Let's get you started",
                       style: GoogleFonts.inter(
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 40.h,),
                     //Form and textfields
                     Form(
                       key: controller.formKey1,
@@ -121,7 +122,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             textInputAction: TextInputAction.next,
                             textController: controller.firstNameController,                          
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           RegTextField(
                             onChanged: (val) {},
                             validator: (val) {
@@ -132,7 +133,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             textInputAction: TextInputAction.next,
                             textController: controller.lastNameController,                          
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           RegTextField(
                             onChanged: (val) {},
                             validator: (val) {
@@ -147,7 +148,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       ),
                     ),
 
-                    SizedBox(height: 60,),
+                    SizedBox(height: 60.h,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
                       onTextButton: () {
@@ -156,35 +157,13 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       firstText: "Already have an account ?",
                       lastText: "Login",
                     ),
-                    SizedBox(height: 60,),
-
-                    RebrandedReusableButton(
-                      textColor: controller.isFirstPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
-                      color: controller.isFirstPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
-                      text: "Next",
-                      onPressed: controller.isFirstPageButtonEnabled  
-                      ? () {
-                        controller.checkFirstPageCredentials();
-                        print("done");
-                      }
-                      : () {
-                        print('nothing for you chief!!');
-                      },
-                    ),
-                    SizedBox(height: 20,),
-
                   ],
                 ),
               )
             ),
-            //SizedBox(height: 50,),
 
-
-
-            //NEXT BUTTON HERE
-            //pay button
-            /*Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: RebrandedReusableButton(
                 textColor: controller.isFirstPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                 color: controller.isFirstPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
@@ -199,7 +178,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 },
               ),
             ),
-            SizedBox(height: 20,),*/
+            SizedBox(height: 20.h,),
           ]
         )
       )

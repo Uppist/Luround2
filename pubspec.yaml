@@ -67,6 +67,7 @@ dependencies:
 
   #rating_bar indicator
   flutter_rating_bar: ^4.0.1
+  flutter_screenutil: ^5.9.0
   #firebase_core: ^2.22.0
   #firebase_auth: ^4.13.0
 

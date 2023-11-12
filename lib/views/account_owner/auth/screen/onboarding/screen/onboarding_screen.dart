@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -50,7 +51,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         SizedBox(height: 110), //100.h
         //PageView.builder() Widget
         SizedBox(
-          height: 400, //550
+          height: 400.h, //550
           width: size.width,  //double.infinity
           child: PageView.builder( 
             scrollDirection: Axis.horizontal,
@@ -89,12 +90,12 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             type: WormType.normal,
           ),
         ),                  
-        SizedBox(height: 60),
+        SizedBox(height: 60.h),
         //for the two buttons
         Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 20,
+            horizontal: 20.w,
+            vertical: 20.h,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,

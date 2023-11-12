@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -69,19 +70,19 @@ class _LoginPageState extends State<LoginPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
                 ]
               )
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 30.h,),
 
             //BODY SECTION//
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
                 child: Column(
@@ -90,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       "Log into account",
                       style: GoogleFonts.inter(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
@@ -99,12 +100,12 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       "Welcome back!",
                       style: GoogleFonts.inter(
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 40.h,),
                     //Form and textfields
                     Form(
                       key: controller.loginFormKey,
@@ -122,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                             textInputAction: TextInputAction.next,
                             textController: controller.loginEmailController,                          
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           PasswordTextField(
                             onChanged: (val) {},
                             validator: (val) {
@@ -137,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //Rich Text for reading terms and conditions
                     Center(
                       child: InkWell(
@@ -145,19 +146,19 @@ class _LoginPageState extends State<LoginPage> {
                           Get.to(() => ForgotPasswordPage());
                           //Get.to(() => PasswordUpdatedPage());
                           //Get.to(() => ResetPasswordPage());
-                          //Get.to(() => PasswordLinkExpiredPage());
+                          Get.to(() => PasswordLinkExpiredPage());
                         },
                         child: Text(
                           "Forgot Password ?",
                           style: GoogleFonts.inter(
                             color: AppColor.redColor,
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500
                           )
                         ),
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    SizedBox(height: 70.h,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
                       onTextButton: () {
@@ -168,27 +169,29 @@ class _LoginPageState extends State<LoginPage> {
                       lastText: "Create account",
                     ),
 
-                    SizedBox(height: 90,),
-          
-                    RebrandedReusableButton(
-                      textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
-                      color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
-                      text: "Login",
-                      onPressed: controller.isLoginPageButtonEnabled  
-                      ? () {
-                        controller.checkLoginCredentials();
-                        print("user logged in");
-                      }
-                      : () {
-                        print('nothing for you chief!!');
-                      },
-                    ),
-                    SizedBox(height: 20,),
-
                   ],
                 ),
               )
             ),
+            //SizedBox(height: 90.h,),
+          
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+              child: RebrandedReusableButton(
+                textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
+                color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
+                text: "Login",
+                onPressed: controller.isLoginPageButtonEnabled  
+                ? () {
+                  controller.checkLoginCredentials();
+                  print("user logged in");
+                }
+                : () {
+                  print('nothing for you chief!!');
+                },
+              ),
+            ),
+            SizedBox(height: 20.h,),
           ]
         )
       )

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
@@ -53,7 +54,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -70,19 +71,19 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
                 ]
               )
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 30.h,),
 
             //BODY SECTION//
             Expanded(
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                 scrollDirection: Axis.vertical,
                 physics: BouncingScrollPhysics(),
                 child: Column(
@@ -91,7 +92,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     Text(
                       "Create your account",
                       style: GoogleFonts.inter(
-                        fontSize: 20,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
@@ -100,12 +101,12 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     Text(
                       "Almost there!",
                       style: GoogleFonts.inter(
-                        fontSize: 15,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 40.h,),
                     //Form and textfields
                     Form(
                       key: controller.formKey2,
@@ -124,7 +125,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                             textController: controller.passwordController,
                             isObscured: controller.seePassword,                       
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           RegPasswordTextField(
                             onChanged: (val) {},
                             validator: (val) {
@@ -139,10 +140,10 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 40,),
+                    SizedBox(height: 40.h,),
                     //Rich Text for reading terms and conditions
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 30.w),
                       child: RichText(
                         textAlign: TextAlign.start,
                         text: TextSpan(
@@ -151,7 +152,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "By clicking ",
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -159,7 +160,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "Create account, ",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.bold
                               )
                             ),
@@ -167,7 +168,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "you agree to Luround's ",
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -175,16 +176,18 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "Terms of Service ",
                               style: GoogleFonts.inter(
                                 color: AppColor.mainColor,
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.bold
                               ),
-                              onEnter: (event) {},
+                              onEnter: (event) {
+                                print("hello");
+                              },
                             ),
                             TextSpan(
                               text: "and ",
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -192,17 +195,19 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "Privacy Policy",
                               style: GoogleFonts.inter(
                                 color: AppColor.mainColor,
-                                fontSize: 15,
+                                fontSize: 13.sp,
                                 fontWeight: FontWeight.bold
                               ),
-                              onEnter: (event) {},
+                              onEnter: (event) {
+                                print("policy");
+                              },
                             ),
                           ],
                         ),
                       ),
                     ),
 
-                    SizedBox(height: 50,),
+                    SizedBox(height: 50.h,),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {},
                       onTextButton: () {
@@ -211,40 +216,22 @@ class _RegisterPage2State extends State<RegisterPage2> {
                       firstText: "Already have an account ?",
                       lastText: "Login",
                     ),
-                    SizedBox(height: 60,),
-          
-                    RebrandedReusableButton(
-                      textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
-                      color: controller.isSecondPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
-                      text: "Create account",
-                      onPressed: controller.isSecondPageButtonEnabled  
-                      ? () {
-                        controller.checkSecondPageCredentials();
-                        print("account created");
-                      }
-                      : () {
-                        print('nothing for you chief!!');
-                      },
-                    ),
-                    SizedBox(height: 20,),
 
                   ],
                 ),
               )
             ),
             
-
-
-            //NEXT BUTTON HERE
-            //pay button
-            /*Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            //NEXT BUTTON HERE       
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: RebrandedReusableButton(
                 textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                 color: controller.isSecondPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
                 text: "Create account",
                 onPressed: controller.isSecondPageButtonEnabled  
                 ? () {
+                  controller.checkSecondPageCredentials();
                   print("account created");
                 }
                 : () {
@@ -252,7 +239,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                 },
               ),
             ),
-            SizedBox(height: 20,),*/
+            SizedBox(height: 20.h,),
           ]
         )
       )

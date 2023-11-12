@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -33,9 +34,9 @@ class LuroundSnackBar {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(24),
+      margin: EdgeInsets.all(24.w),
       snackPosition: SnackPosition.TOP,
-      borderRadius: 10,
+      borderRadius: 10.r,
       icon: Icon(
         CupertinoIcons.xmark_circle,
         color: AppColor.bgColor
@@ -51,8 +52,8 @@ class LuroundSnackBar {
       boxShadows: [
         BoxShadow(
           color: AppColor.bgColor.withOpacity(0.1),
-          spreadRadius: 5,
-          blurRadius: 5,
+          spreadRadius: 5.r,
+          blurRadius: 5.r,
         )
       ],
       message: message,
@@ -69,7 +70,7 @@ class LuroundSnackBar {
                   style: GoogleFonts.inter(
                     color: AppColor.textGreyColor,
                     fontWeight: FontWeight.w400,
-                    height: 1.6,
+                    height: 1.6.h,
                   ),
                 ),
               ],
@@ -77,9 +78,9 @@ class LuroundSnackBar {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(24),
+      margin: EdgeInsets.all(24.w),
       snackPosition: SnackPosition.TOP,
-      borderRadius: 8,
+      borderRadius: 8.r,
       icon: Icon(
         CupertinoIcons.xmark_circle,
         color: AppColor.textGreyColor,
@@ -105,7 +106,7 @@ class LuroundSnackBar {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -115,9 +116,9 @@ class LuroundSnackBar {
           ),
         ],
       ),
-      margin: const EdgeInsets.all(24),
+      margin: EdgeInsets.all(24.w),
       snackPosition: SnackPosition.TOP,
-      borderRadius: 15,
+      borderRadius: 15.sp,
       icon: Icon(
         CupertinoIcons.check_mark_circled,
         color: AppColor.bgColor,

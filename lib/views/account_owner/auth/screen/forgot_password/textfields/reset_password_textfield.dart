@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -60,7 +61,7 @@ class _ResetPasswordTextFieldState extends State<ResetPasswordTextField> {
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.redColor),
           ),
-          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13),
+          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13.sp),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
           ),
@@ -68,7 +69,7 @@ class _ResetPasswordTextFieldState extends State<ResetPasswordTextField> {
             borderSide: BorderSide(color: AppColor.mainColor), // Set the color you prefer
           ),     
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
           suffixIcon: InkWell(
             onTap: () {
               setState(() {

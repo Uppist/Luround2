@@ -26,7 +26,9 @@ class LuroundSnackBar {
                 Text(
                   message,
                   style: GoogleFonts.inter(
-                    color: AppColor.bgColor
+                    color: AppColor.bgColor,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
@@ -34,7 +36,7 @@ class LuroundSnackBar {
           ),
         ],
       ),
-      margin: EdgeInsets.all(24.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       snackPosition: SnackPosition.TOP,
       borderRadius: 10.r,
       icon: Icon(
@@ -62,15 +64,16 @@ class LuroundSnackBar {
         mainAxisSize: MainAxisSize.max,
         children: [
           SizedBox(
-            width: Get.width / 1.85,
+            //width: Get.width / 1.85,
             child: Wrap(
               children: [
                 Text(
                   '$message $message2',
                   style: GoogleFonts.inter(
                     color: AppColor.textGreyColor,
-                    fontWeight: FontWeight.w400,
-                    height: 1.6.h,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13.sp,
+                    //height: 1.6.h,
                   ),
                 ),
               ],
@@ -78,9 +81,9 @@ class LuroundSnackBar {
           ),
         ],
       ),
-      margin: EdgeInsets.all(24.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       snackPosition: SnackPosition.TOP,
-      borderRadius: 8.r,
+      borderRadius: 10.r,
       icon: Icon(
         CupertinoIcons.xmark_circle,
         color: AppColor.textGreyColor,
@@ -98,7 +101,7 @@ class LuroundSnackBar {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
-            width: Get.width / 1.85,
+            //width: Get.width / 1.85,
             child: Wrap(
               children: [
                 Text(
@@ -106,8 +109,8 @@ class LuroundSnackBar {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600,
+                      fontSize: 13.sp,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -116,9 +119,9 @@ class LuroundSnackBar {
           ),
         ],
       ),
-      margin: EdgeInsets.all(24.w),
+      margin: EdgeInsets.symmetric(horizontal: 20.w),
       snackPosition: SnackPosition.TOP,
-      borderRadius: 15.sp,
+      borderRadius: 15.r,
       icon: Icon(
         CupertinoIcons.check_mark_circled,
         color: AppColor.bgColor,

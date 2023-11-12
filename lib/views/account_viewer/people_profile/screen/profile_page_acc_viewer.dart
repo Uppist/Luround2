@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,9 +49,9 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
         child: Column(
           children: [
             //////HEADER SECTION/////
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -60,7 +61,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 ]
               ),         
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 10.h),
             
             ///////CUSTOM BODY SECTION/////
             Expanded(

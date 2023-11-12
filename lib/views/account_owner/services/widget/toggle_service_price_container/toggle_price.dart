@@ -50,16 +50,16 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
                     alignment: Alignment.center,
                     //height: 70,
                     width: 100.w,
-                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+                    //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
                     decoration: BoxDecoration(
-                      color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.navyBlue : AppColor.bgColor,
+                      color: controller.isVirtual.value &&  controller.selectedIndex == widget.index ? AppColor.navyBlue : AppColor.bgColor,
                       borderRadius: BorderRadius.circular(30.r),
                     ),
                     child: Text(
                       'Virtual',
                       style: GoogleFonts.inter(
-                        color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.textGreyColor,
-                        fontSize: 14.sp,
+                        color: controller.isVirtual.value &&  controller.selectedIndex == widget.index ? AppColor.bgColor : AppColor.textGreyColor,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
@@ -73,16 +73,16 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
                     alignment: Alignment.center,
                     //height: 70,
                     width: 100.w,
-                    padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+                    //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
                     decoration: BoxDecoration(
-                      color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.navyBlue, //.redColor,
+                      color: controller.isVirtual.value &&  controller.selectedIndex == widget.index ? AppColor.bgColor : AppColor.navyBlue, //.redColor,
                       borderRadius: BorderRadius.circular(30.r),
                     ),
                     child: Text(
                       'In-person',
                       style: GoogleFonts.inter(
-                        color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.textGreyColor : AppColor.bgColor,
-                        fontSize: 14.sp,
+                        color: controller.isVirtual.value &&  controller.selectedIndex == widget.index ? AppColor.textGreyColor : AppColor.bgColor,
+                        fontSize: 13.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),

@@ -215,7 +215,7 @@ class ServicesController extends getx.GetxController {
 
 
   ///service_screen list/// 
-  final selectedIndex = 0.obs; //for toggling price of the services list,
+  var selectedIndex = 0.obs; //for toggling price of the services list,
   final isVirtual = true.obs;  //boolean to switch between prices in the services list
   //List<String> tabs = ['Virtual', "In-Person"];
 

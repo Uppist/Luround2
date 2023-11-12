@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/more_controller.dart';
@@ -38,16 +39,14 @@ class MorePage extends StatelessWidget {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image(
-                        image: AssetImage('assets/images/luround_logo.png'),
-                      ),
+                      Image.asset('assets/images/luround_logo.png'),
                       InkWell(
                         onTap: () {
                           Get.to(() => NotificationsPage());
@@ -59,16 +58,16 @@ class MorePage extends StatelessWidget {
                 ]
               )
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
             ////ROWS HERE///
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   //row 1
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomCard(
                         svgAsset: "assets/svg/integrations.svg",
@@ -77,7 +76,7 @@ class MorePage extends StatelessWidget {
                           comingSoonDialogue(context: context);
                         },
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 20.w,),
                       CustomCard(
                         svgAsset: "assets/svg/finance.svg",
                         title: "Financials",
@@ -87,10 +86,10 @@ class MorePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   //row 2
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomCard(
                         svgAsset: "assets/svg/finance.svg",
@@ -99,7 +98,7 @@ class MorePage extends StatelessWidget {
                           Get.to(() => TransactionPage());
                         },
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 20.w,),
                       CustomCard(
                         svgAsset: "assets/svg/subscriptions.svg",
                         title: "Subscriptions",
@@ -109,10 +108,10 @@ class MorePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   //row 3
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomCard(
                         svgAsset: "assets/svg/notification_more.svg",
@@ -121,7 +120,7 @@ class MorePage extends StatelessWidget {
                           Get.to(() => NotificationSettingScreen());
                         },
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 20.w,),
                       CustomCard(
                         svgAsset: "assets/svg/feedback.svg",
                         title: "Feedback",
@@ -131,10 +130,10 @@ class MorePage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   //row 4                   
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CustomCard(
                         svgAsset: "assets/svg/logout.svg",
@@ -143,7 +142,8 @@ class MorePage extends StatelessWidget {
                           logoutDialogue(context: context);
                         },
                       ),
-                      SizedBox(width: 225,)
+                      SizedBox(width: 20.w,),
+                      Expanded(child: SizedBox(width: 190.w,))
                     ],
                   ),
                 ],

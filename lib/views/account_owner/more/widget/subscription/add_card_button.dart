@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -18,7 +19,7 @@ class AddCardButton extends StatelessWidget {
         style: GoogleFonts.inter(
           textStyle: TextStyle(
             color: AppColor.mainColor,
-            fontSize: 13,
+            fontSize: 13.sp,
             fontWeight: FontWeight.w500
           ),
           decoration: TextDecoration.underline

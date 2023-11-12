@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -16,14 +17,14 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Expanded(
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
         child: Container(
           //height: 100,
-          width: 200,
+          width: 190.w,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           decoration: BoxDecoration(
             color: AppColor.bgColor,
           ),
@@ -31,12 +32,12 @@ class CustomCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SvgPicture.asset(svgAsset),
-              SizedBox(height: 20,),
+              SizedBox(height: 20.h,),
               Text(
                 title,
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16,
+                  fontSize: 15.sp,
                   color: AppColor.blackColor
                 ),
               )

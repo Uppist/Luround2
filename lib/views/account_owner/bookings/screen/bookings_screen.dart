@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +46,7 @@ class _BookingsPageState extends State<BookingsPage> {
               Container(
                 color: AppColor.bgColor,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -74,12 +75,12 @@ class _BookingsPageState extends State<BookingsPage> {
                         "Bookings",
                         style: GoogleFonts.poppins(
                           color: AppColor.blackColor,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //search textfield
                     SearchTextField(
                       onFocusChanged: (val) {},
@@ -103,10 +104,10 @@ class _BookingsPageState extends State<BookingsPage> {
               ),         
               ////////////////////////////////////////////////////////          
         
-              const SizedBox(height: 5,),
+              SizedBox(height: 5.h,),
               //Filter widget here
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -118,7 +119,7 @@ class _BookingsPageState extends State<BookingsPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10,),
+              SizedBox(height: 10.h,),
         
               //no booking available widget
               //BookingScreenEmptyState(onPressed: () {},),
@@ -129,9 +130,9 @@ class _BookingsPageState extends State<BookingsPage> {
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   physics: const BouncingScrollPhysics(),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0), //external paddin
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
                   itemCount: 8,
-                  separatorBuilder: (context, index) => const SizedBox(height: 25,),
+                  separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                   itemBuilder: (context, index) {
                   
                     return Container(
@@ -152,7 +153,7 @@ class _BookingsPageState extends State<BookingsPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -171,7 +172,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                     )
                                   ],
                                 ),
-                                SizedBox(height: 5,),
+                                SizedBox(height: 5.h,),
                                 //beginning
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -179,9 +180,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                     CircleAvatar(
                                       backgroundColor: AppColor.mainColor,
                                       //backgroundImage: ,
-                                      radius: 30,  //25,
+                                      radius: 30.r,  //25,
                                     ),
-                                    SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                     Expanded(
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,16 +191,16 @@ class _BookingsPageState extends State<BookingsPage> {
                                             "Yennifer Merit",
                                             style: GoogleFonts.poppins(
                                               color: AppColor.darkGreyColor,
-                                              fontSize: 15,
+                                              fontSize: 14.sp,
                                               fontWeight: FontWeight.bold
                                             ),
                                           ),
-                                          SizedBox(height: 2,),
+                                          SizedBox(height: 2.h,),
                                           Text(
                                             index.isEven ? "booked you" : "you booked",
                                             style: GoogleFonts.poppins(
                                               color: AppColor.textGreyColor,
-                                              fontSize: 13,
+                                              fontSize: 13.sp,
                                               fontWeight: FontWeight.w500
                                             ),
                                           )
@@ -208,9 +209,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                     )
                                   ],
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(height: 10.h,),
                                 Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
-                                SizedBox(height: 10,),
+                                SizedBox(height: 10.h,),
                                 //date of booking
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -219,11 +220,11 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Tuesday, 11 July 2023",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
-                                    SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                     /////////////
                                     index.isEven ?
                                     SvgPicture.asset("assets/svg/sent_blue.svg")
@@ -231,13 +232,13 @@ class _BookingsPageState extends State<BookingsPage> {
                                     /////////////////
                                   ],
                                 ),
-                                SizedBox(height: 30,),
+                                SizedBox(height: 30.h,),
                                 //service name
                                 Text(
                                   "Digital Marketing Training",
                                   style: GoogleFonts.poppins(
                                     color: AppColor.blackColor,
-                                    fontSize: 16,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
@@ -249,7 +250,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "9:30am - 10:30am",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
@@ -257,12 +258,12 @@ class _BookingsPageState extends State<BookingsPage> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         SvgPicture.asset("assets/svg/time_icon.svg"),
-                                        SizedBox(width: 10,),
+                                        SizedBox(width: 10.w,),
                                         Text(
                                           "1 hr 30 mins",
                                           style: GoogleFonts.poppins(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 14,
+                                            fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           ),
                                         ),
@@ -270,7 +271,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 30,),
+                                SizedBox(height: 30.h,),
                               
                               
                                 ///////////////////////////////////////
@@ -283,76 +284,76 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Sender's Email",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 16,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: 10.h,),
                                     Text(
                                       "yennifermerit@gmail.com",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
                               
-                                    SizedBox(height: 30,),
+                                    SizedBox(height: 30.h,),
                                     Text(
                                       "Meeting Type",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 16,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: 10.h,),
                                     Text(
                                       "Virtual",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 30,),
+                                    SizedBox(height: 30.h,),
                               
                                     Text(
                                       "Location",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 16,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: 10.h,),
                                     Text(
                                       "This is a Google Meet web conference",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 30,),
+                                    SizedBox(height: 30.h,),
                               
                                     Text(
                                       "Sender's Time Zone",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 16,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -363,47 +364,47 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "West Africa Time",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 30,),
+                                    SizedBox(height: 30.h,),
                               
                                     Text(
                                       "Note",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 16,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: 10.h,),
                                     Text(
                                       "qwertyuiopasdfghjklzxcvbnmggggggggggdrerearwaetsrsgergsegehtrshghfh",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 30,),
+                                    SizedBox(height: 30.h,),
                                     Text(
                                       "Created on 8 July 2023",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.textGreyColor.withOpacity(0.4),
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
                                       //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
                                     ),
-                                    SizedBox(height: 10,),
+                                    SizedBox(height: 10.h,),
                                   ],
                                 ): SizedBox(),
                                 ///////////////////////////////////////    
@@ -432,14 +433,14 @@ class _BookingsPageState extends State<BookingsPage> {
                                 controller.selectedIndex == index   ? 'See Less' : 'See More',
                                 style: GoogleFonts.poppins(
                                   color: AppColor.mainColor,
-                                  fontSize: 16,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                   //decoration: TextDecoration.underline,
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           ////////////////////
                         ],
                       ),
@@ -448,7 +449,7 @@ class _BookingsPageState extends State<BookingsPage> {
                 ),
               ),         
               ///
-              const SizedBox(height: 20,)
+              SizedBox(height: 20.h,)
             ]
           ),
         )

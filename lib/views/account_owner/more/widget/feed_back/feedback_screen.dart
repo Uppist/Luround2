@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -51,7 +52,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -74,12 +75,12 @@ class _FeedbackPageState extends State<FeedbackPage> {
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10.h,),
             /////////////
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 7),
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -92,46 +93,46 @@ class _FeedbackPageState extends State<FeedbackPage> {
                       color: AppColor.blackColor,
                     )
                   ),
-                  SizedBox(width: 3,),
+                  SizedBox(width: 3.w,),
                   Text(
                     "Contact us",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 18,
+                      fontSize: 17.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10.h),
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),        
-            SizedBox(height: 10,),
+            SizedBox(height: 10.h,),
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Form(
                   key: GlobalKey(),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10,),
+                        SizedBox(height: 10.h),
                         //1
                         Text(
                           "Subject",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 16,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: 10.h),
                         SubjectTextField(
                           onChanged: (val) {},
                           hintText: "Enter here",
@@ -139,17 +140,17 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           textInputAction: TextInputAction.next,
                           controller: controller.subjectController,
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(height: 30.h),
                         //2
                         Text(
                           "Description",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 16,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
-                        SizedBox(height: 10,),
+                        SizedBox(height: 10.h),
                         FeedbackDescriptionTextField(
                           onTap: () {
                             /*setState(() {
@@ -169,9 +170,9 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
             ),
             //
-            SizedBox(height: 50,),  //250
+            SizedBox(height: 50.h),  //250
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               child: RebrandedReusableButton(
                 textColor: AppColor.bgColor,
                 color: AppColor.mainColor,
@@ -179,7 +180,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                 onPressed: () {}
               )
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h),
 
           ]
         )

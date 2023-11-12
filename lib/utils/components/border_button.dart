@@ -35,7 +35,7 @@ class BorderButton extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: textColor,
-              fontSize: 18.sp,
+              fontSize: 16.sp,
               //fontWeight: FontWeight.w500
             )
           )

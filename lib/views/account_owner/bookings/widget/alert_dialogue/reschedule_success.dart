@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -21,16 +22,16 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(15)
+            Radius.circular(15.r)
           )
         ),
         backgroundColor: AppColor.bgColor,
         content: Wrap(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
               decoration: BoxDecoration(
                 //image: DecorationImage(image: AssetImage(''),),
                 color: AppColor.bgColor,
@@ -47,21 +48,21 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
                   Text(
                     "Meeting Rescheduled",
                     style: GoogleFonts.inter(
-                      fontSize: 20,
+                      fontSize: 17.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColor.darkGreyColor
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.h,),
                   Text(
-                    "This meeting has bee rescheduled. The other party would be informed of this\n                            change.",
+                    "This meeting has bee rescheduled. The other party would be informed of this change.",
                     style: GoogleFonts.inter(
-                      fontSize: 14,
+                      fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.darkGreyColor
                     ),
                   ),
-                  SizedBox(height: 40,),
+                  SizedBox(height: 40.h,),
                   ReusableButton(
                     onPressed: () {
                       //let me try this getx navigation technique

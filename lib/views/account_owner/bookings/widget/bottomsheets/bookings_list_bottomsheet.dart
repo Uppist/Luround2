@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,13 +36,13 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
       return Wrap(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             decoration: BoxDecoration(
               //image: DecorationImage(image: AssetImage(''),),
               color: AppColor.bgColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
               ),
             ),
             child: Column(
@@ -57,12 +58,12 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset('assets/svg/reschedule.svg'),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       Text(
                         'Reschedule',
                         style: GoogleFonts.poppins(
                           color: AppColor.textGreyColor,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
@@ -79,19 +80,19 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset('assets/svg/xmark.svg'),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       Text(
                         'Cancel',
                         style: GoogleFonts.poppins(
                           color: AppColor.textGreyColor,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
                     ],
                   ),
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30.h,),
                 //3
                 InkWell(
                   onTap: () {
@@ -101,12 +102,12 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SvgPicture.asset('assets/svg/delete.svg'),
-                      SizedBox(width: 20,),
+                      SizedBox(width: 20.w,),
                       Text(
                         'Delete',
                         style: GoogleFonts.poppins(
                           color: AppColor.textGreyColor,
-                          fontSize: 15,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),

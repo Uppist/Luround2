@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -25,8 +26,8 @@ class PaymentCard extends StatelessWidget {
       width: double.infinity,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       padding: EdgeInsets.symmetric(
-        horizontal: 20, 
-        vertical: 30, 
+        horizontal: 20.w, 
+        vertical: 30.h, 
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
@@ -49,7 +50,7 @@ class PaymentCard extends StatelessWidget {
                 cardType,
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 16,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -59,25 +60,25 @@ class PaymentCard extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Text(
             cardNuber,
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 15,),
+          SizedBox(height: 15.h,),
           Text(
             expiryDate,
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           //edit card button and card logo
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -90,7 +91,7 @@ class PaymentCard extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.yellowStar,
-                      fontSize: 15,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500
                     ),
                     decoration: TextDecoration.underline

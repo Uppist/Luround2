@@ -1,6 +1,7 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings_controller.dart';
@@ -33,20 +34,20 @@ Future<void> selectDateBottomSheet({required BuildContext context, required Void
       return Wrap(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             decoration: BoxDecoration(
               //image: DecorationImage(image: AssetImage(''),),
               color: AppColor.bgColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
               ),
             ),
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20,),
+                SizedBox(height: 20.h,),
                 CalendarDatePicker2(
                   /*config: CalendarDatePicker2Config(
                     calendarType: CalendarDatePicker2Type.range,
@@ -75,20 +76,20 @@ Future<void> selectDateBottomSheet({required BuildContext context, required Void
                     debugPrint("${controller.dates}");
                   },
                 ),
-                SizedBox(height: 20,),
+                SizedBox(height: 20.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     InkWell(
                       onTap: onCancel,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8),
                         alignment: Alignment.center,
-                        height: 50,
-                        width: 150,
+                        height: 50.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColor.bgColor,
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(15.r),
                           border: Border.all(
                             color: AppColor.textGreyColor,
                             width: 2.0,
@@ -99,7 +100,7 @@ Future<void> selectDateBottomSheet({required BuildContext context, required Void
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.textGreyColor,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               //fontWeight: FontWeight.w500
                             )
                           )
@@ -109,13 +110,13 @@ Future<void> selectDateBottomSheet({required BuildContext context, required Void
                     InkWell(
                       onTap: onApply,
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                         alignment: Alignment.center,
-                        height: 50,
-                        width: 150,
+                        height: 50.h,
+                        width: 150.w,
                         decoration: BoxDecoration(
                           color: AppColor.mainColor,
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(15.r),
                           border: Border.all(
                             color: AppColor.mainColor,
                             width: 2.0,
@@ -126,7 +127,7 @@ Future<void> selectDateBottomSheet({required BuildContext context, required Void
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.bgColor,
-                              fontSize: 16,
+                              fontSize: 16.sp,
                               //fontWeight: FontWeight.w500
                             )
                           )

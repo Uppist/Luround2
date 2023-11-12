@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +31,7 @@ class TransactionPage extends StatelessWidget {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -51,8 +52,8 @@ class TransactionPage extends StatelessWidget {
             ),
             ///Navigation Section/////
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7,),
-              height: 70, //65
+              padding: EdgeInsets.symmetric(horizontal: 7.w,),
+              height: 70.h, //65
               width: double.infinity,
               color: AppColor.bgColor,
               child: Row(
@@ -67,26 +68,26 @@ class TransactionPage extends StatelessWidget {
                       color: AppColor.blackColor,
                     )
                   ),
-                  SizedBox(width: 3,),
+                  SizedBox(width: 3.w,),
                   Text(
                     "Transactions",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 18,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(height: 20.h,),
         
             /////HERE/////////
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -95,14 +96,14 @@ class TransactionPage extends StatelessWidget {
                         amountPaid: "N50,000.00",
                         amountReceived: "N250,000.00",
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(height: 30.h,),
                       //FILTER BUTTON
                       FilterTrxButton(),
-                      SizedBox(height: 30,),
+                      SizedBox(height: 30.h,),
                       //List of transactions comes here and it's empty state // //Future building will be used here also
                       //TrxEmptyState(onRefresh: () {},),
                       TrxHistoryList(),
-                      SizedBox(height: 15,),
+                      SizedBox(height: 15.h,),
                     ],
                   ),
                 ),

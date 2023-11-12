@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,12 +27,12 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
     context: context, 
     builder: (context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(15)
+            Radius.circular(15.r)
           )
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+        contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
         content: Wrap(
           children: [
             Column(
@@ -42,32 +43,32 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                   'Meeting Cancelled"',
                   style: GoogleFonts.poppins(
                     color: AppColor.blackColor,
-                    fontSize: 18,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30.h,),
                 Text(
                   'This meeting has been cancelled. The other party will be informed of this change.',
                   style: GoogleFonts.poppins(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14,
+                    fontSize: 13.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30.h,),
                 InkWell(
                   onTap: () {
                     Get.back(closeOverlays: true);
                   },
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                     alignment: Alignment.center,
-                    height: 50,
+                    height: 50.h,
                     //width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColor.mainColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                       border: Border.all(
                         color: AppColor.mainColor
                       )
@@ -77,14 +78,14 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                       style: GoogleFonts.poppins(
                         textStyle: TextStyle(
                           color: AppColor.bgColor,
-                          fontSize: 18,
+                          fontSize: 16.sp,
                           //fontWeight: FontWeight.w500
                         )
                       )
                     ),
                   )
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 10.h,),
         
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
@@ -45,7 +46,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
               Container(
                 color: AppColor.bgColor,
                 alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -63,25 +64,27 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         ),
                       ]
                     ),
-                    const SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        IconButton(
-                          onPressed: () {
+                        
+                        InkWell(
+                          onTap: () {
                             Get.back();
                           },
-                          icon: Icon(
+                          child: Icon(
                             Icons.arrow_back_rounded,
                             color: AppColor.blackColor,
-                          )
+                          ),
                         ),
-                        SizedBox(width: 3,),
+                      
+                        SizedBox(width: 5.w,),
                         Text(
                           "Reschedule",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 20,
+                            fontSize: 18.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
@@ -92,35 +95,35 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                 )
               ),
               Container(
-                height: 7,
+                height: 7.h,
                 width: double.infinity,
                 color: AppColor.greyColor,
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10.h,),
               //WAT
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset("assets/svg/earth.svg"),
-                  SizedBox(width: 8),
+                  SizedBox(width: 8.w),
                   Text(
                     "West Africa Standard Time",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 14,
+                      fontSize: 13.sp,
                       //fontWeight: FontWeight.w500,
                       //decoration: TextDecoration.underline,
                       //decorationStyle: TextDeco
                     ),
                   ),
-                  SizedBox(width: 4),
+                  SizedBox(width: 4.w),
                   TextButton(
                     onPressed: () {}, 
                     child: Text(
                       "Change",
                       style: GoogleFonts.inter(
                         color: AppColor.mainColor,
-                        fontSize: 14,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
                         //decorationStyle: TextDeco
@@ -129,15 +132,15 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                   )
                 ],
               ),
-              SizedBox(height: 15,),
+              SizedBox(height: 15.h,),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,),
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       //alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                       decoration: BoxDecoration(
                         color: AppColor.lightMainColor2,
                       ),
@@ -150,11 +153,11 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             "Former",
                             style: GoogleFonts.inter(
                               color: AppColor.darkMainColor,
-                              fontSize: 15,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
@@ -162,24 +165,24 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                 "Friday, 14 July 2023",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              SizedBox(width: 10,),
+                              SizedBox(width: 10.w,),
                               SvgPicture.asset("assets/svg/former.svg"),
                             ],
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           Text(
                             "Addiction Intervention Coaching",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 16,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.bold
                             ),
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -187,7 +190,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                 "9:00am - 10:00am",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.normal
                                 ),
                               ),
@@ -200,7 +203,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     "45mins",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
-                                      fontSize: 15,
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.normal
                                     ),
                                   ),
@@ -211,18 +214,18 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         ]
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 30.h,),
                     Center(
                       child: Text(
                         "Choose a new date",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 16,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //select date custom button
                     InkWell(
                       onTap: () {
@@ -238,9 +241,9 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         );
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                         alignment: Alignment.centerLeft,
-                        height: 50,
+                        height: 50.h,
                         width: double.infinity,
                         decoration: BoxDecoration(
                           color: AppColor.bgColor,
@@ -260,7 +263,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       //fontWeight: FontWeight.w500
                                     )
                                   )           
@@ -273,18 +276,18 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         ),
                       )
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 30.h,),
                     Center(
                       child: Text(
                         "Choose a new time",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 16,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //select date custom button
                     InkWell(
                       onTap: () {
@@ -297,13 +300,13 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                           Obx(
                             () {
                               return Container(
-                                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                                 alignment: Alignment.center,
-                                height: 50,
-                                width: 150,
+                                height: 50.h,
+                                width: 150.w,
                                 decoration: BoxDecoration(
                                   color: AppColor.bgColor,
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(5.r),
                                   border: Border.all(
                                     color: AppColor.textGreyColor,
                                     width: 1.0, //2
@@ -314,7 +317,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.normal
                                     )
                                   )           
@@ -330,11 +333,11 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                               return Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                                 alignment: Alignment.center,
-                                height: 50,
-                                width: 150,
+                                height: 50.h,
+                                width: 150.w,
                                 decoration: BoxDecoration(
                                   color: AppColor.bgColor,
-                                  borderRadius: BorderRadius.circular(5),
+                                  borderRadius: BorderRadius.circular(5.r),
                                   border: Border.all(
                                     color: AppColor.textGreyColor,
                                     width: 1.0, //2
@@ -345,7 +348,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 16,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.normal
                                     )
                                   )           
@@ -356,7 +359,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    SizedBox(height: 100.h,),
                     RebrandedReusableButton(
                       textColor: AppColor.bgColor,
                       color: AppColor.mainColor, 

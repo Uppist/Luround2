@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,12 +28,12 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
     context: context, 
     builder: (context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(15)
+            Radius.circular(15.r)
           )
         ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 30, vertical: 30),
+        contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
         content: Wrap(
           children: [
             Column(
@@ -43,20 +44,20 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                   'Logout',
                   style: GoogleFonts.poppins(
                     color: AppColor.blackColor,
-                    fontSize: 18,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 30,),
+                SizedBox(height: 30.h,),
                 Text(
                   'Are you sure you want to logout?',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: 40.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -64,14 +65,14 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                       child: InkWell(
                         onTap: () {},
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
-                          height: 50,
+                          height: 50.h,
                           //width: double.infinity,
-                          width: 200,
+                          width: 200.w,
                           decoration: BoxDecoration(
                             color: AppColor.mainColor,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
                               color: AppColor.mainColor
                             )
@@ -81,7 +82,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -89,21 +90,21 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                         )
                       ),
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(width: 20.w,),
                     Expanded(
                       child: InkWell(
                         onTap: () {
                           Get.back(closeOverlays: true);
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
-                          height: 50,
-                          width: 200,
+                          height: 50.h,
+                          width: 200.w,
                           //width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
                               color: AppColor.textGreyColor
                             )
@@ -113,7 +114,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -123,7 +124,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                     ),
                   ],
                 ),
-                SizedBox(height: 10,),
+                SizedBox(height: 10.h),
         
               ],
             ),

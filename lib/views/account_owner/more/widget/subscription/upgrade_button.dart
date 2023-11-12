@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -14,10 +15,10 @@ class UpgradeButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         alignment: Alignment.center,
-        height: 50,
-        width: 150,
+        height: 50.h,
+        width: 150.w,
         decoration: BoxDecoration(
           color: AppColor.mainColor,
           borderRadius: BorderRadius.circular(10),
@@ -27,7 +28,7 @@ class UpgradeButton extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
-              fontSize: 18,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500
             )
           )

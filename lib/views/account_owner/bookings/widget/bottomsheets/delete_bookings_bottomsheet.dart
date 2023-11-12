@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -32,13 +33,13 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
       return Wrap(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
             decoration: BoxDecoration(
               //image: DecorationImage(image: AssetImage(''),),
               color: AppColor.bgColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
               ),
             ),
             child: Column(
@@ -49,20 +50,20 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                   'Delete "${titleText}"',
                   style: GoogleFonts.poppins(
                     color: AppColor.blackColor,
-                    fontSize: 18,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: 40.h,),
                 Text(
                   'Are you sure you want to delete this booking ?',
                   style: GoogleFonts.poppins(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14,
+                    fontSize: 14.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
-                SizedBox(height: 40,),
+                SizedBox(height: 40.h,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -73,13 +74,13 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                           Get.back();
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
-                          height: 50,
+                          height: 50.h,
                           //width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
                               color: AppColor.darkGreyColor
                             )
@@ -89,7 +90,7 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -97,19 +98,19 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                         )
                       ),
                     ),
-                    SizedBox(width: 30,),
+                    SizedBox(width: 30.w,),
                     //Yes button
                     Expanded(
                       child: InkWell(
                         onTap: () {},
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
-                          height: 50,
+                          height: 50.h,
                           //width: double.infinity,
                           decoration: BoxDecoration(
                             color: AppColor.redColor,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
                               color: AppColor.redColor
                             )
@@ -119,7 +120,7 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                             style: GoogleFonts.poppins(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

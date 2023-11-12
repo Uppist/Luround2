@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
@@ -24,11 +25,11 @@ class TrxDashBoard extends StatelessWidget {
       width: double.infinity,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       padding: EdgeInsets.symmetric(
-        horizontal: 20, 
-        vertical: 30, 
+        horizontal: 20.w, 
+        vertical: 30.h, 
       ),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         color: AppColor.badGreen,
         /*boxShadow: [
           BoxShadow(
@@ -46,17 +47,17 @@ class TrxDashBoard extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  controller.toggleTrx();
+                  //controller.toggleTrx();
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                   alignment: Alignment.center,
-                  height: 50,
-                  width: 250,
+                  height: 50.h,
+                  width: 250.w,
                   //width: double.infinity,
                   decoration: BoxDecoration(
                     color: AppColor.badGreen,
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
                       color: AppColor.bgColor,
                       width: 0.8
@@ -68,11 +69,12 @@ class TrxDashBoard extends StatelessWidget {
                       Obx(
                         () {
                           return Text(
-                            controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
+                            //controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
+                            "Total amount received",
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 15,
+                                fontSize: 15.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -90,14 +92,14 @@ class TrxDashBoard extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 60,),
+          SizedBox(height: 60.h,),
           Obx(
             () {
               return Text(
                 controller.isTrxAmountToggled.value ? amountReceived : amountPaid,
                 style: GoogleFonts.inter(
                   color: AppColor.bgColor,
-                  fontSize: 18,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold
                 ),
               );

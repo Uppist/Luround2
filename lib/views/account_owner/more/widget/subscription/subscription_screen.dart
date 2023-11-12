@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,7 +38,7 @@ class SubscriptionScreen extends StatelessWidget {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,12 +61,12 @@ class SubscriptionScreen extends StatelessWidget {
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),
             ///Navigation Section/////
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 7,),
-              height: 70, //65
+              padding: EdgeInsets.symmetric(horizontal: 7.w,),
+              height: 70.h, //65
               width: double.infinity,
               color: AppColor.bgColor,
               child: Row(
@@ -80,12 +81,12 @@ class SubscriptionScreen extends StatelessWidget {
                       color: AppColor.blackColor,
                     )
                   ),
-                  SizedBox(width: 3,),
+                  SizedBox(width: 3.w,),
                   Text(
                     "Subscription",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 18,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -95,15 +96,15 @@ class SubscriptionScreen extends StatelessWidget {
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 7,
+              height: 7.h,
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10.h,),
           
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -111,25 +112,25 @@ class SubscriptionScreen extends StatelessWidget {
                         "Current Plan",
                         style: GoogleFonts.inter(
                           color: AppColor.darkGreyColor,
-                          fontSize: 16,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5.h,),
                       Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       Text(
                         "You are using the free plan",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 15,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.bold
                         ),
                       ),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                       //upgrade subscription plan
                       UpgradeButton(onPressed: () {},),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                       //payment method row (add card)
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -138,7 +139,7 @@ class SubscriptionScreen extends StatelessWidget {
                             "Payment Method",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
-                              fontSize: 16,
+                              fontSize: 15.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -147,7 +148,7 @@ class SubscriptionScreen extends StatelessWidget {
                       ),
                       //SizedBox(height: 2,),
                       Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      SizedBox(height: 20,),
+                      SizedBox(height: 20.h,),
                       
                       
                       /////EXPANDED/////
@@ -156,7 +157,7 @@ class SubscriptionScreen extends StatelessWidget {
                         physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical, 
                         shrinkWrap: true,
-                        separatorBuilder: (context, index) => SizedBox(height: 30,), 
+                        separatorBuilder: (context, index) => SizedBox(height: 30.h,), 
                         itemCount: 1,
                         itemBuilder: (context, index) {
                           return PaymentCard(
@@ -168,7 +169,7 @@ class SubscriptionScreen extends StatelessWidget {
                           );
                         }
                       ),
-                      SizedBox(height: 40,),
+                      SizedBox(height: 40.h,),
                       //see billing history
                       InkWell(
                         onTap: () {},
@@ -179,7 +180,7 @@ class SubscriptionScreen extends StatelessWidget {
                               "See Billing History",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 16,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               ),
                             ),

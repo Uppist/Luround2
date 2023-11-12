@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings_controller.dart';
@@ -56,7 +57,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             /*border: OutlineInputBorder(
               borderSide: BorderSide.none, // Remove the border
             ),*/
-            contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+            contentPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppColor.textGreyColor.withOpacity(0.1)), // Set the color you prefer
               borderRadius: BorderRadius.circular(12)
@@ -66,7 +67,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               borderRadius: BorderRadius.circular(12)
             ),     
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14),              
+            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14.sp),              
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),

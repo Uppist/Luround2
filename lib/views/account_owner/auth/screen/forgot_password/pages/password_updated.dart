@@ -31,7 +31,7 @@ class PasswordUpdatedPage extends StatelessWidget {
                 "Password Updated",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 20.sp,
+                  fontSize: 21.sp,
                   fontWeight: FontWeight.bold
                 )
               ),
@@ -40,7 +40,7 @@ class PasswordUpdatedPage extends StatelessWidget {
                 "Your password has been updated",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500
                 )
               ),

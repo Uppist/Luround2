@@ -39,7 +39,7 @@ class SignInWithGoogleWidget extends StatelessWidget {
             Text(
               "OR",
               style: GoogleFonts.inter(
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
                 color: AppColor.darkGreyColor,
               ),
@@ -100,7 +100,7 @@ class SignInWithGoogleWidget extends StatelessWidget {
               firstText,
               style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
-                fontSize: 13.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500
               )
             ),
@@ -111,7 +111,7 @@ class SignInWithGoogleWidget extends StatelessWidget {
                 lastText,
                 style: GoogleFonts.inter(
                   color: AppColor.mainColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 )
               ),

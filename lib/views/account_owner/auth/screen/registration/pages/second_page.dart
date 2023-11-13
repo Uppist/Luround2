@@ -71,7 +71,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -92,7 +92,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     Text(
                       "Create your account",
                       style: GoogleFonts.inter(
-                        fontSize: 20.sp,
+                        fontSize: 21.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
@@ -101,7 +101,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                     Text(
                       "Almost there!",
                       style: GoogleFonts.inter(
-                        fontSize: 15.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),
@@ -152,7 +152,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "By clicking ",
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -160,7 +160,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "Create account, ",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold
                               )
                             ),
@@ -168,7 +168,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "you agree to Luround's ",
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -176,7 +176,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "Terms of Service ",
                               style: GoogleFonts.inter(
                                 color: AppColor.mainColor,
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold
                               ),
                               onEnter: (event) {
@@ -187,7 +187,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "and ",
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -195,7 +195,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               text: "Privacy Policy",
                               style: GoogleFonts.inter(
                                 color: AppColor.mainColor,
-                                fontSize: 13.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.bold
                               ),
                               onEnter: (event) {

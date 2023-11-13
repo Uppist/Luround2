@@ -58,7 +58,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -75,7 +75,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                   Text(
                     "Forgot Password ?",
                     style: GoogleFonts.inter(
-                      fontSize: 20.sp,
+                      fontSize: 21.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColor.blackColor
                     ),
@@ -84,7 +84,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                   Text(
                     "You will receive an email with a link to reset your password. Please check your inbox.",
                     style: GoogleFonts.inter(
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.darkGreyColor
                     ),
@@ -93,7 +93,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
               ),
             ),                     
             //SizedBox(height: MediaQuery.of(context).size.height /1.55.h,),
-            SizedBox(height: 570.h,),
+            SizedBox(height: 530.h,),
 
             //BOTTOM SECTION
             Column(
@@ -104,7 +104,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                   style: GoogleFonts.inter(
                     color: AppColor.redColor,
                     fontStyle: FontStyle.italic,
-                    fontSize: 14.sp
+                    fontSize: 15.sp
                   ),
                 ),
                 Row(
@@ -113,7 +113,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                     Text(
                       "Didn't receive an email?",
                       style: GoogleFonts.inter(
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.textGreyColor
                       ),
@@ -126,7 +126,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                       child: Text(
                         "Resend email",
                         style: GoogleFonts.inter(
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
                           color: AppColor.mainColor
                         ),

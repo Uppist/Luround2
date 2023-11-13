@@ -63,7 +63,7 @@ class _FpEmailTextFieldState extends State<FpEmailTextField> {
             borderSide: BorderSide(color: AppColor.redColor),
           ),
           //errorText: widget.errortext,
-          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13.sp),    
+          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 14.sp),    
           labelText: widget.labelText,
           labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
           //filled: true,

@@ -73,7 +73,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -94,16 +94,16 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     Text(
                       "Reset Password",
                       style: GoogleFonts.inter(
-                        fontSize: 20.sp,
+                        fontSize: 21.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Text(
                       "Enter a new password to reset the password in your account.",
                       style: GoogleFonts.inter(
-                        fontSize: 15.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),

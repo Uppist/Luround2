@@ -61,7 +61,7 @@ class _ResetPasswordTextFieldState extends State<ResetPasswordTextField> {
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.redColor),
           ),
-          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13.sp),
+          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 14.sp),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
           ),

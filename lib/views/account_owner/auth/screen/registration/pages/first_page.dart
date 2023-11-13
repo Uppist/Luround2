@@ -69,7 +69,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -90,7 +90,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     Text(
                       "Create your account",
                       style: GoogleFonts.inter(
-                        fontSize: 20.sp,
+                        fontSize: 21.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
@@ -99,7 +99,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     Text(
                       "Let's get you started",
                       style: GoogleFonts.inter(
-                        fontSize: 15.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),

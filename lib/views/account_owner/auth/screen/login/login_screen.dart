@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.2.w,),
+                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -91,16 +91,16 @@ class _LoginPageState extends State<LoginPage> {
                     Text(
                       "Log into account",
                       style: GoogleFonts.inter(
-                        fontSize: 20.sp,
+                        fontSize: 21.sp,
                         fontWeight: FontWeight.bold,
                         color: AppColor.blackColor
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Text(
                       "Welcome back!",
                       style: GoogleFonts.inter(
-                        fontSize: 15.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),
@@ -146,13 +146,13 @@ class _LoginPageState extends State<LoginPage> {
                           Get.to(() => ForgotPasswordPage());
                           //Get.to(() => PasswordUpdatedPage());
                           //Get.to(() => ResetPasswordPage());
-                          Get.to(() => PasswordLinkExpiredPage());
+                          //Get.to(() => PasswordLinkExpiredPage());
                         },
                         child: Text(
                           "Forgot Password ?",
                           style: GoogleFonts.inter(
                             color: AppColor.redColor,
-                            fontSize: 12.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500
                           )
                         ),

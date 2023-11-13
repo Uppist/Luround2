@@ -48,7 +48,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
 
     return Column(
       children: [        
-        SizedBox(height: 110), //100.h
+        SizedBox(height: 110.h), //100.h
         //PageView.builder() Widget
         SizedBox(
           height: 400.h, //550
@@ -108,7 +108,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 }, 
                 textColor: AppColor.bgColor
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               RebrandedReusableButton(
                 color: AppColor.bgColor, 
                 text: "Create account", 

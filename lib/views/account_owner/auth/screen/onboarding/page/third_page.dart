@@ -28,12 +28,15 @@ class ThirdPage extends StatelessWidget {
             //width: 450,
           ),
           SizedBox(height: 60.h,),
-          Text(
-            'Accept payments in dollars, pounds, euro, naira and more...',
-            style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
-              fontSize: 15.sp,
-              fontWeight: FontWeight.w500
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              'Accept payments in dollars, pounds,\n              euro, naira and more...',
+              style: GoogleFonts.inter(
+                color: AppColor.darkGreyColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500
+              ),
             ),
           ),        
         ],

@@ -16,7 +16,7 @@ class CustomAppBarTitle extends StatelessWidget {
       text,
       style: GoogleFonts.inter(
         color: AppColor.blackColor,
-        fontSize: 16.sp,
+        fontSize: 17.sp,
         fontWeight: FontWeight.w500
       ),
     );

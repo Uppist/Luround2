@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -39,32 +40,32 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 30),
+              SizedBox(height: 30.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
               //SizedBox(height: 20,),
 
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 100,),
+                    SizedBox(height: 100.h,),
                     //
                     Lottie.asset("assets/lottie/my_g.json"),
-                    SizedBox(height: 50,),
+                    SizedBox(height: 50.h,),
                     Text(
                       "Transaction Successful",
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 22,
+                        fontSize: 20.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Center(
                       child: RichText(
                         text: TextSpan(
@@ -72,7 +73,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                             TextSpan(
                               text :'    You have successfully booked',
                               style: GoogleFonts.inter(
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.darkGreyColor
                               )
@@ -80,7 +81,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                             TextSpan(
                               text :' "Ronald Richie"          \n',
                               style: GoogleFonts.inter(
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 color: AppColor.darkGreyColor
                               )
@@ -88,7 +89,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                             TextSpan(
                               text :'                 for a',
                               style: GoogleFonts.inter(
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.darkGreyColor
                               )
@@ -96,7 +97,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                             TextSpan(
                               text :' "Personal Training Session".',
                               style: GoogleFonts.inter(
-                                fontSize: 18,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                                 color: AppColor.darkGreyColor
                               )
@@ -105,10 +106,10 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                         )
                       ),
                     ),
-                    SizedBox(height: 60,),
+                    SizedBox(height: 60.h,),
                     //okay button
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 60),
+                      padding: EdgeInsets.symmetric(horizontal: 60.w),
                       child: RebrandedReusableButton(
                         textColor: AppColor.bgColor,
                         color: AppColor.mainColor, 

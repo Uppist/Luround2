@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
@@ -49,23 +50,23 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
             alignment: Alignment.center,
             padding: EdgeInsets.all(8.0),
             //height: 20,
-            width: 80,
+            width: 80.w,
             decoration: BoxDecoration(
               color: AppColor.mainColor,
-              borderRadius: BorderRadius.circular(10)
+              borderRadius: BorderRadius.circular(10.r)
             ),
             child: Text(
               "Post",
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
-                fontSize: 15,
+                fontSize: 13.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
           ),
-          SizedBox(width: 20,)
+          SizedBox(width: 20.w,)
         ],
-        toolbarHeight: 40,
+        toolbarHeight: 40.h,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -73,15 +74,15 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
               //account of who you'd be reviewing
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,
@@ -92,17 +93,17 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                   children: [
                     CircleAvatar(
                       backgroundColor: AppColor.mainColor,
-                      radius: 30,
+                      radius: 30.r,
                       child: Text(
                         "R",
                         style: GoogleFonts.inter(
                           color: AppColor.bgColor,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           fontWeight: FontWeight.bold
                         ),
                       ),
                     ),
-                    SizedBox(width: 15),
+                    SizedBox(width: 14.w),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,18 +113,18 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.blackColor,
-                                fontSize: 16,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
                             )
                           ),
-                          SizedBox(height: 15,),                           
+                          SizedBox(height: 15.h,),                           
                           Text(
                             'Reviews are public and include your account info.',
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 15,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500
                               )
                             )
@@ -137,11 +138,11 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
               //rate this person section
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,
@@ -153,11 +154,11 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       "Rate this person",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 30,),
+                    SizedBox(height: 30.h,),
                     //RatingBar.builder()
                     RatingBar.builder(
                       initialRating: 0, //3
@@ -169,7 +170,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       glowColor: AppColor.yellowStar,
                       itemCount: 5,
                       unratedColor: AppColor.textGreyColor.withOpacity(0.2),
-                      itemPadding: EdgeInsets.symmetric(horizontal: 20),
+                      itemPadding: EdgeInsets.symmetric(horizontal: 20.w),
                       itemBuilder: (context, _) => Icon(
                         CupertinoIcons.star_fill,
                         color: AppColor.yellowStar,
@@ -185,11 +186,11 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
               //write a review section
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,
@@ -201,20 +202,20 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       "Write a review",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 10.h,),
                     Text(
                       "Share your thoughts with others",
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 13,
+                        fontSize: 12.sp,
                         //fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //textfield here
                     ReviewTextField(
                       controller: controller.reviewController,
@@ -231,7 +232,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                         setState(() {}); // Update the UI
                       },
                     ),
-                    SizedBox(height: 10,),
+                    SizedBox(height: 10.h,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -239,7 +240,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                           "${controller.reviewController.text.length}/${controller.maxLength}",
                           style: GoogleFonts.inter(
                             color: AppColor.textGreyColor,
-                            fontSize: 14,
+                            fontSize: 13.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
@@ -251,7 +252,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
             ]
           )

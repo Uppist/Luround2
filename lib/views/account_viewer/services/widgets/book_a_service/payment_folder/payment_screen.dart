@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -29,7 +30,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   var controller = Get.put(AccViewerServicesController());
 
-  /*@override
+  @override
   void initState() {
     // Add a listener to the text controller
     controller.cvvController.addListener(() {
@@ -39,31 +40,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
       });
     });
     super.initState();
-  }*/
-
-
-  void cvvListener() {
-    if (mounted) {
-      setState(() {
-        // Check if the text field is empty or not
-        controller.isCVVEnabled.value = controller.cvvController.text.isNotEmpty;
-      });
-    }
   }
 
-  @override
-  void initState() {
-    // Add a listener to the text controller
-    controller.cvvController.addListener(cvvListener);
-    super.initState();
-  }
 
-  @override
-  void dispose() {
-    // Remove the listener from cvvController when the widget is disposed
-    controller.cvvController.removeListener(cvvListener);
-    super.dispose();
-  }
+
 
 
 
@@ -92,26 +72,26 @@ class _PaymentScreenState extends State<PaymentScreen> {
           child: Form(
             key: GlobalKey(),
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Container(
                     color: AppColor.greyColor,
                     width: double.infinity,
-                    height: 7,
+                    height: 7.h,
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.h,),
                   Text(
                     "Enter your payment details",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 16,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "Cardholder name*",
@@ -119,7 +99,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.next,
                     textController: controller.cardholderNameController,
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "Card number*",
@@ -127,7 +107,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.next,
                     textController: controller.cardNumberController,
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "Expiry date*",
@@ -135,7 +115,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.next,
                     textController: controller.expiryDateController,
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   PaymentTextField(
                     onChanged: (val) {},
                     hintText: "CVV*",
@@ -143,7 +123,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     textInputAction: TextInputAction.done,
                     textController: controller.cvvController,
                   ),
-                  SizedBox(height: 270,),
+                  SizedBox(height: 270.h,),
                   //pay button
                   RebrandedReusableButton(
                     textColor: controller.isCVVEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -158,7 +138,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       print('nothing');
                     },
                   ),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 10.h,),
 
                   /*Icon(
                     CupertinoIcons.check_mark_circled, 

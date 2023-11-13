@@ -1,5 +1,6 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -30,7 +31,7 @@ class _Step2ScreenState extends State<Step2Screen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 10.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -38,11 +39,11 @@ class _Step2ScreenState extends State<Step2Screen> {
             "Select day",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 16,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           CalendarDatePicker2(
             /*config: CalendarDatePicker2Config(
               calendarType: CalendarDatePicker2Type.range,
@@ -76,20 +77,20 @@ class _Step2ScreenState extends State<Step2Screen> {
           ),
           //SizedBox(height: 20,),
           Divider(color: AppColor.textGreyColor, thickness: 0.2,),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
                 onTap: widget.onCancel,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                   alignment: Alignment.center,
-                  height: 50,
-                  width: 150,
+                  height: 50.h,
+                  width: 150.w,
                   decoration: BoxDecoration(
                     color: AppColor.bgColor,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(15.r),
                     border: Border.all(
                       color: AppColor.textGreyColor,
                       width: 2.0,
@@ -100,7 +101,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         //fontWeight: FontWeight.w500
                       )
                     )
@@ -110,13 +111,13 @@ class _Step2ScreenState extends State<Step2Screen> {
               InkWell(
                 onTap: widget.onApply,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                  //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                   alignment: Alignment.center,
-                  height: 50,
-                  width: 150,
+                  height: 50.h,
+                  width: 150.w,
                   decoration: BoxDecoration(
                     color: AppColor.mainColor,
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(15.r),
                     border: Border.all(
                       color: AppColor.mainColor,
                       width: 2.0,
@@ -127,7 +128,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.bgColor,
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         //fontWeight: FontWeight.w500
                       )
                     )
@@ -137,7 +138,7 @@ class _Step2ScreenState extends State<Step2Screen> {
             ],
           ),
           //
-          SizedBox(height: 80,),
+          SizedBox(height: 130.h,),
           RebrandedReusableButton(
             textColor: controller.isButtonEnabled3.value ? AppColor.bgColor : AppColor.darkGreyColor,
             color: controller.isButtonEnabled3.value ? AppColor.mainColor : AppColor.lightPurple, 
@@ -148,7 +149,7 @@ class _Step2ScreenState extends State<Step2Screen> {
               print('nothing');
             },
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 5.h,),
         ],
       ),
     );

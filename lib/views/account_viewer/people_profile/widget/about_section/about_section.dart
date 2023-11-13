@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -23,18 +24,18 @@ class AccViewerAboutSection extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.blackColor,
-              fontSize: 18,
+              fontSize: 16.sp,
               fontWeight: FontWeight.bold
             )
           )
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 20.h),
         Text(
           text,
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
-              fontSize: 14,
+              fontSize: 14.sp,
               //fontWeight: FontWeight.w500
             )
           )

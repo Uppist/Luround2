@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -34,25 +35,23 @@ class AccViewerServicesPage extends StatelessWidget {
             Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image(
-                        image: AssetImage('assets/images/luround_logo.png'),
-                      ),
+                      Image.asset('assets/images/luround_logo.png'),
                     ]
                   ),
-                  const SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   Center(
                     child: Text(
                       "Services",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 20,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
@@ -62,8 +61,8 @@ class AccViewerServicesPage extends StatelessWidget {
               ),
             ),         
             /////////////////
-            ///
-            const SizedBox(height: 20,),
+      
+            SizedBox(height: 20.h,),
 
             //Futurebuilder will start from here (will wrap this listview)
             Expanded(
@@ -71,9 +70,9 @@ class AccViewerServicesPage extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.vertical,
                 physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), //external paddin
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h), //external paddin
                 itemCount: 8,
-                separatorBuilder: (context, index) => const SizedBox(height: 25,),
+                separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                 itemBuilder: (context, index) {
                   return Container(
                     //height: 500,
@@ -85,7 +84,7 @@ class AccViewerServicesPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -94,34 +93,34 @@ class AccViewerServicesPage extends StatelessWidget {
                               Center(            
                                 child: TogglePriceContainerAccViewer(index: index,)
                               ),
-                              const SizedBox(height: 40,),
+                              SizedBox(height: 40.h,),
                               Text(
                                 "Personal Training",
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
-                                  fontSize: 18,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               Text(
                                 "Mon-Fri . 9:00AM - 10:00PM",
                                 style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               Text(
                                 "zgshxttttttttttttttttttttttthxgfhfcgjcfgjhgyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuxs",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15,
+                                  fontSize: 14.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               //link 1
                               InkWell(
                                 onTap: () {},
@@ -129,19 +128,19 @@ class AccViewerServicesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    const SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                     Text(
                                       "https://www.link.com",
                                       style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
                               //link 1
                               InkWell(
                                 onTap: () {},
@@ -149,19 +148,19 @@ class AccViewerServicesPage extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    const SizedBox(width: 10,),
+                                    SizedBox(width: 10.w,),
                                     Text(
                                       "https://www.link.com",
                                       style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
-                                        fontSize: 14,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 30,),
+                              SizedBox(height: 30.h,),
                               //price/session
                               Obx(
                                 () {
@@ -173,7 +172,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                           text: controller.isVirtual.value && controller.selectedIndex.value == index ? "N13,000" : "N25,000",
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
-                                            fontSize: 25,
+                                            fontSize: 22.sp,
                                             fontWeight: FontWeight.bold
                                           ),
                                         ),
@@ -182,7 +181,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                           text: "/30mins",
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
-                                            fontSize: 20,
+                                            fontSize: 18.sp,
                                             fontWeight: FontWeight.w500
                                           ),
                                         ),
@@ -191,7 +190,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                           text: " per session",
                                           style: GoogleFonts.inter(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 18,
+                                            fontSize: 16.sp,
                                             fontWeight: FontWeight.w500
                                           ),
                                         )
@@ -200,7 +199,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   );
                                 }
                               ),
-                              const SizedBox(height: 20,),
+                              SizedBox(height: 20.h,),
             
                               //request quote                        
                               Row(
@@ -211,7 +210,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                     "Require a personalized touch?",
                                     style: GoogleFonts.inter(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 14,
+                                      fontSize: 12.sp,
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
@@ -225,7 +224,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                       "Request Quote",
                                         style: GoogleFonts.inter(
                                         color: AppColor.yellowStar,
-                                        fontSize: 14,
+                                        fontSize: 13.sp,
                                         fontWeight: FontWeight.w500,
                                         decoration: TextDecoration.underline
                                       ),
@@ -238,11 +237,11 @@ class AccViewerServicesPage extends StatelessWidget {
                         ),
                         //
                         Container(
-                          height: 100,
+                          height: 100.h,
                           width: double.infinity,
                           color: AppColor.bgColor,
                           alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                           child: ReusableButton(
                             onPressed: () {
                               Get.to(() => BookAppointmentScreen());

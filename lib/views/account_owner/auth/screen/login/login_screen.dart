@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                           "Forgot Password ?",
                           style: GoogleFonts.inter(
                             color: AppColor.redColor,
-                            fontSize: 14.sp,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w500
                           )
                         ),

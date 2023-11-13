@@ -65,7 +65,7 @@ class _RegTextFieldState extends State<RegTextField> {
           //errorText: widget.errortext,
           errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 13.sp),    
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: widget.icon,

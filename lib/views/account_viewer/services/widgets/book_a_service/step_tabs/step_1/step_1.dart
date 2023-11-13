@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -55,7 +56,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             textInputAction: TextInputAction.next,
             textController: controller.nameBAController,
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 20.h),
           UtilsTextField(  
             onChanged: (val) {},
             hintText: "Email*",
@@ -63,7 +64,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             textInputAction: TextInputAction.next,
             textController: controller.emailBAController,
           ),
-          SizedBox(height: 20),
+          SizedBox(height: 20.h),
           PhoneNumberTextField(
             onChanged: (val) {},
             countryCodeWidget: CountryCodeWidget(),
@@ -72,12 +73,12 @@ class _Step1ScreenState extends State<Step1Screen> {
             textInputAction: TextInputAction.next,
             textController: controller.phoneNumberBAController,
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 30.h),
           Text(
             "Service name*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14,
+              fontSize: 13.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -89,28 +90,28 @@ class _Step1ScreenState extends State<Step1Screen> {
             textInputAction: TextInputAction.done,
             textController: controller.serviceNameBAController,
           ),
-          SizedBox(height: 30),
+          SizedBox(height: 30.h),
           Text(
             "Appointment type*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14,
+              fontSize: 13.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           //appoint radio widget
           AppointmentTypeBA(),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           Text(
             "Message (optional)",
             style: GoogleFonts.inter(
               color: AppColor.darkGreyColor,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10.h,),
           ReusableTextField(  
             onChanged: (val) {
               // Check if character count exceeds the maximum
@@ -126,7 +127,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             textInputAction: TextInputAction.done,
             textController: controller.messageBAController,
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           //max length for message textfield
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
@@ -135,13 +136,13 @@ class _Step1ScreenState extends State<Step1Screen> {
                 "${controller.messageBAController.text.length}/${controller.maxLength}",
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 14,
+                  fontSize: 13.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
             ],
           ),
-          SizedBox(height: 80,),
+          SizedBox(height: 90.h,),
           RebrandedReusableButton(
             textColor: controller.isButtonEnabled2.value ? AppColor.bgColor : AppColor.darkGreyColor,
             color: controller.isButtonEnabled2.value ? AppColor.mainColor : AppColor.lightPurple, 
@@ -152,7 +153,7 @@ class _Step1ScreenState extends State<Step1Screen> {
               print('nothing');
             },
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 5.h,),
 
         ],                     
       ),

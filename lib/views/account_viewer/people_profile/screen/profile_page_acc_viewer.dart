@@ -9,6 +9,7 @@ import 'package:luround/controllers/account_viewer/profile_page_controller__acc_
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/border_button.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/additional_information/additional_ino_section.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_screen.dart';
@@ -55,9 +56,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image(
-                    image: AssetImage('assets/images/luround_logo.png'),
-                  ),
+                  Image.asset('assets/images/luround_logo.png'),
                 ]
               ),         
             ),
@@ -75,14 +74,14 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                       decoration: BoxDecoration(
                         color: AppColor.greyColor
                       ),
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                     ),     
-                    SizedBox(height: 30,),
+                    SizedBox(height: 30.h,),
             
                     //SEE ALL REVIEWS and image
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -99,7 +98,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
                                       decoration: TextDecoration.underline,
-                                      fontSize: 14,
+                                      fontSize: 13.sp,
                                       //fontWeight: FontWeight.w500
                                       decorationColor: AppColor.darkGreyColor,
                                       decorationThickness: 2,
@@ -110,11 +109,11 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           //IMAGE
                           Container(
                             alignment: Alignment.center,
-                            height: 300,
+                            height: 300.h,
                             width: double.infinity,
                             decoration: BoxDecoration(
                               //color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
@@ -128,7 +127,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                       ),
                     ), 
             
-                      SizedBox(height: 30,),
+                      SizedBox(height: 30.h,),
             
                       //OWNER'S NAME
                       Center(
@@ -137,13 +136,13 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.blackColor,
-                              fontSize: 20,
+                              fontSize: 20.h,
                               fontWeight: FontWeight.bold
                             )
                           )
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       //Where the person works
                       Center(
                         child: Text(
@@ -151,13 +150,13 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.blackColor,
-                              fontSize: 15,
+                              fontSize: 15.h,
                               fontWeight: FontWeight.w500
                             )
                           )
                         ),
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       //OWNER'S OCCUPATION Here
                       Center(
                         child: Text(
@@ -165,31 +164,31 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.darkGreyColor,
-                              fontSize: 15,
+                              fontSize: 15.h,
                               //fontWeight: FontWeight.w500
                             )
                           )
                         ),
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(height: 30.h,),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: AppColor.greyColor
                         ),
-                        height: 7,
+                        height: 7.h,
                         width: double.infinity,
                       ),
                       SizedBox(height: 30),
                       /////////////////////////////
                       //About section here
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                         child: AccViewerAboutSection(
                           text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
                         ),
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
@@ -198,7 +197,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                         height: 7,
                         width: double.infinity,
                       ),
-                      SizedBox(height: 30),                 
+                      SizedBox(height: 30.h),                 
                       AccViewerEducationAndCertificationSection(
                         itemCount: 2,
                         onPressedShowCertificte: () {},
@@ -207,42 +206,42 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                         issuedDate: 'Issued Oct 2023',
                         credentialID: 'CREDENTIAL ID: 7380030',
                       ),
-                      SizedBox(height: 30),
+                      SizedBox(height: 30.h),
                       Container(
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: AppColor.greyColor
                         ),
-                        height: 7,
+                        height: 7.h,
                         width: double.infinity,
                       ),
             
-                    SizedBox(height: 30,),
+                    SizedBox(height: 30.h,),
                     //Additional information
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                       child: AdditionalInfoSection(
                         itemCount: 6,
                         profileController: controller,
                       ),
                     ),
-                    SizedBox(height: 30),
+                    SizedBox(height: 30.h),
             
                     Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: AppColor.greyColor
                       ),
-                      height: 7,
+                      height: 7.h,
                       width: double.infinity,
                     ),
-                    SizedBox(height: 20,), 
+                    SizedBox(height: 20.h,), 
             
             
                     //Sign Me Up section///////////////////////////
                     controller.showSignMeUpSection.value ?
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -261,42 +260,48 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           Text(
                             "Create your own account",
                             style: GoogleFonts.inter(
-                              fontSize: 20,
+                              fontSize: 20.h,
                               fontWeight: FontWeight.bold,
                               color: AppColor.darkGreyColor
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           Text(
                             "By setting up your own account, others can \n         schedule and book your services.",
                             style: GoogleFonts.inter(
-                              fontSize: 16,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                               color: AppColor.darkGreyColor
                             ),
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           //buttons
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
+                            padding: EdgeInsets.symmetric(horizontal: 30.w),
                             child: Column(
                               children: [
                                 ReusableButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.offAll(() => SplashScreen1());
+                                  },
                                   color: AppColor.mainColor,
                                   text: 'Sign me up',
                                 ),
-                                SizedBox(height: 30,),
+                                SizedBox(height: 25.h,),
                                 BorderButton(
-                                  onPressed: (){},
+                                  onPressed: (){
+                                    setState(() {
+                                      controller.showSignMeUpSection.value = false;
+                                    });
+                                  },
                                   text: "Remind me later",
                                   textColor: AppColor.mainColor,
                                 ),
-                                SizedBox(height: 20,),
+                                SizedBox(height: 20.h,),
                               ],
                             ),
                           ),

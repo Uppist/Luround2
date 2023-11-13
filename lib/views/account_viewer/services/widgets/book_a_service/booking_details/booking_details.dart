@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -43,16 +44,16 @@ class BookingDetails extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 20.h,),
               //important section
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -62,12 +63,12 @@ class BookingDetails extends StatelessWidget {
                         "Booking Details",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 16,
+                          fontSize: 14.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     //listview.builder
                     ListView.separated(
                       shrinkWrap: true,
@@ -83,25 +84,25 @@ class BookingDetails extends StatelessWidget {
                         );
                       },
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Text(
                       "Message",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 15,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 20.h,),
                     Text(
                       "gzfgxdfgdffhfghfghfgggggggggggggggggggggggggggggggggsfssssssssssssssssssssssssssssss",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 15,
+                        fontSize: 14.sp,
                         //fontWeight: FontWeight.w500
                       ),
                     ),
-                    SizedBox(height: 70,),
+                    SizedBox(height: 70.h,),
                     RebrandedReusableButton(
                       textColor: AppColor.bgColor,
                       color: AppColor.mainColor,
@@ -114,7 +115,7 @@ class BookingDetails extends StatelessWidget {
                         print('nothing');
                       },
                     ),
-                    SizedBox(height: 20,),
+                    SizedBox(height: 10.h,),
                   ]
                 )
               )

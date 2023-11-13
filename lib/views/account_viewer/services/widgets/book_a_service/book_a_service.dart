@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -79,9 +80,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
           stepIconBuilder: (stepIndex, stepState) {
             return Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
+                borderRadius: BorderRadius.all(Radius.circular(40.r)),
                 //this maths logic i did here is the GOAT
                 color: controller.curentStep >= stepIndex ? AppColor.mainColor : AppColor.textGreyColor.withOpacity(0.1),
               ),
@@ -90,7 +91,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 Text(
                   "${stepIndex + 1}",
                   style: GoogleFonts.inter(
-                    fontSize: 13,
+                    fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                     color: AppColor.bgColor
                   )
@@ -99,7 +100,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
               :Text(
                 "${stepIndex + 1}",
                 style: GoogleFonts.inter(
-                  fontSize: 13,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
                   color: AppColor.bgColor
                 )

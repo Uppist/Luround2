@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -64,16 +65,16 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              SizedBox(height: 10),
+              SizedBox(height: 10.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
-                height: 7,
+                height: 7.h,
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 20.h,),
               //important section
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -90,7 +91,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textInputAction: TextInputAction.next,
                             textController: controller.nameController,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           UtilsTextField(  
                             onChanged: (val) {},
                             hintText: "Email*",
@@ -98,7 +99,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textInputAction: TextInputAction.next,
                             textController: controller.emailController,
                           ),
-                          SizedBox(height: 20),
+                          SizedBox(height: 20.h),
                           PhoneNumberTextField(
                             onChanged: (val) {},
                             countryCodeWidget: CountryCodeWidget(),
@@ -107,16 +108,16 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textInputAction: TextInputAction.next,
                             textController: controller.phoneNumberController,
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 30.h),
                           Text(
                             "Service name*",
                             style: GoogleFonts.poppins(
                               color: AppColor.blackColor,
-                              fontSize: 14,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 10.h),
                           ReusableTextField(  
                             onChanged: (val) {},
                             hintText: "What service do you need ?",
@@ -124,28 +125,28 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textInputAction: TextInputAction.done,
                             textController: controller.serviceNameController,
                           ),
-                          SizedBox(height: 30),
+                          SizedBox(height: 30.h),
                           Text(
                             "Appointment type*",
                             style: GoogleFonts.poppins(
                               color: AppColor.blackColor,
-                              fontSize: 14,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           //appoint radio widget
                           AppointmentType(),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                           Text(
                             "Upload file (optional)",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
-                              fontSize: 14,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 30.h,),
                           UploadFileWidget(
                             onPressed: () {},
                           ),
@@ -154,11 +155,11 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             "Message (optional)",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
-                              fontSize: 14,
+                              fontSize: 13.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 10,),
+                          SizedBox(height: 10.h,),
                           ReusableTextField(  
                             onChanged: (val) {},
                             hintText: "Type a message",
@@ -166,7 +167,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textInputAction: TextInputAction.done,
                             textController: controller.messageController,
                           ),
-                          SizedBox(height: 80,),
+                          SizedBox(height: 80.h,),
                           RebrandedReusableButton(
                             textColor: controller.isButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
                             color: controller.isButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
@@ -178,7 +179,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             } 
                             : () {},
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 20.h,),
                         ],
                         
                       ),

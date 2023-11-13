@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -43,28 +44,23 @@ class _TimeGridViewState extends State<TimeGridView> {
           },
           child: Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            height: 40,
+            //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+            height: 40.h,
             //width: 120,
             decoration: BoxDecoration(          
               color: AppColor.bgColor,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(20.r),
               border: Border.all(
                 color: controller.selectedindex == index ? AppColor.mainColor : AppColor.textGreyColor.withOpacity(0.2)
               )
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,  //start
-              children: [
-                Text(
-                  "9:50AM ${index}",
-                  style: GoogleFonts.inter(
-                    color: controller.selectedindex == index ? AppColor.mainColor : AppColor.blackColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500
-                  ),
-                )
-              ],
+            child: Text(
+              "9:50AM ${index}",
+              style: GoogleFonts.inter(
+                color: controller.selectedindex == index ? AppColor.mainColor : AppColor.blackColor,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500
+              ),
             )
           ),
         );

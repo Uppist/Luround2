@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -22,20 +23,20 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Text(
             'Education & Certifications',
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 18,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.bold
               )
             )
           ),
         ),
         
-        SizedBox(height: 20),
+        SizedBox(height: 20.h),
 
         ListView.builder(
           scrollDirection: Axis.vertical,
@@ -44,7 +45,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
           itemCount: itemCount,
           itemBuilder: (context, index) {
             return Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
@@ -54,7 +55,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.asset('assets/svg/award_icon.svg'),
-                  SizedBox(width: 20,),
+                  SizedBox(width: 10.w,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -63,56 +64,56 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
-                            fontSize: 16,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5.h,),
                       Text(
                         institution,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14,
+                            fontSize: 13.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5.h,),
                       Text(
                         issuedDate,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14,
+                            fontSize: 13.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 5,),
+                      SizedBox(height: 5.h,),
                       Text(
                         credentialID,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14,
+                            fontSize: 13.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
                       ),
-                      SizedBox(height: 10,),
+                      SizedBox(height: 10.h,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
                         onTap: onPressedShowCertificte,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
-                          height: 50,
-                          width: 200,
+                          height: 50.h,
+                          width: 200.w,
                           decoration: BoxDecoration(
                             color: AppColor.bgColor,
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(10.r),
                             border: Border.all(
                               color: AppColor.darkGreyColor
                             )
@@ -122,7 +123,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 16,
+                                fontSize: 14.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

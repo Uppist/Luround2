@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
@@ -61,8 +62,8 @@ class _ReviewTextFieldState extends State<ReviewTextField> {
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
-          hintText: widget.hintText,
-          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13),              
+          labelText: widget.hintText,
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)

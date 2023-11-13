@@ -250,7 +250,7 @@ class ProfilePage extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
-              fontSize: 15.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             )
           )

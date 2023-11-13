@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -16,7 +17,7 @@ class CustomTextRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 15),
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 15.h),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -24,7 +25,7 @@ class CustomTextRow extends StatelessWidget {
             leftText,
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor,
-              fontSize: 15,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -32,7 +33,7 @@ class CustomTextRow extends StatelessWidget {
             rightText,
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 15,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),

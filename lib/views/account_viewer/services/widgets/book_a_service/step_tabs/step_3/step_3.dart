@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -28,7 +29,7 @@ class _Step3ScreenState extends State<Step3Screen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 5.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,21 +37,21 @@ class _Step3ScreenState extends State<Step3Screen> {
             "Select time",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 16,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 20.h,),
           //time gridview        
           TimeGridView(),
-          SizedBox(height: 210,),
+          SizedBox(height: 220.h,),
           RebrandedReusableButton(
             textColor: AppColor.bgColor,
             color: AppColor.mainColor,
             text: "Next", 
             onPressed: widget.onSubmit,
           ),
-          SizedBox(height: 20,),
+          SizedBox(height: 10.h,),
         ],
       ),
     );

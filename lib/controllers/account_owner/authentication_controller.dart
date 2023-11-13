@@ -119,7 +119,7 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
-    Get.to(() => MainPage());
+    Get.offAll(() => MainPage());
     print("Nice. Credentilas are valid!!");
     firstNameController.clear();
     lastNameController.clear();
@@ -171,7 +171,7 @@ class AuthController extends getx.GetxController {
       return "Invalid Credentials";
     }
     print("Nice. Credentilas are valid!!");
-    Get.to(() => MainPage());
+    Get.offAll(() => MainPage());
     loginEmailController.clear();
     loginPasswordController.clear();
     return loginFormKey.currentState!.save();

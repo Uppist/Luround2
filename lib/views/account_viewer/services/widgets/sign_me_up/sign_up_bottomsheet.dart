@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/border_button.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+//import 'package:luround/views/account_owner/auth/screen/onboarding/screen/onboarding_screen.dart';
+import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 
 
@@ -23,16 +26,16 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
     barrierDismissible: false, 
     builder: (context) {
       return AlertDialog(
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(15)
+            Radius.circular(15.r)
           )
         ),
         backgroundColor: AppColor.bgColor,
         content: Wrap(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
               decoration: BoxDecoration(
                 //image: DecorationImage(image: AssetImage(''),),
                 color: AppColor.bgColor,
@@ -50,6 +53,7 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                     children: [
                       IconButton(
                         onPressed: () {
+                          //Get.back();
                           Get.offAll(() => MainPageAccViewer());
                         }, 
                         icon: Icon(CupertinoIcons.xmark),
@@ -57,33 +61,33 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                       ),
                     ],
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.h,),
                   Text(
                     "Create your own account",
                     style: GoogleFonts.inter(
-                      fontSize: 20,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.bold,
                       color: AppColor.darkGreyColor
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 20.sp,),
                   Text(
                     " By setting up your own account,\n   others can schedule and book\n                your services.",
                     style: GoogleFonts.inter(
-                      fontSize: 16,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.darkGreyColor
                     ),
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   ReusableButton(
                     onPressed: () {
-                      //Get.offAll(() => LoginScreen());
+                      Get.offAll(() => SplashScreen1());
                     },
                     color: AppColor.mainColor,
                     text: 'Sign me up',
                   ),
-                  SizedBox(height: 30,),
+                  SizedBox(height: 30.h,),
                   BorderButton(
                     onPressed: (){
                       Get.offAll(() => MainPageAccViewer());
@@ -91,31 +95,8 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                     text: "Remind me later",
                     textColor: AppColor.mainColor,
                   ),
-                  SizedBox(height: 20,),
-                  //buttons
-                  /*Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                    child: Column(
-                      children: [
-                        ReusableButton(
-                          onPressed: () {
-                            //Get.offAll(() => LoginScreen());
-                          },
-                          color: AppColor.mainColor,
-                          text: 'Sign me up',
-                        ),
-                        SizedBox(height: 30,),
-                        BorderButton(
-                          onPressed: (){
-                            Get.offAll(() => MainPageAccViewer());
-                          },
-                          text: "Remind me later",
-                          textColor: AppColor.mainColor,
-                        ),
-                        SizedBox(height: 20,),
-                      ],
-                    ),
-                  ),*/
+                  SizedBox(height: 20.h,),
+              
                 ],
               ),
             ),

@@ -48,7 +48,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                   alignment: Alignment.center,
                   height: 40.h,
                   width: 90.w,
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   decoration: BoxDecoration(
                     color: AppColor.bgColor,
                     borderRadius: BorderRadius.circular(10.r),
@@ -74,8 +74,8 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                           );
                         }
                       ),
-                      SizedBox(width: 5.w,),
-                      SvgPicture.asset("assets/svg/calendar_icon.svg")
+                      //SizedBox(width: 5.w,),
+                      //SvgPicture.asset("assets/svg/calendar_icon.svg")
                     ],
                   ),
                 ),
@@ -100,7 +100,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                   alignment: Alignment.center,
                   height: 40.h,
                   width: 90.w,
-                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                   decoration: BoxDecoration(
                     color: AppColor.bgColor,
                     borderRadius: BorderRadius.circular(10.r),
@@ -126,8 +126,8 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                           );
                         }
                       ),
-                      SizedBox(width: 5.w,),
-                      SvgPicture.asset("assets/svg/calendar_icon.svg")
+                      //SizedBox(width: 5.w,),
+                      //SvgPicture.asset("assets/svg/calendar_icon.svg")
                     ],
                   ),
                 ),

@@ -28,7 +28,7 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
       padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
         alignment: Alignment.center,
         height: 50.h,
-        width: 210.w, //250,
+        width: 220.w, //250,
         decoration: BoxDecoration(
           color: AppColor.bgColor,
           borderRadius: BorderRadius.all(Radius.circular(50.r)),

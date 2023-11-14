@@ -238,7 +238,7 @@ class ProfilePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+        extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         foregroundColor: AppColor.redColor,
         backgroundColor: AppColor.redColor,
         shape: RoundedRectangleBorder(
@@ -250,7 +250,7 @@ class ProfilePage extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
-              fontSize: 15.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500
             )
           )

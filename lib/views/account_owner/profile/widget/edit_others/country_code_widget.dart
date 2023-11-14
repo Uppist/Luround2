@@ -46,7 +46,8 @@ class _CountryCodeWidgetState extends State<CountryCodeWidget> {
       // optional. aligns the flag and the Text left
       //alignLeft: true,
       //showDropDownButton: true,
-      //showFlag: true,
+      showFlag: false,
+      showFlagDialog: true,
     );
   }
 }

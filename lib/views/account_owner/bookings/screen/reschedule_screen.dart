@@ -84,7 +84,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                           "Reschedule",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 18.sp,
+                            fontSize: 19.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
@@ -110,7 +110,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     "West Africa Standard Time",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 13.sp,
+                      fontSize: 14.sp,
                       //fontWeight: FontWeight.w500,
                       //decoration: TextDecoration.underline,
                       //decorationStyle: TextDeco
@@ -123,7 +123,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                       "Change",
                       style: GoogleFonts.inter(
                         color: AppColor.mainColor,
-                        fontSize: 14.sp,
+                        fontSize: 15.sp,
                         fontWeight: FontWeight.w500,
                         decoration: TextDecoration.underline,
                         //decorationStyle: TextDeco
@@ -153,7 +153,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             "Former",
                             style: GoogleFonts.inter(
                               color: AppColor.darkMainColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold
                             ),
                           ),
@@ -165,7 +165,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                 "Friday, 14 July 2023",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -178,7 +178,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             "Addiction Intervention Coaching",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.bold
                             ),
                           ),
@@ -190,7 +190,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                 "9:00am - 10:00am",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.normal
                                 ),
                               ),
@@ -203,7 +203,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     "45mins",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
-                                      fontSize: 15.sp,
+                                      fontSize: 16.sp,
                                       fontWeight: FontWeight.normal
                                     ),
                                   ),
@@ -220,7 +220,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         "Choose a new date",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -263,7 +263,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 16.sp,
+                                      fontSize: 17.sp,
                                       //fontWeight: FontWeight.w500
                                     )
                                   )           
@@ -282,7 +282,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         "Choose a new time",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -317,7 +317,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 16.sp,
+                                      fontSize: 17.sp,
                                       fontWeight: FontWeight.normal
                                     )
                                   )           
@@ -348,7 +348,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.textGreyColor,
-                                      fontSize: 16.sp,
+                                      fontSize: 17.sp,
                                       fontWeight: FontWeight.normal
                                     )
                                   )           
@@ -359,7 +359,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 100.h,),
+                    SizedBox(height: 80.h,),
                     RebrandedReusableButton(
                       textColor: AppColor.bgColor,
                       color: AppColor.mainColor, 
@@ -367,7 +367,8 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                       onPressed: () {
                         rescheduleDialogueBox(context: context);
                       },
-                    )
+                    ),
+                    SizedBox(height: 20.h,),
                   ],
                 ),
               )

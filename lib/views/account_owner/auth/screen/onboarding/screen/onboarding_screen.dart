@@ -51,7 +51,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         SizedBox(height: 110.h), //100.h
         //PageView.builder() Widget
         SizedBox(
-          height: 400.h, //550
+          height: 445.h, //550
           width: size.width,  //double.infinity
           child: PageView.builder( 
             scrollDirection: Axis.horizontal,

@@ -28,10 +28,11 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
           )
         ),
         backgroundColor: AppColor.bgColor,
+        contentPadding: EdgeInsets.symmetric(horizontal: 25.w, vertical: 30.h),
         content: Wrap(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
+              //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
               decoration: BoxDecoration(
                 //image: DecorationImage(image: AssetImage(''),),
                 color: AppColor.bgColor,
@@ -54,12 +55,15 @@ Future<void> rescheduleDialogueBox({required BuildContext context}) async{
                     ),
                   ),
                   SizedBox(height: 20.h,),
-                  Text(
-                    "This meeting has bee rescheduled. The other party would be informed of this change.",
-                    style: GoogleFonts.inter(
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.darkGreyColor
+                  Container(
+                    //padding: EdgeInsets.symmetric(horizontal: 10.w),
+                    child: Text(
+                      "This meeting has been rescheduled. The other party would be informed of this change.",
+                      style: GoogleFonts.inter(
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.darkGreyColor
+                      ),
                     ),
                   ),
                   SizedBox(height: 40.h,),

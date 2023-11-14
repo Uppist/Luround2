@@ -82,8 +82,8 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
             Container(
               alignment: Alignment.center,
               height: 40.h,
-              width: 115.w,
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+              width: 95.w,
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
                 borderRadius: BorderRadius.circular(10.r),
@@ -100,16 +100,16 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.normal
                       )
                     )
                   ),                   
-                  SizedBox(width: 5.w,),
+                  /*SizedBox(width: 5.w,),
                   Icon(
                     CupertinoIcons.time,
                     color: AppColor.textGreyColor,
-                  )
+                  )*/
                 ],
               ),
             ),
@@ -131,8 +131,8 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
             Container(
               alignment: Alignment.center,
               height: 40.h,
-              width: 115.w,
-              padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 5.h),
+              width: 95.w,
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
                 borderRadius: BorderRadius.circular(10.r),
@@ -149,16 +149,16 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                       color: AppColor.textGreyColor,
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.normal
                       )
                     )
                   ),                                  
-                  SizedBox(width: 5.w,),
+                  /*SizedBox(width: 5.w,),
                   Icon(
                     CupertinoIcons.time,
                     color: AppColor.textGreyColor,
-                  )
+                  )*/
                 ],
               ),
             ),
@@ -177,6 +177,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                 }, 
                 icon: Icon(Icons.delete_outline_rounded),
                 color: AppColor.textGreyColor,
+                enableFeedback: true,
               ),
             )
           ],

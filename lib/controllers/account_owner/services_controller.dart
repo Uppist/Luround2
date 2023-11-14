@@ -2,6 +2,7 @@ import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -46,27 +47,33 @@ class ServicesController extends getx.GetxController {
           color: AppColor.mainColor
         ),
         okButtonTextStyle: GoogleFonts.poppins(
-          color: AppColor.mainColor
+          color: AppColor.mainColor,
         ),
         weekdayLabelTextStyle:  GoogleFonts.poppins(
-          color: AppColor.mainColor
+          color: AppColor.mainColor,
+          fontSize: 10.sp
         ),
         selectedYearTextStyle:  GoogleFonts.poppins(
-          color: AppColor.mainColor
+          color: AppColor.mainColor,
         ),
         selectedRangeDayTextStyle:  GoogleFonts.poppins(
-          color: AppColor.bgColor
+          color: AppColor.bgColor,
+          fontSize: 8.sp
         ),
         selectedRangeHighlightColor: AppColor.mainColor.withOpacity(0.2),
         selectedDayTextStyle:  GoogleFonts.poppins(
-          color: AppColor.bgColor
+          color: AppColor.bgColor,
+          fontSize: 8.sp
         ),
         selectedDayHighlightColor: AppColor.mainColor,
         //calendarViewMode: DatePickerMode.day
       ),
-      dialogSize: const Size(325, 400),
+      dialogSize: Size(500.w, 450.h), //325.w
       value: dates,
       borderRadius: BorderRadius.circular(15),
+      /*builder: (context, child) {
+        return Container();
+      },*/
     );
     //set the empty list to equate the result
 

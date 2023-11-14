@@ -30,7 +30,7 @@ class SelectClientWidget extends StatelessWidget {
                 clientName,
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),

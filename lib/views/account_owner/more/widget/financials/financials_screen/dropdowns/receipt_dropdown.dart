@@ -28,7 +28,7 @@ class ReceiptDropDown extends StatelessWidget {
               "View",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )
@@ -41,7 +41,7 @@ class ReceiptDropDown extends StatelessWidget {
               "Edit",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )
@@ -54,7 +54,7 @@ class ReceiptDropDown extends StatelessWidget {
               "Download",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )
@@ -67,7 +67,7 @@ class ReceiptDropDown extends StatelessWidget {
               "Delete",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w500,
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )

@@ -88,7 +88,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                     "Quote 000001",
                     style: GoogleFonts.inter(
                       color: AppColor.textGreyColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -139,7 +139,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         "Ronald Richard",
                                         style: GoogleFonts.inter(
                                           color: AppColor.darkGreyColor,
-                                          fontSize: 15.sp,
+                                          fontSize: 16.sp,
                                           fontWeight: FontWeight.bold
                                         ),
                                       ),
@@ -148,7 +148,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         "richie@gmail.com",
                                         style: GoogleFonts.inter(
                                           color: AppColor.textGreyColor,
-                                          fontSize: 14.sp,
+                                          fontSize: 15.sp,
                                           fontWeight: FontWeight.w500
                                         ),
                                       ),
@@ -164,7 +164,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             "Send to*",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -183,7 +183,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             "Quote Date*",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -213,7 +213,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             "Due Date*",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -261,7 +261,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Add product or service*",
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -296,7 +296,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Subtotal",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -304,7 +304,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "N25,000",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -319,7 +319,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Discount",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -327,7 +327,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "-N2,000",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -342,7 +342,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "Total",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -350,7 +350,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 "N23,000",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.bold
                                 ),
                               ),
@@ -378,7 +378,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             "Notes (optional)",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),

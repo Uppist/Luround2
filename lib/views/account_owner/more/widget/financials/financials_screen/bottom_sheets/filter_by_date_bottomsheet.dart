@@ -104,7 +104,7 @@ Future<void> dateBottomSheet({required BuildContext context, required VoidCallba
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 15.sp,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -131,7 +131,7 @@ Future<void> dateBottomSheet({required BuildContext context, required VoidCallba
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 15.sp,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

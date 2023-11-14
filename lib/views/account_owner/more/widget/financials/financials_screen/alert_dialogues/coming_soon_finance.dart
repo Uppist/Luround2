@@ -43,7 +43,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
                   'Financials',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
-                    fontSize: 16.sp,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
@@ -52,7 +52,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
                   'Generate quotes, invoices and receipts for your clients with just one tap and track your financials seamlessly.\n          (coming soon)',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 13.sp,
+                    fontSize: 14.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
@@ -78,7 +78,7 @@ Future<void> comingSoonDialogue({required BuildContext context,}) async{
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.bgColor,
-                          fontSize: 16.sp,
+                          fontSize: 17.sp,
                           //fontWeight: FontWeight.w500
                         )
                       )

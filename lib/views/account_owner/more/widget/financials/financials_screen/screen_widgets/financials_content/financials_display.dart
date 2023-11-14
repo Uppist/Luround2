@@ -44,7 +44,7 @@ class FinancialsDisplay extends StatelessWidget {
                 "#0000001",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -61,7 +61,7 @@ class FinancialsDisplay extends StatelessWidget {
                 "Sheldon Cooper",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -69,7 +69,7 @@ class FinancialsDisplay extends StatelessWidget {
                 "28 Oct 2023",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.normal
                 ),
               ),
@@ -93,7 +93,7 @@ class FinancialsDisplay extends StatelessWidget {
                 "N82,000",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold
                 ),
               ),

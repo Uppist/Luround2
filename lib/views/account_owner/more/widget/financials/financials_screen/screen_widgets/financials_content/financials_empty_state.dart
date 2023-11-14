@@ -31,7 +31,7 @@ class FinancialsEmptyState extends StatelessWidget {
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 16.sp,
+                fontSize: 17.sp,
                 fontWeight: FontWeight.bold
               )
             )
@@ -45,7 +45,7 @@ class FinancialsEmptyState extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     )
                   )
@@ -55,7 +55,7 @@ class FinancialsEmptyState extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold
                     )
                   )
@@ -65,7 +65,7 @@ class FinancialsEmptyState extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     )
                   )

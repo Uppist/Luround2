@@ -57,7 +57,7 @@ class FilterFinancialsButton extends StatelessWidget {
                       "${controller.startDate()}  -  ${controller.endDate()}",
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 15.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.normal
                       ),
                     );

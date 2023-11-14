@@ -3,12 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
+import 'package:get/get.dart' as getX;
 
 
 
 
 
-class BaseService {
+
+
+class BaseService extends getX.GetxController {
   
   //General Base URL
   String baseUrl = "https://luround.onrender.com/api/v1/";

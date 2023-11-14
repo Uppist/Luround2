@@ -1,4 +1,3 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/services/widget/step_tabs/step_2/date_range_bottomsheet.dart';
+
+
+
 
 
 
@@ -30,8 +33,15 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        controller.showRangeCalendar(context: context);
-        //showRangeCalendar(context: context);
+        selectDateRangeBottomSheet(
+          context: context, 
+          onCancel: () {
+            Get.back();
+          }, 
+          onApply: () {
+            Get.back();
+          }
+        );
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 50.w),

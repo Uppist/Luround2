@@ -34,55 +34,15 @@ class ServicesController extends getx.GetxController {
   final isradio2 = false.obs;
   final isradio3 = false.obs;
 
-  //list of dates for "calendar_picker" package
+  //list of dates for "calendar_picker" package (addservices)
   var dates = <DateTime?>[].obs;
-  
-  //to calendar to select date range
-  Future<void> showRangeCalendar({required BuildContext context}) async{
-    var results = await showCalendarDatePicker2Dialog(
-      context: context,
-      config: CalendarDatePicker2WithActionButtonsConfig (
-        calendarType: CalendarDatePicker2Type.range,
-        cancelButtonTextStyle: GoogleFonts.poppins(
-          color: AppColor.mainColor
-        ),
-        okButtonTextStyle: GoogleFonts.poppins(
-          color: AppColor.mainColor,
-        ),
-        weekdayLabelTextStyle:  GoogleFonts.poppins(
-          color: AppColor.mainColor,
-          fontSize: 10.sp
-        ),
-        selectedYearTextStyle:  GoogleFonts.poppins(
-          color: AppColor.mainColor,
-        ),
-        selectedRangeDayTextStyle:  GoogleFonts.poppins(
-          color: AppColor.bgColor,
-          fontSize: 8.sp
-        ),
-        selectedRangeHighlightColor: AppColor.mainColor.withOpacity(0.2),
-        selectedDayTextStyle:  GoogleFonts.poppins(
-          color: AppColor.bgColor,
-          fontSize: 8.sp
-        ),
-        selectedDayHighlightColor: AppColor.mainColor,
-        //calendarViewMode: DatePickerMode.day
-      ),
-      dialogSize: Size(500.w, 450.h), //325.w
-      value: dates,
-      borderRadius: BorderRadius.circular(15),
-      /*builder: (context, child) {
-        return Container();
-      },*/
-    );
-    //set the empty list to equate the result
-
-    dates.value = results!;
-    
-    debugPrint("date range: $dates");
-    print("start date: ${startDate()}");
-    print("end date: ${endDate()}");
+  void selectedDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      dates.value = dateList;
+      update();
+    }
   }
+
 
   //(save both dates below to db)
   String startDate () {

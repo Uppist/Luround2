@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/step_tabs/step_2/date_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/step_tabs/step_2/range_widget.dart';
 
 
 

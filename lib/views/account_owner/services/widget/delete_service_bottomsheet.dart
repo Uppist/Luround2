@@ -50,7 +50,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                   'Delete "${titleText}"',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
-                    fontSize: 16.sp,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
@@ -59,7 +59,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                   'Are you sure you want to delete this service ?',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
@@ -90,7 +90,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 16.sp,
+                                fontSize: 17.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -120,7 +120,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 16.sp,
+                                fontSize: 17.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

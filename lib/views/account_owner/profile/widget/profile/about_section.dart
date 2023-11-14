@@ -26,7 +26,7 @@ class AboutSection extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   fontWeight: FontWeight.bold
                 )
               )
@@ -43,7 +43,7 @@ class AboutSection extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               //fontWeight: FontWeight.w500
             )
           )

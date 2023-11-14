@@ -34,7 +34,7 @@ class CustomTapIcon extends StatelessWidget {
               iconTitle,
               style: GoogleFonts.inter(
                 color: AppColor.textGreyColor,
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500
               ),
             ),

@@ -31,7 +31,7 @@ class EducationAndCertificationSection extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   fontWeight: FontWeight.bold
                 )
               )
@@ -62,7 +62,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SvgPicture.asset('assets/svg/award_icon.svg'),
+                  SvgPicture.asset('assets/svg/award_icon.svg',),
                   SizedBox(width: 10.w,),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500
                           )
                         )
@@ -83,7 +83,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14.sp,
+                            fontSize: 15.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
@@ -94,7 +94,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14.sp,
+                            fontSize: 15.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
@@ -105,7 +105,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 14.sp,
+                            fontSize: 15.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
@@ -115,7 +115,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       InkWell(
                         onTap: onPressedShowCertificte,
                         child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
                           height: 50.h,
                           width: 210.w,
@@ -131,7 +131,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 15.sp,
+                                fontSize: 16.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

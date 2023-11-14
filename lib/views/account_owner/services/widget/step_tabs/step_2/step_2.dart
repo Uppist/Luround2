@@ -39,7 +39,7 @@ class _Step2PageState extends State<Step2Page> {
             "Service duration*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -71,7 +71,7 @@ class _Step2PageState extends State<Step2Page> {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.textGreyColor,
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
@@ -91,7 +91,7 @@ class _Step2PageState extends State<Step2Page> {
             "This service can be scheduled...",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),

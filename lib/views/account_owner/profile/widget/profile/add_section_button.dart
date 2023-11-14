@@ -15,7 +15,7 @@ class AddSectionButton extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+        //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
         alignment: Alignment.center,
         height: 50.h,
         width: double.infinity,
@@ -31,7 +31,7 @@ class AddSectionButton extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
-              fontSize: 16.sp,
+              fontSize: 17.sp,
               //fontWeight: FontWeight.w500
             )
           )

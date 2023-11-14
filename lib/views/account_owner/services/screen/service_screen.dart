@@ -71,7 +71,7 @@ class ServicesPage extends StatelessWidget {
                       "Services",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 18.sp,
+                        fontSize: 19.sp,
                         fontWeight: FontWeight.w500
                       ),
                     ),
@@ -139,7 +139,7 @@ class ServicesPage extends StatelessWidget {
                                 "Personal Training",
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
-                                  fontSize: 16.sp,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -148,7 +148,7 @@ class ServicesPage extends StatelessWidget {
                                 "Mon-Fri . 9:00AM - 10:00PM",
                                 style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -157,7 +157,7 @@ class ServicesPage extends StatelessWidget {
                                 "zgshxttttttttttttttttttttttthxgfhfcgjcfgjhgyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuxs",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.w500
                                 ),
                               ),
@@ -174,7 +174,7 @@ class ServicesPage extends StatelessWidget {
                                       "https://www.link.com",
                                       style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
@@ -194,7 +194,7 @@ class ServicesPage extends StatelessWidget {
                                       "https://www.link.com",
                                       style: GoogleFonts.inter(
                                         color: AppColor.blueColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
@@ -222,7 +222,7 @@ class ServicesPage extends StatelessWidget {
                                           text: "/30mins",
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
-                                            fontSize: 18.sp,
+                                            fontSize: 19.sp,
                                             fontWeight: FontWeight.w500
                                           ),
                                         ),
@@ -231,7 +231,7 @@ class ServicesPage extends StatelessWidget {
                                           text: " per session",
                                           style: GoogleFonts.inter(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 16.sp,
+                                            fontSize: 17.sp,
                                             fontWeight: FontWeight.w500
                                           ),
                                         )

@@ -70,7 +70,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                         'About',
                         style: GoogleFonts.poppins(
                           color: AppColor.blackColor,
-                          fontSize: 16.sp,
+                          fontSize: 17.sp,
                           fontWeight: FontWeight.bold
                         )
                       ),
@@ -100,7 +100,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                             '${controller.aboutController.text.length}/${controller.maxLength}',
                             style: GoogleFonts.poppins(
                               color: AppColor.textGreyColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             )
                           ),

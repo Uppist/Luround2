@@ -167,7 +167,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         'Education & Certification',
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 16.sp,
+                          fontSize: 17.sp,
                           fontWeight: FontWeight.bold
                         )
                       ),
@@ -237,7 +237,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                               Text(
                                 "Certificate name*",
                                 style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
+                                  fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
                                   color: AppColor.blackColor
                                 ),
@@ -248,7 +248,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                   "Remove",
                                   style: GoogleFonts.inter(
                                     decoration: TextDecoration.underline,
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.w500,
                                     color: AppColor.darkGreyColor
                                   ),

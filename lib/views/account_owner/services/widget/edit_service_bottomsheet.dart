@@ -58,7 +58,7 @@ Future<void> editServiceDialogueBox({required BuildContext context, required Str
                         'Edit',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
@@ -78,7 +78,7 @@ Future<void> editServiceDialogueBox({required BuildContext context, required Str
                         'Share service link',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
@@ -100,7 +100,7 @@ Future<void> editServiceDialogueBox({required BuildContext context, required Str
                         'Delete',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),

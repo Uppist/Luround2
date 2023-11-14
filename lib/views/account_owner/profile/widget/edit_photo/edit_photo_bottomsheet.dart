@@ -59,7 +59,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                         'Edit profile photo',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
@@ -79,7 +79,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                         'Replace profile photo',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),
@@ -101,7 +101,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                         'Delete profile photo',
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       ),

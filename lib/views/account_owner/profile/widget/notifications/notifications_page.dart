@@ -45,13 +45,13 @@ class NotificationsPage extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 10.h),
               
-              /*Container(
+              Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
                 height: 7,
               ),
 
-              NotificationEmptyState(onPressed: () {}),*/
+              //NotificationEmptyState(onPressed: () {}),
             
               //listview.builder
               ListView.separated(
@@ -78,7 +78,7 @@ class NotificationsPage extends StatelessWidget {
                             "J",
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
-                              fontSize: 20.sp,
+                              fontSize: 21.sp,
                               fontWeight: FontWeight.bold
                             ),
                           ),
@@ -133,7 +133,7 @@ class NotificationsPage extends StatelessWidget {
                                     overflow: TextOverflow.visible,
                                     color: AppColor.blackColor,
                                     fontWeight: FontWeight.w400,
-                                    fontSize: 14.sp,
+                                    fontSize: 15.sp,
                                   )
                                 )
                               ),
@@ -143,7 +143,7 @@ class NotificationsPage extends StatelessWidget {
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   //fontWeight: FontWeight.w500,
-                                  fontSize: 13.sp
+                                  fontSize: 14.sp
                                 )
                               ),
                             ],

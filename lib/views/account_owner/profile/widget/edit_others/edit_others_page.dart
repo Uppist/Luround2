@@ -88,7 +88,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           'Others',
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 16.sp,
+                            fontSize: 17.sp,
                             fontWeight: FontWeight.bold
                           )
                         ),
@@ -97,7 +97,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           style: GoogleFonts.inter(
                             color: AppColor.yellowStar,
                             //fontWeight: FontWeight.w500,
-                            fontSize: 14.sp
+                            fontSize: 15.sp
                           ),
                         )
                       ],
@@ -249,7 +249,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                       'Tap on icon to add',
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 16.sp,
+                        fontSize: 17.sp,
                         fontWeight: FontWeight.bold
                       )
                     ),

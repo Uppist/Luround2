@@ -49,27 +49,27 @@ class _Step1PageState extends State<Step1Page> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Service name",
+            "Service name*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),
           SizedBox(height: 10.h),
           ReusableTextField(  
             onChanged: (val) {},
-            hintText: "Service name*",
+            hintText: "Service name",
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.next,
             textController: controller.serviceNameController
           ),
           SizedBox(height: 30.h),
           Text(
-            "Description (optional)",
+            "Description (optional)*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -98,7 +98,7 @@ class _Step1PageState extends State<Step1Page> {
                 "${controller.descriptionController.text.length}/${controller.maxLength}",
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -109,10 +109,10 @@ class _Step1PageState extends State<Step1Page> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Add links (optional)",
+                "Add links (optional)*",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -120,6 +120,7 @@ class _Step1PageState extends State<Step1Page> {
                 onTap: () {
                   setState(() {
                     controller.toggleLink.value = true;
+                    controller.isTextGone.value = true;
                   });
                 },
                 child: SvgPicture.asset("assets/svg/add_icon.svg"),
@@ -145,6 +146,7 @@ class _Step1PageState extends State<Step1Page> {
                 onPressed: () {
                   setState(() {
                     controller.toggleLink.value = false;
+                    controller.isTextGone.value = false;
                   });
                 }, 
                 icon: Icon(CupertinoIcons.xmark, color: AppColor.blackColor,),
@@ -152,21 +154,26 @@ class _Step1PageState extends State<Step1Page> {
             ],
           ) : SizedBox(),
           SizedBox(height: 20.h,),
-          Text(
+
+          controller.isTextGone.value ? SizedBox()
+          :Text(
             "Add links to contents that relates to this service",
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor, 
-              fontSize: 13.sp
+              fontSize: 14.sp
             ),
           ),
-          SizedBox(height: 4.h),
-          Divider(color: AppColor.textGreyColor, thickness: 1,),
+          
+          controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
+          
+          controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),
+      
           SizedBox(height: 20.h,),
           Text(
-            "Service charge per session",
+            "Service charge per session*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -178,7 +185,7 @@ class _Step1PageState extends State<Step1Page> {
                 "In-person",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor, 
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -202,7 +209,7 @@ class _Step1PageState extends State<Step1Page> {
                 "Virtual",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor, 
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),

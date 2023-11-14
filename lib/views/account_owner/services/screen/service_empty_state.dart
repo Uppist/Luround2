@@ -36,7 +36,7 @@ class ServiceEmptyState extends StatelessWidget {
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 20.sp,
+                fontSize: 21.sp,
                 fontWeight: FontWeight.bold
               )
             )
@@ -50,7 +50,7 @@ class ServiceEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       //fontWeight: FontWeight.bold
                     )
                   )
@@ -60,7 +60,7 @@ class ServiceEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold
                     )
                   )
@@ -70,7 +70,7 @@ class ServiceEmptyState extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       //fontWeight: FontWeight.bold
                     )
                   )
@@ -99,7 +99,7 @@ class ServiceEmptyState extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
-                    fontSize: 15.sp,
+                    fontSize: 16.sp,
                     //fontWeight: FontWeight.w500
                   )
                 )

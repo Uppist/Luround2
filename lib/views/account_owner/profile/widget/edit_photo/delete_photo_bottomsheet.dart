@@ -50,7 +50,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                   'Delete Photo',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
-                    fontSize: 16.sp,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
@@ -59,7 +59,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                   'Are you sure you want to delete this photo ?',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
@@ -90,7 +90,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 16.sp,
+                                fontSize: 17.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -120,7 +120,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 16.sp,
+                                fontSize: 17.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

@@ -34,7 +34,7 @@ class BookingScreenEmptyState extends StatelessWidget {
               style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 20.sp,
+                  fontSize: 21.sp,
                   fontWeight: FontWeight.bold
                 )
               )
@@ -45,7 +45,7 @@ class BookingScreenEmptyState extends StatelessWidget {
               style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                   color: AppColor.darkGreyColor,
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   //fontWeight: FontWeight.bold
                 )
               )
@@ -71,7 +71,7 @@ class BookingScreenEmptyState extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,
-                      fontSize: 16.sp,
+                      fontSize: 17.sp,
                       //fontWeight: FontWeight.w500
                     )
                   )

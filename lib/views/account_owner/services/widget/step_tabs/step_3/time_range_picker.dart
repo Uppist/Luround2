@@ -100,7 +100,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.normal
                       )
                     )
@@ -120,7 +120,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.textGreyColor,
-                  fontSize: 14.sp,
+                  fontSize: 16.sp,
                   //fontWeight: FontWeight.w500
                 )
               )
@@ -149,7 +149,7 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                       color: AppColor.textGreyColor,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.normal
                       )
                     )

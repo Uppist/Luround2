@@ -80,7 +80,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
           stepIconBuilder: (stepIndex, stepState) {
             return Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
+              //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(40.r)),
                 //this maths logic i did here is the GOAT

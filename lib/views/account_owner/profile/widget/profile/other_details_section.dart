@@ -29,14 +29,14 @@ class OtherDetailsSection extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 16.sp,
+                  fontSize: 17.sp,
                   fontWeight: FontWeight.bold
                 )
               )
             ),
             InkWell(
               onTap: onPressedEdit,
-              child: SvgPicture.asset('assets/svg/edit.svg')
+              child: SvgPicture.asset('assets/svg/edit.svg',)
             )
           ],
         ),
@@ -55,6 +55,7 @@ class OtherDetailsSection extends StatelessWidget {
                 //Icon
                 SvgPicture.asset(
                   profileController.svgPictures[index],
+                  height: 55.h, width: 55.w,
                 ),
                 SizedBox(width: 15.w,),
                 Column(
@@ -66,7 +67,7 @@ class OtherDetailsSection extends StatelessWidget {
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
                       )
@@ -78,7 +79,7 @@ class OtherDetailsSection extends StatelessWidget {
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
-                          fontSize: 14.sp,
+                          fontSize: 15.sp,
                         )
                       )
                     ),

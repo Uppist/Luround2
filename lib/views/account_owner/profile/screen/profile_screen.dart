@@ -109,7 +109,7 @@ class ProfilePage extends StatelessWidget {
                                     textStyle: TextStyle(
                                       color: AppColor.darkGreyColor,
                                       decoration: TextDecoration.underline,
-                                      fontSize: 14.sp,
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.w500
                                     )
                                   )
@@ -142,7 +142,7 @@ class ProfilePage extends StatelessWidget {
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
-                                  fontSize: 18.sp,
+                                  fontSize: 16.sp,
                                   fontWeight: FontWeight.bold
                                 )
                               )
@@ -156,7 +156,7 @@ class ProfilePage extends StatelessWidget {
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
-                                  fontSize: 16.sp,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.w500
                                 )
                               )
@@ -173,7 +173,7 @@ class ProfilePage extends StatelessWidget {
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.blueColor,
-                                      fontSize: 14.sp,
+                                      fontSize: 15.sp,
                                       fontWeight: FontWeight.w500
                                     )
                                   )

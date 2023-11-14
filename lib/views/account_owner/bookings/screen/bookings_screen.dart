@@ -75,7 +75,7 @@ class _BookingsPageState extends State<BookingsPage> {
                         "Bookings",
                         style: GoogleFonts.poppins(
                           color: AppColor.blackColor,
-                          fontSize: 18.sp,
+                          fontSize: 19.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -191,7 +191,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             "Yennifer Merit",
                                             style: GoogleFonts.poppins(
                                               color: AppColor.darkGreyColor,
-                                              fontSize: 14.sp,
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.bold
                                             ),
                                           ),
@@ -200,7 +200,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             index.isEven ? "booked you" : "you booked",
                                             style: GoogleFonts.poppins(
                                               color: AppColor.textGreyColor,
-                                              fontSize: 13.sp,
+                                              fontSize: 15.sp,
                                               fontWeight: FontWeight.w500
                                             ),
                                           )
@@ -220,7 +220,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Tuesday, 11 July 2023",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
@@ -238,7 +238,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                   "Digital Marketing Training",
                                   style: GoogleFonts.poppins(
                                     color: AppColor.blackColor,
-                                    fontSize: 15.sp,
+                                    fontSize: 16.sp,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ),
@@ -250,7 +250,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "9:30am - 10:30am",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                     ),
@@ -263,7 +263,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           "1 hr 30 mins",
                                           style: GoogleFonts.poppins(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 14.sp,
+                                            fontSize: 15.sp,
                                             //fontWeight: FontWeight.w500
                                           ),
                                         ),
@@ -284,7 +284,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Sender's Email",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -295,7 +295,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "yennifermerit@gmail.com",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -307,7 +307,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Meeting Type",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -318,7 +318,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Virtual",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -330,7 +330,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Location",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -341,7 +341,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "This is a Google Meet web conference",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -353,7 +353,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Sender's Time Zone",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -364,7 +364,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "West Africa Time",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -376,7 +376,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Note",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.blackColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 16.sp,
                                         fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -387,7 +387,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "qwertyuiopasdfghjklzxcvbnmggggggggggdrerearwaetsrsgergsegehtrshghfh",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -398,7 +398,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                       "Created on 8 July 2023",
                                       style: GoogleFonts.poppins(
                                         color: AppColor.textGreyColor.withOpacity(0.4),
-                                        fontSize: 14.sp,
+                                        fontSize: 15.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                       //maxLines: controller.selectedIndex == index ? null : 1,
@@ -433,7 +433,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                 controller.selectedIndex == index   ? 'See Less' : 'See More',
                                 style: GoogleFonts.poppins(
                                   color: AppColor.mainColor,
-                                  fontSize: 16.sp,
+                                  fontSize: 17.sp,
                                   fontWeight: FontWeight.w500
                                   //decoration: TextDecoration.underline,
                                 ),

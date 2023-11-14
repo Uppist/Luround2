@@ -79,7 +79,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                           ),
                         ),
                       
-                        SizedBox(width: 5.w,),
+                        SizedBox(width: 10.w,),
                         Text(
                           "Reschedule",
                           style: GoogleFonts.inter(

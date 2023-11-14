@@ -37,13 +37,13 @@ class CustomFieldWidget extends StatelessWidget {
             children: [
               //textfield
               fieldWidget,
-              SizedBox(height: 10.h,),
+              SizedBox(height: 20.h,),
               //textfield name
               Text(
                 fieldName,
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 14.sp,
+                  fontSize: 15.sp,
                   //fontWeight: FontWeight.w500
                 )
               ),

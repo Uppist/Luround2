@@ -67,7 +67,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 12.sp,
+                                fontSize: 14.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -87,7 +87,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.textGreyColor,
-                    fontSize: 14.sp,
+                    fontSize: 16.sp,
                     //fontWeight: FontWeight.w500
                   )
                 )
@@ -119,7 +119,7 @@ class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 12.sp,
+                                fontSize: 14.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

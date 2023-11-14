@@ -38,7 +38,7 @@ class _Step3PageState extends State<Step3Page> {
           "Day and Time availability*",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 14.sp,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w500
           ),
         ),
@@ -55,7 +55,7 @@ class _Step3PageState extends State<Step3Page> {
               "West Africa Standard Time",
               style: GoogleFonts.inter(
                 color: AppColor.mainColor,
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
@@ -96,7 +96,7 @@ class _Step3PageState extends State<Step3Page> {
                     controller.daysOfTheWeekCheckBox[index]["day"],
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 14.sp,
+                      fontSize: 15.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),

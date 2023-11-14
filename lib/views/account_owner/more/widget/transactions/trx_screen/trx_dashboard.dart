@@ -66,21 +66,19 @@ class TrxDashBoard extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Obx(
-                        () {
-                          return Text(
-                            //controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
-                            "Total amount received",
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.bgColor,
-                                fontSize: 15.sp,
-                                //fontWeight: FontWeight.w500
-                              )
-                            )
-                          );
-                        }
+                      
+                      Text(
+                        //controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
+                        "Total amount received",
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.bgColor,
+                            fontSize: 15.sp,
+                            //fontWeight: FontWeight.w500
+                          )
+                        )
                       ),
+                                      
                       Icon(
                         CupertinoIcons.chevron_up_chevron_down,
                         color: AppColor.bgColor,

@@ -101,6 +101,7 @@ class ServicesController extends getx.GetxController {
 
   //to add other links at {step 1}
   final toggleLink = false.obs;
+  final isTextGone  = false.obs;
 
   //(save to db)
   final TextEditingController serviceNameController = TextEditingController();

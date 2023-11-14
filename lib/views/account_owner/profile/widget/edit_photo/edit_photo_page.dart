@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_photo/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/other_textfields.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -104,7 +105,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
 
               
                       //name textfield
-                      NameTextField(
+                      /*NameTextField(
                         onChanged: (val) {},
                         initialValue: controller.nameController.text,
                         hintText: 'Enter your name',
@@ -115,7 +116,16 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                             controller.isSuffixIconTapped2.value = !controller.isSuffixIconTapped2.value;
                           });
                         },
+                      ),*/
+                      TextfieldFlipper(
+                        text: "Enter your name", 
+                        onFlip: () {
+                          setState(() {
+                            controller.isSuffixIconTapped2.value = !controller.isSuffixIconTapped2.value;
+                          });
+                        }                    
                       ),
+
                        
                       /////////////////////////////////////////
                       controller.isSuffixIconTapped2.value ?

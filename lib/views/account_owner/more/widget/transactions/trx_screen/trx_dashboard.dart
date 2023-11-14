@@ -73,7 +73,7 @@ class TrxDashBoard extends StatelessWidget {
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.bgColor,
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             //fontWeight: FontWeight.w500
                           )
                         )
@@ -97,7 +97,7 @@ class TrxDashBoard extends StatelessWidget {
                 controller.isTrxAmountToggled.value ? amountReceived : amountPaid,
                 style: GoogleFonts.inter(
                   color: AppColor.bgColor,
-                  fontSize: 18.sp,
+                  fontSize: 19.sp,
                   fontWeight: FontWeight.bold
                 ),
               );

@@ -62,7 +62,7 @@ class _SubjectTextFieldState extends State<SubjectTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13.sp),              
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)

@@ -61,7 +61,7 @@ class MorePage extends StatelessWidget {
             SizedBox(height: 20.h,),
             ////ROWS HERE///
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

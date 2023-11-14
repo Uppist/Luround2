@@ -17,7 +17,7 @@ class NoPaymentMethodText extends StatelessWidget {
       "You have not added a payment method.",
       style: GoogleFonts.inter(
         color: AppColor.blackColor,
-        fontSize: 15.sp,
+        fontSize: 16.sp,
         fontWeight: FontWeight.bold
       ),
     );

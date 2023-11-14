@@ -31,7 +31,7 @@ class TrxEmptyState extends StatelessWidget {
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 20.h,
+                fontSize: 21.h,
                 fontWeight: FontWeight.bold
               )
             )
@@ -42,7 +42,7 @@ class TrxEmptyState extends StatelessWidget {
             style: GoogleFonts.poppins(
               textStyle: TextStyle(
                 color: AppColor.darkGreyColor,
-                fontSize: 15.h,
+                fontSize: 16.h,
                 //fontWeight: FontWeight.bold
               )
             )
@@ -68,7 +68,7 @@ class TrxEmptyState extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
-                    fontSize: 16.sp,
+                    fontSize: 17.sp,
                     //fontWeight: FontWeight.w500
                   )
                 )

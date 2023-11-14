@@ -66,7 +66,7 @@ class FilterTrxButton extends StatelessWidget {
                       item,
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 13.sp,
+                        fontSize: 14.sp,
                         //fontWeight: FontWeight.w500
                       ),
                     ),

@@ -44,7 +44,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                   'Logout',
                   style: GoogleFonts.poppins(
                     color: AppColor.blackColor,
-                    fontSize: 16.sp,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.bold
                   )
                 ),
@@ -53,7 +53,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                   'Are you sure you want to logout?',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14.sp,
+                    fontSize: 15.sp,
                     //fontWeight: FontWeight.bold
                   )
                 ),
@@ -82,7 +82,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 16.sp,
+                                fontSize: 17.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )
@@ -114,7 +114,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 16.sp,
+                                fontSize: 17.sp,
                                 //fontWeight: FontWeight.w500
                               )
                             )

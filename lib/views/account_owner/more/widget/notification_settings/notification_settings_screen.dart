@@ -81,7 +81,7 @@ class NotificationSettingScreen extends StatelessWidget {
                     "Notifications",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -105,7 +105,7 @@ class NotificationSettingScreen extends StatelessWidget {
                     "Meeting Notifications",
                     style: GoogleFonts.inter(
                       color: AppColor.darkGreyColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.bold
                     ),
                   ),

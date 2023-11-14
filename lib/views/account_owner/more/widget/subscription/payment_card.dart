@@ -50,7 +50,7 @@ class PaymentCard extends StatelessWidget {
                 cardType,
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w500
                 ),
               ),
@@ -65,7 +65,7 @@ class PaymentCard extends StatelessWidget {
             cardNuber,
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -74,7 +74,7 @@ class PaymentCard extends StatelessWidget {
             expiryDate,
             style: GoogleFonts.inter(
               color: AppColor.textGreyColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -91,7 +91,7 @@ class PaymentCard extends StatelessWidget {
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.yellowStar,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     ),
                     decoration: TextDecoration.underline

@@ -86,7 +86,7 @@ class SubscriptionScreen extends StatelessWidget {
                     "Subscription",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 15.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -112,7 +112,7 @@ class SubscriptionScreen extends StatelessWidget {
                         "Current Plan",
                         style: GoogleFonts.inter(
                           color: AppColor.darkGreyColor,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -123,7 +123,7 @@ class SubscriptionScreen extends StatelessWidget {
                         "You are using the free plan",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 14.sp,
+                          fontSize: 15.sp,
                           fontWeight: FontWeight.bold
                         ),
                       ),
@@ -139,7 +139,7 @@ class SubscriptionScreen extends StatelessWidget {
                             "Payment Method",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
-                              fontSize: 15.sp,
+                              fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -180,7 +180,7 @@ class SubscriptionScreen extends StatelessWidget {
                               "See Billing History",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 14.sp,
+                                fontSize: 15.sp,
                                 fontWeight: FontWeight.w500
                               ),
                             ),

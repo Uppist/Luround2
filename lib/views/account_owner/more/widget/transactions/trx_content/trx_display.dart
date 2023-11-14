@@ -24,7 +24,7 @@ class TrxDisplay extends StatelessWidget {
               "Personal Training",
               style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
-                fontSize: 14.sp,
+                fontSize: 15.sp,
                 fontWeight: FontWeight.bold
               ),
             ),
@@ -32,7 +32,7 @@ class TrxDisplay extends StatelessWidget {
               "N56,000",
               style: GoogleFonts.inter(
                 color: AppColor.darkGreen,
-                fontSize: 15.sp,
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
@@ -44,7 +44,7 @@ class TrxDisplay extends StatelessWidget {
           "Transaction reference | Received from Sheldon Cooper via LuroundPay", //"Transaction reference | Received from Sheldon Cooper via LuroundPay",
           style: GoogleFonts.inter(
             color: AppColor.darkGreyColor,
-            fontSize: 13.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
@@ -53,7 +53,7 @@ class TrxDisplay extends StatelessWidget {
           "Tue, 11 July 2023 17:30",
           style: GoogleFonts.inter(
             color: AppColor.textGreyColor,
-            fontSize: 13.sp,
+            fontSize: 14.sp,
             //fontWeight: FontWeight.w500
           ),
         ),

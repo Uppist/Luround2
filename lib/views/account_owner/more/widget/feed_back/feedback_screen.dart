@@ -98,7 +98,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     "Contact us",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 17.sp,
+                      fontSize: 18.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -128,7 +128,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           "Subject",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
@@ -146,7 +146,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           "Description",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 15.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),

@@ -141,9 +141,10 @@ class AuthController extends getx.GetxController {
 
   //Google Sign in with Luround
   signInWithGoogleAuth() {
-    authService.signInWithGoogle().then((value) {
+    authService.signInWithGoogleTest();
+    /*authService.signInWithGoogle().then((value) {
       print("google sign in complete");
-    });
+    });*/
   }
 
   //Log user out locally with Luround API

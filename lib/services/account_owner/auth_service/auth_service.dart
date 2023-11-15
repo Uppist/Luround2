@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/models/account_owner/auth/google_signin_response_model.dart';
 import 'package:luround/models/account_owner/auth/login_respone_model.dart';
@@ -83,7 +84,7 @@ class AuthService extends getx.GetxController {
         LocalStorage.saveToken(response.tokenData);
         LocalStorage.saveEmail(email);
         debugPrint("${LocalStorage.getToken()}");
-        LuroundSnackBar.successSnackBar(message: "Welcome back");
+        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
       } else {
@@ -106,8 +107,8 @@ class AuthService extends getx.GetxController {
     LocalStorage.deleteUserID();
     LocalStorage.deleteUseremail();
     LocalStorage.deleteUsername();
-    getx.Get.offAll(() => LoginPage());
-    isLoading.value = false;
+    getx.Get.offAll(() => LoginPage())!.then((value) {isLoading.value = false;});
+    //isLoading.value = false;
   }
 
 
@@ -130,7 +131,7 @@ class AuthService extends getx.GetxController {
         GoogleSigninResponse response = GoogleSigninResponse.fromJson(json.decode(res.body));
         LocalStorage.saveToken(response.tokenData);
         debugPrint("${LocalStorage.getToken()}");
-        LuroundSnackBar.successSnackBar(message: "Welcome back");
+        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
       } else {
@@ -145,6 +146,49 @@ class AuthService extends getx.GetxController {
     }
 
   }
+
+
+
+  ////////////////////TEST/////////////////
+  Future<Map<String, dynamic>?> signInWithGoogleTest() async {
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  if (googleUser == null) {
+    // The user canceled the sign-in process
+    return null;
+  }
+
+  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+  // Exchange the Google Sign-In authentication code for an access token
+  final response = await http.post(
+    Uri.parse("https://oauth2.googleapis.com/token"),
+    body: {
+      'code': googleAuth.serverAuthCode,
+      'client_id': '702921706378-p1p9ubud1fbh319urre24j6coj2fb9fj.apps.googleusercontent.com',
+      'client_secret': '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',
+      //'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob', // Use the appropriate redirect URI
+      'grant_type': 'authorization_code',
+    },
+  );
+
+  if (response.statusCode == 200) {
+    // Decode the access token
+    Map<String, dynamic> tokenInfo = json.decode(response.body);
+
+    // Access user credentials from the access token info
+    String accessToken = tokenInfo['access_token'];
+    String idToken = tokenInfo['id_token'];
+
+    // You can use the access token or id token as needed
+    print("toke : $accessToken");
+    return {'access_token': accessToken, 'id_token': idToken};
+  } else {
+    // Handle error
+    print('Failed to exchange code for access token. Status code: ${response.statusCode}');
+    return null;
+  }
+}
 
 
 }

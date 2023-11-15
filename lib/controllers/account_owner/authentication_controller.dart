@@ -20,7 +20,7 @@ class AuthController extends getx.GetxController {
 
   var authService = getx.Get.put(AuthService());
 
-  var isLoading = false.obs;
+  //var isLoading = false.obs;
 
   //ONBOARDING SECTION//
   final List<Widget> pages = [
@@ -119,10 +119,10 @@ class AuthController extends getx.GetxController {
   }
 
   checkSecondPageCredentials() {
-    isLoading.value = true;
+    //isLoading.value = true;
     final isValid = formKey2.currentState!.validate();
     if(!isValid) {
-      isLoading.value = false;
+      //isLoading.value = false;
       return "Invalid Credentials";
     }
     authService.registerUser(
@@ -131,13 +131,12 @@ class AuthController extends getx.GetxController {
       lastName: lastNameController.text,
       password: passwordController.text,
     ).then((value) {
-      print("Nice. Credentilas are valid!!");
       firstNameController.clear();
       lastNameController.clear();
       emailController.clear();
       passwordController.clear();
       confirmPasswordController.clear();
-      isLoading.value = false;
+      //isLoading.value = false;
     });
     return formKey2.currentState!.save();
   }
@@ -179,20 +178,19 @@ class AuthController extends getx.GetxController {
   }
 
   checkLoginCredentials() {
-    isLoading.value = true;
+    //isLoading.value = true;
     final isValid = loginFormKey.currentState!.validate();
     if(!isValid) {
-      isLoading.value = false;
+      //isLoading.value = false;
       return "Invalid Credentials";
     }
-    print("Nice. Credentilas are valid!!");
     authService.loginUser(
       email: loginEmailController.text, 
       password: loginPasswordController.text,
     ).then((value) {
       loginEmailController.clear();
       loginPasswordController.clear();
-      isLoading.value = false;
+      //isLoading.value = false;
     });
     return loginFormKey.currentState!.save();
   }

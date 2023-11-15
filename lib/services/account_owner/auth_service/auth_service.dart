@@ -1,13 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/models/account_owner/auth/login_respone_model.dart';
-import 'package:luround/models/account_owner/auth/register_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
-import 'package:get/get.dart' as getX;
+import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 
@@ -17,9 +16,10 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 
 
 
-class AuthService extends getX.GetxController {
+class AuthService extends getx.GetxController {
 
-  var baseService = getX.Get.put(BaseService());
+  var baseService = getx.Get.put(BaseService());
+  var isLoading = false.obs;
 
   //to register user locally
   Future<dynamic> registerUser({
@@ -28,6 +28,8 @@ class AuthService extends getX.GetxController {
     required String lastName,
     required String password
     }) async {
+    
+    isLoading.value = true;
 
     var body = {
       "email": email,
@@ -38,27 +40,31 @@ class AuthService extends getX.GetxController {
     };
 
     try {
-
       http.Response res = await baseService.httpPost(endPoint: "sign-up", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        print('this is response status ==>${res.statusCode}');
-        //LuroundSnackBar.successSnackBar(message: "Login $firstName");
+        debugPrint('this is response status ==>${res.statusCode}');
         LocalStorage.saveEmail(email);
-        getX.Get.offAll(() => LoginPage());
+        isLoading.value = false;
+        getx.Get.offAll(() => LoginPage());
       } else {
-        print('this is response reason ==>${res.reasonPhrase}');
-        LuroundSnackBar.errorSnackBar(message: "Something went wrong.");
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
-    } catch (e) {
-      debugPrint("$e");
+    } 
+    on HttpException {
+      isLoading.value = false;
+      baseService.handleError(const HttpException("Something went wrong"));
+      //debugPrint("$e");
     }
   }
+
 
   //to login user locally
   Future<dynamic> loginUser({
     required String email,
     required String password
     }) async {
+    
+    isLoading.value = true;
 
     var body = {
       "email": email,
@@ -68,20 +74,41 @@ class AuthService extends getX.GetxController {
     try {
       http.Response res = await baseService.httpPost(endPoint: "auth/login", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        print('this is response status ==>${res.statusCode}');
-        LoginResponse response = LoginResponse.fromJson({"accessToken": res.body});
+        debugPrint('this is response status ==>${res.statusCode}');
+        LoginResponse response = LoginResponse.fromJson(res.body as Map<String, dynamic>);
         LocalStorage.saveToken(response.accessToken);
         LocalStorage.saveEmail(email);
-        print("${LocalStorage.getToken()}");
+        debugPrint("${LocalStorage.getToken()}");
         LuroundSnackBar.successSnackBar(message: "Welcome back");
-        getX.Get.offAll(() => MainPage());
+        isLoading.value = false;
+        getx.Get.offAll(() => MainPage());
       } else {
-        print('this is response reason ==>${res.reasonPhrase}');
-        LuroundSnackBar.errorSnackBar(message: "Something went wrong.");
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
-    } catch (e) {
-      debugPrint("$e");
+    } 
+    on HttpException {
+      isLoading.value = false;
+      baseService.handleError(const HttpException("Something went wrong"));
+      //debugPrint("$e");
     }
+  }
+
+
+  //to log a user out locally
+  Future<dynamic> logoutUser() async {
+    isLoading.value = true;
+    LocalStorage.deleteToken();
+    LocalStorage.deleteUserID();
+    LocalStorage.deleteUseremail();
+    LocalStorage.deleteUsername();
+    getx.Get.offAll(() => LoginPage());
+    isLoading.value = false;
+  }
+
+
+  //to sign in / sign up a user with google
+  Future<dynamic> signInWithGoogle() async {
+    isLoading.value = true;
   }
 
 

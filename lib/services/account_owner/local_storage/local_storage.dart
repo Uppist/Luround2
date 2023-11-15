@@ -1,5 +1,8 @@
 import 'package:get_storage/get_storage.dart';
 
+
+
+
 class LocalStorage {
   /// use this to [saveToken] to local storage
   static saveToken(String tokenValue) {
@@ -21,16 +24,17 @@ class LocalStorage {
   static saveEmail(String userEmail) {
     return GetStorage().write('email', userEmail);
   }
-
   /// use this to [getUseremail] from local storage
   static getUseremail() {
     return GetStorage().read('email');
   }
 
   /// use this to [deleteUseremail] from local storage
-  static deleteUseremail(String userEmail) {
+  static deleteUseremail() {
     return GetStorage().remove('email',);
   }
+
+
 
   /// use this to [saveUsername] to local storage
   static saveUsername(String userName) {
@@ -43,7 +47,24 @@ class LocalStorage {
   }
 
   /// use this to [deleteUsername] from local storage
-  static deleteUsername(String userName) {
+  static deleteUsername() {
     return GetStorage().remove('name',);
   }
+
+
+  /// use this to [saveUserID] to local storage
+  static saveUserID(String userId) {
+    return GetStorage().write('id', userId);
+  }
+
+  /// use this to [getUserID] from local storage
+  static getUserID() {
+    return GetStorage().read('id');
+  }
+
+  /// use this to [deleteUserID] from local storage
+  static deleteUserID() {
+    return GetStorage().remove('id');
+  }
+
 }

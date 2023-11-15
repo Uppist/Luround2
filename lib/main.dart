@@ -46,6 +46,8 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
 
+  var token = LocalStorage.getToken();
+
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -56,7 +58,7 @@ class _MainAppState extends State<MainApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Luround',
-        home: SplashScreen1(), //MainPageAccViewer(), //MainPage(), //SplashScreen1()
+        home: token == null ? SplashScreen1() : MainPage(), //MainPageAccViewer(), //MainPage(), //SplashScreen1()
         supportedLocales: [
           Locale('en'), // English Locale
         ]

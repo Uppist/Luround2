@@ -1,18 +1,18 @@
 
 class LoginResponse {
   LoginResponse({
-    required this.accessToken
+    required this.tokenData
   });
-  late final String accessToken;
+  late final String tokenData;
 
   
   LoginResponse.fromJson(Map<String, dynamic> json){
-    accessToken = json['accessToken'];
+    tokenData = json['accessToken'];
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['accessToken'] = accessToken;
+    _data['accessToken'] = tokenData;
     return _data;
   }
 }

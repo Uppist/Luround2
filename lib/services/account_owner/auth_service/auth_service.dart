@@ -42,11 +42,12 @@ class AuthService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPost(endPoint: "sign-up", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         LocalStorage.saveEmail(email);
-        isLoading.value = false;
         getx.Get.offAll(() => LoginPage());
       } else {
+        isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
     } 
@@ -74,15 +75,17 @@ class AuthService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPost(endPoint: "auth/login", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        LoginResponse response = LoginResponse.fromJson(res.body as Map<String, dynamic>);
-        LocalStorage.saveToken(response.accessToken);
+        LoginResponse response = LoginResponse.fromJson(json.decode(res.body));
+        LocalStorage.saveToken(response.tokenData);
         LocalStorage.saveEmail(email);
         debugPrint("${LocalStorage.getToken()}");
         LuroundSnackBar.successSnackBar(message: "Welcome back");
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
       } else {
+        isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
     } 

@@ -119,10 +119,8 @@ class AuthController extends getx.GetxController {
   }
 
   checkSecondPageCredentials() {
-    //isLoading.value = true;
     final isValid = formKey2.currentState!.validate();
     if(!isValid) {
-      //isLoading.value = false;
       return "Invalid Credentials";
     }
     authService.registerUser(
@@ -136,7 +134,6 @@ class AuthController extends getx.GetxController {
       emailController.clear();
       passwordController.clear();
       confirmPasswordController.clear();
-      //isLoading.value = false;
     });
     return formKey2.currentState!.save();
   }
@@ -178,10 +175,8 @@ class AuthController extends getx.GetxController {
   }
 
   checkLoginCredentials() {
-    //isLoading.value = true;
     final isValid = loginFormKey.currentState!.validate();
     if(!isValid) {
-      //isLoading.value = false;
       return "Invalid Credentials";
     }
     authService.loginUser(
@@ -190,7 +185,6 @@ class AuthController extends getx.GetxController {
     ).then((value) {
       loginEmailController.clear();
       loginPasswordController.clear();
-      //isLoading.value = false;
     });
     return loginFormKey.currentState!.save();
   }

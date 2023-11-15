@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 class Loader extends StatelessWidget {
@@ -7,10 +9,10 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator.adaptive(
-        backgroundColor: AppColor.mainColor,
-        //color: AppColor.mainColor,
-      )
+      child: LoadingAnimationWidget.threeArchedCircle(
+        color: AppColor.mainColor,
+        size: 55.r,
+      ),
     );
   }
 }

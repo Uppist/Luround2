@@ -232,7 +232,6 @@ class _RegisterPage2State extends State<RegisterPage2> {
                 onPressed: controller.isSecondPageButtonEnabled  
                 ? () {
                   controller.checkSecondPageCredentials();
-                  print("account created");
                 }
                 : () {
                   print('nothing for you chief!!');

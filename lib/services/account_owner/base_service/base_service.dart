@@ -16,9 +16,26 @@ class BaseService extends getX.GetxController {
   
   //General Base URL
   String baseUrl = "https://luround.onrender.com/api/v1/";
-
+  String baseUrlForGoogle = "https://luround.onrender.com/";
 
   ///HTTP///
+  
+  //function that sends a GET request for Google Auth (on a soft)
+  Future<dynamic> httpGetGoogle({required String endPoint}) async {
+    //var token = await LocalStorage.getToken();
+    var res = http.get(
+      Uri.parse("$baseUrlForGoogle$endPoint"),
+      headers: //token != null ? 
+      {
+        //'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      } 
+      //: null
+    );
+    return res;
+  }
 
   //function that sends a GET request (on a soft)
   Future<dynamic> httpGet({required String endPoint}) async {

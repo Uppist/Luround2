@@ -109,6 +109,7 @@ class AuthService extends getx.GetxController {
     LocalStorage.deleteUserID();
     LocalStorage.deleteUseremail();
     LocalStorage.deleteUsername();
+    signOutWithGoogle();
     getx.Get.offAll(() => LoginPage())!.then((value) {isLoading.value = false;});
     //isLoading.value = false;
   }

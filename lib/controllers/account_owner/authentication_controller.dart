@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
+import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_page.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
@@ -16,6 +17,10 @@ import '../../views/account_owner/auth/screen/onboarding/page/third_page.dart';
 
 
 class AuthController extends getx.GetxController {
+
+  var authService = getx.Get.put(AuthService());
+
+  var isLoading = false.obs;
 
   //ONBOARDING SECTION//
   final List<Widget> pages = [
@@ -46,7 +51,6 @@ class AuthController extends getx.GetxController {
 
   bool seePassword = false;
   bool seeConfirmPassword = false;
-  var isLoading = false.obs;
 
 
   String? validateFirstName() {
@@ -115,17 +119,26 @@ class AuthController extends getx.GetxController {
   }
 
   checkSecondPageCredentials() {
+    isLoading.value = true;
     final isValid = formKey2.currentState!.validate();
     if(!isValid) {
+      isLoading.value = false;
       return "Invalid Credentials";
     }
-    Get.offAll(() => MainPage());
-    print("Nice. Credentilas are valid!!");
-    firstNameController.clear();
-    lastNameController.clear();
-    emailController.clear();
-    passwordController.clear();
-    confirmPasswordController.clear();
+    authService.registerUser(
+      email: emailController.text,
+      firstName: firstNameController.text,
+      lastName: lastNameController.text,
+      password: passwordController.text,
+    ).then((value) {
+      print("Nice. Credentilas are valid!!");
+      firstNameController.clear();
+      lastNameController.clear();
+      emailController.clear();
+      passwordController.clear();
+      confirmPasswordController.clear();
+      isLoading.value = false;
+    });
     return formKey2.currentState!.save();
   }
 
@@ -166,14 +179,21 @@ class AuthController extends getx.GetxController {
   }
 
   checkLoginCredentials() {
+    isLoading.value = true;
     final isValid = loginFormKey.currentState!.validate();
     if(!isValid) {
+      isLoading.value = false;
       return "Invalid Credentials";
     }
     print("Nice. Credentilas are valid!!");
-    Get.offAll(() => MainPage());
-    loginEmailController.clear();
-    loginPasswordController.clear();
+    authService.loginUser(
+      email: loginEmailController.text, 
+      password: loginPasswordController.text,
+    ).then((value) {
+      loginEmailController.clear();
+      loginPasswordController.clear();
+      isLoading.value = false;
+    });
     return loginFormKey.currentState!.save();
   }
 

@@ -16,6 +16,22 @@ class LocalStorage {
     return GetStorage().remove("token");
   }
 
+
+  /// use this to [saveUseremail] to local storage
+  static saveEmail(String userEmail) {
+    return GetStorage().write('email', userEmail);
+  }
+
+  /// use this to [getUseremail] from local storage
+  static getUseremail() {
+    return GetStorage().read('email');
+  }
+
+  /// use this to [deleteUseremail] from local storage
+  static deleteUseremail(String userEmail) {
+    return GetStorage().remove('email',);
+  }
+
   /// use this to [saveUsername] to local storage
   static saveUsername(String userName) {
     return GetStorage().write('name', userName);

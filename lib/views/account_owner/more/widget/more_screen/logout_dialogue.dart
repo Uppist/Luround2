@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -11,7 +12,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
+var controller = Get.put(AuthController());
 
 
 ///Alert Dialog
@@ -63,7 +64,9 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                   children: [
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          controller.logUserOutOfLuround();
+                        },
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,

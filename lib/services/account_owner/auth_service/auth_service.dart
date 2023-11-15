@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:luround/models/account_owner/auth/google_signin_response_model.dart';
 import 'package:luround/models/account_owner/auth/login_respone_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
@@ -45,6 +46,7 @@ class AuthService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         LocalStorage.saveEmail(email);
+        LocalStorage.saveUsername("$firstName $lastName");
         getx.Get.offAll(() => LoginPage());
       } else {
         isLoading.value = false;
@@ -111,7 +113,37 @@ class AuthService extends getx.GetxController {
 
   //to sign in / sign up a user with google
   Future<dynamic> signInWithGoogle() async {
+
     isLoading.value = true;
+
+    /*var body = {
+      "email": email,
+      "displayName": displayName,
+      "accountCreatedFrom": "REMOTE"
+    };*/
+
+    try {
+      http.Response res = await baseService.httpGetGoogle(endPoint: "google-auth",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        GoogleSigninResponse response = GoogleSigninResponse.fromJson(json.decode(res.body));
+        LocalStorage.saveToken(response.tokenData);
+        debugPrint("${LocalStorage.getToken()}");
+        LuroundSnackBar.successSnackBar(message: "Welcome back");
+        isLoading.value = false;
+        getx.Get.offAll(() => MainPage());
+      } else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+      }
+    } 
+    on HttpException {
+      isLoading.value = false;
+      baseService.handleError(const HttpException("Something went wrong"));
+      //debugPrint("$e");
+    }
+
   }
 
 

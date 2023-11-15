@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: AppColor.bgColor,
       body: Obx(
         () {
-          return authService.isLoading.value ? Loader() :SafeArea(
+          return authService.isLoading.value ? Loader() : SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -165,7 +165,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         SizedBox(height: 70.h,),
                         SignInWithGoogleWidget(
-                          onGoogleSignIn: () {},
+                          onGoogleSignIn: () {
+                            controller.signInWithGoogleAuth();
+                          },
                           onTextButton: () {
                             Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);
                             //Get.to(() => RegisterPage1());

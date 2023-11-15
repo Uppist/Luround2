@@ -137,6 +137,23 @@ class AuthController extends getx.GetxController {
     });
     return formKey2.currentState!.save();
   }
+  
+
+  //Google Sign in with Luround
+  signInWithGoogleAuth() {
+    authService.signInWithGoogle().then((value) {
+      print("google sign in complete");
+    });
+  }
+
+  //Log user out locally with Luround API
+  logUserOutOfLuround() {
+    authService.logoutUser().then((value) => {
+      print("user logged out")
+    });
+  }
+
+
 
 
 
@@ -263,13 +280,13 @@ class AuthController extends getx.GetxController {
   @override
   void onClose() {
     // TODO: implement dispose
-    firstNameController.dispose();
+    /*firstNameController.dispose();
     lastNameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     loginEmailController.dispose();
-    loginPasswordController.dispose();
+    loginPasswordController.dispose();*/
     fpEmailController.dispose();
     resetFpPasswordController.dispose();
     resetFpConfirmPasswordController.dispose();

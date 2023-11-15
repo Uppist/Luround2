@@ -1,4 +1,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--permissions-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"  />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"  />
+    <uses-permission android:name="android.permission.CAMERA"  />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"  />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"  />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!-- requires Bluetooth permissions in case users are using Bluetooth devices.-->
+    <uses-permission  android:name="android.permission.BLUETOOTH"  />
+    <!-- Optional, you'll have to check this permission by yourself. -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <application
         android:label="luround"
         android:name="${applicationName}"
@@ -30,4 +46,33 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
+    <!--Query for URL Launcher-->
+    <queries>
+      <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="sms"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="tel"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="https"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="file"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.VIEW"/>
+        <data android:scheme="mailto"/>
+      </intent>
+      <intent>
+        <action android:name="android.intent.action.SEND"/>
+        <data android:mimeType="*/*"/>
+      </intent>
+    </queries>
+
 </manifest>

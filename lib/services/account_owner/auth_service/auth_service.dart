@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/models/account_owner/auth/google_signin_response_model.dart';
 import 'package:luround/models/account_owner/auth/login_respone_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
@@ -11,6 +12,7 @@ import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
@@ -112,83 +114,69 @@ class AuthService extends getx.GetxController {
   }
 
 
-  //to sign in / sign up a user with google
-  Future<dynamic> signInWithGoogle() async {
+  /////////////////////////////////////////////////////
 
-    isLoading.value = true;
-
-    /*var body = {
-      "email": email,
-      "displayName": displayName,
-      "accountCreatedFrom": "REMOTE"
-    };*/
-
-    try {
-      http.Response res = await baseService.httpGetGoogle(endPoint: "google-auth",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        GoogleSigninResponse response = GoogleSigninResponse.fromJson(json.decode(res.body));
-        LocalStorage.saveToken(response.tokenData);
-        debugPrint("${LocalStorage.getToken()}");
-        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
-        isLoading.value = false;
-        getx.Get.offAll(() => MainPage());
-      } else {
-        isLoading.value = false;
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-      }
-    } 
-    on HttpException {
-      isLoading.value = false;
-      baseService.handleError(const HttpException("Something went wrong"));
-      //debugPrint("$e");
+  //functions for url_launcher (to launch user socials link)
+  Future<void> launchGoogleSignIn() async{
+    String link = "https://luround.onrender.com/google-auth";
+    Uri linkUri = Uri(
+      scheme: 'https',
+      path: link.replaceFirst("https://", "")
+    );
+    if(await launcher.canLaunchUrl(linkUri)) {
+      launcher.launchUrl(
+        linkUri,
+        mode: launcher.LaunchMode.inAppWebView
+      );
     }
-
+    else {
+      throw Exception('Can not launch uri: $linkUri');
+    }
   }
 
 
+  Future<void> fetchJwt() async {
+    final response = await http.get(Uri.parse("https://luround.onrender.comapi/v1/google/signIn"));
 
-  ////////////////////TEST/////////////////
-  Future<Map<String, dynamic>?> signInWithGoogleTest() async {
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (response.statusCode == 200) {
+      // Decode the JWT payload
+      Map<String, dynamic> jwtPayload = JwtDecoder.decode(response.body);
+      dynamic serverResponse = json.decode(response.body);
 
-  if (googleUser == null) {
-    // The user canceled the sign-in process
-    return null;
+      LocalStorage.saveToken(serverResponse['accessToken']);
+
+      // Access user credentials from the JWT payload
+      String email = jwtPayload['email'];
+      String displayName = jwtPayload['displayName'];
+      print(email);
+      print(displayName);
+    } 
+    else {
+      throw Exception('Failed to fetch JWT');
+    }
+  }
+  ////////////////////////////////////////////////////////////
+  
+  
+  
+  
+  
+  
+
+  Future<GoogleSignInAccount?> signInWithGoogleTest() async {
+    final _googleSignIn = GoogleSignIn(
+      //scopes: ['email'],
+      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
+    );
+    return _googleSignIn.signIn();
   }
 
-  final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-
-  // Exchange the Google Sign-In authentication code for an access token
-  final response = await http.post(
-    Uri.parse("https://oauth2.googleapis.com/token"),
-    body: {
-      'code': googleAuth.serverAuthCode,
-      'client_id': '702921706378-p1p9ubud1fbh319urre24j6coj2fb9fj.apps.googleusercontent.com',
-      'client_secret': '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',
-      //'redirect_uri': 'urn:ietf:wg:oauth:2.0:oob', // Use the appropriate redirect URI
-      'grant_type': 'authorization_code',
-    },
-  );
-
-  if (response.statusCode == 200) {
-    // Decode the access token
-    Map<String, dynamic> tokenInfo = json.decode(response.body);
-
-    // Access user credentials from the access token info
-    String accessToken = tokenInfo['access_token'];
-    String idToken = tokenInfo['id_token'];
-
-    // You can use the access token or id token as needed
-    print("toke : $accessToken");
-    return {'access_token': accessToken, 'id_token': idToken};
-  } else {
-    // Handle error
-    print('Failed to exchange code for access token. Status code: ${response.statusCode}');
-    return null;
+  Future<GoogleSignInAccount?> signOutWithGoogle() async {
+    final _googleSignIn = GoogleSignIn(
+      //scopes: ['email'],
+      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
+    );
+    return _googleSignIn.signOut();
   }
-}
-
 
 }

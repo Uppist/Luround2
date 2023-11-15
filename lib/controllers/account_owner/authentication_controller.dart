@@ -140,15 +140,23 @@ class AuthController extends getx.GetxController {
   
 
   //Google Sign in with Luround
-  signInWithGoogleAuth() {
-    authService.signInWithGoogleTest();
-    /*authService.signInWithGoogle().then((value) {
-      print("google sign in complete");
-    });*/
+  Future signInWithGoogleAuth() async{
+    var user =  await authService.signInWithGoogleTest();
+    
+    if(user != null) {
+      print(user!.displayName);
+      print(user.email);
+      return user;
+    }
+    print("GoogleSignIn failed");
+
+    /*var user = await authService.signOutWithGoogle();
+    print("logged out");
+    return user;*/
   }
 
   //Log user out locally with Luround API
-  logUserOutOfLuround() {
+  Future logUserOutOfLuround() async{
     authService.logoutUser().then((value) => {
       print("user logged out")
     });

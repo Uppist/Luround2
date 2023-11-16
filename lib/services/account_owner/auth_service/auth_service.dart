@@ -117,8 +117,51 @@ class AuthService extends getx.GetxController {
     return _googleSignIn.signOut();
   }
 
+  //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
+  Future<dynamic> fetchGoogleJwt({
+    required String email,
+    required String displayName,
+    required String photoUrl,
+    required String google_user_id,
+    }) async {
+    
+    isLoading.value = true;
+
+    var body = {
+      "email": email,
+      "displayName": displayName,
+      "photoUrl": photoUrl,
+      "google_user_id": google_user_id
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "google/signIn", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        GoogleSigninResponse response = GoogleSigninResponse.fromJson(jsonDecode(res.body));
+        LocalStorage.saveToken(response.tokenData);
+        LocalStorage.saveEmail(email);
+        LocalStorage.saveUsername(displayName);
+        debugPrint("${LocalStorage.getToken()}");
+        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
+        isLoading.value = false;
+        getx.Get.offAll(() => MainPage());
+      } else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+      }
+    } 
+    on HttpException {
+      isLoading.value = false;
+      baseService.handleError(const HttpException("Something went wrong"));
+      //debugPrint("$e");
+    }
+  }
+
+
   //RESET PASSWORD//
-  //to reset a user password by sending OTP
+  //to reset a user password by sending them an OTP
   Future<dynamic> sendResetPasswordOTP({
     required String email,
     }) async {
@@ -148,10 +191,7 @@ class AuthService extends getx.GetxController {
   }
 
 
-
-
-
-  //to log a user out locally and also with google
+  //to log a user out locally and simultaneously with google
   Future<dynamic> logoutUser() async {
     isLoading.value = true;
     LocalStorage.deleteToken();
@@ -163,50 +203,6 @@ class AuthService extends getx.GetxController {
     getx.Get.offAll(() => LoginPage());
   }
 
-
-  /////////////////////////////////////////////////////
-
-  //functions for url_launcher (to launch user socials link)
-  /*Future<void> launchGoogleSignIn() async{
-    String link = "https://luround.onrender.com/google-auth";
-    Uri linkUri = Uri(
-      scheme: 'https',
-      path: link.replaceFirst("https://", "")
-    );
-    if(await launcher.canLaunchUrl(linkUri)) {
-      launcher.launchUrl(
-        linkUri,
-        mode: launcher.LaunchMode.inAppWebView
-      );
-    }
-    else {
-      throw Exception('Can not launch uri: $linkUri');
-    }
-  }
-
-
-  Future<void> fetchJwt() async {
-    final response = await http.post(Uri.parse("https://luround.onrender.com/api/v1/google/signIn"));
-    print("res: $response");
-    print("statusCode: ${response.statusCode}");
-    if (response.statusCode == 200) {
-      // Decode the JWT payload
-      Map<String, dynamic> jwtPayload = JwtDecoder.decode(response.body);
-      dynamic serverResponse = json.decode(response.body);
-
-      LocalStorage.saveToken(serverResponse['accessToken']);
-
-      // Access user credentials from the JWT payload
-      String email = jwtPayload['email'];
-      String displayName = jwtPayload['displayName'];
-      print(email);
-      print(displayName);
-    } 
-    else {
-      throw Exception('Failed to fetch JWT');
-    }
-  }*/
-  ////////////////////////////////////////////////////////////
   
 
 }

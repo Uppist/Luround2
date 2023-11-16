@@ -142,22 +142,21 @@ class AuthController extends getx.GetxController {
   
 
   //Google Sign in with Luround
-  Future signInWithGoogleAuth() async{
+  Future<void> signInWithGoogleAuth() async{
     var user =  await authService.signInWithGoogleTest();
     try {
       if(user != null) {
         print(user.displayName);
         print(user.email);
-        //LocalStorage.saveToken();
-        LocalStorage.saveEmail(user.email);
-        debugPrint("${LocalStorage.getToken()}");
-        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
-        getx.Get.offAll(() => MainPage());
-        return user;
+        authService.fetchGoogleJwt(
+          email: user.email, 
+          displayName: user.displayName!, 
+          photoUrl: user.photoUrl!, 
+          google_user_id: user.id,
+        );
       }
       print("GoogleSignIn failed. User did not complete the process");
-      //authService.launchGoogleSignIn();
-      //authService.fetchJwt(); //.whenComplete(() => getx.Get.offAll(() => MainPage()));
+      LuroundSnackBar.errorSnackBar(message: "Authentication failed");
     }
     catch (e){
       throw Exception("$e");

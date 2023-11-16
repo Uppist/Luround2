@@ -10,6 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_expired.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/reset_password.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/textfields/fp_email_textfield.dart';
 
 
@@ -153,7 +154,10 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           SizedBox(width: 20.w,),
                           InkWell(
                             onTap: () {
-                              
+                              if(controller.otpController.text.isNum && controller.otpController.text.isNotEmpty) {
+                                Get.offUntil(GetPageRoute(page: () => ResetPasswordPage()), (route) => true);
+                              }
+                              print("OTP FIELD IS EMPTY OR ISN'T A DIGIT");
                             },
                             child: Container(
                               //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),

@@ -38,7 +38,6 @@ void main() async{
   print(token);
   // Initialize GoogleSignIn
   //final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']); // Initialize with the necessary scopes
-  //GoogleSignIn().signInSilently();
 
   runApp(const MainApp());
 }
@@ -57,20 +56,6 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
 
   var token = LocalStorage.getToken();
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']); // Initialize with the necessary scopes
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    void _initGoogleSignIn() async {
-      try {
-        await _googleSignIn.signInSilently();
-      } catch (error) {
-        print('Error initializing Google Sign-In: $error');
-      }
-    }
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -150,7 +150,9 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
                     SizedBox(height: 60.h,),
                     SignInWithGoogleWidget(
-                      onGoogleSignIn: () {},
+                      onGoogleSignIn: () {
+                        controller.signInWithGoogleAuth();
+                      },
                       onTextButton: () {
                         Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
                       },

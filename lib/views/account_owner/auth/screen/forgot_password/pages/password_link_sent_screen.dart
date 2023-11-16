@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +7,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_expired.dart';
 
 
 
@@ -27,6 +31,36 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
 
   //Dependency injection/Composition
   var controller = Get.put(AuthController());
+  late Timer _timer;
+  int _secondsRemaining = 59;
+
+  @override
+  void initState() {
+    super.initState();
+    startTimer();
+  }
+
+  void startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        if (_secondsRemaining > 1) {
+          _secondsRemaining--;
+        } 
+        else {
+          // Timer reached 0 seconds, navigate to password expired screen
+          timer.cancel(); // Stop the timer
+          //Get.offUntil(GetPageRoute(page: () => PasswordLinkExpiredPage()), (route) => false);
+          Get.to(() => PasswordLinkExpiredPage());
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel(); // Cancel the timer to avoid memory leaks
+    super.dispose();
+  }
 
 
   @override
@@ -91,16 +125,72 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                   ),
                 ],
               ),
+            ),
+
+            SizedBox(height: 30.h,),
+            //OTP TEXTFIELD WITH BUTTON
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Container(
+                height: 50.h, //80.h
+                width: double.infinity,
+                color: AppColor.bgColor,
+                alignment: Alignment.center,
+                //padding: EdgeInsets.symmetric(horizontal: 10.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: UtilsTextField(
+                        onChanged: (val) {},
+                        hintText: 'Enter your 6 digits OTP',
+                        keyboardType: TextInputType.number,
+                        textInputAction: TextInputAction.done,
+                        textController: controller.otpController,
+                      ),
+                    ),
+                    SizedBox(width: 20.w,),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {},
+                        child: Container(
+                          //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                          alignment: Alignment.center,
+                          height: 45.h,
+                          width: 100.w,  //double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColor.mainColor,
+                            borderRadius: BorderRadius.circular(10.r),
+                            /*border: Border.all(
+                              color: AppColor.mainColor,
+                              width: 2.0,
+                            )*/
+                          ),
+                          child: Text(
+                            "Submit",
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.bgColor,
+                                fontSize: 15.sp,
+                                //fontWeight: FontWeight.w500
+                              )
+                            )
+                          ),
+                        )
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),                     
-            //SizedBox(height: MediaQuery.of(context).size.height /1.55.h,),
-            SizedBox(height: 530.h,),
+            SizedBox(height: 420.h,),
 
             //BOTTOM SECTION
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  "Password reset link will expire in 0:59s",
+                  "Password reset link will expire in ${_secondsRemaining}s",
                   style: GoogleFonts.inter(
                     color: AppColor.redColor,
                     fontStyle: FontStyle.italic,

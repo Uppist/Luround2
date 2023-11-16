@@ -4,6 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
+import 'package:luround/services/account_owner/local_storage/local_storage.dart';
+import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_page.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
@@ -141,18 +143,25 @@ class AuthController extends getx.GetxController {
 
   //Google Sign in with Luround
   Future signInWithGoogleAuth() async{
-    /*var user =  await authService.signInWithGoogleTest();
-    if(user != null) {
-      print(user!.displayName);
-      print(user.email);
-      return user;
+    var user =  await authService.signInWithGoogleTest();
+    try {
+      if(user != null) {
+        print(user.displayName);
+        print(user.email);
+        //LocalStorage.saveToken();
+        LocalStorage.saveEmail(user.email);
+        debugPrint("${LocalStorage.getToken()}");
+        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
+        getx.Get.offAll(() => MainPage());
+        return user;
+      }
+      print("GoogleSignIn failed. User did not complete the process");
+      //authService.launchGoogleSignIn();
+      //authService.fetchJwt(); //.whenComplete(() => getx.Get.offAll(() => MainPage()));
     }
-    print("GoogleSignIn failed");*/
-    authService.launchGoogleSignIn()
-    .then((value) {
-      authService.fetchJwt();
-    });
-
+    catch (e){
+      throw Exception("$e");
+    }
   }
 
   //Log user out locally with Luround API
@@ -160,6 +169,12 @@ class AuthController extends getx.GetxController {
     authService.logoutUser().then((value) => {
       print("user logged out")
     });
+  }
+
+  //to send reset OTP to user 
+  Future sendResetOTP() async{
+    authService.sendResetPasswordOTP(email: fpEmailController.text)
+    .then((value) => fpEmailController.clear());
   }
 
 
@@ -218,6 +233,7 @@ class AuthController extends getx.GetxController {
 
   //FORGOT PASSWORD SECTION//
   final TextEditingController fpEmailController = TextEditingController();
+  final TextEditingController otpController = TextEditingController();
   var fpFormKey = GlobalKey<FormState>();
   var isfpButtonActivated = true;
 
@@ -287,7 +303,7 @@ class AuthController extends getx.GetxController {
 
 
   @override
-  void onClose() {
+  void  dispose() {
     // TODO: implement dispose
     /*firstNameController.dispose();
     lastNameController.dispose();
@@ -296,10 +312,11 @@ class AuthController extends getx.GetxController {
     confirmPasswordController.dispose();
     loginEmailController.dispose();
     loginPasswordController.dispose();*/
+    otpController.dispose();
     fpEmailController.dispose();
     resetFpPasswordController.dispose();
     resetFpConfirmPasswordController.dispose();
-    super.onClose();
+    super.dispose();
   }
 
 

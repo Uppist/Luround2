@@ -10,6 +10,7 @@ import 'package:luround/services/account_owner/base_service/base_service.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -63,7 +64,6 @@ class AuthService extends getx.GetxController {
     }
   }
 
-
   //to login user locally
   Future<dynamic> loginUser({
     required String email,
@@ -101,8 +101,57 @@ class AuthService extends getx.GetxController {
     }
   }
 
+  Future<GoogleSignInAccount?> signInWithGoogleTest() async {
+    final _googleSignIn = GoogleSignIn(
+      //scopes: ['email'],
+      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
+    );
+    return _googleSignIn.signIn();
+  }
 
-  //to log a user out locally
+  Future<GoogleSignInAccount?> signOutWithGoogle() async {
+    final _googleSignIn = GoogleSignIn(
+      //scopes: ['email'],
+      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
+    );
+    return _googleSignIn.signOut();
+  }
+
+  //RESET PASSWORD//
+  //to reset a user password by sending OTP
+  Future<dynamic> sendResetPasswordOTP({
+    required String email,
+    }) async {
+    
+    isLoading.value = true;
+
+    var body = {
+      "email": email,
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "send-reset-password-otp", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        getx.Get.off(() => PasswordLinkSentPage());
+      } else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+      }
+    } 
+    on HttpException {
+      isLoading.value = false;
+      baseService.handleError(const HttpException("Something went wrong"));
+      //debugPrint("$e");
+    }
+  }
+
+
+
+
+
+  //to log a user out locally and also with google
   Future<dynamic> logoutUser() async {
     isLoading.value = true;
     LocalStorage.deleteToken();
@@ -110,15 +159,15 @@ class AuthService extends getx.GetxController {
     LocalStorage.deleteUseremail();
     LocalStorage.deleteUsername();
     signOutWithGoogle();
-    getx.Get.offAll(() => LoginPage())!.then((value) {isLoading.value = false;});
-    //isLoading.value = false;
+    isLoading.value = false;
+    getx.Get.offAll(() => LoginPage());
   }
 
 
   /////////////////////////////////////////////////////
 
   //functions for url_launcher (to launch user socials link)
-  Future<void> launchGoogleSignIn() async{
+  /*Future<void> launchGoogleSignIn() async{
     String link = "https://luround.onrender.com/google-auth";
     Uri linkUri = Uri(
       scheme: 'https',
@@ -137,8 +186,9 @@ class AuthService extends getx.GetxController {
 
 
   Future<void> fetchJwt() async {
-    final response = await http.get(Uri.parse("https://luround.onrender.comapi/v1/google/signIn"));
-
+    final response = await http.post(Uri.parse("https://luround.onrender.com/api/v1/google/signIn"));
+    print("res: $response");
+    print("statusCode: ${response.statusCode}");
     if (response.statusCode == 200) {
       // Decode the JWT payload
       Map<String, dynamic> jwtPayload = JwtDecoder.decode(response.body);
@@ -155,29 +205,8 @@ class AuthService extends getx.GetxController {
     else {
       throw Exception('Failed to fetch JWT');
     }
-  }
+  }*/
   ////////////////////////////////////////////////////////////
   
-  
-  
-  
-  
-  
-
-  Future<GoogleSignInAccount?> signInWithGoogleTest() async {
-    final _googleSignIn = GoogleSignIn(
-      //scopes: ['email'],
-      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
-    );
-    return _googleSignIn.signIn();
-  }
-
-  Future<GoogleSignInAccount?> signOutWithGoogle() async {
-    final _googleSignIn = GoogleSignIn(
-      //scopes: ['email'],
-      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
-    );
-    return _googleSignIn.signOut();
-  }
 
 }

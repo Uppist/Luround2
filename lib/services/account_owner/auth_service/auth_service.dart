@@ -134,7 +134,7 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        getx.Get.off(() => PasswordLinkSentPage());
+        getx.Get.to(() => PasswordLinkSentPage());
       } else {
         isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');

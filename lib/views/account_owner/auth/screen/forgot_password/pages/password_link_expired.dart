@@ -7,6 +7,7 @@ import 'package:luround/controllers/account_owner/authentication_controller.dart
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
+import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
 
 
 
@@ -103,7 +104,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                 color: AppColor.mainColor, 
                 text: "Resend Email",
                 onPressed: () {
-                  Get.off(() => ForgotPasswordPage());
+                  Get.offAll(() => LoginPage());
                 },
               ),
             ),

@@ -10,6 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_expired.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/textfields/fp_email_textfield.dart';
 
 
 
@@ -49,7 +50,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
         else {
           // Timer reached 0 seconds, navigate to password expired screen
           timer.cancel(); // Stop the timer
-          //Get.offUntil(GetPageRoute(page: () => PasswordLinkExpiredPage()), (route) => false);
+          //Get.offUntil(GetPageRoute(page: () => PasswordLinkExpiredPage()), (route) => true);
           Get.to(() => PasswordLinkExpiredPage());
         }
       });
@@ -101,89 +102,94 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
             ),
             SizedBox(height: 30.h,),
             //BODY SECTION//
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Forgot Password ?",
-                    style: GoogleFonts.inter(
-                      fontSize: 21.sp,
-                      fontWeight: FontWeight.bold,
-                      color: AppColor.blackColor
-                    ),
-                  ),
-                  SizedBox(height: 20,),
-                  Text(
-                    "You will receive an email with a link to reset your password. Please check your inbox.",
-                    style: GoogleFonts.inter(
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.darkGreyColor
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 30.h,),
-            //OTP TEXTFIELD WITH BUTTON
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Container(
-                height: 50.h, //80.h
-                width: double.infinity,
-                color: AppColor.bgColor,
-                alignment: Alignment.center,
-                //padding: EdgeInsets.symmetric(horizontal: 10.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            Expanded(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: UtilsTextField(
-                        onChanged: (val) {},
-                        hintText: 'Enter your 6 digits OTP',
-                        keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.done,
-                        textController: controller.otpController,
+                    Text(
+                      "Forgot Password ?",
+                      style: GoogleFonts.inter(
+                        fontSize: 21.sp,
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.blackColor
                       ),
                     ),
-                    SizedBox(width: 20.w,),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                          alignment: Alignment.center,
-                          height: 45.h,
-                          width: 100.w,  //double.infinity,
-                          decoration: BoxDecoration(
-                            color: AppColor.mainColor,
-                            borderRadius: BorderRadius.circular(10.r),
-                            /*border: Border.all(
-                              color: AppColor.mainColor,
-                              width: 2.0,
-                            )*/
-                          ),
-                          child: Text(
-                            "Submit",
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.bgColor,
-                                fontSize: 15.sp,
-                                //fontWeight: FontWeight.w500
-                              )
-                            )
-                          ),
-                        )
+                    SizedBox(height: 20,),
+                    Text(
+                      "You will receive an email with an OTP to reset your password. Please check your inbox.",
+                      style: GoogleFonts.inter(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.darkGreyColor
                       ),
-                    )
+                    ),
+                    SizedBox(height: 30.h,),
+                    //OTP TEXTFIELD WITH BUTTON
+                    Container(
+                      //height: 50.h, //80.h
+                      //width: double.infinity,
+                      //padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      color: AppColor.bgColor,
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: FpEmailTextField(
+                              validator: (val) {
+                                return "HI";
+                              },
+                              onChanged: (val) {},
+                              labelText: 'Enter six digits OTP here',
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                              textController: controller.otpController,
+                            ),
+                          ),
+                          SizedBox(width: 20.w,),
+                          InkWell(
+                            onTap: () {
+                              
+                            },
+                            child: Container(
+                              //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              alignment: Alignment.center,
+                              height: 45.h,
+                              width: 100.w,  //double.infinity,
+                              decoration: BoxDecoration(
+                                color: AppColor.mainColor,
+                                borderRadius: BorderRadius.circular(10.r),
+                                /*border: Border.all(
+                                  color: AppColor.mainColor,
+                                  width: 2.0,
+                                )*/
+                              ),
+                              child: Text(
+                                "Submit",
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    color: AppColor.bgColor,
+                                    fontSize: 16.sp,
+                                    //fontWeight: FontWeight.w500
+                                  )
+                                )
+                              ),
+                            )
+                          )
+                        ],
+                      ),
+                    ), 
                   ],
                 ),
               ),
-            ),                     
-            SizedBox(height: 420.h,),
+            ),
+
+                                
+            SizedBox(height: 450.h,),
 
             //BOTTOM SECTION
             Column(

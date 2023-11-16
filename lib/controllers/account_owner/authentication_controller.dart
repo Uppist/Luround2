@@ -173,8 +173,13 @@ class AuthController extends getx.GetxController {
 
   //to send reset OTP to user 
   Future sendResetOTP() async{
-    authService.sendResetPasswordOTP(email: fpEmailController.text)
-    .then((value) => fpEmailController.clear());
+    final isValid = fpFormKey.currentState!.validate();
+    if(!isValid) {
+      return "Invalid Credentials";
+    }
+    authService.sendResetPasswordOTP(email: fpEmailController.text);
+    return loginFormKey.currentState!.save();
+    ////////
   }
 
 

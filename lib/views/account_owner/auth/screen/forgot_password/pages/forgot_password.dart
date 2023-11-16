@@ -148,8 +148,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     text: "Next",
                     onPressed: controller.isfpButtonActivated  
                     ? () {
-                      //controller.sendResetOTP();
-                      Get.to(() => PasswordLinkSentPage());
+                      controller.sendResetOTP();
                     }
                     : () {
                       print('nothing for you chief!!');

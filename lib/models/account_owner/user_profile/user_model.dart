@@ -18,8 +18,8 @@ class UserModel {
   late final String accountCreatedFrom;
   late final String occupation;
   late final String about;
-  late final dynamic certificates;
-  late final dynamic media_links;
+  late final List<dynamic> certificates;
+  late final List<dynamic> media_links;
   
   UserModel.fromJson(Map<String, dynamic> json){
     id = json['_id'];

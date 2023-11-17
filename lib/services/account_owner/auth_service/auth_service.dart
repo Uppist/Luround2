@@ -140,8 +140,8 @@ class AuthService extends getx.GetxController {
   //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
   Future<dynamic> fetchGoogleJwt({
     required String email,
-    required String displayName,
-    required String photoUrl,
+    required String? displayName,
+    required String? photoUrl,
     required String google_user_id,
     }) async {
 
@@ -159,7 +159,7 @@ class AuthService extends getx.GetxController {
         GoogleSigninResponse response = GoogleSigninResponse.fromJson(jsonDecode(res.body));
         LocalStorage.saveToken(response.tokenData);
         LocalStorage.saveEmail(email);
-        LocalStorage.saveUsername(displayName);
+        LocalStorage.saveUsername(displayName!);
         debugPrint("${LocalStorage.getToken()}");
         LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         getx.Get.offAll(() => MainPage());

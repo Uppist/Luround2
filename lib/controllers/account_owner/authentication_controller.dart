@@ -141,7 +141,7 @@ class AuthController extends getx.GetxController {
   
 
   //Google Sign in with Luround
-  Future<void> signInWithGoogleAuth() async{
+  Future<dynamic> signInWithGoogleAuth() async{
     var user =  await authService.signInWithGoogleTest();
     try {
       if(user != null) {
@@ -149,13 +149,15 @@ class AuthController extends getx.GetxController {
         print(user.email);
         authService.fetchGoogleJwt(
           email: user.email, 
-          displayName: user.displayName!, 
-          photoUrl: user.photoUrl!, 
+          displayName: user.displayName, 
+          photoUrl: user.photoUrl, 
           google_user_id: user.id,
         );
       }
-      print("GoogleSignIn failed. User did not complete the process");
-      LuroundSnackBar.errorSnackBar(message: "Authentication failed");
+      else {
+        print("GoogleSignIn failed. User did not complete the process");
+        LuroundSnackBar.errorSnackBar(message: "Authentication failed");
+      }
     }
     catch (e){
       throw Exception("$e");

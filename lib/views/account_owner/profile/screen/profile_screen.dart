@@ -3,7 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/models/account_owner/user_profile/user_model.dart';
+import 'package:luround/services/account_owner/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_education_page.dart';
@@ -25,10 +29,15 @@ import '../widget/reviews/reviews_screen.dart';
 
 
 
+
+
 class ProfilePage extends StatelessWidget {
   ProfilePage({super.key});
 
   var controller = Get.put(ProfilePageController());
+  var userProfileService = Get.put(UserProfileService());
+  var userEmail = LocalStorage.getUseremail();
+  var userName = LocalStorage.getUsername();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             /////////////////////////////Header Section/////////////////////
-            //SizedBox(height: 10),
+            //HEADER SECTION///
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: Row(
@@ -66,7 +75,6 @@ class ProfilePage extends StatelessWidget {
                 ]
               ),         
             ),
-            //Wrap with Future builder
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -135,10 +143,9 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 30.h,),
-                          //OWNER'S NAME
                           Center(
                             child: Text(
-                              'Ronald Richard',
+                              '$userName',
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
@@ -149,94 +156,136 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 10.h,),
-                          //OWNER'S OCCUPATION
-                          Center(
-                            child: Text(
-                              'Professional Specialist',
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.blackColor,
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.w500
-                                )
-                              )
-                            ),
-                          ),
-                          //SizedBox(height: 5,),
-                          //OWNER'S LINK
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              TextButton(
-                                onPressed: () {},
-                                child: Text('https://www.mylink.com',
-                                  style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                      color: AppColor.blueColor,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w500
-                                    )
-                                  )
-                                )
-                              ),
-                              SizedBox(width: 4.w,),
-                              InkWell(
-                                onTap: () {},
-                                child: SvgPicture.asset('assets/svg/copy_link.svg')
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.h),
-            
-                          /////////////////////////////
-                          //STRUCTURED WIDGETS COMES IN
-                          //ProfileEmptyState(onPressed: () {},)
-                          AboutSection(
-                            onPressed: () {
-                              Get.to(() => EditAboutPage());
-                            },
-                            text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
-                          ),
-                          SizedBox(height: 30.h),
+
                           
-                          EducationAndCertificationSection(
-                            itemCount: 2,
-                            onPressedEdit: () {
-                              Get.to(() => EditEducationPage());
-                            },
-            
-                            onPressedShowCertificte: () {},
-                            certificateTitle: 'Certified Professional Specialist',
-                            institution: 'London Business School',
-                            issuedDate: 'Issued Oct 2023',
-                            credentialID: 'CREDENTIAL ID: 7380030',
+                          //Wrap with Future builder
+      ///////////////////////////////////////////////////////////////////////////////////
+                          //OWNER'S NAME
+                          FutureBuilder<UserModel>(
+                            future: userProfileService.getUserProfileDetails(email: userEmail),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Loader();
+                              } 
+
+                              if (!snapshot.hasData) {
+                                return ProfileEmptyState(
+                                  onPressed: () {},
+                                );
+                              }
+
+                              if (snapshot.hasError) {
+                                return SafeArea(
+                                  child: Center(
+                                    child: Text(
+                                      'Error: ${snapshot.error}',
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.textGreyColor,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500
+                                      )
+                                    )
+                                  ),
+                                );
+                              }
+
+                              var data = snapshot.data!;
+
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  //OWNER'S OCCUPATION
+                                  Center(
+                                    child: Text(
+                                      'Professional Specialist',
+                                      style: GoogleFonts.inter(
+                                        textStyle: TextStyle(
+                                          color: AppColor.blackColor,
+                                          fontSize: 17.sp,
+                                          fontWeight: FontWeight.w500
+                                        )
+                                      )
+                                    ),
+                                  ),
+                                  //SizedBox(height: 5,),
+                                  //OWNER'S LINK
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          'https://www.mylink.com',
+                                          style: GoogleFonts.inter(
+                                            textStyle: TextStyle(
+                                              color: AppColor.blueColor,
+                                             fontSize: 15.sp,
+                                             fontWeight: FontWeight.w500
+                                            )
+                                          )
+                                        )
+                                      ),
+                                      SizedBox(width: 4.w,),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: SvgPicture.asset('assets/svg/copy_link.svg')
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 30.h),
+                                      
+                                  /////////////////////////////
+                                  //STRUCTURED WIDGETS COMES IN
+                                  AboutSection(
+                                    onPressed: () {
+                                      Get.to(() => EditAboutPage());
+                                    },
+                                    text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
+                                  ),
+                                  SizedBox(height: 30.h),
+                              
+                                  EducationAndCertificationSection(
+                                    itemCount: 2,
+                                    onPressedEdit: () {
+                                      Get.to(() => EditEducationPage());
+                                    },      
+                                    onPressedShowCertificte: () {},
+                                    certificateTitle: 'Certified Professional Specialist',
+                                    institution: 'London Business School',
+                                    issuedDate: 'Issued Oct 2023',
+                                    credentialID: 'CREDENTIAL ID: 7380030',
+                                  ),
+                                  SizedBox(height: 30.h),
+                                  OtherDetailsSection(
+                                    itemCount: controller.subtitleText.length,
+                                    onPressedEdit: () {
+                                      Get.to(() => EditOthersPage());
+                                    },
+                                    profileController: controller,
+                                  ),
+                                  SizedBox(height: 50.h),
+                                  AddSectionButton(
+                                    onPressed: () {
+                                      Get.to(() => AddSectionPage());
+                                    },
+                                  ),
+                                ],
+                              );
+                            }
                           ),
-                          SizedBox(height: 30.h),
-                          OtherDetailsSection(
-                            itemCount: controller.subtitleText.length,
-                            onPressedEdit: () {
-                              Get.to(() => EditOthersPage());
-                            },
-                            profileController: controller,
-                          ),
-                          SizedBox(height: 50.h),
-                          AddSectionButton(
-                            onPressed: () {
-                              Get.to(() => AddSectionPage());
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 30.h),
-                    /////////////////////////////////////
+                        ]
+                      )  
+                    )
                   ]
-                )
-              ),
-            ),
-          ],
-        ),
+                )                                        
+              )
+              /////////////////////////////////////                       
+            )        
+          ]
+        )
       ),
+    
+      
       floatingActionButton: FloatingActionButton.extended(
         extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         foregroundColor: AppColor.redColor,

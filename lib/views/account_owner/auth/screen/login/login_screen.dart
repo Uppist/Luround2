@@ -175,6 +175,21 @@ class _LoginPageState extends State<LoginPage> {
                           firstText: "Don't have an account ?",
                           lastText: "Create account",
                         ),
+                        SizedBox(height: 95.h,),
+                        RebrandedReusableButton(
+                          textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
+                          color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
+                          text: "Login",
+                          onPressed: controller.isLoginPageButtonEnabled  
+                          ? () {
+                            controller.checkLoginCredentials();
+                          }
+                          : () {
+                            print('nothing for you chief!!');
+                          },
+                        ),
+                        SizedBox(height: 20.h,),
+                
 
                       ],
                     ),
@@ -182,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 //SizedBox(height: 90.h,),
               
-                Padding(
+                /*Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                   child: RebrandedReusableButton(
                     textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -196,8 +211,8 @@ class _LoginPageState extends State<LoginPage> {
                       print('nothing for you chief!!');
                     },
                   ),
-                ),
-                SizedBox(height: 20.h,),
+                ),*/
+                //SizedBox(height: 20.h,),
               ]
             )
           );

@@ -223,6 +223,20 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           firstText: "Already have an account ?",
                           lastText: "Login",
                         ),
+                        SizedBox(height: 80.h,),
+                        RebrandedReusableButton(
+                          textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
+                          color: controller.isSecondPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
+                          text: "Create account",
+                          onPressed: controller.isSecondPageButtonEnabled  
+                          ? () {
+                            controller.checkSecondPageCredentials();
+                          }
+                          : () {
+                            print('nothing for you chief!!');
+                          },
+                        ),
+                        SizedBox(height: 20.h,),
 
                       ],
                     ),
@@ -230,7 +244,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                 ),
                 
                 //NEXT BUTTON HERE       
-                Padding(
+                /*Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: RebrandedReusableButton(
                     textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -244,8 +258,8 @@ class _RegisterPage2State extends State<RegisterPage2> {
                       print('nothing for you chief!!');
                     },
                   ),
-                ),
-                SizedBox(height: 20.h,),
+                ),*/
+                //SizedBox(height: 20.h,),
               ]
             )
           );

@@ -64,7 +64,7 @@ class _MainAppState extends State<MainApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Luround',
-        home: token == null ? SplashScreen1() : SplashScreenXtra(), //MainPageAccViewer(), //MainPage(), //SplashScreen1()
+        home: token == null ? SplashScreen1() : SplashScreenXtra(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'), // English Locale
         ]

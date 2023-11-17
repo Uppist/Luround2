@@ -30,7 +30,7 @@ class AuthController extends getx.GetxController {
     const SecondPage(),
     const ThirdPage(),
   ];
-  var isNavbarColorChanged = false;
+  //var isNavbarColorChanged = false;
 
 
   //REGISTRATION SECTION//
@@ -39,7 +39,6 @@ class AuthController extends getx.GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
-
   final registerEmailRegex = RegExp(
     r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'
   );
@@ -93,7 +92,7 @@ class AuthController extends getx.GetxController {
       return "Password is required";
     }
     if (GetUtils.isLengthLessThan(passwordController.text.trim(), 6)) {
-      return "Password must be of 6 characters or more";
+      return "Password must be 6 characters or more";
     } 
     print("nice one my geee!!!");
     return null;
@@ -163,7 +162,7 @@ class AuthController extends getx.GetxController {
     }
   }
 
-  //Log user out locally with Luround API
+  //log user out locally with Luround API
   Future logUserOutOfLuround() async{
     authService.logoutUser().then((value) => {
       print("user logged out")
@@ -177,8 +176,21 @@ class AuthController extends getx.GetxController {
       return "Invalid Credentials";
     }
     authService.sendResetPasswordOTP(email: fpEmailController.text);
-    return loginFormKey.currentState!.save();
-    ////////
+    return fpFormKey.currentState!.save();
+  }
+
+  //to send reset OTP to user 
+  Future resetUserPassword() async{
+    final isValid = resetFpFormKey.currentState!.validate();
+    if(!isValid) {
+      return "Invalid Credentials";
+    }
+    authService.resetPassword(
+      email: fpEmailController.text, 
+      new_password: resetFpPasswordController.text, 
+      otp: otpController.text
+    );
+    return resetFpFormKey.currentState!.save();
   }
 
 
@@ -213,7 +225,7 @@ class AuthController extends getx.GetxController {
 
   String? validateLoginPassword() {
     if (GetUtils.isLengthLessThan(loginPasswordController.text.trim(), 6)) {
-      return "Password must be of 6 characters or more";
+      return "Password must be 6 characters or more";
     } 
     print("nice one my geee!!!");
     return null;
@@ -265,7 +277,7 @@ class AuthController extends getx.GetxController {
       return "Password is required";
     }
     if (GetUtils.isLengthLessThan(resetFpPasswordController.text.trim(), 6)) {
-      return "Password must be of 6 characters or more";
+      return "Password must be 6 characters or more";
     } 
     print("nice one my geee!!!");
     return null;

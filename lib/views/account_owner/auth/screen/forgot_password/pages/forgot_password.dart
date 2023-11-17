@@ -133,6 +133,21 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             ],
                           ),
                         ),
+                        //SizedBox(height: 480.h,),
+                        SizedBox(height: MediaQuery.of(context).size.height /1.95.h,),
+                        RebrandedReusableButton(
+                          textColor: controller.isfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,
+                          color: controller.isfpButtonActivated ? AppColor.mainColor : AppColor.lightPurple, 
+                          text: "Next",
+                          onPressed: controller.isfpButtonActivated  
+                          ? () {
+                            controller.sendResetOTP();
+                          }
+                          : () {
+                            print('nothing for you chief!!');
+                          },
+                        ),
+                        SizedBox(height: 20.h,)
 
                       ],
                     ),
@@ -140,7 +155,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
                 //SizedBox(height: MediaQuery.of(context).size.height /1.75,),
               
-                Padding(
+                /*Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: RebrandedReusableButton(
                     textColor: controller.isfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -155,7 +170,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 20.h,),*/
               ]
             )
           );

@@ -159,12 +159,27 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       firstText: "Already have an account ?",
                       lastText: "Login",
                     ),
+                    SizedBox(height: 65.h),
+                    RebrandedReusableButton(
+                      textColor: controller.isFirstPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
+                      color: controller.isFirstPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
+                      text: "Next",
+                      onPressed: controller.isFirstPageButtonEnabled  
+                      ? () {
+                        controller.checkFirstPageCredentials();
+                        print("done");
+                      }
+                      : () {
+                        print('nothing for you chief!!');
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
                   ],
                 ),
               )
             ),
 
-            Padding(
+            /*Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: RebrandedReusableButton(
                 textColor: controller.isFirstPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -180,7 +195,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                 },
               ),
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(height: 20.h,),*/
           ]
         )
       )

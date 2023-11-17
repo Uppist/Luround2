@@ -11,6 +11,7 @@ import 'package:luround/services/account_owner/local_storage/local_storage.dart'
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
+import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -23,8 +24,10 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 
 class AuthService extends getx.GetxController {
 
+
   var baseService = getx.Get.put(BaseService());
   var isLoading = false.obs;
+
 
   //to register user locally
   Future<dynamic> registerUser({
@@ -64,6 +67,7 @@ class AuthService extends getx.GetxController {
     }
   }
 
+
   //to login user locally
   Future<dynamic> loginUser({
     required String email,
@@ -101,6 +105,21 @@ class AuthService extends getx.GetxController {
     }
   }
 
+
+  //to log a user out locally and simultaneously with google
+  Future<dynamic> logoutUser() async {
+    isLoading.value = true;
+    LocalStorage.deleteToken();
+    LocalStorage.deleteUserID();
+    LocalStorage.deleteUseremail();
+    LocalStorage.deleteUsername();
+    signOutWithGoogle();
+    isLoading.value = false;
+    getx.Get.offAll(() => LoginPage());
+  }
+
+
+  //SignUp/SignIn with Google
   Future<GoogleSignInAccount?> signInWithGoogleTest() async {
     final _googleSignIn = GoogleSignIn(
       //scopes: ['email'],
@@ -117,6 +136,7 @@ class AuthService extends getx.GetxController {
     return _googleSignIn.signOut();
   }
 
+
   //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
   Future<dynamic> fetchGoogleJwt({
     required String email,
@@ -124,8 +144,6 @@ class AuthService extends getx.GetxController {
     required String photoUrl,
     required String google_user_id,
     }) async {
-    
-    isLoading.value = true;
 
     var body = {
       "email": email,
@@ -135,9 +153,8 @@ class AuthService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "google/signIn", body: body);
+      http.Response res = await baseService.httpGooglePost(endPoint: "google/signIn", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         GoogleSigninResponse response = GoogleSigninResponse.fromJson(jsonDecode(res.body));
         LocalStorage.saveToken(response.tokenData);
@@ -145,15 +162,13 @@ class AuthService extends getx.GetxController {
         LocalStorage.saveUsername(displayName);
         debugPrint("${LocalStorage.getToken()}");
         LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
-        isLoading.value = false;
         getx.Get.offAll(() => MainPage());
-      } else {
-        isLoading.value = false;
+      } 
+      else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
       }
     } 
     on HttpException {
-      isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
       //debugPrint("$e");
     }
@@ -190,18 +205,40 @@ class AuthService extends getx.GetxController {
     }
   }
 
-
-  //to log a user out locally and simultaneously with google
-  Future<dynamic> logoutUser() async {
+  //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
+  Future<dynamic> resetPassword({
+    required String email,
+    required String new_password,
+    required String otp,
+    }) async {
+    
     isLoading.value = true;
-    LocalStorage.deleteToken();
-    LocalStorage.deleteUserID();
-    LocalStorage.deleteUseremail();
-    LocalStorage.deleteUsername();
-    signOutWithGoogle();
-    isLoading.value = false;
-    getx.Get.offAll(() => LoginPage());
+
+    var body = {
+      "email": email,
+      "new_password": new_password,
+      "otp": otp,
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "reset-password", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        isLoading.value = false;
+        getx.Get.offAll(() => PasswordUpdatedPage());
+      } else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+      }
+    } 
+    on HttpException {
+      isLoading.value = false;
+      baseService.handleError(const HttpException("Something went wrong"));
+      //debugPrint("$e");
+    }
   }
+
 
   
 

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -155,7 +154,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           InkWell(
                             onTap: () {
                               if(controller.otpController.text.isNum && controller.otpController.text.isNotEmpty) {
-                                Get.offUntil(GetPageRoute(page: () => ResetPasswordPage()), (route) => true);
+                                Get.offUntil(GetPageRoute(page: () => ResetPasswordPage()), (route) => false);
                               }
                               print("OTP FIELD IS EMPTY OR ISN'T A DIGIT");
                             },

@@ -66,7 +66,7 @@ class ProfilePage extends StatelessWidget {
                 ]
               ),         
             ),
-            //
+            //Wrap with Future builder
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),

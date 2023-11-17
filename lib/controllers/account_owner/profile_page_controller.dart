@@ -164,6 +164,10 @@ class ProfilePageController extends getx.GetxController {
   //////////////////////////////////////////////////
   
 
+  /////[GET USER PROFILE DETAILS]//////
+  Future<void> getUserProfileDetails() async{}
+  
+
   //dispose function from getX
   @override
   void dispose() {

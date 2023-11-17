@@ -222,7 +222,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                             Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
                           },
                           firstText: "Already have an account ?",
-                          lastText: "Login",
+                          lastText: "Log in",
                         ),
                         SizedBox(height: 70.h,),
                         RebrandedReusableButton(

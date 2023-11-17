@@ -52,7 +52,7 @@ class PasswordUpdatedPage extends StatelessWidget {
               RebrandedReusableButton(
                 textColor: AppColor.bgColor,
                 color: AppColor.mainColor, 
-                text: "Login",
+                text: "Log in",
                 onPressed: (){
                   Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
                 },

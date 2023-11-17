@@ -95,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Log into account",
+                          "Log in to account",
                           style: GoogleFonts.inter(
                             fontSize: 21.sp,
                             fontWeight: FontWeight.bold,
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                         RebrandedReusableButton(
                           textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                           color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
-                          text: "Login",
+                          text: "Log in",
                           onPressed: controller.isLoginPageButtonEnabled  
                           ? () {
                             controller.checkLoginCredentials();

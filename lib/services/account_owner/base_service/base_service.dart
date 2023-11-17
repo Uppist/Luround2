@@ -56,7 +56,7 @@ class BaseService extends getX.GetxController {
   }
 
   //function that sends a POST request (on a soft)
-  Future<dynamic> httpPost({required String endPoint, required Map<String, dynamic> body}) async {
+  Future<dynamic> httpPost({required String endPoint, required dynamic body}) async {
     //var token = await LocalStorage.getToken();
     var res = http.post(
       Uri.parse("$baseUrl$endPoint"),

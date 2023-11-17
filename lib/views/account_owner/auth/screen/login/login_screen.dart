@@ -175,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                           firstText: "Don't have an account ?",
                           lastText: "Create account",
                         ),
-                        SizedBox(height: 95.h,),
+                        SizedBox(height: 80.h,),
                         RebrandedReusableButton(
                           textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                           color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 

@@ -188,7 +188,7 @@ class AuthController extends getx.GetxController {
     authService.resetPassword(
       email: fpEmailController.text, 
       new_password: resetFpPasswordController.text, 
-      otp: otpController.text
+      otp: int.parse(otpController.text),
     );
     return resetFpFormKey.currentState!.save();
   }

@@ -209,7 +209,7 @@ class AuthService extends getx.GetxController {
   Future<dynamic> resetPassword({
     required String email,
     required String new_password,
-    required String otp,
+    required int otp,
     }) async {
     
     isLoading.value = true;

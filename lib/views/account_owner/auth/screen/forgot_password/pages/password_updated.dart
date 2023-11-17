@@ -45,8 +45,8 @@ class PasswordUpdatedPage extends StatelessWidget {
                 )
               ),
 
-              SizedBox(height: MediaQuery.of(context).size.height /3.1.h,),
-              //SizedBox(height: 320.h,),
+              //SizedBox(height: MediaQuery.of(context).size.height /3.1.h,),
+              SizedBox(height: 320.h,),
               //
               RebrandedReusableButton(
                 textColor: AppColor.bgColor,

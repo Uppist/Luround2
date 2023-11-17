@@ -93,7 +93,8 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
+                      SizedBox(width: 90.w,),
+                      //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -185,57 +186,54 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           )
                         ],
                       ),
-                    ), 
+                    ),
+                    //SizedBox(height: 30.h,),
+
+                    SizedBox(height: 400.h,),
+
+                    //BOTTOM SECTION
+                    Center(
+                      child: Text(
+                        "Password reset link will expire in ${_secondsRemaining}s",
+                        style: GoogleFonts.inter(
+                          color: AppColor.redColor,
+                          fontStyle: FontStyle.italic,
+                          fontSize: 15.sp
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Didn't receive an email?",
+                          style: GoogleFonts.inter(
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500,
+                            color: AppColor.textGreyColor
+                          ),
+                        ),
+                        //SizedBox(width: 5,),
+                        TextButton(
+                          onPressed: () {
+                            Get.back();
+                          },             
+                          child: Text(
+                            "Resend email",
+                            style: GoogleFonts.inter(
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500,
+                              color: AppColor.mainColor
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10.h,),
                   ],
                 ),
               ),
             ),
-
-                                
-            SizedBox(height: 450.h,),
-
-            //BOTTOM SECTION
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "Password reset link will expire in ${_secondsRemaining}s",
-                  style: GoogleFonts.inter(
-                    color: AppColor.redColor,
-                    fontStyle: FontStyle.italic,
-                    fontSize: 15.sp
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Didn't receive an email?",
-                      style: GoogleFonts.inter(
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.textGreyColor
-                      ),
-                    ),
-                    //SizedBox(width: 5,),
-                    TextButton(
-                      onPressed: () {
-                        Get.back();
-                      },             
-                      child: Text(
-                        "Resend email",
-                        style: GoogleFonts.inter(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.mainColor
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(height: 10.h,),
 
           ]
         )

@@ -60,7 +60,8 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
+                      SizedBox(width: 90.w,),
+                      //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]
                   ),
@@ -94,9 +95,9 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                 ],
               ),
             ),                     
-            //SizedBox(height: MediaQuery.of(context).size.height /1.5.h,),
             
-            SizedBox(height: MediaQuery.of(context).size.height / 1.63.h,),
+            SizedBox(height: 450.h,),       
+            //SizedBox(height: MediaQuery.of(context).size.height / 1.63.h,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: RebrandedReusableButton(

@@ -223,7 +223,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           firstText: "Already have an account ?",
                           lastText: "Login",
                         ),
-                        SizedBox(height: 80.h,),
+                        SizedBox(height: 70.h,),
                         RebrandedReusableButton(
                           textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                           color: controller.isSecondPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 

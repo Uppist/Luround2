@@ -75,7 +75,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                               size: 23,
                             ),
                           ),
-                          SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
+                          SizedBox(width: 90.w,),
+                          //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                           Image.asset('assets/images/luround_logo.png')
                         ]
                       ),
@@ -144,8 +145,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                             ],
                           ),
                         ),
-                      
-                        SizedBox(height: MediaQuery.of(context).size.height /2.4.h,),
+                        
+                        SizedBox(height: 450.h,),
+                        //SizedBox(height: MediaQuery.of(context).size.height /2.4.h,),
               
                         RebrandedReusableButton(
                           textColor: controller.isresetfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,

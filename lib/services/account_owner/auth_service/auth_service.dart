@@ -163,6 +163,8 @@ class AuthService extends getx.GetxController {
         LocalStorage.saveEmail(email);
         LocalStorage.saveUsername(displayName!);
         debugPrint("${LocalStorage.getToken()}");
+        debugPrint("${LocalStorage.getUseremail()}");
+        debugPrint("${LocalStorage.getUsername()}");
         LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         getx.Get.offAll(() => MainPage());
       } 

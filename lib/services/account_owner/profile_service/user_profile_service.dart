@@ -31,14 +31,17 @@ class UserProfileService extends getx.GetxController {
         //decode the response body here
         UserModel userModel = UserModel.fromJson(json.decode(res.body));
         return userModel;
-      } else {
+      }
+      else {
+        debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         throw Exception('Failed to load user data');
       }
     } 
     catch (e) {
-      debugPrint("Error: $e");
+      debugPrint("Error net: $e");
       throw HttpException("$e");
+    
     }
   }
 

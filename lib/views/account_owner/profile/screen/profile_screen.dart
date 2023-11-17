@@ -145,7 +145,7 @@ class ProfilePage extends StatelessWidget {
                           SizedBox(height: 30.h,),
                           Center(
                             child: Text(
-                              '$userName',
+                              userName,
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
@@ -164,15 +164,12 @@ class ProfilePage extends StatelessWidget {
                           FutureBuilder<UserModel>(
                             future: userProfileService.getUserProfileDetails(email: userEmail),
                             builder: (context, snapshot) {
+
+                              var data = snapshot.data!;
+                              
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Loader();
                               } 
-
-                              if (!snapshot.hasData) {
-                                return ProfileEmptyState(
-                                  onPressed: () {},
-                                );
-                              }
 
                               if (snapshot.hasError) {
                                 return SafeArea(
@@ -189,7 +186,14 @@ class ProfilePage extends StatelessWidget {
                                 );
                               }
 
-                              var data = snapshot.data!;
+                              if (!snapshot.hasData) {
+                                return ProfileEmptyState(
+                                  onPressed: () {
+                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                  },
+                                  userName: "data.displayName",
+                                );
+                              }
 
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

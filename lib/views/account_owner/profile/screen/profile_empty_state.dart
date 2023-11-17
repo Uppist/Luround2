@@ -11,8 +11,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ProfileEmptyState extends StatelessWidget {
-  const ProfileEmptyState({super.key, required this.onPressed});
+  const ProfileEmptyState({super.key, required this.onPressed, required this.userName});
   final VoidCallback onPressed;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,17 @@ class ProfileEmptyState extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          /*SizedBox(height: 30.h,),
+          Text(
+            userName,
+            style: GoogleFonts.inter(
+              textStyle: TextStyle(
+                color: AppColor.blackColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold
+              )
+            )
+          ),*/
           SvgPicture.asset('assets/svg/profile_empty.svg'),
           SizedBox(height: 30.h,),
           Text(

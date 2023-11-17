@@ -14,14 +14,14 @@ class UserModel {
   late final String id;
   late final String email;
   late final String displayName;
-  late final String photoUrl;
+  late final String? photoUrl;
   late final String accountCreatedFrom;
-  late final String occupation;
-  late final String about;
-  late final List<dynamic> certificates;
-  late final List<dynamic> media_links;
+  late final String? occupation;
+  late final String? about;
+  late final List<dynamic>? certificates;
+  late final List<dynamic>? media_links;
   
-  UserModel.fromJson(Map<String, dynamic> json){
+  UserModel.fromJson(Map<String, dynamic> json,){
     id = json['_id'];
     email = json['email'];
     displayName = json['displayName'];

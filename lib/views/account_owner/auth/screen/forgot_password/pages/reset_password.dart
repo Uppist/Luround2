@@ -67,7 +67,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              //Get.back();
                             },
                             child: Icon(
                               CupertinoIcons.xmark,
@@ -146,7 +146,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ),
                         ),
                         
-                        SizedBox(height: 450.h,),
+                        SizedBox(height: 355.h,),
                         //SizedBox(height: MediaQuery.of(context).size.height /2.4.h,),
               
                         RebrandedReusableButton(

@@ -26,7 +26,8 @@ class PasswordUpdatedPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: MediaQuery.of(context).size.height /2.5.h,),
+              //SizedBox(height: MediaQuery.of(context).size.height /2.5.h,),
+              SizedBox(height: 400.h,),
               Text(
                 "Password Updated",
                 style: GoogleFonts.inter(
@@ -46,7 +47,7 @@ class PasswordUpdatedPage extends StatelessWidget {
               ),
 
               //SizedBox(height: MediaQuery.of(context).size.height /3.1.h,),
-              SizedBox(height: 320.h,),
+              SizedBox(height: 250.h,),
               //
               RebrandedReusableButton(
                 textColor: AppColor.bgColor,

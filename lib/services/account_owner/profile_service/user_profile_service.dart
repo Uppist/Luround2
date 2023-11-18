@@ -23,22 +23,25 @@ class UserProfileService extends getx.GetxController {
 
   /////[GET USER PROFILE DETAILS]//////
   Future<UserModel> getUserProfileDetails({required String email}) async {
-    
+    isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "profile/get?email=$email",);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         //decode the response body here
         UserModel userModel = UserModel.fromJson(json.decode(res.body));
         return userModel;
       }
       else {
+        isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         throw Exception('Failed to load user data');
       }
     } 
     catch (e) {
+      isLoading.value = false;
       debugPrint("Error net: $e");
       throw HttpException("$e");
     

@@ -165,10 +165,10 @@ class ProfilePage extends StatelessWidget {
                             future: userProfileService.getUserProfileDetails(email: userEmail),
                             builder: (context, snapshot) {
 
-                              var data = snapshot.data!;
+                              var data = snapshot.data;
                               
                               if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Loader();
+                                return Loader2();
                               } 
 
                               if (snapshot.hasError) {
@@ -193,7 +193,16 @@ class ProfilePage extends StatelessWidget {
                                   },
                                 );
                               }
-                              if (data.occupation.isEmpty && data.about.isEmpty && data.photoUrl.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
+
+                              if (snapshot.data == null) {
+                                return ProfileEmptyState(
+                                  onPressed: () {
+                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                  },
+                                );
+                              }
+
+                              if (data!.occupation.isEmpty && data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(
                                   onPressed: () {
                                     userProfileService.getUserProfileDetails(email: userEmail);
@@ -207,7 +216,7 @@ class ProfilePage extends StatelessWidget {
                                   //OWNER'S OCCUPATION
                                   Center(
                                     child: Text(
-                                      data.occupation, //'Professional Specialist',
+                                      data.occupation,
                                       style: GoogleFonts.inter(
                                         textStyle: TextStyle(
                                           color: AppColor.blackColor,
@@ -225,7 +234,7 @@ class ProfilePage extends StatelessWidget {
                                       TextButton(
                                         onPressed: () {},
                                         child: Text(
-                                          'https://www.mylink.com',
+                                          data.luround_url,
                                           style: GoogleFonts.inter(
                                             textStyle: TextStyle(
                                               color: AppColor.blueColor,
@@ -250,7 +259,7 @@ class ProfilePage extends StatelessWidget {
                                     onPressed: () {
                                       Get.to(() => EditAboutPage());
                                     },
-                                    text: 'ggggggggggggggggggggggggggggggggggggggggggggggggzgstyhrdthdhrhrdt'
+                                    text: data.about
                                   ),
                                   SizedBox(height: 30.h),
                               
@@ -274,6 +283,7 @@ class ProfilePage extends StatelessWidget {
                                     profileController: controller,
                                   ),
                                   SizedBox(height: 50.h),
+                                  if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty)
                                   AddSectionButton(
                                     onPressed: () {
                                       Get.to(() => AddSectionPage());

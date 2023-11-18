@@ -11,9 +11,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ProfileEmptyState extends StatelessWidget {
-  const ProfileEmptyState({super.key, required this.onPressed, required this.userName});
+  const ProfileEmptyState({super.key, required this.onPressed,});
   final VoidCallback onPressed;
-  final String userName;
+  //final String userName;
 
   @override
   Widget build(BuildContext context) {

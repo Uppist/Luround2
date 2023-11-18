@@ -191,7 +191,13 @@ class ProfilePage extends StatelessWidget {
                                   onPressed: () {
                                     userProfileService.getUserProfileDetails(email: userEmail);
                                   },
-                                  userName: "data.displayName",
+                                );
+                              }
+                              if (data.occupation.isEmpty && data.about.isEmpty && data.photoUrl.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
+                                return ProfileEmptyState(
+                                  onPressed: () {
+                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                  },
                                 );
                               }
 
@@ -201,7 +207,7 @@ class ProfilePage extends StatelessWidget {
                                   //OWNER'S OCCUPATION
                                   Center(
                                     child: Text(
-                                      'Professional Specialist',
+                                      data.occupation, //'Professional Specialist',
                                       style: GoogleFonts.inter(
                                         textStyle: TextStyle(
                                           color: AppColor.blackColor,

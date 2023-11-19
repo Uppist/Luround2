@@ -78,14 +78,14 @@ class BaseService extends getX.GetxController {
     var res = http.put(
       Uri.parse("$baseUrl$endPoint"),
       body: json.encode(body),
-      headers: //token != null ? 
+      headers: token != null ? 
       {
         'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }

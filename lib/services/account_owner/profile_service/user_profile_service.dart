@@ -260,4 +260,38 @@ class UserProfileService extends getx.GetxController {
   }
 
 
+  ////[ABOUT SECTION]////////
+  Future<void> updateAbout({
+    required String about,
+  }) async {
+
+    isLoading.value = true;
+    var body = {
+      "about": about,
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "profile/about/update", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user display name updated successfully");
+        LuroundSnackBar.successSnackBar(message: "update successful");
+        getx.Get.back();
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        LuroundSnackBar.errorSnackBar(message: "something went wrong");
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
+
+
 }

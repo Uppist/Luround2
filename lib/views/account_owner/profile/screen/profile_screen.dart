@@ -172,7 +172,8 @@ class ProfilePage extends StatelessWidget {
                               } 
 
                               if (snapshot.hasError) {
-                                return SafeArea(
+                                print(snapshot.error);
+                                /*return SafeArea(
                                   child: Center(
                                     child: Text(
                                       'Error: ${snapshot.error}',
@@ -183,13 +184,13 @@ class ProfilePage extends StatelessWidget {
                                       )
                                     )
                                   ),
-                                );
+                                );*/
                               }
 
                               if (!snapshot.hasData) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com");
+                                    userProfileService.getUserProfileDetails(email: userEmail);
                                   },
                                 );
                               }
@@ -197,7 +198,7 @@ class ProfilePage extends StatelessWidget {
                               if (snapshot.data == null) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com");
+                                    userProfileService.getUserProfileDetails(email: userEmail);
                                   },
                                 );
                               }
@@ -205,7 +206,7 @@ class ProfilePage extends StatelessWidget {
                               if (data!.occupation.isEmpty && data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com");
+                                    userProfileService.getUserProfileDetails(email: userEmail);
                                   },
                                 );
                               }
@@ -216,7 +217,7 @@ class ProfilePage extends StatelessWidget {
                                   //OWNER'S OCCUPATION
                                   Center(
                                     child: Text(
-                                      data.occupation ?? "ffffff",
+                                      data.occupation,
                                       style: GoogleFonts.inter(
                                         textStyle: TextStyle(
                                           color: AppColor.blackColor,
@@ -234,7 +235,7 @@ class ProfilePage extends StatelessWidget {
                                       TextButton(
                                         onPressed: () {},
                                         child: Text(
-                                          data.luround_url ?? "gtttttt",
+                                          data.luround_url,
                                           style: GoogleFonts.inter(
                                             textStyle: TextStyle(
                                               color: AppColor.blueColor,
@@ -276,7 +277,7 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                   SizedBox(height: 30.h),
                                   OtherDetailsSection(
-                                    itemCount: data.media_links.length ?? 2,
+                                    itemCount: data.media_links.length,
                                     onPressedEdit: () {
                                       Get.to(() => EditOthersPage());
                                     },

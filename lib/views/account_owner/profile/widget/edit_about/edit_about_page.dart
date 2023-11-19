@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/utils/components/loader.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -26,7 +28,9 @@ class EditAboutPage extends StatefulWidget {
 }
 
 class _EditAboutPageState extends State<EditAboutPage> {
+
   var controller = Get.put(ProfilePageController());
+  var profileService = Get.put(UserProfileService());
 
   @override
   Widget build(BuildContext context) {
@@ -46,83 +50,89 @@ class _EditAboutPageState extends State<EditAboutPage> {
         ),
         title: CustomAppBarTitle(text: 'Edit About',),
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 10.h),
-            Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),
-            SizedBox(height: 20.h,),
-            Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //About
-                      Text(
-                        'About',
-                        style: GoogleFonts.poppins(
-                          color: AppColor.blackColor,
-                          fontSize: 17.sp,
-                          fontWeight: FontWeight.bold
-                        )
-                      ),
-                      SizedBox(height: 30.h),
-                      AboutTextField(
-                        onChanged: (val) {
-                          // Check if character count exceeds the maximum
-                          if (val.length > controller.maxLength) {
-                            // Remove extra characters       
-                            controller.aboutController.text = val.substring(0, controller.maxLength);
-                            debugPrint("you have reached max length");
-                          } 
-                          setState(() {}); // Update the UI
-                        },
-                        //initial value is the one causing it
-                        //initialValue: controller.aboutController.text,
-                        controller: controller.aboutController, 
-                        hintText: 'Enter a brief summary of your experience, skills and achievements',
-                        keyboardType: TextInputType.multiline,
-                        textInputAction: TextInputAction.done,                   
-                      ),
-                      SizedBox(height: 20.h),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+      body: Obx(
+        () {
+          return profileService.isLoading.value ? Loader2() : SafeArea(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10.h),
+                Container(
+                  color: AppColor.greyColor,
+                  width: double.infinity,
+                  height: 7.h,
+                ),
+                SizedBox(height: 20.h,),
+                Expanded(
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          //About
                           Text(
-                            '${controller.aboutController.text.length}/${controller.maxLength}',
+                            'About',
                             style: GoogleFonts.poppins(
-                              color: AppColor.textGreyColor,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500
+                              color: AppColor.blackColor,
+                              fontSize: 17.sp,
+                              fontWeight: FontWeight.bold
                             )
+                          ),
+                          SizedBox(height: 30.h),
+                          AboutTextField(
+                            onChanged: (val) {
+                              // Check if character count exceeds the maximum
+                              if (val.length > controller.maxLength) {
+                                // Remove extra characters       
+                                controller.aboutController.text = val.substring(0, controller.maxLength);
+                                debugPrint("you have reached max length");
+                              } 
+                              setState(() {}); // Update the UI
+                              controller.aboutController.text = val;
+                            },
+                            //initial value is the one causing it
+                            initialValue: "controller.aboutController.text",  //text gotten from the server
+                            hintText: 'Enter a brief summary of your experience, skills and achievements',
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.done,                   
+                          ),
+                          SizedBox(height: 20.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                '${controller.aboutController.text.length}/${controller.maxLength}',
+                                style: GoogleFonts.poppins(
+                                  color: AppColor.textGreyColor,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            //SizedBox(height: 50.h,),  //250
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-              child: ReusableButton(
-                color: AppColor.mainColor,
-                text: 'Save',
-                onPressed: () {},
-              ),
-            ),
-            SizedBox(height: 20.h,),
-          ]
-        )
+                //SizedBox(height: 50.h,),  //250
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+                  child: ReusableButton(
+                    color: AppColor.mainColor,
+                    text: 'Save',
+                    onPressed: () {
+                      profileService.updateAbout(about: controller.aboutController.text);
+                    },
+                  ),
+                ),
+                SizedBox(height: 20.h,),
+              ]
+            )
+          );
+        }
       )
     );
   }

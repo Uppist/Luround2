@@ -38,6 +38,7 @@ class UserProfileService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         //decode the response body here
         UserModel userModel = UserModel.fromJson(json.decode(res.body));
+        LocalStorage.saveUserID(userModel.id);
         return userModel;
       }
       else {
@@ -224,6 +225,7 @@ class UserProfileService extends getx.GetxController {
   Future<void> deletePhotoUrl({
     required String photoUrl
     }) async {
+
     var body = {
       "photoUrl": photoUrl,
     };
@@ -266,6 +268,7 @@ class UserProfileService extends getx.GetxController {
   }) async {
 
     isLoading.value = true;
+
     var body = {
       "about": about,
     };
@@ -292,6 +295,9 @@ class UserProfileService extends getx.GetxController {
       throw const HttpException("Something went wrong");
     }
   }
+
+  ////[ABOUT SECTION]////////
+  Future<void> updateCertificate() async{}
 
 
 }

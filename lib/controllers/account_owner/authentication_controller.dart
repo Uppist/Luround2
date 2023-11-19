@@ -120,12 +120,12 @@ class AuthController extends getx.GetxController {
     return formKey1.currentState!.save();
   }
 
-  checkSecondPageCredentials() {
+  checkSecondPageCredentials() async {
     final isValid = formKey2.currentState!.validate();
     if(!isValid) {
       return "Invalid Credentials";
     }
-    authService.registerUser(
+    await authService.registerUser(
       email: emailController.text,
       firstName: firstNameController.text,
       lastName: lastNameController.text,
@@ -150,9 +150,9 @@ class AuthController extends getx.GetxController {
         print(user.email);
         print(user.id);
         print(user.photoUrl); 
-        authService.fetchGoogleJwt(
+        await authService.fetchGoogleJwt(
           email: user.email, 
-          displayName: user.displayName, 
+          displayName: user.displayName!, 
           photoUrl: "url", 
           google_user_id: user.id,
         );
@@ -169,7 +169,7 @@ class AuthController extends getx.GetxController {
 
   //log user out locally with Luround API
   Future logUserOutOfLuround() async{
-    authService.logoutUser().then((value) => {
+    await authService.logoutUser().then((value) => {
       print("user logged out")
     });
   }
@@ -180,7 +180,7 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
-    authService.sendResetPasswordOTP(email: fpEmailController.text);
+    await authService.sendResetPasswordOTP(email: fpEmailController.text);
     return fpFormKey.currentState!.save();
   }
 
@@ -190,7 +190,7 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
-    authService.resetPassword(
+    await authService.resetPassword(
       email: fpEmailController.text, 
       new_password: resetFpPasswordController.text, 
       otp: int.parse(otpController.text),

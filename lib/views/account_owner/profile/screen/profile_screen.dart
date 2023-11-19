@@ -191,7 +191,9 @@ class ProfilePage extends StatelessWidget {
                                 return ProfileEmptyState(
                                   onPressed: () {
                                     //userProfileService.getUserProfileDetails(email: userEmail);
-                                    Get.to(() => AddSectionPage());
+                                    Get.to(() => AddSectionPage(
+                                      aboutUser: data!.about,
+                                    ));
                                   },
                                 );
                               }
@@ -199,7 +201,9 @@ class ProfilePage extends StatelessWidget {
                               if (snapshot.data == null) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    Get.to(() => AddSectionPage());
+                                    Get.to(() => AddSectionPage(
+                                      aboutUser: data!.about,
+                                    ));
                                   },
                                 );
                               }
@@ -208,7 +212,9 @@ class ProfilePage extends StatelessWidget {
                                 return ProfileEmptyState(
                                   onPressed: () {
                                     //userProfileService.getUserProfileDetails(email: userEmail);
-                                    Get.to(() => AddSectionPage());
+                                    Get.to(() => AddSectionPage(
+                                      aboutUser: data.about,
+                                    ));
                                   },
                                 );
                               }
@@ -260,7 +266,9 @@ class ProfilePage extends StatelessWidget {
                                   //STRUCTURED WIDGETS COMES IN
                                   AboutSection(
                                     onPressed: () {
-                                      Get.to(() => EditAboutPage());
+                                      Get.to(() => EditAboutPage(
+                                        about: data.about,
+                                      ));
                                     },
                                     text: data.about
                                   ),
@@ -286,10 +294,12 @@ class ProfilePage extends StatelessWidget {
                                     profileController: controller,
                                   ),
                                   SizedBox(height: 50.h),
-                                  if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty)
+                                  if(data.occupation.isEmpty || data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
                                   AddSectionButton(
                                     onPressed: () {
-                                      Get.to(() => AddSectionPage());
+                                      Get.to(() => AddSectionPage(
+                                        aboutUser: data.about,
+                                      ));
                                     },
                                   ),
                                 ],

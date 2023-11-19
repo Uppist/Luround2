@@ -20,7 +20,8 @@ import '../edit_photo/edit_photo_page.dart';
 
 
 class AddSectionPage extends StatelessWidget {
-  AddSectionPage({super.key});
+  AddSectionPage({super.key, required this.aboutUser});
+  final String aboutUser;
 
   var controller = Get.put(ProfilePageController());
 
@@ -79,7 +80,9 @@ class AddSectionPage extends StatelessWidget {
               //About
               InkWell(
                 onTap: () {
-                  Get.to(() => EditAboutPage());
+                  Get.to(() => EditAboutPage(
+                    about: aboutUser,
+                  ));
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),

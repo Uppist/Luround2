@@ -21,7 +21,8 @@ import 'about_textfield.dart';
 
 
 class EditAboutPage extends StatefulWidget {
-  EditAboutPage({super.key});
+  EditAboutPage({super.key, required this.about});
+  final String about;
 
   @override
   State<EditAboutPage> createState() => _EditAboutPageState();
@@ -93,7 +94,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                               controller.aboutController.text = val;
                             },
                             //initial value is the one causing it
-                            initialValue: "controller.aboutController.text",  //text gotten from the server
+                            initialValue: widget.about,  //text gotten from the server
                             hintText: 'Enter a brief summary of your experience, skills and achievements',
                             keyboardType: TextInputType.multiline,
                             textInputAction: TextInputAction.done,                   

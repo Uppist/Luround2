@@ -132,12 +132,12 @@ class AuthService extends getx.GetxController {
   //to log a user out locally and simultaneously with google
   Future<dynamic> logoutUser() async {
     //isLoading.value = true;
-    LocalStorage.deleteToken();
-    LocalStorage.deleteUserID();
-    LocalStorage.deleteUseremail();
-    LocalStorage.deleteUsername();
-    LocalStorage.deleteCloudinaryUrl();
-    signOutWithGoogle();
+    await LocalStorage.deleteToken();
+    await LocalStorage.deleteUserID();
+    await LocalStorage.deleteUseremail();
+    await LocalStorage.deleteUsername();
+    await LocalStorage.deleteCloudinaryUrl();
+    await signOutWithGoogle();
     //isLoading.value = false;
     getx.Get.offAll(() => LoginPage());
   }
@@ -153,7 +153,7 @@ class AuthService extends getx.GetxController {
   }
 
   Future<GoogleSignInAccount?> signOutWithGoogle() async {
-    final _googleSignIn = GoogleSignIn(
+    final _googleSignIn =  GoogleSignIn(
       //scopes: ['email'],
       //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
     );
@@ -164,7 +164,7 @@ class AuthService extends getx.GetxController {
   //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
   Future<dynamic> fetchGoogleJwt({
     required String email,
-    required String? displayName,
+    required String displayName,
     required String? photoUrl,
     required String google_user_id,
     }) async {
@@ -172,7 +172,7 @@ class AuthService extends getx.GetxController {
     var body = {
       "email": email,
       "displayName": displayName,
-      "photoUrl": photoUrl,
+      "photoUrl": photoUrl!,
       "google_user_id": google_user_id
     };
 
@@ -182,12 +182,12 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         GoogleSigninResponse response = GoogleSigninResponse.fromJson(jsonDecode(res.body));
         
-        LocalStorage.saveToken(response.tokenData);
-        LocalStorage.saveEmail(email);
-        LocalStorage.saveUsername(displayName!);
+        await LocalStorage.saveToken(response.tokenData);
+        await LocalStorage.saveEmail(email);
+        await LocalStorage.saveUsername(displayName);
         debugPrint("${LocalStorage.getToken()}");
-        debugPrint("$email");
-        debugPrint("$displayName");
+        debugPrint(email);
+        debugPrint(displayName);
         LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         getx.Get.offAll(() => MainPage());
       } 

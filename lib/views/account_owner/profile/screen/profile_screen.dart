@@ -155,14 +155,14 @@ class ProfilePage extends StatelessWidget {
                               )
                             ),
                           ),
-                          SizedBox(height: 10.h,),
+                          SizedBox(height: 20.h,),
 
                           
                           //Wrap with Future builder
       ///////////////////////////////////////////////////////////////////////////////////
                           //OWNER'S NAME
                           FutureBuilder<UserModel>(
-                            future: userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com"),
+                            future: userProfileService.getUserProfileDetails(email: userEmail),
                             builder: (context, snapshot) {
 
                               var data = snapshot.data;
@@ -190,7 +190,8 @@ class ProfilePage extends StatelessWidget {
                               if (!snapshot.hasData) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                    //userProfileService.getUserProfileDetails(email: userEmail);
+                                    Get.to(() => AddSectionPage());
                                   },
                                 );
                               }
@@ -198,7 +199,7 @@ class ProfilePage extends StatelessWidget {
                               if (snapshot.data == null) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                    Get.to(() => AddSectionPage());
                                   },
                                 );
                               }

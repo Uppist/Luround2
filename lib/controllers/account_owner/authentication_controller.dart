@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
@@ -147,6 +148,8 @@ class AuthController extends getx.GetxController {
       if(user != null) {
         print(user.displayName);
         print(user.email);
+        print(user.id);
+        print(user.photoUrl); 
         authService.fetchGoogleJwt(
           email: user.email, 
           displayName: user.displayName, 

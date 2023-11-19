@@ -49,7 +49,7 @@ class UserProfileService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
-      debugPrint("Error net: $e");
+      //debugPrint("Error net: $e");
       throw HttpException("$e");
     
     }

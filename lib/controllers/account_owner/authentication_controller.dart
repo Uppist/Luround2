@@ -153,7 +153,7 @@ class AuthController extends getx.GetxController {
         authService.fetchGoogleJwt(
           email: user.email, 
           displayName: user.displayName, 
-          photoUrl: user.photoUrl, 
+          photoUrl: "url", 
           google_user_id: user.id,
         );
       }

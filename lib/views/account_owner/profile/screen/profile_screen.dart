@@ -207,7 +207,8 @@ class ProfilePage extends StatelessWidget {
                               if (data!.occupation.isEmpty && data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                    //userProfileService.getUserProfileDetails(email: userEmail);
+                                    Get.to(() => AddSectionPage());
                                   },
                                 );
                               }

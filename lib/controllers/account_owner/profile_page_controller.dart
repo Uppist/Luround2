@@ -47,6 +47,9 @@ class ProfilePageController extends getx.GetxController {
   //////////////////////////////////////////////////////////////////
   
 
+
+
+
   //EDIT EDUCATION & CERTIFICATION PAGE//////////////////
   final TextEditingController educationController = TextEditingController();
   final TextEditingController issuingOrganizationController = TextEditingController();
@@ -63,7 +66,15 @@ class ProfilePageController extends getx.GetxController {
   updateEducationFocus(bool val) {
     educationFocus.value = val;
   }
+
+  
+
   //////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
   //EDIT OTHERS SECTION//////////////////////////////////////////////

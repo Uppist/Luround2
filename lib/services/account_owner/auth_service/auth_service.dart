@@ -90,12 +90,33 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         LoginResponse response = LoginResponse.fromJson(json.decode(res.body));
         LocalStorage.saveToken(response.tokenData);
-        LocalStorage.saveEmail(email);
+        //LocalStorage.saveEmail(email);
         debugPrint("${LocalStorage.getToken()}");
+        //check for existing token
+        var token = await LocalStorage.getToken();
+        // Decode the JWT token
+        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+        // Access the payload
+        if (decodedToken != null) {
+          print("Token payload: $decodedToken");
+          // Access specific claims
+          // Replace 'sub' with the actual claim you want
+          String userId = decodedToken['sub'];
+          String email = decodedToken['email'];
+          String displayName = decodedToken['displayName'];
+          await LocalStorage.saveUserID(userId);
+          await LocalStorage.saveEmail(email);
+          await LocalStorage.saveUsername(displayName);
+          debugPrint("User ID: $userId"); 
+        } 
+        else {
+          print("Failed to decode JWT token.");
+        }
         LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
-      } else {
+      } 
+      else {
         isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');
       }

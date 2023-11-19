@@ -9,6 +9,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
+import 'package:luround/utils/components/custom_snackbar.dart';
 
 
 
@@ -23,7 +24,7 @@ class UserProfileService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var controller = getx.Get.put(ProfilePageController());
-  var isLoading = false.obs;
+  final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   
 
@@ -58,8 +59,9 @@ class UserProfileService extends getx.GetxController {
   Future<void> updateDisplayName({
     required String firstName,
     required String lastName,
-    }) async {
+  }) async {
 
+    isLoading.value = true;
     var body = {
       "firstName": firstName,
       "lastName": lastName,
@@ -68,14 +70,21 @@ class UserProfileService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPut(endPoint: "profile/display-name/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user display name updated successfully");
+        LocalStorage.saveUsername("$firstName $lastName");
+        LuroundSnackBar.successSnackBar(message: "profile updated");
       } 
       else {
+        isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        LuroundSnackBar.errorSnackBar(message: "something went wrong");
       }
     } 
     catch (e) {
+      isLoading.value = false;
       debugPrint("$e");
       throw const HttpException("Something went wrong");
     }
@@ -98,6 +107,7 @@ class UserProfileService extends getx.GetxController {
       } 
       else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
       }
     } 
     catch (e) {
@@ -174,7 +184,8 @@ class UserProfileService extends getx.GetxController {
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
         isImageSelected.value = true;
-        uploadImageToCloudinary();
+        uploadImageToCloudinary(); //.then((value) => getx.Get.back());
+        getx.Get.back();
         update();
       }
     }
@@ -233,20 +244,17 @@ class UserProfileService extends getx.GetxController {
     }
   }
   
-  //delete photo endpoint**
+  //over all func
   Future<void> updateProfileAllTogether({
     required String firstName,
     required String lastName,
     required String occupation,
   }) async{
-    isLoading.value = true;
     if(isImageSelected.value == true) {
       updateOccupation(occupation: occupation);
       updateDisplayName(firstName: firstName, lastName: lastName);
-      isLoading.value = false;
     }
     else {
-      isLoading.value = false;
       debugPrint("Please upload an image fam");
     }
   }

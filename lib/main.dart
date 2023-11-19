@@ -37,7 +37,7 @@ void main() async{
   var token = LocalStorage.getToken();
   print(token);
   // Decode the JWT token
-  Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+  /*Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
   // Access the payload
   if (decodedToken != null) {
     print("Token payload: $decodedToken");
@@ -53,7 +53,7 @@ void main() async{
     print("User ID: $userId"); 
   } else {
     print("Failed to decode JWT token.");
-  }
+  }*/
 
   runApp(const MainApp());
 }

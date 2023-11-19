@@ -90,7 +90,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                                 controller.aboutController.text = val.substring(0, controller.maxLength);
                                 debugPrint("you have reached max length");
                               } 
-                              setState(() {}); // Update the UI
+                              //setState(() {}); // Update the UI
                               controller.aboutController.text = val;
                             },
                             //initial value is the one causing it

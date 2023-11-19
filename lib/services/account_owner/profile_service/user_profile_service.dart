@@ -37,8 +37,8 @@ class UserProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         //decode the response body here
-        UserModel userModel = UserModel.fromJson(json.decode(res.body));
-        LocalStorage.saveUserID(userModel.id);
+        UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
+        await LocalStorage.saveUserID(userModel.id);
         return userModel;
       }
       else {
@@ -123,7 +123,7 @@ class UserProfileService extends getx.GetxController {
     }) async {
 
     var body = {
-      "companyName": companyName,
+      "company": companyName,
     };
 
     try {
@@ -253,8 +253,8 @@ class UserProfileService extends getx.GetxController {
     required String occupation,
   }) async{
     if(isImageSelected.value == true) {
-      updateOccupation(occupation: occupation);
-      updateDisplayName(firstName: firstName, lastName: lastName);
+      await updateOccupation(occupation: occupation)
+      .then((value) => updateDisplayName(firstName: firstName, lastName: lastName));
     }
     else {
       debugPrint("Please upload an image fam");

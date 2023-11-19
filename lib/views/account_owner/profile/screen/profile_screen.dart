@@ -198,7 +198,7 @@ class ProfilePage extends StatelessWidget {
                                 );
                               }
 
-                              if (snapshot.data == null) {
+                              /*if (data == null) {
                                 return ProfileEmptyState(
                                   onPressed: () {
                                     Get.to(() => AddSectionPage(
@@ -206,7 +206,7 @@ class ProfilePage extends StatelessWidget {
                                     ));
                                   },
                                 );
-                              }
+                              }*/
 
                               if (data!.occupation.isEmpty && data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(

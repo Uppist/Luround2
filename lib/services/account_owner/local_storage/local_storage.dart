@@ -67,4 +67,19 @@ class LocalStorage {
     return GetStorage().remove('id');
   }
 
+  /// use this to save cloudinary secure url [imageUrl] temporarily to local storage
+  static saveCloudinaryUrl(String imageUrl) {
+    return GetStorage().write('image', imageUrl);
+  }
+
+  /// use this to [getImageUrl] from local storage
+  static getCloudinaryUrl() {
+    return GetStorage().read('image');
+  }
+
+  /// use this to [deleteImageURL] from local storage
+  static deleteCloudinaryUrl() {
+    return GetStorage().remove('image');
+  }
+
 }

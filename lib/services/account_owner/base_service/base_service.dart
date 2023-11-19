@@ -17,76 +17,75 @@ class BaseService extends getX.GetxController {
   //General Base URL
   String baseUrl = "https://luround.onrender.com/api/v1/";
   String baseUrlForGoogle = "https://luround.onrender.com/";
-
   ///HTTP///
   
   //function that sends a GET request for Google Auth (on a soft)
   Future<dynamic> httpGooglePost({required String endPoint, required Map<String, dynamic> body}) async {
-    //var token = await LocalStorage.getToken();
+    var token = await LocalStorage.getToken();
     var res = http.post(
       Uri.parse("$baseUrlForGoogle$endPoint"),
       body: json.encode(body),
-      headers: //token != null ? 
+      headers: token != null ? 
       {
-        //'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }
 
   //function that sends a GET request (on a soft)
   Future<dynamic> httpGet({required String endPoint}) async {
-    //var token = await LocalStorage.getToken();
+    var token = await LocalStorage.getToken();
     var res = http.get(
       Uri.parse("$baseUrl$endPoint"),
-      headers: //token != null ? 
+      headers: token != null ? 
       {
-        //'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }
 
   //function that sends a POST request (on a soft)
   Future<dynamic> httpPost({required String endPoint, required dynamic body}) async {
-    //var token = await LocalStorage.getToken();
+    var token = await LocalStorage.getToken();
     var res = http.post(
       Uri.parse("$baseUrl$endPoint"),
       body: json.encode(body),
-      headers: //token != null ? 
+      headers: token != null ? 
       {
-        //'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }
   
   //function that sends a PUT request (on a soft)
   Future<dynamic> httpPut({required String endPoint, required dynamic body}) async {
-    //var token = await LocalStorage.getToken();
+    var token = await LocalStorage.getToken();
     var res = http.put(
       Uri.parse("$baseUrl$endPoint"),
       body: json.encode(body),
-      headers: //token != null ? 
+      headers: token != null ? 
       {
-        //'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }
@@ -94,18 +93,18 @@ class BaseService extends getX.GetxController {
   
   //function that sends a DELETE request (on a soft)
   Future httpDelete({required String endPoint, required dynamic body}) async {
-    //var token = await LocalStorage.getToken();
+    var token = await LocalStorage.getToken();
     var res = http.delete(
       Uri.parse("$baseUrl$endPoint"),
-      body: body,
-      headers: //token != null ? 
+      body: json.decode(body),
+      headers: token != null ? 
       {
-        //'Authorization': 'Bearer $token',
+        'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }

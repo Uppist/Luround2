@@ -162,7 +162,7 @@ class ProfilePage extends StatelessWidget {
       ///////////////////////////////////////////////////////////////////////////////////
                           //OWNER'S NAME
                           FutureBuilder<UserModel>(
-                            future: userProfileService.getUserProfileDetails(email: userEmail),
+                            future: userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com"),
                             builder: (context, snapshot) {
 
                               var data = snapshot.data;
@@ -178,7 +178,7 @@ class ProfilePage extends StatelessWidget {
                                       'Error: ${snapshot.error}',
                                       style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
-                                        fontSize: 16.sp,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       )
                                     )
@@ -189,7 +189,7 @@ class ProfilePage extends StatelessWidget {
                               if (!snapshot.hasData) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                    userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com");
                                   },
                                 );
                               }
@@ -197,7 +197,7 @@ class ProfilePage extends StatelessWidget {
                               if (snapshot.data == null) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                    userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com");
                                   },
                                 );
                               }
@@ -205,7 +205,7 @@ class ProfilePage extends StatelessWidget {
                               if (data!.occupation.isEmpty && data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(
                                   onPressed: () {
-                                    userProfileService.getUserProfileDetails(email: userEmail);
+                                    userProfileService.getUserProfileDetails(email: "s.kamahjnr@gmail.com");
                                   },
                                 );
                               }
@@ -216,7 +216,7 @@ class ProfilePage extends StatelessWidget {
                                   //OWNER'S OCCUPATION
                                   Center(
                                     child: Text(
-                                      data.occupation,
+                                      data.occupation ?? "ffffff",
                                       style: GoogleFonts.inter(
                                         textStyle: TextStyle(
                                           color: AppColor.blackColor,
@@ -234,7 +234,7 @@ class ProfilePage extends StatelessWidget {
                                       TextButton(
                                         onPressed: () {},
                                         child: Text(
-                                          data.luround_url,
+                                          data.luround_url ?? "gtttttt",
                                           style: GoogleFonts.inter(
                                             textStyle: TextStyle(
                                               color: AppColor.blueColor,
@@ -276,7 +276,7 @@ class ProfilePage extends StatelessWidget {
                                   ),
                                   SizedBox(height: 30.h),
                                   OtherDetailsSection(
-                                    itemCount: controller.subtitleText.length,
+                                    itemCount: data.media_links.length ?? 2,
                                     onPressedEdit: () {
                                       Get.to(() => EditOthersPage());
                                     },

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'delete_photo_bottomsheet.dart';
 
@@ -11,7 +12,7 @@ import 'delete_photo_bottomsheet.dart';
 
 
 
-
+var profileService = Get.put(UserProfileService());
 
 
 ///Alert Dialog
@@ -49,7 +50,9 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
               children: [
                 //1
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    profileService.pickImageFromGallery(context: context);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -69,7 +72,9 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                 SizedBox(height: 30.h,),
                 //2
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    profileService.pickImageFromGallery(context: context);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

@@ -124,22 +124,22 @@ class AuthController extends getx.GetxController {
 
   Future<dynamic> checkSecondPageCredentials() async {
     final isValid = formKey2.currentState!.validate();
-    if(!isValid) {
-      return "Invalid Credentials";
+    if(isValid) {
+      await authService.registerUser(
+        email: emailController.text,
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        password: passwordController.text,
+      ).whenComplete(() {
+        firstNameController.clear();
+        lastNameController.clear();
+        emailController.clear();
+        passwordController.clear();
+        confirmPasswordController.clear();
+      });
     }
     else {
-      await authService.registerUser(
-      email: emailController.text,
-      firstName: firstNameController.text,
-      lastName: lastNameController.text,
-      password: passwordController.text,
-    ).whenComplete(() {
-      firstNameController.clear();
-      lastNameController.clear();
-      emailController.clear();
-      passwordController.clear();
-      confirmPasswordController.clear();
-    });
+      return "Invalid Credentials";
     }
     return formKey2.currentState!.save();
   }

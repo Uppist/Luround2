@@ -63,7 +63,7 @@ class UserProfileService extends getx.GetxController {
     required String lastName,
   }) async {
 
-    //isLoading.value = true;
+    isLoading.value = true;
     
     var body = {
       "firstName": firstName,
@@ -73,7 +73,7 @@ class UserProfileService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPut(endPoint: "profile/display-name/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        //isLoading.value = false;
+        isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user display name updated successfully");
         UpdateNameResponse nameResponse = UpdateNameResponse.fromJson(json.decode(res.body));
@@ -83,7 +83,7 @@ class UserProfileService extends getx.GetxController {
         LuroundSnackBar.successSnackBar(message: "profile updated");
       } 
       else {
-        //isLoading.value = false;
+        isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         LuroundSnackBar.errorSnackBar(message: "something went wrong");
@@ -101,6 +101,7 @@ class UserProfileService extends getx.GetxController {
     required String occupation,
     }) async {
 
+    isLoading.value = true;
     var body = {
       "occupation": occupation,
     };
@@ -108,15 +109,18 @@ class UserProfileService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPut(endPoint: "profile/occupation/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user occupation updated succesfully");
       } 
       else {
+        isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
       }
     } 
     catch (e) {
+      isLoading.value = false;
       debugPrint("$e");
       throw const HttpException("Something went wrong");
     }

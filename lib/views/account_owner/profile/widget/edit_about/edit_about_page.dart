@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -124,8 +124,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
                   child: ReusableButton(
                     color: AppColor.mainColor,
                     text: 'Save',
-                    onPressed: () {
-                      profileService.updateAbout(about: controller.aboutController.text);
+                    onPressed: () async{
+                      await profileService.updateAbout(about: controller.aboutController.text);
                     },
                   ),
                 ),

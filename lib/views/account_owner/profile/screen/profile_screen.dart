@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
-import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
@@ -109,9 +109,9 @@ class ProfilePage extends StatelessWidget {
                       ),
                       width: double.infinity,
                       child: QrImageView(
-                        data: "https://www.luround.com/65363722293838_japhet_ebelechukwu",  //$userid_$firstname_$lastname
-                        version: 1,
-                        size: 320.w,
+                        data: "luround.com/David Ebele_7",  //$userid_$firstname_$lastname
+                        version: QrVersions.auto,
+                        size: 170.w,
                         errorStateBuilder: (context, error) {
                           return Text(
                             "Uh oh! Something went wrong!",
@@ -208,7 +208,7 @@ class ProfilePage extends StatelessWidget {
                                       style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
                                         fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500
+                                        fontWeight: FontWeight.normal
                                       )
                                     )
                                   ),
@@ -223,7 +223,7 @@ class ProfilePage extends StatelessWidget {
                                       style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
                                         fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500
+                                        fontWeight: FontWeight.normal
                                       )
                                     )
                                   ),
@@ -331,7 +331,7 @@ class ProfilePage extends StatelessWidget {
                                     profileController: controller,
                                   ),
                                   SizedBox(height: 50.h),
-                                  if(data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
+                                  if(data.occupation.isEmpty|| data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
                                   AddSectionButton(
                                     onPressed: () {
                                       Get.to(() => AddSectionPage(

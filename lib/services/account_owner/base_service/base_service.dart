@@ -66,20 +66,20 @@ class BaseService extends getX.GetxController {
     var res = http.post(
       url,
       body: json.encode(body),
-      headers: //token != null ? 
+      headers: token != null ? 
       {
         'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
         "Connection": "keep-alive",
       } 
-      //: null
+      : null
     );
     return res;
   }
   
   //function that sends a PUT request (on a soft)
-  Future<dynamic> httpPut({required String endPoint, required dynamic body}) async {
+  Future<http.Response> httpPut({required String endPoint, required dynamic body}) async {
     var token = await LocalStorage.getToken();
     Uri url = Uri.parse("$baseUrl$endPoint");
     print(url);
@@ -90,10 +90,11 @@ class BaseService extends getX.GetxController {
       {
         'Authorization': 'Bearer $token',
         "Accept": "*/*",
-        //"Content-Type": "application/json",
+        "Content-Type": "application/json",
+        "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
       } 
-      : null
+      : null,
     );
     return res;
   }

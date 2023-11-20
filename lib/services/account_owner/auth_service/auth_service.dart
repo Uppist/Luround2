@@ -68,7 +68,30 @@ class AuthService extends getx.GetxController {
     }
   }
 
-  //to generate qrlink then login
+  //to generate unique qrlink slug then login
+  Future<void> generateQrLink({
+    required String urlSlug
+  }) async {
+
+    var body = {
+      "slug": urlSlug,
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "profile/generate-url", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        debugPrint('this is response status ==> ${res.statusCode}');
+      } 
+      else {
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+      }
+    } 
+    catch (e) {
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
 
   //to login user locally
   Future<dynamic> loginUser({
@@ -107,6 +130,7 @@ class AuthService extends getx.GetxController {
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
+          await generateQrLink(urlSlug: email);
         } 
         else {
           print("Failed to decode JWT token.");
@@ -188,6 +212,7 @@ class AuthService extends getx.GetxController {
         await LocalStorage.saveToken(response.tokenData);
         await LocalStorage.saveEmail(email);
         await LocalStorage.saveUsername(displayName);
+        await generateQrLink(urlSlug: email);
         debugPrint("${LocalStorage.getToken()}");
         debugPrint(email);
         debugPrint(displayName);

@@ -36,7 +36,7 @@ class AuthService extends getx.GetxController {
     required String email,
     required String firstName,
     required String lastName,
-    required String password
+    required String password,
     }) async {
     
     isLoading.value = true;
@@ -46,7 +46,8 @@ class AuthService extends getx.GetxController {
       "firstName": firstName,
       "lastName": lastName,
       "password": password,
-      "accountCreatedFrom": "LOCAL"
+      "photoUrl": "my_photo",
+      "accountCreatedFrom": "LOCAL",
     };
 
     try {
@@ -54,8 +55,6 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        LocalStorage.saveEmail(email);
-        LocalStorage.saveUsername("$firstName $lastName");
         getx.Get.offAll(() => LoginPage());
       } else {
         isLoading.value = false;
@@ -107,14 +106,14 @@ class AuthService extends getx.GetxController {
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
-          debugPrint("User ID: $userId"); 
         } 
         else {
           print("Failed to decode JWT token.");
         }
-        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
+        //LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
+        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
       } 
       else {
         isLoading.value = false;
@@ -168,14 +167,14 @@ class AuthService extends getx.GetxController {
   Future<dynamic> fetchGoogleJwt({
     required String email,
     required String displayName,
-    required String? photoUrl,
+    required String photoUrl,
     required String google_user_id,
     }) async {
 
     var body = {
       "email": email,
       "displayName": displayName,
-      "photoUrl": photoUrl!,
+      "photoUrl": photoUrl,
       "google_user_id": google_user_id
     };
 

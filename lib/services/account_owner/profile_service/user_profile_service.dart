@@ -2,6 +2,7 @@ import 'package:cloudinary/cloudinary.dart';
 import 'package:get/get.dart' as getx;
 import 'package:image_picker/image_picker.dart';
 import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/models/account_owner/user_profile/update_displayname_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
 import 'dart:convert';
@@ -62,7 +63,8 @@ class UserProfileService extends getx.GetxController {
     required String lastName,
   }) async {
 
-    isLoading.value = true;
+    //isLoading.value = true;
+    
     var body = {
       "firstName": firstName,
       "lastName": lastName,
@@ -71,14 +73,17 @@ class UserProfileService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPut(endPoint: "profile/display-name/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
+        //isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user display name updated successfully");
-        LocalStorage.saveUsername("$firstName $lastName");
+        UpdateNameResponse nameResponse = UpdateNameResponse.fromJson(json.decode(res.body));
+        String userName = nameResponse.displayName;
+        debugPrint("my display_name: $userName");
+        LocalStorage.saveUsername(userName);
         LuroundSnackBar.successSnackBar(message: "profile updated");
       } 
       else {
-        isLoading.value = false;
+        //isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         LuroundSnackBar.errorSnackBar(message: "something went wrong");
@@ -252,11 +257,17 @@ class UserProfileService extends getx.GetxController {
     required String lastName,
     required String occupation,
   }) async{
-    if(isImageSelected.value == true) {
-      await updateOccupation(occupation: occupation)
-      .then((value) => updateDisplayName(firstName: firstName, lastName: lastName));
+    isLoading.value = true;
+    if(isImageSelected.value) {
+      isLoading.value = false;
+      await updateOccupation(occupation: occupation);
+      await updateDisplayName(firstName: firstName, lastName: lastName)
+      .then((value) {
+        isImageSelected.value = false;
+      });
     }
     else {
+      isLoading.value = false;
       debugPrint("Please upload an image fam");
     }
   }

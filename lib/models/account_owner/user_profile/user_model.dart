@@ -8,6 +8,7 @@ class UserModel {
     required this.accountCreatedFrom,
     required this.occupation,
     required this.about,
+    required this.luround_url,
     required this.certificates,
     required this.media_links,
   });
@@ -26,11 +27,11 @@ class UserModel {
     id = json['_id'];
     email = json['email'];
     displayName = json['displayName'];
-    photoUrl = json['photoUrl'];
+    photoUrl = json['photoUrl'] ?? "photo";
     accountCreatedFrom = json['accountCreatedFrom'];
     occupation = json['occupation'];
     about = json['about'];
-    luround_url = json["luround_url"];
+    luround_url = json["luround_url"] ?? "url";
     certificates = json['certificates'];
     media_links = json['media_links'];
   }

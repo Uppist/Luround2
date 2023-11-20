@@ -54,10 +54,10 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
         ),
         title: CustomAppBarTitle(text: 'Edit Photo & Intro',),
       ),
-      body: Obx(
-        () {
-          return profileService.isLoading.value ? Loader2() : SafeArea(
-            child: Column(
+      body: SafeArea(
+        child: Obx(
+          () {
+            return profileService.isLoading.value ? Loader2() : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 10.h),
@@ -167,7 +167,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       SizedBox(height: 10.h,),*/
                                       OtherSpecialTextField(
                                         onChanged: (val) {},
-                                        initialValue: controller.firstNameController.text,
+                                        initialValue: "controller.firstNameController.text",
                                         hintText: 'Enter your first name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -183,7 +183,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       SizedBox(height: 10.h,),*/
                                       OtherSpecialTextField(
                                         onChanged: (val) {},
-                                        initialValue: controller.lastNameController.text,
+                                        initialValue: "controller.lastNameController.text",
                                         hintText: 'Enter your last name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -206,7 +206,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               SizedBox(height: 10.h,),
                               OccupationTextField(
                                 onChanged: (val) {},
-                                initialValue: controller.companyNameController.text,
+                                initialValue: "controller.companyNameController.text",
                                 hintText: "Enter your company's name",
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,
@@ -214,7 +214,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               SizedBox(height: 10.h,),
                               OccupationTextField(
                                 onChanged: (val) {},
-                                initialValue: controller.occupationController.text,
+                                initialValue: "controller.occupationController.text",
                                 hintText: 'What do you do ?',
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
@@ -223,12 +223,19 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               ReusableButton(
                                 color: AppColor.mainColor,
                                 text: 'Save',
-                                onPressed: () {
-                                  profileService.updateProfileAllTogether(
+                                onPressed: () async{
+                                  /*profileService.updateOccupation(occupation: controller.occupationController.text);
+                                  profileService.updateDisplayName(
+                                    firstName: controller.firstNameController.text, 
+                                    lastName: controller.lastNameController.text, 
+                                  );*/
+                                  await profileService.updateProfileAllTogether(
                                     firstName: controller.firstNameController.text, 
                                     lastName: controller.lastNameController.text, 
                                     occupation: controller.occupationController.text
-                                  );
+                                  ).whenComplete(() {
+                                    profileService.isImageSelected.value = false;
+                                  });
                                 },
                               ),          
                               SizedBox(height: 20.h,),     
@@ -242,9 +249,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                   ),
                 )                          
               ]
-            )
-          );
-        }
+            );
+          }
+        ),
       )
         
     );

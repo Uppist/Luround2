@@ -143,7 +143,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 30.h,),
-                          Center(
+                          /*Center(
                             child: Text(
                               userName,
                               style: GoogleFonts.inter(
@@ -155,7 +155,7 @@ class ProfilePage extends StatelessWidget {
                               )
                             ),
                           ),
-                          SizedBox(height: 20.h,),
+                          SizedBox(height: 20.h,),*/
 
                           
                           //Wrap with Future builder
@@ -164,8 +164,6 @@ class ProfilePage extends StatelessWidget {
                           FutureBuilder<UserModel>(
                             future: userProfileService.getUserProfileDetails(email: userEmail),
                             builder: (context, snapshot) {
-
-                              var data = snapshot.data;
                               
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Loader2();
@@ -173,10 +171,10 @@ class ProfilePage extends StatelessWidget {
 
                               if (snapshot.hasError) {
                                 print(snapshot.error);
-                                /*return SafeArea(
+                                return SafeArea(
                                   child: Center(
                                     child: Text(
-                                      'Error: ${snapshot.error}',
+                                      '${snapshot.error}',
                                       style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
                                         fontSize: 14.sp,
@@ -184,31 +182,27 @@ class ProfilePage extends StatelessWidget {
                                       )
                                     )
                                   ),
-                                );*/
+                                );
                               }
 
                               if (!snapshot.hasData) {
-                                return ProfileEmptyState(
-                                  onPressed: () {
-                                    //userProfileService.getUserProfileDetails(email: userEmail);
-                                    Get.to(() => AddSectionPage(
-                                      aboutUser: data!.about,
-                                    ));
-                                  },
+                                return SafeArea(
+                                  child: Center(
+                                    child: Text(
+                                      'No data in db fam',
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.textGreyColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500
+                                      )
+                                    )
+                                  ),
                                 );
                               }
+                              
+                              var data = snapshot.data!;
 
-                              /*if (data == null) {
-                                return ProfileEmptyState(
-                                  onPressed: () {
-                                    Get.to(() => AddSectionPage(
-                                      aboutUser: data!.about,
-                                    ));
-                                  },
-                                );
-                              }*/
-
-                              if (data!.occupation.isEmpty && data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
+                              if (data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(
                                   onPressed: () {
                                     //userProfileService.getUserProfileDetails(email: userEmail);
@@ -222,6 +216,19 @@ class ProfilePage extends StatelessWidget {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  Center(
+                                    child: Text(
+                                    data.displayName,
+                                    style: GoogleFonts.inter(
+                                      textStyle: TextStyle(
+                                        color: AppColor.blackColor,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold
+                                      )
+                                    )
+                                  ),
+                                  ),
+                                  SizedBox(height: 20.h,),
                                   //OWNER'S OCCUPATION
                                   Center(
                                     child: Text(
@@ -294,7 +301,7 @@ class ProfilePage extends StatelessWidget {
                                     profileController: controller,
                                   ),
                                   SizedBox(height: 50.h),
-                                  if(data.occupation.isEmpty || data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
+                                  if(data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
                                   AddSectionButton(
                                     onPressed: () {
                                       Get.to(() => AddSectionPage(

@@ -115,28 +115,32 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
-    print("Nice. Credentilas are valid!!");
-    Get.to(()=> RegisterPage2());
+    else {
+      print("Nice. Credentilas are valid!!");
+      Get.to(()=> RegisterPage2());
+    }
     return formKey1.currentState!.save();
   }
 
-  checkSecondPageCredentials() async {
+  Future<dynamic> checkSecondPageCredentials() async {
     final isValid = formKey2.currentState!.validate();
     if(!isValid) {
       return "Invalid Credentials";
     }
-    await authService.registerUser(
+    else {
+      await authService.registerUser(
       email: emailController.text,
       firstName: firstNameController.text,
       lastName: lastNameController.text,
       password: passwordController.text,
-    ).then((value) {
+    ).whenComplete(() {
       firstNameController.clear();
       lastNameController.clear();
       emailController.clear();
       passwordController.clear();
       confirmPasswordController.clear();
     });
+    }
     return formKey2.currentState!.save();
   }
   
@@ -146,19 +150,19 @@ class AuthController extends getx.GetxController {
     var user =  await authService.signInWithGoogleTest();
     try {
       if(user != null) {
-        print(user.displayName);
-        print(user.email);
-        print(user.id);
-        print(user.photoUrl); 
+        print("name: ${user.displayName}");
+        print("email: ${user.email}");
+        print("id: ${user.id}");
+        print("guser_photo: ${user.photoUrl}"); 
         await authService.fetchGoogleJwt(
           email: user.email, 
           displayName: user.displayName!, 
-          photoUrl: "url", 
+          photoUrl: "my_photo", 
           google_user_id: user.id,
         );
       }
       else {
-        print("GoogleSignIn failed. User did not complete the process");
+        print("User did not complete the process or user is null");
         LuroundSnackBar.errorSnackBar(message: "Authentication failed");
       }
     }
@@ -169,8 +173,8 @@ class AuthController extends getx.GetxController {
 
   //log user out locally with Luround API
   Future logUserOutOfLuround() async{
-    await authService.logoutUser().then((value) => {
-      print("user logged out")
+    await authService.logoutUser().whenComplete(() {
+      print("user logged out");
     });
   }
 
@@ -180,7 +184,9 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
-    await authService.sendResetPasswordOTP(email: fpEmailController.text);
+    else{
+      await authService.sendResetPasswordOTP(email: fpEmailController.text);
+    }
     return fpFormKey.currentState!.save();
   }
 
@@ -190,11 +196,13 @@ class AuthController extends getx.GetxController {
     if(!isValid) {
       return "Invalid Credentials";
     }
-    await authService.resetPassword(
-      email: fpEmailController.text, 
-      new_password: resetFpPasswordController.text, 
-      otp: int.parse(otpController.text),
-    );
+    else {
+      await authService.resetPassword(
+        email: fpEmailController.text, 
+        new_password: resetFpPasswordController.text, 
+        otp: int.parse(otpController.text),
+      );
+    }
     return resetFpFormKey.currentState!.save();
   }
 
@@ -236,18 +244,20 @@ class AuthController extends getx.GetxController {
     return null;
   }
 
-  checkLoginCredentials() {
+  Future<dynamic> checkLoginCredentials() async{
     final isValid = loginFormKey.currentState!.validate();
     if(!isValid) {
       return "Invalid Credentials";
     }
-    authService.loginUser(
-      email: loginEmailController.text, 
-      password: loginPasswordController.text,
-    ).then((value) {
-      loginEmailController.clear();
-      loginPasswordController.clear();
-    });
+    else {
+      await authService.loginUser(
+        email: loginEmailController.text, 
+        password: loginPasswordController.text,
+      ).whenComplete(() {
+        loginEmailController.clear();
+        loginPasswordController.clear();
+      });
+    }
     return loginFormKey.currentState!.save();
   }
 

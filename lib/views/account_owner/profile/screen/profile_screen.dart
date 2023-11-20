@@ -15,6 +15,7 @@ import 'package:luround/views/account_owner/profile/widget/edit_others/edit_othe
 import 'package:luround/views/account_owner/profile/widget/profile/about_section.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/add_section_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../../../../controllers/account_owner/profile_page_controller.dart';
 import '../widget/edit_about/edit_about_page.dart';
 import '../widget/edit_photo/edit_photo_page.dart';
@@ -83,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                   children: <Widget>[
                     SizedBox(height: 10.h),
                     //QRCODE Widget
-                    Container(
+                    /*Container(
                       padding: EdgeInsets.symmetric(
                         horizontal: 40.w,
                         vertical: 20.h
@@ -94,7 +95,36 @@ class ProfilePage extends StatelessWidget {
                       ),
                       width: double.infinity,
                       child: Image.asset('assets/images/qrcode_img.png'),
+                    ),*/
+
+                    //wrap future builder here
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 40.w,
+                        vertical: 20.h
+                      ),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColor.greyColor
+                      ),
+                      width: double.infinity,
+                      child: QrImageView(
+                        data: "https://www.luround.com/65363722293838_japhet_ebelechukwu",  //$userid_$firstname_$lastname
+                        version: 1,
+                        size: 320.w,
+                        errorStateBuilder: (context, error) {
+                          return Text(
+                            "Uh oh! Something went wrong!",
+                            style: GoogleFonts.inter(
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.normal,
+                              color: AppColor.darkGreyColor
+                            ),
+                          );
+                        },
+                      ),
                     ),
+                    
                     SizedBox(height: 20.h,),
             
                     //SEE ALL REVIEWS TEXT BUTTON

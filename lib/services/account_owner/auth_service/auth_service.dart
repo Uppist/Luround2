@@ -68,6 +68,7 @@ class AuthService extends getx.GetxController {
     }
   }
 
+  //to generate qrlink then login
 
   //to login user locally
   Future<dynamic> loginUser({

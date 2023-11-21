@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/certificate_textfield.dart';
@@ -79,10 +79,10 @@ class _EditEducationPageState extends State<EditEducationPage> {
         ),
         title: CustomAppBarTitle(text: 'Education & Certifications',),
       ),
-      body: SafeArea(
-        child: Obx(
-          () {
-            return profileService.isLoading.value ? Loader2() : Column(
+      body: Obx(
+        () {
+          return profileService.isLoading.value ? Loader2() : SafeArea(
+            child: Column(
               children: [
                 SizedBox(height: 10.h),
                 Container(
@@ -111,7 +111,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                             onTap: () {
                               if (textFields.length < 20) {
                                 if (profileController.subListControllersList.length <= textFields.length) {
-
+                              
                                   //it adds a generated list of 5 textControllers to the  "subListControllersList"
                                   //thereby giving each of the subfields unique list of text controllers ("list of lists")
                                   profileController.subListControllersList.add(
@@ -119,7 +119,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                       5,(i) => TextEditingController(),
                                     )
                                   );
-    
+              
                                   //add a textController to the list of MainFieldTextControllers
                                   profileController.controllers.add(profileController.textController);
                                   
@@ -139,7 +139,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                       ],
                                     ),
                                   );
-
+          
                                   //log the values to keep track of them in the console
                                   print("number_of_fields: ${textFields.length}");
                                   print("number of mainControllers: ${profileController.controllers.length}");
@@ -250,10 +250,10 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       );
                     },
                   ),
-
+          
                 ),
                 ///////////////////////
-      
+                
                 // SizedBox(height: 10.h,),  //500
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
@@ -264,16 +264,16 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       profileService.updateCertificateData(
                         certificateNames: certificateNames, 
                         subListControllersList:  profileController.subListControllersList
-                      ).whenComplete(() => Get.back());
+                      ).whenComplete(() {Get.back();});
                     },
                   ),
                 ),
                 SizedBox(height: 20.h,),
-
+          
               ],
-            );
-          }
-        ),
+            ),
+          );
+        }
       )
     );
   }

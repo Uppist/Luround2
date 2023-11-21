@@ -105,14 +105,14 @@ class UserProfileService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user personal details updated succesfully");
 
-        LuroundSnackBar.successSnackBar(message: "profile updated");
+        //LuroundSnackBar.successSnackBar(message: "profile updated");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.errorSnackBar(message: "failed to update profile");
+        //LuroundSnackBar.errorSnackBar(message: "failed to update profile");
       }
     } 
     catch (e) {
@@ -246,14 +246,14 @@ class UserProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user display name updated successfully");
-        LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+        //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.errorSnackBar(message: "something went wrong");
+        //LuroundSnackBar.errorSnackBar(message: "something went wrong");
       }
     } 
     catch (e) {
@@ -264,31 +264,92 @@ class UserProfileService extends getx.GetxController {
   }
 
 
-  ////[CERTIFICATE SECTION]////////
-  Future<void> updateCertificateData({
-    required List<String> certificateNames,
-    required List<List<TextEditingController>> subListControllersList,
+
+  ////[MEDIA LINKS]////////
+  Future<void> updateMediaLinks({
+    required String? location,
+    required String? mobile,
+    required String? countryCode,
+    required String? email,
+    required String? website,
+    required String? linkedIn,
+    required String? facebook,
   }) async {
 
     isLoading.value = true;
 
+    var body = {
+      "media_links": [
+        {
+          "location": location ?? "lol",
+          "mobile": "$countryCode $mobile" ?? "code mmm",
+          "email": email  ?? "eee",
+          "website": website ?? "www",
+          "linkedIn": linkedIn ?? "lll",
+          "facebook": facebook ?? "fff",
+        }
+      ]
+    };
+
     try {
-      for (List<TextEditingController> controllers in subListControllersList) {
-        var body = {
-          "certificates": [
-            {
-              "certificationName": certificateNames.join(','),
-              "issuingOrganization": controllers[0].text,
-              "issuingDate": controllers[1].text,
-              //'expiration_date': controllers[2].text,
-              //'certificate_id': controllers[3].text,
-              "certificateLink": controllers[4].text,
-            }, 
-          ]
-        };
+      http.Response res = await baseService.httpPut(endPoint: "profile/media-links/update", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user media updated successfully");
+        //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //LuroundSnackBar.errorSnackBar(message: "something went wrong");
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
 
-        http.Response res = await baseService.httpPut(endPoint: "profile/certificates/update", body: body);
 
+
+
+  Future<void> updateCertificateData({
+    required List<String> certificateNames,
+    required List<List<TextEditingController>> subListControllersList,
+  }) async {
+    isLoading.value = true;
+
+    try {
+      List<Map<String, String>> certificates = [];
+
+      for (int i = 0; i < subListControllersList.length; i++) {
+        List<TextEditingController> controllers = subListControllersList[i];
+        String certificationName = certificateNames[i];
+
+        // Ensure that required fields are not empty
+        if (certificationName.isNotEmpty && controllers.every((controller) => controller.text.isNotEmpty)) {
+          certificates.add({
+            "certificationName": certificationName,
+            "issuingOrganization": controllers[0].text,
+            "issuingDate": controllers[1].text,
+            // Add other fields as needed
+          });
+        }
+      }
+
+      if (certificates.isNotEmpty) {
+        var body = {"certificates": certificates};
+
+        http.Response res = await baseService.httpPut(
+          endPoint: "profile/certificates/update",
+          body: body,
+        );
+
+        // Rest of your code...
         if (res.statusCode == 200 || res.statusCode == 201) {
           isLoading.value = false;
           debugPrint('this is response status ==> ${res.statusCode}');
@@ -306,9 +367,14 @@ class UserProfileService extends getx.GetxController {
           debugPrint('this is response status ==> ${res.statusCode}');
           debugPrint('this is response body ==> ${res.body}');
         }
+      } 
+      else {
+        isLoading.value = false;
+        LuroundSnackBar.errorSnackBar(message: "Please fill in all required fields");
       }
     } 
     catch (e) {
+      // Handle exceptions
       isLoading.value = false;
       debugPrint("$e");
       throw const HttpException("Something went wrong");

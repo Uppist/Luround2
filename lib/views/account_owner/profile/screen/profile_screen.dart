@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
-import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -127,7 +127,18 @@ class ProfilePage extends StatelessWidget {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return SizedBox();
                         }
+                        if (snapshot.hasError) {
+                          print(snapshot.error);                         
+                        }
+                        if(!snapshot.hasData) {
+                          print("no data in db");
+                        }
+
                         var data = snapshot.data!;
+                        if (data == null) {
+                          // Access data properties here
+                          print("null data: $data");
+                        }
                         return Container(
                           padding: EdgeInsets.symmetric(
                             horizontal: 40.w,
@@ -195,7 +206,17 @@ class ProfilePage extends StatelessWidget {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return SizedBox();
                               }
+                              if (snapshot.hasError) {
+                                print(snapshot.error);                         
+                              }
+                              if(!snapshot.hasData) {
+                                print("no data in db (photo)");
+                              }
                               var data = snapshot.data!;
+                              if (data == null) {
+                                // Access data properties here
+                                print("null data: $data");
+                              }
                               return Container(
                                 alignment: Alignment.center,
                                 height: 300.h,
@@ -240,6 +261,10 @@ class ProfilePage extends StatelessWidget {
                                 );
                               }
                               var data = snapshot.data!;
+                              if (data == null) {
+                                // Access data properties here
+                                print("null data: $data");
+                              }
                               return Center(
                                 child: Text(
                                   data.displayName,
@@ -300,6 +325,10 @@ class ProfilePage extends StatelessWidget {
                               }
                               
                               var data = snapshot.data!;
+                              if (data == null) {
+                                // Access data properties here
+                                print("null data: $data");
+                              }
 
                               if (data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
                                 return ProfileEmptyState(

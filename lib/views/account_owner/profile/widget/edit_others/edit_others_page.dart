@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/country_code_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/custom_tap_icon.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/phone_number_textfield.dart';
@@ -31,6 +32,7 @@ class EditOthersPage extends StatefulWidget {
 
 class _EditOthersPageState extends State<EditOthersPage> {
   var controller = Get.put(ProfilePageController());
+  var profileService = Get.put(UserProfileService());
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,36 @@ class _EditOthersPageState extends State<EditOthersPage> {
         title: CustomAppBarTitle(text: 'Others',),
         actions: [
           InkWell(
-            onTap: () {},
+            onTap: () {
+              profileService.updateMediaLinks(
+                location:  controller.locationController.text, 
+                mobile: controller.mobileNumberController.text, 
+                email: controller.emailController.text, 
+                website: controller.websiteController.text, 
+                linkedIn: controller.linkedInController.text, 
+                facebook: controller.facebookController.text,
+                countryCode: controller.code.value,
+              ).whenComplete(() {
+                Get.back();
+                print('done');
+                setState(() {
+                  controller.isMobileSelected.value = false;
+                  controller.isLocationSelected.value = false;
+                  controller.isEmailSelected.value = false;
+                  controller.isWebsiteSelected.value = false;
+                  controller.isLinkedInSelected.value = false;
+                  controller.isFacebookSelected.value = false;
+                  //
+                  controller.locationController.clear(); 
+                  controller.mobileNumberController.clear(); 
+                  controller.emailController.clear();
+                  controller.websiteController.clear(); 
+                  controller.linkedInController.clear(); 
+                  controller.facebookController.clear();
+                });
+
+              });
+            },
             child: SvgPicture.asset("assets/svg/save_button.svg")
           ),
           /*SaveButton(

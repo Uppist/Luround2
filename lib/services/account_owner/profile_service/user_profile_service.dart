@@ -104,18 +104,15 @@ class UserProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user personal details updated succesfully");
-        /*UpdateNameResponse nameResponse = UpdateNameResponse.fromJson(json.decode(res.body));
-        String userName = nameResponse.displayName;
-        debugPrint("my display_name: $userName");
-        LocalStorage.saveUsername(userName);*/
 
-        //LuroundSnackBar.successSnackBar(message: "profile updated");
+        LuroundSnackBar.successSnackBar(message: "profile updated");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
+        LuroundSnackBar.errorSnackBar(message: "failed to update profile");
       }
     } 
     catch (e) {

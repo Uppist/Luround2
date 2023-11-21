@@ -113,24 +113,22 @@ class _EditAboutPageState extends State<EditAboutPage> {
                               ),
                             ],
                           ),
+                          SizedBox(height: 490.h,),
+                          ReusableButton(
+                            color: AppColor.mainColor,
+                            text: 'Save',
+                            onPressed: () async{
+                              await profileService.updateAbout(about: controller.aboutController.text)
+                              .whenComplete(() => Get.back());
+                            },
+                          ),
+                          SizedBox(height: 20.h,),
                         ],
                       ),
                     ),
                   ),
                 ),
-                //SizedBox(height: 50.h,),  //250
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-                  child: ReusableButton(
-                    color: AppColor.mainColor,
-                    text: 'Save',
-                    onPressed: () async{
-                      await profileService.updateAbout(about: controller.aboutController.text)
-                      .then((value) => Get.back());
-                    },
-                  ),
-                ),
-                SizedBox(height: 20.h,),
+      
               ]
             )
           );

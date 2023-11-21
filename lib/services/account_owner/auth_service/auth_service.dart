@@ -55,6 +55,7 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        await generateQrLink(urlSlug: email);
         getx.Get.offAll(() => LoginPage());
       } else {
         isLoading.value = false;
@@ -128,11 +129,10 @@ class AuthService extends getx.GetxController {
           // Replace 'sub' with the actual claim you want
           String userId = decodedToken['sub'];
           String email = decodedToken['email'];
-          String displayName = decodedToken['displayName']['displayName'];
+          String displayName = decodedToken['displayName'];
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
-          await generateQrLink(urlSlug: email);
         } 
         else {
           print("Failed to decode JWT token.");

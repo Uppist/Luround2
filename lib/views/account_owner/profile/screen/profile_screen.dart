@@ -7,6 +7,7 @@ import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
@@ -65,11 +66,33 @@ class ProfilePage extends StatelessWidget {
                         child: SvgPicture.asset('assets/svg/notify_active.svg'),
                       ),
                       SizedBox(width: 20.w,),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => EditPhotoPage());
-                        },
-                        child: SvgPicture.asset('assets/svg/edit.svg'),
+                      FutureBuilder<UserModel>(
+                        future: userProfileService.getUserProfileDetails(email: userEmail),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return SvgPicture.asset('assets/svg/edit.svg');
+                          }
+                          if (snapshot.hasError) {
+                            print(snapshot.error);                         
+                          }
+                          if(!snapshot.hasData) {
+                            print("no data in db");
+                          }
+                          var data = snapshot.data!;
+                          
+                          return InkWell(
+                            onTap: () {
+                              Get.to(() => EditPhotoPage(
+                                firstName: getFirstName(fullName: data.displayName),
+                                lastName: getLastName(fullName: data.displayName),
+                                company: data.company,
+                                occupation: data.occupation,
+                                photoUrl: data.photoUrl,
+                              ));
+                            },
+                            child: SvgPicture.asset('assets/svg/edit.svg'),
+                          );
+                        }
                       )
                     ],
                   )
@@ -201,6 +224,21 @@ class ProfilePage extends StatelessWidget {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return SizedBox();
                               }
+                              if (snapshot.hasError) {
+                                print(snapshot.error);
+                                return SafeArea(
+                                  child: Center(
+                                    child: Text(
+                                      '${snapshot.error}',
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.textGreyColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.normal
+                                      )
+                                    )
+                                  ),
+                                );
+                              }
                               var data = snapshot.data!;
                               return Center(
                                 child: Text(
@@ -269,6 +307,11 @@ class ProfilePage extends StatelessWidget {
                                     //userProfileService.getUserProfileDetails(email: userEmail);
                                     Get.to(() => AddSectionPage(
                                       aboutUser: data.about,
+                                      firstName: getFirstName(fullName: data.displayName),
+                                      lastName: getLastName(fullName: data.displayName),
+                                      company: data.company,
+                                      occupation: data.occupation,
+                                      photoUrl: data.photoUrl,
                                     ));
                                   },
                                 );
@@ -357,6 +400,11 @@ class ProfilePage extends StatelessWidget {
                                     onPressed: () {
                                       Get.to(() => AddSectionPage(
                                         aboutUser: data.about,
+                                        firstName: getFirstName(fullName: data.displayName),
+                                        lastName: getLastName(fullName: data.displayName),
+                                        company: data.company,
+                                        occupation: data.occupation,
+                                        photoUrl: data.photoUrl,
                                       ));
                                     },
                                   ),

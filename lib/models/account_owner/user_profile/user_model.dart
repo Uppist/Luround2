@@ -9,6 +9,7 @@ class UserModel {
     required this.occupation,
     required this.about,
     required this.luround_url,
+    required this.company,
     required this.certificates,
     required this.media_links,
   });
@@ -20,6 +21,7 @@ class UserModel {
   late final String occupation;
   late final String about;
   late final String luround_url;
+  late final String company;
   late final List<dynamic> certificates;
   late final List<dynamic> media_links;
   
@@ -27,11 +29,12 @@ class UserModel {
     id = json['_id'];
     email = json['email'];
     displayName = json['displayName'];
-    photoUrl = json['photoUrl'] ?? "photo";
+    photoUrl = json['photoUrl'] ?? "my_photo";
     accountCreatedFrom = json['accountCreatedFrom'];
     occupation = json['occupation'];
     about = json['about'];
     luround_url = json["luround_url"] ?? "url";
+    company = json["company"];
     certificates = json['certificates'];
     media_links = json['media_links'];
   }
@@ -43,9 +46,10 @@ class UserModel {
     _data['displayName'] = displayName;
     _data['photoUrl'] = photoUrl;
     _data['accountCreatedFrom'] = accountCreatedFrom;
-    //_data['occupation'] = occupation;
+    _data['occupation'] = occupation;
     _data['about'] = about;
     _data["luround_url"] = luround_url;
+    _data["company"] = company;
     _data['certificates'] = certificates;
     _data['media_links'] = media_links;
     return _data;

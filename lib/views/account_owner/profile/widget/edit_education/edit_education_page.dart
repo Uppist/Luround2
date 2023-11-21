@@ -40,8 +40,6 @@ class _EditEducationPageState extends State<EditEducationPage> {
 
   List<Widget> textFields = []; //done
 
-
-  //List<TextEditingController> subListControllers = []; //done
   List<String> certificateHints = [
     "Issuing organization",
     "Issue date",
@@ -49,6 +47,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
     "Certificate ID",
     "Certificate URL",
   ];  //done
+
   List<TextInputType> textInputTypes = [
     TextInputType.text,
     TextInputType.datetime,
@@ -58,8 +57,6 @@ class _EditEducationPageState extends State<EditEducationPage> {
   ];  //done
   
 
-
-  /////////////////////////////////////////////////////
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +143,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                   //log the values to keep track of them in the console
                                   print("number_of_fields: ${textFields.length}");
                                   print("number of mainControllers: ${profileController.controllers.length}");
-                                  //setState(() {});
+                                  setState(() {});
                                   ////////////////////////
                                 }
                               }
@@ -253,6 +250,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       );
                     },
                   ),
+
                 ),
                 ///////////////////////
       
@@ -262,7 +260,12 @@ class _EditEducationPageState extends State<EditEducationPage> {
                   child: ReusableButton(
                     color: AppColor.mainColor,
                     text: 'Save',
-                    onPressed: () {},
+                    onPressed: () {
+                      profileService.updateCertificateData(
+                        certificateNames: certificateNames, 
+                        subListControllersList:  profileController.subListControllersList
+                      ).whenComplete(() => Get.back());
+                    },
                   ),
                 ),
                 SizedBox(height: 20.h,),

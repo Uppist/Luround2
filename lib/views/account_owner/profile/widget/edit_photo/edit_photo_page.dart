@@ -25,7 +25,12 @@ import 'occupation_textfield.dart';
 
 
 class EditPhotoPage extends StatefulWidget {
-  EditPhotoPage({super.key});
+  EditPhotoPage({super.key, required this.firstName, required this.lastName, required this.company, required this.occupation, required this.photoUrl});
+  final String firstName;
+  final String lastName;
+  final String company;
+  final String occupation;
+  final String photoUrl;
 
   @override
   State<EditPhotoPage> createState() => _EditPhotoPageState();
@@ -114,7 +119,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 decoration: BoxDecoration(
                                   color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
                                   image: DecorationImage(
-                                    image: NetworkImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
+                                    image: NetworkImage(widget.photoUrl),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
                                     fit: BoxFit.cover
                                   )
                                 ),
@@ -166,8 +171,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       OtherSpecialTextField(
                                         onChanged: (val) {
                                           controller.firstNameController.text = val;
+                                          setState(() {});
                                         },
-                                        initialValue: "first name data",
+                                        initialValue: widget.firstName,
                                         hintText: 'Enter your first name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -184,8 +190,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       OtherSpecialTextField(
                                         onChanged: (val) {
                                           controller.lastNameController.text = val;
+                                          setState(() {});
                                         },
-                                        initialValue: "last name data",
+                                        initialValue: widget.lastName,
                                         hintText: 'Enter your last name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -209,8 +216,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               OccupationTextField(
                                 onChanged: (val) {
                                   controller.companyNameController.text = val;
+                                  setState(() {});
                                 },
-                                initialValue: "company name data",
+                                initialValue: widget.company,
                                 hintText: "Enter your company's name",
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,
@@ -220,7 +228,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 onChanged: (val) {
                                   controller.occupationController.text = val;
                                 },
-                                initialValue: "occupation data",
+                                initialValue: widget.occupation,
                                 hintText: 'What do you do ?',
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
@@ -238,6 +246,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     company: controller.companyNameController.text
                                   ).whenComplete(() {
                                     profileService.isImageSelected.value = false;
+                                    Get.back(canPop: true);
                                   });
 
                                 },

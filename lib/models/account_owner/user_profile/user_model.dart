@@ -43,7 +43,7 @@ class UserModel {
     _data['displayName'] = displayName;
     _data['photoUrl'] = photoUrl;
     _data['accountCreatedFrom'] = accountCreatedFrom;
-    _data['occupation'] = occupation;
+    //_data['occupation'] = occupation;
     _data['about'] = about;
     _data["luround_url"] = luround_url;
     _data['certificates'] = certificates;

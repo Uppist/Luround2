@@ -65,9 +65,68 @@ class ProfilePageController extends getx.GetxController {
   final formKey = GlobalKey();
   updateEducationFocus(bool val) {
     educationFocus.value = val;
-  }
+  } 
 
   
+
+  /////////////////////////pack all these things to profile page controller later/////
+  TextEditingController textController = TextEditingController(); 
+  List<List<TextEditingController>> subListControllersList = [];  //done for subfields (save to db)
+  List<TextEditingController> controllers= [];  //done for mainfield (save to db)
+  ///to get all the values from the text controller (will work with this for integration)
+  List<String> getControllerValues() {
+    List<String> controllerValues = [];
+    for (TextEditingController controller in controllers) {
+      controllerValues.add(controller.text);
+    }
+    return controllerValues;
+  }
+  //
+  //for mainfield list
+  void clearMainFieldTextValues() {
+    for (int j = 0; j < controllers.length; j++) {
+      controllers[j].clear();
+    }
+  }
+  //
+  //for mainField list
+  void disposeMainFieldControllers() {
+    for (int j = 0; j < controllers.length; j++) {
+      controllers[j].dispose();
+    }
+  }
+  //
+  //for sublist
+  void extractTextValues() {
+    for (int i = 0; i < subListControllersList.length; i++) {
+      List<TextEditingController> controllers = subListControllersList[i];
+      for (int j = 0; j < controllers.length; j++) {
+        String text = controllers[j].text;
+        print('Item $i, Field $j: $text');
+        // You can do something with the extracted text, such as storing it in a list or performing any desired action.
+      }
+    }
+  }
+  //
+  //for sublist
+  void clearTextValues() {
+    for (int i = 0; i < subListControllersList.length; i++) {
+      List<TextEditingController> controllers = subListControllersList[i];
+      for (int j = 0; j < controllers.length; j++) {
+        controllers[j].clear();
+      }
+    }
+  }
+  //
+   //for sublist
+  void disposeControllers() {
+    for (int i = 0; i < subListControllersList.length; i++) {
+      List<TextEditingController> controllers = subListControllersList[i];
+      for (int j = 0; j < controllers.length; j++) {
+        controllers[j].dispose();
+      }
+    }
+  }
 
   //////////////////////////////////////////////////////////////////
 
@@ -201,12 +260,10 @@ class ProfilePageController extends getx.GetxController {
     linkedInController.dispose();
     websiteController.dispose();
     facebookController.dispose();
+    disposeControllers();
+    disposeMainFieldControllers();
 
-    //
-    /*for (var controller in controllers) {
-      controller.dispose();
-    }*/
-    //
+
     super.dispose();
   }
 }

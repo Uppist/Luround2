@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
-import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
@@ -98,31 +98,40 @@ class ProfilePage extends StatelessWidget {
                     ),*/
 
                     //wrap future builder here
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 40.w,
-                        vertical: 20.h
-                      ),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColor.greyColor
-                      ),
-                      width: double.infinity,
-                      child: QrImageView(
-                        data: "luround.com/David Ebele_7",  //$userid_$firstname_$lastname
-                        version: QrVersions.auto,
-                        size: 170.w,
-                        errorStateBuilder: (context, error) {
-                          return Text(
-                            "Uh oh! Something went wrong!",
-                            style: GoogleFonts.inter(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.normal,
-                              color: AppColor.darkGreyColor
-                            ),
-                          );
-                        },
-                      ),
+                    FutureBuilder<UserModel>(
+                      future: userProfileService.getUserProfileDetails(email: userEmail),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return SizedBox();
+                        }
+                        var data = snapshot.data!;
+                        return Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 40.w,
+                            vertical: 20.h
+                          ),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: AppColor.greyColor
+                          ),
+                          width: double.infinity,
+                          child: QrImageView(
+                            data: data.luround_url ?? "www.luround.com",
+                            version: QrVersions.auto,
+                            size: 170.w,
+                            errorStateBuilder: (context, error) {
+                              return Text(
+                                "Uh oh! Something went wrong!",
+                                style: GoogleFonts.inter(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.normal,
+                                  color: AppColor.darkGreyColor
+                                ),
+                              );
+                            },
+                          ),
+                        );
+                      }
                     ),
                     
                     SizedBox(height: 20.h,),
@@ -157,35 +166,57 @@ class ProfilePage extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           //OWNER'S IMAGE
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 300.h,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
-                                image: DecorationImage(
-                                  image: AssetImage('assets/images/man_pics.png'),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
-                                  fit: BoxFit.cover
-                                )
-                              ),
-                            ),
+                          FutureBuilder<UserModel>(
+                            future: userProfileService.getUserProfileDetails(email: userEmail),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return SizedBox();
+                              }
+                              var data = snapshot.data!;
+                              return Container(
+                                alignment: Alignment.center,
+                                height: 300.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
+                                  image:  data.photoUrl == "my_photo" ?
+                                  DecorationImage(
+                                    image: AssetImage('assets/images/empty_picc.png'),
+                                    fit: BoxFit.contain
+                                  )
+                                  : DecorationImage(
+                                    image: NetworkImage(data.photoUrl),
+                                    fit: BoxFit.cover
+                                  )
+                                ),
+                              );
+                            }
                           ),
                           SizedBox(height: 30.h,),
-                          /*Center(
-                            child: Text(
-                              userName,
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.blackColor,
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold
-                                )
-                              )
-                            ),
+                          
+                          //user name
+                          FutureBuilder<UserModel>(
+                            future: userProfileService.getUserProfileDetails(email: userEmail),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return SizedBox();
+                              }
+                              var data = snapshot.data!;
+                              return Center(
+                                child: Text(
+                                  data.displayName,
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      color: AppColor.blackColor,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold
+                                    )
+                                  )
+                                ),
+                              );
+                            }
                           ),
-                          SizedBox(height: 20.h,),*/
+                          SizedBox(height: 20.h,),
 
                           
                           //Wrap with Future builder
@@ -246,19 +277,7 @@ class ProfilePage extends StatelessWidget {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Center(
-                                    child: Text(
-                                    data.displayName,
-                                    style: GoogleFonts.inter(
-                                      textStyle: TextStyle(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.bold
-                                      )
-                                    )
-                                  ),
-                                  ),
-                                  SizedBox(height: 20.h,),
+              
                                   //OWNER'S OCCUPATION
                                   Center(
                                     child: Text(
@@ -278,9 +297,11 @@ class ProfilePage extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          userProfileService.launchUrlLink(link: data.luround_url);
+                                        },
                                         child: Text(
-                                          data.luround_url,
+                                          data.luround_url, //data.displayName["company"]
                                           style: GoogleFonts.inter(
                                             textStyle: TextStyle(
                                               color: AppColor.blueColor,
@@ -331,7 +352,7 @@ class ProfilePage extends StatelessWidget {
                                     profileController: controller,
                                   ),
                                   SizedBox(height: 50.h),
-                                  if(data.occupation.isEmpty|| data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
+                                  if(data.occupation.isEmpty || data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
                                   AddSectionButton(
                                     onPressed: () {
                                       Get.to(() => AddSectionPage(

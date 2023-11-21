@@ -59,6 +59,7 @@ class AuthService extends getx.GetxController {
       } else {
         isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==>${res.body}');
       }
     } 
     on HttpException {
@@ -85,6 +86,7 @@ class AuthService extends getx.GetxController {
       else {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response body ==>${res.body}');
       }
     } 
     catch (e) {
@@ -126,7 +128,7 @@ class AuthService extends getx.GetxController {
           // Replace 'sub' with the actual claim you want
           String userId = decodedToken['sub'];
           String email = decodedToken['email'];
-          String displayName = decodedToken['displayName'];
+          String displayName = decodedToken['displayName']['displayName'];
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
@@ -142,6 +144,8 @@ class AuthService extends getx.GetxController {
       } 
       else {
         isLoading.value = false;
+        debugPrint('this is response reason ==>${res.body}');
+        debugPrint('this is response statusCode ==>${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
     } 
@@ -220,6 +224,8 @@ class AuthService extends getx.GetxController {
         getx.Get.offAll(() => MainPage());
       } 
       else {
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
       }
     } 
@@ -250,6 +256,7 @@ class AuthService extends getx.GetxController {
         getx.Get.to(() => PasswordLinkSentPage());
       } else {
         isLoading.value = false;
+        debugPrint('this is response body ==>${res.body}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
     } 
@@ -285,6 +292,7 @@ class AuthService extends getx.GetxController {
       } else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response body ==>${res.body}');
       }
     } 
     on HttpException {

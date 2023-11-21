@@ -2,6 +2,7 @@ import 'package:cloudinary/cloudinary.dart';
 import 'package:get/get.dart' as getx;
 import 'package:image_picker/image_picker.dart';
 import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/models/account_owner/user_profile/certificates_response.dart';
 import 'package:luround/models/account_owner/user_profile/update_displayname_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
@@ -11,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
+
 
 
 
@@ -27,6 +30,25 @@ class UserProfileService extends getx.GetxController {
   var controller = getx.Get.put(ProfilePageController());
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
+
+  //functions for url_launcher (to launch user socials link)
+  Future<void> launchUrlLink({required String link}) async{
+    //String myPhoneNumber = "+234 07040571471";
+    //Uri uri = Uri.parse(myPhoneNumber);
+    Uri linkUri = Uri(
+      scheme: 'https',
+      path: link.replaceFirst("https://", "")
+    );
+    if(await launcher.canLaunchUrl(linkUri)) {
+      launcher.launchUrl(
+        linkUri,
+        mode: launcher.LaunchMode.inAppWebView
+      );
+    }
+    else {
+      throw Exception('Can not launch uri: $linkUri');
+    }
+  }
   
 
   /////[GET USER PROFILE DETAILS]//////
@@ -46,6 +68,7 @@ class UserProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
         throw Exception('Failed to load user data');
       }
     } 
@@ -58,65 +81,41 @@ class UserProfileService extends getx.GetxController {
   }
   
 
-  Future<void> updateDisplayName({
+  
+  Future<void> updatePersonalDetails({
     required String firstName,
     required String lastName,
-  }) async {
-
-    isLoading.value = true;
-    
-    var body = {
-      "firstName": firstName,
-      "lastName": lastName,
-    };
-
-    try {
-      http.Response res = await baseService.httpPut(endPoint: "profile/display-name/update", body: body);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user display name updated successfully");
-        UpdateNameResponse nameResponse = UpdateNameResponse.fromJson(json.decode(res.body));
-        String userName = nameResponse.displayName;
-        debugPrint("my display_name: $userName");
-        LocalStorage.saveUsername(userName);
-        LuroundSnackBar.successSnackBar(message: "profile updated");
-      } 
-      else {
-        isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.statusCode}');
-        LuroundSnackBar.errorSnackBar(message: "something went wrong");
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      debugPrint("$e");
-      throw const HttpException("Something went wrong");
-    }
-  }
-
-  
-  Future<void> updateOccupation({
     required String occupation,
+    required String company,
     }) async {
 
     isLoading.value = true;
+
     var body = {
+      "firstName": firstName,
+      "lastName": lastName,
       "occupation": occupation,
+      "company": company
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "profile/occupation/update", body: body);
+      http.Response res = await baseService.httpPut(endPoint: "profile/personal-details/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user occupation updated succesfully");
+        debugPrint("user personal details updated succesfully");
+        /*UpdateNameResponse nameResponse = UpdateNameResponse.fromJson(json.decode(res.body));
+        String userName = nameResponse.displayName;
+        debugPrint("my display_name: $userName");
+        LocalStorage.saveUsername(userName);*/
+
+        //LuroundSnackBar.successSnackBar(message: "profile updated");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
       }
     } 
     catch (e) {
@@ -127,22 +126,49 @@ class UserProfileService extends getx.GetxController {
   }
   
   //***/
-  Future<void> updateCompanyName({
-    required String companyName,
+  Future<void> updateProfilePhoto({
+    required String? photoUrl,
     }) async {
 
     var body = {
-      "company": companyName,
+      "photoUrl": photoUrl
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "profile/company-name/update", body: body);
+      http.Response res = await baseService.httpPut(endPoint: "profile/photo/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user companyName updated succesfully");
       } 
       else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+      }
+    } 
+    catch (e) {
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
+
+  //***/
+  Future<void> deleteProfilePhoto() async {
+
+    var body = {
+      "photoUrl": "my_photo"
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "profile/photo/update", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user companyName updated succesfully");
+      } 
+      else {
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
       }
     } 
     catch (e) {
@@ -183,6 +209,7 @@ class UserProfileService extends getx.GetxController {
     if(response.isSuccessful) {
       await LocalStorage.saveCloudinaryUrl(response.secureUrl!);
       print('cloudinary_image_url_saved: ${response.secureUrl}');
+      await updateProfilePhoto(photoUrl: response.secureUrl);
     }
   }
 
@@ -194,85 +221,13 @@ class UserProfileService extends getx.GetxController {
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
         isImageSelected.value = true;
-        uploadImageToCloudinary(); //.then((value) => getx.Get.back());
+        await uploadImageToCloudinary(); //.then((value) => getx.Get.back());
         getx.Get.back();
         update();
       }
     }
     catch (e) {
       debugPrint("Error Pickig Image From Gallery: $e");
-    }
-  }
-
-
-  //update photo endpoint**
-  Future<void> updatePhotoUrl() async {
-
-    var photoUrl = await LocalStorage.getCloudinaryUrl();
-
-    var body = {
-      "photoUrl": photoUrl,
-    };
-
-    try {
-      http.Response res = await baseService.httpPut(endPoint: "profile/photo-url/update", body: body);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user occupation updated succesfully");
-      } 
-      else {
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-      }
-    } 
-    catch (e) {
-      debugPrint("$e");
-      throw const HttpException("Something went wrong");
-    }
-  }
-
-  //delete photo endpoint**
-  Future<void> deletePhotoUrl({
-    required String photoUrl
-    }) async {
-
-    var body = {
-      "photoUrl": photoUrl,
-    };
-
-    try {
-      http.Response res = await baseService.httpDelete(endPoint: "profile/photo-url/delete", body: body);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user occupation updated succesfully");
-      } 
-      else {
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-      }
-    } 
-    catch (e) {
-      debugPrint("$e");
-      throw const HttpException("Something went wrong");
-    }
-  }
-  
-  //over all func
-  Future<void> updateProfileAllTogether({
-    required String firstName,
-    required String lastName,
-    required String occupation,
-  }) async{
-    isLoading.value = true;
-    if(isImageSelected.value) {
-      isLoading.value = false;
-      await updateOccupation(occupation: occupation);
-      await updateDisplayName(firstName: firstName, lastName: lastName)
-      .then((value) {
-        isImageSelected.value = false;
-      });
-    }
-    else {
-      isLoading.value = false;
-      debugPrint("Please upload an image fam");
     }
   }
 
@@ -294,13 +249,13 @@ class UserProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user display name updated successfully");
-        LuroundSnackBar.successSnackBar(message: "update successful");
-        getx.Get.back();
+        LuroundSnackBar.successSnackBar(message: "updated successfulyl");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         LuroundSnackBar.errorSnackBar(message: "something went wrong");
       }
     } 
@@ -311,8 +266,59 @@ class UserProfileService extends getx.GetxController {
     }
   }
 
-  ////[ABOUT SECTION]////////
-  Future<void> updateCertificate() async{}
+
+  ////[CERTIFICATE SECTION]////////
+  Future<void> updateCertificateData({
+    required List<String> certificateNames,
+    required List<List<TextEditingController>> subListControllersList,
+  }) async {
+
+    isLoading.value = true;
+
+    try {
+      for (List<TextEditingController> controllers in subListControllersList) {
+        var body = {
+          "certificates": [
+            {
+              "certificationName": certificateNames.join(','),
+              "issuingOrganization": controllers[0].text,
+              "issuingDate": controllers[1].text,
+              //'expiration_date': controllers[2].text,
+              //'certificate_id': controllers[3].text,
+              "certificateLink": controllers[4].text,
+            }, 
+          ]
+        };
+
+        http.Response res = await baseService.httpPut(endPoint: "profile/certificates/update", body: body);
+
+        if (res.statusCode == 200 || res.statusCode == 201) {
+          isLoading.value = false;
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint("user personal details updated succesfully");
+          CertificateResponse details = CertificateResponse.fromJson(json.decode(res.body));
+          //test print
+          String certificateName = details.certificates[0]['certificationName'];
+          debugPrint("cert_title: $certificateName");
+
+          //LuroundSnackBar.successSnackBar(message: "profile updated");
+        } 
+        else {
+          isLoading.value = false;
+          debugPrint('this is response reason ==> ${res.reasonPhrase}');
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+        }
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
+  
+
 
 
 }

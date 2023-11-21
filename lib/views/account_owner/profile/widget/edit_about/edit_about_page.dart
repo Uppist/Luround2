@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -90,8 +90,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
                                 controller.aboutController.text = val.substring(0, controller.maxLength);
                                 debugPrint("you have reached max length");
                               } 
-                              //setState(() {}); // Update the UI
                               controller.aboutController.text = val;
+                              setState(() {}); // Update the UI
                             },
                             //initial value is the one causing it
                             initialValue: widget.about,  //text gotten from the server
@@ -125,7 +125,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
                     color: AppColor.mainColor,
                     text: 'Save',
                     onPressed: () async{
-                      await profileService.updateAbout(about: controller.aboutController.text);
+                      await profileService.updateAbout(about: controller.aboutController.text)
+                      .then((value) => Get.back());
                     },
                   ),
                 ),

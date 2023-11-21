@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/other_textfields.dart';
@@ -73,9 +73,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                     physics: BouncingScrollPhysics(),
                     child: Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
-                      child: Obx(
-                        () {
-                          return Column(
+                      child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [               
                               SizedBox(height: 20.h,),
@@ -166,8 +164,10 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       ),
                                       SizedBox(height: 10.h,),*/
                                       OtherSpecialTextField(
-                                        onChanged: (val) {},
-                                        initialValue: "controller.firstNameController.text",
+                                        onChanged: (val) {
+                                          controller.firstNameController.text = val;
+                                        },
+                                        initialValue: "first name data",
                                         hintText: 'Enter your first name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -182,8 +182,10 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       ),
                                       SizedBox(height: 10.h,),*/
                                       OtherSpecialTextField(
-                                        onChanged: (val) {},
-                                        initialValue: "controller.lastNameController.text",
+                                        onChanged: (val) {
+                                          controller.lastNameController.text = val;
+                                        },
+                                        initialValue: "last name data",
                                         hintText: 'Enter your last name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -205,16 +207,20 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                           
                               SizedBox(height: 10.h,),
                               OccupationTextField(
-                                onChanged: (val) {},
-                                initialValue: "controller.companyNameController.text",
+                                onChanged: (val) {
+                                  controller.companyNameController.text = val;
+                                },
+                                initialValue: "company name data",
                                 hintText: "Enter your company's name",
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,
                               ),
                               SizedBox(height: 10.h,),
                               OccupationTextField(
-                                onChanged: (val) {},
-                                initialValue: "controller.occupationController.text",
+                                onChanged: (val) {
+                                  controller.occupationController.text = val;
+                                },
+                                initialValue: "occupation data",
                                 hintText: 'What do you do ?',
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
@@ -224,32 +230,24 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 color: AppColor.mainColor,
                                 text: 'Save',
                                 onPressed: () async{
-                                  profileService.updateOccupation(
-                                    occupation: controller.occupationController.text
+
+                                  await profileService.updatePersonalDetails(
+                                    firstName: controller.firstNameController.text, 
+                                    lastName: controller.lastNameController.text, 
+                                    occupation: controller.occupationController.text,
+                                    company: controller.companyNameController.text
                                   ).whenComplete(() {
                                     profileService.isImageSelected.value = false;
                                   });
-                                  
-                                  /*profileService.updateDisplayName(
-                                    firstName: controller.firstNameController.text, 
-                                    lastName: controller.lastNameController.text, 
-                                  );*/
 
-                                  /*await profileService.updateProfileAllTogether(
-                                    firstName: controller.firstNameController.text, 
-                                    lastName: controller.lastNameController.text, 
-                                    occupation: controller.occupationController.text
-                                  ).whenComplete(() {
-                                    profileService.isImageSelected.value = false;
-                                  });*/
                                 },
                               ),          
                               SizedBox(height: 20.h,),     
                                       
                               /////////////////////////                               
                             ]
-                          );
-                        }
+                          
+                        
                       )
                     ),
                   ),

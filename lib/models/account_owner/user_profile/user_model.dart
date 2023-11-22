@@ -26,17 +26,17 @@ class UserModel {
   late final List<dynamic> media_links;
   
   UserModel.fromJson(Map<String, dynamic> json,){
-    id = json['_id'];
-    email = json['email'];
-    displayName = json['displayName'];
+    id = json['_id'] ?? "id";
+    email = json['email'] ?? "email";
+    displayName = json['displayName'] ?? "disp";
     photoUrl = json['photoUrl'] ?? "my_photo";
     accountCreatedFrom = json['accountCreatedFrom'];
-    occupation = json['occupation'];
-    about = json['about'];
+    occupation = json['occupation'] ?? "occ";
+    about = json['about'] ?? "about";
     luround_url = json["luround_url"] ?? "url";
-    company = json["company"];
-    certificates = json['certificates'];
-    media_links = json['media_links'];
+    company = json["company"] ?? "company";
+    certificates = json['certificates'] ?? [];
+    media_links = json['media_links'] ?? [];
   }
 
   Map<String, dynamic> toJson() {

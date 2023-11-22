@@ -205,7 +205,13 @@ class _EditEducationPageState extends State<EditEducationPage> {
                   }
                   profileService.updateCertificateData(
                     controllerSets: profileController.controllers
-                  ).whenComplete(() {Get.back();});
+                  ).whenComplete(() {
+                    profileController.textFields.clear();//remove(field);
+                    profileController.controllers.clear();
+                    print("textfield_list: ${profileController.textFields}");
+                    print("controller_list_length: ${profileController.controllers.length}");
+                    Get.back();
+                  });
                 },
               ),
             ),

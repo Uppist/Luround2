@@ -9,14 +9,11 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class EducationAndCertificationSection extends StatelessWidget {
-  EducationAndCertificationSection({super.key, required this.onPressedEdit, required this.itemCount, required this.certificateTitle, required this.institution, required this.issuedDate, required this.credentialID, required this.onPressedShowCertificte});
+  EducationAndCertificationSection({super.key, required this.onPressedEdit, required this.itemCount, required this.eduAndCertList});
   final VoidCallback onPressedEdit;
-  final VoidCallback onPressedShowCertificte;
   final int itemCount;
-  final String certificateTitle;
-  final String institution;
-  final String issuedDate;
-  final String credentialID;
+  final List<dynamic> eduAndCertList;
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +65,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        certificateTitle,
+                        eduAndCertList[index]['certificationName'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
@@ -79,7 +76,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       ),
                       SizedBox(height: 7.h,),
                       Text(
-                        institution,
+                        eduAndCertList[index]['issuingOrganization'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
@@ -90,7 +87,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       ),
                       SizedBox(height: 7.h,),
                       Text(
-                        issuedDate,
+                        eduAndCertList[index]['issuingDate'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
@@ -100,8 +97,8 @@ class EducationAndCertificationSection extends StatelessWidget {
                         )
                       ),
                       SizedBox(height: 7.h,),
-                      Text(
-                        credentialID,
+                      /*Text(
+                        eduAndCertList[index] ['certificateLink'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
@@ -109,11 +106,11 @@ class EducationAndCertificationSection extends StatelessWidget {
                             //fontWeight: FontWeight.w500
                           )
                         )
-                      ),
+                      ),*/
                       SizedBox(height: 12.h,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
-                        onTap: onPressedShowCertificte,
+                        onTap: () {},
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,

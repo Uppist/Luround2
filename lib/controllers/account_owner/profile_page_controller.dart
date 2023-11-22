@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/media_map.dart';
 
 
 
@@ -134,6 +135,8 @@ class ProfilePageController extends getx.GetxController {
     update();
   }
   
+  List<Map<String, dynamic>> addMedia = [];
+  Future<void> addToMediaData() async {}
 
 
   //////////////////////////////////////////////////////////////////

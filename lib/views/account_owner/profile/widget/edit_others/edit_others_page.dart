@@ -55,15 +55,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
         actions: [
           InkWell(
             onTap: () {
-              profileService.updateMediaLinks(
-                location:  controller.locationController.text, 
-                mobile: controller.mobileNumberController.text, 
-                email: controller.emailController.text, 
-                website: controller.websiteController.text, 
-                linkedIn: controller.linkedInController.text, 
-                facebook: controller.facebookController.text,
-                countryCode: controller.code.value,
-              ).whenComplete(() {
+              profileService.updateMediaLinks().whenComplete(() {
                 Get.back();
                 print('done');
                 setState(() {
@@ -74,13 +66,13 @@ class _EditOthersPageState extends State<EditOthersPage> {
                   controller.isLinkedInSelected.value = false;
                   controller.isFacebookSelected.value = false;
                 });
-                ////
-                controller.locationController.clear(); 
+                //clear all controllers
+                /*controller.locationController.clear(); 
                 controller.mobileNumberController.clear(); 
                 controller.emailController.clear();
                 controller.websiteController.clear(); 
                 controller.linkedInController.clear(); 
-                controller.facebookController.clear();
+                controller.facebookController.clear();*/
 
               });
             },

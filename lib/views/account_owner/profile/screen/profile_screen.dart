@@ -30,16 +30,10 @@ import '../widget/reviews/reviews_screen.dart';
 
 
 
-
-
-
 class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-
-  var controller = Get.put(ProfilePageController());
-  var userProfileService = Get.put(UserProfileService());
-  var userEmail = LocalStorage.getUseremail();
-  var userName = LocalStorage.getUsername();
+  final ProfilePageController controller = Get.put(ProfilePageController());
+  final UserProfileService userProfileService = Get.put(UserProfileService());
+  final String userEmail = LocalStorage.getUseremail();
 
   @override
   Widget build(BuildContext context) {
@@ -48,419 +42,22 @@ class ProfilePage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            /////////////////////////////Header Section/////////////////////
-            //HEADER SECTION///
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset('assets/images/luround_logo.png'),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => NotificationsPage());
-                        },
-                        child: SvgPicture.asset('assets/svg/notify_active.svg'),
-                      ),
-                      SizedBox(width: 20.w,),
-                      FutureBuilder<UserModel>(
-                        future: userProfileService.getUserProfileDetails(email: userEmail),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState == ConnectionState.waiting) {
-                            return SvgPicture.asset('assets/svg/edit.svg');
-                          }
-                          if (snapshot.hasError) {
-                            print(snapshot.error);                         
-                          }
-                          if(!snapshot.hasData) {
-                            print("no data in db");
-                          }
-                          var data = snapshot.data!;
-                          
-                          return InkWell(
-                            onTap: () {
-                              Get.to(() => EditPhotoPage(
-                                firstName: getFirstName(fullName: data.displayName),
-                                lastName: getLastName(fullName: data.displayName),
-                                company: data.company,
-                                occupation: data.occupation,
-                                photoUrl: data.photoUrl,
-                              ));
-                            },
-                            child: SvgPicture.asset('assets/svg/edit.svg'),
-                          );
-                        }
-                      )
-                    ],
-                  )
-                ]
-              ),         
-            ),
+            _buildHeaderSection(),
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 10.h),
-                    //QRCODE Widget
-                    /*Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 40.w,
-                        vertical: 20.h
-                      ),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColor.greyColor
-                      ),
-                      width: double.infinity,
-                      child: Image.asset('assets/images/qrcode_img.png'),
-                    ),*/
-
-                    //wrap future builder here
-                    FutureBuilder<UserModel>(
-                      future: userProfileService.getUserProfileDetails(email: userEmail),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return SizedBox();
-                        }
-                        if (snapshot.hasError) {
-                          print(snapshot.error);                         
-                        }
-                        if(!snapshot.hasData) {
-                          print("no data in db");
-                        }
-
-                        var data = snapshot.data!;
-                        if (data == null) {
-                          // Access data properties here
-                          print("null data: $data");
-                        }
-                        return Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 40.w,
-                            vertical: 20.h
-                          ),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: AppColor.greyColor
-                          ),
-                          width: double.infinity,
-                          child: QrImageView(
-                            data: data.luround_url ?? "www.luround.com",
-                            version: QrVersions.auto,
-                            size: 170.w,
-                            errorStateBuilder: (context, error) {
-                              return Text(
-                                "Uh oh! Something went wrong!",
-                                style: GoogleFonts.inter(
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.normal,
-                                  color: AppColor.darkGreyColor
-                                ),
-                              );
-                            },
-                          ),
-                        );
-                      }
-                    ),
-                    
-                    SizedBox(height: 20.h,),
-            
-                    //SEE ALL REVIEWS TEXT BUTTON
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              //SEE ALL REVIEWS
-                              TextButton(
-                                onPressed: () {
-                                  Get.to(() => ReviewsPage());
-                                }, 
-                                child: Text(
-                                  'See all reviews',
-                                  style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                      color: AppColor.darkGreyColor,
-                                      decoration: TextDecoration.underline,
-                                      fontSize: 15.sp,
-                                      fontWeight: FontWeight.w500
-                                    )
-                                  )
-                                )
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 10.h,),
-                          //OWNER'S IMAGE
-                          FutureBuilder<UserModel>(
-                            future: userProfileService.getUserProfileDetails(email: userEmail),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return SizedBox();
-                              }
-                              if (snapshot.hasError) {
-                                print(snapshot.error);                         
-                              }
-                              if(!snapshot.hasData) {
-                                print("no data in db (photo)");
-                              }
-                              var data = snapshot.data!;
-                              if (data == null) {
-                                // Access data properties here
-                                print("null data: $data");
-                              }
-                              return Container(
-                                alignment: Alignment.center,
-                                height: 300.h,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
-                                  image:  data.photoUrl == "my_photo" ?
-                                  DecorationImage(
-                                    image: AssetImage('assets/images/empty_picc.png'),
-                                    fit: BoxFit.contain
-                                  )
-                                  : DecorationImage(
-                                    image: NetworkImage(data.photoUrl),
-                                    fit: BoxFit.cover
-                                  )
-                                ),
-                              );
-                            }
-                          ),
-                          SizedBox(height: 30.h,),
-                          
-                          //user name
-                          FutureBuilder<UserModel>(
-                            future: userProfileService.getUserProfileDetails(email: userEmail),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return SizedBox();
-                              }
-                              if (snapshot.hasError) {
-                                print(snapshot.error);
-                                return SafeArea(
-                                  child: Center(
-                                    child: Text(
-                                      '${snapshot.error}',
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.textGreyColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.normal
-                                      )
-                                    )
-                                  ),
-                                );
-                              }
-                              var data = snapshot.data!;
-                              if (data == null) {
-                                // Access data properties here
-                                print("null data: $data");
-                              }
-                              return Center(
-                                child: Text(
-                                  data.displayName,
-                                  style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                      color: AppColor.blackColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.bold
-                                    )
-                                  )
-                                ),
-                              );
-                            }
-                          ),
-                          SizedBox(height: 20.h,),
-
-                          
-                          //Wrap with Future builder
-      ///////////////////////////////////////////////////////////////////////////////////
-                          //OWNER'S NAME
-                          FutureBuilder<UserModel>(
-                            future: userProfileService.getUserProfileDetails(email: userEmail),
-                            builder: (context, snapshot) {
-                              
-                              if (snapshot.connectionState == ConnectionState.waiting) {
-                                return Loader2();
-                              } 
-
-                              if (snapshot.hasError) {
-                                print(snapshot.error);
-                                return SafeArea(
-                                  child: Center(
-                                    child: Text(
-                                      '${snapshot.error}',
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.textGreyColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.normal
-                                      )
-                                    )
-                                  ),
-                                );
-                              }
-
-                              if (!snapshot.hasData) {
-                                return SafeArea(
-                                  child: Center(
-                                    child: Text(
-                                      'No data in db fam',
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.textGreyColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.normal
-                                      )
-                                    )
-                                  ),
-                                );
-                              }
-                              
-                              var data = snapshot.data!;
-                              if (data == null) {
-                                // Access data properties here
-                                print("null data: $data");
-                              }
-
-                              if (data.about.isEmpty && data.media_links.isEmpty && data.certificates.isEmpty) {
-                                return ProfileEmptyState(
-                                  onPressed: () {
-                                    //userProfileService.getUserProfileDetails(email: userEmail);
-                                    Get.to(() => AddSectionPage(
-                                      aboutUser: data.about,
-                                      firstName: getFirstName(fullName: data.displayName),
-                                      lastName: getLastName(fullName: data.displayName),
-                                      company: data.company,
-                                      occupation: data.occupation,
-                                      photoUrl: data.photoUrl,
-                                    ));
-                                  },
-                                );
-                              }
-
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-              
-                                  //OWNER'S OCCUPATION
-                                  Center(
-                                    child: Text(
-                                      data.occupation,
-                                      style: GoogleFonts.inter(
-                                        textStyle: TextStyle(
-                                          color: AppColor.blackColor,
-                                          fontSize: 17.sp,
-                                          fontWeight: FontWeight.w500
-                                        )
-                                      )
-                                    ),
-                                  ),
-                                  //SizedBox(height: 5,),
-                                  //OWNER'S LINK
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      TextButton(
-                                        onPressed: () {
-                                          userProfileService.launchUrlLink(link: data.luround_url);
-                                        },
-                                        child: Text(
-                                          data.luround_url, //data.displayName["company"]
-                                          style: GoogleFonts.inter(
-                                            textStyle: TextStyle(
-                                              color: AppColor.blueColor,
-                                             fontSize: 15.sp,
-                                             fontWeight: FontWeight.w500
-                                            )
-                                          )
-                                        )
-                                      ),
-                                      SizedBox(width: 4.w,),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: SvgPicture.asset('assets/svg/copy_link.svg')
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 30.h),
-                                      
-                                  /////////////////////////////
-                                  //STRUCTURED WIDGETS COMES IN
-                                  AboutSection(
-                                    onPressed: () {
-                                      Get.to(() => EditAboutPage(
-                                        about: data.about,
-                                      ));
-                                    },
-                                    text: data.about
-                                  ),
-                                  SizedBox(height: 30.h),
-                              
-                                  EducationAndCertificationSection(
-                                    itemCount: 2,
-                                    onPressedEdit: () {
-                                      Get.to(() => EditEducationPage());
-                                    },      
-                                    onPressedShowCertificte: () {},
-                                    certificateTitle: 'Certified Professional Specialist',
-                                    institution: 'London Business School',
-                                    issuedDate: 'Issued Oct 2023',
-                                    credentialID: 'CREDENTIAL ID: 7380030',
-                                  ),
-                                  SizedBox(height: 30.h),
-                                  OtherDetailsSection(
-                                    itemCount: data.media_links.length,
-                                    media_links: data.media_links,
-                                    onPressedEdit: () {
-                                      Get.to(() => EditOthersPage());
-                                    },
-                                    profileController: controller,
-                                  ),
-                                  SizedBox(height: 50.h),
-                                  if(data.occupation.isEmpty || data.about.isEmpty || data.certificates.isEmpty || data.media_links.isEmpty)
-                                  AddSectionButton(
-                                    onPressed: () {
-                                      Get.to(() => AddSectionPage(
-                                        aboutUser: data.about,
-                                        firstName: getFirstName(fullName: data.displayName),
-                                        lastName: getLastName(fullName: data.displayName),
-                                        company: data.company,
-                                        occupation: data.occupation,
-                                        photoUrl: data.photoUrl,
-                                      ));
-                                    },
-                                  ),
-                                ],
-                              );
-                            }
-                          ),
-                        ]
-                      )  
-                    )
-                  ]
-                )                                        
-              )
-              /////////////////////////////////////                       
-            )        
-          ]
-        )
+                child: _buildProfileContent(),
+              ),
+            ),
+          ],
+        ),
       ),
-    
-      
       floatingActionButton: FloatingActionButton.extended(
         extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
         foregroundColor: AppColor.redColor,
         backgroundColor: AppColor.redColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.r)
+          borderRadius: BorderRadius.circular(20.r),
         ),
         onPressed: () {},
         label: Text(
@@ -469,11 +66,360 @@ class ProfilePage extends StatelessWidget {
             textStyle: TextStyle(
               color: AppColor.bgColor,
               fontSize: 16.sp,
-              fontWeight: FontWeight.w500
-            )
-          )
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
     );
   }
+
+  Widget _buildHeaderSection() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Image.asset('assets/images/luround_logo.png'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              InkWell(
+                onTap: () {
+                  Get.to(() => NotificationsPage());
+                },
+                child: SvgPicture.asset('assets/svg/notify_active.svg'),
+              ),
+              SizedBox(width: 20.w),
+              _buildEditProfileButton(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildEditProfileButton() {
+    return FutureBuilder<UserModel>(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox();
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);
+          return SvgPicture.asset('assets/svg/edit.svg');
+        }
+        var data = snapshot.data!;
+        return InkWell(
+          onTap: () {
+            Get.to(() => EditPhotoPage(
+              firstName: getFirstName(fullName: data.displayName),
+              lastName: getLastName(fullName: data.displayName),
+              company: data.company,
+              occupation: data.occupation,
+                photoUrl: data.photoUrl,
+              )
+            );
+          },
+          child: SvgPicture.asset('assets/svg/edit.svg'),
+        );
+      },
+    );
+  }
+
+  Widget _buildProfileContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        // ... (existing code)
+        FutureBuilder<UserModel>(
+          future: userProfileService.getUserProfileDetails(email: userEmail),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Loader2();
+            }
+            if (snapshot.hasError) {
+              print(snapshot.error);
+            }
+            var data = snapshot.data!;
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _buildQrCode(data),
+                SizedBox(height: 20.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      //SEE ALL REVIEWS
+                      TextButton(
+                        onPressed: () {
+                          Get.to(() => ReviewsPage());
+                        }, 
+                        child: Text(
+                          'See all reviews',
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.darkGreyColor,
+                              decoration: TextDecoration.underline,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w500
+                            )
+                          )
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 10.h,),
+                _buildOwnerImage(data),
+                SizedBox(height: 30.h),
+                _buildUserName(data),
+                SizedBox(height: 20.h),
+                Center(
+                  child: Text(
+                    data.occupation,
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.blackColor,
+                        fontSize: 17.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        userProfileService.launchUrlLink(link: data.luround_url);
+                      },
+                      child: Text(
+                        data.luround_url, //data.displayName["company"]
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.blueColor,
+                            fontSize: 15.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        )
+                      )
+                    ),
+                    SizedBox(width: 4.w,),
+                    InkWell(
+                      onTap: () {},
+                      child: SvgPicture.asset('assets/svg/copy_link.svg')
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30.h),
+
+
+                /**Create a futurebuilder for profile empty state**/
+
+                //STRUCTURED WIDGETS COMES IN
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: AboutSection(
+                    onPressed: () {
+                      Get.to(() => EditAboutPage(
+                        about: data.about,
+                      ));
+                    },
+                    text: data.about
+                  ),
+                ),
+
+                SizedBox(height: 30.h),                          
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: EducationAndCertificationSection(
+                    itemCount: data.certificates.length,
+                    eduAndCertList: data.certificates,
+                    onPressedEdit: () {
+                      Get.to(() => EditEducationPage());
+                    },      
+                  ),
+                ),
+                SizedBox(height: 30.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: OtherDetailsSection(
+                    itemCount: data.media_links.length,
+                    media_links: data.media_links,
+                    onPressedEdit: () {
+                      Get.to(() => EditOthersPage());
+                    },
+                    profileController: controller,
+                    profileService: userProfileService,
+                  ),
+                ),
+                SizedBox(height: 50.h),
+
+                // ... (existing code)
+
+                if (
+                  data.occupation.isEmpty ||
+                  data.about.isEmpty ||
+                  data.certificates.isEmpty ||
+                  data.media_links.isEmpty
+                )
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: AddSectionButton(
+                    onPressed: () {
+                      Get.to(
+                        () => AddSectionPage(
+                          aboutUser: data.about,
+                          firstName: getFirstName(fullName: data.displayName),
+                          lastName: getLastName(fullName: data.displayName),
+                          company: data.company,
+                          occupation: data.occupation,
+                          photoUrl: data.photoUrl,
+                        )
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(height: 30.h),
+              ],
+            );
+          },
+        ),
+      ],
+    );
+  }
+
+  // ... (other existing methods)
+
+  Widget _buildQrCode(UserModel data) {
+    return FutureBuilder<UserModel>(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox();
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);                         
+        }
+        if(!snapshot.hasData) {
+          print("no data in db");
+        }
+
+        var data = snapshot.data!;
+                      
+        return Container(
+          padding: EdgeInsets.symmetric(
+            horizontal: 40.w,
+            vertical: 20.h
+          ),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: AppColor.greyColor
+          ),
+          width: double.infinity,
+          child: QrImageView(
+            data: data.luround_url,
+            version: QrVersions.auto,
+            size: 170.w,
+            errorStateBuilder: (context, error) {
+              return Text(
+                "Uh oh! Something went wrong!",
+                style: GoogleFonts.inter(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.normal,
+                  color: AppColor.darkGreyColor
+                ),
+              );
+            },
+          ),
+        );
+      }
+    );
+  }
+
+  Widget _buildOwnerImage(UserModel data) {
+    return FutureBuilder<UserModel>(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox();
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);                         
+        }
+        if(!snapshot.hasData) {
+          print("no data in db (photo)");
+        }
+        var data = snapshot.data!;
+        
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Container(
+            alignment: Alignment.center,
+            height: 300.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
+              image:  data.photoUrl == "my_photo" ?
+              DecorationImage(
+                image: AssetImage('assets/images/empty_picc.png'),
+                fit: BoxFit.contain
+              )
+              :DecorationImage(
+                image: NetworkImage(data.photoUrl),
+                fit: BoxFit.cover
+              )
+            ),
+          ),
+        );
+      }
+    );
+  }
+
+
+  Widget _buildUserName(UserModel data) {
+    return FutureBuilder<UserModel>(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox();
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);
+          return Center(
+            child: Text(
+              '${snapshot.error}',
+              style: GoogleFonts.inter(
+                color: AppColor.textGreyColor,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.normal
+              )
+            )
+          );
+        }
+        var data = snapshot.data!;
+
+        return Center(
+          child: Text(
+            data.displayName,
+            style: GoogleFonts.inter(
+              textStyle: TextStyle(
+                color: AppColor.blackColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.bold
+              )
+            )
+          ),
+        );
+      }
+    );
+  }
+
+
+
+
 }

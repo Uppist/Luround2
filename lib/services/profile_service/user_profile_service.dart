@@ -123,7 +123,7 @@ class UserProfileService extends getx.GetxController {
     }
   }
   
-  //***/
+
   Future<void> updateProfilePhoto({
     required String? photoUrl,
     }) async {
@@ -150,7 +150,6 @@ class UserProfileService extends getx.GetxController {
     }
   }
 
-  //***/
   Future<void> deleteProfilePhoto() async {
 
     var body = {
@@ -220,7 +219,6 @@ class UserProfileService extends getx.GetxController {
         imageFromGallery.value = File(pickedImage.path);
         isImageSelected.value = true;
         await uploadImageToCloudinary(); //.then((value) => getx.Get.back());
-        getx.Get.back();
         update();
       }
     }
@@ -267,45 +265,12 @@ class UserProfileService extends getx.GetxController {
 
 
   ////[MEDIA LINKS]////////
-  Future<void> updateMediaLinks({
-    required String? location,
-    required String? mobile,
-    required String? countryCode,
-    required String? email,
-    required String? website,
-    required String? linkedIn,
-    required String? facebook,
-  }) async {
+  Future<void> updateMediaLinks() async {
 
     isLoading.value = true;
 
     var body = {
-      "media_links": [
-        {
-          "name": "location",
-          "link": location ?? "lol",
-        },
-        {
-          "name": "mobile",
-          "link": "$countryCode $mobile" ?? "code mmm",
-        },
-        {
-          "name": "email",
-          "link": email  ?? "eee",
-        },
-        {
-          "name": "website",
-          "link": website ?? "www",
-        },
-        {
-          "name": "linkedIn",
-          "link": linkedIn ?? "lll",
-        },
-        {
-          "name": "facebook",
-          "link": facebook ?? "fff",
-        },
-      ]
+      "media_links": controller.addMedia
     };
 
     try {

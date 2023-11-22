@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/test.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 
 
@@ -69,9 +68,6 @@ class ProfilePageController extends getx.GetxController {
     educationFocus.value = val;
   } 
 
-  
-
-  /////////////////////////pack all these things to profile page controller later/////
   List<Widget> textFields = [];
   List<ControllerSett> controllers = [];
   //////////////////////////////////////////////////////////////////
@@ -138,8 +134,14 @@ class ProfilePageController extends getx.GetxController {
     update();
   }
   
+
+
   //////////////////////////////////////////////////////////////////
   
+
+
+
+
 
   ///////////////serenren for testing purposes
   

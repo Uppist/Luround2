@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/account_owner/local_storage/profile_service/user_profile_service.dart';
+import 'package:luround/services/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/country_code_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/custom_tap_icon.dart';

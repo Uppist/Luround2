@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -329,64 +330,42 @@ class UserProfileService extends getx.GetxController {
       throw const HttpException("Something went wrong");
     }
   }
+  
 
-
-
-
-  Future<void> updateCertificateData({
-    required List<String> certificateNames,
-    required List<List<TextEditingController>> subListControllersList,
-  }) async {
+  Future<void> updateCertificateData({required List<ControllerSett> controllerSets}) async {
     isLoading.value = true;
 
     try {
-      List<Map<String, String>> certificates = [];
 
-      for (int i = 0; i < subListControllersList.length; i++) {
-        List<TextEditingController> controllers = subListControllersList[i];
-        String certificationName = certificateNames[i];
+      final List<Map<String, dynamic>> body = controllerSets.map((controllerSet) {
+        return {
+          "certificates": [
+            {
+              "issuingOrganization": controllerSet.issuingOrganizationController.text,
+              "certificationName": controllerSet.certNameController.text,
+              "issuingDate": controllerSet.issuingDateController.text,
+              "certificateLink": controllerSet.certURL.text
+            },
+          ]
+        };
+      }).toList();
 
-        // Ensure that required fields are not empty
-        if (certificationName.isNotEmpty && controllers.every((controller) => controller.text.isNotEmpty)) {
-          certificates.add({
-            "certificationName": certificationName,
-            "issuingOrganization": controllers[0].text,
-            "issuingDate": controllers[1].text,
-            // Add other fields as needed
-          });
-        }
-      }
+      final http.Response res = await baseService.httpPut(
+        endPoint: "profile/certificates/update",
+        body: body,
+      );
 
-      if (certificates.isNotEmpty) {
-        var body = {"certificates": certificates};
-
-        http.Response res = await baseService.httpPut(
-          endPoint: "profile/certificates/update",
-          body: body,
-        );
-
-        // Rest of your code...
-        if (res.statusCode == 200 || res.statusCode == 201) {
-          isLoading.value = false;
-          debugPrint('this is response status ==> ${res.statusCode}');
-          debugPrint("user personal details updated succesfully");
-          CertificateResponse details = CertificateResponse.fromJson(json.decode(res.body));
-          //test print
-          String certificateName = details.certificates[0]['certificationName'];
-          debugPrint("cert_title: $certificateName");
-
-          //LuroundSnackBar.successSnackBar(message: "profile updated");
-        } 
-        else {
-          isLoading.value = false;
-          debugPrint('this is response reason ==> ${res.reasonPhrase}');
-          debugPrint('this is response status ==> ${res.statusCode}');
-          debugPrint('this is response body ==> ${res.body}');
-        }
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        // Successful response, handle accordingly
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user personal details updated succesfully");
       } 
       else {
-        isLoading.value = false;
-        LuroundSnackBar.errorSnackBar(message: "Please fill in all required fields");
+        isLoading.value = false;   
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
       }
     } 
     catch (e) {

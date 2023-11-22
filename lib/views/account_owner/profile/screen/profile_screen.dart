@@ -418,6 +418,7 @@ class ProfilePage extends StatelessWidget {
                                   SizedBox(height: 30.h),
                                   OtherDetailsSection(
                                     itemCount: data.media_links.length,
+                                    media_links: data.media_links,
                                     onPressedEdit: () {
                                       Get.to(() => EditOthersPage());
                                     },

@@ -11,10 +11,11 @@ import '../../../../../controllers/account_owner/profile_page_controller.dart';
 
 
 class OtherDetailsSection extends StatelessWidget {
-  OtherDetailsSection({super.key, required this.onPressedEdit, required this.profileController, required this.itemCount,});
+  OtherDetailsSection({super.key, required this.onPressedEdit, required this.profileController, required this.itemCount, required this.media_links,});
   final ProfilePageController profileController;
   final VoidCallback onPressedEdit;
   final int itemCount;
+  final List<dynamic> media_links;
  
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class OtherDetailsSection extends StatelessWidget {
                   children: [
                     //Title text
                     Text(
-                      profileController.titleText[index],
+                      media_links[index]['name'],
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
@@ -75,7 +76,7 @@ class OtherDetailsSection extends StatelessWidget {
                     SizedBox(height: 7.h,), //10
                     //Subtitle text
                     Text(
-                      profileController.subtitleText[index],
+                      media_links[index]["link"],
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,

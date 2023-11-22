@@ -281,13 +281,29 @@ class UserProfileService extends getx.GetxController {
     var body = {
       "media_links": [
         {
-          "location": location ?? "lol",
-          "mobile": "$countryCode $mobile" ?? "code mmm",
-          "email": email  ?? "eee",
-          "website": website ?? "www",
-          "linkedIn": linkedIn ?? "lll",
-          "facebook": facebook ?? "fff",
-        }
+          "name": "location",
+          "link": location ?? "lol",
+        },
+        {
+          "name": "mobile",
+          "link": "$countryCode $mobile" ?? "code mmm",
+        },
+        {
+          "name": "email",
+          "link": email  ?? "eee",
+        },
+        {
+          "name": "website",
+          "link": website ?? "www",
+        },
+        {
+          "name": "linkedIn",
+          "link": linkedIn ?? "lll",
+        },
+        {
+          "name": "facebook",
+          "link": facebook ?? "fff",
+        },
       ]
     };
 

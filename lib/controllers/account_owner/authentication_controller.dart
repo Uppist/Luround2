@@ -149,7 +149,9 @@ class AuthController extends getx.GetxController {
   Future<dynamic> signInWithGoogleAuth() async{
     var user =  await authService.signInWithGoogleTest();
     try {
-      if(user != null) {
+      if(
+        user != null  
+        /*&& user.serverAuthCode == "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com"*/ ) {
         print("name: ${user.displayName}");
         print("email: ${user.email}");
         print("id: ${user.id}");

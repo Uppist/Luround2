@@ -302,18 +302,18 @@ class UserProfileService extends getx.GetxController {
 
     try {
 
-      final List<Map<String, dynamic>> body = controllerSets.map((controllerSet) {
-        return {
-          "certificates": [
-            {
-              "issuingOrganization": controllerSet.issuingOrganizationController.text,
-              "certificationName": controllerSet.certNameController.text,
-              "issuingDate": controllerSet.issuingDateController.text,
-              "certificateLink": controllerSet.certURL.text
-            },
-          ]
+      final List<Map<String, dynamic>> body = [];
+
+      for (ControllerSett controllerSet in controllerSets) {
+        final Map<String, dynamic> certificateData = {
+          "issuingOrganization": controllerSet.issuingOrganizationController.text,
+          "certificationName": controllerSet.certNameController.text,
+          "issuingDate": controllerSet.issuingDateController.text,
+          "certificateLink": controllerSet.certURL.text,
         };
-      }).toList();
+
+        body.add(certificateData);
+      }
 
       final http.Response res = await baseService.httpPut(
         endPoint: "profile/certificates/update",

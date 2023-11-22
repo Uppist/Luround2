@@ -12,11 +12,10 @@ import '../../../../../controllers/account_owner/profile_page_controller.dart';
 
 
 class OtherDetailsSection extends StatelessWidget {
-  OtherDetailsSection({super.key, required this.onPressedEdit, required this.profileController, required this.itemCount, required this.media_links, required this.profileService,});
+  OtherDetailsSection({super.key, required this.onPressedEdit, required this.profileController, required this.media_links, required this.profileService,});
   final ProfilePageController profileController;
   final UserProfileService profileService;
   final VoidCallback onPressedEdit;
-  final int itemCount;
   final List<dynamic> media_links;
  
   @override
@@ -48,7 +47,7 @@ class OtherDetailsSection extends StatelessWidget {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: itemCount,
+          itemCount: media_links.length,
           separatorBuilder: (context, index) => SizedBox(height: 30.h),
           itemBuilder: (context, index) {
             return Row(
@@ -57,7 +56,7 @@ class OtherDetailsSection extends StatelessWidget {
               children: [
                 //Icon
                 SvgPicture.asset(
-                  profileController.svgPictures[index],
+                  media_links[index]["icon"] ?? "icon",
                   height: 55.h, width: 55.w,
                 ),
                 SizedBox(width: 15.w,),
@@ -66,7 +65,7 @@ class OtherDetailsSection extends StatelessWidget {
                   children: [
                     //Title text
                     Text(
-                      media_links[index]['name'],
+                      media_links[index]['name'] ?? "name",
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
@@ -78,7 +77,7 @@ class OtherDetailsSection extends StatelessWidget {
                     SizedBox(height: 7.h,), //10
                     //Subtitle text
                     Text(
-                      media_links[index]["link"],
+                      media_links[index]["link"] ?? "link",
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,

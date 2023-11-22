@@ -136,7 +136,40 @@ class ProfilePageController extends getx.GetxController {
   }
   
   List<Map<String, dynamic>> addMedia = [];
-  Future<void> addToMediaData() async {}
+
+  Future<void> addToMediaData({
+    required String linkName,
+    //required int id,
+    required String link,
+    required String icon,
+
+  }) async {
+    addMedia.add(
+      MediaMap(
+        name: linkName, 
+        //id: id, 
+        iconAsset: icon,
+        link: link,
+      ).toJson()
+    );
+  }
+
+  Future<void> removeMediaData({
+    required String linkName,
+    //required int id,
+    required String link,
+    required String icon,
+
+  }) async {
+    addMedia.remove(
+      MediaMap(
+        name: linkName, 
+        //id: id,
+        iconAsset: icon, 
+        link: link,
+      ).toJson()
+    );
+  }
 
 
   //////////////////////////////////////////////////////////////////

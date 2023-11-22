@@ -248,7 +248,6 @@ class ProfilePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: OtherDetailsSection(
-                    itemCount: data.media_links.length,
                     media_links: data.media_links,
                     onPressedEdit: () {
                       Get.to(() => EditOthersPage());

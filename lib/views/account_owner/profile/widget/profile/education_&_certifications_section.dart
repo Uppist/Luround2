@@ -65,7 +65,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        eduAndCertList[index]['certificationName'],
+                        eduAndCertList[index]['certificateName'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
@@ -87,7 +87,7 @@ class EducationAndCertificationSection extends StatelessWidget {
                       ),
                       SizedBox(height: 7.h,),
                       Text(
-                        eduAndCertList[index]['issuingDate'],
+                        eduAndCertList[index]['issueDate'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,

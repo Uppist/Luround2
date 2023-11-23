@@ -474,7 +474,8 @@ class AccOwnerProfileService extends getx.GetxController {
     isLoading.value = true;
 
     try {   
-      final Map<String, dynamic> body = {
+      
+      var body = {
         "issuingOrganization": issuingOrganization,
         "certificateName": certificateName,
         "issueDate": issueDate,

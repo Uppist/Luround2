@@ -199,7 +199,7 @@ class ProfilePage extends StatelessWidget {
       future: userProfileService.getUserProfileDetails(email: userEmail),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loader2();
+          return Loader();
         }
         if (snapshot.hasError) {
           print(snapshot.error);

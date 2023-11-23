@@ -90,9 +90,9 @@ class _EditOthersPageState extends State<EditOthersPage> {
           SizedBox(width: 20.w,),
         ],
       ),
-      body: Builder(
-        builder: (context) {
-          return profileService.isLoading.value ? Loader2() : SafeArea(
+      body: Obx(
+        () {
+          return profileService.isLoading.value ? Loader() : SafeArea(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
@@ -397,8 +397,6 @@ class BuildTextFieldWidget extends StatefulWidget {
   });
 
   final ProfilePageController controller;
-  //
-
   final String icon;
   final String fieldName;
   final String hintText;

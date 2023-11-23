@@ -101,16 +101,17 @@ class BaseService extends getX.GetxController {
 
   
   //function that sends a DELETE request (on a soft)
-  Future httpDelete({required String endPoint, required dynamic body}) async {
+  Future<http.Response> httpDelete({required String endPoint, required dynamic body}) async {
     var token = await LocalStorage.getToken();
     var res = http.delete(
       Uri.parse("$baseUrl$endPoint"),
-      body: json.decode(body),
+      body: json.encode(body),
       headers: token != null ? 
       {
         'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
+        "Accept-Encoding": "gzip, deflate, br",
         "Connection": "keep-alive",
       } 
       : null

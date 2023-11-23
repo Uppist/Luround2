@@ -9,7 +9,7 @@ class Loader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: LoadingAnimationWidget.threeArchedCircle(
+      child: LoadingAnimationWidget.fourRotatingDots( //threeArchedCircle
         color: AppColor.mainColor,
         size: 55.r,
       ),
@@ -17,13 +17,14 @@ class Loader extends StatelessWidget {
   }
 }
 
+
 class Loader2 extends StatelessWidget {
   const Loader2({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: LoadingAnimationWidget.fourRotatingDots(
+      child: LoadingAnimationWidget.waveDots( 
         color: AppColor.mainColor,
         size: 45.r,
       ),

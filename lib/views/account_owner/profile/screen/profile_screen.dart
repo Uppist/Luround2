@@ -179,7 +179,7 @@ class ProfilePage extends StatelessWidget {
                 _buildUserName(data),
                 SizedBox(height: 20.h),
 
-
+                  /**Create a futurebuilder for profile empty state**/
                 //////////////////////////////////////////////////////////////
                 Center(
                   child: Text(

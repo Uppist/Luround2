@@ -270,21 +270,22 @@ class AccOwnerProfileService extends getx.GetxController {
 
     isLoading.value = true;
 
-    var body = {
-      "media_links": []
-    };
-
     try {
 
       final List<dynamic> media_links = [];
       
       for (ViewModel controllerSet in viewModelList ) {
         final String link = controllerSet.linkController.text;
+        final String name = controllerSet.name;
+        final String icon = controllerSet.icon;
+        final String countryCode = controllerSet.countryCode;
 
         // Check if required fields are not empty or undefined
         if (link.isNotEmpty) {
           final Map<String, dynamic> linkData = {
             "link": link, 
+            "name": name,
+            "icon": icon,
           };
           media_links.add(linkData);
         } 

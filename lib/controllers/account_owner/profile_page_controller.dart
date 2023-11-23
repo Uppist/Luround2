@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_others/media_map.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 
 
@@ -81,50 +80,7 @@ class ProfilePageController extends getx.GetxController {
 
 
   //EDIT OTHERS SECTION//////////////////////////////////////////////
-  //create textcontrollers for the others icons
-  final TextEditingController locationController = TextEditingController();
-  final TextEditingController mobileNumberController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController linkedInController = TextEditingController();
-  final TextEditingController websiteController = TextEditingController();
-  final TextEditingController facebookController = TextEditingController();
-  
 
-  //list out the focuses for each fields
-  final locationFocus = false.obs;
-  final mobileNumberFocus = false.obs;
-  final emailFocus = false.obs;
-  final websiteFocus = false.obs;
-  final linkedInFocus = false.obs;
-  final facebookFocus = false.obs;
-
-  //list out all the false booleans for each field
-  final isLocationSelected = false.obs;
-  final isMobileSelected = false.obs;
-  final isEmailSelected = false.obs;
-  final isWebsiteSelected = false.obs;
-  final isLinkedInSelected = false.obs;
-  final isFacebookSelected = false.obs;
-
-  //list out the focus functions for all textfields (let me try an use anonymous fuctions)
-  updateLocationFocus(bool val) => {
-    locationFocus.value = val
-  };
-  updateMobileFocus(bool val) => {
-    mobileNumberFocus.value = val
-  };
-  updateEmailFocus(bool val) => {
-    emailFocus.value = val
-  };
-  updateWebsiteFocus(bool val) => {
-    websiteFocus.value = val
-  };
-  updateLinkedInFocus(bool val) => {
-    linkedInFocus.value = val
-  };
-  updateFacebookFocus(bool val) => {
-    facebookFocus.value = val
-  };
   
   //country code picker (append with mobile controller.text and save to db)
   var code = "".obs; 
@@ -157,7 +113,7 @@ class ProfilePageController extends getx.GetxController {
     viewTextfields.remove(item);
   }
 
-  List<Widget> viewTextfields = []; //this
+  List<Widget> viewTextfields = []; 
   List<ViewModel> viewItems = [];  //(save to db)
   List<String> svgIcons = [
     'assets/svg/location_icon.svg',
@@ -166,7 +122,7 @@ class ProfilePageController extends getx.GetxController {
     'assets/svg/site_icon.svg',
     'assets/svg/linkedin_icon.svg',
     'assets/svg/facebook_icon.svg',
-    'assets/svg/twitter_icon.svg',
+    //'assets/svg/twitter_icon.svg',
   ];
   List<String> fieldNameList = [
     'Location',
@@ -175,7 +131,7 @@ class ProfilePageController extends getx.GetxController {
     'Website',
     'LinkedIn',
     'Facebook',
-    'Twitter',
+    //'Twitter',
   ];
   List<String> hintTextList = [
     'Enter your location',
@@ -184,7 +140,7 @@ class ProfilePageController extends getx.GetxController {
     'Paste url to your website',
     'Paste url to your linkedIn profile',
     'Paste url to your facebook page',
-    'Paste url to your twitter page',
+    //'Paste url to your twitter page',
   ];
   List<TextInputType> textInputTypeList = [
     TextInputType.streetAddress,
@@ -193,51 +149,13 @@ class ProfilePageController extends getx.GetxController {
     TextInputType.url,
     TextInputType.url,
     TextInputType.url,
-    TextInputType.url,
+    //TextInputType.url,
   ];
   //////////////////////////////////////
-  
-  List<Map<String, dynamic>> addMedia = [];
-  Future<void> addToMediaData({
-    required String linkName,
-    //required int id,
-    required String link,
-    required String icon,
-
-  }) async {
-    addMedia.add(
-      MediaMap(
-        name: linkName, 
-        //id: id, 
-        iconAsset: icon,
-        link: link,
-      ).toJson()
-    );
-  }
-
-  Future<void> removeMediaData({
-    required String linkName,
-    //required int id,
-    required String link,
-    required String icon,
-
-  }) async {
-    addMedia.remove(
-      MediaMap(
-        name: linkName, 
-        //id: id,
-        iconAsset: icon, 
-        link: link,
-      ).toJson()
-    );
-  }
-
 
   ///////////////serenren for testing purposes
   bool isEmpty = true;
-
-  
-  
+ 
 
   //dispose function from getX
   @override
@@ -253,19 +171,12 @@ class ProfilePageController extends getx.GetxController {
     userNameController.dispose();
     aboutController.dispose();
     educationController.dispose();
+
     issuingOrganizationController.dispose();
     issueDateController.dispose();
     expirationDateController.dispose();
     certicateIDController.dispose();
     certificateURLController.dispose();
-    //
-    locationController.dispose();
-    mobileNumberController.dispose();
-    emailController.dispose();
-    linkedInController.dispose();
-    websiteController.dispose();
-    facebookController.dispose();
-
     super.dispose();
   }
 }

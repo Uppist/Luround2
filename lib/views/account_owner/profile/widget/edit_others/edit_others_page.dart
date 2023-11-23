@@ -62,6 +62,14 @@ class _EditOthersPageState extends State<EditOthersPage> {
           InkWell(
             onTap: () {
 
+              //I JUST WANT TO BE SURE I'M SEEING THE OUTPUT
+              for (ViewModel viewModelSet in controller.viewItems) {
+                print("link: ${viewModelSet.linkController.text}");
+                print("name: ${viewModelSet.name}");
+                print("icon: ${viewModelSet.icon}");
+              }
+              ////////////
+            
               profileService.updateMediaLinks(
                 viewModelList: controller.viewItems
               ).whenComplete(() {
@@ -128,7 +136,6 @@ class _EditOthersPageState extends State<EditOthersPage> {
 
                         SizedBox(height: 20.h,),
 
-
                         //growable list that displays custom textfields that was added
                         Expanded(
                           child: ReorderableListView.builder(
@@ -138,14 +145,15 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              ViewModel controllerSet = controller.viewItems[index];
+
+                              //ViewModel controllerSet = controller.viewItems[index];
+
                               return controller.viewTextfields[index];
                             }
                           )
                         ),
-
-                        
                         ////////////////////////////////
+                        
                         SizedBox(height: 40.h),
                         Text(
                           'Tap on icon to add',
@@ -171,7 +179,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/location_icon.svg",
                                   name: "Location",
-                                  index: 0,
+                                  index: 0, //i put the index for value key sake
                                 );
                                 //to be sent to db
                                 controller.viewItems.add(viewModel);
@@ -317,6 +325,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           ],
                         ),
                         ///////////////////////////////////////////////////////
+                        ///[ADD MORE ICONS IF YOU WISH]///
 
 
                         SizedBox(height: 20.h,),
@@ -353,7 +362,6 @@ class _EditOthersPageState extends State<EditOthersPage> {
       )
     );
   }
-
 
 
 }

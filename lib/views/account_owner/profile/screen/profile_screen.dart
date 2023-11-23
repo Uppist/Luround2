@@ -130,7 +130,7 @@ class ProfilePage extends StatelessWidget {
     );
   }
   
-
+  //[MAIN CONTENT HERE]//
   Widget _buildContent() {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),

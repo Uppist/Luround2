@@ -8,7 +8,7 @@ import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 var controller = Get.put(ProfilePageController());
 
 class ViewModel{
-  ViewModel({required this.icon, required this.name, required this.index});
+  ViewModel({required this.icon, required this.name,});
 
   final TextEditingController linkController = TextEditingController();
   
@@ -17,5 +17,5 @@ class ViewModel{
 
   final String icon;
   final String name;
-  final int index;
+  //final int index;
 }

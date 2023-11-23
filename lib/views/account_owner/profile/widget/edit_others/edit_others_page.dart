@@ -137,20 +137,20 @@ class _EditOthersPageState extends State<EditOthersPage> {
                         SizedBox(height: 20.h,),
 
                         //growable list that displays custom textfields that was added
-                        Expanded(
-                          child: ReorderableListView.builder(
-                            onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
-                            itemCount: controller.viewTextfields.length,
-                            scrollDirection: Axis.vertical,
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
+                        ReorderableListView.builder(
+                          onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
+                          itemCount: controller.viewTextfields.length,
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
 
-                              //ViewModel controllerSet = controller.viewItems[index];
-
-                              return controller.viewTextfields[index];
+                            //ViewModel controllerSet = controller.viewItems[index];
+                            if(controller.viewTextfields.isEmpty) {
+                              print("list is empty");
                             }
-                          )
+                            return controller.viewTextfields[index];
+                          }
                         ),
                         ////////////////////////////////
                         
@@ -176,23 +176,28 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/location_icon.svg",
                               iconTitle: 'Location',
                               onTap: () {
+                                
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/location_icon.svg",
                                   name: "Location",
-                                  index: 0, //i put the index for value key sake
+                                  //index: 0, //i put the index for value key sake
                                 );
+      
                                 //to be sent to db
-                                controller.viewItems.add(viewModel);
+                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   buildTextField(
+                                    index: 0,
                                     viewTextfields: controller.viewTextfields,
-                                    index: viewModel.index,
                                     viewModel: viewModel,
                                     controller: controller,
-                                    keyy: ValueKey(viewModel.index),
+                                    keyy: UniqueKey(),
                                   )
                                 );
+                                });
+                                print(controller.viewTextfields);
                               },
                             ),
                             //SizedBox(width: 118,), //120
@@ -200,23 +205,26 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/call_icon.svg",
                               iconTitle: 'Mobile',
                               onTap: () {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/call_icon.svg",
                                   name: "Mobile",
-                                  index: 1,
                                 );
                                 //to be sent to db
-                                controller.viewItems.add(viewModel);
+                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   buildTextField(
+                                    index: 1,
                                     viewTextfields: controller.viewTextfields,
-                                    index: viewModel.index,
                                     viewModel: viewModel,
                                     controller: controller,
-                                    keyy: ValueKey(viewModel.index),
+                                    keyy: UniqueKey(),
                                   )
                                 );
+                                });
+                                print(controller.viewTextfields);
+                            
                               },
                             ),
                             //SizedBox(width: 140,),
@@ -224,23 +232,26 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/email_icon.svg",
                               iconTitle: 'Email',
                               onTap: () {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/email_icon.svg",
                                   name: "Email",
-                                  index: 2,
                                 );
                                 //to be sent to db
-                                controller.viewItems.add(viewModel);
+                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   buildTextField(
+                                    index: 2,
                                     viewTextfields: controller.viewTextfields,
-                                    index: viewModel.index,
                                     viewModel: viewModel,
                                     controller: controller,
-                                    keyy: ValueKey(viewModel.index),
+                                    keyy: UniqueKey(),
                                   )
                                 );
+                                });
+                                print(controller.viewTextfields);
+                              
                               },
                             )
                           ],
@@ -255,23 +266,25 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/site_icon.svg",
                               iconTitle: 'Website',
                               onTap: () {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/site_icon.svg",
                                   name: "Website",
-                                  index: 3,
                                 );
                                 //to be sent to db
-                                controller.viewItems.add(viewModel);
+                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   buildTextField(
+                                    index: 3,
                                     viewTextfields: controller.viewTextfields,
-                                    index: viewModel.index,
                                     viewModel: viewModel,
                                     controller: controller,
-                                    keyy: ValueKey(viewModel.index),
+                                    keyy: UniqueKey(),
                                   )
                                 );
+                                });
+                                print(controller.viewTextfields);
                               },
                             ),
                             //SizedBox(width: 60,),
@@ -279,23 +292,26 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/linkedin_icon.svg",
                               iconTitle: 'LinkedIn',
                               onTap: () {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/linkedin_icon.svg",
                                   name: "LinkedIn",
-                                  index: 4,
                                 );
                                 //to be sent to db
-                                controller.viewItems.add(viewModel);
+                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   buildTextField(
+                                    index: 4,
                                     viewTextfields: controller.viewTextfields,
-                                    index: viewModel.index,
                                     viewModel: viewModel,
                                     controller: controller,
-                                    keyy: ValueKey(viewModel.index),
+                                    keyy: UniqueKey(),
                                   )
                                 );
+                                });
+                                print(controller.viewTextfields);
+                              
                               },
                             ),
                             //SizedBox(width: 50,),
@@ -303,23 +319,26 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/facebook_icon.svg",
                               iconTitle: 'Facebook',
                               onTap: () {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/facebook_icon.svg",
                                   name: "Facebook",
-                                  index: 5,
                                 );
                                 //to be sent to db
-                                controller.viewItems.add(viewModel);
+                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   buildTextField(
+                                    index: 5,
                                     viewTextfields: controller.viewTextfields,
-                                    index: viewModel.index,
                                     viewModel: viewModel,
                                     controller: controller,
-                                    keyy: ValueKey(viewModel.index),
+                                    keyy: UniqueKey(),
                                   )
                                 );
+                                });
+                                print(controller.viewTextfields);
+                              
                               },
                             )
                           ],
@@ -344,13 +363,14 @@ class _EditOthersPageState extends State<EditOthersPage> {
 
 
   //main fields
-  Widget buildTextField({required List<Widget> viewTextfields, required ViewModel viewModel, required ProfilePageController controller, required int index, required Key keyy}) {
+  Widget buildTextField({required int index, required List<Widget> viewTextfields, required ViewModel viewModel, required ProfilePageController controller, required Key keyy}) {
     return CustomFieldWidget(   
       key: keyy,      
       svgAssetName: controller.svgIcons[index], 
       fieldName: controller.fieldNameList[index], 
       onCancel: () {
-        controller.deleteItem(controller.viewTextfields[index]);
+        controller.deleteItem(index);
+        //viewTextfields.removeAt(index);
       }, 
       fieldWidget: ReusableTextField(
       onChanged: (val){},

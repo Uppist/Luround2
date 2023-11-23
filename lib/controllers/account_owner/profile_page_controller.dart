@@ -99,19 +99,33 @@ class ProfilePageController extends getx.GetxController {
     }
     final item = viewTextfields.removeAt(oldIndex);
     viewTextfields.insert(newIndex, item);
-    update();
   }
 
   void addItem(Widget item) {
     if (!viewTextfields.contains(item)) {
       viewTextfields.add(item);
+    }
+  }
+
+  void deleteItem(int index) {
+    viewTextfields.removeAt(index);
+  }
+
+  void addViewModel(ViewModel item) {
+    if (!viewItems.contains(item)) {
+      viewItems.add(item);
+    }
+  }
+
+
+  void deleteViewModel(ViewModel item, int index) {
+    if (!viewItems.contains(item)) {
+      //viewItems.remove(item);
+      viewItems.removeAt(index);
       update();
     }
   }
 
-  void deleteItem(Widget item) {
-    viewTextfields.remove(item);
-  }
 
   List<Widget> viewTextfields = []; 
   List<ViewModel> viewItems = [];  //(save to db)

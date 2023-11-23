@@ -105,32 +105,30 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       separatorBuilder: (context, index) => SizedBox(height: 5.h,),
                       itemCount: 4,
                       itemBuilder: (context, index) {
-                        return Container(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Certificate name*",
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Certificate name*",
+                              style: GoogleFonts.inter(
+                                fontSize: 15.sp,
+                                fontWeight: FontWeight.w500,
+                                color: AppColor.blackColor
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () {},                      
+                              child: Text(
+                                "Remove",
                                 style: GoogleFonts.inter(
+                                  decoration: TextDecoration.underline,
                                   fontSize: 15.sp,
                                   fontWeight: FontWeight.w500,
-                                  color: AppColor.blackColor
+                                  color: AppColor.darkGreyColor
                                 ),
                               ),
-                              TextButton(
-                                onPressed: () {},                      
-                                child: Text(
-                                  "Remove",
-                                  style: GoogleFonts.inter(
-                                    decoration: TextDecoration.underline,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColor.darkGreyColor
-                                  ),
-                                ),
-                              )
-                            ]
-                          ),
+                            )
+                          ]
                         );
                       }
                     ),
@@ -145,6 +143,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                 physics: BouncingScrollPhysics(),
                 itemCount: profileController.textFields.length, //certified (working)
                 itemBuilder: (context, index) {  //certified (working)
+                
                   ControllerSett controllerSet = profileController.controllers[index];
                       
                   return ExpansionTile(

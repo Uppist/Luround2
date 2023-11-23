@@ -23,7 +23,7 @@ class Loader2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: LoadingAnimationWidget.waveDots(
+      child: LoadingAnimationWidget.fourRotatingDots(
         color: AppColor.mainColor,
         size: 45.r,
       ),

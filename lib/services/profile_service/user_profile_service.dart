@@ -298,48 +298,62 @@ class UserProfileService extends getx.GetxController {
   
 
   Future<void> updateCertificateData({required List<ControllerSett> controllerSets}) async {
-    isLoading.value = true;
+  isLoading.value = true;
 
-    try {
+  try {
+    final List<dynamic> certificates = [];
 
-      final List<Map<String, dynamic>> body = [];
+    for (ControllerSett controllerSet in controllerSets) {
+      final String issuingOrganization = controllerSet.issuingOrganizationController.text;
+      final String certificationName = controllerSet.certNameController.text;
+      final String issuingDate = controllerSet.issuingDateController.text;
+      final String certificateLink = controllerSet.certURL.text;
 
-      for (ControllerSett controllerSet in controllerSets) {
+      // Check if required fields are not empty or undefined
+      if (issuingOrganization.isNotEmpty &&
+          certificationName.isNotEmpty &&
+          issuingDate.isNotEmpty) {
         final Map<String, dynamic> certificateData = {
-          "issuingOrganization": controllerSet.issuingOrganizationController.text,
-          "certificationName": controllerSet.certNameController.text,
-          "issuingDate": controllerSet.issuingDateController.text,
-          "certificateLink": controllerSet.certURL.text,
+          "issuingOrganization": issuingOrganization,
+          "certificateName": certificationName,
+          "issueDate": issuingDate,
+          "certificateLink": certificateLink,
         };
 
-        body.add(certificateData);
-      }
-
-      final http.Response res = await baseService.httpPut(
-        endPoint: "profile/certificates/update",
-        body: body,
-      );
-
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        // Successful response, handle accordingly
+        certificates.add(certificateData);
+      } else {
+        // Handle case where required fields are empty or undefined
         isLoading.value = false;
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user personal details updated succesfully");
-      } 
-      else {
-        isLoading.value = false;   
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("Error: Required fields are empty or undefined");
+        return; // Stop processing this request
       }
-    } 
-    catch (e) {
-      // Handle exceptions
-      isLoading.value = false;
-      debugPrint("$e");
-      throw const HttpException("Something went wrong");
     }
+
+    final http.Response res = await baseService.httpPut(
+      endPoint: "profile/certificates/update",
+      body: {"certificates": certificates},
+    );
+
+    if (res.statusCode == 200 || res.statusCode == 201) {
+      // Successful response, handle accordingly
+      isLoading.value = false;
+      debugPrint('this is response status ==> ${res.statusCode}');
+      debugPrint("user personal details updated successfully");
+    } else {
+      isLoading.value = false;
+      debugPrint('this is response reason ==> ${res.reasonPhrase}');
+      debugPrint('this is response status ==> ${res.statusCode}');
+      debugPrint('this is response body ==> ${res.body}');
+    }
+  } catch (e, stackTrace) {
+    // Handle exceptions
+    isLoading.value = false;
+    debugPrint("$e");
+    debugPrint("$stackTrace");
+    throw const HttpException("Something went wrong");
   }
+}
+
   
 
 

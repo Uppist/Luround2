@@ -67,7 +67,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                 icon: "assets/svg/location_icon.svg"
               );
 
-              controller.addToMediaData(
+              /*controller.addToMediaData(
                 link: "${controller.code.value} ${controller.mobileNumberController.text}",
                 linkName: "mobile",
                 icon: "assets/svg/call_icon.svg",
@@ -95,7 +95,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                 link: controller.facebookController.text,
                 linkName: "facebook",
                 icon: "assets/svg/facebook_icon.svg"
-              );
+              );*/
 
               profileService.updateMediaLinks().whenComplete(() {
                 Get.back();

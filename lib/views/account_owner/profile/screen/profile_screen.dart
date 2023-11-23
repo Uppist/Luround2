@@ -178,6 +178,9 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: 30.h),
                 _buildUserName(data),
                 SizedBox(height: 20.h),
+
+
+                //////////////////////////////////////////////////////////////
                 Center(
                   child: Text(
                     data.occupation,
@@ -218,9 +221,13 @@ class ProfilePage extends StatelessWidget {
                 SizedBox(height: 30.h),
 
 
-                /**Create a futurebuilder for profile empty state**/
-
-                //STRUCTURED WIDGETS COMES IN
+                if (
+                  data.occupation.isEmpty ||
+                  data.about.isEmpty ||
+                  data.certificates.isEmpty ||
+                  data.media_links.isEmpty
+                )
+            
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),
                   child: AboutSection(
@@ -284,6 +291,7 @@ class ProfilePage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30.h),
+                ////////////////////////////////////////////////////////////////////////
               ],
             );
           },

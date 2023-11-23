@@ -24,7 +24,7 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
-class UserProfileService extends getx.GetxController {
+class AccOwnerProfileService extends getx.GetxController {
 
 
   var baseService = getx.Get.put(BaseService());
@@ -136,7 +136,7 @@ class UserProfileService extends getx.GetxController {
       http.Response res = await baseService.httpPut(endPoint: "profile/photo/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user companyName updated succesfully");
+        debugPrint("user photo updated succesfully");
       } 
       else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
@@ -157,10 +157,10 @@ class UserProfileService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "profile/photo/update", body: body);
+      http.Response res = await baseService.httpDelete(endPoint: "profile/photo/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user companyName updated succesfully");
+        debugPrint("user photo deleted succesfully");
       } 
       else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
@@ -244,7 +244,7 @@ class UserProfileService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user display name updated successfully");
+        debugPrint("user about updated successfully");
         //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
       } 
       else {
@@ -270,7 +270,7 @@ class UserProfileService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "media_links": controller.addMedia
+      "media_links": []
     };
 
     try {
@@ -278,7 +278,7 @@ class UserProfileService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user media updated successfully");
+        debugPrint("user media-link updated successfully");
         //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
       } 
       else {
@@ -339,7 +339,7 @@ class UserProfileService extends getx.GetxController {
       // Successful response, handle accordingly
       isLoading.value = false;
       debugPrint('this is response status ==> ${res.statusCode}');
-      debugPrint("user personal details updated successfully");
+      debugPrint("user certificate details updated successfully");
     } else {
       isLoading.value = false;
       debugPrint('this is response reason ==> ${res.reasonPhrase}');

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/certificate_textfield.dart';
@@ -35,7 +35,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
 
   //GetX dependency injection
   var profileController = Get.put(ProfilePageController());
-  var profileService = Get.put(UserProfileService());
+  var profileService = Get.put(AccOwnerProfileService());
   
 
   @override

@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
-import 'package:luround/services/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -32,7 +32,7 @@ import '../widget/reviews/reviews_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   final ProfilePageController controller = Get.put(ProfilePageController());
-  final UserProfileService userProfileService = Get.put(UserProfileService());
+  final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
   final String userEmail = LocalStorage.getUseremail();
 
   @override

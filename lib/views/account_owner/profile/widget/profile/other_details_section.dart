@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_screen.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
@@ -14,7 +14,7 @@ import '../../../../../controllers/account_owner/profile_page_controller.dart';
 class OtherDetailsSection extends StatelessWidget {
   OtherDetailsSection({super.key, required this.onPressedEdit, required this.profileController, required this.media_links, required this.profileService,});
   final ProfilePageController profileController;
-  final UserProfileService profileService;
+  final AccOwnerProfileService profileService;
   final VoidCallback onPressedEdit;
   final List<dynamic> media_links;
  

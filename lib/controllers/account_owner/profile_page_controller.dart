@@ -71,7 +71,7 @@ class ProfilePageController extends getx.GetxController {
   } 
 
   List<Widget> textFields = [];
-  List<ControllerSett> controllers = [];
+  List<ControllerSett> controllers = []; //(save to db)
   //////////////////////////////////////////////////////////////////
 
 
@@ -136,12 +136,28 @@ class ProfilePageController extends getx.GetxController {
     update();
   }
 
-  ////////////////
-  List<Widget> viewTextfields = [];
-  List<ViewModel> viewItems = [];
-  List<String> svgIcons = [];
-  List<String> fieldName = [];
-  ///////////////
+  //////////////////////////////////
+  List<Widget> viewTextfields = []; //(save to db)
+  List<ViewModel> viewItems = [];  //(save to db)
+  List<String> svgIcons = [
+    'assets/svg/location_icon.svg',
+    'assets/svg/call_icon.svg',
+    'assets/svg/email_icon.svg',
+    'assets/svg/site_icon.svg',
+    'assets/svg/linkedin_icon.svg',
+    'assets/svg/facebook_icon.svg',
+    'assets/svg/twitter_icon.svg',
+  ];
+  List<String> fieldName = [
+    'Location',
+    'Mobile',
+    'Email',
+    'Website',
+    'LinkedIn',
+    'Facebook',
+    'Twitter',
+  ];
+  //////////////////////////////////////
   
   List<Map<String, dynamic>> addMedia = [];
   Future<void> addToMediaData({
@@ -179,50 +195,10 @@ class ProfilePageController extends getx.GetxController {
   }
 
 
-  //////////////////////////////////////////////////////////////////
-  
-
-
-
-
-
   ///////////////serenren for testing purposes
-  
   bool isEmpty = true;
 
-  //svg pictures
-  var svgPictures = <String> [
-    'assets/svg/location_icon.svg',
-    'assets/svg/call_icon.svg',
-    'assets/svg/email_icon.svg',
-    'assets/svg/site_icon.svg',
-    'assets/svg/linkedin_icon.svg',
-    'assets/svg/facebook_icon.svg',
-    'assets/svg/twitter_icon.svg',
-  ];
   
-  //title texts (accordingly)
-  var titleText = <String> [
-    'Lagos, Nigeria.',
-    '(234) 7040 571 471',
-    'ronaldrichards@example.com',
-    'https://www.mysite.com',
-    'linkedin.com/in/richie12234',
-    'facebook.com/fb/richard',
-    'twitter.com/x/richard',
-  ];
-
-  //subtitle texts (accordingly)
-  var subtitleText = <String> [
-    'Location',
-    'Mobile',
-    'Email',
-    'Website',
-    'LinkedIn',
-    'Facebook',
-    'Twitter',
-  ];
-  //////////////////////////////////////////////////
   
 
   //dispose function from getX

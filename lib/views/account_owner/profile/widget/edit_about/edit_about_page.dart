@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -31,7 +31,7 @@ class EditAboutPage extends StatefulWidget {
 class _EditAboutPageState extends State<EditAboutPage> {
 
   var controller = Get.put(ProfilePageController());
-  var profileService = Get.put(UserProfileService());
+  var profileService = Get.put(AccOwnerProfileService());
 
   @override
   Widget build(BuildContext context) {

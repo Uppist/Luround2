@@ -101,14 +101,15 @@ class ProfilePageController extends getx.GetxController {
     viewTextfields.insert(newIndex, item);
   }
 
+  void deleteBoth(int index) {
+    viewTextfields.removeAt(index);
+    viewItems.removeAt(index);
+  }
+
   void addItem(Widget item) {
     if (!viewTextfields.contains(item)) {
       viewTextfields.add(item);
     }
-  }
-
-  void deleteItem(int index) {
-    viewTextfields.removeAt(index);
   }
 
   void addViewModel(ViewModel item) {
@@ -116,20 +117,12 @@ class ProfilePageController extends getx.GetxController {
       viewItems.add(item);
     }
   }
-
-
-  void deleteViewModel(ViewModel item, int index) {
-    if (!viewItems.contains(item)) {
-      //viewItems.remove(item);
-      viewItems.removeAt(index);
-      update();
-    }
-  }
+  
 
 
   List<Widget> viewTextfields = []; 
   List<ViewModel> viewItems = [];  //(save to db)
-  List<String> svgIcons = [
+  /*List<String> svgIcons = [
     'assets/svg/location_icon.svg',
     'assets/svg/call_icon.svg',
     'assets/svg/email_icon.svg',
@@ -164,7 +157,7 @@ class ProfilePageController extends getx.GetxController {
     TextInputType.url,
     TextInputType.url,
     //TextInputType.url,
-  ];
+  ];*/
   //////////////////////////////////////
 
   ///////////////serenren for testing purposes

@@ -188,16 +188,19 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
-                                  buildTextField(
-                                    index: 0,
-                                    viewTextfields: controller.viewTextfields,
-                                    viewModel: viewModel,
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/location_icon.svg",
+                                    fieldName: "Location",
+                                    hintText: "Enter your location",
+                                    keyboardType: TextInputType.text,
+                                    textController: viewModel.linkController,
                                     controller: controller,
-                                    keyy: UniqueKey(),
+                                    key: ValueKey("locay"),
                                   )
                                 );
                                 });
                                 print(controller.viewTextfields);
+                                print(controller.viewItems);
                               },
                             ),
                             //SizedBox(width: 118,), //120
@@ -214,16 +217,19 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
-                                  buildTextField(
-                                    index: 1,
-                                    viewTextfields: controller.viewTextfields,
-                                    viewModel: viewModel,
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/call_icon.svg",
+                                    fieldName: "Mobile",
+                                    hintText: "Enter your mobile number",
+                                    keyboardType: TextInputType.phone,
+                                    textController: viewModel.linkController,
                                     controller: controller,
-                                    keyy: UniqueKey(),
+                                    key: ValueKey("mobile"),
                                   )
                                 );
                                 });
                                 print(controller.viewTextfields);
+                                print(controller.viewItems);
                             
                               },
                             ),
@@ -241,16 +247,19 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
-                                  buildTextField(
-                                    index: 2,
-                                    viewTextfields: controller.viewTextfields,
-                                    viewModel: viewModel,
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/email_icon.svg",
+                                    fieldName: "Email",
+                                    hintText: "Enter your email address",
+                                    keyboardType: TextInputType.emailAddress,
+                                    textController: viewModel.linkController,
                                     controller: controller,
-                                    keyy: UniqueKey(),
+                                    key: ValueKey("email"),
                                   )
                                 );
                                 });
                                 print(controller.viewTextfields);
+                                print(controller.viewItems);
                               
                               },
                             )
@@ -275,16 +284,19 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
-                                  buildTextField(
-                                    index: 3,
-                                    viewTextfields: controller.viewTextfields,
-                                    viewModel: viewModel,
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/site_icon.svg",
+                                    fieldName: "Website",
+                                    hintText: "Paste url to your website",
+                                    keyboardType: TextInputType.url,
+                                    textController: viewModel.linkController,
                                     controller: controller,
-                                    keyy: UniqueKey(),
+                                    key: ValueKey("web"),
                                   )
                                 );
                                 });
                                 print(controller.viewTextfields);
+                                print(controller.viewItems);
                               },
                             ),
                             //SizedBox(width: 60,),
@@ -301,16 +313,19 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
-                                  buildTextField(
-                                    index: 4,
-                                    viewTextfields: controller.viewTextfields,
-                                    viewModel: viewModel,
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/linkedin_icon.svg",
+                                    fieldName: "LinkedIn",
+                                    hintText: "Paste url to your linkedIn profile",
+                                    keyboardType: TextInputType.url,
+                                    textController: viewModel.linkController,
                                     controller: controller,
-                                    keyy: UniqueKey(),
+                                    key: ValueKey("li"),
                                   )
                                 );
                                 });
                                 print(controller.viewTextfields);
+                                print(controller.viewItems);
                               
                               },
                             ),
@@ -328,16 +343,19 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                 controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
-                                  buildTextField(
-                                    index: 5,
-                                    viewTextfields: controller.viewTextfields,
-                                    viewModel: viewModel,
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/facebook_icon.svg",
+                                    fieldName: "Facebook",
+                                    hintText: "Paste url to your facebook page",
+                                    keyboardType: TextInputType.url,
+                                    textController: viewModel.linkController,
                                     controller: controller,
-                                    keyy: UniqueKey(),
+                                    key: ValueKey("fb"),
                                   )
                                 );
                                 });
                                 print(controller.viewTextfields);
+                                print(controller.viewItems);
                               
                               },
                             )
@@ -361,27 +379,59 @@ class _EditOthersPageState extends State<EditOthersPage> {
   }
 
 
+}
 
-  //main fields
-  Widget buildTextField({required int index, required List<Widget> viewTextfields, required ViewModel viewModel, required ProfilePageController controller, required Key keyy}) {
-    return CustomFieldWidget(   
-      key: keyy,      
-      svgAssetName: controller.svgIcons[index], 
-      fieldName: controller.fieldNameList[index], 
+
+
+
+//MAIN FIELD 
+class BuildTextFieldWidget extends StatefulWidget {
+  const BuildTextFieldWidget({
+    super.key, 
+    required this.controller, 
+
+    required this.icon, 
+    required this.fieldName, 
+    required this.hintText, 
+    required this.keyboardType, required this.textController,
+  });
+
+  final ProfilePageController controller;
+  //
+
+  final String icon;
+  final String fieldName;
+  final String hintText;
+  final TextInputType keyboardType;
+  final TextEditingController textController;
+
+  @override
+  State<BuildTextFieldWidget> createState() => _BuildTextFieldWidgetState();
+}
+
+class _BuildTextFieldWidgetState extends State<BuildTextFieldWidget> {
+
+  //int get index => widget.index;
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomFieldWidget(        
+      svgAssetName:  widget.icon, 
+      fieldName:  widget.fieldName, 
       onCancel: () {
-        controller.deleteItem(index);
-        //viewTextfields.removeAt(index);
+        /*setState(() {
+          controller.deleteItem(index);
+          controller.deleteViewModel(index);
+        });*/ 
       }, 
       fieldWidget: ReusableTextField(
       onChanged: (val){},
       onFocusChanged: (hasFocus) {},
-      hintText: controller.hintTextList[index],
-      keyboardType: controller.textInputTypeList[index],
-      textController: viewModel.linkController,
+      hintText:  widget.hintText,
+      keyboardType: widget.keyboardType,
+      textController: widget.textController,
       textInputAction: TextInputAction.next,
       )
     );
   }
-
-
 }

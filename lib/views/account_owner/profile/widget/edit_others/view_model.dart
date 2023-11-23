@@ -14,7 +14,6 @@ class ViewModel{
   
   //for mobile textfield
   String countryCode = controller.code.value;
-
   final String icon;
   final String name;
   //final int index;

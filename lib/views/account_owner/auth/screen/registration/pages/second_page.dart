@@ -214,17 +214,6 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         ),
 
                         SizedBox(height: 50.h,),
-                        SignInWithGoogleWidget(
-                          onGoogleSignIn: () {
-                            controller.signInWithGoogleAuth();
-                          },
-                          onTextButton: () {
-                            Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
-                          },
-                          firstText: "Already have an account ?",
-                          lastText: "Log in",
-                        ),
-                        SizedBox(height: 70.h,),
                         RebrandedReusableButton(
                           textColor: controller.isSecondPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                           color: controller.isSecondPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
@@ -236,6 +225,17 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           : () {
                             print('nothing for you chief!!');
                           },
+                        ),
+                        SizedBox(height: 70.h,),
+                        SignInWithGoogleWidget(
+                          onGoogleSignIn: () {
+                            controller.signInWithGoogleAuth();
+                          },
+                          onTextButton: () {
+                            Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
+                          },
+                          firstText: "Already have an account ?",
+                          lastText: "Log in",
                         ),
                         SizedBox(height: 20.h,),
 

@@ -33,6 +33,8 @@ class AccOwnerProfileService extends getx.GetxController {
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
 
+
+
   //functions for url_launcher (to launch user socials link)
   Future<void> launchUrlLink({required String link}) async{
     //String myPhoneNumber = "+234 07040571471";
@@ -49,6 +51,37 @@ class AccOwnerProfileService extends getx.GetxController {
     }
     else {
       throw Exception('Can not launch uri: $linkUri');
+    }
+  }
+
+
+
+  /////[GET LOGGED-IN USER'S CERTIFICATE LIST]//////
+  Future<List<dynamic>> getUserCertificates({required String email}) async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "profile/get?email=$email",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user certificates gotten successfully!!");
+        //decode the response body here
+        UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
+        return userModel.certificates;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load user data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw HttpException("$e");
+    
     }
   }
   
@@ -323,65 +356,157 @@ class AccOwnerProfileService extends getx.GetxController {
       throw const HttpException("Something went wrong");
     }
   }
+
+  
+  Future<void> deleteMediaLink({
+    required String icon,
+    required String name,
+    required String link,
+  }) async {
+
+    isLoading.value = true;
+
+    try {
+
+      final Map<String, dynamic> body = {
+        "link": link, 
+        "name": name,
+        "icon": icon,
+      };
+
+      http.Response res = await baseService.httpDelete(
+        endPoint: "profile/delete-user-link", 
+        body: body
+      );
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user media-link data deleted successfully");
+        //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //LuroundSnackBar.errorSnackBar(message: "something went wrong");
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
+  
+
   
   ////[CERTIFICATE DATA]]////////
   Future<void> updateCertificateData({required List<ControllerSett> controllerSets}) async {
-  isLoading.value = true;
+    isLoading.value = true;
 
-  try {
-    final List<dynamic> certificates = [];
+    try {
+      final List<dynamic> certificates = [];
 
-    for (ControllerSett controllerSet in controllerSets) {
-      final String issuingOrganization = controllerSet.issuingOrganizationController.text;
-      final String certificateName = controllerSet.certNameController.text;
-      final String issueDate = controllerSet.issuingDateController.text;
-      final String certificateLink = controllerSet.certURL.text;
+      for (ControllerSett controllerSet in controllerSets) {
+        final String issuingOrganization = controllerSet.issuingOrganizationController.text;
+        final String certificateName = controllerSet.certNameController.text;
+        final String issueDate = controllerSet.issuingDateController.text;
+        final String certificateLink = controllerSet.certURL.text;
 
-      // Check if required fields are not empty or undefined
-      if (issuingOrganization.isNotEmpty && certificateName.isNotEmpty && issueDate.isNotEmpty) {
-        final Map<String, dynamic> certificateData = {
-          "issuingOrganization": issuingOrganization,
-          "certificateName": certificateName,
-          "issueDate": issueDate,
-          "certificateLink": certificateLink,
-        };
-        certificates.add(certificateData);
+        // Check if required fields are not empty or undefined
+        if (issuingOrganization.isNotEmpty && certificateName.isNotEmpty && issueDate.isNotEmpty) {
+          final Map<String, dynamic> certificateData = {
+            "issuingOrganization": issuingOrganization,
+            "certificateName": certificateName,
+            "issueDate": issueDate,
+            "certificateLink": certificateLink,
+          };
+          certificates.add(certificateData);
 
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      final http.Response res = await baseService.httpPut(
+        endPoint: "profile/certificates/update",
+        body: {
+          "certificates": certificates
+        },
+      );
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        // Successful response, handle accordingly
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user certificate details updated successfully");
       } 
       else {
-        // Handle case where required fields are empty or undefined
         isLoading.value = false;
-        debugPrint("Error: Required fields are empty or undefined");
-        return; // Stop processing this request
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
       }
-    }
-
-    final http.Response res = await baseService.httpPut(
-      endPoint: "profile/certificates/update",
-      body: {
-        "certificates": certificates
-      },
-    );
-
-    if (res.statusCode == 200 || res.statusCode == 201) {
-      // Successful response, handle accordingly
+    } 
+    catch (e, stackTrace) {
+      // Handle exceptions
       isLoading.value = false;
-      debugPrint('this is response status ==> ${res.statusCode}');
-      debugPrint("user certificate details updated successfully");
-    } else {
-      isLoading.value = false;
-      debugPrint('this is response reason ==> ${res.reasonPhrase}');
-      debugPrint('this is response status ==> ${res.statusCode}');
-      debugPrint('this is response body ==> ${res.body}');
+      debugPrint("$e");
+      debugPrint("$stackTrace");
+      throw const HttpException("Something went wrong");
     }
-  } catch (e, stackTrace) {
-    // Handle exceptions
-    isLoading.value = false;
-    debugPrint("$e");
-    debugPrint("$stackTrace");
-    throw const HttpException("Something went wrong");
   }
-}
+
+
+  Future<void> deleteCertificateData({
+    required String issuingOrganization,
+    required String certificateName,
+    required String issueDate,
+    required String certificateLink
+  }) async {
+
+    isLoading.value = true;
+
+    try {   
+      final Map<String, dynamic> body = {
+        "issuingOrganization": issuingOrganization,
+        "certificateName": certificateName,
+        "issueDate": issueDate,
+        "certificateLink": certificateLink,
+      };
+
+      final http.Response res = await baseService.httpDelete(
+        endPoint: "profile/delete-user-certificate",
+        body: body
+      );
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        // Successful response, handle accordingly
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user certificate details deleted successfully");
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+      }
+    } 
+    catch (e, stackTrace) {
+      // Handle exceptions
+      isLoading.value = false;
+      debugPrint("$e");
+      debugPrint("$stackTrace");
+      throw const HttpException("Something went wrong");
+    }
+  }
 
   
 

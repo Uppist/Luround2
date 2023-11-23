@@ -46,7 +46,7 @@ class ProfilePage extends StatelessWidget {
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: _buildProfileContent(),
+                child: _buildContent(),
               ),
             ),
           ],
@@ -73,6 +73,8 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+
+
 
   Widget _buildHeaderSection() {
     return Padding(
@@ -127,176 +129,204 @@ class ProfilePage extends StatelessWidget {
       },
     );
   }
+  
 
-  Widget _buildProfileContent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        // ... (existing code)
-        FutureBuilder<UserModel>(
-          future: userProfileService.getUserProfileDetails(email: userEmail),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return Loader2();
-            }
-            if (snapshot.hasError) {
-              print(snapshot.error);
-            }
-            var data = snapshot.data!;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildQrCode(data),
-                SizedBox(height: 20.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      //SEE ALL REVIEWS
-                      TextButton(
-                        onPressed: () {
-                          Get.to(() => ReviewsPage());
-                        }, 
-                        child: Text(
-                          'See all reviews',
-                          style: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: AppColor.darkGreyColor,
-                              decoration: TextDecoration.underline,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500
-                            )
-                          )
-                        )
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 10.h,),
-                _buildOwnerImage(data),
-                SizedBox(height: 30.h),
-                _buildUserName(data),
-                SizedBox(height: 20.h),
-
-                  /**Create a futurebuilder for profile empty state**/
-                //////////////////////////////////////////////////////////////
-                Center(
-                  child: Text(
-                    data.occupation,
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        userProfileService.launchUrlLink(link: data.luround_url);
-                      },
-                      child: Text(
-                        data.luround_url, //data.displayName["company"]
-                        style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                            color: AppColor.blueColor,
-                            fontSize: 15.sp,
-                            fontWeight: FontWeight.w500
-                          )
+  Widget _buildContent() {
+    return FutureBuilder<UserModel>(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SafeArea(
+            child: Loader()
+          );
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);
+        }
+        if (!snapshot.hasData) {
+          print("sn-trace: ${snapshot.stackTrace}");
+          print("sn-data: ${snapshot.data}");
+          return Loader2();
+        }
+        var data = snapshot.data!;
+        
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _buildQrCode(data),
+            SizedBox(height: 20.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  //SEE ALL REVIEWS
+                  TextButton(
+                    onPressed: () {
+                      Get.to(() => ReviewsPage());
+                    }, 
+                    child: Text(
+                      'See all reviews',
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.darkGreyColor,
+                          decoration: TextDecoration.underline,
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w500
                         )
                       )
-                    ),
-                    SizedBox(width: 4.w,),
-                    InkWell(
-                      onTap: () {},
-                      child: SvgPicture.asset('assets/svg/copy_link.svg')
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30.h),
+                    )
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 10.h,),
+            _buildOwnerImage(data),
+            SizedBox(height: 30.h),
+            _buildUserName(data),
+            SizedBox(height: 20.h),
+            _buildProfileContent(data),              
+            SizedBox(height: 30.h),
+            ////////////////////////////////////////////////////////////////////////
+          ],     
+        );
+      }
+    );
+  }
 
+  Widget _buildProfileContent(UserModel data) {
+    return FutureBuilder(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Loader2();
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);
+        }
+        if (!snapshot.hasData) {
+          print("uh--oh! nothing dey;");
+        }
 
-                if (
-                  data.occupation.isEmpty ||
-                  data.about.isEmpty ||
-                  data.certificates.isEmpty ||
-                  data.media_links.isEmpty
-                )
-            
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: AboutSection(
-                    onPressed: () {
-                      Get.to(() => EditAboutPage(
-                        about: data.about,
-                      ));
-                    },
-                    text: data.about
+        var data = snapshot.data!;
+
+        if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty) {
+          return ProfileEmptyState(
+            onPressed: () {}
+          );
+        }
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Text(
+                data.occupation,
+                style: GoogleFonts.inter(
+                  textStyle: TextStyle(
+                    color: AppColor.blackColor,
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
-
-                SizedBox(height: 30.h),                          
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: EducationAndCertificationSection(
-                    itemCount: data.certificates.length,
-                    eduAndCertList: data.certificates,
-                    onPressedEdit: () {
-                      Get.to(() => EditEducationPage());
-                    },      
-                  ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    userProfileService.launchUrlLink(link: data.luround_url);
+                  },
+                  child: Text(
+                    data.luround_url, //data.displayName["company"]
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.blueColor,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500
+                      )
+                    )
+                  )
                 ),
-                SizedBox(height: 30.h),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: OtherDetailsSection(
-                    media_links: data.media_links,
-                    onPressedEdit: () {
-                      Get.to(() => EditOthersPage());
-                    },
-                    profileController: controller,
-                    profileService: userProfileService,
-                  ),
+                SizedBox(width: 4.w,),
+                InkWell(
+                  onTap: () {},
+                  child: SvgPicture.asset('assets/svg/copy_link.svg')
                 ),
-                SizedBox(height: 50.h),
-
-                // ... (existing code)
-
-                if (
-                  data.occupation.isEmpty ||
-                  data.about.isEmpty ||
-                  data.certificates.isEmpty ||
-                  data.media_links.isEmpty
-                )
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w),
-                  child: AddSectionButton(
-                    onPressed: () {
-                      Get.to(
-                        () => AddSectionPage(
-                          aboutUser: data.about,
-                          firstName: getFirstName(fullName: data.displayName),
-                          lastName: getLastName(fullName: data.displayName),
-                          company: data.company,
-                          occupation: data.occupation,
-                          photoUrl: data.photoUrl,
-                        )
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(height: 30.h),
-                ////////////////////////////////////////////////////////////////////////
               ],
-            );
-          },
-        ),
-      ],
+            ),
+            SizedBox(height: 30.h),
+            if (
+              data.occupation.isEmpty ||
+              data.about.isEmpty ||
+              data.certificates.isEmpty ||
+              data.media_links.isEmpty
+            )       
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: AboutSection(
+                onPressed: () {
+                  Get.to(() => EditAboutPage(
+                    about: data.about,
+                  ));
+                },
+                text: data.about
+              ),
+            ),
+            SizedBox(height: 30.h),                          
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: EducationAndCertificationSection(
+                itemCount: data.certificates.length,
+                eduAndCertList: data.certificates,
+                onPressedEdit: () {
+                  Get.to(() => EditEducationPage());
+                },      
+              ),
+            ),
+            SizedBox(height: 30.h),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: OtherDetailsSection(
+                media_links: data.media_links,
+                onPressedEdit: () {
+                  Get.to(() => EditOthersPage());
+                },
+                profileController: controller,
+                profileService: userProfileService,
+              ),
+            ),
+            SizedBox(height: 50.h),
+
+            ////////////////////////
+
+            if (
+              data.occupation.isEmpty ||
+              data.about.isEmpty ||
+              data.certificates.isEmpty ||
+              data.media_links.isEmpty
+            )
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: AddSectionButton(
+                onPressed: () {
+                  Get.to(
+                    () => AddSectionPage(
+                      aboutUser: data.about,
+                      firstName: getFirstName(fullName: data.displayName),
+                      lastName: getLastName(fullName: data.displayName),
+                      company: data.company,
+                      occupation: data.occupation,
+                      photoUrl: data.photoUrl,
+                    )
+                  );
+                },
+              ),
+            ),
+          ],
+        );
+      }
     );
   }
 
@@ -408,6 +438,11 @@ class ProfilePage extends StatelessWidget {
             )
           );
         }
+        if (!snapshot.hasData) {
+          print("sn-trace: ${snapshot.stackTrace}");
+          print("sn-data: ${snapshot.data}");
+        }
+
         var data = snapshot.data!;
 
         return Center(

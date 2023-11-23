@@ -165,18 +165,6 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                         SizedBox(height: 70.h,),
-                        SignInWithGoogleWidget(
-                          onGoogleSignIn: () {
-                            controller.signInWithGoogleAuth();
-                          },
-                          onTextButton: () {
-                            Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);
-                            //Get.to(() => RegisterPage1());
-                          },
-                          firstText: "Don't have an account ?",
-                          lastText: "Create account",
-                        ),
-                        SizedBox(height: 70.h,),
                         RebrandedReusableButton(
                           textColor: controller.isLoginPageButtonEnabled ? AppColor.bgColor : AppColor.darkGreyColor,
                           color: controller.isLoginPageButtonEnabled ? AppColor.mainColor : AppColor.lightPurple, 
@@ -188,6 +176,18 @@ class _LoginPageState extends State<LoginPage> {
                           : () {
                             print('nothing for you chief!!');
                           },
+                        ),
+                        SizedBox(height: 70.h,),
+                        SignInWithGoogleWidget(
+                          onGoogleSignIn: () {
+                            controller.signInWithGoogleAuth();
+                          },
+                          onTextButton: () {
+                            Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);
+                            //Get.to(() => RegisterPage1());
+                          },
+                          firstText: "Don't have an account ?",
+                          lastText: "Create account",
                         ),
                         SizedBox(height: 20.h,),
                 

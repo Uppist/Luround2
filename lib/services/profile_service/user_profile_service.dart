@@ -305,23 +305,22 @@ class UserProfileService extends getx.GetxController {
 
     for (ControllerSett controllerSet in controllerSets) {
       final String issuingOrganization = controllerSet.issuingOrganizationController.text;
-      final String certificationName = controllerSet.certNameController.text;
-      final String issuingDate = controllerSet.issuingDateController.text;
+      final String certificateName = controllerSet.certNameController.text;
+      final String issueDate = controllerSet.issuingDateController.text;
       final String certificateLink = controllerSet.certURL.text;
 
       // Check if required fields are not empty or undefined
-      if (issuingOrganization.isNotEmpty &&
-          certificationName.isNotEmpty &&
-          issuingDate.isNotEmpty) {
+      if (issuingOrganization.isNotEmpty && certificateName.isNotEmpty && issueDate.isNotEmpty) {
         final Map<String, dynamic> certificateData = {
           "issuingOrganization": issuingOrganization,
-          "certificateName": certificationName,
-          "issueDate": issuingDate,
+          "certificateName": certificateName,
+          "issueDate": issueDate,
           "certificateLink": certificateLink,
         };
-
         certificates.add(certificateData);
-      } else {
+
+      } 
+      else {
         // Handle case where required fields are empty or undefined
         isLoading.value = false;
         debugPrint("Error: Required fields are empty or undefined");
@@ -331,7 +330,9 @@ class UserProfileService extends getx.GetxController {
 
     final http.Response res = await baseService.httpPut(
       endPoint: "profile/certificates/update",
-      body: {"certificates": certificates},
+      body: {
+        "certificates": certificates
+      },
     );
 
     if (res.statusCode == 200 || res.statusCode == 201) {

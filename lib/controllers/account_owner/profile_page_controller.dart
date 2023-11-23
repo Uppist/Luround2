@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/media_map.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/texfield_view_model.dart';
 
 
 
@@ -134,9 +135,15 @@ class ProfilePageController extends getx.GetxController {
     debugPrint("New Country selected: ${code.value}");
     update();
   }
+
+  ////////////////
+  List<Widget> viewTextfields = [];
+  List<ViewModel> viewItems = [];
+  List<String> svgIcons = [];
+  List<String> fieldName = [];
+  ///////////////
   
   List<Map<String, dynamic>> addMedia = [];
-
   Future<void> addToMediaData({
     required String linkName,
     //required int id,

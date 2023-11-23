@@ -137,8 +137,8 @@ class _EditOthersPageState extends State<EditOthersPage> {
                         SizedBox(height: 20.h,),
 
                         //growable list that displays custom textfields that was added
-                        ReorderableListView.builder(
-                          onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
+                        ListView.builder(
+                          //onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
                           itemCount: controller.viewTextfields.length,
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
@@ -195,7 +195,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.text,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("locay"),
+                                    //key: ValueKey("locay"),
                                   )
                                 );
                                 });
@@ -224,7 +224,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.phone,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("mobile"),
+                                    //key: ValueKey("mobile"),
                                   )
                                 );
                                 });
@@ -254,7 +254,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.emailAddress,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("email"),
+                                    //key: ValueKey("email"),
                                   )
                                 );
                                 });
@@ -291,7 +291,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("web"),
+                                    //key: ValueKey("web"),
                                   )
                                 );
                                 });
@@ -320,7 +320,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("li"),
+                                    //key: ValueKey("li"),
                                   )
                                 );
                                 });
@@ -350,7 +350,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("fb"),
+                                    //key: ValueKey("fb"),
                                   )
                                 );
                                 });
@@ -420,9 +420,11 @@ class _BuildTextFieldWidgetState extends State<BuildTextFieldWidget> {
       fieldName:  widget.fieldName, 
       onCancel: () {
         /*setState(() {
-          controller.deleteItem(index);
-          controller.deleteViewModel(index);
-        });*/ 
+          //controller.deleteItem(index);
+          //controller.deleteViewModel(index);
+          controller.viewItems.clear();
+          controller.viewTextfields.clear();
+        });*/
       }, 
       fieldWidget: ReusableTextField(
       onChanged: (val){},

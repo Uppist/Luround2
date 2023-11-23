@@ -15,16 +15,18 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class CustomFieldWidget extends StatelessWidget {
-  CustomFieldWidget({super.key, required this.svgAssetName, required this.fieldName, required this.onCancel, required this.fieldWidget});
+  CustomFieldWidget({super.key, required this.svgAssetName, required this.fieldName, required this.onCancel, required this.fieldWidget,});
   final String svgAssetName;
   final String fieldName;
   final VoidCallback onCancel;
   final Widget fieldWidget;
+  //final Key? keyy;
 
 
   @override
   Widget build(BuildContext context) {
     return Row(
+      key: key,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         //Icon

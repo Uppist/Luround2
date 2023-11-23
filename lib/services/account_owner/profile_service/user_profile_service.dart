@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -265,7 +266,7 @@ class AccOwnerProfileService extends getx.GetxController {
 
 
   ////[MEDIA LINKS]////////
-  Future<void> updateMediaLinks() async {
+  Future<void> updateMediaLinks({required List<ViewModel> viewModelList}) async {
 
     isLoading.value = true;
 
@@ -274,7 +275,33 @@ class AccOwnerProfileService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "profile/media-links/update", body: body);
+
+      final List<dynamic> media_links = [];
+      
+      for (ViewModel controllerSet in viewModelList ) {
+        final String link = controllerSet.linkController.text;
+
+        // Check if required fields are not empty or undefined
+        if (link.isNotEmpty) {
+          final Map<String, dynamic> linkData = {
+            "link": link, 
+          };
+          media_links.add(linkData);
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      http.Response res = await baseService.httpPut(
+        endPoint: "profile/media-links/update", 
+        body: {
+          "media_links": media_links
+        },
+      );
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -296,7 +323,7 @@ class AccOwnerProfileService extends getx.GetxController {
     }
   }
   
-
+  ////[CERTIFICATE DATA]]////////
   Future<void> updateCertificateData({required List<ControllerSett> controllerSets}) async {
   isLoading.value = true;
 

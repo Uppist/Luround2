@@ -202,6 +202,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                     print("Issue date: ${controllerSet.issuingDateController.text}");
                     print("Certificate URL: ${controllerSet.certURL.text}");
                   }
+                  ////////////
                   profileService.updateCertificateData(
                     controllerSets: profileController.controllers
                   ).whenComplete(() {

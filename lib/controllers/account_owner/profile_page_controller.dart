@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/media_map.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_others/texfield_view_model.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 
 
 
@@ -137,7 +137,27 @@ class ProfilePageController extends getx.GetxController {
   }
 
   //////////////////////////////////
-  List<Widget> viewTextfields = []; //(save to db)
+  void reorderList(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1; 
+    }
+    final item = viewTextfields.removeAt(oldIndex);
+    viewTextfields.insert(newIndex, item);
+    update();
+  }
+
+  void addItem(Widget item) {
+    if (!viewTextfields.contains(item)) {
+      viewTextfields.add(item);
+      update();
+    }
+  }
+
+  void deleteItem(Widget item) {
+    viewTextfields.remove(item);
+  }
+
+  List<Widget> viewTextfields = []; //this
   List<ViewModel> viewItems = [];  //(save to db)
   List<String> svgIcons = [
     'assets/svg/location_icon.svg',
@@ -148,7 +168,7 @@ class ProfilePageController extends getx.GetxController {
     'assets/svg/facebook_icon.svg',
     'assets/svg/twitter_icon.svg',
   ];
-  List<String> fieldName = [
+  List<String> fieldNameList = [
     'Location',
     'Mobile',
     'Email',
@@ -156,6 +176,24 @@ class ProfilePageController extends getx.GetxController {
     'LinkedIn',
     'Facebook',
     'Twitter',
+  ];
+  List<String> hintTextList = [
+    'Enter your location',
+    'Enter your mobile number',
+    'Enter your email',
+    'Paste url to your website',
+    'Paste url to your linkedIn profile',
+    'Paste url to your facebook page',
+    'Paste url to your twitter page',
+  ];
+  List<TextInputType> textInputTypeList = [
+    TextInputType.streetAddress,
+    TextInputType.phone,
+    TextInputType.emailAddress,
+    TextInputType.url,
+    TextInputType.url,
+    TextInputType.url,
+    TextInputType.url,
   ];
   //////////////////////////////////////
   

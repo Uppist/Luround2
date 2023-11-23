@@ -9,6 +9,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/country_code_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/custom_tap_icon.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/phone_number_textfield.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -59,65 +60,17 @@ class _EditOthersPageState extends State<EditOthersPage> {
         title: CustomAppBarTitle(text: 'Others',),
         actions: [
           InkWell(
-            onTap: () {            
-              //tenary condition check
-              controller.addToMediaData(
-                link: controller.locationController.text,
-                linkName: "location",
-                icon: "assets/svg/location_icon.svg"
-              );
+            onTap: () {
 
-              /*controller.addToMediaData(
-                link: "${controller.code.value} ${controller.mobileNumberController.text}",
-                linkName: "mobile",
-                icon: "assets/svg/call_icon.svg",
-              );
-
-              controller.addToMediaData(
-                link: controller.emailController.text,
-                linkName: "email",
-                icon: "assets/svg/email_icon.svg"
-              );
-
-              controller.addToMediaData(
-                link: controller.websiteController.text,
-                linkName: "website",
-                icon: "assets/svg/site_icon.svg"
-              );
-
-              controller.addToMediaData(
-                link: controller.linkedInController.text,
-                linkName: "linkedIn",
-                icon: "assets/svg/linkedin_icon.svg"
-              );
-              
-              controller.addToMediaData(
-                link: controller.facebookController.text,
-                linkName: "facebook",
-                icon: "assets/svg/facebook_icon.svg"
-              );*/
-
-              profileService.updateMediaLinks().whenComplete(() {
+              profileService.updateMediaLinks(
+                viewModelList: controller.viewItems
+              ).whenComplete(() {
+                controller.viewTextfields.clear();//remove(field);
+                controller.viewItems.clear();
+                print("textfield_list: ${controller.viewTextfields}");
+                print("controller_list_length: ${controller.viewItems.length}");
                 Get.back();
-                print('done');
-                setState(() {
-                  controller.isMobileSelected.value = false;
-                  controller.isLocationSelected.value = false;
-                  controller.isEmailSelected.value = false;
-                  controller.isWebsiteSelected.value = false;
-                  controller.isLinkedInSelected.value = false;
-                  controller.isFacebookSelected.value = false;
-                });
-                //clear all controllers
-                /*controller.locationController.clear(); 
-                controller.mobileNumberController.clear(); 
-                controller.emailController.clear();
-                controller.websiteController.clear(); 
-                controller.linkedInController.clear(); 
-                controller.facebookController.clear();*/
-
               });
-
 
             },
             child: SvgPicture.asset("assets/svg/save_button.svg")
@@ -176,189 +129,20 @@ class _EditOthersPageState extends State<EditOthersPage> {
                         SizedBox(height: 20.h,),
 
 
-                        //ListView.builder here//////////////////////////
-                        controller.isLocationSelected.value ? 
-                        CustomFieldWidget(               
-                          svgAssetName: "assets/svg/location_icon.svg", 
-                          fieldName: "Location", 
-                          onCancel: () {
-    
-                            controller.removeMediaData(
-                              link: controller.locationController.text,
-                              linkName: "location",
-                              icon: "assets/svg/location_icon.svg" 
-                            ).then((value) {
-                              setState(() {
-                                controller.isLocationSelected.value = false;
-                                controller.locationController.clear();
-                              });
-                            });
-
-                          }, 
-                          fieldWidget: ReusableTextField(
-                            onChanged: (val){},
-                            onFocusChanged: (hasFocus) {
-                              controller.updateLocationFocus(hasFocus);
-                            },
-                            hintText: 'Where are you located?',
-                            keyboardType: TextInputType.streetAddress,
-                            textController: controller.locationController,
-                            textInputAction: TextInputAction.next,
+                        //growable list that displays custom textfields that was added
+                        Expanded(
+                          child: ReorderableListView.builder(
+                            onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
+                            itemCount: controller.viewTextfields.length,
+                            scrollDirection: Axis.vertical,
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              ViewModel controllerSet = controller.viewItems[index];
+                              return controller.viewTextfields[index];
+                            }
                           )
-                        ): SizedBox(),
-
-                        controller.isMobileSelected.value ? 
-                        CustomFieldWidget(               
-                          svgAssetName: "assets/svg/call_icon.svg", 
-                          fieldName: "Mobile", 
-                          onCancel: () {
-
-                            controller.removeMediaData(
-                              link: controller.mobileNumberController.text,
-                              linkName: "mobile",
-                              icon: "assets/svg/call_icon.svg"
-                            ).then((value) {
-                              setState(() {
-                                controller.isMobileSelected.value = false;
-                                controller.mobileNumberController.clear();
-                            });
-                            });
-
-                          }, 
-                          fieldWidget: PhoneNumberTextField(
-                            //country code widget
-                            countryCodeWidget: CountryCodeWidget(),  
-                            onChanged: (val){},
-                            onFocusChanged: (hasFocus) {
-                              controller.updateMobileFocus(hasFocus);
-                            },
-                            hintText: 'Enter your mobile number',
-                            keyboardType: TextInputType.phone,
-                            textController: controller.mobileNumberController,
-                            textInputAction: TextInputAction.next,
-                          )
-                        ): SizedBox(),
-
-                        controller.isEmailSelected.value ? 
-                        CustomFieldWidget(               
-                          svgAssetName: "assets/svg/email_icon.svg", 
-                          fieldName: "Email", 
-                          onCancel: () {
-                           
-                            controller.removeMediaData(
-                              link: controller.emailController.text,
-                              linkName: "email",
-                              icon: "assets/svg/email_icon.svg"
-                            ).then((value) {
-                              setState(() {
-                                controller.isEmailSelected.value = false;
-                                controller.emailController.clear();
-                              });
-                            });
-
-                          }, 
-                          fieldWidget: ReusableTextField(
-                            onChanged: (val){},
-                            onFocusChanged: (hasFocus) {
-                              controller.updateEmailFocus(hasFocus);
-                            },
-                            hintText: 'Enter your valid email address',
-                            keyboardType: TextInputType.emailAddress,
-                            textController: controller.emailController,
-                            textInputAction: TextInputAction.next,
-                          )
-                        ): SizedBox(),
-
-                        controller.isWebsiteSelected.value ? 
-                        CustomFieldWidget(               
-                          svgAssetName: "assets/svg/site_icon.svg", 
-                          fieldName: "Website", 
-                          onCancel: () {
-
-                            controller.removeMediaData(
-                              link: controller.websiteController.text,
-                              linkName: "website",
-                              icon: "assets/svg/site_icon.svg",
-                            ).then((value) {
-                              setState(() {
-                                controller.isWebsiteSelected.value = false;
-                                controller.websiteController.clear();
-                              });
-                            });
-
-                          }, 
-                          fieldWidget: ReusableTextField(
-                            onChanged: (val){},
-                            onFocusChanged: (hasFocus) {
-                              controller.updateWebsiteFocus(hasFocus);
-                            },
-                            hintText: 'Pates url to your portfolio site',
-                            keyboardType: TextInputType.url,
-                            textController: controller.websiteController,
-                            textInputAction: TextInputAction.next,
-                          )
-                        ): SizedBox(),
-
-                        controller.isLinkedInSelected.value ? 
-                        CustomFieldWidget(               
-                          svgAssetName: "assets/svg/linkedin_icon.svg", 
-                          fieldName: "LinkedIn", 
-                          onCancel: () {
-
-                            controller.removeMediaData(
-                              link: controller.linkedInController.text,
-                              linkName: "linkediIn",
-                              icon: "assets/svg/linkedin_icon.svg"
-                            ).then((value) {
-                              setState(() {
-                                controller.isLinkedInSelected.value = false;
-                                controller.linkedInController.clear();
-                              });
-                            });
-
-                          }, 
-                          fieldWidget: ReusableTextField(
-                            onChanged: (val){},
-                            onFocusChanged: (hasFocus) {
-                              controller.updateLinkedInFocus(hasFocus);
-                            },
-                            hintText: 'Paste url to your LinkedIn profile',
-                            keyboardType: TextInputType.url,
-                            textController: controller.linkedInController,
-                            textInputAction: TextInputAction.next,
-                          )
-                        ): SizedBox(),
-
-                        controller.isFacebookSelected.value ? 
-                        CustomFieldWidget(               
-                          svgAssetName: "assets/svg/facebook_icon.svg", 
-                          fieldName: "Facebook", 
-                          onCancel: () {
-                  
-                            controller.removeMediaData(
-                              link: controller.facebookController.text,
-                              linkName: "facebook",
-                              icon: "assets/svg/facebook_icon.svg",
-                            ).then((value) {
-                              setState(() {
-                                controller.isFacebookSelected.value = false;
-                                controller.facebookController.clear();
-                              });
-                            });
-
-                          }, 
-                          fieldWidget: ReusableTextField(
-                            onChanged: (val){},
-                            onFocusChanged: (hasFocus) {
-                              controller.updateFacebookFocus(hasFocus);
-                            },
-                            hintText: 'Paste url to your Facebook page',
-                            keyboardType: TextInputType.url,
-                            textController: controller.facebookController,
-                            textInputAction: TextInputAction.next,
-                          )
-                        ): SizedBox(),
-
+                        ),
 
                         
                         ////////////////////////////////
@@ -384,9 +168,23 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/location_icon.svg",
                               iconTitle: 'Location',
                               onTap: () {
-                                setState(() {
-                                  controller.isLocationSelected.value = true;
-                                });
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/location_icon.svg",
+                                  name: "Location",
+                                  index: 0,
+                                );
+                                //to be sent to db
+                                controller.viewItems.add(viewModel);
+                                //to just update widget
+                                controller.addItem(
+                                  buildTextField(
+                                    viewTextfields: controller.viewTextfields,
+                                    index: viewModel.index,
+                                    viewModel: viewModel,
+                                    controller: controller,
+                                    keyy: ValueKey(viewModel.index),
+                                  )
+                                );
                               },
                             ),
                             //SizedBox(width: 118,), //120
@@ -394,9 +192,23 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/call_icon.svg",
                               iconTitle: 'Mobile',
                               onTap: () {
-                                setState(() {
-                                  controller.isMobileSelected.value = true;
-                                });
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/call_icon.svg",
+                                  name: "Mobile",
+                                  index: 1,
+                                );
+                                //to be sent to db
+                                controller.viewItems.add(viewModel);
+                                //to just update widget
+                                controller.addItem(
+                                  buildTextField(
+                                    viewTextfields: controller.viewTextfields,
+                                    index: viewModel.index,
+                                    viewModel: viewModel,
+                                    controller: controller,
+                                    keyy: ValueKey(viewModel.index),
+                                  )
+                                );
                               },
                             ),
                             //SizedBox(width: 140,),
@@ -404,9 +216,23 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/email_icon.svg",
                               iconTitle: 'Email',
                               onTap: () {
-                                setState(() {
-                                  controller.isEmailSelected.value = true;
-                                });
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/email_icon.svg",
+                                  name: "Email",
+                                  index: 2,
+                                );
+                                //to be sent to db
+                                controller.viewItems.add(viewModel);
+                                //to just update widget
+                                controller.addItem(
+                                  buildTextField(
+                                    viewTextfields: controller.viewTextfields,
+                                    index: viewModel.index,
+                                    viewModel: viewModel,
+                                    controller: controller,
+                                    keyy: ValueKey(viewModel.index),
+                                  )
+                                );
                               },
                             )
                           ],
@@ -421,9 +247,23 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/site_icon.svg",
                               iconTitle: 'Website',
                               onTap: () {
-                                setState(() {
-                                  controller.isWebsiteSelected.value = true;
-                                });
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/site_icon.svg",
+                                  name: "Website",
+                                  index: 3,
+                                );
+                                //to be sent to db
+                                controller.viewItems.add(viewModel);
+                                //to just update widget
+                                controller.addItem(
+                                  buildTextField(
+                                    viewTextfields: controller.viewTextfields,
+                                    index: viewModel.index,
+                                    viewModel: viewModel,
+                                    controller: controller,
+                                    keyy: ValueKey(viewModel.index),
+                                  )
+                                );
                               },
                             ),
                             //SizedBox(width: 60,),
@@ -431,9 +271,23 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/linkedin_icon.svg",
                               iconTitle: 'LinkedIn',
                               onTap: () {
-                                setState(() {
-                                  controller.isLinkedInSelected.value = true;
-                                });
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/linkedin_icon.svg",
+                                  name: "LinkedIn",
+                                  index: 4,
+                                );
+                                //to be sent to db
+                                controller.viewItems.add(viewModel);
+                                //to just update widget
+                                controller.addItem(
+                                  buildTextField(
+                                    viewTextfields: controller.viewTextfields,
+                                    index: viewModel.index,
+                                    viewModel: viewModel,
+                                    controller: controller,
+                                    keyy: ValueKey(viewModel.index),
+                                  )
+                                );
                               },
                             ),
                             //SizedBox(width: 50,),
@@ -441,9 +295,23 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/facebook_icon.svg",
                               iconTitle: 'Facebook',
                               onTap: () {
-                                setState(() {
-                                  controller.isFacebookSelected.value = true;
-                                });
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/facebook_icon.svg",
+                                  name: "Facebook",
+                                  index: 5,
+                                );
+                                //to be sent to db
+                                controller.viewItems.add(viewModel);
+                                //to just update widget
+                                controller.addItem(
+                                  buildTextField(
+                                    viewTextfields: controller.viewTextfields,
+                                    index: viewModel.index,
+                                    viewModel: viewModel,
+                                    controller: controller,
+                                    keyy: ValueKey(viewModel.index),
+                                  )
+                                );
                               },
                             )
                           ],
@@ -463,4 +331,29 @@ class _EditOthersPageState extends State<EditOthersPage> {
       )
     );
   }
+
+
+
+  //main fields
+  Widget buildTextField({required List<Widget> viewTextfields, required ViewModel viewModel, required ProfilePageController controller, required int index, required Key keyy}) {
+    return CustomFieldWidget(   
+      key: keyy,      
+      svgAssetName: controller.svgIcons[index], 
+      fieldName: controller.fieldNameList[index], 
+      onCancel: () {
+        controller.deleteItem(controller.viewTextfields[index]);
+      }, 
+      fieldWidget: ReusableTextField(
+      onChanged: (val){},
+      onFocusChanged: (hasFocus) {},
+      hintText: controller.hintTextList[index],
+      keyboardType: controller.textInputTypeList[index],
+      textController: viewModel.linkController,
+      textInputAction: TextInputAction.next,
+      )
+    );
+  }
+
+
+
 }

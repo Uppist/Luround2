@@ -10,7 +10,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> itemList = [];  //ViewModel
+  List<Widget> itemList = [];  // Now of type Widget
 
   void reorderList(int oldIndex, int newIndex) {
     setState(() {
@@ -22,17 +22,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void addItem(String item) {
-    if (!itemList.contains(item)) {
-      setState(() {
-        itemList.add(item);
-      });
-    }
+  void addItem(String itemName) {
+    setState(() {
+      // Create a Container with the value and add it to the list
+      itemList.add(Container(
+        key: ValueKey(itemList.length),
+        padding: EdgeInsets.all(8.0),
+        color: Colors.blue,
+        child: Text(itemName, style: TextStyle(color: Colors.white)),
+      ));
+    });
   }
 
-  void deleteItem(String item) {
+  void deleteItem(int index) {
     setState(() {
-      itemList.remove(item);
+      itemList.removeAt(index);
     });
   }
 
@@ -71,11 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
               itemCount: itemList.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  key: ValueKey(index),  //index
-                  title: Text(itemList[index]),
+                  key: ValueKey(index),
+                  title: itemList[index],  // Now displaying a Widget directly
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
-                    onPressed: () => deleteItem(itemList[index]),
+                    onPressed: () => deleteItem(index),
                   ),
                 );
               },

@@ -4,17 +4,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/services/service_page_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
 
 
-
+var userService = Get.put(AccOwnerServicePageService());
 
 
 
 ///Alert Dialog
-Future<void> deleteServiceDialogueBox({required BuildContext context, required String titleText}) async{
+Future<void> deleteServiceDialogueBox({
+  required BuildContext context, 
+  required String serviceName, 
+  required String serviceId,
+  }) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -47,7 +52,7 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Delete "${titleText}"',
+                  'Delete $serviceName',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 17.sp,
@@ -102,7 +107,10 @@ Future<void> deleteServiceDialogueBox({required BuildContext context, required S
                     //Yes button
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          userService.deleteUserService(id: serviceId)
+                          .whenComplete(() => Get.back());
+                        },
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                           alignment: Alignment.center,

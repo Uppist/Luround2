@@ -14,7 +14,11 @@ import 'package:luround/views/account_owner/services/widget/delete_service_botto
 
 
 ///Alert Dialog
-Future<void> editServiceDialogueBox({required BuildContext context, required String titleText}) async {
+Future<void> editServiceDialogueBox({
+  required BuildContext context, 
+  required String serviceName,
+  required String serviceId
+}) async {
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -89,7 +93,11 @@ Future<void> editServiceDialogueBox({required BuildContext context, required Str
                 //1
                 InkWell(
                   onTap: () {
-                    deleteServiceDialogueBox(context: context, titleText: titleText);
+                    deleteServiceDialogueBox(
+                      context: context, 
+                      serviceName: serviceName,
+                      serviceId: serviceId,
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

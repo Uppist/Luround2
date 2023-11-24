@@ -135,6 +135,32 @@ class ServicesController extends getx.GetxController {
       "isChecked": false,     
     },
   ];
+  
+  ////*********************** *////
+  List<String> selectedDays = ['Monday', 'Wednesday', 'Friday', 'Sunday'];
+  String combiinedDay() {
+    // Check if the list is not empty before getting the first and last values
+    if (selectedDays.isNotEmpty) {
+      String firstDay = selectedDays.first;
+      String lastDay = selectedDays.last;
+
+      // Now you can use firstDay and lastDay as needed
+      print('First day: $firstDay');
+      print('Last day: $lastDay');
+
+      // Combine first and last days into a single string
+      String combinedString = '$firstDay - $lastDay';
+      print('Combined string: $combinedString');
+      return combinedString;
+    } else {
+      // Handle the case when the list is empty
+      print('The list of selected days is empty.');
+      throw Exception("The list is empty fam");
+    }
+
+  }
+  /////////////////////////////////
+
 
   //to activate the next/done button in step 3 screen
   final isCheckBoxActive = false.obs;

@@ -136,7 +136,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
 
                         SizedBox(height: 20.h,),
 
-                        //growable list that displays custom textfields that was added
+                        //(Reorderable)growable list that displays custom textfields that was added
                         ListView.builder(
                           //onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
                           itemCount: controller.viewTextfields.length,
@@ -144,14 +144,14 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-
+                        
                             //ViewModel controllerSet = controller.viewItems[index];
                             if(controller.viewTextfields.isEmpty) {
-                              print("list is empty");
+                              print("list is emptyyy fammm!!");
                             }
                             //return controller.viewTextfields[index];
                             return ListTile(
-                              key: UniqueKey(), //ValueKey(index)
+                              key: ValueKey(index), //UniqueKey()
                               // Now displaying a Widget directly
                               title: controller.viewTextfields[index],
                               trailing: IconButton(
@@ -160,7 +160,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   color: AppColor.darkGreyColor
                                 ),
                                 onPressed: () {
-
+                        
                                   setState(() {
                                     controller.deleteBoth(index);
                                   });

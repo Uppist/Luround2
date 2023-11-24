@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
-import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/services/account_owner/profile/user_profile_service.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/certificate_textfield.dart';

@@ -31,25 +31,38 @@ import '../widget/reviews/reviews_screen.dart';
 
 
 class ProfilePage extends StatelessWidget {
+
   final ProfilePageController controller = Get.put(ProfilePageController());
   final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
   final String userEmail = LocalStorage.getUseremail();
+
+  Future<void> _refresh() async {
+    // Simulate a refresh by waiting for a short duration
+    await Future.delayed(Duration(seconds: 1));
+    await userProfileService.getUserProfileDetails(email: userEmail);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildHeaderSection(),
-            Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: _buildContent(),
+      body: RefreshIndicator.adaptive(
+        triggerMode: RefreshIndicatorTriggerMode.onEdge,
+        color: AppColor.mainColor,
+        backgroundColor: AppColor.bgColor,
+        onRefresh: _refresh,
+        child: SafeArea(
+          child: Column(
+            children: [
+              _buildHeaderSection(),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: _buildContent(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(

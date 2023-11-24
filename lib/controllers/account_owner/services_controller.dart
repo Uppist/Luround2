@@ -87,6 +87,19 @@ class ServicesController extends getx.GetxController {
 
   //select duration in minutes(save to db)
   final duration = Duration(hours: 0, minutes: 0).obs;
+  String formatDuration(Duration duration) {
+  int hours = duration.inHours;
+  int minutes = (duration.inMinutes % 60).abs(); // Get remaining minutes after subtracting hours
+
+  String hoursString = hours > 0 ? '$hours hrs' : '';
+  String minutesString = minutes > 0 ? '$minutes mins' : '';
+
+  if (hours > 0 && minutes > 0) {
+    return '$hoursString: $minutesString';
+  } else {
+    return '$hoursString$minutesString';
+  }
+}
   //convert the about duration object to a string
   //String convertDuration() {}
   Future<void> showDurationPickerDialog({required BuildContext context}) async{
@@ -137,8 +150,50 @@ class ServicesController extends getx.GetxController {
   ];
   
   ////*********************** *////
-  List<String> selectedDays = ['Monday', 'Wednesday', 'Friday', 'Sunday'];
-  String combiinedDay() {
+  List<String> selectedDays = [];
+
+  void addItem({required String item}) {
+    if (!selectedDays.contains(item)) {
+      // Get the selected days in the order of the days of the week
+      List<String> orderedSelectedDays = daysOfTheWeekCheckBox
+      .where((day) => day['isChecked'])
+      .map<String>((day) => day['day'] as String)
+      .toList();
+
+      // Update the selectedDays list based on the checkbox state
+      selectedDays = List.from(orderedSelectedDays);
+      //selectedDays.add(item);
+    } else {
+      print("$item is already in the list");
+    }
+  }
+
+  void removeItem({required int index}) {
+    if (index >= 0 && index < selectedDays.length) {
+      print("Item ${selectedDays[index]} removed at index $index");
+      selectedDays.removeAt(index);
+    } else {
+      print("Invalid index: $index");
+    }
+  }
+
+  void toggleCheckbox(int index, bool? value) {
+    // Toggle the isChecked value
+    daysOfTheWeekCheckBox[index]['isChecked'] = value; //!daysOfTheWeekCheckBox[index]['isChecked'];
+
+    // Update the selectedDays list based on the checkbox state
+    if (daysOfTheWeekCheckBox[index]['isChecked']) {
+      addItem(item: daysOfTheWeekCheckBox[index]['day']);
+    } else {
+      int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBox[index]['day']);
+      if (selectedIndex != -1) {
+        removeItem(index: selectedIndex);
+      }
+    }
+  }
+  
+  //available_days
+  String availableDays() {
     // Check if the list is not empty before getting the first and last values
     if (selectedDays.isNotEmpty) {
       String firstDay = selectedDays.first;
@@ -157,7 +212,6 @@ class ServicesController extends getx.GetxController {
       print('The list of selected days is empty.');
       throw Exception("The list is empty fam");
     }
-
   }
   /////////////////////////////////
 

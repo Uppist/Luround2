@@ -75,7 +75,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
-  Future<UserServiceModel> getSingleServices({
+  Future<UserServiceModel> getSingleService({
     required String serviceId,
   }) async {
     isLoading.value = true;
@@ -113,7 +113,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required List<dynamic> links,
     required String service_charge_in_person,
     required String service_charge_virtual,
-    required int duration,
+    required String duration,
     required String time,
     required String available_days,
     
@@ -157,7 +157,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
   
 
-  /////[UPDATE A SERVICE OF LOGGED-IN USER]//////
+  /////[UPDATE/EDIT AN EXISTING SERVICE OF LOGGED-IN USER]//////
   Future<void> updateUserService({
     required String serviceId,
     required String service_name,
@@ -165,7 +165,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required List<dynamic> links,
     required String service_charge_in_person,
     required String service_charge_virtual,
-    required int duration,
+    required String duration,
     required String time,
     required String available_days,
     

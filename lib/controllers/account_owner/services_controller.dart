@@ -87,21 +87,23 @@ class ServicesController extends getx.GetxController {
 
   //select duration in minutes(save to db)
   final duration = Duration(hours: 0, minutes: 0).obs;
-  String formatDuration(Duration duration) {
-  int hours = duration.inHours;
-  int minutes = (duration.inMinutes % 60).abs(); // Get remaining minutes after subtracting hours
+  String formatDuration() {
+    int hours = duration.value.inHours;
+    // Get remaining minutes after subtracting hours
+    int minutes = (duration.value.inMinutes % 60).abs();
 
-  String hoursString = hours > 0 ? '$hours hrs' : '';
-  String minutesString = minutes > 0 ? '$minutes mins' : '';
+    String hoursString = hours > 0 ? '$hours hrs' : '';
+    String minutesString = minutes > 0 ? '$minutes mins' : '';
 
-  if (hours > 0 && minutes > 0) {
-    return '$hoursString: $minutesString';
-  } else {
-    return '$hoursString$minutesString';
+    if (hours > 0 && minutes > 0) {
+      return '$hoursString: $minutesString';
+    } 
+    else {
+      return '$hoursString$minutesString';
+    }
   }
-}
-  //convert the about duration object to a string
-  //String convertDuration() {}
+
+
   Future<void> showDurationPickerDialog({required BuildContext context}) async{
     var resultingDuration = await showDurationPicker(
       decoration: BoxDecoration(

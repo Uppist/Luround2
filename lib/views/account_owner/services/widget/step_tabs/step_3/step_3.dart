@@ -140,7 +140,7 @@ class _Step3PageState extends State<Step3Page> {
               links: [controller.addLinksController.text], 
               service_charge_in_person: controller.inPersonController.text, 
               service_charge_virtual: controller.virtualController.text, 
-              duration: controller.formatDuration(controller.duration.value), 
+              duration: controller.formatDuration(), 
               time: controller.selectDurationRadio,             
               available_days: controller.availableDays(),
             ).whenComplete(() {

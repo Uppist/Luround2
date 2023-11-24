@@ -149,7 +149,24 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             if(controller.viewTextfields.isEmpty) {
                               print("list is empty");
                             }
-                            return controller.viewTextfields[index];
+                            //return controller.viewTextfields[index];
+                            return ListTile(
+                              key: UniqueKey(), //ValueKey(index)
+                              // Now displaying a Widget directly
+                              title: controller.viewTextfields[index],
+                              trailing: IconButton(
+                                icon: Icon(
+                                  CupertinoIcons.xmark,
+                                  color: AppColor.darkGreyColor
+                                ),
+                                onPressed: () {
+                                  //setState(() {
+                                    controller.deleteBoth(index);
+                                  //});
+                                  // controller.deleteBoth(index);
+                                }
+                              ),
+                            );
                           }
                         ),
                         ////////////////////////////////
@@ -177,15 +194,13 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               iconTitle: 'Location',
                               onTap: () {
                                 
-                                setState(() {
+                                //setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/location_icon.svg",
                                   name: "Location",
                                   //index: 0, //i put the index for value key sake
                                 );
       
-                                //to be sent to db
-                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
@@ -196,9 +211,10 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     textController: viewModel.linkController,
                                     controller: controller,
                                     //key: ValueKey("locay"),
-                                  )
+                                  ),
+                                  viewModel
                                 );
-                                });
+                                //});
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               },
@@ -208,13 +224,13 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/call_icon.svg",
                               iconTitle: 'Mobile',
                               onTap: () {
-                                setState(() {
+
+                                //setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/call_icon.svg",
                                   name: "Mobile",
                                 );
-                                //to be sent to db
-                                controller.addViewModel(viewModel);
+              
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
@@ -225,9 +241,10 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     textController: viewModel.linkController,
                                     controller: controller,
                                     //key: ValueKey("mobile"),
-                                  )
+                                  ),
+                                  viewModel
                                 );
-                                });
+                                //});
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                             
@@ -238,13 +255,12 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/email_icon.svg",
                               iconTitle: 'Email',
                               onTap: () {
-                                setState(() {
+                                //setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/email_icon.svg",
                                   name: "Email",
                                 );
                                 //to be sent to db
-                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
@@ -255,9 +271,10 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     textController: viewModel.linkController,
                                     controller: controller,
                                     //key: ValueKey("email"),
-                                  )
+                                  ),
+                                  viewModel
                                 );
-                                });
+                                //});
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               
@@ -275,13 +292,12 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/site_icon.svg",
                               iconTitle: 'Website',
                               onTap: () {
-                                setState(() {
+                                //setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/site_icon.svg",
                                   name: "Website",
                                 );
-                                //to be sent to db
-                                controller.addViewModel(viewModel);
+                                
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
@@ -292,9 +308,10 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     textController: viewModel.linkController,
                                     controller: controller,
                                     //key: ValueKey("web"),
-                                  )
+                                  ),
+                                  viewModel
                                 );
-                                });
+                                //});
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               },
@@ -304,13 +321,13 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/linkedin_icon.svg",
                               iconTitle: 'LinkedIn',
                               onTap: () {
-                                setState(() {
+
+                                //setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/linkedin_icon.svg",
                                   name: "LinkedIn",
                                 );
                                 //to be sent to db
-                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
@@ -321,9 +338,11 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     textController: viewModel.linkController,
                                     controller: controller,
                                     //key: ValueKey("li"),
-                                  )
+                                  ),
+                                  viewModel
                                 );
-                                });
+                                //});
+
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               
@@ -334,13 +353,11 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/facebook_icon.svg",
                               iconTitle: 'Facebook',
                               onTap: () {
-                                setState(() {
+                                //setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/facebook_icon.svg",
                                   name: "Facebook",
                                 );
-                                //to be sent to db
-                                controller.addViewModel(viewModel);
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
@@ -351,9 +368,10 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     textController: viewModel.linkController,
                                     controller: controller,
                                     //key: ValueKey("fb"),
-                                  )
+                                  ),
+                                  viewModel
                                 );
-                                });
+                                //});
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               

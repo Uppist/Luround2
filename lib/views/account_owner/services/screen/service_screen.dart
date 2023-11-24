@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/models/account_owner/user_services/user_service_model.dart';
-import 'package:luround/services/account_owner/services/service_page_service.dart';
+import 'package:luround/services/account_owner/services/user_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';

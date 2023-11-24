@@ -55,7 +55,7 @@ class CustomFieldWidget extends StatelessWidget {
             ]
           ),
         ),
-        SizedBox(width: 5.w,),
+        /*SizedBox(width: 5.w,),
         //cancelIcon
         IconButton(
           onPressed: onCancel, 
@@ -64,7 +64,7 @@ class CustomFieldWidget extends StatelessWidget {
             color: AppColor.blackColor,
             //size: 24
           )
-        ),
+        ),*/
         /*InkWell(
           onTap: onCancel,
           child: SvgPicture.asset("assets/svg/cancel_icon.svg")

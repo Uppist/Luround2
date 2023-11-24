@@ -99,66 +99,42 @@ class ProfilePageController extends getx.GetxController {
     }
     final item = viewTextfields.removeAt(oldIndex);
     viewTextfields.insert(newIndex, item);
+    update();
   }
 
   void deleteBoth(int index) {
-    viewTextfields.removeAt(index);
-    viewItems.removeAt(index);
+    if (index >= 0 && index < viewItems.length) {
+      // Remove the item at the given index
+      viewItems.removeAt(index);
+
+      // Remove the corresponding textfield from viewTextfields
+      viewTextfields.removeAt(index);
+      
+      print(viewItems);
+      print(viewTextfields);
+      // Now your viewItems and viewTextfields should be in sync
+    }
+    update();
   }
 
-  void addItem(Widget item) {
-    if (!viewTextfields.contains(item)) {
+
+  void addItem(Widget item, ViewModel viewModel) {
+    // Check if the item is already in the list
+    if (!viewTextfields.contains(item) && !viewItems.contains(viewModel)) {
+      // Add the item to both lists
       viewTextfields.add(item);
+      viewItems.add(viewModel);
+    } 
+    else {
+      print("$item is already in the list");
     }
+    update();
   }
 
-  void addViewModel(ViewModel item) {
-    if (!viewItems.contains(item)) {
-      viewItems.add(item);
-    }
-  }
-  
 
 
   List<Widget> viewTextfields = []; 
   List<ViewModel> viewItems = [];  //(save to db)
-  /*List<String> svgIcons = [
-    'assets/svg/location_icon.svg',
-    'assets/svg/call_icon.svg',
-    'assets/svg/email_icon.svg',
-    'assets/svg/site_icon.svg',
-    'assets/svg/linkedin_icon.svg',
-    'assets/svg/facebook_icon.svg',
-    //'assets/svg/twitter_icon.svg',
-  ];
-  List<String> fieldNameList = [
-    'Location',
-    'Mobile',
-    'Email',
-    'Website',
-    'LinkedIn',
-    'Facebook',
-    //'Twitter',
-  ];
-  List<String> hintTextList = [
-    'Enter your location',
-    'Enter your mobile number',
-    'Enter your email',
-    'Paste url to your website',
-    'Paste url to your linkedIn profile',
-    'Paste url to your facebook page',
-    //'Paste url to your twitter page',
-  ];
-  List<TextInputType> textInputTypeList = [
-    TextInputType.streetAddress,
-    TextInputType.phone,
-    TextInputType.emailAddress,
-    TextInputType.url,
-    TextInputType.url,
-    TextInputType.url,
-    //TextInputType.url,
-  ];*/
-  //////////////////////////////////////
 
   ///////////////serenren for testing purposes
   bool isEmpty = true;

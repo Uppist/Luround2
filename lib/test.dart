@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: ReorderableListView.builder(
-              onReorder: (oldIndex, newIndex) => reorderList(oldIndex, newIndex) ,
+              onReorder: (oldIndex, newIndex) => reorderList(oldIndex, newIndex),
               itemCount: itemList.length,
               itemBuilder: (context, index) {
                 return ListTile(

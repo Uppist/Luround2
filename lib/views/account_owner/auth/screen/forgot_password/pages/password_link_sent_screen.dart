@@ -93,7 +93,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: 90.w,),
+                      SizedBox(width: 110.w,),
                       //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]

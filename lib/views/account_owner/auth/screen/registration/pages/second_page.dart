@@ -76,7 +76,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               size: 23,
                             ),
                           ),
-                          SizedBox(width: 80.w),
+                          SizedBox(width: 110.w),
                           //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                           Image.asset('assets/images/luround_logo.png')
                         ]

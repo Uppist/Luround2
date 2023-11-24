@@ -90,8 +90,8 @@ class _EditOthersPageState extends State<EditOthersPage> {
           SizedBox(width: 20.w,),
         ],
       ),
-      body: Obx(
-        () {
+      body: Builder(
+        builder: (context) {
           return profileService.isLoading.value ? Loader() : SafeArea(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -160,10 +160,11 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   color: AppColor.darkGreyColor
                                 ),
                                 onPressed: () {
-                                  //setState(() {
+
+                                  setState(() {
                                     controller.deleteBoth(index);
-                                  //});
-                                  // controller.deleteBoth(index);
+                                  });
+                                  
                                 }
                               ),
                             );
@@ -194,7 +195,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               iconTitle: 'Location',
                               onTap: () {
                                 
-                                //setState(() {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/location_icon.svg",
                                   name: "Location",
@@ -214,7 +215,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   ),
                                   viewModel
                                 );
-                                //});
+                                });
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               },
@@ -225,7 +226,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               iconTitle: 'Mobile',
                               onTap: () {
 
-                                //setState(() {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/call_icon.svg",
                                   name: "Mobile",
@@ -244,7 +245,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   ),
                                   viewModel
                                 );
-                                //});
+                                });
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                             
@@ -255,7 +256,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/email_icon.svg",
                               iconTitle: 'Email',
                               onTap: () {
-                                //setState(() {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/email_icon.svg",
                                   name: "Email",
@@ -274,7 +275,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   ),
                                   viewModel
                                 );
-                                //});
+                                });
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               
@@ -292,7 +293,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/site_icon.svg",
                               iconTitle: 'Website',
                               onTap: () {
-                                //setState(() {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/site_icon.svg",
                                   name: "Website",
@@ -311,7 +312,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   ),
                                   viewModel
                                 );
-                                //});
+                                });
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               },
@@ -322,7 +323,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               iconTitle: 'LinkedIn',
                               onTap: () {
 
-                                //setState(() {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/linkedin_icon.svg",
                                   name: "LinkedIn",
@@ -341,7 +342,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   ),
                                   viewModel
                                 );
-                                //});
+                                });
 
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
@@ -353,7 +354,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               svgAssetName: "assets/svg/facebook_icon.svg",
                               iconTitle: 'Facebook',
                               onTap: () {
-                                //setState(() {
+                                setState(() {
                                 ViewModel viewModel = ViewModel(
                                   icon: "assets/svg/facebook_icon.svg",
                                   name: "Facebook",
@@ -371,7 +372,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                   ),
                                   viewModel
                                 );
-                                //});
+                                });
                                 print(controller.viewTextfields);
                                 print(controller.viewItems);
                               

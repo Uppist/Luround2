@@ -21,10 +21,6 @@ import 'package:time_range_picker/time_range_picker.dart';
 class ServicesController extends getx.GetxController {
   
 
-
-  //boolean that checks if the user (account owner) currently doesn't have any service
-  final isServicePresent = true.obs;
-
   //add service stepper//////////////////////////////////
   //(save to db)
   String selectDurationRadio = "select something";
@@ -85,8 +81,9 @@ class ServicesController extends getx.GetxController {
   //for Stepper widget (starts to count at 0)
   int curentStep = 0;
 
-  //select duration in minutes(save to db)
+  //select duration in minutes
   final duration = Duration(hours: 0, minutes: 0).obs;
+  //(save to db)
   String formatDuration() {
     int hours = duration.value.inHours;
     // Get remaining minutes after subtracting hours
@@ -151,7 +148,7 @@ class ServicesController extends getx.GetxController {
     },
   ];
   
-  ////*********************** *////
+  ////**[STEP 3]***////
   List<String> selectedDays = [];
 
   void addItem({required String item}) {
@@ -194,7 +191,7 @@ class ServicesController extends getx.GetxController {
     }
   }
   
-  //available_days
+  //available_days(save to db)
   String availableDays() {
     // Check if the list is not empty before getting the first and last values
     if (selectedDays.isNotEmpty) {
@@ -216,7 +213,6 @@ class ServicesController extends getx.GetxController {
     }
   }
   /////////////////////////////////
-
 
   //to activate the next/done button in step 3 screen
   final isCheckBoxActive = false.obs;
@@ -267,7 +263,7 @@ class ServicesController extends getx.GetxController {
   ///service_screen list/// 
   var selectedIndex = 0.obs; //for toggling price of the services list,
   final isVirtual = true.obs;  //boolean to switch between prices in the services list
-  //List<String> tabs = ['Virtual', "In-Person"];
+
 
   void handleTabTap(int index) {
     isVirtual.value = !isVirtual.value;
@@ -277,9 +273,32 @@ class ServicesController extends getx.GetxController {
   }
   
 
-  ///////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /////////////////////////[EDIT SERVICE SCREEN COMPONENTS HERE]/////////////////////////////////////////////
 
   
+
+
+
+
+
+
+
 
 
 

@@ -12,6 +12,7 @@ class UserServiceModel {
     required this.time,
     required this.available_days,
     required this.service_type,
+    required this.date,
   });
   late final String serviceId;
   late final String email;
@@ -24,6 +25,7 @@ class UserServiceModel {
   late final String time;
   late final String available_days;
   late final String service_type;
+  late final String date;
 
   //[FOR GET REQUEST]
   UserServiceModel.fromJson(Map<String, dynamic> json,){
@@ -38,6 +40,7 @@ class UserServiceModel {
     time = json['time'] ?? "time";
     available_days = json['available_days'] ?? "available_days";
     service_type = json['service_type'] ?? "service_type";
+    date = json['date'] ?? "from - to";
   }
   
   //[FOR PUT/POST/DELETE REQUEST]//
@@ -54,6 +57,7 @@ class UserServiceModel {
     _data['time'] = time;
     _data['available_days'] = available_days;
     _data["service_type"] = service_type;
+    _data["date"] = date;
     return _data;
   }
 

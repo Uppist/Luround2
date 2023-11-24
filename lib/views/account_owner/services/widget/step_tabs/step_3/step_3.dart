@@ -135,14 +135,15 @@ class _Step3PageState extends State<Step3Page> {
           //widget.onNext
           () {
             servicesService.createUserService(
-              service_type: "Virtual || In-Person",
+              //service_type: "In-Person", //In-Person
               service_name: controller.serviceNameController.text, 
               description: controller.descriptionController.text, 
               links: [controller.addLinksController.text], 
               service_charge_in_person: controller.inPersonController.text, 
               service_charge_virtual: controller.virtualController.text, 
               duration: controller.formatDuration(), 
-              time: controller.selectDurationRadio,             
+              time: "${controller.startTimeValue} - ${controller.stopTimeValue}",
+              date: controller.selectDurationRadio,             
               available_days: controller.availableDays(),
             ).whenComplete(() {
               Get.offUntil(
@@ -152,7 +153,6 @@ class _Step3PageState extends State<Step3Page> {
                 ), 
                 (route) => true
               );
-              LuroundSnackBar.successSnackBar(message: "Your service has been updated");
             });
           }
           : () {

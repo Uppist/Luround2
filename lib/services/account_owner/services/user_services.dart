@@ -7,6 +7,7 @@ import 'package:luround/services/account_owner/local_storage/local_storage.dart'
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -116,7 +117,8 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String duration,
     required String time,
     required String available_days,
-    required String service_type,
+    //required String service_type,
+    required String date
     
     }) async {
 
@@ -132,7 +134,8 @@ class AccOwnerServicePageService extends getx.GetxController {
       "duration": duration,
       "time": time,
       'available_days': available_days,
-      "service_type": service_type
+      //"service_type": service_type,
+      "date": date
     };
 
     try {
@@ -141,14 +144,14 @@ class AccOwnerServicePageService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user service created succesfully");
-        //LuroundSnackBar.successSnackBar(message: "profile updated");
+        LuroundSnackBar.successSnackBar(message: "Your service has been created.");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "failed to update profile");
+        LuroundSnackBar.errorSnackBar(message: "failed to create service profile");
       }
     } 
     catch (e) {
@@ -169,6 +172,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String service_charge_virtual,
     required String duration,
     required String time,
+    required String date,
     required String available_days,
     
     }) async {
@@ -184,6 +188,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       "service_charge_virtual": service_charge_virtual,
       "duration": duration,
       "time": time,
+      "date": date,
       'available_days': available_days,
     };
 
@@ -193,14 +198,14 @@ class AccOwnerServicePageService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user service updated by id succesfully");
-        //LuroundSnackBar.successSnackBar(message: "profile updated");
+        LuroundSnackBar.successSnackBar(message: "service updated");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "failed to update profile");
+        LuroundSnackBar.errorSnackBar(message: "failed to update service");
       }
     } 
     catch (e) {
@@ -229,14 +234,14 @@ class AccOwnerServicePageService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user service deleted by id succesfully");
-        //LuroundSnackBar.successSnackBar(message: "profile updated");
+        LuroundSnackBar.successSnackBar(message: "service deleted");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "failed to update profile");
+        LuroundSnackBar.errorSnackBar(message: "failed to delete profile");
       }
     } 
     catch (e) {

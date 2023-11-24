@@ -151,7 +151,6 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             }
                             //return controller.viewTextfields[index];
                             return ListTile(
-                              key: ValueKey(index), //UniqueKey()
                               // Now displaying a Widget directly
                               title: controller.viewTextfields[index],
                               trailing: IconButton(
@@ -211,7 +210,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.text,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    //key: ValueKey("locay"),
+                                    key: ValueKey("locay"),
                                   ),
                                   viewModel
                                 );
@@ -241,7 +240,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.phone,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    //key: ValueKey("mobile"),
+                                    key: ValueKey("mobile"),
                                   ),
                                   viewModel
                                 );
@@ -271,7 +270,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.emailAddress,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    //key: ValueKey("email"),
+                                    key: ValueKey("email"),
                                   ),
                                   viewModel
                                 );
@@ -308,7 +307,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    //key: ValueKey("web"),
+                                    key: ValueKey("web"),
                                   ),
                                   viewModel
                                 );
@@ -338,7 +337,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    //key: ValueKey("li"),
+                                    key: ValueKey("linkedIn"),
                                   ),
                                   viewModel
                                 );
@@ -368,7 +367,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    //key: ValueKey("fb"),
+                                    key: ValueKey("facebook"),
                                   ),
                                   viewModel
                                 );
@@ -403,7 +402,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
 
 
 
-//MAIN FIELD 
+//MAIN BUILD FIELD 
 class BuildTextFieldWidget extends StatefulWidget {
   const BuildTextFieldWidget({
     super.key, 

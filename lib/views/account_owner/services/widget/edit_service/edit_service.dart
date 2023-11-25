@@ -17,7 +17,8 @@ import 'package:luround/views/account_owner/services/widget/edit_service/step_ta
 
 
 class EditServiceScreen extends GetView<ServicesController> {
-  EditServiceScreen({super.key});
+  EditServiceScreen({super.key, required this.serviceId,});
+  final String serviceId;
 
   //final ServicesController serviceController = ServicesController();
 

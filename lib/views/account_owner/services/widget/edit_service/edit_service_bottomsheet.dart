@@ -55,7 +55,7 @@ Future<void> editServiceDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
-                    Get.to(() => EditServiceScreen());
+                    Get.to(() => EditServiceScreen(serviceId: serviceId,));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

@@ -120,7 +120,9 @@ class ProfilePageController extends getx.GetxController {
 
   void addItem(Widget item, ViewModel viewModel) {
     // Check if the item is already in the list
-    if (!viewTextfields.contains(item) && !viewItems.contains(viewModel)) {
+    //if (!viewTextfields.contains(item) && !viewItems.contains(viewModel)) {
+      if (!viewTextfields.any((existingItem) => existingItem.key == item.key) &&
+      !viewItems.any((existingViewModel) => existingViewModel == viewModel)) {
       // Add the item to both lists
       viewTextfields.add(item);
       viewItems.add(viewModel);

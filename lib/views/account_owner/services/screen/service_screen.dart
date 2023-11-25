@@ -12,7 +12,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/add_service_stepper.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/edit_service/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/toggle_service_price_container/toggle_price.dart';
 
 import '../../../../services/account_owner/local_storage/local_storage.dart';

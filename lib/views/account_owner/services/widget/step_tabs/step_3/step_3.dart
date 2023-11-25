@@ -21,10 +21,16 @@ import 'package:luround/views/account_owner/services/widget/step_tabs/step_3/tim
 
 
 
-class Step3Page extends GetView{
+class Step3Page extends StatefulWidget{
   Step3Page({super.key,});
 
+  @override
+  State<Step3Page> createState() => _Step3PageState();
+}
+
+class _Step3PageState extends State<Step3Page> {
   var mainController = Get.put(ServicesController());
+
   var servicesService = Get.put(AccOwnerServicePageService());
 
   Widget build(BuildContext context) {
@@ -66,8 +72,8 @@ class Step3Page extends GetView{
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
           itemCount: 7,
           itemBuilder: (context, index) {
-            return Obx(
-              () {
+            return Builder(
+              builder: (context) {
                 return CheckboxListTile.adaptive(
                   checkColor: AppColor.bgColor,
                   checkboxShape: RoundedRectangleBorder(
@@ -78,10 +84,12 @@ class Step3Page extends GetView{
                   controlAffinity: ListTileControlAffinity.leading,
                   value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
                   contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-                  onChanged: (value) {        
-                    mainController.isCheckBoxActive.value = true;
-                    mainController.toggleCheckbox(index, value);
-                    print("selectedDays: ${mainController.selectedDays}");
+                  onChanged: (value) {   
+                    setState(() {
+                      mainController.isCheckBoxActive.value = true;
+                      mainController.toggleCheckbox(index, value);
+                      print("selectedDays: ${mainController.selectedDays}");
+                    });     
                     //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
                   },
                   tileColor: AppColor.bgColor,
@@ -98,10 +106,12 @@ class Step3Page extends GetView{
                         ),
                       ),
                       InkWell(
-                        onTap: () {                  
-                          mainController.daysOfTheWeekCheckBox[index]["isChecked"] = !mainController.daysOfTheWeekCheckBox[index]["isChecked"];
-                          //to activate the done button
-                          mainController.isCheckBoxActive.value = true;
+                        onTap: () {    
+                          setState(() {
+                            mainController.daysOfTheWeekCheckBox[index]["isChecked"] = !mainController.daysOfTheWeekCheckBox[index]["isChecked"];
+                            //to activate the done button
+                            mainController.isCheckBoxActive.value = true;
+                          });              
                         },
                         child: SvgPicture.asset("assets/svg/add_icon.svg"),
                       )

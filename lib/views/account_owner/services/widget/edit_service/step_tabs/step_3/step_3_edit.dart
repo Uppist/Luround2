@@ -10,7 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/step_tabs/step_3/time_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_3/time_range_picker_edit.dart';
 
 
 
@@ -18,11 +18,9 @@ import 'package:luround/views/account_owner/services/widget/step_tabs/step_3/tim
 
 
 
-
-
-
-class Step3Page extends GetView{
-  Step3Page({super.key,});
+class Step3PageEdit extends GetView{
+  Step3PageEdit({super.key, required this.serviceId});
+  final String serviceId;
 
   var mainController = Get.put(ServicesController());
   var servicesService = Get.put(AccOwnerServicePageService());
@@ -76,13 +74,13 @@ class Step3Page extends GetView{
                   enableFeedback: true,
                   activeColor: AppColor.mainColor,
                   controlAffinity: ListTileControlAffinity.leading,
-                  value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
+                  value: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"],
                   contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-                  onChanged: (value) {        
-                    mainController.isCheckBoxActive.value = true;
-                    mainController.toggleCheckbox(index, value);
-                    print("selectedDays: ${mainController.selectedDays}");
-                    //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
+                  onChanged: (value) {     
+                    mainController.isCheckBoxActiveEdit.value = true;
+                    mainController.toggleCheckboxEdit(index, value);
+                    print("selectedDays: ${mainController.selectedDaysEdit}");
+                    //print("$index, ${controller.daysOfTheWeekCheckBox[index]["day"]}");
                   },
                   tileColor: AppColor.bgColor,
                   title: Row(
@@ -90,7 +88,7 @@ class Step3Page extends GetView{
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        mainController.daysOfTheWeekCheckBox[index]["day"],
+                        mainController.daysOfTheWeekCheckBoxEdit[index]["day"],
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
                           fontSize: 15.sp,
@@ -98,18 +96,18 @@ class Step3Page extends GetView{
                         ),
                       ),
                       InkWell(
-                        onTap: () {                  
-                          mainController.daysOfTheWeekCheckBox[index]["isChecked"] = !mainController.daysOfTheWeekCheckBox[index]["isChecked"];
+                        onTap: () {
+                          mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] = !mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"];
                           //to activate the done button
-                          mainController.isCheckBoxActive.value = true;
+                          mainController.isCheckBoxActiveEdit.value = true;                  
                         },
                         child: SvgPicture.asset("assets/svg/add_icon.svg"),
                       )
                     ],
                   ),
-                  subtitle: mainController.daysOfTheWeekCheckBox[index]["isChecked"] 
-                  ?TimeRangeSelector(index: index)           
-                  :SizedBox(),
+                  subtitle: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] 
+                  ?EditTimeRangeSelector(index: index)           
+                  : SizedBox(),
                 );
               }
             );
@@ -117,23 +115,24 @@ class Step3Page extends GetView{
         ),
         SizedBox(height: 90.h),
         RebrandedReusableButton(
-          textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
-          color: mainController.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
+          textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
+          color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
           text: "Done", 
-          onPressed: mainController.isCheckBoxActive.value ? 
+          onPressed: mainController.isCheckBoxActiveEdit.value ? 
           //widget.onNext
           () {
-            servicesService.createUserService(
+            servicesService.updateUserService(
               //service_type: "In-Person", //In-Person
-              service_name: mainController.serviceNameController.text, 
-              description: mainController.descriptionController.text, 
-              links: [mainController.addLinksController.text], 
-              service_charge_in_person: mainController.inPersonController.text, 
-              service_charge_virtual: mainController.virtualController.text, 
-              duration: mainController.formatDuration(), 
-              time: "${mainController.startTimeValue} - ${mainController.stopTimeValue}",
-              date: mainController.selectDurationRadio,             
-              available_days: mainController.availableDays(),
+              serviceId: serviceId,
+              service_name: mainController.serviceNameControllerEdit.text, 
+              description: mainController.descriptionControllerEdit.text, 
+              links: [mainController.addLinksControllerEdit.text], 
+              service_charge_in_person: mainController.inPersonControllerEdit.text, 
+              service_charge_virtual: mainController.virtualControllerEdit.text, 
+              duration: mainController.formatDurationEdit(), 
+              time: "${mainController.startTimeValueEdit} - ${mainController.stopTimeValueEdit}",
+              date: mainController.selectDateRangeEdit,             
+              available_days: mainController.availableDaysEdit(),
             ).whenComplete(() {
               Get.offUntil(
                 GetPageRoute(

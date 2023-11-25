@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/widget/delete_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/edit_service/edit_service.dart';
 
 
 
@@ -52,7 +54,9 @@ Future<void> editServiceDialogueBox({
               children: [
                 //1
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(() => EditServiceScreen());
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

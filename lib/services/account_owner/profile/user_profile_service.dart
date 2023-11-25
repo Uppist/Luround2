@@ -32,6 +32,7 @@ class AccOwnerProfileService extends getx.GetxController {
   var controller = getx.Get.put(ProfilePageController());
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
+  var userEmail = LocalStorage.getUserID();
 
 
 
@@ -509,7 +510,12 @@ class AccOwnerProfileService extends getx.GetxController {
     }
   }
 
-  
+
+  @override
+  void onInit() {
+    getUserProfileDetails(email: userEmail);
+    super.onInit();
+  }
 
 
 

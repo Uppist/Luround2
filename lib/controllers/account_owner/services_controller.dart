@@ -291,10 +291,244 @@ class ServicesController extends getx.GetxController {
 
   /////////////////////////[EDIT SERVICE SCREEN COMPONENTS HERE]/////////////////////////////////////////////
 
+  //edit service stepper//////////////////////////////////
+  //(save to db)
+  String selectDateRangeEdit = "select something";
+
+  //checks the selected radio
+  final isradio1Edit = false.obs;
+  final isradio2Edit = false.obs;
+  final isradio3Edit = false.obs;
+
+  //list of dates for "calendar_picker" package (addservices)
+  var datesEdit = <DateTime?>[].obs;
+  void selectedDateEdit(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      datesEdit.value = dateList;
+      update();
+    }
+  }
+
+
+  //(save both dates below to db)
+  String startDateEdit() {
+    if(datesEdit.isNotEmpty && datesEdit.length >= 2) {
+      print(datesEdit);
+      var result = datesEdit[0].toString();
+      var refinedList = result.substring(0, 10);
+      print(refinedList);
+      return refinedList;
+    }
+    return "from";
+  }
+  String endDateEdit() {
+    print(datesEdit);
+    if(datesEdit.isNotEmpty && datesEdit.length >= 2) {
+      var result = datesEdit[1].toString();
+      var refinedList = result.substring(0, 10);
+      print(refinedList);
+      return refinedList;
+    }
+    return "to";
+  }
+
+  //to add other links at {step 1}
+  final toggleLinkEdit = false.obs;
+  final isTextGoneEdit  = false.obs;
+
+  //(save to db)
+  final TextEditingController serviceNameControllerEdit = TextEditingController();
+  final TextEditingController descriptionControllerEdit = TextEditingController();
+  final TextEditingController addLinksControllerEdit = TextEditingController();
+  final TextEditingController inPersonControllerEdit = TextEditingController();
+  final TextEditingController virtualControllerEdit = TextEditingController();
+
+  //checks if the user has inputed their prices in order to enable the button
+  final ispriceButtonEnabledEdit = false.obs;
+
+  //description textcontroller count
+  int maxLengthEdit = 500;
+
+  //for Stepper widget (starts to count at 0)
+  getx.RxInt curentStepEdit = 0.obs;
+
+  //select duration in minutes
+  final durationEdit = Duration(hours: 0, minutes: 0).obs;
+  
+  //(save to db)
+  String formatDurationEdit() {
+    int hours = durationEdit.value.inHours;
+    // Get remaining minutes after subtracting hours
+    int minutes = (durationEdit.value.inMinutes % 60).abs();
+
+    String hoursString = hours > 0 ? '$hours hrs' : '';
+    String minutesString = minutes > 0 ? '$minutes mins' : '';
+
+    if (hours > 0 && minutes > 0) {
+      return '$hoursString: $minutesString';
+    } 
+    else {
+      return '$hoursString$minutesString';
+    }
+  }
+
+
+  Future<void> showDurationPickerDialogEdit({required BuildContext context}) async{
+    var resultingDuration = await showDurationPicker(
+      decoration: BoxDecoration(
+        color: AppColor.bgColor,
+        borderRadius: BorderRadius.circular(20)
+      ),
+      context: context,
+      initialTime: durationEdit.value,
+    );
+    durationEdit.value = resultingDuration!;
+    ispriceButtonEnabledEdit.value = true;
+    //debugPrint("duartion: ${resultingDuration}");
+    debugPrint("duration: ${durationEdit.value}");
+  }
+
+  ////////////step 3 screen///////////(save to db by index from ui)
+  List<Map<String, dynamic>> daysOfTheWeekCheckBoxEdit = [
+    {
+      "day": "Monday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Tuesday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Wednesday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Thursday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Friday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Saturday",
+      "isChecked": false,     
+    },
+    {
+      "day": "Sunday",
+      "isChecked": false,     
+    },
+  ];
+  
+  ////**[STEP 3]***////////
+  List<String> selectedDaysEdit = [];
+
+  void addItemEdit({required String item}) {
+    if (!selectedDaysEdit.contains(item)) {
+      // Get the selected days in the order of the days of the week
+      List<String> orderedSelectedDays = daysOfTheWeekCheckBoxEdit
+      .where((day) => day['isChecked'])
+      .map<String>((day) => day['day'] as String)
+      .toList();
+
+      // Update the selectedDays list based on the checkbox state
+      selectedDaysEdit = List.from(orderedSelectedDays);
+      //selectedDays.add(item);
+    } else {
+      print("$item is already in the list");
+    }
+  }
   
 
+  void removeItemEdit({required int index}) {
+    if (index >= 0 && index < selectedDaysEdit.length) {
+      print("Item ${selectedDaysEdit[index]} removed at index $index");
+      selectedDaysEdit.removeAt(index);
+    } else {
+      print("Invalid index: $index");
+    }
+  }
 
+  void toggleCheckboxEdit(int index, bool? value) {   
+    // Toggle the isChecked value
+    daysOfTheWeekCheckBoxEdit[index]['isChecked'] = value;
 
+    // Update the selectedDays list based on the checkbox state
+    if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
+      addItem(item: daysOfTheWeekCheckBoxEdit[index]['day']);
+    } else {
+      int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
+      if (selectedIndex != -1) {
+        removeItem(index: selectedIndex);
+      }
+    }
+  }
+  
+  //available_days(save to db)
+  String availableDaysEdit() {
+    // Check if the list is not empty before getting the first and last values
+    if (selectedDaysEdit.isNotEmpty) {
+      String firstDay = selectedDaysEdit.first;
+      String lastDay = selectedDaysEdit.last;
+
+      // Now you can use firstDay and lastDay as needed
+      print('First day: $firstDay');
+      print('Last day: $lastDay');
+
+      // Combine first and last days into a single string
+      String combinedString = '$firstDay - $lastDay';
+      print('Combined string: $combinedString');
+      return combinedString;
+    } else {
+      // Handle the case when the list is empty
+      print('The list of selected days is empty.');
+      throw Exception("The list is empty fam");
+    }
+  }
+  /////////////////////////////////
+
+  //to activate the next/done button in step 3 screen
+  final isCheckBoxActiveEdit = false.obs;
+
+  
+  //service_screen time picker (add_service_step 3)/// ///////////////////////////////
+  //(save to db) the two of them
+  final startTimeValueEdit = "".obs; 
+  final stopTimeValueEdit = "".obs;
+  
+  //function that converts the start time to String
+  String startTimeFuncEdit({required TimeOfDay startTime}) {
+    String formattedTime = DateFormat.jm().format(
+      DateTime(2023, 1, 2, startTime.hour, startTime.minute),
+    );
+    print(formattedTime); // This will print the time in "h:mm a" format
+    return formattedTime;
+  }
+  //function that converts the stop time to String
+  String stopTimeFuncEdit({required TimeOfDay stopTime}) {
+    String formattedTime = DateFormat.jm().format(
+      DateTime(2023, 1, 2, stopTime.hour, stopTime.minute),
+    );
+    print(formattedTime); // This will print the time in "h:mm a" format
+    return formattedTime;
+  }
+
+  /*String getStartTime ({required String initialTime}) {
+    if(startTimeValue.isNotEmpty) { 
+      debugPrint("t1: $startTimeValue");
+      return startTimeValue.value;
+    }
+    return initialTime;
+  }
+
+  String getStopTime ({required String initialTime}) {
+    if(stopTimeValue.isNotEmpty) { 
+      print("t2: $stopTimeValue");
+      return stopTimeValue.value;
+    }
+    return initialTime;
+  }*/
+  /////////////////////////////////////////////////////
 
 
 
@@ -310,6 +544,20 @@ class ServicesController extends getx.GetxController {
 
 
   @override
+  void onInit() {
+    // TODO: implement onInit
+    //
+    serviceNameControllerEdit.addListener(() {
+      ispriceButtonEnabledEdit.value = serviceNameControllerEdit.text.isNotEmpty;  
+    });
+    //[ADD OTHER LISTENERS]
+    super.onInit();
+  }
+
+
+
+
+  @override
   void dispose() {
     // TODO: implement dispose
     serviceNameController.dispose();
@@ -317,6 +565,12 @@ class ServicesController extends getx.GetxController {
     addLinksController.dispose();
     inPersonController.dispose();
     //virtualController.dispose();
+
+    serviceNameControllerEdit.dispose();
+    descriptionControllerEdit.dispose();
+    addLinksControllerEdit.dispose();
+    inPersonControllerEdit.dispose();
+    virtualControllerEdit.dispose();
     super.dispose();
   }
 

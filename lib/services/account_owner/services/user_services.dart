@@ -253,4 +253,26 @@ class AccOwnerServicePageService extends getx.GetxController {
 
 
 
+
+  @override
+  void onInit() {
+    getUserServices();
+    super.onInit();
+  }
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
+
+  @override
+  void onReady() {
+    // TODO: implement onReady
+    super.onReady();
+  }
+
 }

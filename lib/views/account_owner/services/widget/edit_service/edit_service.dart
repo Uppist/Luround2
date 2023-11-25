@@ -129,7 +129,7 @@ class EditServiceScreen extends GetView<ServicesController> {
                   title: Text(""), 
                   isActive: controller.curentStepEdit.value >= 2,
                   content: Step3PageEdit(
-                    serviceId: "",
+                    serviceId: serviceId,
                   )
                 )
               ]

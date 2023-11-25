@@ -141,14 +141,14 @@ class AccOwnerProfileService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user personal details updated succesfully");
 
-        //LuroundSnackBar.successSnackBar(message: "profile updated");
+        LuroundSnackBar.successSnackBar(message: "updated successfully");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "failed to update profile");
+        LuroundSnackBar.errorSnackBar(message: "failed to update profile details");
       }
     } 
     catch (e) {
@@ -196,11 +196,13 @@ class AccOwnerProfileService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user photo deleted succesfully");
+        LuroundSnackBar.successSnackBar(message: "profile photo deleted");
       } 
       else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
+        LuroundSnackBar.successSnackBar(message: "failed to delete profile photo");
       }
     } 
     catch (e) {
@@ -280,14 +282,14 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user about updated successfully");
-        //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+        LuroundSnackBar.successSnackBar(message: "updated successfully");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "something went wrong");
+        LuroundSnackBar.errorSnackBar(message: "failed to update");
       }
     } 
     catch (e) {
@@ -341,14 +343,14 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user media-link updated successfully");
-        //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+        LuroundSnackBar.successSnackBar(message: "updated successfully");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "something went wrong");
+        LuroundSnackBar.errorSnackBar(message: "failed to update");
       }
     } 
     catch (e) {
@@ -384,7 +386,7 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user media-link data deleted successfully");
-        //LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+        //LuroundSnackBar.successSnackBar(message: " successfully");
       } 
       else {
         isLoading.value = false;
@@ -447,12 +449,14 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user certificate details updated successfully");
+        LuroundSnackBar.successSnackBar(message: "updated successfulyl");
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
+        LuroundSnackBar.errorSnackBar(message: "failed to update");
       }
     } 
     catch (e, stackTrace) {

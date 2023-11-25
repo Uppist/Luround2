@@ -53,7 +53,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
       ),
       body: Obx(
         () {
-          return profileService.isLoading.value ? Loader2() : SafeArea(
+          return profileService.isLoading.value ? Loader() : SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -84,14 +84,16 @@ class _EditAboutPageState extends State<EditAboutPage> {
                           SizedBox(height: 30.h),
                           AboutTextField(
                             onChanged: (val) {
-                              // Check if character count exceeds the maximum
-                              if (val.length > controller.maxLength) {
-                                // Remove extra characters       
-                                controller.aboutController.text = val.substring(0, controller.maxLength);
-                                debugPrint("you have reached max length");
-                              } 
-                              controller.aboutController.text = val;
-                              setState(() {}); // Update the UI
+                              setState(() {
+                                // Check if character count exceeds the maximum
+                                if (val.length > controller.maxLength) {
+                                  // Remove extra characters       
+                                  controller.aboutController.text = val.substring(0, controller.maxLength);
+                                  debugPrint("you have reached max length");
+                                } 
+                                controller.aboutController.text = val;
+                              });
+                            
                             },
                             //initial value is the one causing it
                             initialValue: widget.about,  //text gotten from the server

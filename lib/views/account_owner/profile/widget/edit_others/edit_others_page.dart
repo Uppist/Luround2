@@ -90,8 +90,8 @@ class _EditOthersPageState extends State<EditOthersPage> {
           SizedBox(width: 20.w,),
         ],
       ),
-      body: Builder(
-        builder: (context) {
+      body: Obx(
+        () {
           return profileService.isLoading.value ? Loader() : SafeArea(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),

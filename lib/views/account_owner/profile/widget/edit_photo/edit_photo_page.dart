@@ -62,7 +62,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
       body: SafeArea(
         child: Obx(
           () {
-            return profileService.isLoading.value ? Loader2() : Column(
+            return profileService.isLoading.value ? Loader() : Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 SizedBox(height: 10.h),
@@ -169,9 +169,10 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       ),
                                       SizedBox(height: 10.h,),*/
                                       OtherSpecialTextField(
-                                        onChanged: (val) {
-                                          controller.firstNameController.text = val;
-                                          setState(() {});
+                                        onChanged: (val) {                                      
+                                          setState(() {
+                                            controller.firstNameController.text = val;
+                                          });
                                         },
                                         initialValue: widget.firstName,
                                         hintText: 'Enter your first name',
@@ -189,8 +190,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       SizedBox(height: 10.h,),*/
                                       OtherSpecialTextField(
                                         onChanged: (val) {
-                                          controller.lastNameController.text = val;
-                                          setState(() {});
+                                          setState(() {
+                                            controller.lastNameController.text = val;
+                                          });
                                         },
                                         initialValue: widget.lastName,
                                         hintText: 'Enter your last name',
@@ -215,8 +217,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               SizedBox(height: 10.h,),
                               OccupationTextField(
                                 onChanged: (val) {
-                                  controller.companyNameController.text = val;
-                                  setState(() {});
+                                  setState(() {
+                                    controller.companyNameController.text = val;
+                                  });
                                 },
                                 initialValue: widget.company,
                                 hintText: "Enter your company's name",

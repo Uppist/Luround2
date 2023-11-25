@@ -7,6 +7,7 @@ import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/profile/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
@@ -264,7 +265,13 @@ class ProfilePage extends StatelessWidget {
                 ),
                 SizedBox(width: 4.w,),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    copyToClipboard(
+                      text: data.luround_url,
+                      context: context,
+                      snackMessage: "link copied to clipboard"
+                    );
+                  },
                   child: SvgPicture.asset('assets/svg/copy_link.svg')
                 ),
               ],

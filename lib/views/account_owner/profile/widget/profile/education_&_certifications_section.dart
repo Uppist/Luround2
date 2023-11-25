@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/profile/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -9,11 +11,12 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class EducationAndCertificationSection extends StatelessWidget {
-  EducationAndCertificationSection({super.key, required this.onPressedEdit, required this.itemCount, required this.eduAndCertList});
+  EducationAndCertificationSection({super.key, required this.onPressedEdit, required this.itemCount, required this.eduAndCertList,});
   final VoidCallback onPressedEdit;
   final int itemCount;
   final List<dynamic> eduAndCertList;
 
+  final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +113,9 @@ class EducationAndCertificationSection extends StatelessWidget {
                       SizedBox(height: 12.h,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          userProfileService.launchUrlLink(link: eduAndCertList[index]['certificateLink']);
+                        },
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,

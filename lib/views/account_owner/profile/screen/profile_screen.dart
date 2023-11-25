@@ -269,13 +269,9 @@ class ProfilePage extends StatelessWidget {
                 ),
               ],
             ),
+
             SizedBox(height: 30.h),
-            if (
-              data.occupation.isEmpty ||
-              data.about.isEmpty ||
-              data.certificates.isEmpty ||
-              data.media_links.isEmpty
-            )       
+                   
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: AboutSection(
@@ -295,7 +291,7 @@ class ProfilePage extends StatelessWidget {
                 eduAndCertList: data.certificates,
                 onPressedEdit: () {
                   Get.to(() => EditEducationPage());
-                },      
+                },     
               ),
             ),
             SizedBox(height: 30.h),

@@ -18,10 +18,15 @@ import 'package:luround/views/account_owner/services/widget/edit_service/step_ta
 
 
 
-class Step3PageEdit extends GetView{
+class Step3PageEdit extends StatefulWidget{
   Step3PageEdit({super.key, required this.serviceId});
   final String serviceId;
 
+  @override
+  State<Step3PageEdit> createState() => _Step3PageEditState();
+}
+
+class _Step3PageEditState extends State<Step3PageEdit> {
   var mainController = Get.put(ServicesController());
   var servicesService = Get.put(AccOwnerServicePageService());
 
@@ -64,8 +69,8 @@ class Step3PageEdit extends GetView{
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
           itemCount: 7,
           itemBuilder: (context, index) {
-            return Obx(
-              () {
+            return Builder(
+              builder: (context) {
                 return CheckboxListTile.adaptive(
                   checkColor: AppColor.bgColor,
                   checkboxShape: RoundedRectangleBorder(
@@ -76,11 +81,14 @@ class Step3PageEdit extends GetView{
                   controlAffinity: ListTileControlAffinity.leading,
                   value: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"],
                   contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-                  onChanged: (value) {     
-                    mainController.isCheckBoxActiveEdit.value = true;
-                    mainController.toggleCheckboxEdit(index, value);
-                    print("selectedDays: ${mainController.selectedDaysEdit}");
+                  onChanged: (value) {    
+                    setState(() {
+                      mainController.isCheckBoxActiveEdit.value = true;
+                      mainController.toggleCheckboxEdit(index, value);
+                      print("selectedDays: ${mainController.selectedDaysEdit}");
                     //print("$index, ${controller.daysOfTheWeekCheckBox[index]["day"]}");
+                    }); 
+
                   },
                   tileColor: AppColor.bgColor,
                   title: Row(
@@ -123,7 +131,7 @@ class Step3PageEdit extends GetView{
           () {
             servicesService.updateUserService(
               //service_type: "In-Person", //In-Person
-              serviceId: serviceId,
+              serviceId: widget.serviceId,
               service_name: mainController.serviceNameControllerEdit.text, 
               description: mainController.descriptionControllerEdit.text, 
               links: [mainController.addLinksControllerEdit.text], 

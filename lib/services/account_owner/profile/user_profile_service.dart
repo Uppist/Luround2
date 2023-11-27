@@ -11,7 +11,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
+import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -268,6 +270,7 @@ class AccOwnerProfileService extends getx.GetxController {
   ////[ABOUT SECTION]////////
   Future<void> updateAbout({
     required String about,
+    required BuildContext context
   }) async {
 
     isLoading.value = true;
@@ -282,14 +285,24 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user about updated successfully");
-        LuroundSnackBar.successSnackBar(message: "updated successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "updated successfully"
+        );
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.errorSnackBar(message: "failed to update");
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update"
+        );
       }
     } 
     catch (e) {
@@ -302,7 +315,7 @@ class AccOwnerProfileService extends getx.GetxController {
 
 
   ////[MEDIA LINKS]////////
-  Future<void> updateMediaLinks({required List<ViewModel> viewModelList}) async {
+  Future<void> updateMediaLinks({required List<ViewModel> viewModelList, required BuildContext context}) async {
 
     isLoading.value = true;
 
@@ -343,14 +356,24 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user media-link updated successfully");
-        LuroundSnackBar.successSnackBar(message: "updated successfully");
+        //sucess snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "updated successfully"
+        );
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.errorSnackBar(message: "failed to update");
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update"
+        );
       }
     } 
     catch (e) {
@@ -387,6 +410,7 @@ class AccOwnerProfileService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user media-link data deleted successfully");
         //LuroundSnackBar.successSnackBar(message: " successfully");
+        
       } 
       else {
         isLoading.value = false;
@@ -406,7 +430,7 @@ class AccOwnerProfileService extends getx.GetxController {
 
   
   ////[CERTIFICATE DATA]]////////
-  Future<void> updateCertificateData({required List<ControllerSett> controllerSets}) async {
+  Future<void> updateCertificateData({required List<ControllerSett> controllerSets, required BuildContext context}) async {
     isLoading.value = true;
 
     try {
@@ -449,14 +473,24 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user certificate details updated successfully");
-        LuroundSnackBar.successSnackBar(message: "updated successfulyl");
+        //sucess snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "updated successfully"
+        );
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.errorSnackBar(message: "failed to update");
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update"
+        );
       }
     } 
     catch (e, stackTrace) {
@@ -515,12 +549,26 @@ class AccOwnerProfileService extends getx.GetxController {
   }
 
 
+  Future<void> shareProfileLink({required String link}) async{}
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
   @override
   void onInit() {
     getUserProfileDetails(email: userEmail);
     super.onInit();
   }
-
 
 
 }

@@ -120,7 +120,10 @@ class _EditAboutPageState extends State<EditAboutPage> {
                             color: AppColor.mainColor,
                             text: 'Save',
                             onPressed: () async{
-                              await profileService.updateAbout(about: controller.aboutController.text)
+                              await profileService.updateAbout(
+                                context: context,
+                                about: controller.aboutController.text.isEmpty ? widget.about : controller.aboutController.text
+                              )
                               .whenComplete(() => Get.back());
                             },
                           ),

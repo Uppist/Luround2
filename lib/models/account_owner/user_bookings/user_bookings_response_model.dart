@@ -70,7 +70,7 @@ class UserBookingModel {
 
 
 
-class ParentBookingModel {
+/*class ParentBookingModel {
   ParentBookingModel({
     required this.bookings
   });
@@ -80,4 +80,4 @@ class ParentBookingModel {
   ParentBookingModel.fromJson(Map<String, dynamic> json,){
     bookings = json['bookings'] ?? [];
   }
-}
+}*/

@@ -5,7 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings_controller.dart';
+import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
+import 'package:luround/services/account_owner/bookings/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/bookings/screen/booking_screen_empty_state.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/bookings_list_bottomsheet.dart';
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_bottomsheet.dart';
@@ -30,8 +33,9 @@ class BookingsPage extends StatefulWidget {
 }
 
 class _BookingsPageState extends State<BookingsPage> {
-  
+
   var controller = Get.put(BookingsController());
+  var service = Get.put(AccOwnerBookingService());
 
   @override
   Widget build(BuildContext context) {
@@ -126,328 +130,365 @@ class _BookingsPageState extends State<BookingsPage> {
               //BookingScreenEmptyState(onPressed: () {},),
         
               //Futurebuilder will start from here (will wrap this listview)
-              Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  physics: const BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                  itemCount: 8,
-                  separatorBuilder: (context, index) => SizedBox(height: 25.h,),
-                  itemBuilder: (context, index) {
-                  
-                    return Container(
-                      alignment: Alignment.center,
-                      //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                      decoration: BoxDecoration(
-                        color: AppColor.bgColor,
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColor.textGreyColor.withOpacity(0.2),
-                            blurRadius: 0.2,
-                            //spreadRadius: 0.1,
-                            blurStyle: BlurStyle.solid
-                          )
-                        ]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                //more vert icon
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
+              FutureBuilder<List<UserBookingModel>>(
+                future: service.getUserBookings(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Loader();
+                  }
+                  if (snapshot.hasError) {
+                    debugPrint("${snapshot.error}");
+                  }
+                  if (!snapshot.hasData) {
+                    print("sn-trace: ${snapshot.stackTrace}");
+                    print("sn-data: ${snapshot.data}");
+                    return BookingScreenEmptyState(
+                      onPressed: () async{
+                        await service.getUserBookings();
+                      },
+                    );
+                  } 
+                     
+                    //[Do this if anything sups]//
+                  if (snapshot.hasData) {
+      
+                    var data = snapshot.data!;
+
+                    return Expanded(
+                      child: ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
+                      itemCount: 8,
+                      separatorBuilder: (context, index) => SizedBox(height: 25.h,),
+                      itemBuilder: (context, index) {
+                      
+                        return Container(
+                          alignment: Alignment.center,
+                          //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          decoration: BoxDecoration(
+                            color: AppColor.bgColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.textGreyColor.withOpacity(0.2),
+                                blurRadius: 0.2,
+                                //spreadRadius: 0.1,
+                                blurStyle: BlurStyle.solid
+                              )
+                            ]
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    IconButton(
-                                      onPressed: () {
-                                        bookingsListDialogueBox(context: context, serviceName: 'Digital Marketing Training',);
-                                      }, 
-                                      icon: Icon(
-                                        Icons.more_vert_rounded,
-                                        color: AppColor.blackColor,
-                                      )
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 5.h,),
-                                //beginning
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    CircleAvatar(
-                                      backgroundColor: AppColor.mainColor,
-                                      //backgroundImage: ,
-                                      radius: 30.r,  //25,
-                                    ),
-                                    SizedBox(width: 10.w,),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Yennifer Merit",
-                                            style: GoogleFonts.poppins(
-                                              color: AppColor.darkGreyColor,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.bold
-                                            ),
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Text(
-                                            index.isEven ? "booked you" : "you booked",
-                                            style: GoogleFonts.poppins(
-                                              color: AppColor.textGreyColor,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w500
-                                            ),
+                                    //more vert icon
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        IconButton(
+                                          onPressed: () {
+                                            bookingsListDialogueBox(context: context, serviceName: 'Digital Marketing Training',);
+                                          }, 
+                                          icon: Icon(
+                                            Icons.more_vert_rounded,
+                                            color: AppColor.blackColor,
                                           )
-                                        ],
-                                      )
-                                    )
-                                  ],
-                                ),
-                                SizedBox(height: 10.h,),
-                                Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
-                                SizedBox(height: 10.h,),
-                                //date of booking
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Tuesday, 11 July 2023",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
+                                        )
+                                      ],
                                     ),
-                                    SizedBox(width: 10.w,),
-                                    /////////////
-                                    index.isEven ?
-                                    SvgPicture.asset("assets/svg/sent_blue.svg")
-                                    :SvgPicture.asset("assets/svg/received_yellow.svg"),
-                                    /////////////////
-                                  ],
-                                ),
-                                SizedBox(height: 30.h,),
-                                //service name
-                                Text(
-                                  "Digital Marketing Training",
-                                  style: GoogleFonts.poppins(
-                                    color: AppColor.blackColor,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.bold
-                                  ),
-                                ),
-                                SizedBox(height: 30,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "9:30am - 10:30am",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                    ),
+                                    SizedBox(height: 5.h,),
+                                    //beginning
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        SvgPicture.asset("assets/svg/time_icon.svg"),
+                                        CircleAvatar(
+                                          backgroundColor: AppColor.mainColor,
+                                          //backgroundImage: ,
+                                          radius: 30.r,  //25,
+                                        ),
                                         SizedBox(width: 10.w,),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                "Yennifer Merit",
+                                                style: GoogleFonts.poppins(
+                                                  color: AppColor.darkGreyColor,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.bold
+                                                ),
+                                              ),
+                                              SizedBox(height: 2.h,),
+                                              Text(
+                                                index.isEven ? "booked you" : "you booked",
+                                                style: GoogleFonts.poppins(
+                                                  color: AppColor.textGreyColor,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.w500
+                                                ),
+                                              )
+                                            ],
+                                          )
+                                        )
+                                      ],
+                                    ),
+                                    SizedBox(height: 10.h,),
+                                    Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
+                                    SizedBox(height: 10.h,),
+                                    //date of booking
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
                                         Text(
-                                          "1 hr 30 mins",
+                                          "Tuesday, 11 July 2023",
                                           style: GoogleFonts.poppins(
-                                            color: AppColor.textGreyColor,
-                                            fontSize: 15.sp,
-                                            //fontWeight: FontWeight.w500
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
                                           ),
+                                        ),
+                                        SizedBox(width: 10.w,),
+                                        /////////////
+                                        index.isEven ?
+                                        SvgPicture.asset("assets/svg/sent_blue.svg")
+                                        :SvgPicture.asset("assets/svg/received_yellow.svg"),
+                                        /////////////////
+                                      ],
+                                    ),
+                                    SizedBox(height: 30.h,),
+                                    //service name
+                                    Text(
+                                      "Digital Marketing Training",
+                                      style: GoogleFonts.poppins(
+                                        color: AppColor.blackColor,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold
+                                      ),
+                                    ),
+                                    SizedBox(height: 30,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "9:30am - 10:30am",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            SvgPicture.asset("assets/svg/time_icon.svg"),
+                                            SizedBox(width: 10.w,),
+                                            Text(
+                                              "1 hr 30 mins",
+                                              style: GoogleFonts.poppins(
+                                                color: AppColor.textGreyColor,
+                                                fontSize: 15.sp,
+                                                //fontWeight: FontWeight.w500
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       ],
                                     ),
+                                    SizedBox(height: 30.h,),
+                                  
+                                  
+                                    ///////////////////////////////////////
+                                    //collapsible and expandibles here,
+                                    controller.selectedIndex == index ?
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Sender's Email",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                        Text(
+                                          "yennifermerit@gmail.com",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 15.sp,
+                                            //fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                  
+                                        SizedBox(height: 30.h,),
+                                        Text(
+                                          "Meeting Type",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                        Text(
+                                          "Virtual",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 15.sp,
+                                            //fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 30.h,),
+                                  
+                                        Text(
+                                          "Location",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                        Text(
+                                          "This is a Google Meet web conference",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 15.sp,
+                                            //fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 30.h,),
+                                  
+                                        Text(
+                                          "Sender's Time Zone",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10,),
+                                        Text(
+                                          "West Africa Time",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 15.sp,
+                                            //fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 30.h,),
+                                  
+                                        Text(
+                                          "Note",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                        Text(
+                                          "qwertyuiopasdfghjklzxcvbnmggggggggggdrerearwaetsrsgergsegehtrshghfh",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 15.sp,
+                                            //fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 30.h,),
+                                        Text(
+                                          "Created on 8 July 2023",
+                                          style: GoogleFonts.poppins(
+                                            color: AppColor.textGreyColor.withOpacity(0.4),
+                                            fontSize: 15.sp,
+                                            //fontWeight: FontWeight.w500
+                                          ),
+                                          //maxLines: controller.selectedIndex == index ? null : 1,
+                                          //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                      ],
+                                    ): SizedBox(),
+                                    ///////////////////////////////////////    
+                                  
                                   ],
-                                ),
-                                SizedBox(height: 30.h,),
-                              
-                              
-                                ///////////////////////////////////////
-                                //collapsible and expandibles here,
-                                controller.selectedIndex == index ?
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Sender's Email",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                    Text(
-                                      "yennifermerit@gmail.com",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 15.sp,
-                                        //fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                              
-                                    SizedBox(height: 30.h,),
-                                    Text(
-                                      "Meeting Type",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                    Text(
-                                      "Virtual",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 15.sp,
-                                        //fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 30.h,),
-                              
-                                    Text(
-                                      "Location",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                    Text(
-                                      "This is a Google Meet web conference",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 15.sp,
-                                        //fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 30.h,),
-                              
-                                    Text(
-                                      "Sender's Time Zone",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 10,),
-                                    Text(
-                                      "West Africa Time",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 15.sp,
-                                        //fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 30.h,),
-                              
-                                    Text(
-                                      "Note",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                    Text(
-                                      "qwertyuiopasdfghjklzxcvbnmggggggggggdrerearwaetsrsgergsegehtrshghfh",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 15.sp,
-                                        //fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 30.h,),
-                                    Text(
-                                      "Created on 8 July 2023",
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.textGreyColor.withOpacity(0.4),
-                                        fontSize: 15.sp,
-                                        //fontWeight: FontWeight.w500
-                                      ),
-                                      //maxLines: controller.selectedIndex == index ? null : 1,
-                                      //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                  ],
-                                ): SizedBox(),
-                                ///////////////////////////////////////    
-                              
-                              ],
-                            ),
-                          ),
-                          ////////////////////
-                          Divider(color: AppColor.mainColor, thickness: 0.8,),
-                          //see more text button
-                          Center(
-                            child: TextButton(
-                              onPressed: () {
-                                setState(() {
-                                  if (controller.selectedIndex == index) {
-                                    // Collapse the selected item.
-                                    controller.selectedIndex = -1;
-                                  } 
-                                  else {
-                                    // Expand the selected item.
-                                    controller.selectedIndex = index; 
-                                  }
-                                });
-                              }, 
-                              child: Text(
-                                controller.selectedIndex == index   ? 'See Less' : 'See More',
-                                style: GoogleFonts.poppins(
-                                  color: AppColor.mainColor,
-                                  fontSize: 17.sp,
-                                  fontWeight: FontWeight.w500
-                                  //decoration: TextDecoration.underline,
                                 ),
                               ),
-                            ),
+                              ////////////////////
+                              Divider(color: AppColor.mainColor, thickness: 0.8,),
+                              //see more text button
+                              Center(
+                                child: TextButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      if (controller.selectedIndex == index) {
+                                        // Collapse the selected item.
+                                        controller.selectedIndex = -1;
+                                      } 
+                                      else {
+                                        // Expand the selected item.
+                                        controller.selectedIndex = index; 
+                                      }
+                                    });
+                                  }, 
+                                  child: Text(
+                                    controller.selectedIndex == index   ? 'See Less' : 'See More',
+                                    style: GoogleFonts.poppins(
+                                      color: AppColor.mainColor,
+                                      fontSize: 17.sp,
+                                      fontWeight: FontWeight.w500
+                                      //decoration: TextDecoration.underline,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(height: 10.h,),
+                              ////////////////////
+                            ],
                           ),
-                          SizedBox(height: 10.h,),
-                          ////////////////////
-                        ],
-                      ),
+                        );
+                      }
+                    ),
                     );
                   }
-                ),
+                  return Center(
+                    child: Text(
+                      "connection timed out",
+                      style: GoogleFonts.inter(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.normal
+                      )
+                    )
+                  );
+                }
               ),         
               ///
               SizedBox(height: 20.h,)

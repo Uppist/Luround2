@@ -26,7 +26,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S BOOKINGS LIST]//////
-  Future<ParentBookingModel> getUserBookings() async {
+  Future<List<UserBookingModel>> getUserBookings() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "booking/my-bookings?userID=$userId",);
@@ -34,9 +34,9 @@ class AccOwnerBookingService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint("user bookings fetched successfully!!");
-        //decode the response body here
-        ParentBookingModel userBookingsModel = ParentBookingModel.fromJson(jsonDecode(res.body));
-        return userBookingsModel;
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        return response.map((e) => UserBookingModel.fromJson(e)).toList();
       }
       else {
         isLoading.value = false;

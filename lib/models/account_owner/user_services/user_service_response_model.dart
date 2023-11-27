@@ -65,7 +65,7 @@ class UserServiceModel {
 
 
 
-class ParentServiceModel {
+/*class ParentServiceModel {
   ParentServiceModel({
     required this.services
   });
@@ -75,5 +75,5 @@ class ParentServiceModel {
   ParentServiceModel.fromJson(Map<String, dynamic> json,){
     services = json['services'] ?? [];
   }
-}
+}*/
 

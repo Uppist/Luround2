@@ -49,7 +49,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<ParentServiceModel> getUserServices() async {
+  Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
@@ -58,8 +58,9 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint("user services fetched successfully!!");
         //decode the response body here
-        ParentServiceModel userServiceModel = ParentServiceModel.fromJson(jsonDecode(res.body));
-        return userServiceModel;
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        return response.map((e) => UserServiceModel.fromJson(e)).toList();
       }
       else {
         isLoading.value = false;

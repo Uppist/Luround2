@@ -55,7 +55,7 @@ class BookingScreenEmptyState extends StatelessWidget {
             InkWell(
               onTap: onPressed,
               child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 alignment: Alignment.center,
                 height: 50.h,
                 width: 350.w,

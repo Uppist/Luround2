@@ -14,7 +14,6 @@ import 'package:luround/views/account_owner/services/screen/service_empty_state.
 import 'package:luround/views/account_owner/services/widget/add_service_stepper.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/toggle_service_price_container/toggle_price.dart';
-
 import '../../../../services/account_owner/local_storage/local_storage.dart';
 
 
@@ -101,7 +100,7 @@ class ServicesPage extends StatelessWidget {
       
       
               //Futurebuilder will start from here (will wrap this listview)
-              FutureBuilder<ParentServiceModel>(
+              FutureBuilder<List<UserServiceModel>>(
                 future: userService.getUserServices(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -131,7 +130,7 @@ class ServicesPage extends StatelessWidget {
                         scrollDirection: Axis.vertical,
                         physics: const BouncingScrollPhysics(),
                         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                        itemCount: 3, //data.length,
+                        itemCount: data.length,
                         separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                         itemBuilder: (context, index) {
                           return Container(
@@ -155,16 +154,16 @@ class ServicesPage extends StatelessWidget {
                                             onTap: () {
                                               editServiceDialogueBox(
                                                 context: context, 
-                                                serviceId: data.services[index].serviceId,
-                                                service_name: data.services[index].service_name,
-                                                description: data.services[index].description,
-                                                links: data.services[index].links,
-                                                service_charge_in_person: data.services[index].service_charge_in_person,
-                                                service_charge_virtual: data.services[index].service_charge_virtual,
-                                                duration: data.services[index].duration,
-                                                date: data.services[index].date,
-                                                time: data.services[index].time,
-                                                available_days: data.services[index].available_days
+                                                serviceId: data[index].serviceId,
+                                                service_name: data[index].service_name,
+                                                description: data[index].description,
+                                                links: data[index].links,
+                                                service_charge_in_person: data[index].service_charge_in_person,
+                                                service_charge_virtual: data[index].service_charge_virtual,
+                                                duration: data[index].duration,
+                                                date: data[index].date,
+                                                time: data[index].time,
+                                                available_days: data[index].available_days
                                               );
                                             },
                                             child: Icon(
@@ -183,7 +182,7 @@ class ServicesPage extends StatelessWidget {
                                     ),
                                     SizedBox(height: 40.h,),
                                     Text(
-                                      data.services[index].service_name,
+                                      data[index].service_name,
                                       style: GoogleFonts.inter(
                                         color: AppColor.blackColor,
                                         fontSize: 17.sp,
@@ -192,7 +191,7 @@ class ServicesPage extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20.sp,),
                                     Text(
-                                      "${data.services[index].available_days} . ${data.services[index].time}",
+                                      "${data[index].available_days} . ${data[index].time}",
                                       style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
                                         fontSize: 16.sp,
@@ -201,7 +200,7 @@ class ServicesPage extends StatelessWidget {
                                     ),
                                     SizedBox(height: 20.h,),
                                     Text(
-                                      data.services[index].description,
+                                      data[index].description,
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 16.sp,
@@ -218,7 +217,7 @@ class ServicesPage extends StatelessWidget {
                                           SvgPicture.asset("assets/svg/link_icon.svg"),
                                           SizedBox(width: 10.w,),
                                           Text(
-                                            data.services[index].links[0],
+                                            data[index].links[0],
                                             style: GoogleFonts.inter(
                                               color: AppColor.blueColor,
                                               fontSize: 15.sp,
@@ -258,8 +257,8 @@ class ServicesPage extends StatelessWidget {
                                               //price
                                               TextSpan(
                                                 text: controller.isVirtual.value && controller.selectedIndex.value == index 
-                                                ? "N${data.services[index].service_charge_virtual}" 
-                                                : "N${data.services[index].service_charge_in_person}",
+                                                ? "N${data[index].service_charge_virtual}" 
+                                                : "N${data[index].service_charge_in_person}",
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.blackColor,
                                                   fontSize: 22.sp,
@@ -267,10 +266,10 @@ class ServicesPage extends StatelessWidget {
                                                 ),
                                               ),
                                               //time
-                                              data.services[index].duration.isEmpty ?
+                                              data[index].duration.isEmpty ?
                                               TextSpan()
                                               :TextSpan(
-                                                text: "/${data.services[index].duration}",
+                                                text: "/${data[index].duration}",
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.darkGreyColor,
                                                   fontSize: 19.sp,
@@ -278,7 +277,7 @@ class ServicesPage extends StatelessWidget {
                                                 ),
                                               ),
                                               //session
-                                              data.services[index].duration.isEmpty ? 
+                                              data[index].duration.isEmpty ? 
                                               const TextSpan()
                                               :TextSpan(
                                                 text: " per session",

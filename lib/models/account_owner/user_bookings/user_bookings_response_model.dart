@@ -4,6 +4,7 @@ class UserBookingModel {
     required this.createdAt,
     required this.service_type,
     required this.bookingId,  ///
+    required this.service_name,
     required this.service_receiver_names,
     required this.service_receiver_email,
     required this.phone_number,
@@ -18,7 +19,8 @@ class UserBookingModel {
 
   late final String createdAt;
   late final String service_type;
-  late final String bookingId; ///
+  late final String bookingId; //
+  late final String service_name;
   late final String service_receiver_names;
   late final String service_receiver_email;
   late final String phone_number;
@@ -35,6 +37,7 @@ class UserBookingModel {
     createdAt = json['createdAt'] ?? "createdAt";  //convert to iso82340String
     bookingId = json['service_type'] ?? "service_type";
     bookingId = json['bookinId'] ?? "bookingId";
+    service_name = json["service_name"] ?? "service_name";
     service_receiver_names = json['service_receiver_names'] ?? "service_receiver_names";
     service_receiver_email = json['service_receiver_email'] ?? "service_receiver_email";
     phone_number = json['phone_number'] ?? "phone_number";
@@ -54,6 +57,7 @@ class UserBookingModel {
     //_data["createdAt"] = createdAt;
     _data["service_type"] = service_type;
     _data['bookingId'] = bookingId;
+    _data["service_name"] = service_name;
     _data['service_receiver_names'] = service_receiver_names;
     _data['service_receiver_email'] = service_receiver_email;
     _data['phone_number'] = phone_number;

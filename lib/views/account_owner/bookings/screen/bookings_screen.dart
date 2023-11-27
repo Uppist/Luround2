@@ -192,7 +192,10 @@ class _BookingsPageState extends State<BookingsPage> {
                                       children: [
                                         IconButton(
                                           onPressed: () {
-                                            bookingsListDialogueBox(context: context, serviceName: 'Digital Marketing Training',);
+                                            bookingsListDialogueBox(
+                                              context: context, 
+                                              serviceName: data[index].service_name,
+                                            );
                                           }, 
                                           icon: Icon(
                                             Icons.more_vert_rounded,

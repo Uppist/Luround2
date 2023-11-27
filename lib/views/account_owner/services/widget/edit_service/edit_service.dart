@@ -126,6 +126,12 @@ class EditServiceScreen extends GetView<ServicesController> {
                 Step(
                   title: Text(""), 
                   content: Step1PageEdit(
+                    serviceId: serviceId,
+                    service_name: service_name,
+                    description: description,
+                    links: links,
+                    service_charge_in_person: service_charge_in_person,
+                    service_charge_virtual: service_charge_virtual,
                     onNext: () {
                       if(controller.curentStepEdit.value < 2) {                  
                         controller.curentStepEdit.value = controller.curentStepEdit.value + 1;                 

@@ -108,7 +108,7 @@ class ServicesPage extends StatelessWidget {
                     return Loader();
                   }
                   if (snapshot.hasError) {
-                    print(snapshot.error);
+                    debugPrint("${snapshot.error}");
                   }
                   if (!snapshot.hasData) {
                     print("sn-trace: ${snapshot.stackTrace}");

@@ -120,7 +120,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String duration,
     required String time,
     required String available_days,
-    required String service_type,
+    //required String service_type,
     required String date
     
     }) async {
@@ -137,7 +137,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       "duration": duration,
       "time": time,
       'available_days': available_days,
-      "service_type": service_type,
+      //"service_type": service_type,
       "date": date
     };
 

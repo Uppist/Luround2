@@ -10,6 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_education_page.dart';
@@ -66,25 +67,7 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-        foregroundColor: AppColor.redColor,
-        backgroundColor: AppColor.redColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        onPressed: () {},
-        label: Text(
-          'Share Profile',
-          style: GoogleFonts.inter(
-            textStyle: TextStyle(
-              color: AppColor.bgColor,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ),
-      ),
+      floatingActionButton: _buildShareProfileButton()
     );
   }
 
@@ -115,6 +98,53 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
+  
+  Widget _buildShareProfileButton() {
+    return FutureBuilder<UserModel>(
+      future: userProfileService.getUserProfileDetails(email: userEmail),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return SizedBox();
+        }
+        if (snapshot.hasError) {
+          print(snapshot.error);
+        }
+        if (!snapshot.hasData) {
+          print("sn-trace: ${snapshot.stackTrace}");
+          print("sn-data: ${snapshot.data}");
+        }
+        if (snapshot.hasData) {
+
+          var data = snapshot.data!; 
+
+          return FloatingActionButton.extended(
+            extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            foregroundColor: AppColor.redColor,
+            backgroundColor: AppColor.redColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            onPressed: () {
+              shareProfileLink(link: data.luround_url);
+            },
+            label: Text(
+              'Share Profile',
+              style: GoogleFonts.inter(
+                textStyle: TextStyle(
+                  color: AppColor.bgColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          );
+        }
+        return Text("no data found");
+      },
+    );
+  }
+
+
   Widget _buildEditProfileButton() {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),
@@ -126,20 +156,27 @@ class ProfilePage extends StatelessWidget {
           print(snapshot.error);
           return SvgPicture.asset('assets/svg/edit.svg');
         }
-        var data = snapshot.data!;
-        return InkWell(
-          onTap: () {
-            Get.to(() => EditPhotoPage(
-              firstName: getFirstName(fullName: data.displayName),
-              lastName: getLastName(fullName: data.displayName),
-              company: data.company,
-              occupation: data.occupation,
-                photoUrl: data.photoUrl,
-              )
-            );
-          },
-          child: SvgPicture.asset('assets/svg/edit.svg'),
-        );
+        if (!snapshot.hasData) {
+          print("sn-trace: ${snapshot.stackTrace}");
+          print("sn-data: ${snapshot.data}");
+        }
+        if (snapshot.hasData) {
+          var data = snapshot.data!;
+          return InkWell(
+            onTap: () {
+              Get.to(() => EditPhotoPage(
+                firstName: getFirstName(fullName: data.displayName),
+                lastName: getLastName(fullName: data.displayName),
+                company: data.company,
+                occupation: data.occupation,
+                  photoUrl: data.photoUrl,
+                )
+              );
+            },
+            child: SvgPicture.asset('assets/svg/edit.svg'),
+          );
+        }
+        return SvgPicture.asset('assets/svg/edit.svg');
       },
     );
   }
@@ -162,9 +199,11 @@ class ProfilePage extends StatelessWidget {
           print("sn-data: ${snapshot.data}");
           return Loader2();
         }
-        var data = snapshot.data!;
+         
+        if (snapshot.hasData) {
+          var data = snapshot.data!;
         
-        return Column(
+          return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildQrCode(data),
@@ -202,8 +241,10 @@ class ProfilePage extends StatelessWidget {
             _buildProfileContent(data),              
             SizedBox(height: 30.h),
             ////////////////////////////////////////////////////////////////////////
-          ],     
-        );
+            ],     
+          );
+        }
+        return Text("no data found");
       }
     );
   }
@@ -221,16 +262,17 @@ class ProfilePage extends StatelessWidget {
         if (!snapshot.hasData) {
           print("uh--oh! nothing dey;");
         }
+        if (snapshot.hasData) {
 
-        var data = snapshot.data!;
+          var data = snapshot.data!;
 
-        if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty) {
-          return ProfileEmptyState(
-            onPressed: () {}
-          );
-        }
-
-        return Column(
+          if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty) {
+            return ProfileEmptyState(
+              onPressed: () {}
+            );
+          }
+        
+          return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
@@ -315,8 +357,7 @@ class ProfilePage extends StatelessWidget {
             ),
             SizedBox(height: 50.h),
 
-            ////////////////////////
-
+            ///////[RUN CHECK]///////////////
             if (
               data.occupation.isEmpty ||
               data.about.isEmpty ||
@@ -341,7 +382,9 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
           ],
-        );
+          );
+        }
+        return Text("no data found");
       }
     );
   }
@@ -362,34 +405,37 @@ class ProfilePage extends StatelessWidget {
           print("no data in db");
         }
 
-        var data = snapshot.data!;
+        if (snapshot.hasData) {
+          var data = snapshot.data!;
                       
-        return Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: 40.w,
-            vertical: 20.h
-          ),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: AppColor.greyColor
-          ),
-          width: double.infinity,
-          child: QrImageView(
-            data: data.luround_url,
-            version: QrVersions.auto,
-            size: 170.w,
-            errorStateBuilder: (context, error) {
-              return Text(
-                "Uh oh! Something went wrong!",
-                style: GoogleFonts.inter(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.normal,
-                  color: AppColor.darkGreyColor
-                ),
-              );
-            },
-          ),
-        );
+          return Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: 40.w,
+              vertical: 20.h
+            ),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: AppColor.greyColor
+            ),
+            width: double.infinity,
+            child: QrImageView(
+              data: data.luround_url,
+              version: QrVersions.auto,
+              size: 170.w,
+              errorStateBuilder: (context, error) {
+                return Text(
+                  "Uh oh! Something went wrong!",
+                  style: GoogleFonts.inter(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.normal,
+                    color: AppColor.darkGreyColor
+                  ),
+                );
+              },
+            ),
+          );
+        }
+        return Text("no QRCode data found");
       }
     );
   }
@@ -407,28 +453,32 @@ class ProfilePage extends StatelessWidget {
         if(!snapshot.hasData) {
           print("no data in db (photo)");
         }
-        var data = snapshot.data!;
+
+        if (snapshot.hasData) {
+          var data = snapshot.data!;
         
-        return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Container(
-            alignment: Alignment.center,
-            height: 300.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
-              image:  data.photoUrl == "my_photo" ?
-              DecorationImage(
-                image: AssetImage('assets/images/empty_picc.png'),
-                fit: BoxFit.contain
-              )
-              :DecorationImage(
-                image: NetworkImage(data.photoUrl),
-                fit: BoxFit.cover
-              )
+          return Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Container(
+              alignment: Alignment.center,
+              height: 300.h,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
+                image:  data.photoUrl == "my_photo" ?
+                DecorationImage(
+                  image: AssetImage('assets/images/empty_picc.png'),
+                  fit: BoxFit.contain
+                )
+                :DecorationImage(
+                  image: NetworkImage(data.photoUrl),
+                  fit: BoxFit.cover
+                )
+              ),
             ),
-          ),
-        );
+          );
+        }
+        return Text("no data found");
       }
     );
   }
@@ -458,21 +508,24 @@ class ProfilePage extends StatelessWidget {
           print("sn-trace: ${snapshot.stackTrace}");
           print("sn-data: ${snapshot.data}");
         }
+        
+        if (snapshot.hasData) {
+          var data = snapshot.data!;
 
-        var data = snapshot.data!;
-
-        return Center(
-          child: Text(
-            data.displayName,
-            style: GoogleFonts.inter(
-              textStyle: TextStyle(
-                color: AppColor.blackColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.bold
+          return Center(
+            child: Text(
+              data.displayName,
+              style: GoogleFonts.inter(
+                textStyle: TextStyle(
+                  color: AppColor.blackColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.bold
+                )
               )
-            )
-          ),
-        );
+            ),
+          );
+        }
+        return Text("no data found");
       }
     );
   }

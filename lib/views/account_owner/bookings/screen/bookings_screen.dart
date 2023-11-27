@@ -30,6 +30,7 @@ class BookingsPage extends StatefulWidget {
 }
 
 class _BookingsPageState extends State<BookingsPage> {
+  
   var controller = Get.put(BookingsController());
 
   @override

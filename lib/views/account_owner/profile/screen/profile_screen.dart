@@ -105,7 +105,27 @@ class ProfilePage extends StatelessWidget {
       future: userProfileService.getUserProfileDetails(email: userEmail),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox();
+          return FloatingActionButton.extended(
+            extendedPadding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            foregroundColor: AppColor.redColor,
+            backgroundColor: AppColor.redColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+            onPressed: () {
+              print("still loading fam. please wait");
+            },
+            label: Text(
+              'Share Profile',
+              style: GoogleFonts.inter(
+                textStyle: TextStyle(
+                  color: AppColor.bgColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          );
         }
         if (snapshot.hasError) {
           print(snapshot.error);
@@ -160,7 +180,12 @@ class ProfilePage extends StatelessWidget {
       future: userProfileService.getUserProfileDetails(email: userEmail),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox();
+          return InkWell(
+            onTap: () {
+              print("still loading fam. please wait");
+            },
+            child: SvgPicture.asset('assets/svg/edit.svg'),
+          );
         }
         if (snapshot.hasError) {
           print(snapshot.error);

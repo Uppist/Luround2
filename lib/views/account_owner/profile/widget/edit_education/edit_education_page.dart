@@ -37,7 +37,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
   //GetX dependency injection
   var profileController = Get.put(ProfilePageController());
   var profileService = Get.put(AccOwnerProfileService());
-  var email = LocalStorage.getUseremail();
+  var userEmail = LocalStorage.getUseremail();
   
 
   @override
@@ -101,8 +101,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       ),
                       SizedBox(height: 20.h),
                       //List of certificates from the server {backend}
-                      FutureBuilder<List<dynamic>>(
-                        future: profileService.getUserCertificates(email: email),
+                      FutureBuilder(
+                        future: profileService.getUserProfileDetails(email: userEmail),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
                             return SafeArea(
@@ -125,13 +125,13 @@ class _EditEducationPageState extends State<EditEducationPage> {
                               physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
                               shrinkWrap: true,
                               separatorBuilder: (context, index) => SizedBox(height: 5.h,),
-                              itemCount: data.length,
+                              itemCount: data.certificates.length,
                               itemBuilder: (context, index) {
                                 return Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      data[index]['certificateName'],
+                                      data.certificates[index]['certificateName'],
                                       style: GoogleFonts.inter(
                                         fontSize: 15.sp,
                                         fontWeight: FontWeight.w500,
@@ -141,10 +141,10 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                     TextButton(
                                       onPressed: () {
                                         profileService.deleteCertificateData(
-                                          issuingOrganization: data[index]['issuingOrganization'], 
-                                          certificateName: data[index]['certificateName'], 
-                                          issueDate: data[index]['issueDate'], 
-                                          certificateLink: data[index]['certificateLink'],
+                                          issuingOrganization: data.certificates[index]['issuingOrganization'], 
+                                          certificateName: data.certificates[index]['certificateName'], 
+                                          issueDate: data.certificates[index]['issueDate'], 
+                                          certificateLink: data.certificates[index]['certificateLink'],
                                         );
                                       },                      
                                       child: Text(

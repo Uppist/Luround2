@@ -126,56 +126,55 @@ class ServicesPage extends StatelessWidget {
                     var data = snapshot.data!;
       
                     return Expanded(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      physics: const BouncingScrollPhysics(),
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                      itemCount: 3, //data.length,
-                      separatorBuilder: (context, index) => SizedBox(height: 25.h,),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          //height: 500,
-                          width: double.infinity,
-                          color: index.isEven ? AppColor.lightRed : AppColor.lightPurple,
-                          alignment: Alignment.center,
-                          //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            editServiceDialogueBox(
-                                              context: context, 
-                                              serviceId: data.services[index].serviceId,
-                                              service_name: data.services[index].service_name,
-                                              description: data.services[index].description,
-                                              links: data.services[index].links,
-                                              service_charge_in_person: data.services[index].service_charge_in_person,
-                                              service_charge_virtual: data.services[index].service_charge_virtual,
-                                              duration: data.services[index].duration,
-                                              date: data.services[index].date,
-                                              time: data.services[index].time,
-                                              available_days: data.services[index].available_days
-                                            );
-                                          },
-                                          child: Icon(
-                                            Icons.more_vert_rounded,
-                                            color: AppColor.darkGreyColor,
-                                            size: 30,
-                                          ),
-                                        ),
-                                        
-                                      ],
-                                    ),
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
+                        itemCount: 3, //data.length,
+                        separatorBuilder: (context, index) => SizedBox(height: 25.h,),
+                        itemBuilder: (context, index) {
+                          return Container(
+                            //height: 500,
+                            width: double.infinity,
+                            color: index.isEven ? AppColor.lightRed : AppColor.lightPurple,
+                            alignment: Alignment.center,
+                            //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              editServiceDialogueBox(
+                                                context: context, 
+                                                serviceId: data.services[index].serviceId,
+                                                service_name: data.services[index].service_name,
+                                                description: data.services[index].description,
+                                                links: data.services[index].links,
+                                                service_charge_in_person: data.services[index].service_charge_in_person,
+                                                service_charge_virtual: data.services[index].service_charge_virtual,
+                                                duration: data.services[index].duration,
+                                                date: data.services[index].date,
+                                                time: data.services[index].time,
+                                                available_days: data.services[index].available_days
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.more_vert_rounded,
+                                              color: AppColor.darkGreyColor,
+                                              size: 30,
+                                            ),
+                                          ),                                   
+                                        ],
+                                      ),
                                     SizedBox(height: 20.h,),
                                     //check if the account owner selected in-person or virtual
                                     //VirtualContainer()  //InpersonContainer()

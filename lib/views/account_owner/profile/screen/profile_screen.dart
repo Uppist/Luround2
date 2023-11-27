@@ -80,6 +80,7 @@ class ProfilePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset('assets/images/luround_logo.png'),
+          //SvgPicture.asset('assets/svg/logo_new.svg'),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

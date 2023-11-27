@@ -118,7 +118,10 @@ class ServicesPage extends StatelessWidget {
                         Get.to(() => AddServiceScreen());
                       },
                     );
-                  }
+                  } 
+                     
+                    //[Do this if anything sups]//
+                  //if (snapshot.hasData) {
       
                   var data = snapshot.data!;
       

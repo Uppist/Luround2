@@ -73,7 +73,7 @@ class ParentServiceModel {
 
   //[FOR GET REQUEST]
   ParentServiceModel.fromJson(Map<String, dynamic> json,){
-    services = json['services'] ?? "services";
+    services = json['services'] ?? [];
   }
 }
 

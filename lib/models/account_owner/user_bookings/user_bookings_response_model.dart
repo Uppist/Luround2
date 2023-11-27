@@ -1,6 +1,8 @@
 
 class UserBookingModel {
   UserBookingModel({
+    required this.createdAt,
+    required this.service_type,
     required this.bookingId,  ///
     required this.service_receiver_names,
     required this.service_receiver_email,
@@ -13,6 +15,9 @@ class UserBookingModel {
     required this.location,  //
     required this.userBooked, //
   });
+
+  late final String createdAt;
+  late final String service_type;
   late final String bookingId; ///
   late final String service_receiver_names;
   late final String service_receiver_email;
@@ -27,6 +32,8 @@ class UserBookingModel {
 
   //[FOR GET REQUEST]
   UserBookingModel.fromJson(Map<String, dynamic> json,){
+    createdAt = json['createdAt'] ?? "createdAt";  //convert to iso82340String
+    bookingId = json['service_type'] ?? "service_type";
     bookingId = json['bookinId'] ?? "bookingId";
     service_receiver_names = json['service_receiver_names'] ?? "service_receiver_names";
     service_receiver_email = json['service_receiver_email'] ?? "service_receiver_email";
@@ -38,11 +45,14 @@ class UserBookingModel {
     message = json['message'] ?? "message";
     location = json['location'] ?? "location";
     date = json['userBooked'] ?? false;
+
   }
   
   //[FOR PUT/POST/DELETE REQUEST]//
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
+    //_data["createdAt"] = createdAt;
+    _data["service_type"] = service_type;
     _data['bookingId'] = bookingId;
     _data['service_receiver_names'] = service_receiver_names;
     _data['service_receiver_email'] = service_receiver_email;
@@ -68,6 +78,6 @@ class ParentBookingModel {
 
   //[FOR GET REQUEST]
   ParentBookingModel.fromJson(Map<String, dynamic> json,){
-    bookings = json['bookings'] ?? "bookings";
+    bookings = json['bookings'] ?? [];
   }
 }

@@ -121,11 +121,11 @@ class ServicesPage extends StatelessWidget {
                   } 
                      
                     //[Do this if anything sups]//
-                  //if (snapshot.hasData) {
+                  if (snapshot.hasData) {
       
-                  var data = snapshot.data!;
+                    var data = snapshot.data!;
       
-                  return Expanded(
+                    return Expanded(
                     child: ListView.separated(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -304,6 +304,17 @@ class ServicesPage extends StatelessWidget {
                         );
                       }
                     ),
+                    );
+                  }
+                  return Center(
+                    child: Text(
+                      "connection timed out",
+                      style: GoogleFonts.inter(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.normal
+                      )
+                    )
                   );
                 }
               ),           

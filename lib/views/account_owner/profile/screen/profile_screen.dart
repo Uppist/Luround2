@@ -140,7 +140,16 @@ class ProfilePage extends StatelessWidget {
             ),
           );
         }
-        return Text("no data found");
+        return Center(
+          child: Text(
+            "connection timed out",
+            style: GoogleFonts.inter(
+              color: AppColor.darkGreyColor,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.normal
+            )
+          )
+        );
       },
     );
   }
@@ -245,7 +254,16 @@ class ProfilePage extends StatelessWidget {
             ],     
           );
         }
-        return Text("no data found");
+        return Center(
+          child: Text(
+            "connection timed out",
+            style: GoogleFonts.inter(
+              color: AppColor.darkGreyColor,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.normal
+            )
+          )
+        );
       }
     );
   }
@@ -385,7 +403,16 @@ class ProfilePage extends StatelessWidget {
           ],
           );
         }
-        return Text("no data found");
+        return Center(
+          child: Text(
+            "connection timed out",
+            style: GoogleFonts.inter(
+              color: AppColor.darkGreyColor,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.normal
+            )
+          )
+        );
       }
     );
   }
@@ -436,7 +463,16 @@ class ProfilePage extends StatelessWidget {
             ),
           );
         }
-        return Text("no QRCode data found");
+        return Center(
+          child: Text(
+            "connection timed out",
+            style: GoogleFonts.inter(
+              color: AppColor.darkGreyColor,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.normal
+            )
+          )
+        );
       }
     );
   }
@@ -479,7 +515,16 @@ class ProfilePage extends StatelessWidget {
             ),
           );
         }
-        return Text("no data found");
+        return Center(
+          child: Text(
+            "connection timed out",
+            style: GoogleFonts.inter(
+              color: AppColor.darkGreyColor,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.normal
+            )
+          )
+        );
       }
     );
   }
@@ -526,7 +571,16 @@ class ProfilePage extends StatelessWidget {
             ),
           );
         }
-        return Text("no data found");
+        return Center(
+          child: Text(
+            "connection timed out",
+            style: GoogleFonts.inter(
+              color: AppColor.darkGreyColor,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.normal
+            )
+          )
+        );
       }
     );
   }

@@ -243,10 +243,10 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 onPressed: () async{
 
                                   await profileService.updatePersonalDetails(
-                                    firstName: controller.firstNameController.text, 
-                                    lastName: controller.lastNameController.text, 
-                                    occupation: controller.occupationController.text,
-                                    company: controller.companyNameController.text
+                                    firstName: controller.firstNameController.text.isEmpty ? widget.firstName : controller.firstNameController.text, 
+                                    lastName: controller.lastNameController.text.isEmpty ? widget.lastName : controller.lastNameController.text, 
+                                    occupation: controller.occupationController.text.isEmpty ? widget.occupation : controller.occupationController.text,
+                                    company: controller.companyNameController.text.isEmpty ? widget.company : controller.companyNameController.text
                                   ).whenComplete(() {
                                     profileService.isImageSelected.value = false;
                                     Get.back(canPop: true);

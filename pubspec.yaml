@@ -28,7 +28,7 @@ dependencies:
   flutter_svg: ^2.0.7
   dotted_border: ^2.1.0
   lottie: ^2.7.0
-  loading_animation_widget: ^1.2.0+4  #for nice loadimg animations
+  loading_animation_widget: ^1.2.0+4  #for nice loadimg animation
   #popover: ^0.2.8+2
   #floating_action_bubble: ^1.1.4
   flutter_speed_dial: ^7.0.0
@@ -70,6 +70,10 @@ dependencies:
   #rating_bar indicator
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.0
+
+  #for sharing profile link
+  share_plus: ^7.2.1
+
   
 
 dev_dependencies:

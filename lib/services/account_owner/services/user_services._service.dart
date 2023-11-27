@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/services_controller.dart';
-import 'package:luround/models/account_owner/user_services/user_service_model.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
 import 'dart:io';
@@ -47,7 +47,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<UserServiceModel> getUserServices() async {
+  Future<ParentServiceModel> getUserServices() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
@@ -56,7 +56,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint("user services fetched successfully!!");
         //decode the response body here
-        UserServiceModel userServiceModel = UserServiceModel.fromJson(jsonDecode(res.body));
+        ParentServiceModel userServiceModel = ParentServiceModel.fromJson(jsonDecode(res.body));
         return userServiceModel;
       }
       else {

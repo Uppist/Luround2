@@ -117,7 +117,7 @@ class AccOwnerProfileService extends getx.GetxController {
   }
   
 
-  
+  ///[]//
   Future<void> updatePersonalDetails({
     required String firstName,
     required String lastName,

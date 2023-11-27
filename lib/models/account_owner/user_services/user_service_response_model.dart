@@ -33,20 +33,20 @@ class UserServiceModel {
     email = json['email'] ?? "email";
     service_name = json['service_name'] ?? "service_name";
     description = json['description'] ?? "service_description";
-    links = json['links'] ?? ["null val"];
+    links = json['links'] ?? ["null value"];
     service_charge_in_person = json['service_charge_in_person'] ?? "service_charge_in_person";
     service_charge_virtual = json['service_charge_virtual'] ?? "service_charge_virtual";
     duration = json['duration'] ?? "duration";
     time = json['time'] ?? "time";
     available_days = json['available_days'] ?? "available_days";
-    service_type = json['service_type'] ?? "service_type";
+    service_type = json['service_type'] ?? "Virtual";
     date = json['date'] ?? "from - to";
   }
   
   //[FOR PUT/POST/DELETE REQUEST]//
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    //_data['serviceId'] = serviceId;
+    _data['serviceId'] = serviceId;
     _data['email'] = email;
     _data['service_name'] = service_name;
     _data['description'] = description;
@@ -60,6 +60,20 @@ class UserServiceModel {
     _data["date"] = date;
     return _data;
   }
-
   
 }
+
+
+
+class ParentServiceModel {
+  ParentServiceModel({
+    required this.services
+  });
+  late final List<UserServiceModel> services;
+
+  //[FOR GET REQUEST]
+  ParentServiceModel.fromJson(Map<String, dynamic> json,){
+    services = json['services'] ?? "services";
+  }
+}
+

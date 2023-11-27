@@ -117,7 +117,7 @@ class AuthService extends getx.GetxController {
         LoginResponse response = LoginResponse.fromJson(json.decode(res.body));
         LocalStorage.saveToken(response.tokenData);
         //LocalStorage.saveEmail(email);
-        debugPrint("${LocalStorage.getToken()}");
+        debugPrint("my token: ${LocalStorage.getToken()}");
         //check for existing token
         var token = await LocalStorage.getToken();
         // Decode the JWT token

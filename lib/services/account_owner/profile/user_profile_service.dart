@@ -119,8 +119,9 @@ class AccOwnerProfileService extends getx.GetxController {
   }
   
 
-  ///[]//
+  ///[UPDATE USER'S PERSONAL DETAILS]//
   Future<void> updatePersonalDetails({
+    required BuildContext context,
     required String firstName,
     required String lastName,
     required String occupation,
@@ -142,15 +143,24 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user personal details updated succesfully");
-
-        LuroundSnackBar.successSnackBar(message: "updated successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "updated successfully"
+        );
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.errorSnackBar(message: "failed to update profile details");
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update profile details"
+        );
       }
     } 
     catch (e) {
@@ -198,13 +208,13 @@ class AccOwnerProfileService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user photo deleted succesfully");
-        LuroundSnackBar.successSnackBar(message: "profile photo deleted");
+        //LuroundSnackBar.successSnackBar(message: "profile photo deleted");
       } 
       else {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        LuroundSnackBar.successSnackBar(message: "failed to delete profile photo");
+        //LuroundSnackBar.successSnackBar(message: "failed to delete profile photo");
       }
     } 
     catch (e) {

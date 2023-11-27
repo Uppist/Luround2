@@ -152,8 +152,16 @@ class ServicesPage extends StatelessWidget {
                                           onTap: () {
                                             editServiceDialogueBox(
                                               context: context, 
-                                              serviceName: data.services[index].service_name,
                                               serviceId: data.services[index].serviceId,
+                                              service_name: data.services[index].service_name,
+                                              description: data.services[index].description,
+                                              links: data.services[index].links,
+                                              service_charge_in_person: data.services[index].service_charge_in_person,
+                                              service_charge_virtual: data.services[index].service_charge_virtual,
+                                              duration: data.services[index].duration,
+                                              date: data.services[index].date,
+                                              time: data.services[index].time,
+                                              available_days: data.services[index].available_days
                                             );
                                           },
                                           child: Icon(

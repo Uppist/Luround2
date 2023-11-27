@@ -243,6 +243,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 onPressed: () async{
 
                                   await profileService.updatePersonalDetails(
+                                    context: context,
                                     firstName: controller.firstNameController.text.isEmpty ? widget.firstName : controller.firstNameController.text, 
                                     lastName: controller.lastNameController.text.isEmpty ? widget.lastName : controller.lastNameController.text, 
                                     occupation: controller.occupationController.text.isEmpty ? widget.occupation : controller.occupationController.text,

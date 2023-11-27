@@ -18,8 +18,16 @@ import 'package:luround/views/account_owner/services/widget/edit_service/edit_se
 ///Alert Dialog
 Future<void> editServiceDialogueBox({
   required BuildContext context, 
-  required String serviceName,
-  required String serviceId
+  required String serviceId,
+  required String service_name, 
+  required String description, 
+  required List<dynamic> links, 
+  required String service_charge_in_person, 
+  required String service_charge_virtual, 
+  required String duration, 
+  required String time, 
+  required String date, 
+  required String available_days
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -55,7 +63,18 @@ Future<void> editServiceDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
-                    Get.to(() => EditServiceScreen(serviceId: serviceId,));
+                    Get.to(() => EditServiceScreen(
+                      serviceId: serviceId,
+                      service_name: service_name,
+                      description: description,
+                      links: links,
+                      service_charge_in_person: service_charge_in_person,
+                      service_charge_virtual: service_charge_virtual,
+                      duration: duration,
+                      time: time,
+                      date: date,
+                      available_days: available_days,
+                    ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +118,7 @@ Future<void> editServiceDialogueBox({
                   onTap: () {
                     deleteServiceDialogueBox(
                       context: context, 
-                      serviceName: serviceName,
+                      serviceName: service_name,
                       serviceId: serviceId,
                     );
                   },

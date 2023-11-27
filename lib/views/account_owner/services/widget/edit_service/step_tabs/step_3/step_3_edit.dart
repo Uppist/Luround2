@@ -19,8 +19,31 @@ import 'package:luround/views/account_owner/services/widget/edit_service/step_ta
 
 
 class Step3PageEdit extends StatefulWidget{
-  Step3PageEdit({super.key, required this.serviceId});
+  Step3PageEdit({
+    super.key, 
+    required this.serviceId, 
+    required this.service_name, 
+    required this.description, 
+    required this.links, 
+    required this.service_charge_in_person, 
+    required this.service_charge_virtual, 
+    required this.duration, 
+    required this.time, 
+    required this.date, 
+    required this.available_days
+  });
+
   final String serviceId;
+  final String service_name;
+  final String description;
+  final List<dynamic> links;
+  final String service_charge_in_person;
+  final String service_charge_virtual;
+  final String duration;
+  final String time;
+  final String date;
+  final String available_days;
+
 
   @override
   State<Step3PageEdit> createState() => _Step3PageEditState();
@@ -130,17 +153,18 @@ class _Step3PageEditState extends State<Step3PageEdit> {
           //widget.onNext
           () {
             servicesService.updateUserService(
-              //service_type: "In-Person", //In-Person
+              context: context,
+              //service_type: "Virtual", //In-Person
               serviceId: widget.serviceId,
-              service_name: mainController.serviceNameControllerEdit.text, 
-              description: mainController.descriptionControllerEdit.text, 
-              links: [mainController.addLinksControllerEdit.text], 
-              service_charge_in_person: mainController.inPersonControllerEdit.text, 
-              service_charge_virtual: mainController.virtualControllerEdit.text, 
-              duration: mainController.formatDurationEdit(), 
-              time: "${mainController.startTimeValueEdit} - ${mainController.stopTimeValueEdit}",
-              date: mainController.selectDateRangeEdit,             
-              available_days: mainController.availableDaysEdit(),
+              service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
+              description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
+              links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
+              service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
+              service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
+              duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
+              time: mainController.startTimeValueEdit.isEmpty ? widget.time : "${mainController.startTimeValueEdit} - ${mainController.stopTimeValueEdit}",
+              date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
+              available_days: mainController.availableDaysEdit().isEmpty ? widget.available_days : mainController.availableDaysEdit(),
             ).whenComplete(() {
               Get.offUntil(
                 GetPageRoute(

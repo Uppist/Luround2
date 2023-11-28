@@ -29,7 +29,7 @@ class UserServiceModel {
 
   //[FOR GET REQUEST]
   UserServiceModel.fromJson(Map<String, dynamic> json,){
-    serviceId = json['serviceId'] ?? "serviceId";
+    serviceId = json['_id'] ?? "serviceId";
     email = json['email'] ?? "email";
     service_name = json['service_name'] ?? "service_name";
     description = json['description'] ?? "service_description";
@@ -46,7 +46,7 @@ class UserServiceModel {
   //[FOR PUT/POST/DELETE REQUEST]//
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['serviceId'] = serviceId;
+    _data['_id'] = serviceId;
     _data['email'] = email;
     _data['service_name'] = service_name;
     _data['description'] = description;

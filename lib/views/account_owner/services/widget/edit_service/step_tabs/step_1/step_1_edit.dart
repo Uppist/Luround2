@@ -37,6 +37,7 @@ class Step1PageEdit extends StatefulWidget {
 }
 
 class _Step1PageEditState extends State<Step1PageEdit> {
+  
   var controller = Get.put(ServicesController());
 
   @override
@@ -121,9 +122,11 @@ class _Step1PageEditState extends State<Step1PageEdit> {
                 ),
               ),
               InkWell(
-                onTap: () {           
-                  controller.toggleLinkEdit.value = true;
-                  controller.isTextGoneEdit.value = true;
+                onTap: () {  
+                  setState(() {
+                    controller.toggleLinkEdit.value = true;
+                    controller.isTextGoneEdit.value = true;
+                  });         
                 },
                 child: SvgPicture.asset("assets/svg/add_icon.svg"),
               )
@@ -149,9 +152,12 @@ class _Step1PageEditState extends State<Step1PageEdit> {
                 ),
               ),
               IconButton(
-                onPressed: () {               
-                  controller.toggleLinkEdit.value = false;
-                  controller.isTextGoneEdit.value = false;              
+                onPressed: () { 
+                  setState(() {
+                    controller.toggleLinkEdit.value = false;
+                    controller.isTextGoneEdit.value = false; 
+                  });              
+                                
                 }, 
                 icon: Icon(CupertinoIcons.xmark, color: AppColor.blackColor,),
               )

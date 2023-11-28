@@ -251,7 +251,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "id": id,
+      "_id": id,
     };
 
     try {

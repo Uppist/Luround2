@@ -90,7 +90,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
-          itemCount: 7,
+          itemCount: mainController.daysOfTheWeekCheckBoxEdit.length,
           itemBuilder: (context, index) {
             return Builder(
               builder: (context) {
@@ -108,8 +108,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                     setState(() {
                       mainController.isCheckBoxActiveEdit.value = true;
                       mainController.toggleCheckboxEdit(index, value);
-                      print("selectedDays: ${mainController.selectedDaysEdit}");
-                    //print("$index, ${controller.daysOfTheWeekCheckBox[index]["day"]}");
+                      print("selectedDaysEdit: ${mainController.selectedDaysEdit}");
+                    
                     }); 
 
                   },
@@ -164,7 +164,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
               duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
               time: mainController.startTimeValueEdit.isEmpty ? widget.time : "${mainController.startTimeValueEdit} - ${mainController.stopTimeValueEdit}",
               date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
-              available_days: mainController.availableDaysEdit().isEmpty ? widget.available_days : mainController.availableDaysEdit(),
+              available_days: mainController.availableDaysEdit(),
             ).whenComplete(() {
               Get.offUntil(
                 GetPageRoute(

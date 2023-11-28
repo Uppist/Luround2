@@ -30,7 +30,6 @@ class Step3Page extends StatefulWidget{
 
 class _Step3PageState extends State<Step3Page> {
   var mainController = Get.put(ServicesController());
-
   var servicesService = Get.put(AccOwnerServicePageService());
 
   Widget build(BuildContext context) {
@@ -70,7 +69,7 @@ class _Step3PageState extends State<Step3Page> {
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
-          itemCount: 7,
+          itemCount: mainController.daysOfTheWeekCheckBox.length,
           itemBuilder: (context, index) {
             return Builder(
               builder: (context) {

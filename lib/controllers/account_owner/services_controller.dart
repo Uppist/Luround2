@@ -361,7 +361,7 @@ class ServicesController extends getx.GetxController {
     // Get remaining minutes after subtracting hours
     int minutes = (durationEdit.value.inMinutes % 60).abs();
 
-    String hoursString = hours > 0 ? '$hours hrs' : '';
+    String hoursString = hours > 0 ? '$hours hr' : '';
     String minutesString = minutes > 0 ? '$minutes mins' : '';
 
     if (hours > 0 && minutes > 0) {
@@ -455,11 +455,11 @@ class ServicesController extends getx.GetxController {
 
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
-      addItem(item: daysOfTheWeekCheckBoxEdit[index]['day']);
+      addItemEdit(item: daysOfTheWeekCheckBoxEdit[index]['day']);
     } else {
-      int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
+      int selectedIndex = selectedDaysEdit.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
       if (selectedIndex != -1) {
-        removeItem(index: selectedIndex);
+        removeItemEdit(index: selectedIndex);
       }
     }
   }

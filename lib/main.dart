@@ -36,25 +36,9 @@ void main() async{
   await GetStorage.init();
   //check for existing token
   var token = LocalStorage.getToken();
+  var userId = LocalStorage.getUserID();
   print(token);
-  // Decode the JWT token
-  /*Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-  // Access the payload
-  if (decodedToken != null) {
-    print("Token payload: $decodedToken");
-    // Access specific claims
-    // Replace 'sub' with the actual claim you want
-    String userId = decodedToken['sub'];
-    String email = decodedToken['email'];
-    String displayName = decodedToken['displayName'];
-    await LocalStorage.saveUserID(userId);
-    await LocalStorage.saveEmail(email);
-    await LocalStorage.saveUsername(displayName);
-
-    print("User ID: $userId"); 
-  } else {
-    print("Failed to decode JWT token.");
-  }*/
+  print("my_id: $userId");
 
   runApp(const MainApp());
 }

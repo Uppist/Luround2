@@ -32,6 +32,7 @@ import '../widget/reviews/reviews_screen.dart';
 
 
 
+
 class ProfilePage extends StatelessWidget {
 
   final ProfilePageController controller = Get.put(ProfilePageController());

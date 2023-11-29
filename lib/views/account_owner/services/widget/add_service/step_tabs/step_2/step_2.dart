@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/step_tabs/step_2/radio_section.dart';
+import 'package:luround/views/account_owner/services/widget/add_service/step_tabs/step_2/radio_section.dart';
 
 
 

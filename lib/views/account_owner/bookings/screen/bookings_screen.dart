@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/bookings/widget/filter_section/filte
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_container.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
-import 'package:luround/views/account_owner/services/widget/delete_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/delete_service/delete_service_bottomsheet.dart';
 
 
 

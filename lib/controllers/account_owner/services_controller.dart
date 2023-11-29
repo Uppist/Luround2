@@ -89,7 +89,7 @@ class ServicesController extends getx.GetxController {
     // Get remaining minutes after subtracting hours
     int minutes = (duration.value.inMinutes % 60).abs();
 
-    String hoursString = hours > 0 ? '$hours hrs' : '';
+    String hoursString = hours > 0 ? '$hours hr' : '';
     String minutesString = minutes > 0 ? '$minutes mins' : '';
 
     if (hours > 0 && minutes > 0) {

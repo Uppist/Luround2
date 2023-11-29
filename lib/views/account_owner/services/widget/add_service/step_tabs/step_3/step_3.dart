@@ -10,7 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/step_tabs/step_3/time_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/add_service/step_tabs/step_3/time_range_picker.dart';
 
 
 
@@ -29,6 +29,7 @@ class Step3Page extends StatefulWidget{
 }
 
 class _Step3PageState extends State<Step3Page> {
+
   var mainController = Get.put(ServicesController());
   var servicesService = Get.put(AccOwnerServicePageService());
 
@@ -145,6 +146,9 @@ class _Step3PageState extends State<Step3Page> {
               date: mainController.selectDurationRadio,             
               available_days: mainController.availableDays(),
             ).whenComplete(() {
+              setState(() {
+                mainController.curentStep = mainController.curentStep - 2;
+              });
               Get.offUntil(
                 GetPageRoute(
                   curve: Curves.bounceIn,

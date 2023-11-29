@@ -10,8 +10,8 @@ import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_1/amount_textfield_edit.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_1/description_textfield_edit.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_1/edit_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/step_tabs/step_1/amount_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/step_tabs/step_1/description_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/add_service/step_tabs/step_1/amount_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/add_service/step_tabs/step_1/description_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 
 

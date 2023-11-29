@@ -33,6 +33,9 @@ import '../widget/reviews/reviews_screen.dart';
 
 
 
+
+
+
 class ProfilePage extends StatelessWidget {
 
   final ProfilePageController controller = Get.put(ProfilePageController());
@@ -313,7 +316,19 @@ class ProfilePage extends StatelessWidget {
 
           if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty) {
             return ProfileEmptyState(
-              onPressed: () {}
+              onPressed: () {
+                Get.to(
+                  () => AddSectionPage(
+                    aboutUser: data.about,
+                    firstName: getFirstName(fullName: data.displayName),
+                    lastName: getLastName(fullName: data.displayName),
+                    company: data.company,
+                    occupation: data.occupation,
+                    photoUrl: data.photoUrl,
+                  )
+                );
+                    
+              }
             );
           }
         

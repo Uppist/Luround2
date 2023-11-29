@@ -32,11 +32,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
   @override
   void initState() {
     // TODO: implement initState
-    /*controller.descriptionController.addListener(() {
+    controller.descriptionController.addListener(() {
       setState(() {
         controller.isSubmit = controller.descriptionController.text.isNotEmpty;
       });
-    });*/
+    });
     super.initState();
   }
 
@@ -115,8 +115,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                child: Form(
-                  key: GlobalKey(),
+                child: Container(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                     child: Column(
@@ -163,6 +162,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           textInputAction: TextInputAction.next,
                           controller: controller.descriptionController,
                         ),
+                        SizedBox(height: 390.h),  //250
+                        RebrandedReusableButton(
+                          textColor: AppColor.bgColor,
+                          color: AppColor.mainColor,
+                          text: "Submit", 
+                          onPressed: () {}
+                        ),
+        
+                        SizedBox(height: 20.h),
                       ],
                     ),
                   ),
@@ -170,17 +178,6 @@ class _FeedbackPageState extends State<FeedbackPage> {
               ),
             ),
             //
-            SizedBox(height: 50.h),  //250
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-              child: RebrandedReusableButton(
-                textColor: AppColor.bgColor,
-                color: AppColor.mainColor,
-                text: "Submit", 
-                onPressed: () {}
-              )
-            ),
-            SizedBox(height: 20.h),
 
           ]
         )

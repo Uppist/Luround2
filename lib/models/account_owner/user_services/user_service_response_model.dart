@@ -11,8 +11,9 @@ class UserServiceModel {
     required this.duration,
     required this.time,
     required this.available_days,
-    //required this.service_type,
+    required this.service_provider_details,
     required this.date,
+    required this.service_link,
   });
   late final String serviceId;
   late final String email;
@@ -24,12 +25,13 @@ class UserServiceModel {
   late final String duration;
   late final String time;
   late final String available_days;
-  //late final String service_type;
+  late final Map<String, dynamic> service_provider_details;
   late final String date;
+  late final String service_link;
 
   //[FOR GET REQUEST]
   UserServiceModel.fromJson(Map<String, dynamic> json,){
-    serviceId = json['_id'] ?? "serviceId";
+    serviceId = json['_id'] ?? "_id";
     email = json['email'] ?? "email";
     service_name = json['service_name'] ?? "service_name";
     description = json['description'] ?? "service_description";
@@ -39,41 +41,13 @@ class UserServiceModel {
     duration = json['duration'] ?? "duration";
     time = json['time'] ?? "time";
     available_days = json['available_days'] ?? "available_days";
-    //service_type = json['service_type'] ?? "Virtual";
-    date = json['date'] ?? "from - to";
+    service_provider_details = json['service_provider_details'] ?? {};
+    date = json['date'] ?? "already covered by available days";
+    service_link = json['service_link'] ?? "auto_generated_service_link";
   }
   
-  //[FOR PUT/POST/DELETE REQUEST]//
-  Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = serviceId;
-    _data['email'] = email;
-    _data['service_name'] = service_name;
-    _data['description'] = description;
-    _data['links'] = links;
-    _data['service_charge_in_person'] = service_charge_in_person;
-    _data['service_charge_virtual'] = service_charge_virtual;
-    _data["duration"] = duration;
-    _data['time'] = time;
-    _data['available_days'] = available_days;
-    //_data["service_type"] = service_type;
-    _data["date"] = date;
-    return _data;
-  }
   
 }
 
 
-
-/*class ParentServiceModel {
-  ParentServiceModel({
-    required this.services
-  });
-  late final List<UserServiceModel> services;
-
-  //[FOR GET REQUEST]
-  ParentServiceModel.fromJson(Map<String, dynamic> json,){
-    services = json['services'] ?? [];
-  }
-}*/
 

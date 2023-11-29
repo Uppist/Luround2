@@ -73,11 +73,22 @@ class ServicesController extends getx.GetxController {
   final TextEditingController inPersonController = TextEditingController();
   final TextEditingController virtualController = TextEditingController();
 
-  //checks if the user has inputed their prices in order to enable the button
-  final ispriceButtonEnabled = false.obs;
-
   //description textcontroller count
   int maxLength = 500;
+  
+  void handleTextChanged(String val,) {
+    // Check if character count exceeds the maximum
+    if (val.length > maxLength) {
+      descriptionController.value = TextEditingValue(
+        text: val.substring(0, maxLength),
+        selection: TextSelection.collapsed(offset: maxLength),
+      );
+      debugPrint("You have reached max length");
+    }
+  }
+
+  //checks if the user has inputed their prices in order to enable the button
+  final ispriceButtonEnabled = false.obs;
   //for Stepper widget (starts to count at 0)
   int curentStep = 0;
 

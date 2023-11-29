@@ -47,7 +47,7 @@ class TrxDashBoard extends StatelessWidget {
             children: [
               InkWell(
                 onTap: () {
-                  //controller.toggleTrx();
+                  controller.toggleTrx();
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -67,16 +67,19 @@ class TrxDashBoard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       
-                      Text(
-                        //controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
-                        "Total amount received",
-                        style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                            color: AppColor.bgColor,
-                            fontSize: 16.sp,
-                            //fontWeight: FontWeight.w500
-                          )
-                        )
+                      Obx(
+                        () {
+                          return Text(
+                            controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.bgColor,
+                                fontSize: 16.sp,
+                                //fontWeight: FontWeight.w500
+                              )
+                            )
+                          );
+                        }
                       ),
                                       
                       Icon(
@@ -91,17 +94,36 @@ class TrxDashBoard extends StatelessWidget {
             ],
           ),
           SizedBox(height: 60.h,),
-          Obx(
-            () {
-              return Text(
-                controller.isTrxAmountToggled.value ? amountReceived : amountPaid,
-                style: GoogleFonts.inter(
-                  color: AppColor.bgColor,
-                  fontSize: 19.sp,
-                  fontWeight: FontWeight.bold
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Obx(
+                () {
+                  return Text(
+                    controller.isTrxAmountToggled.value ? amountReceived : amountPaid,
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 19.sp,
+                      fontWeight: FontWeight.bold
+                    ),
+                  );
+                }
+              ),
+              InkWell(
+                onTap: () {},
+                child: Text(
+                  "Withdraw",
+                  style: GoogleFonts.inter(
+                    decoration: TextDecoration.underline,
+                    decorationColor: AppColor.bgColor,
+                    decorationThickness: 2,
+                    color: AppColor.bgColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
-              );
-            }
+              ),
+            ],
           ),
         ]
       )

@@ -30,7 +30,7 @@ class _DescriptionTextFieldState extends State<DescriptionTextField> {
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: widget.onFocusChanged,
+      //onFocusChange: widget.onFocusChanged,
       child: TextFormField(
         onChanged: widget.onChanged,
         controller: widget.textController,

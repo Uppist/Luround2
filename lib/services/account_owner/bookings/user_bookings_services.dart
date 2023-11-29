@@ -27,11 +27,15 @@ class AccOwnerBookingService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S BOOKINGS LIST]//////
-  List<UserBookingModel> filterBookingsList = [];
-  List<UserBookingModel> dataList = [];
+  getx.RxList<UserBookingModel> filterBookingsList = getx.RxList<UserBookingModel>();
+  // Convert the list to a Getx RxList
+  getx.RxList<UserBookingModel> dataList = getx.RxList<UserBookingModel>();
   
+
+
+  //////////////////////////////////////////////////////////////////////////////////
   //working well
-  void filterBookings(String query) {
+  Future<void> filterBookings(String query) async{
     // Clear the filteredList
     filterBookingsList.clear();
 
@@ -53,12 +57,12 @@ class AccOwnerBookingService extends getx.GetxController {
           return false; // If not found in any detail, exclude the item
         }),
       );  
-      print("Filtered list displaying : $dataList");
+      print("Filtered booking list displaying : $filterBookingsList");
     }
   }
 
 
-  void filterBySent() {
+  Future<void> filterBySent() async{
     // Clear the filteredList so new values can come i n 
     filterBookingsList.clear();
 
@@ -68,11 +72,11 @@ class AccOwnerBookingService extends getx.GetxController {
         return item.userBooked == false;
       }),
     );  
-    print("Filtered list displaying");
+    print("Sent List: $filterBookingsList");
     
   }
 
-  void filterByReceived() {
+  Future<void> filterByReceived() async{
     // Clear the filteredList so new values can come i n 
     filterBookingsList.clear();
 
@@ -82,11 +86,11 @@ class AccOwnerBookingService extends getx.GetxController {
         return item.userBooked == true;
       }),
     );  
-    print("Filtered list displaying");
+    print("Received List: $filterBookingsList");
   }
 
 
-  void filterByUpcoming() {
+  Future<void> filterByUpcoming() async{
     // Clear the filteredList so new values can come i n 
     filterBookingsList.clear();
 
@@ -98,15 +102,19 @@ class AccOwnerBookingService extends getx.GetxController {
           String server_date = detail["service_details"]["date"].toLowerCase();
           DateTime convertedDate = convertStringToDateTime(server_date);
           print('Converted Date: $convertedDate');
-          checkDateProximity(convertedDate);
+          //checkDateProximity(convertedDate);
+          // Check if the date is in the future only
+          if (isDateInFuture(convertedDate)) {
+            return true; // Include the item in the filtered list for future dates
+          }
         }
         return false; // If not found in any detail, exclude the item
       }),
     );  
-    print("Filtered list displaying");
+    print("Upcoming List: $filterBookingsList");
   }
 
-  void filterByPast() {
+  Future<void> filterByPast() async{
     // Clear the filteredList so new values can come i n 
     filterBookingsList.clear();
 
@@ -118,15 +126,20 @@ class AccOwnerBookingService extends getx.GetxController {
           String server_date = detail["service_details"]["date"].toLowerCase();
           DateTime convertedDate = convertStringToDateTime(server_date);
           print('Converted Date: $convertedDate');
-          checkDateDistance(convertedDate);
+          //checkDateDistance(convertedDate);
+          // Check if the date is in the past
+          if (isDateInPast(convertedDate)) {
+            return true; // Include the item in the filtered list
+          }
         }
         return false; // If not found in any detail, exclude the item
       }),
     );  
-    print("Filtered list displaying");
+    print("Past List: $filterBookingsList");
   }
 
-  void fiterByCancelled() {
+
+  Future<void> fiterByCancelled() async{
     // Clear the filteredList so new values can come i n 
     filterBookingsList.clear();
 
@@ -142,13 +155,17 @@ class AccOwnerBookingService extends getx.GetxController {
         return false; // If not found in any detail, exclude the item
       }),
     );  
-    print("Filtered list displaying");
+    print("Cancelled $filterBookingsList");
   }
+  /////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 
   Future<List<UserBookingModel>> getUserBookings() async {
 
-  isLoading.value = true;
+    isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "booking/my-bookings?userID=$userId");
       if (res.statusCode == 200 || res.statusCode == 201) {
@@ -157,17 +174,10 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint("user bookings fetched successfully!!");
         // If the server returns a 200 OK response, parse the JSON
         List<dynamic> jsonResponse = json.decode(res.body);
-        debugPrint("res_list${jsonResponse}");
+        debugPrint("resulting list: $jsonResponse");
+        debugPrint("resulting list length: ${jsonResponse.length}");
         return jsonResponse.map((e) => UserBookingModel.fromJson(e)).toList();
 
-        // Clear existing data and add the new data to the list
-        //dataList.clear();
-        //dataList.addAll(jsonResponse.map((data) => data as Map<String, dynamic>));
-        //print("new list: $dataList");
-
-        // Now you can use the 'dataList' to display data in your Flutter app
-        // For example, update your UI or call a method to rebuild the widget
-        // that displays the data.
       } else {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');

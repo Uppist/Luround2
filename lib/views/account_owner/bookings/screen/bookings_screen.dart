@@ -42,7 +42,7 @@ class _BookingsPageState extends State<BookingsPage> {
   void initState() {
     service.getUserBookings().then((value) {
       setState(() {
-        service.dataList = service.filterBookingsList = value;
+        service.dataList.value = service.filterBookingsList.value = value;
       });
     });
     /*setState(() {
@@ -134,7 +134,29 @@ class _BookingsPageState extends State<BookingsPage> {
                   children: [
                     FilterContainer(
                       onTaped: () {
-                        filterDialogueBox(context: context);
+                        filterDialogueBox(
+                          context: context,
+                          onSentFilter: () {
+                            service.filterBySent()
+                            .whenComplete(() => Get.back());
+                          },
+                          onReceivedFilter: () {
+                            service.filterByReceived()
+                            .whenComplete(() => Get.back());
+                          },
+                          onUpcomingFilter: () {
+                            service.filterByUpcoming()
+                            .whenComplete(() => Get.back());
+                          },
+                          onPastFilter: () {
+                            service.filterByPast()
+                            .whenComplete(() => Get.back());
+                          },
+                          onCancelledFilter: () {
+                            service.fiterByCancelled()
+                            .whenComplete(() => Get.back());
+                          },
+                        );
                       },
                     ),
                   ],
@@ -164,14 +186,12 @@ class _BookingsPageState extends State<BookingsPage> {
                   }
                   if (snapshot.hasData) {
 
-                    service.dataList = snapshot.data!;
+                    service.dataList.value = snapshot.data!;
 
                     return Expanded(
-                      child: Builder(
-                        builder: (context) {
-                          /*final bookingsList = service.filterBookingsList.isEmpty
-                          ? service.dataList
-                          : service.filterBookingsList;*/
+                      child: Obx(
+                        () {
+                          
                           return ListView.separated(
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
@@ -195,7 +215,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                   )
                                 ]
                               ),
-                                  child: Column(
+                              child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Padding(

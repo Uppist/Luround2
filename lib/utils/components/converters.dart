@@ -52,23 +52,14 @@ String checkDateDistance(DateTime otherDate) {
   }
 }
 
+// Function to check if a date is in the past
+bool isDateInPast(DateTime date) {
+  DateTime today = getTodayDateTime();
+  return date.isBefore(today);
+}
 
-
-
-/*void main() {
-  // Example usage:
-  
-  // Function 1
-  String dateString = '2023-11-28';
-  DateTime convertedDate = convertStringToDateTime(dateString);
-  print('Converted Date: $convertedDate');
-  
-  // Function 2
-  DateTime todayDate = getTodayDateTime();
-  print('Today\'s Date: $todayDate');
-  
-  // Function 3
-  DateTime anotherDate = DateTime(2023, 12, 1);
-  String proximityResult = checkDateProximity(anotherDate);
-  print('Date Proximity: $proximityResult');
-}*/
+// Function to check if a date is in the future
+bool isDateInFuture(DateTime date) {
+  DateTime today = getTodayDateTime();
+  return date.isAfter(today);
+}

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -10,10 +11,15 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-
 ///Alert Dialog
-Future<void> filterDialogueBox({required BuildContext context}) async {
+Future<void> filterDialogueBox({
+  required BuildContext context,
+  required VoidCallback onSentFilter,
+  required VoidCallback onReceivedFilter,
+  required VoidCallback onUpcomingFilter,
+  required VoidCallback onPastFilter,
+  required VoidCallback onCancelledFilter,
+}) async {
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -47,7 +53,7 @@ Future<void> filterDialogueBox({required BuildContext context}) async {
               children: [
                 //1
                 InkWell(
-                  onTap: () {},
+                  onTap: onSentFilter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -67,7 +73,7 @@ Future<void> filterDialogueBox({required BuildContext context}) async {
                 SizedBox(height: 30.h,),
                 //2
                 InkWell(
-                  onTap: () {},
+                  onTap: onReceivedFilter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -87,7 +93,7 @@ Future<void> filterDialogueBox({required BuildContext context}) async {
                 SizedBox(height: 30.h,),
                 //1
                 InkWell(
-                  onTap: () {},
+                  onTap: onUpcomingFilter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -107,7 +113,7 @@ Future<void> filterDialogueBox({required BuildContext context}) async {
                 SizedBox(height: 30.h,),
                 //1
                 InkWell(
-                  onTap: () {},
+                  onTap: onPastFilter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -127,7 +133,7 @@ Future<void> filterDialogueBox({required BuildContext context}) async {
                 SizedBox(height: 30.h),
                 //1
                 InkWell(
-                  onTap: () {},
+                  onTap: onCancelledFilter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

@@ -245,28 +245,49 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   /////[DELETE A SERVICE OF A LOGGED-IN USER]//////
   Future<void> deleteUserService({
+    required BuildContext context,
     required String id,
+    //service provider details below
+    required String userId,
+    required String email,
+    required String displayName,
   }) async {
 
     isLoading.value = true;
 
     var body = {
       "_id": id,
+      "service_provider_details": {
+        "userId": userId,
+        "email": email,
+        "displayName": displayName,
+      }
     };
 
     try {
-      http.Response res = await baseService.httpDelete(endPoint: "services/delete?id=$id", body: body);
+      http.Response res = await baseService.httpDelete(endPoint: "services/delete?serviceId=$id", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user service deleted by id succesfully");
-
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "service deleted"
+        );
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete service"
+        );
       }
     } 
     catch (e) {

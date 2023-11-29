@@ -27,7 +27,11 @@ Future<void> editServiceDialogueBox({
   required String duration, 
   required String time, 
   required String date, 
-  required String available_days
+  required String available_days,
+  //service_provider_details below
+  required String userId,
+  required String email,
+  required String displayName
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -117,6 +121,9 @@ Future<void> editServiceDialogueBox({
                 InkWell(
                   onTap: () {
                     deleteServiceDialogueBox(
+                      userId: userId,
+                      email: email,
+                      displayName: displayName,
                       context: context, 
                       serviceName: service_name,
                       serviceId: serviceId,

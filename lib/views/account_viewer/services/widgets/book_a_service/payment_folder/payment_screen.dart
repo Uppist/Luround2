@@ -69,84 +69,81 @@ class _PaymentScreenState extends State<PaymentScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
-          child: Form(
-            key: GlobalKey(),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 10.h),
-                  Container(
-                    color: AppColor.greyColor,
-                    width: double.infinity,
-                    height: 7.h,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10.h),
+                Container(
+                  color: AppColor.greyColor,
+                  width: double.infinity,
+                  height: 7.h,
+                ),
+                SizedBox(height: 20.h,),
+                Text(
+                  "Enter your payment details",
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500
                   ),
-                  SizedBox(height: 20.h,),
-                  Text(
-                    "Enter your payment details",
-                    style: GoogleFonts.inter(
-                      color: AppColor.blackColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w500
-                    ),
-                  ),
-                  SizedBox(height: 30.h,),
-                  PaymentTextField(
-                    onChanged: (val) {},
-                    hintText: "Cardholder name*",
-                    keyboardType: TextInputType.name,
-                    textInputAction: TextInputAction.next,
-                    textController: controller.cardholderNameController,
-                  ),
-                  SizedBox(height: 30.h,),
-                  PaymentTextField(
-                    onChanged: (val) {},
-                    hintText: "Card number*",
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.next,
-                    textController: controller.cardNumberController,
-                  ),
-                  SizedBox(height: 30.h,),
-                  PaymentTextField(
-                    onChanged: (val) {},
-                    hintText: "Expiry date*",
-                    keyboardType: TextInputType.datetime,
-                    textInputAction: TextInputAction.next,
-                    textController: controller.expiryDateController,
-                  ),
-                  SizedBox(height: 30.h,),
-                  PaymentTextField(
-                    onChanged: (val) {},
-                    hintText: "CVV*",
-                    keyboardType: TextInputType.number,
-                    textInputAction: TextInputAction.done,
-                    textController: controller.cvvController,
-                  ),
-                  SizedBox(height: 270.h,),
-                  //pay button
-                  RebrandedReusableButton(
-                    textColor: controller.isCVVEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
-                    color: controller.isCVVEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
-                    text: "Pay N${widget.amount}", 
-                    onPressed: controller.isCVVEnabled.value  
-                    ? () {
-                      print("yayyyy");
-                      Get.to(() => TransactionSuccesscreen());
-                    }
-                    : () {
-                      print('nothing');
-                    },
-                  ),
-                  SizedBox(height: 10.h,),
+                ),
+                SizedBox(height: 30.h,),
+                PaymentTextField(
+                  onChanged: (val) {},
+                  hintText: "Cardholder name*",
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.next,
+                  textController: controller.cardholderNameController,
+                ),
+                SizedBox(height: 30.h,),
+                PaymentTextField(
+                  onChanged: (val) {},
+                  hintText: "Card number*",
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.next,
+                  textController: controller.cardNumberController,
+                ),
+                SizedBox(height: 30.h,),
+                PaymentTextField(
+                  onChanged: (val) {},
+                  hintText: "Expiry date*",
+                  keyboardType: TextInputType.datetime,
+                  textInputAction: TextInputAction.next,
+                  textController: controller.expiryDateController,
+                ),
+                SizedBox(height: 30.h,),
+                PaymentTextField(
+                  onChanged: (val) {},
+                  hintText: "CVV*",
+                  keyboardType: TextInputType.number,
+                  textInputAction: TextInputAction.done,
+                  textController: controller.cvvController,
+                ),
+                SizedBox(height: 270.h,),
+                //pay button
+                RebrandedReusableButton(
+                  textColor: controller.isCVVEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                  color: controller.isCVVEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
+                  text: "Pay N${widget.amount}", 
+                  onPressed: controller.isCVVEnabled.value  
+                  ? () {
+                    print("yayyyy");
+                    Get.to(() => TransactionSuccesscreen());
+                  }
+                  : () {
+                    print('nothing');
+                  },
+                ),
+                SizedBox(height: 10.h,),
 
-                  /*Icon(
-                    CupertinoIcons.check_mark_circled, 
-                    color: AppColor.textGreyColor, 
-                    size: 20,
-                  )*/
-                ]
-              ),
+                /*Icon(
+                  CupertinoIcons.check_mark_circled, 
+                  color: AppColor.textGreyColor, 
+                  size: 20,
+                )*/
+              ]
             ),
           )
         )

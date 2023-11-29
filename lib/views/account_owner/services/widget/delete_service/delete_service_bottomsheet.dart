@@ -19,6 +19,10 @@ Future<void> deleteServiceDialogueBox({
   required BuildContext context, 
   required String serviceName, 
   required String serviceId,
+  //service_provider_details
+  required String userId,
+  required String email,
+  required String displayName,
   }) async{
   showModalBottomSheet(
     isScrollControlled: true,
@@ -108,7 +112,13 @@ Future<void> deleteServiceDialogueBox({
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          userService.deleteUserService(id: serviceId)
+                          userService.deleteUserService(
+                            context: context,
+                            id: serviceId,
+                            userId: userId,
+                            email: email,
+                            displayName: displayName
+                          )
                           .whenComplete(() => Get.back());
                         },
                         child: Container(

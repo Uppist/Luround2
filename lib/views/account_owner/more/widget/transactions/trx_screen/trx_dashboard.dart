@@ -116,9 +116,9 @@ class TrxDashBoard extends StatelessWidget {
                   style: GoogleFonts.inter(
                     decoration: TextDecoration.underline,
                     decorationColor: AppColor.bgColor,
-                    decorationThickness: 2,
+                    decorationThickness: 1.5,
                     color: AppColor.bgColor,
-                    fontSize: 14.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w500
                   ),
                 ),

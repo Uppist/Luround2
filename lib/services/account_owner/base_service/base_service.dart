@@ -105,7 +105,7 @@ class BaseService extends getX.GetxController {
     var token = await LocalStorage.getToken();
     var res = http.delete(
       Uri.parse("$baseUrl$endPoint"),
-      //body: json.encode(body),
+      body: json.encode(body),
       headers: token != null ? 
       {
         'Authorization': 'Bearer $token',

@@ -10,7 +10,7 @@ class UserBookingModel {
 
   //[FOR GET REQUEST]
   UserBookingModel.fromJson(Map<String, dynamic> json,){
-    details = json['details'] ?? [];
+    details = json['details'] ?? {};
     userBooked = json['userBooked'] ?? false;
 
   }

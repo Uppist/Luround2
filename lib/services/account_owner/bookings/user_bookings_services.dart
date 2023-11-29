@@ -7,6 +7,7 @@ import 'package:luround/services/account_owner/local_storage/local_storage.dart'
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:luround/utils/components/converters.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -37,7 +38,6 @@ class AccOwnerBookingService extends getx.GetxController {
     // If the search query is empty, display all items
     if (query.isEmpty) {
       filterBookingsList.addAll(dataList);
-      print("no name matches found");
     } 
     else {
       // Use the search query to filter the items
@@ -53,43 +53,100 @@ class AccOwnerBookingService extends getx.GetxController {
           return false; // If not found in any detail, exclude the item
         }),
       );  
-      print("Filtered list displaying");
+      print("Filtered list displaying : $dataList");
     }
   }
 
 
-  Future<List<UserBookingModel>> getUserBookings() async {
+  void filterBySent() {
+    // Clear the filteredList so new values can come i n 
+    filterBookingsList.clear();
+
+    // Use the search query to filter the items
+    filterBookingsList.addAll(
+      dataList.where((item) {
+        return item.userBooked == false;
+      }),
+    );  
+    print("Filtered list displaying");
     
-    /*try {
-      //get logged-in user's token
-      var token = await LocalStorage.getToken();
-      //get logged-in user's id or pk
-      var userId = GetStorage().read("id");
+  }
 
-      Response res = await http.get(
-        Uri.parse("http://20.74.136.235/api/v1/connected/$userId"),
-        headers: token != null ? {'Authorization': 'Bearer $token','Content-Type': "application/json"} : null
-      );
-      
-      //check the json
-      if (res.statusCode == 200) {
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("Successs!!!!!!");
-        final List<dynamic> body = jsonDecode(res.body);
-        debugPrint("${body}");
-        return body.map((e) => ConnectedProperty.fromJson(e)).toList();
-      } else {
-        throw Exception('Failed to load user data');
-      }
-      
-    } 
-    catch (e) {
-      debugPrint("Error: $e");
-      throw HttpException("$e");
-    }
-  }*/
+  void filterByReceived() {
+    // Clear the filteredList so new values can come i n 
+    filterBookingsList.clear();
+
+    // Use the search query to filter the items
+    filterBookingsList.addAll(
+      dataList.where((item) {
+        return item.userBooked == true;
+      }),
+    );  
+    print("Filtered list displaying");
+  }
 
 
+  void filterByUpcoming() {
+    // Clear the filteredList so new values can come i n 
+    filterBookingsList.clear();
+
+    // Use the search query to filter the items
+    filterBookingsList.addAll(
+      dataList.where((item) {
+        // Customize this part based on your data structure
+        for (var detail in item.details) {
+          String server_date = detail["service_details"]["date"].toLowerCase();
+          DateTime convertedDate = convertStringToDateTime(server_date);
+          print('Converted Date: $convertedDate');
+          checkDateProximity(convertedDate);
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );  
+    print("Filtered list displaying");
+  }
+
+  void filterByPast() {
+    // Clear the filteredList so new values can come i n 
+    filterBookingsList.clear();
+
+    // Use the search query to filter the items
+    filterBookingsList.addAll(
+      dataList.where((item) {
+        // Customize this part based on your data structure
+        for (var detail in item.details) {
+          String server_date = detail["service_details"]["date"].toLowerCase();
+          DateTime convertedDate = convertStringToDateTime(server_date);
+          print('Converted Date: $convertedDate');
+          checkDateDistance(convertedDate);
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );  
+    print("Filtered list displaying");
+  }
+
+  void fiterByCancelled() {
+    // Clear the filteredList so new values can come i n 
+    filterBookingsList.clear();
+
+    // Use the search query to filter the items
+    filterBookingsList.addAll(
+      dataList.where((item) {
+        for (var detail in item.details) {
+          String booking_status = detail["service_details"]["booked_status"].toLowerCase();
+          if (booking_status == "cancelled") {
+            return true; // If found, include the item in the filtered list
+          }
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );  
+    print("Filtered list displaying");
+  }
+
+
+  Future<List<UserBookingModel>> getUserBookings() async {
 
   isLoading.value = true;
     try {
@@ -123,5 +180,6 @@ class AccOwnerBookingService extends getx.GetxController {
       throw HttpException("$e");
     }
   }
+
 
 }

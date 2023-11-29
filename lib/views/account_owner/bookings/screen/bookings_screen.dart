@@ -38,6 +38,19 @@ class _BookingsPageState extends State<BookingsPage> {
   var controller = Get.put(BookingsController());
   var service = Get.put(AccOwnerBookingService());
 
+  @override
+  void initState() {
+    service.getUserBookings().then((value) {
+      setState(() {
+        service.dataList = service.filterBookingsList = value;
+      });
+    });
+    /*setState(() {
+      service.filterBookingsList = service.dataList;
+    });*/
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +177,7 @@ class _BookingsPageState extends State<BookingsPage> {
                             scrollDirection: Axis.vertical,
                             physics: const BouncingScrollPhysics(),
                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                            itemCount: service.dataList.length, //bookingsList.length,
+                            itemCount: service.filterBookingsList.length, //service.dataList.length,
                             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                             itemBuilder: (context, index) {
                               
@@ -198,7 +211,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   onPressed: () {
                                                     bookingsListDialogueBox(
                                                       context: context, 
-                                                      serviceName: service.dataList[index].details[index]["service_details"]["service_name"],
+                                                      serviceName: service.filterBookingsList[index].details[index]["service_details"]["service_name"],
                                                     );
                                                   }, 
                                                   icon: Icon(

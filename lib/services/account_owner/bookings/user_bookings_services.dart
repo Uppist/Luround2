@@ -176,7 +176,25 @@ class AccOwnerBookingService extends getx.GetxController {
         List<dynamic> jsonResponse = json.decode(res.body);
         debugPrint("resulting list: $jsonResponse");
         debugPrint("resulting list length: ${jsonResponse.length}");
-        return jsonResponse.map((e) => UserBookingModel.fromJson(e)).toList();
+
+        //return jsonResponse.map((e) => UserBookingModel.fromJson(e)).toList();
+
+
+        for (int i = 0; i < jsonResponse.length; i++) {
+          Map<String, dynamic> item = jsonResponse[i];
+          List<dynamic> details = item['details'];
+
+          UserBookingModel userBooking = UserBookingModel.fromJson({
+            'details': details,
+            // Map other fields as needed
+          });
+
+          dataList.add(userBooking);
+        }
+
+        print("dataList: $dataList");
+        return dataList;
+
 
       } else {
         isLoading.value = false;

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747612609885",
+    "project_id": "luround-fb183",
+    "storage_bucket": "luround-fb183.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747612609885:android:d718c60c3739a31c2f1cb4",
+        "android_client_info": {
+          "package_name": "com.example.luround"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7_8_92ufVyq_BFTlT3iWzyLF61_7R8ks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

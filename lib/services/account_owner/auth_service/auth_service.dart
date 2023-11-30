@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -8,8 +9,10 @@ import 'package:luround/models/account_owner/auth/google_signin_response_model.d
 import 'package:luround/models/account_owner/auth/login_respone_model.dart';
 import 'package:luround/services/account_owner/base_service/base_service.dart';
 import 'package:luround/services/account_owner/local_storage/local_storage.dart';
+import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
@@ -33,6 +36,7 @@ class AuthService extends getx.GetxController {
 
   //to register user locally
   Future<dynamic> registerUser({
+    required BuildContext context,
     required String email,
     required String firstName,
     required String lastName,
@@ -57,16 +61,31 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         await generateQrLink(urlSlug: email);
         getx.Get.offAll(() => LoginPage());
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "proceed to login"
+        );
+        
       } else {
         isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==>${res.body}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "status: ${res.statusCode} - ${res.body}"
+        );
       }
     } 
     on HttpException {
       isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
-      //debugPrint("$e");
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
     }
   }
 
@@ -98,6 +117,7 @@ class AuthService extends getx.GetxController {
 
   //to login user locally
   Future<dynamic> loginUser({
+    required BuildContext context,
     required String email,
     required String password
     }) async {
@@ -137,21 +157,35 @@ class AuthService extends getx.GetxController {
         else {
           print("Failed to decode JWT token.");
         }
-        //LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
-        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
+        //LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "welcome back",
+        );
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==>${res.body}');
         debugPrint('this is response statusCode ==>${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "status: ${res.statusCode} - ${res.body}"
+        );
       }
     } 
     on HttpException {
       isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
       //debugPrint("$e");
     }
   }
@@ -176,11 +210,15 @@ class AuthService extends getx.GetxController {
 
   //SignUp/SignIn with Google
   Future<GoogleSignInAccount?> signInWithGoogleTest() async {
-    final _googleSignIn = GoogleSignIn(
-      //scopes: ['email'],
-      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    final GoogleSignInAuthentication  googleAuth = await googleUser!.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      idToken: googleAuth.idToken,
+      accessToken: googleAuth.accessToken
     );
-    return _googleSignIn.signIn();
+    print("${credential.token}");
+    return googleUser;
   }
 
   Future<GoogleSignInAccount?> signOutWithGoogle() async {
@@ -194,6 +232,7 @@ class AuthService extends getx.GetxController {
 
   //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
   Future<dynamic> fetchGoogleJwt({
+    required BuildContext context,
     required String email,
     required String displayName,
     required String photoUrl,
@@ -220,17 +259,31 @@ class AuthService extends getx.GetxController {
         debugPrint("${LocalStorage.getToken()}");
         debugPrint(email);
         debugPrint(displayName);
-        LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
         getx.Get.offAll(() => MainPage());
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "Welcom $displayName"
+        );
       } 
       else {
         debugPrint('this is response body ==>${res.body}');
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "status: ${res.statusCode} - ${res.body}"
+        );
       }
     } 
     on HttpException {
       baseService.handleError(const HttpException("Something went wrong"));
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
       //debugPrint("$e");
     }
   }
@@ -239,6 +292,7 @@ class AuthService extends getx.GetxController {
   //RESET PASSWORD//
   //to reset a user password by sending them an OTP
   Future<dynamic> sendResetPasswordOTP({
+    required BuildContext context,
     required String email,
     }) async {
     
@@ -253,22 +307,38 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "otp sent successfully"
+        );
         getx.Get.to(() => PasswordLinkSentPage());
       } else {
         isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "status: ${res.statusCode} - ${res.body}"
+        );
       }
     } 
     on HttpException {
       isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
-      //debugPrint("$e");
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
     }
   }
 
   //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
   Future<dynamic> resetPassword({
+    required BuildContext context,
     required String email,
     required String new_password,
     required int otp,
@@ -293,12 +363,21 @@ class AuthService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response body ==>${res.body}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "status: ${res.statusCode} - ${res.body}"
+        );
       }
     } 
     on HttpException {
       isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
-      //debugPrint("$e");
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
     }
   }
 

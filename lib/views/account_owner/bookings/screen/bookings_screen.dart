@@ -40,14 +40,12 @@ class _BookingsPageState extends State<BookingsPage> {
 
   @override
   void initState() {
-    service.getUserBookings().then((value) {
+    /*service.getUserBookings().then((value) {
       setState(() {
         service.dataList.value = service.filterBookingsList.value = value;
       });
     });
-    /*setState(() {
-      service.filterBookingsList = service.dataList;
-    });*/
+    print("filtered list: ${service.filterBookingsList}");*/
     super.initState();
   }
 
@@ -167,7 +165,7 @@ class _BookingsPageState extends State<BookingsPage> {
               //no booking available widget
               //BookingScreenEmptyState(onPressed: () {},),
         
-              FutureBuilder(
+              FutureBuilder<List<DetailsModel>>(
                 future: service.getUserBookings(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -185,22 +183,24 @@ class _BookingsPageState extends State<BookingsPage> {
                     );
                   }
                   if (snapshot.hasData) {
-
-                    service.dataList.value = snapshot.data!;
-
+      
+                    var data = snapshot.data!;
+                
                     return Expanded(
                       child: Obx(
                         () {
-                          
+                    
                           return ListView.separated(
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             physics: const BouncingScrollPhysics(),
                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                            itemCount: service.filterBookingsList.length, //service.dataList.length,
+                            itemCount: service.dataList.length, //data.length,
                             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                             itemBuilder: (context, index) {
-                              
+
+                              //DetailsModel details = service.dataList[index][index];
+
                               return Container(
                                 alignment: Alignment.center,
                                 //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -231,7 +231,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   onPressed: () {
                                                     bookingsListDialogueBox(
                                                       context: context, 
-                                                      serviceName: service.filterBookingsList[index].details[index]["service_details"]["service_name"],
+                                                      serviceName: service.dataList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
                                                     );
                                                   }, 
                                                   icon: Icon(

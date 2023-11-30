@@ -122,10 +122,11 @@ class AuthController extends getx.GetxController {
     return formKey1.currentState!.save();
   }
 
-  Future<dynamic> checkSecondPageCredentials() async {
+  Future<dynamic> checkSecondPageCredentials(BuildContext context) async {
     final isValid = formKey2.currentState!.validate();
     if(isValid) {
       await authService.registerUser(
+        context: context,
         email: emailController.text,
         firstName: firstNameController.text,
         lastName: lastNameController.text,
@@ -146,7 +147,7 @@ class AuthController extends getx.GetxController {
   
 
   //Google Sign in with Luround
-  Future<dynamic> signInWithGoogleAuth() async{
+  Future<dynamic> signInWithGoogleAuth(BuildContext context) async{
     var user =  await authService.signInWithGoogleTest();
     try {
       if(user != null) {
@@ -155,6 +156,7 @@ class AuthController extends getx.GetxController {
         print("id: ${user.id}");
         print("guser_photo: ${user.photoUrl}"); 
         await authService.fetchGoogleJwt(
+          context: context,
           email: user.email, 
           displayName: user.displayName!, 
           photoUrl: "my_photo", 
@@ -179,25 +181,26 @@ class AuthController extends getx.GetxController {
   }
 
   //to send reset OTP to user 
-  Future sendResetOTP() async{
+  Future sendResetOTP(BuildContext context) async{
     final isValid = fpFormKey.currentState!.validate();
     if(!isValid) {
       return "Invalid Credentials";
     }
     else{
-      await authService.sendResetPasswordOTP(email: fpEmailController.text);
+      await authService.sendResetPasswordOTP(context: context, email: fpEmailController.text);
     }
     return fpFormKey.currentState!.save();
   }
 
   //to send reset OTP to user 
-  Future resetUserPassword() async{
+  Future resetUserPassword(BuildContext context) async{
     final isValid = resetFpFormKey.currentState!.validate();
     if(!isValid) {
       return "Invalid Credentials";
     }
     else {
       await authService.resetPassword(
+        context: context,
         email: fpEmailController.text, 
         new_password: resetFpPasswordController.text, 
         otp: int.parse(otpController.text),
@@ -244,13 +247,16 @@ class AuthController extends getx.GetxController {
     return null;
   }
 
-  Future<dynamic> checkLoginCredentials() async{
+  Future<dynamic> checkLoginCredentials(
+    BuildContext context
+  ) async{
     final isValid = loginFormKey.currentState!.validate();
     if(!isValid) {
       return "Invalid Credentials";
     }
     else {
       await authService.loginUser(
+        context: context,
         email: loginEmailController.text, 
         password: loginPasswordController.text,
       ).whenComplete(() {

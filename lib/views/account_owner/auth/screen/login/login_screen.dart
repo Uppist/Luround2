@@ -171,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                           text: "Log in",
                           onPressed: controller.isLoginPageButtonEnabled  
                           ? () {
-                            controller.checkLoginCredentials();
+                            controller.checkLoginCredentials(context);
                           }
                           : () {
                             print('nothing for you chief!!');
@@ -180,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: 70.h,),
                         SignInWithGoogleWidget(
                           onGoogleSignIn: () {
-                            controller.signInWithGoogleAuth();
+                            controller.signInWithGoogleAuth(context);
                           },
                           onTextButton: () {
                             Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);

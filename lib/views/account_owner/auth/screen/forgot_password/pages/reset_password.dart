@@ -155,7 +155,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           text: "Reset password",
                           onPressed: controller.isresetfpButtonActivated 
                           ? () {
-                            controller.resetUserPassword();
+                            controller.resetUserPassword(context);
                           }
                           : () {
                             print('nothing for you chief!!');

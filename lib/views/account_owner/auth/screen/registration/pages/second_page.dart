@@ -220,7 +220,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           text: "Create account",
                           onPressed: controller.isSecondPageButtonEnabled  
                           ? () {
-                            controller.checkSecondPageCredentials();
+                            controller.checkSecondPageCredentials(context);
                           }
                           : () {
                             print('nothing for you chief!!');
@@ -229,7 +229,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         SizedBox(height: 70.h,),
                         SignInWithGoogleWidget(
                           onGoogleSignIn: () {
-                            controller.signInWithGoogleAuth();
+                            controller.signInWithGoogleAuth(context);
                           },
                           onTextButton: () {
                             Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);

@@ -69,7 +69,7 @@ class _RegPasswordTextFieldState extends State<RegPasswordTextField> {
             borderSide: BorderSide(color: AppColor.mainColor), // Set the color you prefer
           ),     
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
           suffixIcon: InkWell(
             onTap: () {
               setState(() {

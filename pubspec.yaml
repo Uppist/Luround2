@@ -38,6 +38,7 @@ dependencies:
 
   #contrycode_picker,
   country_code_picker: ^3.0.0
+  country_picker: ^2.0.22
 
   #for launching urls
   url_launcher: ^6.1.14

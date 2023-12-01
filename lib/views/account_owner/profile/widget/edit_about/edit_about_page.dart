@@ -75,10 +75,10 @@ class _EditAboutPageState extends State<EditAboutPage> {
                           //About
                           Text(
                             'About',
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 17.sp,
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.w600
                             )
                           ),
                           SizedBox(height: 30.h),
@@ -107,7 +107,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                             children: [
                               Text(
                                 '${controller.aboutController.text.length}/${controller.maxLength}',
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
                                   fontSize: 16.sp,
                                   fontWeight: FontWeight.w500

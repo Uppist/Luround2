@@ -132,7 +132,7 @@ class NotificationsPage extends StatelessWidget {
                                   textStyle: TextStyle(
                                     overflow: TextOverflow.visible,
                                     color: AppColor.blackColor,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 15.sp,
                                   )
                                 )

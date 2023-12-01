@@ -120,8 +120,8 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               'Others',
                               style: GoogleFonts.inter(
                                 color: AppColor.blackColor,
-                                fontSize: 17.sp,
-                                fontWeight: FontWeight.bold
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600
                               )
                             ),
                             Text(
@@ -178,7 +178,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 17.sp,
-                            fontWeight: FontWeight.bold
+                            fontWeight: FontWeight.w500
                           )
                         ),
 

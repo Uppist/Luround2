@@ -158,7 +158,7 @@ class ProfilePage extends StatelessWidget {
                 textStyle: TextStyle(
                   color: AppColor.bgColor,
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -605,7 +605,7 @@ class ProfilePage extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 16.sp,
+                  fontSize: 18.sp,
                   fontWeight: FontWeight.bold
                 )
               )

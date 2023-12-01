@@ -39,9 +39,9 @@ class BookingScreenEmptyState extends StatelessWidget {
                 )
               )
             ),
-            SizedBox(height: 15,),
+            SizedBox(height: 15.h,),
             Text(
-              "When you get bookingss, they'll\n                 show up here",
+              "When you get bookings, they'll\n                 show up here",
               style: GoogleFonts.poppins(
                 textStyle: TextStyle(
                   color: AppColor.darkGreyColor,
@@ -78,7 +78,7 @@ class BookingScreenEmptyState extends StatelessWidget {
                 ),
               )
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(height: 10.h,),
           ],
         ),
       ),

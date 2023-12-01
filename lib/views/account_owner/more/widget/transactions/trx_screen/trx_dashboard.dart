@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/OTP/otp_screen.dart';
 
 
 
@@ -110,7 +111,9 @@ class TrxDashBoard extends StatelessWidget {
                 }
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => InputPinPage());
+                },
                 child: Text(
                   "Withdraw",
                   style: GoogleFonts.inter(

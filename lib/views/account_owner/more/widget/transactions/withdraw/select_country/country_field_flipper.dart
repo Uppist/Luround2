@@ -7,16 +7,22 @@ import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
-class TextfieldFlipper extends StatefulWidget {
-  const TextfieldFlipper({super.key, required this.text, required this.onFlip});
+
+
+
+
+
+class CountryFieldFlipper extends StatefulWidget {
+
+  const CountryFieldFlipper({super.key, required this.text, required this.onFlip});
   final String text;
   final VoidCallback onFlip;
 
   @override
-  State<TextfieldFlipper> createState() => _TextfieldFlipperState();
+  State<CountryFieldFlipper> createState() => _CountryFieldFlipperState();
 }
 
-class _TextfieldFlipperState extends State<TextfieldFlipper> {
+class _CountryFieldFlipperState extends State<CountryFieldFlipper> {
 
   var controller = Get.put(ProfilePageController());
 
@@ -51,7 +57,7 @@ class _TextfieldFlipperState extends State<TextfieldFlipper> {
               )
             ],
           ),
-          SizedBox(height: 13.h,),
+          SizedBox(height: 5.h,),
           Divider(thickness: 0.8, color: AppColor.darkGreyColor,)
         ],
       ),

@@ -177,7 +177,11 @@ class AccOwnerBookingService extends getx.GetxController {
         
         // Extract the "details" list from the first map
         List<dynamic> result = jsonData[0]['details'];
-        print("arr[0]: $result");
+        List<dynamic> result2 = jsonData[1]['details'];
+
+        result.addAll(result2);
+
+        print("new_arr[0]: $result");
 
         var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
         

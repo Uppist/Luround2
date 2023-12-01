@@ -320,7 +320,7 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         showMySnackBar(
           context: context,
-          backgroundColor: AppColor.darkGreen,
+          backgroundColor: AppColor.redColor,
           message: "status: ${res.statusCode} - ${res.body}"
         );
       }

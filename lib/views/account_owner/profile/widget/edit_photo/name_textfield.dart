@@ -60,7 +60,7 @@ class _NameTextFieldState extends State<NameTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
           suffixIcon:InkWell(
             onTap: widget.onSuffixIconTapped,

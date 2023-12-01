@@ -137,7 +137,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
                                   fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold
+                                  fontWeight: FontWeight.w600
                                 )
                               ),
                               SizedBox(height: 20.h,),

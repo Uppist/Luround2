@@ -84,7 +84,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 17.sp,
-                              fontWeight: FontWeight.bold
+                              fontWeight: FontWeight.w600
                             )
                           ),
                           InkWell(

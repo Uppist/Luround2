@@ -35,7 +35,7 @@ class RebrandedReusableButton extends StatelessWidget {
             textStyle: TextStyle(
               color: textColor,
               fontSize: 17.sp,
-              //fontWeight: FontWeight.w500
+              fontWeight: FontWeight.w500
             )
           )
         ),

@@ -7,7 +7,7 @@ import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/OTP/confirm_otp_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
 
 
 
@@ -18,8 +18,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/OT
 
 
 
-class InputPinPage extends StatelessWidget {
-  InputPinPage({super.key});
+class ConfirmOTPPage extends StatelessWidget {
+  ConfirmOTPPage({super.key});
 
   var controller = Get.put(TransactionsController());
 
@@ -61,7 +61,7 @@ class InputPinPage extends StatelessWidget {
                   children: [
                     SizedBox(height: 50.h),
                     Text(
-                      'Set a 4-digit pin for withdrawal',
+                      'Confirm your 4-digit pin',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 16.sp,
@@ -96,6 +96,15 @@ class InputPinPage extends StatelessWidget {
                         //runs when every textfield is filled
                         onSubmit: (String verificationCode){
                           print(verificationCode);
+                          showDialog(
+                            context: context,
+                            builder: (context){
+                              return AlertDialog(
+                                title: Text("Verification Code"),
+                                content: Text('Code entered is $verificationCode'),
+                              );
+                            }
+                          );
                         }, // end onSubmit
                       ),
                     ),
@@ -104,10 +113,21 @@ class InputPinPage extends StatelessWidget {
 
                     ReusableButton(
                       color: AppColor.mainColor,
-                      text: 'Next',
+                      text: 'Confirm',
                       onPressed: () async{
-                        controller.zipFunc();
-                        Get.to(() => ConfirmOTPPage());
+                        //controller.zipFunc();
+
+                        /*var time = await showTimePicker(
+                          context: context, 
+                          initialTime: TimeOfDay.now(),
+                          initialEntryMode: TimePickerEntryMode.dial
+                        );*/
+                        /*if (time != null) {
+                           timeController.text = time.format(context);
+                        }*/
+
+                        Get.to(() => SelectCountryPage());
+                      
                       },
                     ),
                   ]

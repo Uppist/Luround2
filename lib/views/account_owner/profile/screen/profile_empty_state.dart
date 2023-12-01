@@ -103,7 +103,7 @@ class ProfileEmptyState extends StatelessWidget {
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
                     fontSize: 16.sp,
-                    //fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500
                   )
                 )
               ),

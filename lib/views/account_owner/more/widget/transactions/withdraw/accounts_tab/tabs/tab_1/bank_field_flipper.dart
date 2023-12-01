@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -13,17 +12,17 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class CountryFieldFlipper extends StatefulWidget {
+class BankFieldFlipper extends StatefulWidget {
 
-  const CountryFieldFlipper({super.key, required this.text, required this.onFlip});
+  const BankFieldFlipper({super.key, required this.text, required this.onFlip});
   final String text;
   final VoidCallback onFlip;
 
   @override
-  State<CountryFieldFlipper> createState() => _CountryFieldFlipperState();
+  State< BankFieldFlipper> createState() => _BankFieldFlipperState();
 }
 
-class _CountryFieldFlipperState extends State<CountryFieldFlipper> {
+class _BankFieldFlipperState extends State< BankFieldFlipper> {
 
   var controller = Get.put(TransactionsController());
 
@@ -40,19 +39,20 @@ class _CountryFieldFlipperState extends State<CountryFieldFlipper> {
               Text(
                 widget.text,
                 style: GoogleFonts.inter(
-                  color: AppColor.textGreyColor, 
-                  fontSize: 14.sp
+                  color: AppColor.darkGreyColor, 
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500
                 ),
               ),
               Container(
-                child: controller.isCountrySelected.value ? Icon(
+                child: controller.isBankSelected.value ? Icon(
                   CupertinoIcons.chevron_up, 
-                  color: AppColor.textGreyColor, 
+                  color: AppColor.blackColor, 
                   size: 20,
                 ) 
                 :Icon(
                   CupertinoIcons.chevron_down, 
-                  color: AppColor.textGreyColor, 
+                  color: AppColor.blackColor, 
                   size: 20,
                 )
               )

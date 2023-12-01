@@ -106,7 +106,6 @@ class InputPinPage extends StatelessWidget {
                       color: AppColor.mainColor,
                       text: 'Next',
                       onPressed: () async{
-                        controller.zipFunc();
                         Get.to(() => ConfirmOTPPage());
                       },
                     ),

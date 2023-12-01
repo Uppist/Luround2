@@ -5,27 +5,21 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/select_account_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/country_field_flipper.dart';
-import 'package:country_picker/country_picker.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/bank_field_flipper.dart';
 
 
 
 
 
-
-
-
-class SelectCountryPage extends StatefulWidget {
-  SelectCountryPage({super.key});
+class AddActionPageFromButton extends StatefulWidget {
+  AddActionPageFromButton({super.key});
 
   @override
-  State<SelectCountryPage> createState() => _SelectCountryPageState();
+  State<AddActionPageFromButton> createState() => _AddActionPageFromButtonState();
 }
 
-class _SelectCountryPageState extends State<SelectCountryPage> {
+class _AddActionPageFromButtonState extends State<AddActionPageFromButton> {
   var controller = Get.put(TransactionsController());
 
   @override
@@ -56,6 +50,7 @@ class _SelectCountryPageState extends State<SelectCountryPage> {
             height: 7.h,
           ),
           SizedBox(height: 20.h,),
+
           Expanded(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -64,55 +59,40 @@ class _SelectCountryPageState extends State<SelectCountryPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 10.h),
+                    //SizedBox(height: 30.h),
                     Text(
-                      'Select your country*',
+                      'Input or Select Bank*',
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
-                    SizedBox(height: 20.h),
-                  
-                    CountryFieldFlipper(
-                      text: controller.selectedCountryController.text.isEmpty ? "Tap to select" : controller.selectedCountryController.text,
+                    SizedBox(height: 50.h,),
+                    BankFieldFlipper(
+                      text: controller.inputBankController.text.isEmpty ? 'Tap to select' : controller.inputBankController.text,
                       onFlip: () {
-
                         setState(() {
-                          controller.isCountrySelected.value = true;
+                          controller.isBankSelected.value = true;
                         });
-                              
-                        showCountryPicker(
-                          context: context,
-                          showPhoneCode: false, // optional. Shows phone code before the country name.
-                          onSelect: (Country country) {
-                            setState(() {
-                              controller.isCountrySelected.value = false;
-                              controller.selectedCountryController.text = country.displayNameNoCountryCode;
-                            });
-                            print('Select country: ${country.displayNameNoCountryCode}');
-                          },
-                        );
-                                            
-                      }
-                    ),
-
-                    SizedBox(height: 580.h),
-
-                    ReusableButton(
-                      color: AppColor.mainColor,
-                      text: 'Next',
-                      onPressed: () async{
-                        Get.to(() => SelectAccountPage());
                       },
                     ),
-
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Account Number',
+                      style: GoogleFonts.inter(
+                        color: AppColor.blackColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500
+                      )
+                    ),
+                    SizedBox(height: 50.h,),
                   ]
                 )
               )
             )
           )
+
         ]
       )
     );

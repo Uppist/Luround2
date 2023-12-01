@@ -12,8 +12,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class ServiceEmptyState extends StatelessWidget {
-  const ServiceEmptyState({super.key, required this.onPressed});
+class NoSavedAccounts extends StatelessWidget {
+  const NoSavedAccounts({super.key, required this.onPressed});
   final VoidCallback onPressed;
 
   @override
@@ -25,17 +25,11 @@ class ServiceEmptyState extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),
-            //SizedBox(height: 30,),
             SizedBox(height: 60.h,),
-            SvgPicture.asset('assets/svg/no_service.svg'),
+            SvgPicture.asset('assets/svg/no_acc.svg'),
             SizedBox(height: 60.h,),
             Text(
-              'No services yet',
+              'No saved account yet',
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
@@ -44,44 +38,47 @@ class ServiceEmptyState extends StatelessWidget {
                 )
               )
             ),
-            SizedBox(height: 15.h,),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text:'Click on',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 16.sp,
-                        //fontWeight: FontWeight.bold
+            SizedBox(height: 20.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.w),
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:'Click on the',
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.darkGreyColor,
+                          fontSize: 16.sp,
+                          //fontWeight: FontWeight.bold
+                        )
                       )
-                    )
-                  ),
-                  TextSpan(
-                    text:' "Add Section" ',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold
+                    ),
+                    TextSpan(
+                      text:' "Add an account" ',
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.bold
+                        )
                       )
-                    )
-                  ),
-                  TextSpan(
-                    text:'button to start \n             adding your services',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 16.sp,
-                        //fontWeight: FontWeight.bold
+                    ),
+                    TextSpan(
+                      text:'button to \n                           proceed',
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.darkGreyColor,
+                          fontSize: 16.sp,
+                          //fontWeight: FontWeight.bold
+                        )
                       )
-                    )
-                  ),
-                ]
-              )
+                    ),
+                  ]
+                )
+              ),
             ),
-            SizedBox(height: 30.h,),
+            SizedBox(height: 80.h,),
             //ADD SECTION BUTTON
             InkWell(
               onTap: onPressed,
@@ -98,7 +95,7 @@ class ServiceEmptyState extends StatelessWidget {
                   )
                 ),
                 child: Text(
-                  'Add Section',
+                  'Add an account',
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,

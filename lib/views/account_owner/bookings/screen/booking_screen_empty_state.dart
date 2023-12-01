@@ -71,8 +71,8 @@ class BookingScreenEmptyState extends StatelessWidget {
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.bgColor,
-                      fontSize: 17.sp,
-                      //fontWeight: FontWeight.w500
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
                     )
                   )
                 ),

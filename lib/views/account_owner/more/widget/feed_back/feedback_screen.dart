@@ -32,11 +32,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.descriptionController.addListener(() {
+    /*controller.descriptionController.addListener(() {
       setState(() {
         controller.isSubmit = controller.descriptionController.text.isNotEmpty;
       });
-    });
+    });*/
     super.initState();
   }
 

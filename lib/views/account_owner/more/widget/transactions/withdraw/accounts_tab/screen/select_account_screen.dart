@@ -6,7 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/empty_states/no_saved_accounts.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/add_account_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/screen/add_account_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/screen/show_saved_banks.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/screen/new_account_screen.dart';
 
 
 
@@ -82,11 +84,11 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
           ),
           SizedBox(height: 20.h,),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.h),
-              child: Column(
-                children: [
-                  AnimatedContainer(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.h),
+                  child: AnimatedContainer(
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
                       borderRadius: BorderRadius.circular(5.r),
@@ -123,27 +125,27 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                       ],
                     ),
                   ),
-                  
-                  //tabbar content here
-                  Expanded(
-                    child: TabBarView(
-                      controller: tabController,
-                      physics: const BouncingScrollPhysics(),
-                      children: [
-  
-                        NoSavedAccounts(
-                          onPressed: () {
-                            Get.to(() => AddActionPageFromButton());
-                          },
-                        ),
-                        SizedBox(),
-              
-                      ]
-                    ),
-                  )
+                ),
+                
+                //tabbar content here //wrap with future builder
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      //empty state
+                      /*NoSavedAccounts(
+                        onPressed: () {
+                          Get.to(() => AddAccountPageFromButton());
+                        },
+                      ),*/
+                      ShowSavedBanks(),
+                      AddNewAccount()     
+                    ]
+                  ),
+                )
 
-                ],
-              ),
+              ],
             ),
           ),
         ]

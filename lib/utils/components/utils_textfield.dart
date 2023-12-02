@@ -56,7 +56,7 @@ class _UtilsTextFieldState extends State<UtilsTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)

@@ -12,17 +12,17 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class BankFieldFlipper extends StatefulWidget {
+class BankFieldFlipper2 extends StatefulWidget {
 
-  const BankFieldFlipper({super.key, required this.text, required this.onFlip});
+  const BankFieldFlipper2({super.key, required this.text, required this.onFlip});
   final String text;
   final VoidCallback onFlip;
 
   @override
-  State< BankFieldFlipper> createState() => _BankFieldFlipperState();
+  State< BankFieldFlipper2> createState() => _BankFieldFlipper2State();
 }
 
-class _BankFieldFlipperState extends State< BankFieldFlipper> {
+class _BankFieldFlipper2State extends State< BankFieldFlipper2> {
 
   var controller = Get.put(TransactionsController());
 
@@ -45,7 +45,7 @@ class _BankFieldFlipperState extends State< BankFieldFlipper> {
                 ),
               ),
               Container(
-                child: controller.isBankSelected.value ? Icon(
+                child: controller.isBankSelected2.value ? Icon(
                   CupertinoIcons.chevron_up, 
                   color: AppColor.blackColor, 
                   size: 20,
@@ -59,7 +59,7 @@ class _BankFieldFlipperState extends State< BankFieldFlipper> {
             ],
           ),
           SizedBox(height: 5.h,),
-          Divider(thickness: 0.8, color: AppColor.darkGreyColor,)
+          Divider(thickness: 0.8, color: AppColor.blackColor,)
         ],
       ),
     );

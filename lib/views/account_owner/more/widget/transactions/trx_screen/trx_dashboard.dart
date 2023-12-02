@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/OTP/otp_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/OTP/first_timer/otp_screen.dart';
 
 
 

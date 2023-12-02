@@ -5,21 +5,24 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/bank_field_flipper.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/bank_field_flipper.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/select_bank_screen.dart';
 
 
 
 
 
-class AddActionPageFromButton extends StatefulWidget {
-  AddActionPageFromButton({super.key});
+class AddAccountPageFromButton extends StatefulWidget {
+  AddAccountPageFromButton({super.key});
 
   @override
-  State<AddActionPageFromButton> createState() => _AddActionPageFromButtonState();
+  State<AddAccountPageFromButton> createState() => _AddAccountPageFromButtonState();
 }
 
-class _AddActionPageFromButtonState extends State<AddActionPageFromButton> {
+class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
   var controller = Get.put(TransactionsController());
 
   @override
@@ -75,9 +78,13 @@ class _AddActionPageFromButtonState extends State<AddActionPageFromButton> {
                         setState(() {
                           controller.isBankSelected.value = true;
                         });
+                        Get.to(() => SelectBankScreen());
+                        setState(() {
+                          controller.isBankSelected.value = false;
+                        });
                       },
                     ),
-                    SizedBox(height: 30.h),
+                    SizedBox(height: 50.h),
                     Text(
                       'Account Number',
                       style: GoogleFonts.inter(
@@ -86,7 +93,37 @@ class _AddActionPageFromButtonState extends State<AddActionPageFromButton> {
                         fontWeight: FontWeight.w500
                       )
                     ),
-                    SizedBox(height: 50.h,),
+                    //SizedBox(height: 50.h,),
+                    UtilsTextField(
+                      onChanged: (p0) {},
+                      hintText: "",
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      textController: controller.inputAccountNumberController,
+                    ),
+                    SizedBox(height: 30.h),
+                    Text(
+                      'Account Name',
+                      style: GoogleFonts.inter(
+                        color: AppColor.blackColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500
+                      )
+                    ),
+                    //SizedBox(height: 50.h,),
+                    UtilsTextField(
+                      onChanged: (p0) {},
+                      hintText: "",
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      textController: controller.inputAccountNameController,
+                    ),
+                    SizedBox(height: 300.h,),
+                    ReusableButton(
+                      color: AppColor.mainColor,
+                      text: 'Save account',
+                      onPressed: () {},
+                    ),
                   ]
                 )
               )

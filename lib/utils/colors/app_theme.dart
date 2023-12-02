@@ -35,4 +35,5 @@ class AppColor {
   static Color navyBlue = Color.fromRGBO(0, 39, 54, 1);
 
 
+
 }

@@ -14,6 +14,9 @@ class TransactionsController extends getx.GetxController {
   final TextEditingController selectedCountryController = TextEditingController();
   var isCountrySelected = false.obs;
   var isBankSelected = false.obs;
+  var isBankSelected2 = false.obs;
+  var isButtonActive = false.obs;
+
   //for trx dashboard
   var isTrxAmountToggled = false.obs;
   
@@ -38,12 +41,38 @@ class TransactionsController extends getx.GetxController {
     isTrxAmountToggled.value = !isTrxAmountToggled.value;
     update();
   }
-  
+   
 
-  ////ADD ACCOUNT FOR BUTTON////
+
+
+
+
+  ///////////////////////[WALLETS SECTION]/////////////////////////////////
+  //SHOW SAVED BANKS SCREEN//
+  final searchSavedBankController = TextEditingController();
+
+  ////ADD ACCOUNT FROM BUTTON////
   final inputBankController = TextEditingController();
   final inputAccountNameController = TextEditingController();
   final inputAccountNumberController = TextEditingController();
+
+  ///SELECT BAMK SCREEN (ADD ACCOUNT FROM BUTTON)///
+  final searchBankController = TextEditingController();
+
+
+  ////NEW ACCOUNT TAB////
+  final enterBankController = TextEditingController();
+  final enterAccountNameController = TextEditingController();
+  final enterAccountNumberController = TextEditingController();
+
+  ///SELECT BAMK SCREEN (NEW ACCOUNT TAB)///
+  final searchBankController2 = TextEditingController();
+
+  //TRANSFER SCREEN//
+  final enterAmountController = TextEditingController();
+  final enterRemarkController = TextEditingController();
+  var isTrxNextButtoReady = false.obs;
+  final enterTrxPinController = TextEditingController();
 
 
 
@@ -64,6 +93,13 @@ class TransactionsController extends getx.GetxController {
     inputBankController.dispose();
     inputAccountNameController.dispose();
     inputAccountNumberController.dispose();
+    searchBankController.dispose();
+    searchSavedBankController.dispose();
+    enterAccountNumberController.dispose();
+    enterBankController.dispose();
+    //transfer screen
+    enterRemarkController.dispose();
+    enterTrxPinController.dispose();
     super.dispose();
   }
 

@@ -107,6 +107,9 @@ class TransactionsController extends getx.GetxController {
     searchSavedBankController.dispose();
     enterAccountNumberController.dispose();
     enterBankController.dispose();
+
+    enterAccountNameController.dispose(); ////
+
     //transfer screen
     enterRemarkController.dispose();
     enterTrxPinController.dispose();

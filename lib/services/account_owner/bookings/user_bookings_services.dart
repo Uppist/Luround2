@@ -8,7 +8,9 @@ import 'package:luround/services/account_owner/local_storage/local_storage.dart'
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -206,7 +208,97 @@ class AccOwnerBookingService extends getx.GetxController {
     }
   }
 
+  
 
+  Future<void> deleteBooking({
+    required BuildContext context,
+    required String bookingId,
+  }) async {
+    
+    isLoading.value = true;
+
+    var body = {};
+
+    try {
+      http.Response res = await baseService.httpDelete(endPoint: "booking/delete?bookingId=$bookingId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user booking deleted succesfully");
+         //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "booking deleted successfully"
+        );
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete booking"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
+
+
+  Future<void> rescheduleBooking({
+    required BuildContext context,
+    required String bookingId, //important
+    required String date,
+    required String time,
+  }) async {
+    
+    isLoading.value = true;
+
+    var body = {
+      "date": date,
+      "time": time
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "booking/reschedule?bookingId=$bookingId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user booking rescheduled succesfully");
+         //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "booking resheduled successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to reschedule booking"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
 
 
 

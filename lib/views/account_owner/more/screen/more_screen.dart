@@ -93,7 +93,7 @@ class MorePage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomCard2(
+                      CustomCard(
                         svgAsset: "assets/svg/finance.svg",
                         title: "Financials",
                         onTap: () {
@@ -101,11 +101,11 @@ class MorePage extends StatelessWidget {
                         },
                       ),
                       SizedBox(width: 20.w,),
-                      CustomCard(
+                      CustomCard2(
                         svgAsset: "assets/svg/cc_new.svg",
                         title: "Subscriptions",
                         onTap: () {
-                          Get.to(() => SubscriptionScreen());
+                          //Get.to(() => SubscriptionScreen());
                         },
                       ),
                     ],

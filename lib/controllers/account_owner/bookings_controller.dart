@@ -67,47 +67,61 @@ class BookingsController extends getx.GetxController {
     }
     return initialTime;
   }
+  
+  //get the start time coming from the server
+  String splitTimeRangeT1 ({required String timeRange}) {
+
+    // Split the string based on the hyphen
+    List<String> timeStrings = timeRange.split('-');
+
+    // Trim any leading or trailing whitespace
+    String startTime = timeStrings[0].trim();
+
+    print("Start Time: $startTime");
+    return startTime;
+  }
+  
+  
+  //get the stop time coming from the server
+  String splitTimeRangeT2 ({required String timeRange}) {
+    // Split the string based on the hyphen
+    List<String> timeStrings = timeRange.split('-');
+
+    // Trim any leading or trailing whitespace
+    String endTime = timeStrings[1].trim();
+
+    print("End Time: $endTime");
+    return endTime;
+  }
+
 
   
-  //function that converts the start time to String
-  String startTimeFunc({required TimeOfDay startTime}) {
-    String formattedTime = DateFormat.jm().format(
-      DateTime(2023, 1, 2, startTime.hour, startTime.minute),
+  //t1
+  Future<void> openFlutterTimePickerForStartTime({required BuildContext context}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
     );
-    print(formattedTime); // This will print the time in "h:mm a" format
-    return formattedTime;
+
+    if (time != null) {
+      startTimeValue.value = time.format(context);
+    }
   }
-  //function that converts the stop time to String
-  String stopTimeFunc({required TimeOfDay stopTime}) {
-    String formattedTime = DateFormat.jm().format(
-      DateTime(2023, 1, 2, stopTime.hour, stopTime.minute),
+  
+  //t2
+  Future<void> openFlutterTimePickerForStopTime({required BuildContext context}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
     );
-    print(formattedTime); // This will print the time in "h:mm a" format
-    return formattedTime;
+
+    if (time != null) {
+      stopTimeValue.value = time.format(context);
+    }
   }
 
-  //func that opens this awesome time range picker package
-  Future<void> openTimeRangePicker({required BuildContext context}) async{
-    TimeRange result = await showTimeRangePicker(
-      context: context,
-      //start: TimeOfDay.now()
-      paintingStyle: PaintingStyle.stroke,
-      use24HourFormat: true,
-      //strokeColor: AppColor.mainColor,
-      //handlerColor: AppColor.mainColor,
-      handlerRadius: 12,
-      //selectedColor: AppColor.mainColor,
-      //backgroundColor: AppColor.greyColor,
-      barrierDismissible: false,
-      //timeTextStyle: GoogleFonts.inter(),
-      //activeTimeTextStyle: GoogleFonts.inter()
-
-    );
-    startTimeValue.value = startTimeFunc(startTime: result.startTime);
-    stopTimeValue.value = stopTimeFunc(stopTime: result.endTime);
-    print("start = ${startTimeValue.value} : stop = ${stopTimeValue.value}");
-    //print("start = ${jay} : stop = ${alvin}");
-  }
   /////////////////////////////////////////////////////
   
 

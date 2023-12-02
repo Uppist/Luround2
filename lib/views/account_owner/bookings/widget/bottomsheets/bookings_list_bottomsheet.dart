@@ -15,9 +15,16 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/delete_
 
 
 
-
 ///Alert Dialog
-Future<void> bookingsListDialogueBox({required BuildContext context, required String serviceName,}) async {
+Future<void> bookingsListDialogueBox({
+  required VoidCallback onDelete,
+  required BuildContext context, 
+  required String serviceName,
+  required String serviceDate,
+  required String serviceTime,
+  required String serviceDuration,
+  required String bookingId
+}) async {
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -52,7 +59,13 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
                 //1
                 InkWell(
                   onTap: () {
-                    Get.off(() => RescheduleBookingPage());
+                    Get.off(() => RescheduleBookingPage(
+                      bookingId: bookingId,
+                      service_name: serviceName,
+                      service_date: serviceDate,
+                      service_time: serviceTime,
+                      service_duration: serviceDuration,
+                    ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -96,7 +109,11 @@ Future<void> bookingsListDialogueBox({required BuildContext context, required St
                 //3
                 InkWell(
                   onTap: () {
-                    deleteBookingsDialogueBox(context: context, titleText: serviceName,);
+                    deleteBookingsDialogueBox(
+                      context: context, 
+                      titleText: serviceName, 
+                      onDelete: onDelete,
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

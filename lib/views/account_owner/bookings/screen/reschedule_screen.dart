@@ -6,6 +6,7 @@ import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings_controller.dart';
+import 'package:luround/services/account_owner/bookings/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
@@ -21,7 +22,12 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 class RescheduleBookingPage extends StatefulWidget {
-  RescheduleBookingPage({super.key});
+  RescheduleBookingPage({super.key, required this.service_date, required this.service_name, required this.service_time, required this.service_duration, required this.bookingId});
+  final String service_date;
+  final String service_name;
+  final String service_time;
+  final String service_duration;
+  final String bookingId;
 
 
   @override
@@ -30,6 +36,7 @@ class RescheduleBookingPage extends StatefulWidget {
 
 class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
   var controller = Get.put(BookingsController());
+  var service = Get.put(AccOwnerBookingService());
   
 
   @override
@@ -162,7 +169,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Text(
-                                "Friday, 14 July 2023",
+                                widget.service_date,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 16.sp,
@@ -175,7 +182,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                           ),
                           SizedBox(height: 30.h,),
                           Text(
-                            "Addiction Intervention Coaching",
+                            widget.service_name,
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 16.sp,
@@ -187,7 +194,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "9:00am - 10:00am",
+                                widget.service_time,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 16.sp,
@@ -200,7 +207,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                   SvgPicture.asset("assets/svg/time_icon.svg"),
                                   SizedBox(width: 5,),
                                   Text(
-                                    "45mins",
+                                    widget.service_duration,
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 16.sp,
@@ -289,17 +296,16 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                     ),
                     SizedBox(height: 20.h,),
                     //select date custom button
-                    InkWell(
-                      onTap: () {
-                        //showLightTimePicker(context: context);
-                        controller.openTimeRangePicker(context: context);
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Obx(
-                            () {
-                              return Container(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Obx(
+                          () {
+                            return InkWell(
+                              onTap: () {
+                                controller.openFlutterTimePickerForStartTime(context: context);
+                              },
+                              child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
                                 alignment: Alignment.center,
                                 height: 50.h,
@@ -322,15 +328,20 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     )
                                   )           
                                 ),
-                              );
-                            }
-                          ),
-                          //SizedBox(width: 10,),             
-                          //SizedBox(width: 10,),
-                          //2
-                          Obx(
-                            () {
-                              return Container(
+                              ),
+                            );
+                          }
+                        ),
+                        //SizedBox(width: 10,),             
+                        //SizedBox(width: 10,),
+                        //2
+                        Obx(
+                          () {
+                            return InkWell(
+                              onTap: () {
+                                controller.openFlutterTimePickerForStopTime(context: context);
+                              },
+                              child: Container(
                                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                                 alignment: Alignment.center,
                                 height: 50.h,
@@ -353,11 +364,11 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     )
                                   )           
                                 ),
-                              );
-                            }
-                          ),
-                        ],
-                      ),
+                              ),
+                            );
+                          }
+                        ),
+                      ],
                     ),
                     SizedBox(height: 80.h,),
                     RebrandedReusableButton(
@@ -365,7 +376,13 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                       color: AppColor.mainColor, 
                       text: "Reschedule", 
                       onPressed: () {
-                        rescheduleDialogueBox(context: context);
+                        service.rescheduleBooking(
+                          context: context, 
+                          bookingId: widget.bookingId, 
+                          date: controller.updatedDate(initialDate: widget.service_date), 
+                          time: "${controller.getStartTime(initialTime: controller.splitTimeRangeT1(timeRange: widget.service_time))} - ${controller.getStopTime(initialTime: controller.splitTimeRangeT2(timeRange: widget.service_time))}"
+                        );
+                        //rescheduleDialogueBox(context: context);
                       },
                     ),
                     SizedBox(height: 20.h,),

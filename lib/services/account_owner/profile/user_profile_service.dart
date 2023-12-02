@@ -197,27 +197,42 @@ class AccOwnerProfileService extends getx.GetxController {
     }
   }
 
-  Future<void> deleteProfilePhoto() async {
+  Future<void> deleteProfilePhoto(BuildContext context) async {
+    
+    isLoading.value = true;
 
     var body = {
       "photoUrl": "my_photo"
     };
 
     try {
-      http.Response res = await baseService.httpDelete(endPoint: "profile/photo/update", body: body);
+      http.Response res = await baseService.httpPut(endPoint: "profile/photo/update", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user photo deleted succesfully");
-        //LuroundSnackBar.successSnackBar(message: "profile photo deleted");
+         //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "profile photo deleted successfully"
+        );
       } 
       else {
+        isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.successSnackBar(message: "failed to delete profile photo");
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete profile photo"
+        );
       }
     } 
     catch (e) {
+      isLoading.value = false;
       debugPrint("$e");
       throw const HttpException("Something went wrong");
     }
@@ -558,8 +573,6 @@ class AccOwnerProfileService extends getx.GetxController {
     }
   }
 
-
-  Future<void> shareProfileLink({required String link}) async{}
 
   
 

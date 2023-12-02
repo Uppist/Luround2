@@ -95,7 +95,13 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                 //1
                 InkWell(
                   onTap: () {
-                    deletePhotoDialogueBox(context: context);
+                    deletePhotoDialogueBox(
+                      context: context,
+                      onDelete: () {
+                        profileService.deleteProfilePhoto(context)
+                        .whenComplete(() => Get.back());
+                      },
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

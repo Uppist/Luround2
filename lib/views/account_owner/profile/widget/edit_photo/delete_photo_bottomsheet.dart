@@ -12,9 +12,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
 ///Alert Dialog
-Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
+Future<void> deletePhotoDialogueBox({required BuildContext context, required VoidCallback onDelete}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -102,7 +101,7 @@ Future<void> deletePhotoDialogueBox({required BuildContext context}) async{
                     //Yes button
                     Expanded(
                       child: InkWell(
-                        onTap: () {},
+                        onTap: onDelete,
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,

@@ -93,13 +93,17 @@ class TransactionPage extends StatelessWidget {
                     children: [
                       //TRX DASHBOARD
                       TrxDashBoard(
-                        amountPaid: "N50,000.00",
-                        amountReceived: "N250,000.00",
+                        amountPaid: "N100,000.00",
+                        amountReceived: "N250,000.00", 
+                        walletBalance: 'N400,000.00',
                       ),
+                      
                       SizedBox(height: 30.h,),
+
                       //FILTER BUTTON
                       FilterTrxButton(),
                       SizedBox(height: 30.h,),
+
                       //List of transactions comes here and it's empty state // //Future building will be used here also
                       //TrxEmptyState(onRefresh: () {},),
                       TrxHistoryList(),

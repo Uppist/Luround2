@@ -5,16 +5,17 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/OTP/first_timer/otp_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/otp_screen.dart';
 
 
 
 
 
 class TrxDashBoard extends StatelessWidget {
-  TrxDashBoard({super.key, required this.amountPaid, required this.amountReceived,});
+  TrxDashBoard({super.key, required this.amountPaid, required this.amountReceived, required this.walletBalance});
   final String amountPaid;
   final String amountReceived;
+  final String walletBalance;
 
   var controller = Get.put(TransactionsController());
 
@@ -46,51 +47,88 @@ class TrxDashBoard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              InkWell(
-                onTap: () {
-                  controller.toggleTrx();
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                  alignment: Alignment.center,
-                  height: 50.h,
-                  width: 250.w,
-                  //width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: AppColor.badGreen,
-                    borderRadius: BorderRadius.circular(10.r),
-                    border: Border.all(
-                      color: AppColor.bgColor,
-                      width: 0.8
-                    )
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      
-                      Obx(
-                        () {
-                          return Text(
-                            controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.bgColor,
-                                fontSize: 16.sp,
-                                //fontWeight: FontWeight.w500
-                              )
-                            )
-                          );
-                        }
-                      ),
-                                      
-                      Icon(
-                        CupertinoIcons.chevron_up_chevron_down,
+              Obx(
+                () {
+                  return Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                    alignment: Alignment.center,
+                    height: 50.h,
+                    width: 250.w,
+                    //width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColor.badGreen,
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
                         color: AppColor.bgColor,
-                        size: 20,
+                        width: 0.8
                       )
-                    ],
-                  ),
-                ),
+                    ),
+                    child: DropdownButton<String>(
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500
+                      ),
+                      elevation: 3,
+                      dropdownColor: AppColor.blackColor,
+                      underline: const SizedBox(),
+                      borderRadius: BorderRadius.circular(5.r),
+                      iconEnabledColor: AppColor.bgColor,
+                      icon: Icon(CupertinoIcons.chevron_up_chevron_down),
+                      iconSize: 20,
+                      enableFeedback: true,
+                      padding: EdgeInsets.symmetric(horizontal: 10.w),
+                      value: controller.selectedMoneyType.value,
+                      onChanged: (newValue) {
+                        // When the user selects an option, update the selectedValue
+                        controller.filterMoneyTypeList(newValue);
+                      },
+                      items: controller.moneyType.map((item) {
+                        return DropdownMenuItem(
+                          onTap: () {
+                            debugPrint("drop down menu tapped!!");
+                          },                    
+                          value: item,
+                          child: Text(
+                            item,
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                    /*Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        
+                        Obx(
+                          () {
+                            return Text(
+                              controller.isTrxAmountToggled.value ? "Total amount received" : "Total amount paid",
+                              style: GoogleFonts.inter(
+                                textStyle: TextStyle(
+                                  color: AppColor.bgColor,
+                                  fontSize: 16.sp,
+                                  //fontWeight: FontWeight.w500
+                                )
+                              )
+                            );
+                          }
+                        ),
+                                        
+                        Icon(
+                          CupertinoIcons.chevron_up_chevron_down,
+                          color: AppColor.bgColor,
+                          size: 20,
+                        )
+                      ],
+                    ),*/
+
+                  );
+                }
               ),
             ],
           ),
@@ -101,7 +139,7 @@ class TrxDashBoard extends StatelessWidget {
               Obx(
                 () {
                   return Text(
-                    controller.isTrxAmountToggled.value ? amountReceived : amountPaid,
+                    controller.selectedMoneyType.value == "Total amount received    " ?  amountReceived : controller.selectedMoneyType.value == "Total amount paid    " ? amountPaid : walletBalance,
                     style: GoogleFonts.inter(
                       color: AppColor.bgColor,
                       fontSize: 19.sp,

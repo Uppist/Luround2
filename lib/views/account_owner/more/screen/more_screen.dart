@@ -14,6 +14,8 @@ import 'package:luround/views/account_owner/more/widget/subscription/subscriptio
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
+import '../widget/settings/screen/settings_screen.dart';
+
 
 
 
@@ -138,7 +140,9 @@ class MorePage extends StatelessWidget {
                       CustomCard(
                         svgAsset: "assets/svg/settings_new.svg",
                         title: "Settings",
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => SettingsScreen());
+                        },
                       ),
                       SizedBox(width: 20.w,),
                       //Expanded(child: SizedBox(width: 190.w,))

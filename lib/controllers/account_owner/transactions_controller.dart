@@ -19,6 +19,11 @@ class TransactionsController extends getx.GetxController {
 
   //for trx dashboard
   var isTrxAmountToggled = false.obs;
+  //for trx dashboard
+  void toggleTrx() {
+    isTrxAmountToggled.value = !isTrxAmountToggled.value;
+    update();
+  }
   
   //filter transactions list
   final List<String> items = [
@@ -35,14 +40,19 @@ class TransactionsController extends getx.GetxController {
   void filterList(String? newValue) {
     selectedValue.value = newValue!;
   }
-  
-  //for trx dashboard
-  void toggleTrx() {
-    isTrxAmountToggled.value = !isTrxAmountToggled.value;
-    update();
-  }
-   
 
+  //filter/toggle between funds
+  final List<String> moneyType = [
+    'Total amount received    ', 
+    'Total amount paid    ', 
+    'wallet    ',   //4
+  ];
+  final selectedMoneyType = 'Total amount received    '.obs; //SAVED TO DB
+
+  void filterMoneyTypeList(String? newValue) {
+    selectedMoneyType.value = newValue!;
+  }
+  
 
 
 

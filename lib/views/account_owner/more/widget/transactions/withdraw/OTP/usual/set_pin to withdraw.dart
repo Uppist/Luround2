@@ -160,7 +160,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
               ),
 
             ]
-          )
+          ),
         ) 
       )
     );

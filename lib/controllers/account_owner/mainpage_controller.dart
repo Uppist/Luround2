@@ -25,7 +25,10 @@ class MainPageController extends getx.GetxController {
     MorePage(),
   ];
 
-  
+  void setIndex(int index) {
+    selectedIndex = index;
+    update(); // This triggers a rebuild when the index changes
+  }
 
   //navbar items
   List<BottomNavigationBarItem> navBarsItems() {

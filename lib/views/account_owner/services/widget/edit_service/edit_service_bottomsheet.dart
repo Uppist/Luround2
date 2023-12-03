@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/services/widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service/screen/edit_service.dart';
 
@@ -24,6 +25,7 @@ Future<void> editServiceDialogueBox({
   required List<dynamic> links, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
+  required String service_link,
   required String duration, 
   required String time, 
   required String date, 
@@ -97,9 +99,11 @@ Future<void> editServiceDialogueBox({
                   ),
                 ),
                 SizedBox(height: 30.h,),
-                //2
+                //2            
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    shareProfileLink(link: service_link);
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [

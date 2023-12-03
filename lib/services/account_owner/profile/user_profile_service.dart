@@ -573,7 +573,62 @@ class AccOwnerProfileService extends getx.GetxController {
     }
   }
 
+  //delete media detailsw
+  Future<void> deleteMediaData({
+    required BuildContext context,
+    required String name,
+    required String link,
+    required String icon,
+  }) async {
 
+    isLoading.value = true;
+
+    try {   
+      
+      var body = {
+        "name": name,
+        "link": link,
+        "icon": icon,
+      };
+
+      final http.Response res = await baseService.httpDelete(
+        endPoint: "profile/delete-user-link",
+        body: body
+      );
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        // Successful response, handle accordingly
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user media deleted successfully");
+        //sucess snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "media deleted successfully"
+        );
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete media"
+        );
+      }
+    } 
+    catch (e, stackTrace) {
+      // Handle exceptions
+      isLoading.value = false;
+      debugPrint("$e");
+      debugPrint("$stackTrace");
+      throw const HttpException("Something went wrong");
+    }
+  }
   
 
 

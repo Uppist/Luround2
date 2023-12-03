@@ -1,10 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_screen.dart';
+//import 'package:luround/views/account_owner/services/widget/delete_service/delete_service_bottomsheet.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 
 
@@ -17,6 +20,8 @@ class OtherDetailsSection extends StatelessWidget {
   final AccOwnerProfileService profileService;
   final VoidCallback onPressedEdit;
   final List<dynamic> media_links;
+
+  var controller = Get.put(AccOwnerProfileService());
  
   @override
   Widget build(BuildContext context) {
@@ -50,44 +55,65 @@ class OtherDetailsSection extends StatelessWidget {
           itemCount: media_links.length,
           separatorBuilder: (context, index) => SizedBox(height: 30.h),
           itemBuilder: (context, index) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //Icon
-                SvgPicture.asset(
-                  media_links[index]["icon"] ?? "icon",
-                  height: 55.h, width: 55.w,
-                ),
-                SizedBox(width: 15.w,),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //Title text
-                    Text(
-                      media_links[index]['name'] ?? "name",
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
+            return Dismissible(
+              key: UniqueKey(),
+              direction: DismissDirection.endToStart,
+              background: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Icon(
+                    Icons.delete_outline_rounded,
+                    color: AppColor.redColor
+                  )
+                ]
+              ),
+              onDismissed: (direction) async{
+                await controller.deleteMediaData(
+                  context: context, 
+                  name: media_links[index]['name'], 
+                  link: media_links[index]['link'], 
+                  icon: media_links[index]["icon"]
+                );
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //Icon
+                  SvgPicture.asset(
+                    media_links[index]["icon"] ?? "icon",
+                    height: 55.h, width: 55.w,
+                  ),
+                  SizedBox(width: 15.w,),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //Title text
+                      Text(
+                        media_links[index]['name'] ?? "name",
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.blackColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          )
                         )
-                      )
-                    ),
-                    SizedBox(height: 7.h,), //10
-                    //Subtitle text
-                    Text(
-                      media_links[index]["link"] ?? "link",
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.darkGreyColor,
-                          fontSize: 15.sp,
+                      ),
+                      SizedBox(height: 7.h,), //10
+                      //Subtitle text
+                      Text(
+                        media_links[index]["link"] ?? "link",
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.darkGreyColor,
+                            fontSize: 15.sp,
+                          )
                         )
-                      )
-                    ),
-                  ],
-                )
-              ],
+                      ),
+                    ],
+                  )
+                ],
+              ),
             );
           }
         )

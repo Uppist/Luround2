@@ -153,6 +153,7 @@ class ServicesPage extends StatelessWidget {
                                           InkWell(
                                             onTap: () {
                                               editServiceDialogueBox(
+                                                service_link: data[index].service_link,
                                                 context: context, 
                                                 userId: data[index].service_provider_details['userId'],
                                                 email: data[index].service_provider_details['email'],
@@ -219,12 +220,17 @@ class ServicesPage extends StatelessWidget {
                                         children: [
                                           SvgPicture.asset("assets/svg/link_icon.svg"),
                                           SizedBox(width: 10.w,),
-                                          Text(
-                                            data[index].links[0],
-                                            style: GoogleFonts.inter(
-                                              color: AppColor.blueColor,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w500
+                                          InkWell(
+                                            onTap: () {
+                                              userService.launchUrlLink(link: data[index].links[0]);
+                                            },
+                                            child: Text(
+                                              data[index].links[0],
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blueColor,
+                                                fontSize: 15.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
                                             ),
                                           ),
                                         ],

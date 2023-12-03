@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -36,10 +37,19 @@ import '../widget/reviews/reviews_screen.dart';
 
 
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+
 
   final ProfilePageController controller = Get.put(ProfilePageController());
+
   final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
+
   final String userEmail = LocalStorage.getUseremail();
 
   Future<void> _refresh() async {
@@ -47,6 +57,42 @@ class ProfilePage extends StatelessWidget {
     await Future.delayed(Duration(seconds: 1));
     await userProfileService.getUserProfileDetails(email: userEmail);
   }
+  
+  ScrollController? _scrollController;
+  bool showShareIcon = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController();
+    _scrollController!.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    _scrollController!.dispose();
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    if (_scrollController!.position.userScrollDirection == ScrollDirection.reverse) {
+      // Scrolling down
+      if (showShareIcon) {
+        setState(() {
+          showShareIcon = false;
+        });
+      }
+    } else if (_scrollController!.position.userScrollDirection == ScrollDirection.forward) {
+      // Scrolling up
+      if (!showShareIcon) {
+        setState(() {
+          showShareIcon = true;
+        });
+      }
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +109,9 @@ class ProfilePage extends StatelessWidget {
               _buildHeaderSection(),
               Expanded(
                 child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
                   physics: BouncingScrollPhysics(),
+                  //controller: _scrollController,
                   child: _buildContent(),
                 ),
               ),
@@ -74,8 +122,6 @@ class ProfilePage extends StatelessWidget {
       floatingActionButton: _buildShareProfileButton()
     );
   }
-
-
 
   Widget _buildHeaderSection() {
     return Padding(
@@ -103,7 +149,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  
   Widget _buildShareProfileButton() {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),
@@ -152,7 +197,7 @@ class ProfilePage extends StatelessWidget {
             onPressed: () {
               shareProfileLink(link: data.luround_url);
             },
-            label: Text(
+            label: showShareIcon ? Icon(Icons.share) : Text(
               'Share Profile',
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
@@ -177,7 +222,6 @@ class ProfilePage extends StatelessWidget {
       },
     );
   }
-
 
   Widget _buildEditProfileButton() {
     return FutureBuilder<UserModel>(
@@ -219,7 +263,7 @@ class ProfilePage extends StatelessWidget {
       },
     );
   }
-  
+
   //[MAIN CONTENT HERE]//
   Widget _buildContent() {
     return FutureBuilder<UserModel>(
@@ -459,7 +503,6 @@ class ProfilePage extends StatelessWidget {
   }
 
   // ... (other existing methods)
-
   Widget _buildQrCode(UserModel data) {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),
@@ -575,7 +618,6 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-
   Widget _buildUserName(UserModel data) {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),
@@ -630,8 +672,4 @@ class ProfilePage extends StatelessWidget {
       }
     );
   }
-
-
-
-
 }

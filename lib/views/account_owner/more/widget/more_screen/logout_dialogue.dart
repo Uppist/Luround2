@@ -42,8 +42,8 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
           () {
             return authService.isLoading.value 
             ?SizedBox(
-              height: 50.h,
-              width: 50.h,
+              height: 40.h,
+              width: 40.h,
               child: Loader(),
             ) 
             : Wrap(  

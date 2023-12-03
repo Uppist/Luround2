@@ -79,6 +79,8 @@ class TransactionsController extends getx.GetxController {
   final searchBankController2 = TextEditingController();
 
   //TRANSFER SCREEN//
+  getx.RxString firstTimeOTP = ''.obs;  //to create wallet pin
+  getx.RxString verifyFirstTimeOTP = ''.obs;  //to verify wallet pin
   final enterAmountController = TextEditingController();
   final enterRemarkController = TextEditingController();
   var isTrxNextButtoReady = false.obs;

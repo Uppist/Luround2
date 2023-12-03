@@ -89,7 +89,7 @@ class AccOwnerProfileService extends getx.GetxController {
   }
   
 
-  /////[GET USER PROFILE DETAILS]//////
+  /////[GET USER PROFILE DETAILS]/////
   Future<UserModel> getUserProfileDetails({required String email}) async {
     isLoading.value = true;
     try {

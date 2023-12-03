@@ -14,6 +14,7 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ac
 
 
 class SelectBankScreen2 extends StatelessWidget {
+  
   SelectBankScreen2({super.key});
 
   var controller = Get.put(TransactionsController());

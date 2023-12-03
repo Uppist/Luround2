@@ -109,7 +109,7 @@ class ServicesPage extends StatelessWidget {
                   if (snapshot.hasError) {
                     debugPrint("${snapshot.error}");
                   }
-                  if (!snapshot.hasData) {
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     print("sn-trace: ${snapshot.stackTrace}");
                     print("sn-data: ${snapshot.data}");
                     return ServiceEmptyState(

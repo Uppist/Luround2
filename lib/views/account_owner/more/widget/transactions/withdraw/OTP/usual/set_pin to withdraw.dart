@@ -35,8 +35,9 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+          physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -55,7 +56,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                   ),
                   InkWell(
                     onTap: () {
-                      //Get.back();
+                      Get.back();
                     },
                     child: Icon(
                       CupertinoIcons.xmark,
@@ -117,7 +118,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                 ),
               ),
               SizedBox(height: 40.h,),
-
+        
               ///[OTP TEXTFIELD]///
               Focus(
                 child: OtpTextField(
@@ -158,7 +159,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                   Get.to(() => TransferFundsSuccessScreen(amount: 'N5000',));
                 },
               ),
-
+        
             ]
           ),
         ) 

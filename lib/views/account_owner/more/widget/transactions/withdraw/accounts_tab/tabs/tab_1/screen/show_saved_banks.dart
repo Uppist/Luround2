@@ -37,7 +37,7 @@ class ShowSavedBanks extends StatelessWidget {
 
             SizedBox(height: 40.h,),
 
-            //LIST OF SAVED BANKS GOTTEN FROM BACKEND API//
+            //LIST OF SAVED BANKS GOTTEN FROM BACKEND API/
             Expanded(
               child: ListView.separated(
                 shrinkWrap: true,

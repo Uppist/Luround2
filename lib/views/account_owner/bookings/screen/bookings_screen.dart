@@ -175,7 +175,7 @@ class _BookingsPageState extends State<BookingsPage> {
                   if (snapshot.hasError) {
                    print(snapshot.error);
                   }
-                  if (!snapshot.hasData) {
+                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     print("uh--oh! nothing dey;");
                     return BookingScreenEmptyState(
                       onPressed: () {
@@ -200,7 +200,14 @@ class _BookingsPageState extends State<BookingsPage> {
                             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                             itemBuilder: (context, index) {
 
-                              //DetailsModel details = service.dataList[index][index];
+                              /*if(service.dataList.isEmpty) {
+                                print("data list is empty fam");
+                                return BookingScreenEmptyState(
+                                  onPressed: () {
+                                    service.getUserBookings();
+                                  },
+                                );
+                              }*/
 
                               return Container(
                                 alignment: Alignment.center,

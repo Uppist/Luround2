@@ -22,7 +22,7 @@ TransferFundsSuccessScreen({super.key, required this.amount});
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +98,7 @@ TransferFundsSuccessScreen({super.key, required this.amount});
               ),
               SizedBox(height: 20.h,),
             ]
-          )
+          ),
         )
       )
     );

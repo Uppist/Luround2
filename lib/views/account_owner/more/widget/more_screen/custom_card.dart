@@ -37,7 +37,7 @@ class CustomCard extends StatelessWidget {
                 title,
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: 15.sp,
                   color: AppColor.blackColor
                 ),
               )
@@ -86,7 +86,7 @@ class CustomCard2 extends StatelessWidget {
                 title,
                 style: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
-                  fontSize: 16.sp,
+                  fontSize: 15.sp,
                   color: AppColor.blackColor
                 ),
               )

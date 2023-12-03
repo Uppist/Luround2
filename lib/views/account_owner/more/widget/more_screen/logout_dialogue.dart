@@ -40,7 +40,13 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
         contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
         content: Obx(
           () {
-            return authService.isLoading.value ? Loader() : Wrap(
+            return authService.isLoading.value 
+            ?SizedBox(
+              height: 50.h,
+              width: 50.h,
+              child: Loader(),
+            ) 
+            : Wrap(  
               children: [
                 Column(
                   //mainAxisAlignment: MainAxisAlignment.start,
@@ -60,8 +66,9 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 15.sp,
-                        //fontWeight: FontWeight.bold
-                      )
+                        fontWeight: FontWeight.w500
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                     SizedBox(height: 40.h,),
                     Row(

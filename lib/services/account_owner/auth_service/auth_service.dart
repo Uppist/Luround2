@@ -193,18 +193,19 @@ class AuthService extends getx.GetxController {
 
   //to log a user out locally and simultaneously with google
   Future<dynamic> logoutUser() async {
-    //isLoading.value = true;
+    isLoading.value = true;
     await LocalStorage.deleteToken();
     await LocalStorage.deleteUserID();
     await LocalStorage.deleteUseremail();
     await LocalStorage.deleteUsername();
     await LocalStorage.deleteCloudinaryUrl();
-    await signOutWithGoogle().then((value) {
+    await signOutWithGoogle();
+    /*.then((value) {
       getx.Get.offAll(() => LoginPage());
       print('logged out succesfully');
-    });
-    //isLoading.value = false;
-    //getx.Get.offAll(() => LoginPage());
+    });*/
+    isLoading.value = false;
+    getx.Get.offAll(() => LoginPage());
   }
 
 
@@ -273,7 +274,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode} - ${res.body}"
+          message: "failed => status: ${res.statusCode} - ${res.body}"
         );
       }
     } 

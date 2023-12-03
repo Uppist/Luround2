@@ -14,7 +14,7 @@ import 'package:luround/views/account_owner/services/screen/service_empty_state.
 import 'package:luround/views/account_owner/services/widget/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/edit_service/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/toggle_service_price_container/toggle_price.dart';
-import '../../../../services/account_owner/local_storage/local_storage.dart';
+import '../../../../services/account_owner/data_service/local_storage/local_storage.dart';
 
 
 

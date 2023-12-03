@@ -42,7 +42,7 @@ class BookingScreenEmptyState extends StatelessWidget {
               ),
               SizedBox(height: 15.h,),
               Text(
-                "When you get bookings, they'll\n                 show up here",
+                "When you get bookings, they'll\n              show up here",
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.darkGreyColor,

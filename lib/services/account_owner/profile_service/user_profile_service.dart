@@ -5,12 +5,12 @@ import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 import 'package:luround/models/account_owner/user_profile/certificates_response.dart';
 import 'package:luround/models/account_owner/user_profile/update_displayname_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
-import 'package:luround/services/account_owner/base_service/base_service.dart';
+import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:luround/services/account_owner/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
@@ -282,12 +282,24 @@ class AccOwnerProfileService extends getx.GetxController {
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
         isImageSelected.value = true;
-        await uploadImageToCloudinary(); //.then((value) => getx.Get.back());
+        await uploadImageToCloudinary();
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "photo updated successfully"
+        );
         update();
       }
     }
     catch (e) {
       debugPrint("Error Pickig Image From Gallery: $e");
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "failed to update photo"
+      );
     }
   }
 

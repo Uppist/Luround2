@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
+import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 
 
 

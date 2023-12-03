@@ -30,56 +30,61 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
   
   var controller = Get.put(ServicesController());
 
-  //func that opens this awesome time range picker package
-  Future<void> openTimeRangePicker({required BuildContext context, required int index}) async{
-    TimeRange result = await showTimeRangePicker(
-      context: context,
-      //start: TimeOfDay.now()
-      paintingStyle: PaintingStyle.stroke,
-      use24HourFormat: true,
-      //strokeColor: AppColor.mainColor,
-      //handlerColor: AppColor.mainColor,
-      handlerRadius: 12,
-      //selectedColor: AppColor.mainColor,
-      //backgroundColor: AppColor.greyColor,
-      barrierDismissible: false,
-      //timeTextStyle: GoogleFonts.inter(),
-      //activeTimeTextStyle: GoogleFonts.inter()
-
+  //t1
+  Future<void> openFlutterTimePickerForStartTimeEdit({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
     );
-    controller.startTimeValueEdit.value = controller.startTimeFuncEdit(startTime: result.startTime);
-    controller.stopTimeValueEdit.value = controller.stopTimeFuncEdit(stopTime: result.endTime);
-    setState(() {
-      controller.daysOfTheWeekCheckBoxEdit[index].addAll({
-        "from": controller.startTimeValueEdit.value, 
-        "to" : controller.stopTimeValueEdit.value,
+
+    if (time != null) {
+
+      setState(() {
+        controller.startTimeValueEdit.value = time.format(context);
+        controller.daysOfTheWeekCheckBoxEdit[index].addAll({
+          "from" : controller.startTimeValueEdit.value,
+        });
       });
-    });
-    print("start = ${controller.startTimeValueEdit.value} : stop = ${controller.stopTimeValueEdit.value}");
-  
-    //print("start = ${jay} : stop = ${alvin}");
+
+    }
   }
 
-  
+  //t2
+  Future<void> openFlutterTimePickerForStopTimeEdit({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
+    );
 
+    if (time != null) {
+      setState(() {
+        controller.stopTimeValueEdit.value = time.format(context);
+        controller.daysOfTheWeekCheckBoxEdit[index].addAll({
+          "to" : controller.stopTimeValueEdit.value,
+        });
+      });
+    }
+  }
   
   
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        openTimeRangePicker(context: context, index: widget.index);
-      },
-      child: Container(
-        color: AppColor.bgColor,
-        width: double.infinity,
-        padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20.h),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            //from container      
-            Container(
+    return Container(
+      color: AppColor.bgColor,
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20.h),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          //from container      
+          InkWell(
+            onTap: () {
+              openFlutterTimePickerForStartTimeEdit(context: context, index: widget.index);
+            },
+            child: Container(
               alignment: Alignment.center,
               height: 40.h,
               width: 95.w,
@@ -113,22 +118,27 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
                 ],
               ),
             ),
+          ),
 
-            SizedBox(width: 10.w,),
-            Text(
-              "-",
-              style: GoogleFonts.inter(
-                textStyle: TextStyle(
-                  color: AppColor.textGreyColor,
-                  fontSize: 16.sp,
-                  //fontWeight: FontWeight.w500
-                )
+          SizedBox(width: 10.w,),
+          Text(
+            "-",
+            style: GoogleFonts.inter(
+              textStyle: TextStyle(
+                color: AppColor.textGreyColor,
+                fontSize: 16.sp,
+                //fontWeight: FontWeight.w500
               )
-            ),           
-            SizedBox(width: 10.w,),
+            )
+          ),           
+          SizedBox(width: 10.w,),
 
-            //to container
-            Container(
+          //to container
+          InkWell(
+            onTap: () {
+              openFlutterTimePickerForStopTimeEdit(context: context, index: widget.index);
+            },
+            child: Container(
               alignment: Alignment.center,
               height: 40.h,
               width: 95.w,
@@ -162,27 +172,27 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
                 ],
               ),
             ),
-            SizedBox(width: 5.w,),
+          ),
+          SizedBox(width: 5.w,),
 
-            //delete icon
-            Expanded(
-              child: IconButton(
-                onPressed: () {
-                  setState(() {
-                    controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"] = false;
-                    controller.daysOfTheWeekCheckBoxEdit[widget.index]['to'] = "to";
-                    controller.daysOfTheWeekCheckBoxEdit[widget.index]['from'] = "from";
-                  });
-                  print(controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"]);
-                }, 
-                icon: Icon(Icons.delete_outline_rounded),
-                color: AppColor.textGreyColor,
-                enableFeedback: true,
-              ),
-            )
-          ],
-        )     
-      ),
+          //delete icon
+          Expanded(
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"] = false;
+                  controller.daysOfTheWeekCheckBoxEdit[widget.index]['to'] = "to";
+                  controller.daysOfTheWeekCheckBoxEdit[widget.index]['from'] = "from";
+                });
+                print(controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"]);
+              }, 
+              icon: Icon(Icons.delete_outline_rounded),
+              color: AppColor.textGreyColor,
+              enableFeedback: true,
+            ),
+          )
+        ],
+      )     
     );
   }
 }

@@ -12,8 +12,9 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/fo
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_expired.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/reset_password.dart';
-import 'package:luround/views/account_owner/auth/screen/login/password_textfield.dart';
-import 'package:luround/views/account_owner/auth/screen/login/textfield.dart';
+import 'package:luround/views/account_owner/auth/screen/login/login_with_google.dart';
+import 'package:luround/views/account_owner/auth/screen/login/textfields/password_textfield.dart';
+import 'package:luround/views/account_owner/auth/screen/login/textfields/textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
 
@@ -75,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                               size: 23,
                             ),
                           ),
-                          SizedBox(width: 110.w),
+                          SizedBox(width: 120.w),
                           //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                           Image.asset('assets/images/luround_logo.png')
                         ]
@@ -157,8 +158,8 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                               "Forgot Password ?",
                               style: GoogleFonts.inter(
-                                color: AppColor.redColor,
-                                fontSize: 14.sp,
+                                color: AppColor.darkGreyColor,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),
@@ -178,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         SizedBox(height: 70.h,),
-                        SignInWithGoogleWidget(
+                        LoginWithGoogleWidget(
                           onGoogleSignIn: () {
                             controller.signInWithGoogleAuth(context);
                           },

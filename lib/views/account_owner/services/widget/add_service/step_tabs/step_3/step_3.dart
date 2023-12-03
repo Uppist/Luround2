@@ -145,7 +145,7 @@ class _Step3PageState extends State<Step3Page> {
                   service_charge_in_person: mainController.inPersonController.text, 
                   service_charge_virtual: mainController.virtualController.text, 
                   duration: mainController.formatDuration(), 
-                  time: "${mainController.startTimeValue} - ${mainController.stopTimeValue}",
+                  time: "${mainController.startTimeValue.value} - ${mainController.stopTimeValue.value}",
                   date: mainController.selectDurationRadio,             
                   available_days: mainController.availableDays(),
                 ).whenComplete(() {

@@ -8,7 +8,7 @@ import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
+import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/textfields/reg_password_textfield.dart';
 
@@ -76,7 +76,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                               size: 23,
                             ),
                           ),
-                          SizedBox(width: 110.w),
+                          SizedBox(width: 120.w),
                           //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                           Image.asset('assets/images/luround_logo.png')
                         ]

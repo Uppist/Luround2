@@ -15,7 +15,7 @@ import 'package:get/get.dart' as getx;
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
-import 'package:luround/views/account_owner/auth/screen/login/login_screen.dart';
+import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 

@@ -228,28 +228,15 @@ class ServicesController extends getx.GetxController {
   //to activate the next/done button in step 3 screen
   final isCheckBoxActive = false.obs;
 
+
+
+
+
   
   //service_screen time picker (add_service_step 3)/// ///////////////////////////////
   //(save to db) the two of them
   final startTimeValue = "".obs; 
   final stopTimeValue = "".obs;
-  
-  //function that converts the start time to String
-  String startTimeFunc({required TimeOfDay startTime}) {
-    String formattedTime = DateFormat.jm().format(
-      DateTime(2023, 1, 2, startTime.hour, startTime.minute),
-    );
-    print(formattedTime); // This will print the time in "h:mm a" format
-    return formattedTime;
-  }
-  //function that converts the stop time to String
-  String stopTimeFunc({required TimeOfDay stopTime}) {
-    String formattedTime = DateFormat.jm().format(
-      DateTime(2023, 1, 2, stopTime.hour, stopTime.minute),
-    );
-    print(formattedTime); // This will print the time in "h:mm a" format
-    return formattedTime;
-  }
 
   /*String getStartTime ({required String initialTime}) {
     if(startTimeValue.isNotEmpty) { 
@@ -265,8 +252,90 @@ class ServicesController extends getx.GetxController {
       return stopTimeValue.value;
     }
     return initialTime;
+  }
+  
+  //get the start time coming from the server
+  String splitTimeRangeT1 ({required String timeRange}) {
+
+    // Split the string based on the hyphen
+    List<String> timeStrings = timeRange.split('-');
+
+    // Trim any leading or trailing whitespace
+    String startTime = timeStrings[0].trim();
+
+    print("Start Time: $startTime");
+    return startTime;
+  }
+  
+  
+  //get the stop time coming from the server
+  String splitTimeRangeT2 ({required String timeRange}) {
+    // Split the string based on the hyphen
+    List<String> timeStrings = timeRange.split('-');
+
+    // Trim any leading or trailing whitespace
+    String endTime = timeStrings[1].trim();
+
+    print("End Time: $endTime");
+    return endTime;
   }*/
+
+
+  
+  //t1
+  /*Future<void> openFlutterTimePickerForStartTime({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
+    );
+
+    if (time != null) {
+      startTimeValue.value = time.format(context);
+      daysOfTheWeekCheckBox[index].addAll({
+        "from" : startTimeValue.value,
+      });
+    }
+    update();
+  }
+  
+  //t2
+  Future<void> openFlutterTimePickerForStopTime({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
+    );
+
+    if (time != null) {
+      stopTimeValue.value = time.format(context);
+      daysOfTheWeekCheckBox[index].addAll({
+        "to" : stopTimeValue.value,
+      });
+    }
+    update();
+  }*/
+
   /////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 
@@ -506,43 +575,85 @@ class ServicesController extends getx.GetxController {
   //(save to db) the two of them
   final startTimeValueEdit = "".obs; 
   final stopTimeValueEdit = "".obs;
-  
-  //function that converts the start time to String
-  String startTimeFuncEdit({required TimeOfDay startTime}) {
-    String formattedTime = DateFormat.jm().format(
-      DateTime(2023, 1, 2, startTime.hour, startTime.minute),
-    );
-    print(formattedTime); // This will print the time in "h:mm a" format
-    return formattedTime;
-  }
-  //function that converts the stop time to String
-  String stopTimeFuncEdit({required TimeOfDay stopTime}) {
-    String formattedTime = DateFormat.jm().format(
-      DateTime(2023, 1, 2, stopTime.hour, stopTime.minute),
-    );
-    print(formattedTime); // This will print the time in "h:mm a" format
-    return formattedTime;
-  }
+
 
   /*String getStartTime ({required String initialTime}) {
-    if(startTimeValue.isNotEmpty) { 
-      debugPrint("t1: $startTimeValue");
-      return startTimeValue.value;
+    if(startTimeValueEdit.isNotEmpty) { 
+      debugPrint("t1: $startTimeValueEdit");
+      return startTimeValueEdit.value;
     }
     return initialTime;
   }
 
   String getStopTime ({required String initialTime}) {
-    if(stopTimeValue.isNotEmpty) { 
-      print("t2: $stopTimeValue");
-      return stopTimeValue.value;
+    if(stopTimeValueEdit.isNotEmpty) { 
+      print("t2: $stopTimeValueEdit");
+      return stopTimeValueEdit.value;
     }
     return initialTime;
+  }
+  
+  //get the start time coming from the server
+  String splitTimeRangeT1 ({required String timeRange}) {
+
+    // Split the string based on the hyphen
+    List<String> timeStrings = timeRange.split('-');
+
+    // Trim any leading or trailing whitespace
+    String startTime = timeStrings[0].trim();
+
+    print("Start Time: $startTime");
+    return startTime;
+  }
+  
+  
+  //get the stop time coming from the server
+  String splitTimeRangeT2 ({required String timeRange}) {
+    // Split the string based on the hyphen
+    List<String> timeStrings = timeRange.split('-');
+
+    // Trim any leading or trailing whitespace
+    String endTime = timeStrings[1].trim();
+
+    print("End Time: $endTime");
+    return endTime;
   }*/
+
+
+  
+  //t1
+  /*Future<void> openFlutterTimePickerForStartTimeEdit({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
+    );
+
+    if (time != null) {
+      startTimeValueEdit.value = time.format(context);
+      daysOfTheWeekCheckBoxEdit[index].addAll({
+      "from" : startTimeValueEdit.value,
+    });
+    }
+  }
+  
+  //t2
+  Future<void> openFlutterTimePickerForStopTimeEdit({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input
+    );
+
+    if (time != null) {
+      stopTimeValueEdit.value = time.format(context);
+      daysOfTheWeekCheckBoxEdit[index].addAll({
+      "to" : stopTimeValueEdit.value,
+    });
+    }
+  }*/
+
   /////////////////////////////////////////////////////
-
-
-
 
 
 

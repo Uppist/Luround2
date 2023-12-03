@@ -36,7 +36,7 @@ class FirstPage extends StatelessWidget {
               style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
                 fontSize: 16.sp,
-                fontWeight: FontWeight.w500
+                fontWeight: FontWeight.w600
               ),
             ),
           ),        

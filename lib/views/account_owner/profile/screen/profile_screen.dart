@@ -535,23 +535,28 @@ class ProfilePage extends StatelessWidget {
         if (snapshot.hasData) {
           var data = snapshot.data!;
         
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: Container(
-              alignment: Alignment.center,
-              height: 300.h,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
-                image:  data.photoUrl == "my_photo" ?
-                DecorationImage(
-                  image: AssetImage('assets/images/empty_picc.png'),
-                  fit: BoxFit.contain
-                )
-                :DecorationImage(
-                  image: NetworkImage(data.photoUrl),
-                  fit: BoxFit.cover
-                )
+          return InkWell(
+            onTap: () {
+              userProfileService.pickImageFromGallery(context: context);
+            },
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              child: Container(
+                alignment: Alignment.center,
+                height: 300.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
+                  image:  data.photoUrl == "my_photo" ?
+                  DecorationImage(
+                    image: AssetImage('assets/images/empty_picc.png'),
+                    fit: BoxFit.contain
+                  )
+                  :DecorationImage(
+                    image: NetworkImage(data.photoUrl),
+                    fit: BoxFit.cover
+                  )
+                ),
               ),
             ),
           );

@@ -11,7 +11,6 @@ import 'package:get/get.dart' as getx;
 
 class TransactionsController extends getx.GetxController {
 
-  final TextEditingController selectedCountryController = TextEditingController();
   var isCountrySelected = false.obs;
   var isBankSelected = false.obs;
   var isBankSelected2 = false.obs;
@@ -70,7 +69,7 @@ class TransactionsController extends getx.GetxController {
   final searchBankController = TextEditingController();
 
 
-  ////NEW ACCOUNT TAB////
+  ////NEW ACCOUNT TAB (2)////
   final enterBankController = TextEditingController();
   final enterAccountNameController = TextEditingController();
   final enterAccountNumberController = TextEditingController();
@@ -81,6 +80,8 @@ class TransactionsController extends getx.GetxController {
   //TRANSFER SCREEN//
   getx.RxString firstTimeOTP = ''.obs;  //to create wallet pin
   getx.RxString verifyFirstTimeOTP = ''.obs;  //to verify wallet pin
+  final TextEditingController selectedCountryController = TextEditingController();
+
   final enterAmountController = TextEditingController();
   final enterRemarkController = TextEditingController();
   var isTrxNextButtoReady = false.obs;
@@ -110,7 +111,7 @@ class TransactionsController extends getx.GetxController {
     enterAccountNumberController.dispose();
     enterBankController.dispose();
 
-    enterAccountNameController.dispose(); ////
+    //enterAccountNameController.dispose(); ////
 
     //transfer screen
     enterRemarkController.dispose();

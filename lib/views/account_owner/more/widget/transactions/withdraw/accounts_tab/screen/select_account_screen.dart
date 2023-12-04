@@ -134,12 +134,12 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                     physics: const BouncingScrollPhysics(),
                     children: [
                       //empty state
-                      /*NoSavedAccounts(
+                      NoSavedAccounts(
                         onPressed: () {
                           Get.to(() => AddAccountPageFromButton());
                         },
-                      ),*/
-                      ShowSavedBanks(),
+                      ),
+                      //ShowSavedBanks(),
                       AddNewAccount()     
                     ]
                   ),

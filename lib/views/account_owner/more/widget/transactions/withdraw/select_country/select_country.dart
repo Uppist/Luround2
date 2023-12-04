@@ -91,7 +91,7 @@ class _SelectCountryPageState extends State<SelectCountryPage> {
                               controller.isCountrySelected.value = false;
                               controller.selectedCountryController.text = country.displayNameNoCountryCode;
                             });
-                            print('Select country: ${country.displayNameNoCountryCode}');
+                            print('Select country: ${controller.selectedCountryController.text}');
                           },
                         );
                                             

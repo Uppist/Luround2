@@ -7,6 +7,7 @@ import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
+import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_page.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
@@ -148,28 +149,35 @@ class AuthController extends getx.GetxController {
 
   //Google Sign in with Luround
   Future<dynamic> signInWithGoogleAuth(BuildContext context) async{
-    var user =  await authService.signInWithGoogleTest();
     try {
+      
+      var user =  await authService.signInWithGoogle();
+
       if(user != null) {
-        print("name: ${user.displayName}");
-        print("email: ${user.email}");
-        print("id: ${user.id}");
-        print("guser_photo: ${user.photoUrl}"); 
+        debugPrint("name: ${user.displayName}");
+        debugPrint("email: ${user.email}");
+        debugPrint("guser_id: ${user.id}");
+        debugPrint("guser_photo: ${user.photoUrl}");
+        debugPrint(getFirstName(fullName: user.displayName!));
+        debugPrint(getLastName(fullName: user.displayName!));
+
         await authService.fetchGoogleJwt(
           context: context,
-          email: user.email, 
-          displayName: user.displayName!, 
-          photoUrl: "my_photo", 
+          firstName: getFirstName(fullName: user.displayName ?? "Sample User"),
+          lastName: getLastName(fullName: user.displayName ?? "Sample User"),
+          email: user.email,  
+          photoUrl: user.photoUrl ?? "photoUrl", // Added null check and default value
           google_user_id: user.id,
         );
       }
       else {
         print("User did not complete the process or user is null");
-        LuroundSnackBar.errorSnackBar(message: "Authentication failed");
+        LuroundSnackBar.errorSnackBar(message: "Authentication Failed");
       }
     }
-    catch (e){
-      throw Exception("$e");
+    on Exception catch(e, stackTrace){
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
     }
   }
 
@@ -188,8 +196,9 @@ class AuthController extends getx.GetxController {
     }
     else{
       await authService.sendResetPasswordOTP(context: context, email: fpEmailController.text);
+      return fpFormKey.currentState!.save();
     }
-    return fpFormKey.currentState!.save();
+    //return fpFormKey.currentState!.save();
   }
 
   //to send reset OTP to user 
@@ -205,8 +214,9 @@ class AuthController extends getx.GetxController {
         new_password: resetFpPasswordController.text, 
         otp: int.parse(otpController.text),
       );
+      return resetFpFormKey.currentState!.save();
     }
-    return resetFpFormKey.currentState!.save();
+    //return resetFpFormKey.currentState!.save();
   }
 
 

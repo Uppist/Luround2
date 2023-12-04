@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +12,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/utils/components/extract_firstname.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
@@ -209,19 +210,36 @@ class AuthService extends getx.GetxController {
   }
 
 
-  //SignUp/SignIn with Google
-  Future<GoogleSignInAccount?> signInWithGoogleTest() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    final GoogleSignInAuthentication  googleAuth = await googleUser!.authentication;
-    final AuthCredential credential = GoogleAuthProvider.credential(
-      idToken: googleAuth.idToken,
-      accessToken: googleAuth.accessToken
-    );
-    print("${credential.token}");
-    return googleUser;
-  }
+  //Login or Sign Up with Google
+  Future<GoogleSignInAccount?> signInWithGoogle() async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']); // Add desired scopes
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
+      if (googleUser != null) {
+        // User signed in successfully
+        // You can also fetch additional information if needed
+        // final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        // final AuthCredential credential = GoogleAuthProvider.credential(
+        //   idToken: googleAuth.idToken,
+        //   accessToken: googleAuth.accessToken
+        // );
+        // print("${credential.token}");
+        print("Google fetched user successfully");
+      } else {
+        // User cancelled the sign-in process
+        print("Google Sign-In cancelled by the user");
+      }
+
+      return googleUser;
+    } 
+    catch (e) {
+      print("Error during Google Sign-In: $e");
+      return null; // Handle errors gracefully
+    }
+  }
+  
+  //Log out / Sign Out from Google
   Future<GoogleSignInAccount?> signOutWithGoogle() async {
     final GoogleSignIn _googleSignIn = GoogleSignIn();
     final GoogleSignInAccount? googleUser = await _googleSignIn.signOut();
@@ -233,59 +251,96 @@ class AuthService extends getx.GetxController {
   Future<dynamic> fetchGoogleJwt({
     required BuildContext context,
     required String email,
-    required String displayName,
-    required String? photoUrl,
+    required String firstName,
+    required String lastName,
+    required String photoUrl,
     required String google_user_id,
     }) async {
+    isLoading.value = true;
 
     var body = {
       "email": email,
-      "displayName": displayName,
-      "photoUrl": photoUrl ?? "photoUrl",
+      "firstName": firstName,
+      "lastName": lastName,
+      "photoUrl": photoUrl,
       "google_user_id": google_user_id
     };
 
     try {
       http.Response res = await baseService.httpGooglePost(endPoint: "google/signIn", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
 
         debugPrint('this is response status ==> ${res.statusCode}');
-
-        GoogleSigninResponse response = GoogleSigninResponse.fromJson(jsonDecode(res.body));
-        
-        await LocalStorage.saveToken(response.tokenData);
-        await LocalStorage.saveEmail(email);
-        await LocalStorage.saveUsername(displayName);
+        debugPrint('this is response body ==> ${res.body}');
+        //generate grlink
         await generateQrLink(urlSlug: email);
-        debugPrint("${LocalStorage.getToken()}");
-        debugPrint(email);
-        debugPrint(displayName);
-        getx.Get.offAll(() => MainPage());
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "Welcom $displayName"
-        );
+        
+        //decode response from the server
+        GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.body)); 
+
+        // Access the "accessToken" from the response
+        String accessToken = jsonResponse.tokenData;
+        await LocalStorage.saveToken(accessToken);
+        var token = await LocalStorage.getToken();
+        print(token);
+        
+        // Decode the JWT token with the awesome package {JWT Decoder}
+        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+        //Access the payload
+        if (decodedToken != null) {
+          print("Token payload: $decodedToken");
+          // Access specific claims
+          // Replace 'sub' with the actual claim you want
+          String userId = decodedToken['sub'];
+          String email = decodedToken['email'];
+          String displayName = decodedToken['displayName'];
+          await LocalStorage.saveUserID(userId);
+          await LocalStorage.saveEmail(email);
+          await LocalStorage.saveUsername(displayName);
+          getx.Get.offAll(() => MainPage());
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "welcome onboard"
+          );
+        } 
+        else {
+          print("Failed to decode JWT token.");
+        }
+
       } 
       else {
+        isLoading.value = false;
         debugPrint('this is response body ==>${res.body}');
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => status: ${res.statusCode} - ${res.body}"
+          message: "failed => ${res.statusCode} - ${res.body}"
         );
       }
     } 
+    on FormatException catch(e, stackTrace){
+      isLoading.value = false;
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong: $e"
+      );
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
+    }
     on HttpException {
+      isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "something went wrong"
+        message: "connection timed out"
       );
-      //debugPrint("$e");
     }
   }
 

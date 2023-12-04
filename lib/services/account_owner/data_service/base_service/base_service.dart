@@ -20,7 +20,7 @@ class BaseService extends getX.GetxController {
   
   ///HTTP/// 
   //function that sends a GET request for Google Auth (on a soft)
-  Future<dynamic> httpGooglePost({required String endPoint, required Map<String, dynamic> body}) async {
+  Future<dynamic> httpGooglePost({required String endPoint, required dynamic body}) async {
     //var token = await LocalStorage.getToken();
     Uri url = Uri.parse("$baseUrlForGoogle$endPoint");
     print(url);
@@ -32,8 +32,8 @@ class BaseService extends getX.GetxController {
         //'Authorization': 'Bearer $token',
         "Accept": "*/*",
         "Content-Type": "application/json",
-        "Connection": "keep-alive",
         "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
       } 
       //: null
     );

@@ -61,16 +61,14 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        await generateQrLink(urlSlug: email);
-        
-
+        debugPrint('this is response body ==>${res.body}');
         RegisterResponse response = RegisterResponse.fromJson(json.decode(res.body));
         //save access token
-        LocalStorage.saveToken(response.tokenData);
-        //show the saved token
-        debugPrint("my token: ${LocalStorage.getToken()}");
+        await LocalStorage.saveToken(response.tokenData);
         //check for existing token
         var token = await LocalStorage.getToken();
+        //show the saved token
+        debugPrint("my token: $token");
         // Decode the JWT token
         Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
         // Access the payload
@@ -164,8 +162,9 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
         LoginResponse response = LoginResponse.fromJson(json.decode(res.body));
-        LocalStorage.saveToken(response.tokenData);
+        await LocalStorage.saveToken(response.tokenData);
         //LocalStorage.saveEmail(email);
         debugPrint("my token: ${LocalStorage.getToken()}");
         //check for existing token
@@ -187,6 +186,9 @@ class AuthService extends getx.GetxController {
         else {
           print("Failed to decode JWT token.");
         }
+        //
+        await generateQrLink(urlSlug: email);
+        //
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
         //LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
@@ -302,8 +304,6 @@ class AuthService extends getx.GetxController {
 
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //generate grlink
-        await generateQrLink(urlSlug: email);
         
         //decode response from the server
         GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.body)); 
@@ -332,6 +332,9 @@ class AuthService extends getx.GetxController {
         else {
           print("Failed to decode JWT token.");
         }
+        //generate grlink
+        await generateQrLink(urlSlug: email);
+        //
         getx.Get.offAll(() => MainPage());
         showMySnackBar(
           context: context,

@@ -32,6 +32,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
     context: context, 
     builder: (context) {
       return AlertDialog(
+        backgroundColor: AppColor.bgColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
             Radius.circular(15.r)

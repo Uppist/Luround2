@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 0.1.0
 
 environment:
-  sdk: '>=3.0.6 <4.0.0'
+  sdk: '>=3.0.6 <4.0.0'  #>=3.0.6 <4.0.0
 
 dependencies:
   flutter:
@@ -54,7 +54,8 @@ dependencies:
   date_time_format: ^2.0.1 #for converting date/time
 
   #for network calls and jwt decoder
-  http: ^1.1.0
+  #http: ^1.1.1 #^1.1.2
+  http: 1.1.2
   jwt_decoder: ^2.0.1
   google_sign_in: ^6.1.6
   

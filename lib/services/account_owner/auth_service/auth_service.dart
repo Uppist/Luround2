@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:luround/models/account_owner/auth/create_account_response.dart';
 import 'package:luround/models/account_owner/auth/google_signin_response_model.dart';
 import 'package:luround/models/account_owner/auth/login_respone_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -61,12 +62,40 @@ class AuthService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         await generateQrLink(urlSlug: email);
-        getx.Get.offAll(() => LoginPage());
+        
+
+        RegisterResponse response = RegisterResponse.fromJson(json.decode(res.body));
+        //save access token
+        LocalStorage.saveToken(response.tokenData);
+        //show the saved token
+        debugPrint("my token: ${LocalStorage.getToken()}");
+        //check for existing token
+        var token = await LocalStorage.getToken();
+        // Decode the JWT token
+        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+        // Access the payload
+        if (decodedToken != null) {
+          print("Token payload: $decodedToken");
+          // Access specific claims
+          // Replace 'sub' with the actual claim you want
+          String userId = decodedToken['sub'];
+          String email = decodedToken['email'];
+          String displayName = decodedToken['displayName'];
+          await LocalStorage.saveUserID(userId);
+          await LocalStorage.saveEmail(email);
+          await LocalStorage.saveUsername(displayName);
+        } 
+        else {
+          print("Failed to decode JWT token.");
+        }
+        isLoading.value = false;
+        getx.Get.offAll(() => MainPage());
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "proceed to login"
+          message: "account created successfully"
         );
+
         
       } else {
         isLoading.value = false;
@@ -299,16 +328,16 @@ class AuthService extends getx.GetxController {
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
-          getx.Get.offAll(() => MainPage());
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "welcome onboard"
-          );
         } 
         else {
           print("Failed to decode JWT token.");
         }
+        getx.Get.offAll(() => MainPage());
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "welcome onboard"
+        );
 
       } 
       else {

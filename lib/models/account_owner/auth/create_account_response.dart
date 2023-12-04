@@ -1,0 +1,18 @@
+
+class RegisterResponse {
+  RegisterResponse({
+    required this.tokenData
+  });
+  late final String tokenData;
+
+  
+  RegisterResponse.fromJson(Map<String, dynamic> json){
+    tokenData = json['accessToken'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['accessToken'] = tokenData;
+    return _data;
+  }
+}

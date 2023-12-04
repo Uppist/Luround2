@@ -223,11 +223,9 @@ class AuthService extends getx.GetxController {
   }
 
   Future<GoogleSignInAccount?> signOutWithGoogle() async {
-    final _googleSignIn =  GoogleSignIn(
-      //scopes: ['email'],
-      //serverClientId: "702921706378-gg7k64d8ukc3m8ngq8ml6eqa2071a0vd.apps.googleusercontent.com",
-    );
-    return _googleSignIn.signOut();
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signOut();
+    return googleUser;
   }
 
 
@@ -236,21 +234,23 @@ class AuthService extends getx.GetxController {
     required BuildContext context,
     required String email,
     required String displayName,
-    required String photoUrl,
+    required String? photoUrl,
     required String google_user_id,
     }) async {
 
     var body = {
       "email": email,
       "displayName": displayName,
-      "photoUrl": photoUrl,
+      "photoUrl": photoUrl ?? "photoUrl",
       "google_user_id": google_user_id
     };
 
     try {
       http.Response res = await baseService.httpGooglePost(endPoint: "google/signIn", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
+
         debugPrint('this is response status ==> ${res.statusCode}');
+
         GoogleSigninResponse response = GoogleSigninResponse.fromJson(jsonDecode(res.body));
         
         await LocalStorage.saveToken(response.tokenData);
@@ -304,7 +304,7 @@ class AuthService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "send-reset-password-otp", body: body);
+      http.Response res = await baseService.httpPutAuth(endPoint: "send-reset-password-otp", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -354,7 +354,7 @@ class AuthService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "reset-password", body: body);
+      http.Response res = await baseService.httpPutAuth(endPoint: "reset-password", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

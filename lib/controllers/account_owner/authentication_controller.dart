@@ -148,11 +148,9 @@ class AuthController extends getx.GetxController {
   
 
   //Google Sign in with Luround
-  Future<dynamic> signInWithGoogleAuth(BuildContext context) async{
+  /*Future<dynamic> signInWithGoogleAuth(BuildContext context) async{
+    var user =  await authService.signInWithGoogle();
     try {
-      
-      var user =  await authService.signInWithGoogle();
-
       if(user != null) {
         debugPrint("name: ${user.displayName}");
         debugPrint("email: ${user.email}");
@@ -163,11 +161,11 @@ class AuthController extends getx.GetxController {
 
         await authService.fetchGoogleJwt(
           context: context,
-          firstName: getFirstName(fullName: user.displayName ?? "Sample User"),
-          lastName: getLastName(fullName: user.displayName ?? "Sample User"),
-          email: user.email,  
+          firstName: getFirstName(fullName: user.displayName ?? "Sample"),
+          lastName: getLastName(fullName: user.displayName ?? "User"),
+          email: user.email ?? "email",  
           photoUrl: user.photoUrl ?? "photoUrl", // Added null check and default value
-          google_user_id: user.id,
+          google_user_id: user.id ?? "g_user_id",
         );
       }
       else {
@@ -179,7 +177,7 @@ class AuthController extends getx.GetxController {
       debugPrint("$e");
       debugPrint("trace: $stackTrace");
     }
-  }
+  }*/
 
   //log user out locally with Luround API
   Future logUserOutOfLuround() async{

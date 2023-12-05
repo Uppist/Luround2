@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -86,7 +87,7 @@ class AuthService extends getx.GetxController {
         else {
           print("Failed to decode JWT token.");
         }
-        isLoading.value = false;
+        //isLoading.value = false;
         getx.Get.offAll(() => MainPage());
         showMySnackBar(
           context: context,
@@ -242,31 +243,53 @@ class AuthService extends getx.GetxController {
 
 
   //Login or Sign Up with Google
-  Future<GoogleSignInAccount?> signInWithGoogle() async {
+  Future<void> signInWithGoogle({required BuildContext context}) async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']); // Add desired scopes
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser != null) {
+        print("Google pop up fetched user successfully");
         // User signed in successfully
         // You can also fetch additional information if needed
-        // final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-        // final AuthCredential credential = GoogleAuthProvider.credential(
-        //   idToken: googleAuth.idToken,
-        //   accessToken: googleAuth.accessToken
-        // );
-        // print("${credential.token}");
-        print("Google fetched user successfully");
+        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken
+        );
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        print("${userCredential.user!.displayName}");
+        print("${userCredential.user!.email}");
+        await fetchGoogleJwt(
+          context: context, 
+          email: userCredential.user!.email!, 
+          firstName: getFirstName(fullName: userCredential.user!.displayName!), 
+          lastName: getLastName(fullName: userCredential.user!.displayName!), 
+          photoUrl: userCredential.user!.photoURL ?? "photoUrl", 
+          google_user_id: userCredential.user!.uid
+        );
+
+
       } else {
         // User cancelled the sign-in process
         print("Google Sign-In cancelled by the user");
+        // Handle errors gracefully
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "Sign-In process terminated"
+        );
       }
 
-      return googleUser;
     } 
     catch (e) {
       print("Error during Google Sign-In: $e");
-      return null; // Handle errors gracefully
+      // Handle errors gracefully
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "Error during Google Sign-In: $e"
+      );
     }
   }
   

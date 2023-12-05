@@ -181,7 +181,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(height: 70.h,),
                         LoginWithGoogleWidget(
                           onGoogleSignIn: () {
-                            controller.signInWithGoogleAuth(context);
+                            authService.signInWithGoogle(context: context);
                           },
                           onTextButton: () {
                             Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);

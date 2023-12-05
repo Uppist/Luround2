@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/authentication_controller.dart';
+import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
@@ -26,6 +27,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
   //Dependency injection/Composition
   var controller = Get.put(AuthController());
+  var authService = Get.put(AuthService());
 
   @override
   void initState() {
@@ -166,7 +168,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     SizedBox(height: 70.h),
                     SignInWithGoogleWidget(
                       onGoogleSignIn: () {
-                        controller.signInWithGoogleAuth(context);
+                        authService.signInWithGoogle(context: context);
                       },
                       onTextButton: () {
                         Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);

@@ -5,6 +5,7 @@ import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 import 'package:luround/models/account_owner/user_profile/certificates_response.dart';
 import 'package:luround/models/account_owner/user_profile/update_displayname_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
+import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'dart:convert';
 import 'dart:io';
@@ -32,6 +33,8 @@ class AccOwnerProfileService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var controller = getx.Get.put(ProfilePageController());
+  var authService = getx.Get.put(AuthService());
+  
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var userEmail = LocalStorage.getUserID();
@@ -100,6 +103,7 @@ class AccOwnerProfileService extends getx.GetxController {
         //decode the response body here
         UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
         await LocalStorage.saveUserID(userModel.id);
+        /////////////
         return userModel;
       }
       else {

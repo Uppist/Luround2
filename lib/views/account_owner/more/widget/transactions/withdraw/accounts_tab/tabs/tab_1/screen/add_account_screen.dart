@@ -126,6 +126,7 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
                           textInputAction: TextInputAction.next,
                           textController: controller.inputAccountNameController,
                         ),
+                        
                         SizedBox(height: 300.h,),
 
                         ReusableButton(
@@ -147,6 +148,7 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
                             });
                           },
                         ),
+                        SizedBox(height: 10.h,),
 
                       ]
                     )

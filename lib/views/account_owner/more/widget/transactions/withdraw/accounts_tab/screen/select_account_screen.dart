@@ -100,9 +100,10 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                       children: [
 
                         //added
-                        TabBar(
+                        TabBar(                    
                           physics: const BouncingScrollPhysics(),
                           indicatorColor: AppColor.mainColor,
+                          indicatorSize: TabBarIndicatorSize.tab,
                           //indicatorWeight: 0.1,
                           labelStyle: GoogleFonts.inter(
                             textStyle: TextStyle(
@@ -115,7 +116,7 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                           labelColor: AppColor.bgColor,
                           //padding: EdgeInsets.symmetric(horizontal: 10),
                           indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
+                            //borderRadius: BorderRadius.circular(5.r),
                             color: AppColor.mainColor
                           ),
                           controller: tabController,

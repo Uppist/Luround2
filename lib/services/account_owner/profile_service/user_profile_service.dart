@@ -147,6 +147,7 @@ class AccOwnerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user personal details updated succesfully");
+        //await authService.generateQrLink(urlSlug: userEmail);
         //success snackbar
         showMySnackBar(
           context: context,

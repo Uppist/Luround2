@@ -89,6 +89,7 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.h),
                   child: AnimatedContainer(
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
                       borderRadius: BorderRadius.circular(5.r),
@@ -97,6 +98,8 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                     duration: const Duration(milliseconds: 100),
                     child: Column(
                       children: [
+
+                        //added
                         TabBar(
                           physics: const BouncingScrollPhysics(),
                           indicatorColor: AppColor.mainColor,

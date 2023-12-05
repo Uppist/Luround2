@@ -26,7 +26,7 @@ class BaseService extends getX.GetxController {
     print(url);
     var res = http.post(
       url,
-      body: json.encode(body),
+      body: body,
       headers: //token != null ? 
       {
         //'Authorization': 'Bearer $token',

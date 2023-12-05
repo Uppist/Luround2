@@ -1,8 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart' as diomygee;
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -83,17 +86,26 @@ class AuthService extends getx.GetxController {
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
+          await generateQrLink(urlSlug: email);
+          //isLoading.value = false;
+          getx.Get.offAll(() => MainPage());
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "account created successfully"
+          );
         } 
         else {
           print("Failed to decode JWT token.");
         }
-        //isLoading.value = false;
+        //
+        /*isLoading.value = false;
         getx.Get.offAll(() => MainPage());
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "account created successfully"
-        );
+        );*/
 
         
       } else {
@@ -249,7 +261,7 @@ class AuthService extends getx.GetxController {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
       if (googleUser != null) {
-        print("Google pop up fetched user successfully");
+        print("Google fetched user successfully");
         // User signed in successfully
         // You can also fetch additional information if needed
         final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
@@ -257,31 +269,76 @@ class AuthService extends getx.GetxController {
           idToken: googleAuth.idToken,
           accessToken: googleAuth.accessToken
         );
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        
+        /*UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
         print("${userCredential.user!.displayName}");
-        print("${userCredential.user!.email}");
-        await fetchGoogleJwt(
+        print("${userCredential.user!.email}");*/
+        
+        /*await decodeJWTWithDio(
           context: context, 
           email: userCredential.user!.email!, 
           firstName: getFirstName(fullName: userCredential.user!.displayName!), 
           lastName: getLastName(fullName: userCredential.user!.displayName!), 
-          photoUrl: userCredential.user!.photoURL ?? "photoUrl", 
+          photoUrl: "photoUrl", 
           google_user_id: userCredential.user!.uid
+        );*/
+
+        await decodeJWTWithDio(
+          context: context, 
+          email: googleUser.email, 
+          firstName:getFirstName(fullName: googleUser.displayName!), 
+          lastName: getLastName(fullName: googleUser.displayName!), 
+          photoUrl: "my_photo", 
+          google_user_id: googleUser.id
         );
 
-
-      } else {
+      } 
+      else {
         // User cancelled the sign-in process
         print("Google Sign-In cancelled by the user");
+      }
+
+    }
+    on PlatformException catch (e) {
+      if (e.code == GoogleSignIn.kNetworkError) {
+        print(e.code);
+        String errorMessage = "A network error (such as timeout, interrupted connection or unreachable host) has occurred.";
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: errorMessage
+        );
+      }
+      else if (e.code == GoogleSignIn.kSignInCanceledError) {
+        // User cancelled the sign-in process
+        print("Google Sign-In cancelled by the user");
+        print(e.code);
         // Handle errors gracefully
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "Sign-In process terminated"
+          message: "Sign-In process terminated or cancelled"
         );
       }
-
-    } 
+      else if (e.code == GoogleSignIn.kSignInFailedError) {
+        // User cancelled the sign-in process
+        print(e.code);
+        // Handle errors gracefully
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "Sign-In process failed"
+        );
+      }
+      else {        
+        String errorMessage = "Something went wrong.";
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: errorMessage
+        );
+      }
+    }
     catch (e) {
       print("Error during Google Sign-In: $e");
       // Handle errors gracefully
@@ -292,47 +349,64 @@ class AuthService extends getx.GetxController {
       );
     }
   }
-  
-  //Log out / Sign Out from Google
-  Future<GoogleSignInAccount?> signOutWithGoogle() async {
-    final GoogleSignIn _googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleUser = await _googleSignIn.signOut();
-    return googleUser;
-  }
 
 
-  //to fetch accessToken when a user SignIn/SignUp with google api and then redirect them back to mainpage.
-  Future<dynamic> fetchGoogleJwt({
+  Future<void> decodeJWTWithDio({
     required BuildContext context,
     required String email,
     required String firstName,
     required String lastName,
     required String photoUrl,
     required String google_user_id,
-    }) async {
+  }) async {
     isLoading.value = true;
-
-    var body = {
-      "email": email,
-      "firstName": firstName,
-      "lastName": lastName,
-      "photoUrl": photoUrl,
-      "google_user_id": google_user_id
-    };
-
     try {
-      http.Response res = await baseService.httpGooglePost(endPoint: "google/signIn", body: body);
+
+      //dio instance
+      diomygee.Dio dio = diomygee.Dio();
+      
+      //body to be encoded by dio
+      var body = {
+        "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "photoUrl": photoUrl,
+        "google_user_id": google_user_id
+      };
+
+      //define or state your headers
+      diomygee.Options options = diomygee.Options(
+        headers: {
+          // Your headers
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+          "Accept": "*/*",
+          // Add any other headers as needed
+         },
+      );
+    
+      //make your POST request
+      var res = await dio.post(
+        'https://luround.onrender.com/google/signIn', 
+        /* other parameters */
+        data: body,
+        options: options,
+      );
+
+      //if/else check to make sure everything goes smooth
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
 
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         
         //decode response from the server
-        GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.body)); 
-
+        //GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.data)); 
+        
+        Map<String, dynamic> jsonResponse = res.data;
         // Access the "accessToken" from the response
-        String accessToken = jsonResponse.tokenData;
+        String accessToken = jsonResponse["accessToken"];
+
         await LocalStorage.saveToken(accessToken);
         var token = await LocalStorage.getToken();
         print(token);
@@ -357,7 +431,7 @@ class AuthService extends getx.GetxController {
         }
         //generate grlink
         await generateQrLink(urlSlug: email);
-        //
+        //move with agility to the next page
         getx.Get.offAll(() => MainPage());
         showMySnackBar(
           context: context,
@@ -368,22 +442,23 @@ class AuthService extends getx.GetxController {
       } 
       else {
         isLoading.value = false;
-        debugPrint('this is response body ==>${res.body}');
+        debugPrint('this is response body ==>${res.data}');
         debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response extra ==> ${res.extra}');
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode} - ${res.body}"
+          message: "failed => ${res.statusCode} - ${res.data}"
         );
       }
-    } 
+
+    }
     on FormatException catch(e, stackTrace){
       isLoading.value = false;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "something went wrong: $e"
+        message: "$e"
       );
       debugPrint("$e");
       debugPrint("trace: $stackTrace");
@@ -397,7 +472,21 @@ class AuthService extends getx.GetxController {
         message: "connection timed out"
       );
     }
+    on Exception catch(e, stackTrace){
+      // Handle errors
+      print('Error occurred: $e \n$stackTrace');
+    }
   }
+
+  
+  //Log out / Sign Out from Google
+  Future<GoogleSignInAccount?> signOutWithGoogle() async {
+    final GoogleSignIn _googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signOut();
+    await FirebaseAuth.instance.signOut();
+    return googleUser;
+  }
+  
 
 
   //RESET PASSWORD//

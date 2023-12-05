@@ -20,26 +20,25 @@ var authService = Get.put(AuthService());
 
 ///Alert Dialog
 Future<void> logoutDialogue({required BuildContext context,}) async{
-  showDialog(
-    /*isScrollControlled: true,
+  showModalBottomSheet(
+    isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 2,
     isDismissible: true,
-    backgroundColor: AppColor.bgColor,*/
-    //barrierColor: Theme.of(context).colorScheme.background,
-    barrierDismissible: false,
     useSafeArea: true,
-    context: context, 
+    backgroundColor: AppColor.bgColor,
+    //barrierColor: Theme.of(context).colorScheme.background,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(15)
+      )
+    ),
+    context: context,
     builder: (context) {
-      return AlertDialog(
-        backgroundColor: AppColor.bgColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.r)
-          )
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
-        content: Obx(
+      return Container(
+        //height: 60.h,
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+        child: Obx(
           () {
             return authService.isLoading.value 
             ?SizedBox(

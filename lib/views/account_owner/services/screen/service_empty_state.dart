@@ -22,7 +22,7 @@ class ServiceEmptyState extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       child: Center(
         child: Container(
-          height: MediaQuery.of(context).size.height - 250.h, //240.h
+          height: MediaQuery.of(context).size.height - 240.h, //240.h
           color: AppColor.bgColor,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,8 +41,8 @@ class ServiceEmptyState extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.blackColor,
-                    fontSize: 21.sp,
-                    fontWeight: FontWeight.bold
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600
                   )
                 )
               ),
@@ -56,7 +56,7 @@ class ServiceEmptyState extends StatelessWidget {
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
                           fontSize: 16.sp,
-                          //fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.w500
                         )
                       )
                     ),
@@ -66,7 +66,7 @@ class ServiceEmptyState extends StatelessWidget {
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
                           fontSize: 16.sp,
-                          fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.w500
                         )
                       )
                     ),
@@ -76,14 +76,14 @@ class ServiceEmptyState extends StatelessWidget {
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
                           fontSize: 16.sp,
-                          //fontWeight: FontWeight.bold
+                          fontWeight: FontWeight.w500
                         )
                       )
                     ),
                   ]
                 )
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(height: 60.h,),
               //ADD SECTION BUTTON
               InkWell(
                 onTap: onPressed,

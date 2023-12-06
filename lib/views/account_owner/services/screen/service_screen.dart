@@ -112,10 +112,14 @@ class ServicesPage extends StatelessWidget {
                   if (!snapshot.hasData || snapshot.data!.isEmpty) {
                     print("sn-trace: ${snapshot.stackTrace}");
                     print("sn-data: ${snapshot.data}");
-                    return ServiceEmptyState(
-                      onPressed: () {
-                        Get.to(() => AddServiceScreen());
-                      },
+                    return Expanded(
+                      child: SingleChildScrollView(
+                        child: ServiceEmptyState(
+                          onPressed: () {
+                            Get.to(() => AddServiceScreen());
+                          },
+                        ),
+                      ),
                     );
                   } 
                      

@@ -35,8 +35,8 @@ class BookingScreenEmptyState extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.blackColor,
-                    fontSize: 21.sp,
-                    fontWeight: FontWeight.bold
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600
                   )
                 )
               ),
@@ -46,8 +46,8 @@ class BookingScreenEmptyState extends StatelessWidget {
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.darkGreyColor,
-                    fontSize: 17.sp,
-                    //fontWeight: FontWeight.bold
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500
                   )
                 )
               ),

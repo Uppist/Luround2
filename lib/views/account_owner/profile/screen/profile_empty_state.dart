@@ -33,8 +33,8 @@ class ProfileEmptyState extends StatelessWidget {
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 19.sp,
-                fontWeight: FontWeight.bold
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600
               )
             )
           ),
@@ -48,7 +48,7 @@ class ProfileEmptyState extends StatelessWidget {
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16.sp,
-                      //fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w500
                     )
                   )
                 ),
@@ -58,7 +58,7 @@ class ProfileEmptyState extends StatelessWidget {
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
                       fontSize: 16.sp,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w500
                     )
                   )
                 ),
@@ -68,14 +68,14 @@ class ProfileEmptyState extends StatelessWidget {
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16.sp,
-                      //fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w500
                     )
                   )
                 ),
               ]
             )
           ),
-          SizedBox(height: 30.h,),
+          SizedBox(height: 60.h,),
           //ADD SECTION BUTTON
           InkWell(
             onTap: onPressed,

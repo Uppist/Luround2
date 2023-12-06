@@ -48,71 +48,64 @@ class TrxDashBoard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Obx(
-                () {
-                  return InkWell(
-                    onTap: () {
-                      toggleAccountBalance(
-                        context: context,
-                        onAmountPaidBalance: () {
-                          controller.filterMoneyTypeList('Total amount paid')
-                          .whenComplete(() => Get.back());
-                        },
-                        onAmountReceivedBalance: () {
-                          controller.filterMoneyTypeList('Total amount received')
-                          .whenComplete(() => Get.back());
-                        },
-                        onWalletBalance: () {
-                          controller.filterMoneyTypeList('Wallet')
-                          .whenComplete(() => Get.back());
-                        }
-                      );
+              InkWell(
+                onTap: () {
+                  toggleAccountBalance(
+                    context: context,
+                    onAmountPaidBalance: () {
+                      controller.filterMoneyTypeList('Total amount paid')
+                      .whenComplete(() => Get.back());
                     },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                      alignment: Alignment.center,
-                      height: 50.h,
-                      width: 230.w,
-                      //width: double.infinity,
-                      decoration: BoxDecoration(
-                        color: AppColor.badGreen,
-                        borderRadius: BorderRadius.circular(10.r),
-                        border: Border.all(
-                          color: AppColor.bgColor,
-                          width: 0.8
-                        )
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          
-                          Obx(
-                            () {
-                              return Text(
-                                controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet",
-                                style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                    color: AppColor.bgColor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500
-                                  )
-                                )
-                              );
-                            }
-                          ),
-                                          
-                          Icon(
-                            CupertinoIcons.chevron_up_chevron_down,
-                            color: AppColor.bgColor,
-                            size: 20,
-                          )
-                        ],
-                      ),
-                    
-                    ),
+                    onAmountReceivedBalance: () {
+                      controller.filterMoneyTypeList('Total amount received')
+                      .whenComplete(() => Get.back());
+                    },
+                    onWalletBalance: () {
+                      controller.filterMoneyTypeList('Wallet')
+                      .whenComplete(() => Get.back());
+                    }
                   );
-                }
-              ),
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                  alignment: Alignment.center,
+                  height: 50.h,
+                  width: 230.w,
+                  //width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColor.badGreen,
+                    borderRadius: BorderRadius.circular(10.r),
+                    border: Border.all(
+                      color: AppColor.bgColor,
+                      width: 0.8
+                    )
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [                      
+                      Obx(
+                        () {
+                          return Text(
+                            controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet",
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.bgColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500
+                              )
+                            )
+                          );
+                        }
+                      ),                                        
+                      Icon(
+                        CupertinoIcons.chevron_up_chevron_down,
+                        color: AppColor.bgColor,
+                        size: 20,
+                      )
+                    ],
+                  ),                
+                ),
+              )
             ],
           ),
           SizedBox(height: 60.h,),

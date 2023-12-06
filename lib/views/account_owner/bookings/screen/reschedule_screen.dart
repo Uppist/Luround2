@@ -10,7 +10,7 @@ import 'package:luround/services/account_owner/bookings_service/user_bookings_se
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/bookings/widget/alert_dialogue/reschedule_success.dart';
+import 'package:luround/views/account_owner/bookings/widget/bottomsheets/reschedule_success.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/select_date_bottomsheet.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 

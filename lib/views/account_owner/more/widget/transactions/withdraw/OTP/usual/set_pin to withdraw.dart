@@ -151,7 +151,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                   }, // end onSubmit
                 ),
               ),
-              SizedBox(height: 450.h),
+              SizedBox(height: 440.h),
               ReusableButton(
                 color: AppColor.mainColor,
                 text: 'Withdraw',
@@ -159,7 +159,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                   Get.to(() => TransferFundsSuccessScreen(amount: 'N5000',));
                 },
               ),
-        
+              SizedBox(height: 20.h),
             ]
           ),
         ) 

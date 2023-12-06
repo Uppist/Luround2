@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting_cancelled_dialog.dart';
 
 
 
@@ -15,8 +14,14 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting
 
 
 ///Alert Dialog
-Future<void> cancelBookingDialogueBox({required BuildContext context, required String serviceName}) async{
+Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}) async{
   showModalBottomSheet(
+    /*isScrollControlled: true,
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    elevation: 2,
+    isDismissible: true,
+    backgroundColor: AppColor.bgColor,*/
+    //barrierColor: Theme.of(context).colorScheme.background,
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 2,
@@ -48,26 +53,26 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Cancel "${serviceName}"',
-                  style: GoogleFonts.poppins(
+                  'Meeting Cancelled"',
+                  style: GoogleFonts.inter(
                     color: AppColor.blackColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600
                   )
                 ),
-                SizedBox(height: 40.h),
+                SizedBox(height: 30.h,),
                 Text(
-                  'Are you sure you want to cancel this booking ?',
-                  style: GoogleFonts.poppins(
+                  'This meeting has been cancelled. The other party will be informed of this change.',
+                  style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14.sp,
-                    //fontWeight: FontWeight.bold
+                    fontWeight: FontWeight.w500
                   )
                 ),
-                SizedBox(height: 40.h,),
+                SizedBox(height: 30.h,),
                 InkWell(
                   onTap: () {
-                    meetingCancelledBookingDialogueBox(context: context);
+                    Get.back(closeOverlays: true);
                   },
                   child: Container(
                     //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -75,55 +80,26 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
                     height: 50.h,
                     //width: double.infinity,
                     decoration: BoxDecoration(
-                      color: AppColor.redColor,
+                      color: AppColor.mainColor,
                       borderRadius: BorderRadius.circular(10.r),
                       border: Border.all(
-                        color: AppColor.redColor
+                        color: AppColor.mainColor
                       )
                     ),
                     child: Text(
-                      "Cancel",
-                      style: GoogleFonts.poppins(
+                      "Okay",
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.bgColor,
                           fontSize: 16.sp,
-                          //fontWeight: FontWeight.w500
+                          fontWeight: FontWeight.w500
                         )
                       )
                     ),
                   )
                 ),
-                SizedBox(height: 25.h),
-                InkWell(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Container(
-                    //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                    alignment: Alignment.center,
-                    height: 50.h,
-                    //width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(
-                        color: AppColor.darkGreyColor
-                      )
-                    ),
-                    child: Text(
-                      "Do not cancel",
-                      style: GoogleFonts.poppins(
-                        textStyle: TextStyle(
-                          color: AppColor.darkGreyColor,
-                          fontSize: 16.sp,
-                          //fontWeight: FontWeight.w500
-                        )
-                      )
-                    ),
-                  )
-                ),
-
-                //SizedBox(height: 10,),
+                SizedBox(height: 10.h,),
+                  
               ],
             ),
           ),

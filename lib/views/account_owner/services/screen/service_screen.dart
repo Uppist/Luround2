@@ -220,16 +220,19 @@ class ServicesPage extends StatelessWidget {
                                         children: [
                                           SvgPicture.asset("assets/svg/link_icon.svg"),
                                           SizedBox(width: 10.w,),
-                                          InkWell(
-                                            onTap: () {
-                                              userService.launchUrlLink(link: data[index].links[0]);
-                                            },
-                                            child: Text(
-                                              data[index].links[0],
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.blueColor,
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w500
+                                          Expanded(
+                                            child: InkWell(
+                                              onTap: () {
+                                                userService.launchUrlLink(link: data[index].links[0]);
+                                              },
+                                              child: Text(
+                                                data[index].links[0],
+                                                style: GoogleFonts.inter(
+                                                  color: AppColor.blueColor,
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                                overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ),
@@ -324,7 +327,8 @@ class ServicesPage extends StatelessWidget {
                     )
                   );
                 }
-              ),           
+              ),
+              SizedBox(height: 20.h,)           
             
             ]
           )

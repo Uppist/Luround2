@@ -48,7 +48,7 @@ class TransactionsController extends getx.GetxController {
   ];
   final selectedMoneyType = 'Total amount received    '.obs; //SAVED TO DB
 
-  void filterMoneyTypeList(String? newValue) {
+  Future<void> filterMoneyTypeList(String? newValue) async{
     selectedMoneyType.value = newValue!;
   }
   

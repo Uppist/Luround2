@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+
 
 
 
@@ -15,45 +14,59 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 
 
 ///Alert Dialog
-Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}) async{
-  showDialog(
+Future<void> rescheduleDialogueBox({required BuildContext context,}) async{
+  showModalBottomSheet(
     /*isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 2,
     isDismissible: true,
     backgroundColor: AppColor.bgColor,*/
     //barrierColor: Theme.of(context).colorScheme.background,
+    isScrollControlled: true,
+    clipBehavior: Clip.antiAliasWithSaveLayer,
+    elevation: 2,
+    isDismissible: true,
     useSafeArea: true,
+    backgroundColor: AppColor.bgColor,
+    //barrierColor: Theme.of(context).colorScheme.background,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(15.r)
+      )
+    ),
     context: context, 
     builder: (context) {
-      return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.r)
-          )
-        ),
-        contentPadding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 30.h),
-        content: Wrap(
-          children: [
-            Column(
+      return Wrap(
+        children: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+            decoration: BoxDecoration(
+              //image: DecorationImage(image: AssetImage(''),),
+              color: AppColor.bgColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.r),
+                topRight: Radius.circular(20.r),
+              ),
+            ),
+            child: Column(
               //mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Meeting Cancelled"',
-                  style: GoogleFonts.poppins(
+                  "Meeting Rescheduled",
+                  style: GoogleFonts.inter(
                     color: AppColor.blackColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600
                   )
                 ),
                 SizedBox(height: 30.h,),
                 Text(
-                  'This meeting has been cancelled. The other party will be informed of this change.',
-                  style: GoogleFonts.poppins(
+                  "This meeting has been rescheduled. The other party would be informed of this change.",
+                  style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 13.sp,
-                    //fontWeight: FontWeight.bold
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500
                   )
                 ),
                 SizedBox(height: 30.h,),
@@ -75,22 +88,22 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                     ),
                     child: Text(
                       "Okay",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.bgColor,
                           fontSize: 16.sp,
-                          //fontWeight: FontWeight.w500
+                          fontWeight: FontWeight.w500
                         )
                       )
                     ),
                   )
                 ),
                 SizedBox(height: 10.h,),
-        
+                  
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       );
     }
   );

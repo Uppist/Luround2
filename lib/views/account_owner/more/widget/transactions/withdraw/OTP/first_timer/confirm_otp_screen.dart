@@ -107,7 +107,7 @@ class ConfirmOTPPage extends StatelessWidget {
                           ),
                         ),
 
-                        SizedBox(height: 480.h),
+                        SizedBox(height: 460.h),
 
                         ReusableButton(
                           color: AppColor.mainColor,
@@ -119,6 +119,7 @@ class ConfirmOTPPage extends StatelessWidget {
                             );                    
                           },
                         ),
+                        SizedBox(height: 20.h),
                       ]
                     )
                   )

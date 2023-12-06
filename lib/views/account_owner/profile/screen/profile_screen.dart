@@ -424,6 +424,12 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
 
             SizedBox(height: 30.h),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7.h,
+            ),
+            SizedBox(height: 30.h),
                    
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -435,6 +441,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
                 text: data.about
               ),
+            ),
+            SizedBox(height: 30.h),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7.h,
             ),
             SizedBox(height: 30.h),                          
             Padding(
@@ -448,6 +460,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SizedBox(height: 30.h),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7.h,
+            ),
+            SizedBox(height: 30.h),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w),
               child: OtherDetailsSection(
@@ -459,6 +477,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 profileService: userProfileService,
               ),
             ),
+            SizedBox(height: 30.h),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7.h,
+            ),
+            //SizedBox(height: 30.h),
             SizedBox(height: 50.h),
 
             ///////[RUN CHECK]///////////////
@@ -592,7 +617,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
                   image:  data.photoUrl == "my_photo" ?
                   DecorationImage(
-                    image: AssetImage('assets/images/empty_picc.png'),
+                    image: AssetImage('assets/images/profile_null.png'),
                     fit: BoxFit.contain
                   )
                   :DecorationImage(

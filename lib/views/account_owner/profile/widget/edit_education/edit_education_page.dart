@@ -10,6 +10,7 @@ import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/certificate_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/delete_certificate.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -71,6 +72,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                   height: 7.h,
                 ),
                 SizedBox(height: 20.h,),
+                //1
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Column(
@@ -83,7 +85,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                             'Education & Certification',
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 17.sp,
+                              fontSize: 18.sp,
                               fontWeight: FontWeight.w600
                             )
                           ),
@@ -118,68 +120,137 @@ class _EditEducationPageState extends State<EditEducationPage> {
                             return Loader2();
                           }
                           var data = snapshot.data!;
+                          if(snapshot.hasData) {
 
-                          return SizedBox(
-                            height: 100.h,
-                            child: ListView.separated(
-                              physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              separatorBuilder: (context, index) => SizedBox(height: 5.h,),
-                              itemCount: data.certificates.length,
-                              itemBuilder: (context, index) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      data.certificates[index]['certificateName'],
-                                      style: GoogleFonts.inter(
-                                        fontSize: 15.sp,
-                                        fontWeight: FontWeight.w500,
-                                        color: AppColor.blackColor
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        profileService.deleteCertificateData(
-                                          issuingOrganization: data.certificates[index]['issuingOrganization'], 
-                                          certificateName: data.certificates[index]['certificateName'], 
-                                          issueDate: data.certificates[index]['issueDate'], 
-                                          certificateLink: data.certificates[index]['certificateLink'],
-                                        );
-                                      },                      
-                                      child: Text(
-                                        "Remove",
-                                        style: GoogleFonts.inter(
-                                          decoration: TextDecoration.underline,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColor.darkGreyColor
+                            return SizedBox(
+                              height: 100.h,
+                              child: ListView.separated(
+                                physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                separatorBuilder: (context, index) => SizedBox(height: 5.h,),
+                                itemCount: data.certificates.length,
+                                itemBuilder: (context, index) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          data.certificates[index]['certificateName'],
+                                          style: GoogleFonts.inter(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColor.blackColor
+                                          ),
                                         ),
                                       ),
-                                    )
-                                  ]
-                                );
-                              }
-                            ),
-                          );
+                                      //edit and remove certificate
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            InkWell(
+                                              onTap: () {
+                                                deleteCertificateBottomsheet(
+                                                  context: context,
+                                                  issuingOrganization: data.certificates[index]['issuingOrganization'], 
+                                                  certificateName: data.certificates[index]['certificateName'], 
+                                                  issueDate: data.certificates[index]['issueDate'], 
+                                                  certificateLink: data.certificates[index]['certificateLink'],
+                                                );
+                                              },                      
+                                              child: SvgPicture.asset(
+                                                "assets/svg/del_cert.svg",
+                                              ),
+                                            ),
+                                            SizedBox(width: 10.w,),
+                                            InkWell(
+                                              onTap: () {
+                                                //Get.to(() => EditCertListPage());
+                                              },                      
+                                              child: SvgPicture.asset(
+                                                "assets/svg/edit_cert.svg",
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ]
+                                  );
+                                }
+                              ),
+                            );
+                          }
+                          return Center(
+                            child: Text(
+                              "connection timed out",
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.normal
+                              )
+                            )
+                         );
                         }
                       ),
                     ],                           
                   ),
-                ),           
+                ),
+                //2           
                 //growable list that displays textfields that was added
                 Expanded(
                   child: ListView.builder(
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     itemCount: profileController.textFields.length, //certified (working)
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
                     itemBuilder: (context, index) {  //certified (working)
                     
                       ControllerSett controllerSet = profileController.controllers[index];
                           
                       return ExpansionTile(
-                        title: profileController.textFields[index],
-                        leading: IconButton(
+                        title: 
+                        //profileController.textFields[index],
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Certification name*',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      profileController.textFields.removeAt(index);
+                                      profileController.controllers.removeAt(index);
+                                      print("controller_list: ${profileController.controllers}");
+                                      print("controller_list_length: ${profileController.controllers.length}");
+                                    });
+                                  },
+                                  child: Text(
+                                    "Remove",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w500,
+                                      decoration: TextDecoration.underline
+                                    ),
+                                    
+                                  )
+                                )
+                              ],
+                            ),
+                            SizedBox(height: 5.h,),
+                            profileController.textFields[index],
+                          ],
+                        ),
+                        /*leading: IconButton(
                           icon: Icon(Icons.delete_outline_rounded),
                           iconSize: 20,
                           color: AppColor.blackColor,
@@ -191,7 +262,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                               print("controller_list_length: ${profileController.controllers.length}");
                             });
                           },
-                        ),
+                        ),*/
                         iconColor: AppColor.blackColor,
                         collapsedIconColor: AppColor.blackColor,
                         controlAffinity: ListTileControlAffinity.trailing,

@@ -67,7 +67,7 @@ class _SearchBankTextField2State extends State<SearchBankTextField2> {
               borderRadius: BorderRadius.circular(12)
             ),     
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14.sp),              
+            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 16.sp),              
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),

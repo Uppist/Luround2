@@ -4,25 +4,26 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/services/account_owner/services/user_services._service.dart';
+import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
 
 
-var userService = Get.put(AccOwnerServicePageService());
 
+//GetX dependency injection
+var profileController = Get.put(ProfilePageController());
+var profileService = Get.put(AccOwnerProfileService());
 
 
 ///Alert Dialog
-Future<void> deleteServiceDialogueBox({
+Future<void> deleteCertificateBottomsheet({
   required BuildContext context, 
-  required String serviceName, 
-  required String serviceId,
-  //service_provider_details
-  required String userId,
-  required String email,
-  required String displayName,
+  issuingOrganization,
+  certificateName, 
+  issueDate, 
+  certificateLink,
   }) async{
   showModalBottomSheet(
     isScrollControlled: true,
@@ -56,16 +57,16 @@ Future<void> deleteServiceDialogueBox({
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Delete $serviceName',
+                  'Delete Certificate',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 18.sp,
-                    fontWeight: FontWeight.w600
+                    fontWeight: FontWeight.w600,
                   )
                 ),
                 SizedBox(height: 40.h,),
                 Text(
-                  'Are you sure you want to delete this service ?',
+                  'Are you sure you want to delete this certificate ?',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14.sp,
@@ -112,12 +113,11 @@ Future<void> deleteServiceDialogueBox({
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          userService.deleteUserService(
-                            context: context,
-                            id: serviceId,
-                            userId: userId,
-                            email: email,
-                            displayName: displayName
+                          profileService.deleteCertificateData(
+                            issuingOrganization: issuingOrganization, 
+                            certificateName: certificateName, 
+                            issueDate: issueDate, 
+                            certificateLink: certificateLink,
                           )
                           .whenComplete(() => Get.back());
                         },
@@ -138,7 +138,7 @@ Future<void> deleteServiceDialogueBox({
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
-                                fontSize: 14.sp,
+                                fontSize: 16.sp,
                                 fontWeight: FontWeight.w500
                               )
                             )

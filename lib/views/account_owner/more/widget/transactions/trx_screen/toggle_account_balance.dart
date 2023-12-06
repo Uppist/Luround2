@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -12,13 +10,11 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 ///Alert Dialog
-Future<void> filterDialogueBox({
+Future<void> toggleAccountBalance({
   required BuildContext context,
-  required VoidCallback onSentFilter,
-  required VoidCallback onReceivedFilter,
-  required VoidCallback onUpcomingFilter,
-  required VoidCallback onPastFilter,
-  required VoidCallback onCancelledFilter,
+  required VoidCallback onWalletBalance,
+  required VoidCallback onAmountPaidBalance,
+  required VoidCallback onAmountReceivedBalance,
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -53,16 +49,14 @@ Future<void> filterDialogueBox({
               children: [
                 //1
                 InkWell(
-                  onTap: onSentFilter,
+                  onTap: onAmountReceivedBalance,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset('assets/svg/sent.svg'),
-                      SizedBox(width: 20.w,),
                       Text(
-                        'Sent',
+                        'Total amount received',
                         style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
+                          color: AppColor.darkGreyColor,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
@@ -73,16 +67,14 @@ Future<void> filterDialogueBox({
                 SizedBox(height: 30.h,),
                 //2
                 InkWell(
-                  onTap: onReceivedFilter,
+                  onTap: onAmountPaidBalance,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset('assets/svg/received.svg'),
-                      SizedBox(width: 20.w,),
                       Text(
-                        'Received',
+                        'Total amount paid',
                         style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
+                          color: AppColor.darkGreyColor,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
@@ -91,18 +83,16 @@ Future<void> filterDialogueBox({
                   ),
                 ),
                 SizedBox(height: 30.h,),
-                //1
+                //3
                 InkWell(
-                  onTap: onUpcomingFilter,
+                  onTap: onWalletBalance,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset('assets/svg/upcoming.svg'),
-                      SizedBox(width: 20.w,),
                       Text(
-                        'Upcoming',
+                        'Wallet',
                         style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
+                          color: AppColor.darkGreyColor,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         )
@@ -110,46 +100,7 @@ Future<void> filterDialogueBox({
                     ],
                   ),
                 ),
-                SizedBox(height: 30.h,),
-                //1
-                InkWell(
-                  onTap: onPastFilter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset('assets/svg/past.svg'),
-                      SizedBox(width: 20.w,),
-                      Text(
-                        'Past',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 30.h),
-                //1
-                InkWell(
-                  onTap: onCancelledFilter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset('assets/svg/cancelled.svg'),
-                      SizedBox(width: 20.w),
-                      Text(
-                        'Cancelled',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
-                      ),
-                    ],
-                  ),
-                ),
+                //SizedBox(height: 30.h,),
                 /////
               ],
             ),

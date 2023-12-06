@@ -56,8 +56,8 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                       'Logout',
                       style: GoogleFonts.poppins(
                         color: AppColor.blackColor,
-                        fontSize: 17.sp,
-                        fontWeight: FontWeight.bold
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w600
                       )
                     ),
                     SizedBox(height: 30.h,),
@@ -65,7 +65,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                       'Are you sure you want to logout?',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 15.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -97,8 +97,8 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.bgColor,
-                                    fontSize: 17.sp,
-                                    //fontWeight: FontWeight.w500
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500
                                   )
                                 )
                               ),
@@ -129,8 +129,8 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.textGreyColor,
-                                    fontSize: 17.sp,
-                                    //fontWeight: FontWeight.w500
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500
                                   )
                                 )
                               ),

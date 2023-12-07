@@ -8,7 +8,7 @@ import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 import '../edit_about/edit_about_page.dart';
-import '../edit_education/edit_education_page.dart';
+import '../edit_education/page/edit_education_page.dart';
 import '../edit_others/edit_others_page.dart';
 import '../edit_photo/edit_photo_page.dart';
 

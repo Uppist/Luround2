@@ -8,14 +8,14 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_education/certificate_textfield.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/components/certificate_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/delete_certificate.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
-import '../../../../../utils/colors/app_theme.dart';
-import '../../../../../utils/components/reusable_button.dart';
-import '../../../../../utils/components/title_text.dart';
-import 'education_textfield.dart';
+import '../../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../../utils/colors/app_theme.dart';
+import '../../../../../../utils/components/reusable_button.dart';
+import '../../../../../../utils/components/title_text.dart';
+import '../components/education_textfield.dart';
 
 
 

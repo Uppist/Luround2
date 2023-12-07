@@ -14,7 +14,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_education/edit_education_page.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/page/edit_education_page.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/edit_others_page.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/about_section.dart';
 import 'package:luround/views/account_owner/profile/widget/profile/add_section_button.dart';

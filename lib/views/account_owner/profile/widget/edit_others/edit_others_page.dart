@@ -9,6 +9,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/country_code_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/custom_tap_icon.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/phone_number_textfield.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_others/special_widget/special.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -151,9 +152,9 @@ class _EditOthersPageState extends State<EditOthersPage> {
                               print("list is emptyyy fammm!!");
                             }
                             //return controller.viewTextfields[index];
-                            return ListTile(
+                            return MySpecialWidget(
                               // Now displaying a Widget directly
-                              title: controller.viewTextfields[index],
+                              leading: controller.viewTextfields[index],
                               trailing: IconButton(
                                 icon: Icon(
                                   CupertinoIcons.xmark,

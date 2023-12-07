@@ -28,22 +28,22 @@ class TrxEmptyState extends StatelessWidget {
           SizedBox(height: 30.h,),
           Text(
             'No transactions yet',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 21.h,
-                fontWeight: FontWeight.bold
+                fontSize: 20.h,
+                fontWeight: FontWeight.w600
               )
             )
           ),
           SizedBox(height: 15.h,),
           Text(
             "When you get bookingss, they'll\n                 show up here",
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.darkGreyColor,
                 fontSize: 16.h,
-                //fontWeight: FontWeight.bold
+                fontWeight: FontWeight.w500
               )
             )
           ),
@@ -68,8 +68,8 @@ class TrxEmptyState extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
-                    fontSize: 17.sp,
-                    //fontWeight: FontWeight.w500
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500
                   )
                 )
               ),

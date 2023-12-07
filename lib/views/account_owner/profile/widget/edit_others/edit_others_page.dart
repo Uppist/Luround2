@@ -352,24 +352,24 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             ),
                             //SizedBox(width: 50,),
                             CustomTapIcon(
-                              svgAssetName: "assets/svg/facebook_icon.svg",
-                              iconTitle: 'Facebook',
+                              svgAssetName: "assets/svg/github.svg", //"assets/svg/facebook_icon.svg",
+                              iconTitle: 'Github',
                               onTap: () {
                                 setState(() {
                                 ViewModel viewModel = ViewModel(
-                                  icon: "assets/svg/facebook_icon.svg",
-                                  name: "Facebook",
+                                  icon: "assets/svg/github.svg",
+                                  name: "Github",
                                 );
                                 //to just update widget
                                 controller.addItem(
                                   BuildTextFieldWidget(
-                                    icon: "assets/svg/facebook_icon.svg",
-                                    fieldName: "Facebook",
-                                    hintText: "Paste url to your facebook page",
+                                    icon: "assets/svg/github.svg",
+                                    fieldName: "Github",
+                                    hintText: "Paste url to your github profile",
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("facebook"),
+                                    key: ValueKey("github"),
                                   ),
                                   viewModel
                                 );

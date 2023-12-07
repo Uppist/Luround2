@@ -28,11 +28,11 @@ class FinancialsEmptyState extends StatelessWidget {
           SizedBox(height: 30.h,),
           Text(
             'No Financial documents yet',
-            style: GoogleFonts.poppins(
+            style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 17.sp,
-                fontWeight: FontWeight.bold
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600
               )
             )
           ),
@@ -42,7 +42,7 @@ class FinancialsEmptyState extends StatelessWidget {
               children: [
                 TextSpan(
                   text: 'Click on the ',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,
                       fontSize: 16.sp,
@@ -52,11 +52,11 @@ class FinancialsEmptyState extends StatelessWidget {
                 ),
                 TextSpan(
                   text: '"Plus icon"',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.blackColor,
                       fontSize: 16.sp,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w500
                     )
                   )
                 ),

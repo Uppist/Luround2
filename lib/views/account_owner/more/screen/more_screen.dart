@@ -97,7 +97,7 @@ class MorePage extends StatelessWidget {
                         svgAsset: "assets/svg/finance.svg",
                         title: "Financials",
                         onTap: () {
-                          //Get.to(() => FinancialsPage());
+                          Get.to(() => FinancialsPage());
                         },
                       ),
                       SizedBox(width: 20.w,),

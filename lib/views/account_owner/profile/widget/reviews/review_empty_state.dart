@@ -30,8 +30,8 @@ class ReviewEmptyState extends StatelessWidget {
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
-                fontSize: 21.sp,
-                fontWeight: FontWeight.bold
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600
               )
             )
           ),
@@ -42,7 +42,7 @@ class ReviewEmptyState extends StatelessWidget {
               textStyle: TextStyle(
                 color: AppColor.darkGreyColor,
                 fontSize: 16.sp,
-                //fontWeight: FontWeight.bold
+                fontWeight: FontWeight.w500
               )
             )
           ),
@@ -68,7 +68,7 @@ class ReviewEmptyState extends StatelessWidget {
                   textStyle: TextStyle(
                     color: AppColor.bgColor,
                     fontSize: 16.sp,
-                    //fontWeight: FontWeight.w500
+                    fontWeight: FontWeight.w500
                   )
                 )
               ),

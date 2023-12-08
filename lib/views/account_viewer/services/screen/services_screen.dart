@@ -279,7 +279,15 @@ class AccViewerServicesPage extends StatelessWidget {
                               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                               child: ReusableButton(
                                 onPressed: () {
-                                  Get.to(() => BookAppointmentScreen());
+                                  Get.to(() => BookAppointmentScreen(
+                                    serviceId: data[index].serviceId,
+                                    service_name: data[index].service_name,
+                                    date: data[index].date,
+                                    time: data[index].time,
+                                    duration: data[index].duration,
+                                    service_charge_virtual: data[index].service_charge_virtual,
+                                    service_charge_in_person: data[index].service_charge_in_person,
+                                  ));
                                 },
                                 color: AppColor.mainColor,
                                 text: "Book Now",

@@ -72,7 +72,7 @@ class _Step2ScreenState extends State<Step2Screen> {
               });
               controller.dates = dates;
               debugPrint("${controller.dates}");
-              debugPrint("splitted date: ${controller.getDate()}");
+              debugPrint("splitted date: ${controller.getDate(initialDate: '00-00-000')}");
             },
           ),
           //SizedBox(height: 20,),

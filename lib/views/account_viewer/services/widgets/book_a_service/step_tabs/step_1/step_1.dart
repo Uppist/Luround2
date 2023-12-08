@@ -6,8 +6,8 @@ import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1/countrycode_ba.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_1/radio_section.dart';
-import 'package:luround/views/account_viewer/services/widgets/request_quote/country_code_widget.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/phone_number_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 
@@ -19,8 +19,9 @@ import 'package:luround/views/account_viewer/services/widgets/request_quote/reus
 
 
 class Step1Screen extends StatefulWidget {
-  Step1Screen({super.key, required this.onSubmit});
+  Step1Screen({super.key, required this.onSubmit, required this.service_name});
   final VoidCallback onSubmit;
+  final String service_name;
 
   @override
   State<Step1Screen> createState() => _Step1ScreenState();
@@ -33,10 +34,10 @@ class _Step1ScreenState extends State<Step1Screen> {
   @override
   void initState() {
     // Add a listener to the text controller
-    controller.serviceNameBAController.addListener(() {
+    controller.nameBAController.addListener(() {
       setState(() {
         // Check if the text field is empty or not
-        controller.isButtonEnabled2.value = controller.serviceNameBAController.text.isNotEmpty;
+        controller.isButtonEnabled2.value = controller.nameBAController.text.isNotEmpty;
       });
     });
     super.initState();
@@ -44,8 +45,8 @@ class _Step1ScreenState extends State<Step1Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: controller.formKeyBA,
+    return Container(
+      //key: controller.formKeyBA,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -67,7 +68,7 @@ class _Step1ScreenState extends State<Step1Screen> {
           SizedBox(height: 20.h),
           PhoneNumberTextField(
             onChanged: (val) {},
-            countryCodeWidget: CountryCodeWidget(),
+            countryCodeWidget: CountryCodeWidgetBA(),
             hintText: "Phone number*",
             keyboardType: TextInputType.phone,
             textInputAction: TextInputAction.next,
@@ -83,12 +84,16 @@ class _Step1ScreenState extends State<Step1Screen> {
             ),
           ),
           SizedBox(height: 10),
-          ReusableTextField(  
-            onChanged: (val) {},
-            hintText: "What service do you need ?",
+          ReusableTextField2(  
+            onChanged: (val) {
+              setState(() {
+                controller.serviceNameBAController.text = val;
+              });
+            },
+            hintText: "Enter service name",
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.done,
-            textController: controller.serviceNameBAController,
+            initialValue: widget.service_name,
           ),
           SizedBox(height: 30.h),
           Text(

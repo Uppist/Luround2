@@ -51,6 +51,16 @@ class AccViewerServicesController extends getx.GetxController {
   final TextEditingController phoneNumberBAController = TextEditingController();
   final TextEditingController serviceNameBAController = TextEditingController();
   final TextEditingController messageBAController = TextEditingController();
+
+  //country code picker (append with phone number controller.text and save to db)
+  var codeBA = "".obs; 
+  void onCountryChangeBA(CountryCode countryCode) {
+    //TODO : manipulate the selected country code here
+    codeBA.value = countryCode.dialCode.toString();
+    debugPrint("New Country selected: ${codeBA.value}");
+    update();
+  }
+
   //textcontroller count
   int maxLength = 500;
   //for Stepper widget
@@ -62,12 +72,16 @@ class AccViewerServicesController extends getx.GetxController {
   //selected index
   int selectedindex = -1; // Initialize to -1 to indicate no selection
   //(save the date below to db)
-  String getDate () {
+  String getDate ({required String initialDate}) {
     var result = dates[0].toString();
-    var refinedList = result.split(" ")[0];
-    //print(refinedList);
-    return refinedList;
+    String refinedList = result.split(" ")[0];
+    if(refinedList.isNotEmpty) {
+      return refinedList;
+    }
+    return initialDate;
   }
+  //(save the selected time below to db)
+  //Logic to be implemented
   /////////////////////////////////////////////////////////////////
 
   //proceed to pay screen (save to db)

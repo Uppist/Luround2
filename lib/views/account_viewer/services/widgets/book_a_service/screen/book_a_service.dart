@@ -21,7 +21,15 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/ste
 
 
 class BookAppointmentScreen extends StatefulWidget {
-  BookAppointmentScreen({super.key});
+  BookAppointmentScreen({super.key, required this.serviceId, required this.service_name, required this.date, required this.time, required this.duration, required this.service_charge_virtual, required this.service_charge_in_person});
+  final String serviceId;
+  final String service_name;
+  final String date;
+  final String time;
+  final String duration;
+  final String service_charge_virtual;
+  final String service_charge_in_person;
+   
 
   @override
   State<BookAppointmentScreen> createState() => _BookAppointmentScreenState();
@@ -113,6 +121,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             Step(
               title: Text(""), 
               content: Step1Screen(
+                service_name: widget.service_name,
                 onSubmit: () {
                   if(controller.curentStep < 2) {
                     setState(() {
@@ -164,7 +173,15 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                 onSubmit: () {
                   //save all details before getting to the next screen
                   //booking details
-                  Get.to(() => BookingDetails());
+                  Get.to(() => BookingDetails(
+                    serviceId: widget.serviceId,
+                    service_name: widget.service_name,
+                    date: widget.date,
+                    time: widget.time,
+                    duration: widget.duration,
+                    service_charge_in_person: widget.service_charge_in_person,
+                    service_charge_virtual: widget.service_charge_virtual,
+                  ));
                 },
               ),
             )

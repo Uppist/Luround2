@@ -120,7 +120,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 10.h),
                           ReusableTextField(  
                             onChanged: (val) {},
-                            hintText: "What service do you need ?",
+                            hintText: "Enter service name",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
                             textController: controller.serviceNameController,

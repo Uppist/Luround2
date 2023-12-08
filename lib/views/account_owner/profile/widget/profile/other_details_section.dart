@@ -85,32 +85,37 @@ class OtherDetailsSection extends StatelessWidget {
                     height: 55.h, width: 55.w,
                   ),
                   SizedBox(width: 15.w,),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //Title text
-                      Text(
-                        media_links[index]['name'] ?? "name",
-                        style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                            color: AppColor.blackColor,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [              
+                        //Title text
+                        Text(
+                          media_links[index]['name'] ?? "name",
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.blackColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500
+                            )
                           )
-                        )
-                      ),
-                      SizedBox(height: 7.h,), //10
-                      //Subtitle text
-                      Text(
-                        media_links[index]["link"] ?? "link",
-                        style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                            color: AppColor.darkGreyColor,
-                            fontSize: 15.sp,
-                          )
-                        )
-                      ),
-                    ],
+                        ),
+                        SizedBox(height: 7.h,), //10
+                        //Subtitle text
+                        Text(
+                          media_links[index]["link"] ?? "link",
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 15.sp,
+                            )
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                          
+                        
+                      ],
+                    ),
                   )
                 ],
               ),

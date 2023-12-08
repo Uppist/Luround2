@@ -4,6 +4,7 @@ import 'package:luround/services/account_owner/data_service/base_service/base_se
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'dart:convert';
 import 'dart:io';
@@ -111,20 +112,33 @@ class AccViewerService extends getx.GetxController {
   /////[BOOK USER SERVICE]///// i.e, book and pay for a user's service
   Future<dynamic> bookUserService({
     required BuildContext context,
+    required String name,
+    required String email,
+    required String service_name,
+    ////
     required String serviceId,
+    required String phone_number,
+    required String appointment_type,
     required String date,
     required String time,
+    required String duration,
+    required String message,
+    required String location
   }) async {
     isLoading.value = true;
 
     var body = {
-      "phone_number": "9012345678",
-      "appointment_type": "In-person",
-      "date": "2022-05-13",
-      "time": "11:05",
-      "duration": "3 hrs",
-      "message": "message",
-      "location": "location"
+      "name": name,
+      "email": email,
+      "service_name": service_name,
+      //the above was added by me
+      "phone_number": phone_number,
+      "appointment_type": appointment_type,
+      "date": date,
+      "time": time,
+      "duration": duration,
+      "message": message,
+      "location": location
     };
 
     try {
@@ -132,13 +146,14 @@ class AccViewerService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user booking rescheduled succesfully");
-         //success snackbar
+        debugPrint("luround user got booked succesfully");
+        //await payWithFlutterwave()
+        //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "booking resheduled successfully"
-        ).whenComplete(() => getx.Get.back());
+          message: "you've successfully booked this service"
+        ).whenComplete(() => getx.Get.to(() => TransactionSuccesscreen()));
       } 
       else {
         isLoading.value = false;
@@ -149,7 +164,7 @@ class AccViewerService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to reschedule booking"
+          message: "failed to book service"
         ).whenComplete(() => getx.Get.back());
       }
     } 

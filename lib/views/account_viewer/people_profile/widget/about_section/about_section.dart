@@ -25,7 +25,7 @@ class AccViewerAboutSection extends StatelessWidget {
             textStyle: TextStyle(
               color: AppColor.blackColor,
               fontSize: 16.sp,
-              fontWeight: FontWeight.bold
+              fontWeight: FontWeight.w600
             )
           )
         ),
@@ -36,7 +36,7 @@ class AccViewerAboutSection extends StatelessWidget {
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
               fontSize: 14.sp,
-              //fontWeight: FontWeight.w500
+              fontWeight: FontWeight.w400
             )
           )
         ),

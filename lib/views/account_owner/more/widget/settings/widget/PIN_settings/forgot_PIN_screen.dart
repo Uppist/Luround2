@@ -112,6 +112,7 @@ class ForgotPINScreen extends StatelessWidget {
                     text: 'Change PIN',
                     onPressed: () {},
                   ),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),

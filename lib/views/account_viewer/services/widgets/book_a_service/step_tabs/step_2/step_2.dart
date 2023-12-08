@@ -39,7 +39,7 @@ class _Step2ScreenState extends State<Step2Screen> {
             "Select day",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -102,7 +102,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
                         fontSize: 14.sp,
-                        //fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w500
                       )
                     )
                   ),
@@ -129,7 +129,7 @@ class _Step2ScreenState extends State<Step2Screen> {
                       textStyle: TextStyle(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
-                        //fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w500
                       )
                     )
                   ),

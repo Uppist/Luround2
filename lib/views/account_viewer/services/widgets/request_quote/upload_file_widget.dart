@@ -32,7 +32,7 @@ class UploadFileWidget extends StatelessWidget {
               style: GoogleFonts.inter(
                 color: AppColor.textGreyColor,
                 fontSize: 14.sp,
-                //fontWeight: FontWeight.w500
+                fontWeight: FontWeight.w400
               ),
             ),
             SizedBox(height: 30.h,),

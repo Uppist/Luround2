@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_viewer/profile_service/get_user_profile.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -9,13 +10,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class AccViewerEducationAndCertificationSection extends StatelessWidget {
-  AccViewerEducationAndCertificationSection({super.key, required this.itemCount, required this.certificateTitle, required this.institution, required this.issuedDate, required this.credentialID, required this.onPressedShowCertificte});
-  final VoidCallback onPressedShowCertificte;
-  final int itemCount;
-  final String certificateTitle;
-  final String institution;
-  final String issuedDate;
-  final String credentialID;
+  AccViewerEducationAndCertificationSection({super.key, required this.eduAndCertList, required this.service,});
+  final List<dynamic> eduAndCertList;
+  final AccViewerProfileService service;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +27,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
               textStyle: TextStyle(
                 color: AppColor.blackColor,
                 fontSize: 16.sp,
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.w600
               )
             )
           ),
@@ -42,7 +39,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
-          itemCount: itemCount,
+          itemCount: eduAndCertList.length,
           itemBuilder: (context, index) {
             return Container(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -60,52 +57,54 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        certificateTitle,
+                        eduAndCertList[index]['certificateName'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.blackColor,
-                            fontSize: 14.sp,
+                            fontSize: 16.sp,
                             fontWeight: FontWeight.w500
                           )
                         )
                       ),
                       SizedBox(height: 5.h,),
                       Text(
-                        institution,
+                        eduAndCertList[index]['issuingOrganization'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 13.sp,
-                            //fontWeight: FontWeight.w500
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400
                           )
                         )
                       ),
                       SizedBox(height: 5.h,),
                       Text(
-                        issuedDate,
+                        eduAndCertList[index]['issueDate'],
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 13.sp,
-                            //fontWeight: FontWeight.w500
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400
                           )
                         )
                       ),
                       SizedBox(height: 5.h,),
-                      Text(
+                      /*Text(
                         credentialID,
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.darkGreyColor,
-                            fontSize: 13.sp,
-                            //fontWeight: FontWeight.w500
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400
                           )
                         )
-                      ),
+                      ),*/
                       SizedBox(height: 10.h,),
                       //SHOW CERTIFICATE BUTTON
                       InkWell(
-                        onTap: onPressedShowCertificte,
+                        onTap: () {
+                          service.launchUrlLink(link: eduAndCertList[index]['certificateLink']);
+                        },
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                           alignment: Alignment.center,
@@ -123,8 +122,8 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 14.sp,
-                                //fontWeight: FontWeight.w500
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500
                               )
                             )
                           ),

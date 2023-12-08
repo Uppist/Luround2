@@ -85,7 +85,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   "Enter your payment details",
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
-                    fontSize: 14.sp,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.w500
                   ),
                 ),

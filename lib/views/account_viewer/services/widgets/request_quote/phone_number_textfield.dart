@@ -64,7 +64,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 13.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           prefixIcon: widget.countryCodeWidget,

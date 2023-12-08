@@ -21,7 +21,7 @@ import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewe
 ///Alert Dialog
 Future<void> signMeUpBottomSheet({required BuildContext context}) async{
   showDialog(
-    useSafeArea: false,
+    useSafeArea: true,
     context: context,
     barrierDismissible: false, 
     builder: (context) {
@@ -66,20 +66,20 @@ Future<void> signMeUpBottomSheet({required BuildContext context}) async{
                     "Create your own account",
                     style: GoogleFonts.inter(
                       fontSize: 18.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       color: AppColor.darkGreyColor
                     ),
                   ),
                   SizedBox(height: 20.sp,),
                   Text(
-                    " By setting up your own account,\n   others can schedule and book\n                your services.",
+                    "       By setting up your own\naccount, others can schedule\n      and book your services.",
                     style: GoogleFonts.inter(
-                      fontSize: 14.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.darkGreyColor
                     ),
                   ),
-                  SizedBox(height: 30.h,),
+                  SizedBox(height: 40.h,),
                   ReusableButton(
                     onPressed: () {
                       Get.offAll(() => SplashScreen1());

@@ -61,7 +61,7 @@ class _TogglePriceContainerAccViewerState extends State<TogglePriceContainerAccV
                       style: GoogleFonts.inter(
                         color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.bgColor : AppColor.textGreyColor,
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                   ),
@@ -84,7 +84,7 @@ class _TogglePriceContainerAccViewerState extends State<TogglePriceContainerAccV
                       style: GoogleFonts.inter(
                         color: controller.isVirtual.value &&  controller.selectedIndex.value == widget.index ? AppColor.textGreyColor : AppColor.bgColor,
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
@@ -53,16 +54,21 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 100.h,),
+                    SizedBox(height: 200.h,),
                     //
-                    Lottie.asset("assets/lottie/my_g.json"),
+                    //Lottie.asset("assets/lottie/my_g.json"),
+                    SvgPicture.asset(
+                      "assets/svg/check_ss.svg",
+                      height: 140.h,
+                      width: 140.w,
+                    ),
                     SizedBox(height: 50.h,),
                     Text(
                       "Transaction Successful",
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 20.sp,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                     SizedBox(height: 20.h,),
@@ -82,7 +88,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                               text :' "Ronald Richie"          \n',
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 color: AppColor.darkGreyColor
                               )
                             ),
@@ -98,7 +104,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                               text :' "Personal Training Session".',
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w600,
                                 color: AppColor.darkGreyColor
                               )
                             ),
@@ -121,6 +127,8 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                         }
                       ),
                     ),
+                    SizedBox(height: 200.h,),
+
                   ],
                 ),
               ),

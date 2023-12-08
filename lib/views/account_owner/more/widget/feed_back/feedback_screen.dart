@@ -27,6 +27,7 @@ class FeedbackPage extends StatefulWidget {
 }
 
 class _FeedbackPageState extends State<FeedbackPage> {
+  
   var controller = Get.put(MoreController());
 
   @override
@@ -134,7 +135,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                         SizedBox(height: 10.h),
                         SubjectTextField(
                           onChanged: (val) {},
-                          hintText: "Enter here",
+                          hintText: "Enter your subject here",
                           keyboardType: TextInputType.text,
                           textInputAction: TextInputAction.next,
                           controller: controller.subjectController,

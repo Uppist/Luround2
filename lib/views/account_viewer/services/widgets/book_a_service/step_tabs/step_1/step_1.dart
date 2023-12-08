@@ -78,7 +78,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             "Service name*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 13.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -95,7 +95,7 @@ class _Step1ScreenState extends State<Step1Screen> {
             "Appointment type*",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 13.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -106,7 +106,7 @@ class _Step1ScreenState extends State<Step1Screen> {
           Text(
             "Message (optional)",
             style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
+              color: AppColor.blackColor,
               fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
@@ -136,8 +136,8 @@ class _Step1ScreenState extends State<Step1Screen> {
                 "${controller.messageBAController.text.length}/${controller.maxLength}",
                 style: GoogleFonts.inter(
                   color: AppColor.textGreyColor,
-                  fontSize: 13.sp,
-                  fontWeight: FontWeight.w500
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400
                 ),
               ),
             ],

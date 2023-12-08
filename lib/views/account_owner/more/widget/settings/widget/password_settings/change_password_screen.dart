@@ -112,6 +112,7 @@ class ChangePasswordScreen extends StatelessWidget {
                     text: 'Change password',
                     onPressed: () {},
                   ),
+                  SizedBox(height: 20.h),
                 ],
               ),
             ),

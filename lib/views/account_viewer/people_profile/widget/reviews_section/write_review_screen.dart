@@ -114,7 +114,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                               textStyle: TextStyle(
                                 color: AppColor.blackColor,
                                 fontSize: 14.sp,
-                                fontWeight: FontWeight.w500
+                                fontWeight: FontWeight.w600
                               )
                             )
                           ),
@@ -124,7 +124,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
-                                fontSize: 12.sp,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
                             )
@@ -155,7 +155,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                     SizedBox(height: 30.h,),
@@ -203,7 +203,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                     SizedBox(height: 10.h,),
@@ -212,7 +212,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 12.sp,
-                        //fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w400
                       ),
                     ),
                     SizedBox(height: 20.h,),
@@ -240,8 +240,8 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                           "${controller.reviewController.text.length}/${controller.maxLength}",
                           style: GoogleFonts.inter(
                             color: AppColor.textGreyColor,
-                            fontSize: 13.sp,
-                            fontWeight: FontWeight.w500
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400
                           ),
                         ),
                       ],

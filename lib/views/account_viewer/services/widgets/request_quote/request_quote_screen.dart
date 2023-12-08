@@ -111,9 +111,9 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 30.h),
                           Text(
                             "Service name*",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 13.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -128,9 +128,9 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 30.h),
                           Text(
                             "Appointment type*",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               color: AppColor.blackColor,
-                              fontSize: 13.sp,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -141,8 +141,8 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           Text(
                             "Upload file (optional)",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor,
-                              fontSize: 13.sp,
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),
@@ -154,8 +154,8 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           Text(
                             "Message (optional)",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor,
-                              fontSize: 13.sp,
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
                               fontWeight: FontWeight.w500
                             ),
                           ),

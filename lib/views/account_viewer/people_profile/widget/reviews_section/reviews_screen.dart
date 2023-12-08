@@ -66,7 +66,8 @@ class AccViewerReviewsPage extends StatelessWidget {
                           textStyle: TextStyle(
                             color: AppColor.mainColor,
                             decoration: TextDecoration.underline,
-                            fontSize: 13.sp, //14
+                            decorationColor: AppColor.mainColor,
+                            fontSize: 14.sp, //14
                             fontWeight: FontWeight.w500
                           )
                         )
@@ -179,8 +180,8 @@ class AccViewerReviewsPage extends StatelessWidget {
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.blackColor,
-                                    fontSize: 15.sp,
-                                    fontWeight: FontWeight.w500
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600
                                   )
                                 )
                               ),
@@ -207,8 +208,8 @@ class AccViewerReviewsPage extends StatelessWidget {
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         color: AppColor.textGreyColor,
-                                        fontSize: 13.sp,
-                                        //fontWeight: FontWeight.w500
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500
                                       )
                                     ),
                                   ),

@@ -37,7 +37,7 @@ class _Step3ScreenState extends State<Step3Screen> {
             "Select time",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500
             ),
           ),

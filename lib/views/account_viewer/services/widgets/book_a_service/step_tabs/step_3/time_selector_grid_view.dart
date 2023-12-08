@@ -45,17 +45,17 @@ class _TimeGridViewState extends State<TimeGridView> {
           child: Container(
             alignment: Alignment.center,
             //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
-            height: 40.h,
+            height: 50.h,
             //width: 120,
             decoration: BoxDecoration(          
               color: AppColor.bgColor,
-              borderRadius: BorderRadius.circular(20.r),
+              borderRadius: BorderRadius.circular(10.r),
               border: Border.all(
                 color: controller.selectedindex == index ? AppColor.mainColor : AppColor.textGreyColor.withOpacity(0.2)
               )
             ),
             child: Text(
-              "9:50AM ${index}",
+              "10:00 AM",  //${index}
               style: GoogleFonts.inter(
                 color: controller.selectedindex == index ? AppColor.mainColor : AppColor.blackColor,
                 fontSize: 14.sp,

@@ -63,7 +63,7 @@ class BookingDetails extends StatelessWidget {
                         "Booking Details",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 14.sp,
+                          fontSize: 16.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
@@ -99,7 +99,7 @@ class BookingDetails extends StatelessWidget {
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 14.sp,
-                        //fontWeight: FontWeight.w500
+                        fontWeight: FontWeight.w400
                       ),
                     ),
                     SizedBox(height: 70.h,),

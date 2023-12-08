@@ -23,6 +23,7 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -432,7 +433,7 @@ class AuthService extends getx.GetxController {
         //generate grlink
         await generateQrLink(urlSlug: email);
         //move with agility to the next page
-        getx.Get.offAll(() => MainPage());
+        getx.Get.offAll(() => MainPage());  //MainPage()  MainPageAccViewer()
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,

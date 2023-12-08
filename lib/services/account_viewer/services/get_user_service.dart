@@ -2,6 +2,8 @@ import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'dart:convert';
 import 'dart:io';
@@ -108,10 +110,54 @@ class AccViewerService extends getx.GetxController {
 
   /////[BOOK USER SERVICE]///// i.e, book and pay for a user's service
   Future<dynamic> bookUserService({
+    required BuildContext context,
     required String serviceId,
+    required String date,
+    required String time,
   }) async {
     isLoading.value = true;
 
+    var body = {
+      "phone_number": "9012345678",
+      "appointment_type": "In-person",
+      "date": "2022-05-13",
+      "time": "11:05",
+      "duration": "3 hrs",
+      "message": "message",
+      "location": "location"
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "booking/book-service?serviceId=$serviceId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user booking rescheduled succesfully");
+         //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "booking resheduled successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to reschedule booking"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
   }
 
 

@@ -59,8 +59,8 @@ class ServicesPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Image.asset('assets/images/luround_logo.png'),
-                        Row(
+                        //Image.asset('assets/images/luround_logo.png'),
+                        /*Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             InkWell(
@@ -77,11 +77,27 @@ class ServicesPage extends StatelessWidget {
                               child: SvgPicture.asset("assets/svg/add_service.svg"),
                             ),
                           ],
-                        )
+                        )*/
+
+                        Text(
+                          "Services",
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () async{
+                            Get.to(() => AddServiceScreen());
+                          },
+                          child: SvgPicture.asset("assets/svg/add_service.svg"),
+                        ),
                       ]
                     ),
-                    SizedBox(height: 30.h,),
-                    Center(
+
+                    //SizedBox(height: 30.h,),
+                    /*Center(
                       child: Text(
                         "Services",
                         style: GoogleFonts.inter(
@@ -90,7 +106,7 @@ class ServicesPage extends StatelessWidget {
                           fontWeight: FontWeight.w500
                         ),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ),         
@@ -140,9 +156,17 @@ class ServicesPage extends StatelessWidget {
                           return Container(
                             //height: 500,
                             width: double.infinity,
-                            color: index.isEven ? AppColor.lightRed : AppColor.lightPurple,
+                            //color: AppColor.bgColor, //index.isEven ? AppColor.lightRed : AppColor.lightPurple,
                             alignment: Alignment.center,
                             //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                              borderRadius: BorderRadius.circular(5.r),
+                              border: Border.all(
+                                color: AppColor.darkGreyColor,
+                                width: 1.0,
+                              )
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -193,8 +217,8 @@ class ServicesPage extends StatelessWidget {
                                       data[index].service_name,
                                       style: GoogleFonts.inter(
                                         color: AppColor.blackColor,
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w600
                                       ),
                                     ),
                                     SizedBox(height: 20.sp,),
@@ -202,8 +226,8 @@ class ServicesPage extends StatelessWidget {
                                       "${data[index].available_days} . ${data[index].time}",
                                       style: GoogleFonts.inter(
                                         color: AppColor.textGreyColor,
-                                        fontSize: 16.sp,
-                                        //fontWeight: FontWeight.w500
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400
                                       ),
                                     ),
                                     SizedBox(height: 20.h,),
@@ -211,8 +235,8 @@ class ServicesPage extends StatelessWidget {
                                       data[index].description,
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w500
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400
                                       ),
                                     ),
                                     SizedBox(height: 20.h,),
@@ -233,7 +257,7 @@ class ServicesPage extends StatelessWidget {
                                                 data[index].links[0],
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.blueColor,
-                                                  fontSize: 15.sp,
+                                                  fontSize: 12.sp,
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
@@ -256,7 +280,7 @@ class ServicesPage extends StatelessWidget {
                                             "https://www.link.com",
                                             style: GoogleFonts.inter(
                                               color: AppColor.blueColor,
-                                              fontSize: 15.sp,
+                                              fontSize: 12.sp,
                                               fontWeight: FontWeight.w500
                                             ),
                                           ),
@@ -277,7 +301,7 @@ class ServicesPage extends StatelessWidget {
                                                 : "N${data[index].service_charge_in_person}",
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.blackColor,
-                                                  fontSize: 22.sp,
+                                                  fontSize: 20.sp,
                                                   fontWeight: FontWeight.bold
                                                 ),
                                               ),
@@ -288,7 +312,7 @@ class ServicesPage extends StatelessWidget {
                                                 text: "/${data[index].duration}",
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.darkGreyColor,
-                                                  fontSize: 19.sp,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.w500
                                                 ),
                                               ),
@@ -299,7 +323,7 @@ class ServicesPage extends StatelessWidget {
                                                 text: " per session",
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.textGreyColor,
-                                                  fontSize: 17.sp,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.w500
                                                 ),
                                               )

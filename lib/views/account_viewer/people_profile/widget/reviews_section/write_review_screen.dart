@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
+import 'package:luround/services/account_viewer/profile_service/get_user_profile.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_textfield.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 
@@ -25,7 +25,9 @@ class WriteReviewsPage extends StatefulWidget {
 }
 
 class _WriteReviewsPageState extends State<WriteReviewsPage> {
+
   var controller = Get.put(ProfilePageAccViewerController());
+  var service = Get.put(AccViewerProfileService());
 
   @override
   Widget build(BuildContext context) {
@@ -46,21 +48,24 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
         title: CustomAppBarTitle(text: 'Back',),
         actions: [
           //button
-          Container(
-            alignment: Alignment.center,
-            padding: EdgeInsets.all(8.0),
-            //height: 20,
-            width: 80.w,
-            decoration: BoxDecoration(
-              color: AppColor.mainColor,
-              borderRadius: BorderRadius.circular(10.r)
-            ),
-            child: Text(
-              "Post",
-              style: GoogleFonts.inter(
-                color: AppColor.bgColor,
-                fontSize: 13.sp,
-                fontWeight: FontWeight.w500
+          InkWell(
+            onTap: () {},
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(8.0),
+              //height: 20,
+              width: 80.w,
+              decoration: BoxDecoration(
+                color: AppColor.mainColor,
+                borderRadius: BorderRadius.circular(10.r)
+              ),
+              child: Text(
+                "Post",
+                style: GoogleFonts.inter(
+                  color: AppColor.bgColor,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500
+                ),
               ),
             ),
           ),

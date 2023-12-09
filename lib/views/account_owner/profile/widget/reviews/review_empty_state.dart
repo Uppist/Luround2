@@ -22,7 +22,12 @@ class ReviewEmptyState extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 150.h,),
+          Container(
+            color: AppColor.greyColor,
+            width: double.infinity,
+            height: 7.h,
+          ),
+          SizedBox(height: 170.h,),
           SvgPicture.asset('assets/svg/review_empty.svg'),
           SizedBox(height: 30.h,),
           Text(
@@ -37,7 +42,7 @@ class ReviewEmptyState extends StatelessWidget {
           ),
           SizedBox(height: 15.h,),
           Text(
-            "When you get reviews, they'll\n                 show up here",
+            "When you get reviews, they'll\n              show up here",
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.darkGreyColor,
@@ -51,7 +56,7 @@ class ReviewEmptyState extends StatelessWidget {
           InkWell(
             onTap: onPressed,
             child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
               alignment: Alignment.center,
               height: 50.h,
               width: 350.w,

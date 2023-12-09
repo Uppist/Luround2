@@ -9,7 +9,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/copy_to_clipboard.dart';
-import 'package:luround/utils/components/extract_firstname.dart';
+import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';

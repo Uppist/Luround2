@@ -5,6 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
+import 'package:luround/models/account_owner/user_profile/review_response.dart';
+import 'package:luround/services/account_viewer/services/get_user_service.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
@@ -22,6 +25,7 @@ class AccViewerReviewsPage extends StatelessWidget {
   AccViewerReviewsPage({super.key});
 
   var controller = Get.put(ProfilePageAccViewerController());
+  var service = Get.put(AccViewerService());
 
   @override
   Widget build(BuildContext context) {
@@ -41,204 +45,239 @@ class AccViewerReviewsPage extends StatelessWidget {
         ),
         title: CustomAppBarTitle(text: 'Reviews',),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10.h),
-              Container(
-                color: AppColor.greyColor,
-                width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                height: 60.h,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        Get.to(() => WriteReviewsPage());
-                      }, 
-                      child: Text(
-                        'Write a review',
-                        style: GoogleFonts.inter(
-                          textStyle: TextStyle(
-                            color: AppColor.mainColor,
-                            decoration: TextDecoration.underline,
-                            decorationColor: AppColor.mainColor,
-                            fontSize: 14.sp, //14
-                            fontWeight: FontWeight.w500
-                          )
-                        )
-                      )
-                    ),
-                  ],
-                ),
-              ),
-              //ReviewEmptyState(onPressed: () {},),
-              //ListView.builder & CO
+      body: FutureBuilder<List<ReviewResponse>>(
+        future: service.getUserReviews(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Loader();
+          }
+          if (snapshot.hasError) {
+            print(snapshot.error);
+          }
+          if (!snapshot.hasData) {
+            print("uh--oh! nothing dey;");
+            return ReviewEmptyState(
+              onPressed: () {
+                service.getUserReviews();
+              },
+            );
+          }
+          if (snapshot.hasData) {
 
-              //Ratings Card
-              /*Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '4.0',
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.blackColor,
-                          //decoration: TextDecoration.underline,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500
-                        )
-                      )
-                    ),
-                    SizedBox(width: 20,),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            var data = snapshot.data!;
+            return SafeArea(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 10.h),
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    height: 60.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        //rating indicator
-                        RatingBarIndicator(                      
-                          unratedColor: AppColor.textGreyColor.withOpacity(0.2),
-                          itemPadding: EdgeInsets.symmetric(horizontal: 5),
-                          rating: 4.0,  //fetch from db
-                          itemBuilder: (context, index) => Icon(
-                            CupertinoIcons.star_fill,
-                            color: AppColor.yellowStar,
-                          ),
-                          itemCount: 5,
-                          itemSize: 20.0, //30
-                          direction: Axis.horizontal,
-                        ),
-                        SizedBox(height: 10,),
-                        Text(
-                          'based on 12 ratings',
-                          style: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: AppColor.darkGreyColor,
-                              fontSize: 14,
-                              //fontWeight: FontWeight.w500
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => WriteReviewsPage());
+                          }, 
+                          child: Text(
+                            'Write a review',
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.mainColor,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColor.mainColor,
+                                fontSize: 14.sp, //14
+                                fontWeight: FontWeight.w500
+                              )
                             )
                           )
                         ),
                       ],
-                    )
-                  ],
-                ),
-              ),*/
-
-              Container(
-                color: AppColor.greyColor,
-                width: double.infinity,
-                height: 7.h,
-              ),
-              SizedBox(height: 20.h,),
-              //List of reviews
-              ListView.separated(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 6,
-                separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    ),
+                  ),
+                  //ReviewEmptyState(onPressed: () {},),
+                  //ListView.builder & CO
+          
+                  //Ratings Card
+                  /*Container(
                     alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundColor: AppColor.mainColor,
-                          radius: 30.r,
-                          child: Text(
-                            "F",
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold
-                            ),
-                          ),
+                        Text(
+                          '4.0',
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.blackColor,
+                              //decoration: TextDecoration.underline,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500
+                            )
+                          )
                         ),
-                        SizedBox(width: 10.w),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Fredy Isma',
-                                style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                    color: AppColor.blackColor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w600
-                                  )
-                                )
+                        SizedBox(width: 20,),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //rating indicator
+                            RatingBarIndicator(                      
+                              unratedColor: AppColor.textGreyColor.withOpacity(0.2),
+                              itemPadding: EdgeInsets.symmetric(horizontal: 5),
+                              rating: 4.0,  //fetch from db
+                              itemBuilder: (context, index) => Icon(
+                                CupertinoIcons.star_fill,
+                                color: AppColor.yellowStar,
                               ),
-                              SizedBox(height: 25.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              itemCount: 5,
+                              itemSize: 20.0, //30
+                              direction: Axis.horizontal,
+                            ),
+                            SizedBox(height: 10,),
+                            Text(
+                              'based on 12 ratings',
+                              style: GoogleFonts.inter(
+                                textStyle: TextStyle(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14,
+                                  //fontWeight: FontWeight.w500
+                                )
+                              )
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),*/
+          
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    height: 7.h,
+                  ),
+                  SizedBox(height: 20.h,),
+                  //List of reviews
+                  ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: data.length,
+                    separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: AppColor.bgColor,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            CircleAvatar(
+                              backgroundColor: AppColor.mainColor,
+                              radius: 30.r,
+                              child: Text(
+                                "F",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.bgColor,
+                                  fontSize: 20.sp,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10.w),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  //rating indicator
-                                  RatingBarIndicator(                      
-                                    unratedColor: AppColor.textGreyColor.withOpacity(0.2),
-                                    itemPadding: EdgeInsets.symmetric(horizontal: 3.w),
-                                    rating: 4.0,  //fetch from db
-                                    itemBuilder: (context, index) => Icon(
-                                      CupertinoIcons.star_fill,
-                                      color: AppColor.yellowStar,
-                                    ),
-                                    itemCount: 5,
-                                    itemSize: 20.0, //30
-                                    direction: Axis.horizontal,
-                                  ),
-                                  //SizedBox(width: 40,),
                                   Text(
-                                    '14 Sept. 2023',
+                                    data[index].userName,
+                                    style: GoogleFonts.inter(
+                                      textStyle: TextStyle(
+                                        color: AppColor.blackColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600
+                                      )
+                                    )
+                                  ),
+                                  SizedBox(height: 25.h,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      //rating indicator
+                                      RatingBarIndicator(                      
+                                        unratedColor: AppColor.textGreyColor.withOpacity(0.2),
+                                        itemPadding: EdgeInsets.symmetric(horizontal: 3.w),
+                                        rating: data[index].rating,  //fetch from db
+                                        itemBuilder: (context, index) => Icon(
+                                          CupertinoIcons.star_fill,
+                                          color: AppColor.yellowStar,
+                                        ),
+                                        itemCount: 5,
+                                        itemSize: 20.0, //30
+                                        direction: Axis.horizontal,
+                                      ),
+                                      //SizedBox(width: 40,),
+                                      Text(
+                                        '14 Sept. 2023',
+                                        style: GoogleFonts.inter(
+                                          textStyle: TextStyle(
+                                            color: AppColor.textGreyColor,
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500
+                                          )
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 15.h),
+                                  Text(
+                                    data[index].reviewText,
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         color: AppColor.textGreyColor,
-                                        fontSize: 12.sp,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       )
-                                    ),
+                                    )
                                   ),
-                                ],
-                              ),
-                              SizedBox(height: 15.h),
-                              Text(
-                                'dddddddddthfthfjtyutyusthethrttttttttttttttttttttttttttttttttttttttttttrstgfxrhzthth',
-                                style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                    color: AppColor.textGreyColor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500
-                                  )
-                                )
-                              ),
-                            ]
-                          )
-                        )
-                      ]
-                    )
-                  );
-                }
-              ),
-              SizedBox(height: 20.h,),
 
-            ]
-          )
-        )
+                                ]
+                              )
+                            )
+                          ]
+                        )
+                      );
+                    }
+                  ),
+
+                  SizedBox(height: 20.h,),
+          
+                  ]
+                )
+              )
+            );
+          }
+          return Center(
+            child: Text(
+              "connection timed out",
+              style: GoogleFonts.inter(
+                color: AppColor.darkGreyColor,
+                fontSize: 13.sp,
+                fontWeight: FontWeight.normal
+              )
+            )
+          );
+        }
       )
     );
   }

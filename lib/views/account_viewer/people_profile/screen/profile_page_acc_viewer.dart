@@ -11,7 +11,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/border_button.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_viewer/people_profile/widget/additional_information/additional_ino_section.dart';
+import 'package:luround/views/account_viewer/people_profile/widget/additional_information/additional_info_section.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_screen.dart';
 import '../widget/about_section/about_section.dart';
 import '../widget/education_&_certificate_section/education_&_certifications_section.dart';

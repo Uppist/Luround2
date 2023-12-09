@@ -59,8 +59,8 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
                       'Virtual',
                       style: GoogleFonts.inter(
                         color: controller.isVirtual.value &&  controller.selectedIndex == widget.index ? AppColor.bgColor : AppColor.textGreyColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                   ),
@@ -82,8 +82,8 @@ class _TogglePriceContainerState extends State<TogglePriceContainer> {
                       'In-person',
                       style: GoogleFonts.inter(
                         color: controller.isVirtual.value &&  controller.selectedIndex == widget.index ? AppColor.textGreyColor : AppColor.bgColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w600
                       ),
                     ),
                   ),

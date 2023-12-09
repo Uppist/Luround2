@@ -17,7 +17,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/utils/components/extract_firstname.dart';
+import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';

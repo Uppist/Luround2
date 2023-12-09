@@ -44,11 +44,19 @@ class AdditionalInfoSection extends StatelessWidget {
             return InkWell(
               onTap: () {
                 if(media_links[index]['name'] != 'Email') {
+                   print("launch url link");
                   service.launchUrlLink(link: media_links[index]["link"]);
                 }
-                else {
+                else if(media_links[index]['name'] == 'Email') {
                   print("launch email");
-                  //service.launchUrlEmail(link: media_links[index]["link"]);
+                  service.launchUrlEmail(email: media_links[index]["link"]);
+                }
+                else if(media_links[index]['name'] == 'Mobile') {
+                  print("launch mobile");
+                  service.launchUrlPhone(phone: media_links[index]["link"]);
+                }
+                else{
+                  print("launch something");
                 }
               },
               child: Row(

@@ -104,9 +104,17 @@ class AccViewerServicesPage extends StatelessWidget {
                       return Container(
                         //height: 500,
                         width: double.infinity,
-                        color: index.isEven ? AppColor.lightRed : AppColor.lightPurple,
+                        //color: AppColor.bgColor, //index.isEven ? AppColor.lightRed : AppColor.lightPurple,
                         alignment: Alignment.center,
                         //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        decoration: BoxDecoration(
+                          color: AppColor.bgColor,
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(
+                            color: AppColor.darkGreyColor,
+                            width: 1.0,
+                          )
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -258,7 +266,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                           "Request Quote",
                                             style: GoogleFonts.inter(
                                             color: AppColor.yellowStar,
-                                            fontSize: 13.sp,
+                                            fontSize: 12.sp,
                                             fontWeight: FontWeight.w600,
                                             decoration: TextDecoration.underline,
                                             decorationColor: AppColor.yellowStar,

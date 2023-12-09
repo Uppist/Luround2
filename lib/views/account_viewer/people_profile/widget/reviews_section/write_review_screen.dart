@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
 import 'package:luround/services/account_viewer/profile_service/get_user_profile.dart';
+import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_textfield.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
@@ -100,7 +101,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       backgroundColor: AppColor.mainColor,
                       radius: 30.r,
                       child: Text(
-                        "R",
+                        getFirstLetter('Ronald Richards'),
                         style: GoogleFonts.inter(
                           color: AppColor.bgColor,
                           fontSize: 20.sp,

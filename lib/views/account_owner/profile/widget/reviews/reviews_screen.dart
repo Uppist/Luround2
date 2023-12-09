@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
@@ -160,7 +161,7 @@ class ReviewsPage extends StatelessWidget {
                               backgroundColor: AppColor.mainColor,
                               radius: 25.r,
                               child: Text(
-                                "F",
+                                getFirstLetter(data[index].userName),
                                 style: GoogleFonts.inter(
                                   color: AppColor.bgColor,
                                   fontSize: 21.sp,

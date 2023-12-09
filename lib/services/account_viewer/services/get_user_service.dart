@@ -165,7 +165,7 @@ class AccViewerService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to book service"
-        ).whenComplete(() => getx.Get.back());
+        ); //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {

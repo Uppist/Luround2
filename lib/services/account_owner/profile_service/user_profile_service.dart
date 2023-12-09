@@ -2,6 +2,7 @@ import 'package:cloudinary/cloudinary.dart';
 import 'package:get/get.dart' as getx;
 import 'package:image_picker/image_picker.dart';
 import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/models/account_owner/user_profile/certificate_model.dart';
 import 'package:luround/models/account_owner/user_profile/certificates_response.dart';
 import 'package:luround/models/account_owner/user_profile/update_displayname_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
@@ -63,17 +64,18 @@ class AccOwnerProfileService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S CERTIFICATE LIST]//////
-  Future<List<dynamic>> getUserCertificates({required String email}) async {
+  Future<List<CertificateModel>> getUserCertificates() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "profile/get?email=$email",);
+      http.Response res = await baseService.httpGet(endPoint: "profile/certificates/get",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint("user certificates gotten successfully!!");
         //decode the response body here
-        UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
-        return userModel.certificates;
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        return response.map((e) => CertificateModel.fromJson(e)).toList();
       }
       else {
         isLoading.value = false;
@@ -424,55 +426,14 @@ class AccOwnerProfileService extends getx.GetxController {
       throw const HttpException("Something went wrong");
     }
   }
-
-  
-  Future<void> deleteMediaLink({
-    required String icon,
-    required String name,
-    required String link,
-  }) async {
-
-    isLoading.value = true;
-
-    try {
-
-      final Map<String, dynamic> body = {
-        "link": link, 
-        "name": name,
-        "icon": icon,
-      };
-
-      http.Response res = await baseService.httpDelete(
-        endPoint: "profile/delete-user-link", 
-        body: body
-      );
-
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user media-link data deleted successfully");
-        //LuroundSnackBar.successSnackBar(message: " successfully");
-        
-      } 
-      else {
-        isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        //LuroundSnackBar.errorSnackBar(message: "something went wrong");
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      debugPrint("$e");
-      throw const HttpException("Something went wrong");
-    }
-  }
   
 
   
   ////[CERTIFICATE DATA]]////////
-  Future<void> updateCertificateData({required List<ControllerSett> controllerSets, required BuildContext context}) async {
+  Future<void> updateCertificateData({
+    required List<ControllerSett> controllerSets, 
+    required BuildContext context
+    }) async {
     isLoading.value = true;
 
     try {
@@ -643,6 +604,12 @@ class AccOwnerProfileService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("$e");
       debugPrint("$stackTrace");
+      //failure snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
       throw const HttpException("Something went wrong");
     }
   }

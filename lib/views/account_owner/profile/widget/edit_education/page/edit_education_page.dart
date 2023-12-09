@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/models/account_owner/user_profile/certificate_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
@@ -11,6 +12,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/components/certificate_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/delete_certificate.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/edit_cert_details.dart';
 import '../../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../../utils/colors/app_theme.dart';
 import '../../../../../../utils/components/reusable_button.dart';
@@ -103,13 +105,11 @@ class _EditEducationPageState extends State<EditEducationPage> {
                       ),
                       SizedBox(height: 20.h),
                       //List of certificates from the server {backend}
-                      FutureBuilder(
-                        future: profileService.getUserProfileDetails(email: userEmail),
+                      FutureBuilder<List<CertificateModel>>(
+                        future: profileService.getUserCertificates(),
                         builder: (context, snapshot) {
                           if (snapshot.connectionState == ConnectionState.waiting) {
-                            return SafeArea(
-                              child: SizedBox()
-                            );
+                            return Loader2();
                           }
                           if (snapshot.hasError) {
                             print(snapshot.error);
@@ -117,9 +117,17 @@ class _EditEducationPageState extends State<EditEducationPage> {
                           if (!snapshot.hasData) {
                             print("sn-trace: ${snapshot.stackTrace}");
                             print("sn-data: ${snapshot.data}");
-                            return Loader2();
+                            return Text(
+                              "no certificates found",
+                              style: GoogleFonts.inter(
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.normal,
+                                color: AppColor.darkGreyColor
+                              ),
+                            );
                           }
                           var data = snapshot.data!;
+
                           if(snapshot.hasData) {
 
                             return SizedBox(
@@ -128,14 +136,14 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                 physics: ClampingScrollPhysics(), //BouncingScrollPhysics(),
                                 shrinkWrap: true,
                                 separatorBuilder: (context, index) => SizedBox(height: 5.h,),
-                                itemCount: data.certificates.length,
+                                itemCount: data.length,
                                 itemBuilder: (context, index) {
                                   return Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          data.certificates[index]['certificateName'],
+                                          data[index].certificateName,
                                           style: GoogleFonts.inter(
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w500,
@@ -152,10 +160,10 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                               onTap: () {
                                                 deleteCertificateBottomsheet(
                                                   context: context,
-                                                  issuingOrganization: data.certificates[index]['issuingOrganization'], 
-                                                  certificateName: data.certificates[index]['certificateName'], 
-                                                  issueDate: data.certificates[index]['issueDate'], 
-                                                  certificateLink: data.certificates[index]['certificateLink'],
+                                                  issuingOrganization: data[index].issuingOrganization, 
+                                                  certificateName: data[index].certificateName, 
+                                                  issueDate: data[index].issueDate, 
+                                                  certificateLink: data[index].certificateLink,
                                                 );
                                               },                      
                                               child: SvgPicture.asset(
@@ -165,10 +173,15 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                             SizedBox(width: 10.w,),
                                             InkWell(
                                               onTap: () {
-                                                //Get.to(() => EditCertListPage());
+                                                Get.to(() => EditCertDetails(
+                                                  issuingOrganization: data[index].issuingOrganization, 
+                                                  certificateName: data[index].certificateName, 
+                                                  issueDate: data[index].issueDate, 
+                                                  certificateLink: data[index].certificateLink,
+                                                ));
                                               },                      
                                               child: SvgPicture.asset(
-                                                "assets/svg/edit_cert.svg",
+                                                "assets/svg/edit_cert.svg"
                                               ),
                                             ),
                                           ],

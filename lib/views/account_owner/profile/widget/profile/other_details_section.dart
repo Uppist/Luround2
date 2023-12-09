@@ -6,8 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/profile/screen/profile_screen.dart';
-//import 'package:luround/views/account_owner/services/widget/delete_service/delete_service_bottomsheet.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 
 
@@ -21,7 +19,7 @@ class OtherDetailsSection extends StatelessWidget {
   final VoidCallback onPressedEdit;
   final List<dynamic> media_links;
 
-  var controller = Get.put(AccOwnerProfileService());
+  var service = Get.put(AccOwnerProfileService());
  
   @override
   Widget build(BuildContext context) {
@@ -68,7 +66,7 @@ class OtherDetailsSection extends StatelessWidget {
                 ]
               ),
               onDismissed: (direction) async{
-                await controller.deleteMediaData(
+                await service.deleteMediaData(
                   context: context, 
                   name: media_links[index]['name'], 
                   link: media_links[index]['link'], 

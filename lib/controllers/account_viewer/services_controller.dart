@@ -75,13 +75,14 @@ class AccViewerServicesController extends getx.GetxController {
   String getDate ({required String initialDate}) {
     var result = dates[0].toString();
     String refinedList = result.split(" ")[0];
-    if(refinedList.isNotEmpty) {
+    if(refinedList.isNotEmpty && dates.isNotEmpty) {
       return refinedList;
     }
     return initialDate;
   }
   //(save the selected time below to db)
   //Logic to be implemented
+  getx.RxString selectedTime = ''.obs;
   /////////////////////////////////////////////////////////////////
 
   //proceed to pay screen (save to db)

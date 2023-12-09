@@ -149,9 +149,17 @@ class _Step3PageState extends State<Step3Page> {
                   date: mainController.selectDurationRadio,             
                   available_days: mainController.availableDays(),
                 ).whenComplete(() {
+                  //1
                   setState(() {
                     mainController.curentStep = mainController.curentStep - 2;
                   });
+                  //2
+                  mainController.serviceNameController.clear();
+                  mainController.descriptionController.clear();
+                  mainController.addLinksController.clear();
+                  mainController.inPersonController.clear();
+                  mainController.virtualController.clear();
+                  //3
                   Get.offUntil(
                     GetPageRoute(
                       curve: Curves.bounceIn,

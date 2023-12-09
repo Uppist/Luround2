@@ -81,8 +81,6 @@ class ProfilePageController extends getx.GetxController {
 
 
   //EDIT OTHERS SECTION//////////////////////////////////////////////
-
-  
   //country code picker (append with mobile controller.text and save to db)
   var code = "".obs; 
 
@@ -134,6 +132,11 @@ class ProfilePageController extends getx.GetxController {
     update();
   }
 
+  //EDIT SPECIFIC CERTIFICATE PAGE//
+  final TextEditingController editissuingOrganizationController = TextEditingController();
+  final TextEditingController editissueDateController = TextEditingController();
+  final TextEditingController editcerticateNameController = TextEditingController();
+  final TextEditingController editcertificateURLController = TextEditingController();
 
 
   List<Widget> viewTextfields = []; 
@@ -163,6 +166,11 @@ class ProfilePageController extends getx.GetxController {
     expirationDateController.dispose();
     certicateIDController.dispose();
     certificateURLController.dispose();
+
+    editissuingOrganizationController.dispose();
+    editissueDateController.dispose();
+    editcerticateNameController.dispose();
+    editcertificateURLController.dispose();
     super.dispose();
   }
 }

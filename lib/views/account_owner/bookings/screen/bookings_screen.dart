@@ -278,8 +278,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         service.dataList[index].bookingUserInfo.displayName,
                                                         style: GoogleFonts.poppins(
                                                           color: AppColor.darkGreyColor,
-                                                          fontSize: 15.sp,
-                                                          fontWeight: FontWeight.bold
+                                                          fontSize: 14.sp,
+                                                          fontWeight: FontWeight.w600
                                                         ),
                                                       ),
                                                       SizedBox(height: 2.h,),
@@ -287,7 +287,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         "booked you",//index.isEven ? "booked you" : "you booked",
                                                         style: GoogleFonts.poppins(
                                                           color: AppColor.textGreyColor,
-                                                          fontSize: 15.sp,
+                                                          fontSize: 12.sp,
                                                           fontWeight: FontWeight.w500
                                                         ),
                                                       )
@@ -307,7 +307,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   service.dataList[index].serviceDetails.date,
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.darkGreyColor,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
                                                   ),
                                                 ),
@@ -326,7 +326,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                               style: GoogleFonts.poppins(
                                                 color: AppColor.blackColor,
                                                 fontSize: 16.sp,
-                                                fontWeight: FontWeight.bold
+                                                fontWeight: FontWeight.w600
                                               ),
                                             ),
                                             SizedBox(height: 30,),
@@ -337,8 +337,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   service.dataList[index].serviceDetails.time,
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.blackColor,
-                                                    fontSize: 16.sp,
-                                                    fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                 ),
                                                 Row(
@@ -350,8 +350,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                       service.dataList[index].serviceDetails.duration,
                                                       style: GoogleFonts.poppins(
                                                         color: AppColor.textGreyColor,
-                                                        fontSize: 15.sp,
-                                                        //fontWeight: FontWeight.w500
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w400
                                                       ),
                                                     ),
                                                   ],
@@ -371,7 +371,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "Sender's Email",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.blackColor,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
@@ -382,8 +382,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   service.dataList[index].bookingUserInfo.email,
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.darkGreyColor,
-                                                    fontSize: 15.sp,
-                                                    //fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
                                                   //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
@@ -394,7 +394,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "Meeting Type",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.blackColor,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
@@ -405,8 +405,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   service.dataList[index].serviceDetails.appointmentType,
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.darkGreyColor,
-                                                    fontSize: 15.sp,
-                                                    //fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
                                                   //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
@@ -417,7 +417,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "Location",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.blackColor,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
@@ -428,8 +428,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   service.dataList[index].serviceDetails.location,
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.darkGreyColor,
-                                                    fontSize: 15.sp,
-                                                    //fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
                                                   //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
@@ -440,7 +440,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "Sender's Time Zone",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.blackColor,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
@@ -451,8 +451,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "West Africa Time",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.darkGreyColor,
-                                                    fontSize: 15.sp,
-                                                    //fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
                                                   //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
@@ -463,7 +463,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "Note",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.blackColor,
-                                                    fontSize: 16.sp,
+                                                    fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
@@ -474,8 +474,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   service.dataList[index].serviceDetails.message,
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.darkGreyColor,
-                                                    fontSize: 15.sp,
-                                                    //fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
                                                   //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
@@ -486,8 +486,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   "Created on ${convertServerTimeToDate(service.dataList[index].serviceDetails.createdAt)}",
                                                   style: GoogleFonts.poppins(
                                                     color: AppColor.textGreyColor.withOpacity(0.4),
-                                                    fontSize: 15.sp,
-                                                    //fontWeight: FontWeight.w500
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
                                                   ),
                                                   //maxLines: controller.selectedIndex == index ? null : 1,
                                                   //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
@@ -521,7 +521,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             controller.selectedIndex == index   ? 'See Less' : 'See More',
                                             style: GoogleFonts.poppins(
                                               color: AppColor.mainColor,
-                                              fontSize: 17.sp,
+                                              fontSize: 16.sp,
                                               fontWeight: FontWeight.w500
                                               //decoration: TextDecoration.underline,
                                             ),

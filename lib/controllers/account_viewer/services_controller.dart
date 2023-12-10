@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
@@ -12,6 +15,25 @@ import 'package:get/get.dart' as getx;
 
 class AccViewerServicesController extends getx.GetxController {
   
+  
+  //UPLOAD FILE WHEN REQUESTING FOR QUOTE (PDF, DOCX, e.t.c)
+  //file picker to pick user docs/pdf
+  File? selectedFile;
+  var isFileSelected = false.obs;
+  Future<void> selectFile(context) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png','pdf', 'doc'],
+    );
+
+    if (result != null) {
+      isFileSelected.value = true;
+      selectedFile = File(result.files.single.path!);
+      debugPrint("pdf path: ${selectedFile!.path}");
+      //uploadDocToCloudinary();
+    }
+  }
+
 
 
   //REQUEST QUOTE//////////////////////////(save to db)

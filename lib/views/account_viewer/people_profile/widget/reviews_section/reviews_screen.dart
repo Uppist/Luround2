@@ -23,7 +23,9 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class AccViewerReviewsPage extends StatelessWidget {
-  AccViewerReviewsPage({super.key});
+  AccViewerReviewsPage({super.key, required this.userName, required this.photoUrl});
+  final String userName;
+  final String photoUrl;
 
   var controller = Get.put(ProfilePageAccViewerController());
   var service = Get.put(AccViewerService());
@@ -83,7 +85,10 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.to(() => WriteReviewsPage());
+                            Get.to(() => WriteReviewsPage(
+                              photoUrl: photoUrl,
+                              userName: userName,
+                            ));
                           }, 
                           child: Text(
                             'Write a review',
@@ -183,7 +188,16 @@ class AccViewerReviewsPage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircleAvatar(
+                            ////Image
+                            data[index].userPhoto != 'url'
+                            ?CircleAvatar(
+                              backgroundColor: AppColor.mainColor,
+                              backgroundImage: NetworkImage(
+                                data[index].userPhoto
+                              ),
+                              radius: 30.r,
+                            )
+                            :CircleAvatar(
                               backgroundColor: AppColor.mainColor,
                               radius: 30.r,
                               child: Text(
@@ -195,6 +209,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                                 ),
                               ),
                             ),
+                            //////////
                             SizedBox(width: 10.w),
                             Expanded(
                               child: Column(
@@ -218,7 +233,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                                       RatingBarIndicator(                      
                                         unratedColor: AppColor.textGreyColor.withOpacity(0.2),
                                         itemPadding: EdgeInsets.symmetric(horizontal: 3.w),
-                                        rating: data[index].rating,  //fetch from db
+                                        rating: double.tryParse(data[index].rating.toString()) ?? 0.0,  //fetch from db
                                         itemBuilder: (context, index) => Icon(
                                           CupertinoIcons.star_fill,
                                           color: AppColor.yellowStar,

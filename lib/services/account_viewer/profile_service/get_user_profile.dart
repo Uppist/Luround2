@@ -186,7 +186,7 @@ class AccViewerProfileService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "updated successfully"
-        );
+        ).whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;

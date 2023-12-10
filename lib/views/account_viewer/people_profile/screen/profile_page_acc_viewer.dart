@@ -115,7 +115,10 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                   children: [
                                     TextButton(
                                       onPressed: () {
-                                        Get.to(() => AccViewerReviewsPage());
+                                        Get.to(() => AccViewerReviewsPage(
+                                          userName: data.displayName,
+                                          photoUrl: data.photoUrl,
+                                        ));
                                       }, 
                                       child: Text(
                                         'See all reviews',

@@ -21,6 +21,7 @@ dependencies:
 
   #for picking documents
   file_picker: ^3.0.0
+  pdf: ^3.10.7
   
   #ui customizations
   google_fonts: ^6.0.0

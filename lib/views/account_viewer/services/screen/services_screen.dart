@@ -119,7 +119,7 @@ class AccViewerServicesPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [

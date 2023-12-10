@@ -34,8 +34,8 @@ class OtherDetailsSection extends StatelessWidget {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.bold
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600
                 )
               )
             ),
@@ -89,23 +89,25 @@ class OtherDetailsSection extends StatelessWidget {
                       children: [              
                         //Title text
                         Text(
-                          media_links[index]['name'] ?? "name",
+                          media_links[index]["link"] ?? "link",
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.blackColor,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             )
-                          )
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 7.h,), //10
                         //Subtitle text
                         Text(
-                          media_links[index]["link"] ?? "link",
+                          media_links[index]['name'] ?? "name",
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.darkGreyColor,
-                              fontSize: 15.sp,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400
                             )
                           ),
                           overflow: TextOverflow.ellipsis,

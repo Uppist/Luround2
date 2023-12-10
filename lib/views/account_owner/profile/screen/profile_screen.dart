@@ -138,7 +138,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 textStyle: TextStyle(
                   color: AppColor.bgColor,
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -275,7 +275,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
                           decoration: TextDecoration.underline,
-                          fontSize: 15.sp,
+                          fontSize: 12.sp,
                           fontWeight: FontWeight.w500
                         )
                       )
@@ -349,11 +349,26 @@ class _ProfilePageState extends State<ProfilePage> {
           children: [
             Center(
               child: Text(
+                data.company,
+                style: GoogleFonts.inter(
+                  textStyle: TextStyle(
+                    color: AppColor.blackColor,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+            ),
+
+            SizedBox(height: 15.h,),
+
+            Center(
+              child: Text(
                 data.occupation,
                 style: GoogleFonts.inter(
                   textStyle: TextStyle(
                     color: AppColor.blackColor,
-                    fontSize: 17.sp,
+                    fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -371,8 +386,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.blueColor,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400
                       )
                     )
                   )
@@ -645,8 +660,8 @@ class _ProfilePageState extends State<ProfilePage> {
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.blackColor,
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.bold
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600
                 )
               )
             ),

@@ -31,8 +31,8 @@ class AddSectionButton extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.darkGreyColor,
-              fontSize: 17.sp,
-              //fontWeight: FontWeight.w500
+              fontSize: 16.sp,
+              fontWeight: FontWeight.w500
             )
           )
         ),

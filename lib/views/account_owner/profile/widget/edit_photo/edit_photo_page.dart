@@ -136,7 +136,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 'Personal Details',
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
-                                  fontSize: 16.sp,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.w600
                                 )
                               ),
@@ -236,7 +236,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
                               ),                  
-                              SizedBox(height: 100.h,),
+                              SizedBox(height: 80.h,),
                               ReusableButton(
                                 color: AppColor.mainColor,
                                 text: 'Save',

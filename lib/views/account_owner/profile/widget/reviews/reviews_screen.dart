@@ -95,7 +95,7 @@ class ReviewsPage extends StatelessWidget {
                             textStyle: TextStyle(
                               color: AppColor.blackColor,
                               //decoration: TextDecoration.underline,
-                              fontSize: 21.sp,
+                              fontSize: 24.sp,
                               fontWeight: FontWeight.w500
                             )
                           )
@@ -123,8 +123,8 @@ class ReviewsPage extends StatelessWidget {
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
-                                  //fontWeight: FontWeight.w500
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500
                                 )
                               )
                             ),
@@ -179,8 +179,8 @@ class ReviewsPage extends StatelessWidget {
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         color: AppColor.blackColor,
-                                        fontSize: 17.sp,
-                                        fontWeight: FontWeight.w500
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600
                                       )
                                     )
                                   ),
@@ -207,8 +207,8 @@ class ReviewsPage extends StatelessWidget {
                                         style: GoogleFonts.inter(
                                           textStyle: TextStyle(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 14.sp,
-                                            //fontWeight: FontWeight.w500
+                                            fontSize: 12.sp,
+                                            fontWeight: FontWeight.w500
                                           )
                                         ),
                                       ),
@@ -220,7 +220,7 @@ class ReviewsPage extends StatelessWidget {
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         color: AppColor.textGreyColor,
-                                        fontSize: 15.sp,
+                                        fontSize: 14.sp,
                                         fontWeight: FontWeight.w500
                                       )
                                     )

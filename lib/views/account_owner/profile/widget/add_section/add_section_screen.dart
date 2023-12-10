@@ -80,7 +80,7 @@ class AddSectionPage extends StatelessWidget {
                       'Photo & Intro',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 17.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
@@ -103,7 +103,7 @@ class AddSectionPage extends StatelessWidget {
                       'About',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 17.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
@@ -124,7 +124,7 @@ class AddSectionPage extends StatelessWidget {
                       'Education & Certifications',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 17.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),
@@ -145,7 +145,7 @@ class AddSectionPage extends StatelessWidget {
                       'Others',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 17.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       )
                     ),

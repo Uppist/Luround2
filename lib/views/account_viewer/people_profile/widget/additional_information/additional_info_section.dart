@@ -72,7 +72,7 @@ class AdditionalInfoSection extends StatelessWidget {
                       children: [
                         //Title text
                         Text(
-                          media_links[index]['name'] ?? "name",
+                          media_links[index]["link"] ?? "link",
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.blackColor,
@@ -84,7 +84,7 @@ class AdditionalInfoSection extends StatelessWidget {
                         SizedBox(height: 5.h,),
                         //Subtitle text
                         Text(
-                          media_links[index]["link"] ?? "link",
+                          media_links[index]['name'] ?? "name",
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.darkGreyColor,

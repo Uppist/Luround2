@@ -302,7 +302,7 @@ class ServicesPage extends StatelessWidget {
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.blackColor,
                                                   fontSize: 20.sp,
-                                                  fontWeight: FontWeight.bold
+                                                  fontWeight: FontWeight.w600
                                                 ),
                                               ),
                                               //time
@@ -312,7 +312,7 @@ class ServicesPage extends StatelessWidget {
                                                 text: "/${data[index].duration}",
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
+                                                  fontSize: 16.sp,
                                                   fontWeight: FontWeight.w500
                                                 ),
                                               ),

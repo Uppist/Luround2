@@ -132,8 +132,8 @@ class NotificationsPage extends StatelessWidget {
                                   textStyle: TextStyle(
                                     overflow: TextOverflow.visible,
                                     color: AppColor.blackColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.sp,
                                   )
                                 )
                               ),
@@ -142,7 +142,7 @@ class NotificationsPage extends StatelessWidget {
                                 "Jun 24 at 10:00",  //recepient name
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
-                                  //fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.w500,
                                   fontSize: 14.sp
                                 )
                               ),

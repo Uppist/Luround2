@@ -35,7 +35,7 @@ class SubscriptionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ///Header Section/////
-            Container(
+            /*Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -62,7 +62,7 @@ class SubscriptionScreen extends StatelessWidget {
               color: AppColor.greyColor,
               width: double.infinity,
               height: 7.h,
-            ),
+            ),*/
             ///Navigation Section/////
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.w,),

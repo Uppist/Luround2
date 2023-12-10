@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/notification_settings/custom_switch_cards.dart';
-import 'package:luround/views/account_owner/more/widget/notification_settings/switch_widget.dart';
+import 'package:luround/views/account_owner/more/widget/notifications/custom_switch_cards.dart';
+import 'package:luround/views/account_owner/more/widget/notifications/switch_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -30,7 +30,7 @@ class NotificationSettingScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ///Header Section/////
-            Container(
+            /*Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -57,7 +57,10 @@ class NotificationSettingScreen extends StatelessWidget {
               color: AppColor.greyColor,
               width: double.infinity,
               height: 7.h,
-            ),
+            ),*/
+
+            //SizedBox(height: 20.h,),
+            
             ///Navigation Section/////
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.h,),
@@ -106,7 +109,7 @@ class NotificationSettingScreen extends StatelessWidget {
                     style: GoogleFonts.inter(
                       color: AppColor.darkGreyColor,
                       fontSize: 16.sp,
-                      fontWeight: FontWeight.bold
+                      fontWeight: FontWeight.w600
                     ),
                   ),
                   SizedBox(height: 20.h,),

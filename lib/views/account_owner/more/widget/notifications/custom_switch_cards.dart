@@ -31,7 +31,7 @@ class CustomSwitchCard extends StatelessWidget {
             title,
             style: GoogleFonts.inter(
               fontWeight: FontWeight.w500,
-              fontSize: 16.sp,
+              fontSize: 14.sp,
               color: AppColor.darkGreyColor
             ),
           ),

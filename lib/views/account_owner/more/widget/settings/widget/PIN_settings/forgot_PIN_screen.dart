@@ -106,7 +106,7 @@ class ForgotPINScreen extends StatelessWidget {
                     textController: controller.otpForNewPinController,
                     isObscured: false,
                   ),
-                  SizedBox(height: 390.h),
+                  SizedBox(height: 360.h),
                   ReusableButton(
                     color: AppColor.mainColor,
                     text: 'Change PIN',

@@ -28,7 +28,7 @@ class TransactionPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ///Header Section/////
-            Container(
+            /*Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -49,7 +49,7 @@ class TransactionPage extends StatelessWidget {
                   ),
                 ]
               )
-            ),
+            ),*/
             ///Navigation Section/////
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.w,),

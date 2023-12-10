@@ -50,7 +50,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ///Header Section
-            Container(
+            /*Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -77,8 +77,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
               color: AppColor.greyColor,
               width: double.infinity,
               height: 7.h,
-            ),
-            SizedBox(height: 10.h,),
+            ),*/
             /////////////
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 7.w),
@@ -99,7 +98,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     "Contact us",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
-                      fontSize: 18.sp,
+                      fontSize: 16.sp,
                       fontWeight: FontWeight.w500
                     ),
                   ),
@@ -128,7 +127,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           "Subject",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
@@ -146,7 +145,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           "Description",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500
                           ),
                         ),
@@ -163,7 +162,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                           textInputAction: TextInputAction.next,
                           controller: controller.descriptionController,
                         ),
-                        SizedBox(height: 390.h),  //250
+                        SizedBox(height: 450.h),  //390
                         RebrandedReusableButton(
                           textColor: AppColor.bgColor,
                           color: AppColor.mainColor,

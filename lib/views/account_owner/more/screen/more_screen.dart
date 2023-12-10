@@ -8,7 +8,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen_selector.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/financials_screen.dart';
-import 'package:luround/views/account_owner/more/widget/notification_settings/notification_settings_screen.dart';
+import 'package:luround/views/account_owner/more/widget/notifications/notification_settings_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
 import '../widget/settings/screen/settings_screen.dart';
 

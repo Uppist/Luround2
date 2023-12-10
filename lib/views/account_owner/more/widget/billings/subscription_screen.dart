@@ -6,10 +6,10 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/subscription/add_card_button.dart';
-import 'package:luround/views/account_owner/more/widget/subscription/no_payment_method.dart';
-import 'package:luround/views/account_owner/more/widget/subscription/payment_card.dart';
-import 'package:luround/views/account_owner/more/widget/subscription/upgrade_button.dart';
+import 'package:luround/views/account_owner/more/widget/billings/widgets/add_card_button.dart';
+import 'package:luround/views/account_owner/more/widget/billings/no_payment_method.dart';
+import 'package:luround/views/account_owner/more/widget/billings/widgets/payment_card.dart';
+import 'package:luround/views/account_owner/more/widget/billings/widgets/upgrade_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 

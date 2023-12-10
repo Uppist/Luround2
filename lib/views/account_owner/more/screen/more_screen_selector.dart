@@ -36,7 +36,7 @@ class _MoreSelectorState extends State<MoreSelector> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SvgPicture.asset(widget.svgAsset),
-              SizedBox(width: 10.w,),
+              SizedBox(width: 20.w,),
               Expanded(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,6 +48,80 @@ class _MoreSelectorState extends State<MoreSelector> {
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500
                       ),
+                    ),    
+                    Icon(
+                      CupertinoIcons.forward, 
+                      color: AppColor.blackColor, 
+                      size: 25,
+                    ) 
+                
+                  ],
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 20.h,),
+          Divider(thickness: 0.6, color: Colors.grey.withOpacity(0.7),)
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
+
+class MoreSelector2  extends StatefulWidget {
+
+  const MoreSelector2({super.key, required this.text, required this.onTap, required this.svgAsset});
+  final String svgAsset;
+  final String text;
+  final VoidCallback onTap;
+
+  @override
+  State<MoreSelector2> createState() => _MoreSelector2State();
+}
+
+class _MoreSelector2State extends State<MoreSelector2> {
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: widget.onTap,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              SvgPicture.asset(widget.svgAsset),
+              SizedBox(width: 20.w,),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.text,
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor, 
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          'coming soon',
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor, 
+                            fontSize: 11.sp,
+                            fontWeight: FontWeight.normal
+                          ),
+                        ),
+                      ],
                     ),    
                     Icon(
                       CupertinoIcons.forward, 

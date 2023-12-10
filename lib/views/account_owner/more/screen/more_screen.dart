@@ -11,7 +11,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/notification_settings/notification_settings_screen.dart';
-import 'package:luround/views/account_owner/more/widget/subscription/subscription_screen.dart';
+import 'package:luround/views/account_owner/more/widget/billings/subscription_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
@@ -85,99 +85,60 @@ class MorePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //row 1
-                  /*Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomCard2(
-                        svgAsset: "assets/svg/integrations.svg",
-                        title: "Integrations",
-                        onTap: () {
-                          //comingSoonDialogue(context: context);
-                        },
-                      ),
-                      SizedBox(width: 20.w,),
-                      CustomCard(
-                        svgAsset: "assets/svg/trx_new.svg",
-                        title: "Transactions",
-                        onTap: () {
-                          Get.to(() => TransactionPage());
-                        },
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 30.h,),*/
+                  SizedBox(height: 30.h,),
                   MoreSelector(
-                    text: '',
-                    svgAsset: '',
+                    text: 'Transactions',
+                    svgAsset: 'assets/svg/transaction_new.svg',
+                    onTap: () {
+                      Get.to(() => TransactionPage());
+                    },
+                  ),
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
+                    text: 'Financials',
+                    svgAsset: 'assets/svg/financials_new.svg',
+                    onTap: () {
+                      //Get.to(() => FinancialsPage());
+                    },
+                  ),
+                  SizedBox(height: 20.h,),
+                  MoreSelector2(
+                    text: 'CRM',
+                    svgAsset: 'assets/svg/crm_new.svg',
                     onTap: () {},
                   ),
-                  //row 2
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomCard(
-                        svgAsset: "assets/svg/finance.svg",
-                        title: "Financials",
-                        onTap: () {
-                          Get.to(() => FinancialsPage());
-                        },
-                      ),
-                      SizedBox(width: 20.w,),
-                      CustomCard2(
-                        svgAsset: "assets/svg/cc_new.svg",
-                        title: "Subscriptions",
-                        onTap: () {
-                          //Get.to(() => SubscriptionScreen());
-                        },
-                      ),
-                    ],
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
+                    text: 'Notifications',
+                    svgAsset: 'assets/svg/notifications_new.svg',
+                    onTap: () {
+                      Get.to(() => NotificationSettingScreen());
+                    },
                   ),
-                  SizedBox(height: 30.h,),
-                  //row 3
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomCard(
-                        svgAsset: "assets/svg/noti_new.svg",
-                        title: "Notifications",
-                        onTap: () {
-                          Get.to(() => NotificationSettingScreen());
-                        },
-                      ),
-                      SizedBox(width: 20.w,),
-                      CustomCard(
-                        svgAsset: "assets/svg/feedback.svg",
-                        title: "Feedback",
-                        onTap: () {
-                          Get.to(() => FeedbackPage());
-                        },
-                      ),
-                    ],
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
+                    text: 'Feedback',
+                    svgAsset: 'assets/svg/feedback_new.svg',
+                    onTap: () {
+                      Get.to(() => FeedbackPage());
+                    },
                   ),
-                  SizedBox(height: 30.h,),
-                  //row 4                   
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomCard(
-                        svgAsset: "assets/svg/settings_new.svg",
-                        title: "Settings",
-                        onTap: () {
-                          Get.to(() => SettingsScreen());
-                        },
-                      ),
-                      SizedBox(width: 20.w,),
-                      //Expanded(child: SizedBox(width: 190.w,))
-                      CustomCard(
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
+                    text: 'Settings',
+                    svgAsset: 'assets/svg/settings_new.svg',
+                    onTap: () {
+                      Get.to(() => SettingsScreen());
+                    },
+                  ),                
+                  //Expanded(child: SizedBox(width: 190.w,))
+                      /*CustomCard(
                         svgAsset: "assets/svg/exit_new.svg",
                         title: "Logout",
                         onTap: () {
                           logoutDialogue(context: context);
                         },
-                      ),
-                    ],
-                  ),
+                      ),*/
                 ],
               ),
             )

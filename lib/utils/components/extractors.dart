@@ -19,7 +19,7 @@ String getJustNumber({required String phoneNumber}) {
   return num; // Remove leading and trailing spaces (if any)
 }
 
-//
+//get the first letter of a user name
 String getFirstLetter(String displayName) {
   // Split the display name into parts based on spaces
   List<String> nameParts = displayName.split(' ');
@@ -38,7 +38,17 @@ String getFirstLetter(String displayName) {
       return firstLetter;
     }
   }
-
   // Return an empty string if no valid first letter is found
   return '';
 }
+
+
+String getUserUrlSlug(String textController) {
+  // Extract the substring "jjj"
+  String result = textController.substring(textController.lastIndexOf("/") + 1);
+
+  print('Original string: $textController');
+  print('Substring: $result');
+  return result;
+}
+

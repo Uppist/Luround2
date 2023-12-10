@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
+import 'package:luround/views/account_owner/more/widget/billings/subscription_screen.dart';
+import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/pin_management_options.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/customize_your_url/customize_url.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/password_settings/change_password_screen.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/settings_selector.dart';
 
@@ -59,6 +63,34 @@ class SettingsScreen extends StatelessWidget {
                     Get.to(() => PinManagementOptions());
                   },
                 ),
+                SizedBox(height: 20.h,),
+                SettingsSelector(
+                  text: "Billings",
+                  onFlip: () {
+                    Get.to(() => SubscriptionScreen());
+                  },
+                ),
+                SizedBox(height: 20.h,),
+                SettingsSelector(
+                  text: "Customize your URL",
+                  onFlip: () {
+                    Get.to(() => CustomizeYourURLPage());
+                  },
+                ),
+                SizedBox(height: 20.h,),
+                TextButton(
+                  onPressed: () {
+                    logoutDialogue(context: context);
+                  },
+                  child: Text(
+                    'Log out',
+                    style: GoogleFonts.inter(
+                      color: AppColor.redColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  )
+                )
               ],
             ),
           )

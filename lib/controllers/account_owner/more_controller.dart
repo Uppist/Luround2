@@ -31,6 +31,8 @@ class MoreController extends getx.GetxController {
   final TextEditingController newWithdrawalPINController = TextEditingController();
   final TextEditingController confirmNewWithdrawalPINController = TextEditingController();
   final TextEditingController otpForNewPinController = TextEditingController();
+  //customize your url
+  final TextEditingController customizeURLTextController = TextEditingController();
 
 
 
@@ -55,6 +57,7 @@ class MoreController extends getx.GetxController {
     newWithdrawalPINController.dispose();
     confirmNewWithdrawalPINController.dispose();
     otpForNewPinController.dispose();
+    customizeURLTextController.dispose();
     //descriptionController.dispose();
     super.dispose();
   }

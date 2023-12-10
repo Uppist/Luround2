@@ -19,10 +19,11 @@ class AddCardButton extends StatelessWidget {
         style: GoogleFonts.inter(
           textStyle: TextStyle(
             color: AppColor.mainColor,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w400
           ),
-          decoration: TextDecoration.underline
+          decoration: TextDecoration.underline,
+          decorationColor: AppColor.mainColor,
         )
       ),
     );

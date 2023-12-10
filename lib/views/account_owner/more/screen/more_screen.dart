@@ -8,13 +8,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen_selector.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/financials_screen.dart';
-import 'package:luround/views/account_owner/more/widget/more_screen/custom_card.dart';
-import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/notification_settings/notification_settings_screen.dart';
-import 'package:luround/views/account_owner/more/widget/billings/subscription_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
-import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
-
 import '../widget/settings/screen/settings_screen.dart';
 
 
@@ -131,14 +126,6 @@ class MorePage extends StatelessWidget {
                       Get.to(() => SettingsScreen());
                     },
                   ),                
-                  //Expanded(child: SizedBox(width: 190.w,))
-                      /*CustomCard(
-                        svgAsset: "assets/svg/exit_new.svg",
-                        title: "Logout",
-                        onTap: () {
-                          logoutDialogue(context: context);
-                        },
-                      ),*/
                 ],
               ),
             )

@@ -28,7 +28,7 @@ class UpgradeButton extends StatelessWidget {
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,
-              fontSize: 17.sp,
+              fontSize: 16.sp,
               fontWeight: FontWeight.w500
             )
           )

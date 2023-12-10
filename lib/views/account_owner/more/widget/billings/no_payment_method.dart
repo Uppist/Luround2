@@ -14,11 +14,11 @@ class NoPaymentMethodText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      "You have not added a payment method.",
+      "You have not added a payment method",
       style: GoogleFonts.inter(
         color: AppColor.blackColor,
         fontSize: 16.sp,
-        fontWeight: FontWeight.bold
+        fontWeight: FontWeight.w600
       ),
     );
   }

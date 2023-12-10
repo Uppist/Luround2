@@ -113,14 +113,24 @@ class _MoreSelector2State extends State<MoreSelector2> {
                           ),
                         ),
                         SizedBox(width: 10.w,),
-                        Text(
-                          'coming soon',
-                          style: GoogleFonts.inter(
-                            color: AppColor.darkGreyColor, 
-                            fontSize: 11.sp,
-                            fontWeight: FontWeight.normal
+                        Image.asset("assets/images/c_s.png")
+                        /*Container(
+                          //height: 15.h,
+                          decoration: BoxDecoration(
+                            color: AppColor.redColor,
+                            borderRadius: BorderRadius.circular(5.r)
                           ),
-                        ),
+                          padding: EdgeInsets.symmetric(horizontal: 5.w,),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'coming soon',
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor, 
+                              fontSize: 8.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        ),*/
                       ],
                     ),    
                     Icon(

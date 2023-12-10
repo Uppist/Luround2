@@ -83,7 +83,7 @@ class SubscriptionScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 3.w,),
                   Text(
-                    "Subscription",
+                    "Billings",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 16.sp,
@@ -112,8 +112,8 @@ class SubscriptionScreen extends StatelessWidget {
                         "Current Plan",
                         style: GoogleFonts.inter(
                           color: AppColor.darkGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w600
                         ),
                       ),
                       SizedBox(height: 5.h,),
@@ -123,8 +123,8 @@ class SubscriptionScreen extends StatelessWidget {
                         "You are using the free plan",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w600
                         ),
                       ),
                       SizedBox(height: 20.h,),
@@ -139,8 +139,8 @@ class SubscriptionScreen extends StatelessWidget {
                             "Payment Method",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600
                             ),
                           ),
                           AddCardButton(onPressed: () { },)
@@ -180,8 +180,8 @@ class SubscriptionScreen extends StatelessWidget {
                               "See Billing History",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.w500
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w600
                               ),
                             ),
                             Icon(

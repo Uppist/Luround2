@@ -69,7 +69,7 @@ class _BookingsPageState extends State<BookingsPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    /*Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Image(
@@ -87,15 +87,15 @@ class _BookingsPageState extends State<BookingsPage> {
                           ],
                         )
                       ]
-                    ),
+                    ),*/
                     const SizedBox(height: 10,), //40
                     Center(
                       child: Text(
                         "Bookings",
-                        style: GoogleFonts.poppins(
+                        style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 19.sp,
-                          fontWeight: FontWeight.w500
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600
                         ),
                       ),
                     ),

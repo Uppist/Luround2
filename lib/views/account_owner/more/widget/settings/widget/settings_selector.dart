@@ -52,7 +52,7 @@ class _SettingsSelectorState extends State<SettingsSelector> {
             ],
           ),
           SizedBox(height: 20.h,),
-          Divider(thickness: 0.3, color: AppColor.textGreyColor,)
+          Divider(thickness: 0.6, color: Colors.grey.withOpacity(0.7),)
         ],
       ),
     );

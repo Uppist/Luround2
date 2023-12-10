@@ -58,39 +58,7 @@ class _ProfilePageState extends State<ProfilePage> {
     await userProfileService.getUserProfileDetails(email: userEmail);
   }
   
-  ScrollController? _scrollController;
-  bool showShareIcon = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _scrollController!.addListener(_scrollListener);
-  }
-
-  @override
-  void dispose() {
-    _scrollController!.dispose();
-    super.dispose();
-  }
-
-  void _scrollListener() {
-    if (_scrollController!.position.userScrollDirection == ScrollDirection.reverse) {
-      // Scrolling down
-      if (showShareIcon) {
-        setState(() {
-          showShareIcon = false;
-        });
-      }
-    } else if (_scrollController!.position.userScrollDirection == ScrollDirection.forward) {
-      // Scrolling up
-      if (!showShareIcon) {
-        setState(() {
-          showShareIcon = true;
-        });
-      }
-    }
-  }
 
 
 
@@ -197,7 +165,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {
               shareProfileLink(link: data.luround_url);
             },
-            label: showShareIcon ? Icon(Icons.share) : Text(
+            label: Text(
               'Share Profile',
               style: GoogleFonts.inter(
                 textStyle: TextStyle(

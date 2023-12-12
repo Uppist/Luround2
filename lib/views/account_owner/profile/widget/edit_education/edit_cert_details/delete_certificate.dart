@@ -69,7 +69,7 @@ Future<void> deleteCertificateBottomsheet({
                   'Are you sure you want to delete this certificate ?',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
-                    fontSize: 14.sp,
+                    fontSize: 13.sp,
                     fontWeight: FontWeight.w500
                   )
                 ),

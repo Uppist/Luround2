@@ -277,7 +277,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  //Get.to(() => AddProductSc)
+                                  //Get.to(() => AddProductScreen()
                                 },
                                 child: SvgPicture.asset("assets/svg/add_icon.svg")
                               )

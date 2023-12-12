@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
@@ -27,6 +28,7 @@ class EditCertDetails extends StatefulWidget {
 class _EditCertDetailsState extends State<EditCertDetails> {
 
   var controller = Get.put(ProfilePageController());
+  var profileService = Get.put(AccOwnerProfileService());
 
   @override
   Widget build(BuildContext context) {
@@ -163,13 +165,15 @@ class _EditCertDetailsState extends State<EditCertDetails> {
                       textInputAction: TextInputAction.next,
                     ),
                 
-                    SizedBox(height: 100.h,),
+                    SizedBox(height: 160.h,),
                     
                     //run textcontroller check here
                     ReusableButton(
                       color: AppColor.mainColor,
                       text: 'Save',
-                      onPressed: () async{},
+                      onPressed: () async{
+                        //profileService.editCertificate()
+                      },
                     ),
                 
                     SizedBox(height: 20.h,),

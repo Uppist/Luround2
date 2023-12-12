@@ -11,7 +11,7 @@ import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/components/certificate_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_education/delete_certificate.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/delete_certificate.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/edit_cert_details.dart';
 import '../../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../../utils/colors/app_theme.dart';
@@ -152,7 +152,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                                         ),
                                       ),
                                       //edit and remove certificate
-                                      Expanded(
+                                      Container(
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [

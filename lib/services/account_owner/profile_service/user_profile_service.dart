@@ -4,7 +4,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:luround/controllers/account_owner/profile_page_controller.dart';
 import 'package:luround/models/account_owner/user_profile/certificate_model.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
-import 'package:luround/models/account_owner/user_profile/update_displayname_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -12,6 +11,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dioCall;
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
@@ -39,6 +39,7 @@ class AccOwnerProfileService extends getx.GetxController {
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var userEmail = LocalStorage.getUseremail();
+  var token = LocalStorage.getToken();
 
 
 
@@ -62,9 +63,60 @@ class AccOwnerProfileService extends getx.GetxController {
   }
 
 
+  Future<List<CertificateModel>> getUserCertificates() async {
+    try {
+      // Create Dio instance
+      dioCall.Dio dio = dioCall.Dio();
+
+      // Define the endpoint URL
+      String endpointUrl = 'https://luround.onrender.com/api/v1/profile/certificates/get';
+
+      // Define headers
+      Map<String, dynamic> headers = {
+        'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      };
+      
+      // Send a GET request
+      dioCall.Response res = await dio.get(
+        endpointUrl,
+        options: Options(headers: headers),
+      );
+
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response data ==> ${res.data}');
+        debugPrint("user certificates gotten successfully!!");
+        //Access the response data
+        List<dynamic> response = res.data;
+        debugPrint("$response");
+        return response.map((e) => CertificateModel.fromJson(e)).toList();
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        throw Exception('Failed to load user data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      throw Exception("$e");
+    
+    }
+  }
+
+
+  //[TO EDIT A PATICULAR CERTIFICATE DETAILS]
+  Future<void> editCertificate() async{}
+
+
 
   /////[GET LOGGED-IN USER'S CERTIFICATE LIST]//////
-  Future<List<CertificateModel>> getUserCertificates() async {
+  /*Future<List<CertificateModel>> getUserCertificates() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "profile/certificates/get",);
@@ -91,7 +143,7 @@ class AccOwnerProfileService extends getx.GetxController {
       throw HttpException("$e");
     
     }
-  }
+  }*/
   
 
   /////[GET USER PROFILE DETAILS]/////

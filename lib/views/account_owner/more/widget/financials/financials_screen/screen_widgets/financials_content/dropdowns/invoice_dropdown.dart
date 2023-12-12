@@ -28,7 +28,7 @@ class InvoiceDropDown extends StatelessWidget {
             child: Text(
               "View",
               style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
@@ -41,7 +41,7 @@ class InvoiceDropDown extends StatelessWidget {
             child: Text(
               "Edit",
               style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
@@ -54,7 +54,7 @@ class InvoiceDropDown extends StatelessWidget {
             child: Text(
               "Download",
               style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
@@ -67,7 +67,7 @@ class InvoiceDropDown extends StatelessWidget {
             child: Text(
               "Delete",
               style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),

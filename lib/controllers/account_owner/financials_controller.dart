@@ -9,11 +9,12 @@ import 'package:get/get.dart' as getx;
 
 class FinancialsController extends getx.GetxController {
 
-  //financials list
+
+  /////[FOR QUOTES]/////////////
   final isFinancialsListEmpty = false.obs;
   //search textField
   final isFieldTapped = false.obs;
-  final TextEditingController searchController = TextEditingController();
+  final TextEditingController searchQuoteController = TextEditingController();
   final TextEditingController quoteNoteController = TextEditingController();
 
   //filter by date range
@@ -96,11 +97,8 @@ class FinancialsController extends getx.GetxController {
 
 
 
-
-
-
-  //for Speed dial floating action button
-  final isOpened = false.obs;
+  //for Speed dial floating action button (QUOTES)
+  final isQuotesOpened = false.obs;
 
 
 
@@ -109,7 +107,7 @@ class FinancialsController extends getx.GetxController {
 
   @override
   void dispose() {
-    searchController.dispose();
+    searchQuoteController.dispose();
     quoteNoteController.dispose();
     // TODO: implement dispose
     super.dispose();

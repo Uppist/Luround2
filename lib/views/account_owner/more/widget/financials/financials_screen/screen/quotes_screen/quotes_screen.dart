@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/create_quotes.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/components/filter_quotes_button.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/filter_quotes_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/quotes_list.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/components/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
@@ -102,6 +102,7 @@ class _QuotesPageState extends State<QuotesPage>{
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 13.w),
                     child:FinancialsSearchTextField(
+                      controller: controller,
                       onTap: () {
                         setState(() {
                           controller.isFieldTapped.value = true;
@@ -115,7 +116,7 @@ class _QuotesPageState extends State<QuotesPage>{
                       hintText: "Search",
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
-                      textController: controller.searchController,
+                      textController: controller.searchQuoteController,
                     )                
                   ),
                   SizedBox(height: 30.h,),
@@ -141,6 +142,7 @@ class _QuotesPageState extends State<QuotesPage>{
         () {
           return SpeedDial(
             //extendedPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            //isOpenOnStart: true,
             foregroundColor: AppColor.mainColor,
             backgroundColor: AppColor.mainColor,
             shape: RoundedRectangleBorder(
@@ -151,23 +153,25 @@ class _QuotesPageState extends State<QuotesPage>{
             //icon:CupertinoIcons.add,        
             //animatedIcon: AnimatedIcons.menu_close,
             child: Icon(
-              controller.isOpened.value ? CupertinoIcons.xmark :
+              controller.isQuotesOpened.value ? CupertinoIcons.xmark :
               CupertinoIcons.add,
               size: 30,
               color: AppColor.bgColor
             ),
-            onOpen: () {
+            /*onPress: () {
               controller.isOpened.value = true;
+            },*/
+            onOpen: () {
+              controller.isQuotesOpened.value = true;
             },
             onClose: () {
-              controller.isOpened.value = false;
+              controller.isQuotesOpened.value = false;
             },
             spaceBetweenChildren: 30,
             //childPadding: EdgeInsets.symmetric(horizontal: 20),
             // Menu items
-            onPress: () {},
             children: [
-              SpeedDialChild(
+              /*SpeedDialChild(
                 label: "Generate Receipt",
                 labelStyle: GoogleFonts.inter(
                   fontWeight: FontWeight.w500,
@@ -194,7 +198,7 @@ class _QuotesPageState extends State<QuotesPage>{
                 onTap: () {
                   //Get.off(() => CreateInvoicePage());
                 },
-              ),
+              ),*/
 
               SpeedDialChild(
                 label: "Generate Quote",

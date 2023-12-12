@@ -13,7 +13,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class FinancialsSearchTextField extends StatefulWidget {
-  const FinancialsSearchTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap,});
+  const FinancialsSearchTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap, required this.controller,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
@@ -21,7 +21,7 @@ class FinancialsSearchTextField extends StatefulWidget {
   final void Function(String)? onFieldSubmitted;
   final void Function(bool)? onFocusChanged;
   final void Function()? onTap;
-  
+  final FinancialsController controller;
 
   @override
   State<FinancialsSearchTextField> createState() => _SearchTextFieldState();
@@ -29,7 +29,7 @@ class FinancialsSearchTextField extends StatefulWidget {
 
 class _SearchTextFieldState extends State<FinancialsSearchTextField> {
 
-  var controller = Get.put(FinancialsController());
+  //var controller = Get.put(FinancialsController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,10 +71,10 @@ class _SearchTextFieldState extends State<FinancialsSearchTextField> {
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),
-            suffixIcon: controller.isFieldTapped.value == true ?
+            suffixIcon: widget.controller.isFieldTapped.value == true ?
             IconButton(
               onPressed:() {
-                controller.searchController.clear();
+                widget.controller.searchQuoteController.clear();
               },
               icon: Icon(
                 CupertinoIcons.xmark, 

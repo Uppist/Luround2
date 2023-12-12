@@ -9,13 +9,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-
-
-var controller = Get.put(FinancialsController());
-
-
-Future<void> dateBottomSheet({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
+Future<void> dateBottomSheet({required BuildContext context, required FinancialsController controller, required VoidCallback onCancel, required VoidCallback onApply,}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,

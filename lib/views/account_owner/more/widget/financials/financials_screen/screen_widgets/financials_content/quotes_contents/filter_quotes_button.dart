@@ -24,6 +24,7 @@ class FilterQuotesButton extends StatelessWidget {
     return InkWell(
       onTap: () {
         dateBottomSheet(
+          controller: controller,
           context: context,
           onCancel: () {
             Get.back();
@@ -57,8 +58,8 @@ class FilterQuotesButton extends StatelessWidget {
                       "${controller.startDate()}  -  ${controller.endDate()}",
                       style: GoogleFonts.inter(
                         color: AppColor.textGreyColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.normal
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400
                       ),
                     );
                   }

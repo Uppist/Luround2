@@ -9,9 +9,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/create_quotes.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/filter_financials_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_list.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/search_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/components/filter_quotes_button.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/quotes_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/components/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
@@ -21,16 +21,16 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-class FinancialsPage extends StatefulWidget {
-  FinancialsPage({super.key});
+class QuotesPage extends StatefulWidget {
+  QuotesPage({super.key});
 
   @override
-  State<FinancialsPage> createState() => _FinancialsPageState();
+  State<QuotesPage> createState() => _QuotesPageState();
 }
 
-class _FinancialsPageState extends State<FinancialsPage>{
-  var controller = Get.put(FinancialsController());
+class _QuotesPageState extends State<QuotesPage>{
 
+  var controller = Get.put(FinancialsController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             ///Header Section/////
-            Container(
+            /*Container(
               color: AppColor.bgColor,
               alignment: Alignment.center,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -62,7 +62,8 @@ class _FinancialsPageState extends State<FinancialsPage>{
                   ),
                 ]
               )
-            ),
+            ),*/
+           
             ///Navigation Section, Search TextField and Filter/////
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.w,),
@@ -71,7 +72,8 @@ class _FinancialsPageState extends State<FinancialsPage>{
               color: AppColor.bgColor,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [                   
+                children: [
+                  SizedBox(height: 20.h,),                   
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -86,7 +88,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
                       ),
                       SizedBox(width: 3.w,),
                       Text(
-                        "Financials",
+                        "Quotes",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
                           fontSize: 17.sp,
@@ -116,11 +118,11 @@ class _FinancialsPageState extends State<FinancialsPage>{
                       textController: controller.searchController,
                     )                
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 30.h,),
                   //filter button
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 13.w),
-                    child: FilterFinancialsButton(),
+                    child: FilterQuotesButton(),
                   ),
                   SizedBox(height: 15.h,),                 
                 ],
@@ -129,7 +131,7 @@ class _FinancialsPageState extends State<FinancialsPage>{
             //SizedBox(height: 20,),
             //financils list and empty state (run future builder there)
             //FinancialsEmptyState(),
-            FinancialsList()
+            QuotesList()
           ]
         ),
       ),  

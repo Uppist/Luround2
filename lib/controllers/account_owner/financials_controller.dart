@@ -16,6 +16,7 @@ class FinancialsController extends getx.GetxController {
   final isFieldTapped = false.obs;
   final TextEditingController searchQuoteController = TextEditingController();
   final TextEditingController quoteNoteController = TextEditingController();
+  final TextEditingController quoteClientEmailController = TextEditingController();
 
   //filter by date range
   var dates = <DateTime?>[].obs;

@@ -25,13 +25,20 @@ class QuotesDisplay extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
       decoration: BoxDecoration(
         color: AppColor.bgColor,
+        borderRadius: BorderRadius.circular(5.r),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.5) ,//withOpacity(0.2),
             spreadRadius: 0.5,
             blurRadius: 0.2,
           )
-        ]
+        ],
+        border: Border(
+          bottom: BorderSide(
+            color: AppColor.mainColor,
+            width: 1.5, // Adjust the width as needed
+          ),
+        ),
       ),
 
       child: Column(
@@ -54,6 +61,8 @@ class QuotesDisplay extends StatelessWidget {
               QuoteDropDown()
             ],
           ),
+          SizedBox(height: 10.h,),
+          Divider(thickness: 0.3, color: Colors.grey,),
           SizedBox(height: 20.h,),
           //2
           Row(

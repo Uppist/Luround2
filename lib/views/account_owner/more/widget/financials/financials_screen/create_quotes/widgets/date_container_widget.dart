@@ -25,7 +25,7 @@ class DateContainer extends StatelessWidget {
         height: 55.h,
         width: double.infinity,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w,),  //vertical: 15.h
         decoration: BoxDecoration(
           color: AppColor.bgColor,
           border: Border.all(color: AppColor.textGreyColor, width: 1),
@@ -37,8 +37,8 @@ class DateContainer extends StatelessWidget {
             Text(
               date,
               style: GoogleFonts.inter(
-                fontWeight: FontWeight.w500,
-                fontSize: 16.sp,
+                fontWeight: FontWeight.w400,
+                fontSize: 14.sp,
                 color: AppColor.blackColor
               ),
             ),

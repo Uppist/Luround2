@@ -28,6 +28,8 @@ class Step1Page extends StatefulWidget {
 }
 
 class _Step1PageState extends State<Step1Page> {
+
+
   var controller = Get.put(ServicesController());
 
   @override
@@ -40,6 +42,7 @@ class _Step1PageState extends State<Step1Page> {
     });
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,7 @@ class _Step1PageState extends State<Step1Page> {
         ),
         SizedBox(height: 30.h),
         Text(
-          "Description (optional)*",
+          "Description (optional)",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -110,7 +113,7 @@ class _Step1PageState extends State<Step1Page> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Add links (optional)*",
+              "Add links (optional)",
               style: GoogleFonts.inter(
                 color: AppColor.blackColor,
                 fontSize: 15.sp,
@@ -171,7 +174,7 @@ class _Step1PageState extends State<Step1Page> {
     
         SizedBox(height: 20.h,),
         Text(
-          "Service charge per session*",
+          "Service fee per session*",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,

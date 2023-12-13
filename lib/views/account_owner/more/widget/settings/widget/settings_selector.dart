@@ -46,7 +46,6 @@ class _SettingsSelectorState extends State<SettingsSelector> {
                 color: AppColor.blackColor, 
                 size: 25,
               ) 
-
             ],
           ),
           SizedBox(height: 20.h,),

@@ -14,6 +14,8 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/settings
 
 
 
+
+
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
@@ -65,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h,),
                 SettingsSelector(
-                  text: "Billings",
+                  text: "Billing",
                   onFlip: () {
                     Get.to(() => SubscriptionScreen());
                   },

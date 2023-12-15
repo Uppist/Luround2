@@ -38,6 +38,8 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
       return Container(
         //height: 60.h,
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+        width: double.infinity,
+        color: AppColor.bgColor,
         child: Obx(
           () {
             return authService.isLoading.value 

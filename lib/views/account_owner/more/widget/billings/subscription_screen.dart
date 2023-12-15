@@ -83,7 +83,7 @@ class SubscriptionScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 3.w,),
                   Text(
-                    "Billings",
+                    "Billing",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 16.sp,

@@ -5,11 +5,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials_controller.dart';
+import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/date_container_widget.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/add_product_bottomsheet.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_services_listtile.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/due_date_selector.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/textfield_tool.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/textfield_tool.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/quote_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/not_in_use/select_client_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/not_in_use/select_client_widget.dart';
@@ -31,7 +34,9 @@ class CreateQuotePage extends StatefulWidget {
 }
 
 class _CreateQuotePageState extends State<CreateQuotePage> {
+
   var controller = Get.put(FinancialsController());
+  var service = Get.put(FinancialsService());
 
   @override
   Widget build(BuildContext context) {
@@ -277,7 +282,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  //Get.to(() => AddProductScreen()
+                                  addProductBottomSheet(context: context, service: service, controller: controller);
                                 },
                                 child: SvgPicture.asset("assets/svg/add_icon.svg")
                               )
@@ -287,6 +292,32 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         ],
                       ),
                     ),
+                    SizedBox(height: 20.h,),
+                    //style
+                    Container(
+                      height: 7.h,
+                      width: double.infinity,
+                      color: AppColor.greyColor,
+                    ),
+                    SizedBox(height: 10.h,),
+
+                    //To show the items that were added (Use Future builder to show the items addedd)
+                    ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      padding: EdgeInsets.symmetric(horizontal: 20.w),
+                      itemCount: 2,
+                      itemBuilder: (BuildContext context, int index) {
+                        return AddedServicesTile(
+                          onTap: (){},
+                          productName: 'Personal Training',
+                          price: '25,000',
+                          duration: '1 hr',
+                        );
+                      }
+                    ),
+
                     SizedBox(height: 20.h,),
                     Container(
                       height: 7.h,

@@ -14,9 +14,12 @@ class FinancialsController extends getx.GetxController {
   final isFinancialsListEmpty = false.obs;
   //search textField
   final isFieldTapped = false.obs;
+  final isSearchProduct = false.obs;
   final TextEditingController searchQuoteController = TextEditingController();
   final TextEditingController quoteNoteController = TextEditingController();
   final TextEditingController quoteClientEmailController = TextEditingController();
+  final TextEditingController searchProductsController = TextEditingController();
+
 
   //filter by date range
   var dates = <DateTime?>[].obs;
@@ -110,6 +113,7 @@ class FinancialsController extends getx.GetxController {
   void dispose() {
     searchQuoteController.dispose();
     quoteNoteController.dispose();
+    searchProductsController.dispose();
     // TODO: implement dispose
     super.dispose();
   }

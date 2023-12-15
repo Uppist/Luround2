@@ -53,7 +53,7 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'Meeting Cancelled"',
+                  'Meeting Cancelled',
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 18.sp,
@@ -62,14 +62,14 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                 ),
                 SizedBox(height: 30.h,),
                 Text(
-                  'This meeting has been cancelled. The other party will be informed of this change.',
+                  ' This meeting has been cancelled. The other\n        party will be informed of this change.',
                   style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500
                   )
                 ),
-                SizedBox(height: 30.h,),
+                SizedBox(height: 40.h,),
                 InkWell(
                   onTap: () {
                     Get.back(closeOverlays: true);

@@ -30,79 +30,66 @@ class AccOwnerBookingService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S BOOKINGS LIST]//////
-
-  //getx.RxList<List<DetailsModel>> filterBookingsList = getx.RxList<List<DetailsModel>>();
-  //var filterBookingsList = <List<DetailsModel>>[].obs;
-  
-  // Convert the list to a Getx RxList
-  //getx.RxList<List<DetailsModel>> dataList = getx.RxList<List<DetailsModel>>();
   var dataList = <DetailsModel>[].obs;
-
+  var filteredList = <DetailsModel>[].obs;
 
   //////////////////////////////////////////////////////////////////////////////////
   //working well
-  Future<void> filterBookings(String query) async{
-    // Clear the filteredList
-    dataList.clear();
-
-    // If the search query is empty, display all items
+  Future<void> filterBookings(String query) async {
     if (query.isEmpty) {
-      dataList.addAll(dataList);
+      filteredList.clear();
+      filteredList.addAll(dataList);
+      print("when query is empty: $filteredList");
     } 
     else {
-      // Use the search query to filter the items
-      dataList.addAll(
-        dataList.where((item) {
-          if(query.contains(item.serviceDetails.serviceName.toLowerCase())) {
-            return true;
-          }
-          // Customize this part based on your data structure
-          /*for (var detail in item) {
-            String displayName = detail.bookingUserInfo.displayName.toLowerCase();
-            if (displayName.contains(query.toLowerCase())) {
-              return true; // If found, include the item in the filtered list
-            }
-          }*/
-          return false; // If not found in any detail, exclude the item
-        }),
-      );  
-      print("Filtered booking list displaying : $dataList");
+      filteredList.clear(); // Clear the previous filtered list
+
+      // Use addAll to add the filtered items to the list
+      filteredList.addAll(dataList
+        .where((user) => user.serviceDetails.serviceName.toLowerCase().contains(query)) // == query
+        .toList());
+
+      /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)
+        .toList();*/
+
+      print("when query is not empty: $filteredList");
     }
   }
 
 
+
   Future<void> filterBySent() async{
     // Clear the filteredList so new values can come i n 
-    dataList.clear();
+    filteredList.clear();
     // Use the search query to filter the items
-    dataList.addAll(
+    filteredList.addAll(
       dataList.where((item) {
-        return item.bookingUserInfo.userId.toLowerCase() == userId;
+        return item.bookingUserInfo.userId.toLowerCase().contains(userId); //== userId;
       }),
     );  
-    print("Sent List: $dataList");
+    print("Sent List: $filteredList");
     
   }
 
   Future<void> filterByReceived() async{
     // Clear the filteredList so new values can come i n 
-    dataList.clear();
+    filteredList.clear();
     // Use the search query to filter the items
-    dataList.addAll(
+    filteredList.addAll(
       dataList.where((item) {
         return item.bookingUserInfo.userId.toLowerCase() != userId;
       }),
     );
-    print("Received List: $dataList");
+    print("Received List: $filteredList");
   }
 
 
   Future<void> filterByUpcoming() async{
     // Clear the filteredList so new values can come i n 
-    dataList.clear();
+    filteredList.clear();
 
     // Use the search query to filter the items
-    dataList.addAll(
+    filteredList.addAll(
       dataList.where((item) {
         // Customize this part based on your data structure
         String server_date = item.serviceDetails.date.toLowerCase();
@@ -117,15 +104,15 @@ class AccOwnerBookingService extends getx.GetxController {
 
       }),
     );  
-    print("Upcoming List: $dataList");
+    print("Upcoming List: $filteredList");
   }
 
   Future<void> filterByPast() async{
     // Clear the filteredList so new values can come i n 
-    dataList.clear();
+    filteredList.clear();
 
     // Use the search query to filter the items
-    dataList.addAll(
+    filteredList.addAll(
       dataList.where((item) {
         // Customize this part based on your data structure
         //for (var detail in item) {
@@ -140,16 +127,16 @@ class AccOwnerBookingService extends getx.GetxController {
         return false; // If not found in any detail, exclude the item
       }),
     );  
-    print("Past List: $dataList");
+    print("Past List: $filteredList");
   }
 
 
   Future<void> fiterByCancelled() async{
     // Clear the filteredList so new values can come i n 
-    dataList.clear();
+    filteredList.clear();
 
     // Use the search query to filter the items
-    dataList.addAll(
+    filteredList.addAll(
       dataList.where((item) {
         String booking_status = item.serviceDetails.bookedStatus.toLowerCase();
         if (booking_status == "cancelled") {
@@ -158,7 +145,7 @@ class AccOwnerBookingService extends getx.GetxController {
         return false; // If not found in any detail, exclude the item
       }),
     );  
-    print("Cancelled $dataList");
+    print("Cancelled $filteredList");
   }
 
   /////////////////////////////////////////////////////////////////////////////////
@@ -190,7 +177,8 @@ class AccOwnerBookingService extends getx.GetxController {
         dataList.clear();
         dataList.addAll(finalResult);
         print("dataList: $dataList");
-
+        
+        //return data list
         return finalResult;
         
 

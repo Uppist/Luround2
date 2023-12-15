@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings_controller.dart';
 import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
 import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -38,16 +39,20 @@ class _BookingsPageState extends State<BookingsPage> {
 
   var controller = Get.put(BookingsController());
   var service = Get.put(AccOwnerBookingService());
+  var userId = LocalStorage.getUserID();
+
 
   @override
   void initState() {
-    /*service.getUserBookings().then((value) {
-      setState(() {
-        service.dataList.value = service.filterBookingsList.value = value;
-      });
-    });
-    print("filtered list: ${service.filterBookingsList}");*/
     super.initState();
+    //service.filteredList.addAll(service.dataList);
+    //print("initState: ${service.filteredList}");
+
+    service.getUserBookings().then((List<DetailsModel> list) {
+      service.filteredList.clear();
+      service.filteredList.addAll(list);  //service.dataList
+      print("initState: ${service.filteredList}");
+    });
   }
 
 
@@ -196,18 +201,18 @@ class _BookingsPageState extends State<BookingsPage> {
                             scrollDirection: Axis.vertical,
                             physics: const BouncingScrollPhysics(),
                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                            itemCount: service.dataList.length, //data.length,
+                            itemCount: service.filteredList.length, //data.length,
                             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                             itemBuilder: (context, index) {
 
-                              /*if(service.dataList.isEmpty) {
+                              if(service.filteredList.isEmpty) {
                                 print("data list is empty fam");
                                 return BookingScreenEmptyState(
                                   onPressed: () {
                                     service.getUserBookings();
                                   },
                                 );
-                              }*/
+                              }
 
                               return Container(
                                 alignment: Alignment.center,
@@ -238,18 +243,18 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 IconButton(
                                                   onPressed: () {
                                                     bookingsListDialogueBox(
-                                                      serviceDate: service.dataList[index].serviceDetails.date,
-                                                      serviceTime: service.dataList[index].serviceDetails.time,
-                                                      serviceDuration: service.dataList[index].serviceDetails.duration,
-                                                      bookingId: service.dataList[index].id,
+                                                      serviceDate: service.filteredList[index].serviceDetails.date,
+                                                      serviceTime: service.filteredList[index].serviceDetails.time,
+                                                      serviceDuration: service.filteredList[index].serviceDetails.duration,
+                                                      bookingId: service.filteredList[index].id,
                                                       onDelete: () {
                                                         service.deleteBooking(
                                                           context: context, 
-                                                          bookingId: service.dataList[index].id
+                                                          bookingId: service.filteredList[index].id
                                                         ).whenComplete(() => Get.back());
                                                       },
                                                       context: context, 
-                                                      serviceName: service.dataList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
+                                                      serviceName: service.filteredList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
                                                     );
                                                   }, 
                                                   icon: Icon(
@@ -275,8 +280,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                     crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       Text(
-                                                        service.dataList[index].bookingUserInfo.displayName,
-                                                        style: GoogleFonts.poppins(
+                                                        service.filteredList[index].bookingUserInfo.displayName,
+                                                        style: GoogleFonts.inter(
                                                           color: AppColor.darkGreyColor,
                                                           fontSize: 14.sp,
                                                           fontWeight: FontWeight.w600
@@ -284,8 +289,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                                       ),
                                                       SizedBox(height: 2.h,),
                                                       Text(
+                                                        service.filteredList[index].bookingUserInfo.userId.contains(userId) ? "you booked" : "booked you"
                                                         "booked you",//index.isEven ? "booked you" : "you booked",
-                                                        style: GoogleFonts.poppins(
+                                                        style: GoogleFonts.inter(
                                                           color: AppColor.textGreyColor,
                                                           fontSize: 12.sp,
                                                           fontWeight: FontWeight.w500
@@ -304,8 +310,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Text(
-                                                  service.dataList[index].serviceDetails.date,
-                                                  style: GoogleFonts.poppins(
+                                                  service.filteredList[index].serviceDetails.date,
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.darkGreyColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
@@ -313,7 +319,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 ),
                                                 SizedBox(width: 10.w,),
                                                 /////////////
-                                                index.isEven ?
+                                                service.filteredList[index].bookingUserInfo.userId.contains(userId) ?
                                                 SvgPicture.asset("assets/svg/sent_blue.svg")
                                                 :SvgPicture.asset("assets/svg/received_yellow.svg"),
                                                 /////////////////
@@ -322,8 +328,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                             SizedBox(height: 30.h,),
                                             //service name
                                             Text(
-                                              service.dataList[index].serviceDetails.serviceName,
-                                              style: GoogleFonts.poppins(
+                                              service.filteredList[index].serviceDetails.serviceName,
+                                              style: GoogleFonts.inter(
                                                 color: AppColor.blackColor,
                                                 fontSize: 16.sp,
                                                 fontWeight: FontWeight.w600
@@ -334,8 +340,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text(
-                                                  service.dataList[index].serviceDetails.time,
-                                                  style: GoogleFonts.poppins(
+                                                  service.filteredList[index].serviceDetails.time,
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.blackColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -347,8 +353,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                     SvgPicture.asset("assets/svg/time_icon.svg"),
                                                     SizedBox(width: 10.w,),
                                                     Text(
-                                                      service.dataList[index].serviceDetails.duration,
-                                                      style: GoogleFonts.poppins(
+                                                      service.filteredList[index].serviceDetails.duration,
+                                                      style: GoogleFonts.inter(
                                                         color: AppColor.textGreyColor,
                                                         fontSize: 12.sp,
                                                         fontWeight: FontWeight.w400
@@ -369,7 +375,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                               children: [
                                                 Text(
                                                   "Sender's Email",
-                                                  style: GoogleFonts.poppins(
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.blackColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
@@ -379,8 +385,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 ),
                                                 SizedBox(height: 10.h,),
                                                 Text(
-                                                  service.dataList[index].bookingUserInfo.email,
-                                                  style: GoogleFonts.poppins(
+                                                  service.filteredList[index].bookingUserInfo.email,
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.darkGreyColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -392,7 +398,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 SizedBox(height: 30.h,),
                                                 Text(
                                                   "Meeting Type",
-                                                  style: GoogleFonts.poppins(
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.blackColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
@@ -402,8 +408,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 ),
                                                 SizedBox(height: 10.h,),
                                                 Text(
-                                                  service.dataList[index].serviceDetails.appointmentType,
-                                                  style: GoogleFonts.poppins(
+                                                  service.filteredList[index].serviceDetails.appointmentType,
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.darkGreyColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -415,7 +421,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           
                                                 Text(
                                                   "Location",
-                                                  style: GoogleFonts.poppins(
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.blackColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
@@ -425,8 +431,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 ),
                                                 SizedBox(height: 10.h,),
                                                 Text(
-                                                  service.dataList[index].serviceDetails.location,
-                                                  style: GoogleFonts.poppins(
+                                                  service.filteredList[index].serviceDetails.location,
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.darkGreyColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -438,7 +444,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           
                                                 Text(
                                                   "Sender's Time Zone",
-                                                  style: GoogleFonts.poppins(
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.blackColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
@@ -449,7 +455,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 SizedBox(height: 10,),
                                                 Text(
                                                   "West Africa Time",
-                                                  style: GoogleFonts.poppins(
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.darkGreyColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -461,7 +467,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           
                                                 Text(
                                                   "Note",
-                                                  style: GoogleFonts.poppins(
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.blackColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w500
@@ -471,8 +477,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 ),
                                                 SizedBox(height: 10.h,),
                                                 Text(
-                                                  service.dataList[index].serviceDetails.message,
-                                                  style: GoogleFonts.poppins(
+                                                  service.filteredList[index].serviceDetails.message,
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.darkGreyColor,
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -483,8 +489,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 SizedBox(height: 30.h,),
                                               
                                                 Text(
-                                                  "Created on ${convertServerTimeToDate(service.dataList[index].serviceDetails.createdAt)}",
-                                                  style: GoogleFonts.poppins(
+                                                  "Created on ${convertServerTimeToDate(service.filteredList[index].serviceDetails.createdAt)}",
+                                                  style: GoogleFonts.inter(
                                                     color: AppColor.textGreyColor.withOpacity(0.4),
                                                     fontSize: 14.sp,
                                                     fontWeight: FontWeight.w400
@@ -519,7 +525,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           }, 
                                           child: Text(
                                             controller.selectedIndex == index   ? 'See Less' : 'See More',
-                                            style: GoogleFonts.poppins(
+                                            style: GoogleFonts.inter(
                                               color: AppColor.mainColor,
                                               fontSize: 16.sp,
                                               fontWeight: FontWeight.w500

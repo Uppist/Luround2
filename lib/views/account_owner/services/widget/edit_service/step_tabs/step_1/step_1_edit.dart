@@ -78,7 +78,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
         ),
         SizedBox(height: 30.h),
         Text(
-          "Description (optional)*",
+          "Description (optional)",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -123,7 +123,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Add links (optional)*",
+              "Add links (optional)",
               style: GoogleFonts.inter(
                 color: AppColor.blackColor,
                 fontSize: 15.sp,
@@ -189,7 +189,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
     
         SizedBox(height: 20.h,),
         Text(
-          "Service charge per session*",
+          "Service fee per session*",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,

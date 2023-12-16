@@ -7,7 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/mainpage_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/utils/components/reusable_white_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
 
 
 
@@ -88,10 +90,18 @@ TransferFundsSuccessScreen({super.key, required this.amount});
               Center(
                 child: SvgPicture.asset("assets/svg/check_ss.svg", width: 120.w, height: 120.h,)
               ),
-              SizedBox(height: 290.h,),
+              SizedBox(height: 210.h,),
               ReusableButton(
                 color: AppColor.mainColor,
-                text: 'Close',
+                text: 'Withdrawal Receipt',
+                onPressed: () async{
+                  Get.offAll(() => WithdrawalReceipt());
+                },
+              ),
+              SizedBox(height: 30.h,),
+              ReusableWhiteButton(
+                color: AppColor.bgColor,
+                text: 'Exit',
                 onPressed: () async{
                   Get.offAll(() => MainPage());
                 },

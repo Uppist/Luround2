@@ -57,7 +57,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                               setState(() {
                                 controller.isSearchProduct.value = false;
                                 print(controller.searchProductsController.text);
-                                //service.filterServices(val);
+                                service.filterProducts(val);
                               });
                             },
                             hintText: "Search",
@@ -97,7 +97,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                             physics: BouncingScrollPhysics(),
                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                             shrinkWrap: true,
-                            itemCount: data.length,
+                            itemCount: service.filteredList.length, //data.length,
                             itemBuilder: (context, index) {
             
                               final product = snapshot.data![index];

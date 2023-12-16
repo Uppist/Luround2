@@ -26,6 +26,32 @@ class FinancialsService extends getx.GetxController {
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
+
+  var dataList = <UserServiceModel>[].obs;
+  var filteredList = <UserServiceModel>[].obs;
+
+  //////////////////////////////////////////////////////////////////////////////////
+  //working well
+  Future<void> filterProducts(String query) async {
+    if (query.isEmpty) {
+      filteredList.clear();
+      filteredList.addAll(dataList);
+      print("when query is empty: $filteredList");
+    } 
+    else {
+      filteredList.clear(); // Clear the previous filtered list
+
+      // Use addAll to add the filtered items to the list
+      filteredList.addAll(dataList
+        .where((user) => user.service_name.contains(query)) // == query
+        .toList());
+
+      /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)
+        .toList();*/
+
+      print("when query is not empty: $filteredList");
+    }
+  }
   
 
   ///[CREATE QUOTES SCREEN]
@@ -67,6 +93,21 @@ class FinancialsService extends getx.GetxController {
       throw HttpException("$e");
     
     }
+  }
+
+
+
+  @override
+  void onInit() {
+    super.onInit();
+    //service.filteredList.addAll(service.dataList);
+    //print("initState: ${service.filteredList}");
+
+    getUserServices().then((List<UserServiceModel> list) {
+      filteredList.clear();
+      filteredList.addAll(list);  //service.dataList
+      print("initState: $filteredList");
+    });
   }
 
 }

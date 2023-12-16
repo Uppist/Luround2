@@ -9,6 +9,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';

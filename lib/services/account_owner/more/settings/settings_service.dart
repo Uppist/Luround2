@@ -279,8 +279,7 @@ class SettingsService extends getx.GetxController {
         //decode the response body here
         //UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
         dynamic response = json.decode(res.body);
-        controller.otpForNewPinController.text = response['otp'];
-        debugPrint("otp:${controller.otpForNewPinController.text}");  
+        debugPrint("$response");
         getx.Get.to(() => OTPPINScreen());
         /////////////
         //return userModel;

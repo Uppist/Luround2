@@ -71,6 +71,7 @@ class OTPPINScreen extends StatelessWidget {
                             fontWeight: FontWeight.w500
                           ),
                         ),
+                        SizedBox(height: 20.h,),
                         SettingsPasswordTextField(
                           onChanged: (p0) {},
                           hintText: 'Enter code',
@@ -79,7 +80,7 @@ class OTPPINScreen extends StatelessWidget {
                           textController: controller.otpForNewPinController,
                           isObscured: false,
                         ),
-                        SizedBox(height: 570.h),
+                        SizedBox(height: 550.h),
                         ReusableButton(
                           color: AppColor.mainColor,
                           text: 'Change PIN',

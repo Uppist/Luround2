@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -19,7 +20,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 class WithdrawalService extends getx.GetxController {
-
+  
+  var controller = getx.Get.put(TransactionsController());
   var baseService = getx.Get.put(BaseService());
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
@@ -408,7 +410,7 @@ class WithdrawalService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF TRANSACTIONS]//////
-  /*Future<List<UserTransactionsModel>> getUserTransa0-+ctions() async {
+  /*Future<List<UserTransactionsModel>> getUserTransactions() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "transactions/get",);

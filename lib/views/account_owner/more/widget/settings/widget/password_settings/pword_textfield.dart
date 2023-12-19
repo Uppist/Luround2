@@ -57,9 +57,9 @@ class _SettingsPasswordTextFieldState extends State<SettingsPasswordTextField> {
           ),
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
-          ),     
-          //labelText: widget.hintText,
-          //labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp), 
+          ), 
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),     
           suffixIcon: InkWell(
             onTap: () {
               setState(() {
@@ -129,8 +129,8 @@ class _SettingsPasswordTextField2State extends State<SettingsPasswordTextField2>
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
-          //labelText: widget.hintText,
-          //labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp), 
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400), 
           suffixIcon: InkWell(
             onTap: () {
               setState(() {

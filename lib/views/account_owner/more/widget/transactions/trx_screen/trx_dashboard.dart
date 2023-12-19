@@ -8,6 +8,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/toggle_account_balance.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/screen/select_account_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/otp_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
 
 
 
@@ -128,7 +129,7 @@ class TrxDashBoard extends StatelessWidget {
               InkWell(
                 onTap: () {
                   //Get.to(() => InputPinPage());
-                  Get.to(() => SelectAccountPage());
+                  Get.to(() => SelectCountryPage());
                 },
                 child: Text(
                   "Withdraw",

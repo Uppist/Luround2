@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/screen/select_account_screen.dart';
@@ -104,7 +105,16 @@ class _SelectCountryPageState extends State<SelectCountryPage> {
                       color: AppColor.mainColor,
                       text: 'Next',
                       onPressed: () async{
-                        Get.to(() => SelectAccountPage());
+                        if(controller.selectedCountryController.text.isNotEmpty) {
+                          Get.to(() => SelectAccountPage());
+                        }
+                        else {
+                          showMySnackBar(
+                            context: context,
+                            backgroundColor: AppColor.redColor,
+                            message: "please select your country"
+                          );
+                        }
                       },
                     ),
 

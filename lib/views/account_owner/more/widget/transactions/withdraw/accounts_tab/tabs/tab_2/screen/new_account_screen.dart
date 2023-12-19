@@ -7,6 +7,7 @@ import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/bank_field_flipper_2.dart';
@@ -117,15 +118,23 @@ class _AddNewAccountState extends State<AddNewAccount> {
                   text: "Next", 
                   onPressed: controller.isButtonActive.value ? 
                   () {
-                    //save details to db and get to the next screen with inputs from the text controllers
-                    service.createBankDetailsFromAddAccountTab(
-                      context: context, 
-                      account_name: controller.enterAccountNameController.text, 
-                      account_number: controller.enterAccountNumberController.text.trim(), 
-                      bank_name: controller.enterBankController.text.isNotEmpty ? controller.enterBankController.text : "Empty Bank", 
-                      country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "Naija",
-                      bank_code: controller.bankCode.value
-                    ).whenComplete(() => print("this function will create the bank details lowkey but will not clear the controllers because it would be used in the next screen"));
+                    if(controller.enterBankController.text.isNotEmpty && controller.enterAccountNumberController.text.isNotEmpty && controller.enterAccountNameController.text.isNotEmpty) {
+                      service.createBankDetailsFromAddAccountTab(
+                        context: context, 
+                        account_name: controller.enterAccountNameController.text, 
+                        account_number: controller.enterAccountNumberController.text.trim(), 
+                        bank_name: controller.enterBankController.text, 
+                        country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "No Country",
+                        bank_code: controller.bankCode.value
+                      ).whenComplete(() => print("this function will create the bank details lowkey but will not clear the controllers because it would be used in the next screen"));
+                    }
+                    else {
+                      showMySnackBar(
+                        context: context,
+                        backgroundColor: AppColor.redColor,
+                        message: "fields must not be empty"
+                      );
+                    }
                   }
                   : () {
                     print('nothing');

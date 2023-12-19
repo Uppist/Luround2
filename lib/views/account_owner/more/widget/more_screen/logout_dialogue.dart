@@ -54,7 +54,7 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                   //mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
+                    /*Text(
                       'Logout',
                       style: GoogleFonts.poppins(
                         color: AppColor.blackColor,
@@ -62,12 +62,12 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                         fontWeight: FontWeight.w600
                       )
                     ),
-                    SizedBox(height: 30.h,),
+                    SizedBox(height: 30.h,),*/
                     Text(
                       'Are you sure you want to logout?',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
-                        fontSize: 14.sp,
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       ),
                       overflow: TextOverflow.ellipsis,
@@ -76,38 +76,6 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              controller.logUserOutOfLuround();
-                            },
-                            child: Container(
-                              //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-                              alignment: Alignment.center,
-                              height: 50.h,
-                              //width: double.infinity,
-                              width: 200.w,
-                              decoration: BoxDecoration(
-                                color: AppColor.mainColor,
-                                borderRadius: BorderRadius.circular(10.r),
-                                border: Border.all(
-                                  color: AppColor.mainColor
-                                )
-                              ),
-                              child: Text(
-                                "Logout",
-                                style: GoogleFonts.inter(
-                                  textStyle: TextStyle(
-                                    color: AppColor.bgColor,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w500
-                                  )
-                                )
-                              ),
-                            )
-                          ),
-                        ),
-                        SizedBox(width: 20.w,),
                         Expanded(
                           child: InkWell(
                             onTap: () {
@@ -131,6 +99,40 @@ Future<void> logoutDialogue({required BuildContext context,}) async{
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.textGreyColor,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                )
+                              ),
+                            )
+                          ),
+                        ),
+                        
+                        SizedBox(width: 20.w,),
+
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              controller.logUserOutOfLuround();
+                            },
+                            child: Container(
+                              //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                              alignment: Alignment.center,
+                              height: 50.h,
+                              //width: double.infinity,
+                              width: 200.w,
+                              decoration: BoxDecoration(
+                                color: AppColor.redColor,
+                                borderRadius: BorderRadius.circular(10.r),
+                                border: Border.all(
+                                  color: AppColor.redColor
+                                )
+                              ),
+                              child: Text(
+                                "Logout",
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    color: AppColor.bgColor,
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w500
                                   )

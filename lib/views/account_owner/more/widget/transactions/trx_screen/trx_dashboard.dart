@@ -128,6 +128,7 @@ class TrxDashBoard extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
+                  //TODO: Boolean check//
                   //Get.to(() => InputPinPage());
                   Get.to(() => SelectCountryPage());
                 },

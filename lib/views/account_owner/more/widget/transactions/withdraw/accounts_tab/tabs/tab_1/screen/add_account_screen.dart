@@ -7,6 +7,7 @@ import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
@@ -134,19 +135,29 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
                           color: AppColor.mainColor,
                           text: 'Save account',
                           onPressed: () {
-                            service.createBankDetailsFromAddDetailsButton(
-                              context: context, 
-                              account_name: controller.inputAccountNameController.text, 
-                              account_number: controller.inputAccountNumberController.text.trim(), 
-                              bank_name: controller.inputBankController.text.isEmpty ? "Kuda Bank" : controller.inputBankController.text, 
-                              country: controller.selectedCountryController.text,
-                            ).whenComplete(() {
-                              controller.inputAccountNameController.clear(); 
-                              controller.inputAccountNumberController.clear();
-                              controller.inputBankController.clear();
-                              controller.selectedCountryController.clear();
-                              Get.back();
-                            });
+                            if(controller.inputBankController.text.isNotEmpty && controller.inputAccountNumberController.text.isNotEmpty && controller.inputAccountNameController.text.isNotEmpty) {
+                              service.createBankDetailsFromAddDetailsButton(
+                                context: context, 
+                                account_name: controller.inputAccountNameController.text, 
+                                account_number: controller.inputAccountNumberController.text.trim(), 
+                                bank_name: controller.inputBankController.text, 
+                                country: controller.selectedCountryController.text,
+                              ).whenComplete(() {
+                                controller.inputAccountNameController.clear(); 
+                                controller.inputAccountNumberController.clear();
+                                controller.inputBankController.clear();
+                                controller.selectedCountryController.clear();
+                                Get.back();
+                              });
+                            }
+                            else {
+                              showMySnackBar(
+                                context: context,
+                                backgroundColor: AppColor.redColor,
+                                message: "fields must not be empty"
+                              );
+                            }
+                          
                           },
                         ),
                         SizedBox(height: 20.h,),

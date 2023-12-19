@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 class AppColor {
 
   static Color bgColor = Color.fromRGBO(255, 255, 255, 1);
+  static Color whiteTextColor = Color.fromRGBO(255, 255, 255, 0.75);
   static Color greyColor = Color.fromRGBO(248, 250, 250, 1);
   static Color blackColor = Color.fromRGBO(29, 46, 46, 1);
   static Color textGreyColor =  Color.fromRGBO(29, 46, 46, 0.65);

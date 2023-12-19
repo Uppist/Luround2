@@ -78,7 +78,7 @@ class TrxDashBoard extends StatelessWidget {
                     color: AppColor.badGreen,
                     borderRadius: BorderRadius.circular(10.r),
                     border: Border.all(
-                      color: AppColor.bgColor,
+                      color: AppColor.whiteTextColor,
                       width: 0.8
                     )
                   ),
@@ -91,7 +91,7 @@ class TrxDashBoard extends StatelessWidget {
                             controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet",
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
-                                color: AppColor.bgColor,
+                                color: AppColor.whiteTextColor,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
@@ -136,9 +136,9 @@ class TrxDashBoard extends StatelessWidget {
                   "Withdraw",
                   style: GoogleFonts.inter(
                     decoration: TextDecoration.underline,
-                    decorationColor: AppColor.bgColor,
+                    decorationColor: AppColor.whiteTextColor,
                     decorationThickness: 1.5,
-                    color: AppColor.bgColor,
+                    color: AppColor.whiteTextColor,
                     fontSize: 13.sp,
                     fontWeight: FontWeight.w500
                   ),

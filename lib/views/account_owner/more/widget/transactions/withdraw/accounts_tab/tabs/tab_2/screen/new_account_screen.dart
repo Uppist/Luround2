@@ -10,7 +10,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/bank_field_flipper_2.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/select_bank_screen_2.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/select_bank_screen_for_tab2.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_screen.dart';
 
 
@@ -45,9 +45,8 @@ class _AddNewAccountState extends State<AddNewAccount> {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
 
-      body: Obx(
-        () {
-          return service.isLoading.value ? const Loader() : SingleChildScrollView(
+      body: 
+          SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             child: Column(
@@ -110,7 +109,7 @@ class _AddNewAccountState extends State<AddNewAccount> {
                   textController: controller.enterAccountNameController,
                 ),
 
-                SizedBox(height: 210.h,),
+                SizedBox(height: 180.h,),
             
                 RebrandedReusableButton(
                   textColor: controller.isButtonActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -123,20 +122,19 @@ class _AddNewAccountState extends State<AddNewAccount> {
                       context: context, 
                       account_name: controller.enterAccountNameController.text, 
                       account_number: controller.enterAccountNumberController.text.trim(), 
-                      bank_name: controller.enterBankController.text.isEmpty ? "Kuda Bank" : controller.enterBankController.text, 
-                      country: controller.selectedCountryController.text,
+                      bank_name: controller.enterBankController.text.isNotEmpty ? controller.enterBankController.text : "Empty Bank", 
+                      country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "Naija",
+                      bank_code: controller.bankCode.value
                     ).whenComplete(() => print("this function will create the bank details lowkey but will not clear the controllers because it would be used in the next screen"));
                   }
                   : () {
                     print('nothing');
                   },
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(height: 20.h,),
               ]
             )
-          );
-        }
-      )
-    );
+          )
+        );
   }
 }

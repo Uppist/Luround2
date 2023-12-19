@@ -16,14 +16,14 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ac
 
 
 
-class SelectBankScreen extends StatefulWidget {
-  SelectBankScreen({super.key});
+class SelectBankScreen2 extends StatefulWidget {
+  SelectBankScreen2({super.key});
 
   @override
-  State<SelectBankScreen> createState() => _SelectBankScreenState();
+  State<SelectBankScreen2> createState() => _SelectBankScreen2State();
 }
 
-class _SelectBankScreenState extends State<SelectBankScreen> {
+class _SelectBankScreen2State extends State<SelectBankScreen2> {
 
   var controller = Get.put(TransactionsController());
   var service = Get.put(WithdrawalService());
@@ -33,16 +33,18 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
       setState(() {
         service.isLoading.value = true;
       });
-      final List<dynamic> banks = await service.getBanksApi2();
+      final List<dynamic> banks = await service.getBanksApi();
       banks.sort((a, b) => a['name'].toLowerCase().compareTo(b['name'].toLowerCase()));
       setState(() {
         service.isLoading.value = false;
-        service.filteredBankList2.value = List.from(banks);
-        print("initState: ${service.filteredBankList2}");
+        service.filteredBankList.value = List.from(banks);
+        print("initState: ${service.filteredBankList}");
       });
     } 
     catch (error) {
-      service.isLoading.value = false;
+      setState(() {
+        service.isLoading.value = false;
+      });
       print("Error loading data: $error");
       // Handle error as needed, e.g., show an error message to the user
     }
@@ -51,13 +53,6 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
   @override
   void initState() {
     super.initState();
-  
-    /*service.getBanksApi().then((val) {
-      service.filteredBankList.clear();
-      service.filteredBankList.addAll(val); 
-      print("initState: ${service.filteredBankList}");
-    });*/
-
     _loadData();
 
   }
@@ -66,7 +61,7 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: service.isLoading.value ? Loader() : SafeArea(
+      body:service.isLoading.value ? Loader() : SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Column(
@@ -104,75 +99,80 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
               SearchBankTextField(
                 onFieldSubmitted: (p0) {
                   setState(() {
-                    service.filterBookingsForSelectBankScreen(p0);
+                    service.filterBookingsForSelectBankScreen2(p0);
                   });
                 },
                 hintText: 'Search',
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.go,
-                textController: controller.searchBankController,
+                textController: controller.searchBankController2,
               ),
 
               SizedBox(height: 30.h,),
 
+              
                   Expanded(
                     child: ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      itemCount: service.filteredBankList2.length, //data.length,
+                      itemCount: service.filteredBankList.length, //data.length,
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       itemBuilder: (context, index) {
-                        final item = service.filteredBankList2[index];
-                        if(service.filteredBankList2.isEmpty) {
+                        final item = service.filteredBankList[index];
+                        if(service.filteredBankList.isEmpty) {
                           return const Loader();
                         }
-                        return InkWell(
-                          onTap: () {
-                            setState(() {
-                              // Update the selected index
-                              service.selectedIndex2.value = index;
-                              controller.inputBankController.text = item['name'];
-                              controller.bankCodeFB.value = item['code'];
-                            });
-                            // Print the selected item
-                            print('Selected Item: ${controller.inputBankController.text}/${controller.bankCodeFB.value}');
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 15.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        return Obx(
+                          () {
+                            return InkWell(
+                              onTap: () {                               
+                                // Update the selected index
+                                service.selectedIndex.value = index;
+                                controller.enterBankController.text = item['name'];
+                                controller.bankCode.value = item['code'];
+                                // Print the selected item
+                                print('Selected Item: ${controller.enterBankController.text}/${controller.bankCode.value}');
+                              },
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Text(
-                                      item['name'],
-                                      //data[index]['name'],
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500
+                                  SizedBox(height: 15.h,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          item['name'],
+                                          //data[index]['name'],
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      service.selectedIndex.value == index 
+                                      ?Icon(
+                                        CupertinoIcons.check_mark,
+                                        color: AppColor.blackColor,
+                                      ) : SizedBox(),
+                                    ],
                                   ),
-                                  service.selectedIndex2.value == index 
-                                  ?Icon(
-                                    CupertinoIcons.check_mark,
-                                    color: AppColor.blackColor,
-                                  ) : SizedBox(),
+                                  SizedBox(height: 15.h,)
                                 ],
                               ),
-                              SizedBox(height: 15.h,)
-                            ],
-                          ),
+                            );
+                          }
                         );
                       }
                     ),
                   )
-      
 
+              
+                  
+                
             ],
           ),
         )

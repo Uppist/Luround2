@@ -18,13 +18,11 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/password
 
 
 
-class ForgotPINScreen extends StatelessWidget {
-  ForgotPINScreen({super.key});
-
+class OTPPINScreen extends StatelessWidget {
+  OTPPINScreen({super.key});
 
   var controller = Get.put(MoreController());
   var service = Get.put(SettingsService());
-
 
   @override
   Widget build(BuildContext context) {
@@ -64,26 +62,9 @@ class ForgotPINScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10.h,),
-                        Text(
-                          "New PIN",
-                          style: GoogleFonts.inter(
-                            color: AppColor.blackColor, 
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SettingsPasswordTextField(
-                          onChanged: (p0) {},
-                          hintText: 'New PIN',
-                          keyboardType: TextInputType.visiblePassword,
-                          textInputAction: TextInputAction.next,
-                          textController: controller.newWithdrawalPINController,
-                          isObscured: false,
-                        ),
                         SizedBox(height: 40.h,),
                         Text(
-                          "Confirm New PIN",
+                          "One Time Passcode (Check your Email)",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor, 
                             fontSize: 14.sp,
@@ -92,34 +73,29 @@ class ForgotPINScreen extends StatelessWidget {
                         ),
                         SettingsPasswordTextField(
                           onChanged: (p0) {},
-                          hintText: 'Confirm new PIN',
-                          keyboardType: TextInputType.visiblePassword,
+                          hintText: 'Enter code',
+                          keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.next,
-                          textController: controller.confirmNewWithdrawalPINController,
+                          textController: controller.otpForNewPinController,
                           isObscured: false,
-                        ),   
-                        SizedBox(height: 480.h),
+                        ),
+                        SizedBox(height: 570.h),
                         ReusableButton(
                           color: AppColor.mainColor,
-                          text: 'Next',
+                          text: 'Change PIN',
                           onPressed: () {
-                            if(controller.newWithdrawalPINController.text.isNotEmpty && controller.confirmNewWithdrawalPINController.text.isNotEmpty) {
-                              if(controller.newWithdrawalPINController.text == controller.confirmNewWithdrawalPINController.text) {
-                                service.getUserOTPForResetingWalletPIN(context: context);
-                              }
-                              else{
-                                showMySnackBar(
-                                  context: context,
-                                  backgroundColor: AppColor.redColor,
-                                  message: "pin mis-match, please re-check"
-                                );
-                              }
+                            if(controller.otpForNewPinController.text.isNotEmpty) {
+                              service.resetUserWalletPIN(
+                                context: context, 
+                                new_pin: controller.newWithdrawalPINController.text, 
+                                otp: controller.otpForNewPinController.text
+                              );
                             }
-                            else{
+                            else {
                               showMySnackBar(
                                 context: context,
                                 backgroundColor: AppColor.redColor,
-                                message: "fields must not be empty"
+                                message: "otp field must not be empty"
                               );
                             }
                           },

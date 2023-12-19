@@ -62,7 +62,12 @@ class ShowSavedBanks extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: () {
-                        Get.to(() => TransferScreen());
+                        Get.to(() => TransferScreen(
+                          bankCode: '', //fetch from db
+                          accountName: '',  //fetch from db
+                          accountNumber: '',
+                          bankName: '',
+                        ));
                       },
                       child: AnimatedContainer(
                         duration: Duration(milliseconds: 500),

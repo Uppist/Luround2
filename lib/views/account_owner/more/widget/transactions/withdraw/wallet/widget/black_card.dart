@@ -89,17 +89,16 @@ class BlackCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Expanded(
-                child: Text(
-                  accountName,
-                  style: GoogleFonts.inter(
-                    color: AppColor.bgColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600
-                    
-                  ),
-                  overflow: TextOverflow.ellipsis,
+              //wrap with expanded if the text does not over lap
+              Text(
+                accountName,
+                style: GoogleFonts.inter(
+                  color: AppColor.bgColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600
+                  
                 ),
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           ),

@@ -31,6 +31,7 @@ class MoreController extends getx.GetxController {
   final TextEditingController newWithdrawalPINController = TextEditingController();
   final TextEditingController confirmNewWithdrawalPINController = TextEditingController();
   final TextEditingController otpForNewPinController = TextEditingController();
+
   //customize your url
   final TextEditingController customizeURLTextController = TextEditingController();
 

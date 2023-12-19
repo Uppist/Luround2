@@ -62,20 +62,24 @@ class TransactionsController extends getx.GetxController {
 
   ////ADD ACCOUNT FROM BUTTON////
   final inputBankController = TextEditingController();
+  getx.RxString bankCodeFB = ''.obs;
   final inputAccountNameController = TextEditingController();
   final inputAccountNumberController = TextEditingController();
 
   ///SELECT BAMK SCREEN (ADD ACCOUNT FROM BUTTON)///
   final searchBankController = TextEditingController();
+  getx.RxString selectedBank = ''.obs;
 
 
   ////NEW ACCOUNT TAB (2)////
   final enterBankController = TextEditingController();
+  getx.RxString bankCode = ''.obs;
   final enterAccountNameController = TextEditingController();
   final enterAccountNumberController = TextEditingController();
 
   ///SELECT BAMK SCREEN (NEW ACCOUNT TAB)///
   final searchBankController2 = TextEditingController();
+  getx.RxString selectedBank2 = ''.obs;
 
   //TRANSFER SCREEN//
   getx.RxString firstTimeOTP = ''.obs;  //to create wallet pin

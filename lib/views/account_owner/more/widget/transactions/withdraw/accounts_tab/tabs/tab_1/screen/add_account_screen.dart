@@ -12,6 +12,7 @@ import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/bank_field_flipper.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/select_bank_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/select_bank_screen_for_tab2.dart';
 
 
 
@@ -47,8 +48,8 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
         ),
         title: CustomAppBarTitle(text: 'Withdraw',),
       ),
-      body: Obx(
-        () {
+      body: Builder(
+        builder: (context) {
           return service.isLoading.value ? const Loader() : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -127,7 +128,7 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
                           textController: controller.inputAccountNameController,
                         ),
                         
-                        SizedBox(height: 300.h,),
+                        SizedBox(height: 270.h,),
 
                         ReusableButton(
                           color: AppColor.mainColor,
@@ -148,7 +149,7 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
                             });
                           },
                         ),
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 20.h,),
 
                       ]
                     )

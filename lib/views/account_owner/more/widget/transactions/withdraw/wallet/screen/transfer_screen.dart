@@ -17,7 +17,11 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 class TransferScreen extends StatefulWidget {
-  TransferScreen({super.key});
+  TransferScreen({super.key, required this.accountNumber, required this.accountName, required this.bankName, required this.bankCode});
+  final String accountNumber;
+  final String accountName;
+  final String bankName;
+  final String bankCode;
 
   @override
   State<TransferScreen> createState() => _TransferScreenState();
@@ -84,9 +88,9 @@ class _TransferScreenState extends State<TransferScreen> {
                   ),
                   SizedBox(height: 10.h,),
                   BlackCard(
-                    accountName: 'Ebelechukwu Japhet',
-                    accountNumber: '2022481315',
-                    bank: 'KUDA MFB',
+                    accountName: widget.accountName,
+                    accountNumber: widget.accountNumber,
+                    bank: widget.bankName,
                   ),
                   SizedBox(height: 30.h,),
                   Text(
@@ -140,10 +144,11 @@ class _TransferScreenState extends State<TransferScreen> {
                     onPressed: controller.isTrxNextButtoReady.value ? 
                     () {
                       Get.to(() => SetPinToWithdrawPage(
-                        amount: "N5000",
-                        bank: "KUDA BANK",
-                        accountName: "EBELE JAPHET",
-                        accountNumber: "2022481315",
+                        bankCode: widget.bankCode,
+                        amount: controller.enterAmountController.text,
+                        bank: widget.bankName,
+                        accountName: widget.accountName,
+                        accountNumber: widget.accountNumber,
                       ));
                     }
                     : () {

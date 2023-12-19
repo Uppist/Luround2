@@ -98,8 +98,8 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         Text(
                           "Create your account",
                           style: GoogleFonts.inter(
-                            fontSize: 21.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
                             color: AppColor.blackColor
                           ),
                         ),
@@ -125,7 +125,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                                 validator: (val) {
                                   return controller.validatePassword();
                                 },    
-                                labelText: "Password",
+                                labelText: "Input password",
                                 keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.next,
                                 textController: controller.passwordController,
@@ -137,7 +137,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                                 validator: (val) {
                                   return controller.validateConfirmPassword();
                                 },    
-                                labelText: "Confirm Password",
+                                labelText: "Re-type password",
                                 keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.done,
                                 textController: controller.confirmPasswordController,
@@ -226,7 +226,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                             print('nothing for you chief!!');
                           },
                         ),
-                        SizedBox(height: 70.h,),
+                        SizedBox(height: 60.h,),
                         SignInWithGoogleWidget(
                           onGoogleSignIn: () {
                             authService.signInWithGoogle(context: context);
@@ -234,7 +234,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                           onTextButton: () {
                             Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
                           },
-                          firstText: "Already have an account ?",
+                          firstText: "Already have an account?",
                           lastText: "Log in",
                         ),
                         SizedBox(height: 20.h,),

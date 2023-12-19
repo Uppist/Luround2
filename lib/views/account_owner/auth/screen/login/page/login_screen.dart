@@ -98,8 +98,8 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Log in to account",
                           style: GoogleFonts.inter(
-                            fontSize: 21.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
                             color: AppColor.blackColor
                           ),
                         ),
@@ -125,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                                 validator: (val) {
                                   return controller.validateLoginEmail(value: val!);
                                 },
-                                labelText: "Email Address",
+                                labelText: "Your email address",
                                 keyboardType: TextInputType.emailAddress,
                                 textInputAction: TextInputAction.next,
                                 textController: controller.loginEmailController,                          
@@ -136,7 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                                 validator: (val) {
                                   return controller.validateLoginPassword();
                                 },    
-                                labelText: "Password",
+                                labelText: "Input password",
                                 keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.done,
                                 textController: controller.loginPasswordController,
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
                               //Get.to(() => PasswordLinkExpiredPage());
                             },
                             child: Text(
-                              "Forgot Password ?",
+                              "Forgot Password?",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 12.sp,
@@ -187,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                             Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);
                             //Get.to(() => RegisterPage1());
                           },
-                          firstText: "Don't have an account ?",
+                          firstText: "Don't have an account?",
                           lastText: "Create account",
                         ),
                         SizedBox(height: 20.h,),

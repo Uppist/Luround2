@@ -6,15 +6,16 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_photo/field_flipper.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_photo/other_textfields.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/field_flipper.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_photo/textfields/other_textfields.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
 import '../../../../../utils/components/title_text.dart';
-import 'edit_photo_bottomsheet.dart';
-import 'name_textfield.dart';
-import 'occupation_textfield.dart';
+import 'bottomsheets/edit_photo_bottomsheet.dart';
+import 'textfields/name_textfield.dart';
+import 'textfields/occupation_textfield.dart';
 
 
 
@@ -175,7 +176,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                           });
                                         },
                                         initialValue: widget.firstName,
-                                        hintText: 'Enter your first name',
+                                        hintText: 'Your first name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
                                       ),
@@ -195,7 +196,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                           });
                                         },
                                         initialValue: widget.lastName,
-                                        hintText: 'Enter your last name',
+                                        hintText: 'Your last name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
                                       ),
@@ -222,7 +223,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                   });
                                 },
                                 initialValue: widget.company,
-                                hintText: "Enter your company's name",
+                                hintText: "Your company name",
                                 keyboardType: TextInputType.name,
                                 textInputAction: TextInputAction.next,
                               ),
@@ -232,11 +233,17 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                   controller.occupationController.text = val;
                                 },
                                 initialValue: widget.occupation,
-                                hintText: 'What do you do ?',
+                                hintText: 'Your profession',
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
-                              ),                  
-                              SizedBox(height: 80.h,),
+                              ),
+                              SizedBox(height: 20.h),
+                              /////////////////
+                              UploadLogoWidget(
+                                onPressed: () {},
+                              ),
+                              ////////////////                  
+                              SizedBox(height: 60.h,), //80.h
                               ReusableButton(
                                 color: AppColor.mainColor,
                                 text: 'Save',

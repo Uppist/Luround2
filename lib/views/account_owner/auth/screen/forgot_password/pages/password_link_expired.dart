@@ -79,7 +79,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                     "Link Expired",
                     style: GoogleFonts.inter(
                       fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w600,
                       color: AppColor.blackColor
                     ),
                   ),
@@ -87,7 +87,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                   Text(
                     "Password reset link expires every 60 seconds and can be used only once.",
                     style: GoogleFonts.inter(
-                      fontSize: 15.sp,
+                      fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.darkGreyColor
                     ),

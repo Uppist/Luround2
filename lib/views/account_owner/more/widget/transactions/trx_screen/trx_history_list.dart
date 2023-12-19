@@ -20,7 +20,7 @@ class TrxHistoryList extends StatelessWidget {
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.vertical,
       separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-      itemCount: 9,
+      itemCount: 6,
       //padding: EdgeInsets.symmetric(vertical: 10),
       itemBuilder: (context, index) {
         return TrxDisplay();

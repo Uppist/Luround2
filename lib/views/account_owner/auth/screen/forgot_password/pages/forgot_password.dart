@@ -99,8 +99,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         Text(
                           "Forgot Password ?",
                           style: GoogleFonts.inter(
-                            fontSize: 21.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
                             color: AppColor.blackColor
                           ),
                         ),
@@ -108,7 +108,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                         Text(
                           "Please enter your registered email address.",
                           style: GoogleFonts.inter(
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColor.darkGreyColor
                           ),
@@ -126,7 +126,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                                 validator: (val) {
                                   return controller.validateFpEmail(value: val!);
                                 },
-                                labelText: "Email Address",
+                                labelText: "Your email address",
                                 keyboardType: TextInputType.emailAddress,
                                 textInputAction: TextInputAction.next,
                                 textController: controller.fpEmailController,                          

@@ -81,9 +81,9 @@ class SignInWithGoogleWidget extends StatelessWidget {
                   "Sign up with Google",
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
-                      color: AppColor.blackColor,
+                      color: AppColor.darkGreyColor,
                       fontSize: 16.sp,
-                      //fontWeight: FontWeight.w500
+                      fontWeight: FontWeight.w500
                     )
                   )
                 ),

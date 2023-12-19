@@ -26,6 +26,51 @@ class FeedbackService extends getx.GetxController {
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
 
+  ///[SEND FEEDBACK]//
+  Future<void> sendFeedback({
+    required BuildContext context,
+    required String description,
+    required String subject,
+    }) async {
 
+    isLoading.value = true;
+
+    var body = {
+      "description": description,
+      "subject": subject,
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "feedbacks/add", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user feedback sent successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "feedback sent successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to send feedback"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
 
 }

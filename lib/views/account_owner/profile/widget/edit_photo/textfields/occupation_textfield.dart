@@ -13,8 +13,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class OtherSpecialTextField extends StatefulWidget {
-  const OtherSpecialTextField({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
+class OccupationTextField extends StatefulWidget {
+  const OccupationTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
   final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
@@ -22,17 +22,19 @@ class OtherSpecialTextField extends StatefulWidget {
   final void Function(String)? onChanged;
 
   @override
-  State<OtherSpecialTextField> createState() => _OtherSpecialTextFieldState();
+  State<OccupationTextField > createState() => _OccupationTextFieldState();
 }
 
-class _OtherSpecialTextFieldState extends State<OtherSpecialTextField> {
+class _OccupationTextFieldState extends State<OccupationTextField> {
 
   var controller = Get.put(ProfilePageController());
 
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: (hasFocus) {},
+      onFocusChange: (hasFocus) {
+        controller.updateOccupationFocus(hasFocus);
+      },
       child: TextFormField(
         onChanged: widget.onChanged,
         initialValue: widget.initialValue,
@@ -57,7 +59,9 @@ class _OtherSpecialTextFieldState extends State<OtherSpecialTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
+          //filled: true,
+          //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),

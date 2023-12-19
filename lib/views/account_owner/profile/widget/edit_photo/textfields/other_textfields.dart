@@ -13,8 +13,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class OccupationTextField extends StatefulWidget {
-  const OccupationTextField ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
+class OtherSpecialTextField extends StatefulWidget {
+  const OtherSpecialTextField({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.initialValue,});
   final String initialValue;
   final TextInputType keyboardType;
   final String hintText;
@@ -22,19 +22,17 @@ class OccupationTextField extends StatefulWidget {
   final void Function(String)? onChanged;
 
   @override
-  State<OccupationTextField > createState() => _OccupationTextFieldState();
+  State<OtherSpecialTextField> createState() => _OtherSpecialTextFieldState();
 }
 
-class _OccupationTextFieldState extends State<OccupationTextField> {
+class _OtherSpecialTextFieldState extends State<OtherSpecialTextField> {
 
   var controller = Get.put(ProfilePageController());
 
   @override
   Widget build(BuildContext context) {
     return Focus(
-      onFocusChange: (hasFocus) {
-        controller.updateOccupationFocus(hasFocus);
-      },
+      onFocusChange: (hasFocus) {},
       child: TextFormField(
         onChanged: widget.onChanged,
         initialValue: widget.initialValue,
@@ -59,9 +57,7 @@ class _OccupationTextFieldState extends State<OccupationTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
-          //filled: true,
-          //fillColor: swapSpaceWhiteColor,
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),

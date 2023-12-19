@@ -146,7 +146,11 @@ class _FeedbackPageState extends State<FeedbackPage> {
                               text: "Submit", 
                               onPressed: () {
                                 if(controller.subjectController.text.isNotEmpty && controller.descriptionController.text.isNotEmpty) {
-                                  debugPrint("yayyyyyy");
+                                  service.sendFeedback(
+                                    context: context, 
+                                    description: controller.descriptionController.text, 
+                                    subject: controller.subjectController.text
+                                  );
                                 }
                                 else {
                                   showMySnackBar(

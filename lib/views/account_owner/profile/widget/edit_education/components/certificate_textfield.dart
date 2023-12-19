@@ -63,7 +63,7 @@ class _CertificationTextFieldState extends State<CertificationTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           hintText: widget.hintText,
-          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           /*suffixIcon:InkWell(

@@ -93,8 +93,8 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     Text(
                       "Create your account",
                       style: GoogleFonts.inter(
-                        fontSize: 21.sp,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
                         color: AppColor.blackColor
                       ),
                     ),
@@ -120,7 +120,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             validator: (val) {
                               return controller.validateFirstName();
                             },
-                            labelText: "First Name",
+                            labelText: "Your first name",
                             keyboardType: TextInputType.name,
                             textInputAction: TextInputAction.next,
                             textController: controller.firstNameController,                          
@@ -131,7 +131,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             validator: (val) {
                               return controller.validateLastName();
                             },
-                            labelText: "Last Name",
+                            labelText: "Your last name",
                             keyboardType: TextInputType.name,
                             textInputAction: TextInputAction.next,
                             textController: controller.lastNameController,                          
@@ -142,7 +142,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             validator: (val) {
                               return controller.validateEmail(value: val!);
                             },
-                            labelText: "Email Address",
+                            labelText: "Your email address",
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.done,
                             textController: controller.emailController,                          
@@ -173,7 +173,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                       onTextButton: () {
                         Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
                       },
-                      firstText: "Already have an account ?",
+                      firstText: "Already have an account?",
                       lastText: "Log in",
                     ),        
                     SizedBox(height: 20.h,),

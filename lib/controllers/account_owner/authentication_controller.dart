@@ -84,7 +84,7 @@ class AuthController extends getx.GetxController {
       return "Email address is required";
     }
     if (!registerEmailRegex.hasMatch(value) && !GetUtils.isEmail(value)) {
-      return "Please enter a valid email address";
+      return "Please enter a valid email";
     }
     return null;
   }
@@ -93,8 +93,8 @@ class AuthController extends getx.GetxController {
     if(passwordController.text.isEmpty) {
       return "Password is required";
     }
-    if (GetUtils.isLengthLessThan(passwordController.text.trim(), 6)) {
-      return "Password must be 6 characters or more";
+    if (GetUtils.isLengthLessThan(passwordController.text.trim(), 8)) {
+      return "Password must be atleast 8 characters long";
     } 
     print("nice one my geee!!!");
     return null;
@@ -105,7 +105,7 @@ class AuthController extends getx.GetxController {
       return "Password is required";
     }
     if (passwordController.text.trim() != confirmPasswordController.text.trim()) {
-      return "Passwords do not match";
+      return "Password do not match";
     }
     print("nice one my geee!!!");
     return null;
@@ -242,14 +242,14 @@ class AuthController extends getx.GetxController {
       return "Email address is required";
     }
     if (!loginEmailRegex.hasMatch(value) && !GetUtils.isEmail(value)) {
-      return "Please enter a valid email address";
+      return "Please enter a valid email";
     }
     return null;
   }
 
   String? validateLoginPassword() {
-    if (GetUtils.isLengthLessThan(loginPasswordController.text.trim(), 6)) {
-      return "Password must be 6 characters or more";
+    if (GetUtils.isLengthLessThan(loginPasswordController.text.trim(), 8)) {
+      return "Password must be atleast 8 characters long";
     } 
     print("nice one my geee!!!");
     return null;
@@ -287,7 +287,7 @@ class AuthController extends getx.GetxController {
       return "Email address is required";
     }
     if (!loginEmailRegex.hasMatch(value) && !GetUtils.isEmail(value)) {
-      return "Please enter a valid email address";
+      return "Please enter a valid email";
     }
     return null;
   }
@@ -305,8 +305,8 @@ class AuthController extends getx.GetxController {
     if(resetFpPasswordController.text.isEmpty) {
       return "Password is required";
     }
-    if (GetUtils.isLengthLessThan(resetFpPasswordController.text.trim(), 6)) {
-      return "Password must be 6 characters or more";
+    if (GetUtils.isLengthLessThan(resetFpPasswordController.text.trim(), 8)) {
+      return "Password must be atleast 8 characters long";
     } 
     print("nice one my geee!!!");
     return null;
@@ -317,7 +317,7 @@ class AuthController extends getx.GetxController {
       return "Password is required";
     }
     if (resetFpPasswordController.text.trim() != resetFpConfirmPasswordController.text.trim()) {
-      return "Passwords do not match";
+      return "Password do not match";
     }
     print("nice one my geee!!!");
     return null;

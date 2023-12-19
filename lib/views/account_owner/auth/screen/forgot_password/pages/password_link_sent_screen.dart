@@ -114,8 +114,8 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                     Text(
                       "Forgot Password ?",
                       style: GoogleFonts.inter(
-                        fontSize: 21.sp,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600,
                         color: AppColor.blackColor
                       ),
                     ),
@@ -123,7 +123,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                     Text(
                       "You will receive an email with an OTP to reset your password. Please check your inbox.",
                       style: GoogleFonts.inter(
-                        fontSize: 16.sp,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                         color: AppColor.darkGreyColor
                       ),
@@ -145,7 +145,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                                 return "HI";
                               },
                               onChanged: (val) {},
-                              labelText: 'Enter six digits OTP here',
+                              labelText: 'Enter six digits code',
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
                               textController: controller.otpController,
@@ -177,8 +177,8 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.bgColor,
-                                    fontSize: 16.sp,
-                                    //fontWeight: FontWeight.w500
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
                                   )
                                 )
                               ),
@@ -198,7 +198,8 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                         style: GoogleFonts.inter(
                           color: AppColor.redColor,
                           fontStyle: FontStyle.italic,
-                          fontSize: 15.sp
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w300
                         ),
                       ),
                     ),
@@ -208,7 +209,7 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                         Text(
                           "Didn't receive an email?",
                           style: GoogleFonts.inter(
-                            fontSize: 15.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColor.textGreyColor
                           ),
@@ -221,8 +222,8 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                           child: Text(
                             "Resend email",
                             style: GoogleFonts.inter(
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600,
                               color: AppColor.mainColor
                             ),
                           ),

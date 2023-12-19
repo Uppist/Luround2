@@ -61,7 +61,7 @@ class _RegPasswordTextFieldState extends State<PasswordTextField> {
           errorBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.redColor),
           ),
-          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 14.sp),
+          errorStyle: GoogleFonts.inter(color: AppColor.redColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
           enabledBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
           ),
@@ -69,7 +69,7 @@ class _RegPasswordTextFieldState extends State<PasswordTextField> {
             borderSide: BorderSide(color: AppColor.mainColor), // Set the color you prefer
           ),     
           labelText: widget.labelText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
           suffixIcon: InkWell(
             onTap: () {
               setState(() {

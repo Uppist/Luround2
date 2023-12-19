@@ -97,8 +97,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         Text(
                           "Reset Password",
                           style: GoogleFonts.inter(
-                            fontSize: 21.sp,
-                            fontWeight: FontWeight.bold,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w600,
                             color: AppColor.blackColor
                           ),
                         ),
@@ -106,7 +106,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         Text(
                           "Enter a new password to reset the password in your account.",
                           style: GoogleFonts.inter(
-                            fontSize: 16.sp,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             color: AppColor.darkGreyColor
                           ),
@@ -124,7 +124,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 validator: (val) {
                                   return controller.validateResetPassword();
                                 },    
-                                labelText: "Password",
+                                labelText: "Input new password",
                                 keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.next,
                                 textController: controller.resetFpPasswordController,
@@ -136,7 +136,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                                 validator: (val) {
                                   return controller.validateResetConfirmPassword();
                                 },    
-                                labelText: "Confirm Password",
+                                labelText: "Re-type new password",
                                 keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.done,
                                 textController: controller.resetFpConfirmPasswordController,

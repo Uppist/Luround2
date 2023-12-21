@@ -16,7 +16,6 @@ class BankModel {
     message = json['message'] ?? "message";
     data = json['data'] as List<BankDetails>;
   }
-
 }
 
 

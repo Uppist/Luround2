@@ -99,7 +99,7 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
               SearchBankTextField(
                 onFieldSubmitted: (p0) {
                   setState(() {
-                    service.filterBookingsForSelectBankScreen(p0);
+                    service.filterForSelectBankScreen(p0);
                   });
                 },
                 hintText: 'Search',

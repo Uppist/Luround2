@@ -5,6 +5,7 @@ import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
 import 'package:luround/models/account_owner/more/saved_banks_response.dart';
+import 'package:luround/models/account_owner/more/transaction_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -248,7 +249,7 @@ class WithdrawalService extends getx.GetxController {
   var selectedIndex = 0.obs; // Initialize with the default selected index
 
   //working well
-  Future<void> filterBookingsForSelectBankScreen(String query) async {
+  Future<void> filterForSelectBankScreen(String query) async {
     if (query.isEmpty) {
       filteredBankList2.clear();
       filteredBankList2.addAll(bankList2);
@@ -266,7 +267,7 @@ class WithdrawalService extends getx.GetxController {
   }
   
   //working well
-  Future<void> filterBookingsForSelectBankScreen2(String query) async {
+  Future<void> filterForSelectBankScreen2(String query) async {
     if (query.isEmpty) {
       filteredBankList.clear();
       filteredBankList.addAll(bankList);
@@ -414,34 +415,47 @@ class WithdrawalService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF TRANSACTIONS]//////
-  /*Future<List<UserTransactionsModel>> getUserTransactions() async {
+  ///
+  var trxList = <UserTransactionsModel>[].obs;
+  var filteredTrxList = <UserTransactionsModel>[].obs;
+
+  Future<List<UserTransactionsModel>> getUserTransactions() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "transactions/get",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint("user services fetched successfully!!");
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user transaction list fetched successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
-        debugPrint("$response");
-        return response.map((e) => UserTransactionsModel.fromJson(e)).toList();
+        List<UserTransactionsModel> finalResult = response.map((e) => UserTransactionsModel.fromJson(e)).toList();
+        
+        trxList.clear();
+        trxList.addAll(finalResult);
+        print("user trx list: $trxList");
+        
+        //return transaction list
+        return trxList;
+
+
       }
       else {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to load user services data');
+        throw Exception('Failed to fetch user transaction list');
       }
     } 
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("$e");
     
     }
-  }*/
+  }
 
 
   /////[GET LOGGED-IN USER'S LIST OF Saved Banks]//////
@@ -490,8 +504,6 @@ class WithdrawalService extends getx.GetxController {
         } else {
           throw Exception('Response body is null');
         }
-      
-
       }
       else {
         isLoading.value = false;

@@ -62,6 +62,7 @@ class TransactionsController extends getx.GetxController {
 
   ////ADD ACCOUNT FROM BUTTON////
   final inputBankController = TextEditingController();
+  final inputBankCodeController = TextEditingController();
   getx.RxString bankCodeFB = ''.obs;
   final inputAccountNameController = TextEditingController();
   final inputAccountNumberController = TextEditingController();
@@ -73,6 +74,7 @@ class TransactionsController extends getx.GetxController {
 
   ////NEW ACCOUNT TAB (2)////
   final enterBankController = TextEditingController();
+  final enterBankCodeController = TextEditingController();
   getx.RxString bankCode = ''.obs;
   final enterAccountNameController = TextEditingController();
   final enterAccountNumberController = TextEditingController();
@@ -106,6 +108,8 @@ class TransactionsController extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
+    inputBankCodeController.dispose();
+    enterBankCodeController.dispose();
     selectedCountryController.dispose();
     inputBankController.dispose();
     inputAccountNameController.dispose();

@@ -129,10 +129,10 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
                               // Update the selected index
                               service.selectedIndex2.value = index;
                               controller.inputBankController.text = item['name'];
-                              controller.bankCodeFB.value = item['code'];
+                              controller.inputBankCodeController.text = item['code'];
                             });
                             // Print the selected item
-                            print('Selected Item: ${controller.inputBankController.text}/${controller.bankCodeFB.value}');
+                            print('Selected Item: ${controller.inputBankController.text}/${controller.inputBankCodeController.text}');
                           },
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,

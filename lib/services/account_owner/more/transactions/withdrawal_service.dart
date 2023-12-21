@@ -130,6 +130,7 @@ class WithdrawalService extends getx.GetxController {
     required String account_name,
     required String account_number,
     required String bank_name,
+    required String bank_code,
     required String country,
     }) async {
 
@@ -139,7 +140,8 @@ class WithdrawalService extends getx.GetxController {
       "account_name" : account_name,
       "account_number": account_number,
       "bank_name": bank_name,
-      "country": country
+      "bank_code": bank_code,
+      "country": country,
     };
 
     try {
@@ -191,6 +193,7 @@ class WithdrawalService extends getx.GetxController {
       "account_name" : account_name,
       "account_number": account_number,
       "bank_name": bank_name,
+      "bank_code": bank_code,
       "country": country
     };
 

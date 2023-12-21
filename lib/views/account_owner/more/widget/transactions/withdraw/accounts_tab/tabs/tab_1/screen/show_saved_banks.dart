@@ -118,7 +118,7 @@ class _ShowSavedBanksState extends State<ShowSavedBanks> {
                     child: InkWell(
                       onTap: () {
                         Get.to(() => TransferScreen(
-                          bankCode: '', //fetch from db
+                          bankCode: item.bank_code, //fetch from db
                           accountName: item.account_name,  //fetch from db
                           accountNumber: item.account_number,
                           bankName: item.bank_name,

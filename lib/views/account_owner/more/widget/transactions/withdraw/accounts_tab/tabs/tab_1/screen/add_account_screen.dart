@@ -140,7 +140,8 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
                                 context: context, 
                                 account_name: controller.inputAccountNameController.text, 
                                 account_number: controller.inputAccountNumberController.text.trim(), 
-                                bank_name: controller.inputBankController.text, 
+                                bank_name: controller.inputBankController.text,
+                                bank_code: controller.inputBankCodeController.text, 
                                 country: controller.selectedCountryController.text,
                               ).whenComplete(() {
                                 controller.inputAccountNameController.clear(); 

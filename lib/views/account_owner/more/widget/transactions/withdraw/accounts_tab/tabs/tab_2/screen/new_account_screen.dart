@@ -125,7 +125,7 @@ class _AddNewAccountState extends State<AddNewAccount> {
                         account_number: controller.enterAccountNumberController.text.trim(), 
                         bank_name: controller.enterBankController.text, 
                         country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "No Country",
-                        bank_code: controller.bankCode.value
+                        bank_code: controller.enterBankCodeController.text, //controller.bankCode.value
                       ).whenComplete(() => print("this function will create the bank details lowkey but will not clear the controllers because it would be used in the next screen"));
                     }
                     else {

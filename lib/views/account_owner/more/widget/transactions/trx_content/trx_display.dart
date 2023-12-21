@@ -2,13 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 
 
 
 
 
 class TrxDisplay extends StatelessWidget {
-  const TrxDisplay({super.key});
+  const TrxDisplay({super.key, required this.service_id, required this.service_name, required this.amount, required this.affliate_user, required this.transaction_status, required this.transaction_ref, required this.transaction_date});
+  final String service_id;
+  final String service_name;
+  final String amount;
+  final String affliate_user;
+  final String transaction_status;
+  final String transaction_ref;
+  final int transaction_date;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +29,7 @@ class TrxDisplay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "Personal Training",
+              service_name,
               style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
                 fontSize: 15.sp,
@@ -29,7 +37,7 @@ class TrxDisplay extends StatelessWidget {
               ),
             ),
             Text(
-              "N56,000",
+              "N$amount",
               style: GoogleFonts.inter(
                 color: AppColor.darkGreen,
                 fontSize: 16.sp,
@@ -41,7 +49,7 @@ class TrxDisplay extends StatelessWidget {
         SizedBox(height: 20.h,),
         //2
         Text(
-          "Transaction reference | Received from Sheldon Cooper via LuroundPay", //"Transaction reference | Received from Sheldon Cooper via LuroundPay",
+          "$transaction_ref | Received from $affliate_user via LuroundPay", //"Transaction reference | Sent to Sheldon Cooper via LuroundPay",
           style: GoogleFonts.inter(
             color: AppColor.darkGreyColor,
             fontSize: 14.sp,
@@ -50,7 +58,7 @@ class TrxDisplay extends StatelessWidget {
         ),
         SizedBox(height: 20.h,),
         Text(
-          "Tue, 11 July 2023 17:30",
+          "${convertServerTimeToDate(transaction_date)} dummy_time",   //17:30
           style: GoogleFonts.inter(
             color: AppColor.textGreyColor,
             fontSize: 14.sp,

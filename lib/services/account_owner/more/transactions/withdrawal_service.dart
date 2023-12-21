@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
+import 'package:luround/models/account_owner/more/saved_banks_response.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -438,6 +439,73 @@ class WithdrawalService extends getx.GetxController {
     
     }
   }*/
+
+
+  /////[GET LOGGED-IN USER'S LIST OF Saved Banks]//////
+
+  var savedAccounts = <SavedBanks>[].obs;
+  var filteredSavedAccounts = <SavedBanks>[].obs;
+
+  Future<void> filterSavedBank(String query) async {
+    if (query.isEmpty) {
+      filteredSavedAccounts.clear();
+      filteredSavedAccounts.addAll(savedAccounts);
+      print("when query is empty: $savedAccounts");
+    } 
+    else {
+      filteredSavedAccounts.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filteredSavedAccounts.addAll(
+      savedAccounts.where((user) =>
+          user.account_name.toLowerCase().contains(query.toLowerCase()))
+      .toList());
+      print("when query is not empty: $filteredSavedAccounts");
+    }
+  }
+
+  Future<List<SavedBanks>> getUserSavedAccounts() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user saved accounts fetched successfully!!");
+        //decode the response body here
+        // Check if the response body is not null
+        if (res.body != null) {
+          final List<dynamic> response = jsonDecode(res.body);
+          final List<SavedBanks> finalResult = response.map((e) => SavedBanks.fromJson(e)).toList();
+
+          savedAccounts.clear();
+          savedAccounts.addAll(finalResult);
+          debugPrint("$savedAccounts");
+
+          // Return saved bank account list
+          return savedAccounts;
+        } else {
+          throw Exception('Response body is null');
+        }
+      
+
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user saved banks');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
 
 
 

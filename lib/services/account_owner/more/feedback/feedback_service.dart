@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/models/account_owner/user_profile/user_model.dart';
+import 'package:luround/controllers/account_owner/more_controller.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -20,7 +20,8 @@ import 'package:luround/utils/components/my_snackbar.dart';
 
 
 class FeedbackService extends getx.GetxController {
-
+  
+  var controller = getx.Get.put(MoreController());
   var baseService = getx.Get.put(BaseService());
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
@@ -46,6 +47,8 @@ class FeedbackService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user feedback sent successfully");
+        controller.subjectController.clear();
+        controller.descriptionController.clear();
         //success snackbar
         showMySnackBar(
           context: context,

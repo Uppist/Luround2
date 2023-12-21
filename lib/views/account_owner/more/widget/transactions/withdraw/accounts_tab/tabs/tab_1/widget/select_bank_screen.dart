@@ -42,7 +42,9 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
       });
     } 
     catch (error) {
-      service.isLoading.value = false;
+      setState(() {
+        service.isLoading.value = false;
+      });
       print("Error loading data: $error");
       // Handle error as needed, e.g., show an error message to the user
     }
@@ -51,13 +53,6 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
   @override
   void initState() {
     super.initState();
-  
-    /*service.getBanksApi().then((val) {
-      service.filteredBankList.clear();
-      service.filteredBankList.addAll(val); 
-      print("initState: ${service.filteredBankList}");
-    });*/
-
     _loadData();
 
   }

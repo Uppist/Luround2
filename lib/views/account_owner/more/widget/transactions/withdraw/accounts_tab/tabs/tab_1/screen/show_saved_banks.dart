@@ -4,7 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
+import 'package:luround/models/account_owner/more/saved_banks_response.dart';
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/empty_states/no_saved_accounts.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/screen/add_account_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/search_bank_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_screen.dart';
 
@@ -12,23 +17,65 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 
-class ShowSavedBanks extends StatelessWidget {
+class ShowSavedBanks extends StatefulWidget {
   ShowSavedBanks({super.key});
 
+  @override
+  State<ShowSavedBanks> createState() => _ShowSavedBanksState();
+}
+
+class _ShowSavedBanksState extends State<ShowSavedBanks> {
+
   var controller = Get.put(TransactionsController());
+  var service = Get.put(WithdrawalService());
+
+  Future<void> _loadData() async {
+    try {
+      setState(() {
+        service.isLoading.value = true;
+      });
+      await service.getUserSavedAccounts();
+      final List<SavedBanks> banks = await service.getUserSavedAccounts();
+      banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
+      setState(() {
+        service.isLoading.value = false;
+        service.filteredSavedAccounts.value = List.from(banks);  //addAll(service.savedAccounts);
+        print("initState: ${service.filteredSavedAccounts}");
+      });
+    } 
+    catch (error) {
+      setState(() {
+        service.isLoading.value = false;
+      });
+      print("Error loading data: $error");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: Padding(
+      body: service.isLoading.value ? Loader() : Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 30.h),
             SearchBankTextField(
-              onFieldSubmitted: (p0) {},
+              onFieldSubmitted: (p0) {
+                setState(() {
+                  service.filterSavedBank(p0);
+                });
+              },
               hintText: 'Search',
               keyboardType: TextInputType.name,
               textInputAction: TextInputAction.go,
@@ -44,9 +91,17 @@ class ShowSavedBanks extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 separatorBuilder: (context, index) => SizedBox(height: 30.h),
-                itemCount: 2,
+                itemCount: service.filteredSavedAccounts.length,
                 padding: EdgeInsets.symmetric(vertical: 10.h),
                 itemBuilder: (context, index) {
+                  final item = service.filteredSavedAccounts[index];
+                  if(service.filteredSavedAccounts.isEmpty) {
+                    return NoSavedAccounts(
+                      onPressed: () {
+                        Get.to(() => AddAccountPageFromButton());
+                      },
+                    );
+                  }
                   return Dismissible(
                     direction: DismissDirection.endToStart,
                     key: UniqueKey(),
@@ -64,9 +119,9 @@ class ShowSavedBanks extends StatelessWidget {
                       onTap: () {
                         Get.to(() => TransferScreen(
                           bankCode: '', //fetch from db
-                          accountName: '',  //fetch from db
-                          accountNumber: '',
-                          bankName: '',
+                          accountName: item.account_name,  //fetch from db
+                          accountNumber: item.account_number,
+                          bankName: item.bank_name,
                         ));
                       },
                       child: AnimatedContainer(
@@ -87,7 +142,7 @@ class ShowSavedBanks extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Melissa Gates",
+                                    item.account_name,
                                     style: GoogleFonts.inter(
                                     color: AppColor.blackColor,
                                       fontSize: 16.sp,
@@ -96,7 +151,7 @@ class ShowSavedBanks extends StatelessWidget {
                                   ),
                                   SizedBox(height: 10.h,),
                                   Text(
-                                    "Fidelity | 2022481315",
+                                    "${item.bank_name} | ${item.account_number}",
                                     style: GoogleFonts.inter(
                                     color: AppColor.darkGreyColor,
                                       fontSize: 13.sp,

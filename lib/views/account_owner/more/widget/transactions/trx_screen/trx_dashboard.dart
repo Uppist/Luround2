@@ -17,12 +17,22 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/se
 
 
 
-class TrxDashBoard extends StatelessWidget {
+class TrxDashBoard extends StatefulWidget {
   TrxDashBoard({super.key,});
+
+  @override
+  State<TrxDashBoard> createState() => _TrxDashBoardState();
+}
+
+class _TrxDashBoardState extends State<TrxDashBoard> {
 
 
   var controller = Get.put(TransactionsController());
   var service = Get.put(WithdrawalService());
+
+  void initState(){
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +199,9 @@ class TrxDashBoard extends StatelessWidget {
             )
           );
         }
-        return Center(
+        return 
+        //Loader2();
+        Center(
           child: Text(
             "connection timed out",
             style: GoogleFonts.inter(

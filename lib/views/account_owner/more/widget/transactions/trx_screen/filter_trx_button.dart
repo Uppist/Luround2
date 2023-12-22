@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -16,6 +17,7 @@ class FilterTrxButton extends StatelessWidget {
   FilterTrxButton({super.key,});
 
   var controller = Get.put(TransactionsController());
+  var service = Get.put(WithdrawalService());
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +62,7 @@ class FilterTrxButton extends StatelessWidget {
                   return DropdownMenuItem(
                     onTap: () {
                       debugPrint("drop down menu tapped!!");
+                      service.filterTrxByPastDate();
                     },                    
                     value: item,
                     child: Text(

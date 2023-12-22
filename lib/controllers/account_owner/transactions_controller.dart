@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 
 
 
@@ -10,6 +11,8 @@ import 'package:get/get.dart' as getx;
 
 
 class TransactionsController extends getx.GetxController {
+  
+  //var service = getx.Get.put(WithdrawalService());
 
   var isCountrySelected = false.obs;
   var isBankSelected = false.obs;

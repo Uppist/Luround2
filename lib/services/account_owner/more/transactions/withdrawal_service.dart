@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutterwave_web_client/flutterwave_web_client.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
@@ -11,6 +12,7 @@ import 'package:luround/services/account_owner/data_service/base_service/base_se
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/confirm_otp_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
@@ -420,6 +422,29 @@ class WithdrawalService extends getx.GetxController {
   var trxList = <UserTransactionsModel>[].obs;
   var filteredTrxList = <UserTransactionsModel>[].obs;
 
+  Future<void> filterTrxByPastDate() async{
+    // Clear the filteredList so new values can come i n 
+    filteredTrxList.clear();
+
+    // Use the search query to filter the items
+    filteredTrxList.addAll(
+      trxList.where((item) {
+        // Customize this part based on your data structure
+        //for (var detail in item) {
+        String server_date = convertServerTimeToDate(item.transaction_date);
+        DateTime convertedDate = convertStringToDateTime(server_date);
+        print('Converted Date: $convertedDate');
+        //checkDateDistance(convertedDate);
+        // Check if the date is in the past
+        if (isDateInPast(convertedDate)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );  
+    print("Past trx List: $filteredTrxList");
+  }
+
   Future<List<UserTransactionsModel>> getUserTransactions() async {
     isLoading.value = true;
     try {
@@ -549,6 +574,24 @@ class WithdrawalService extends getx.GetxController {
       //debugPrint("Error net: $e");
       throw Exception("$e");
     
+    }
+  }
+
+  void makePayment() async {
+    final customer =
+        FlutterwaveCustomer('lazicah@gmail.com', '08102894804', 'Lazarus');
+    final charge = new Charge()
+      ..amount = 100
+      ..reference = 'test'
+      ..currency = 'NGN'
+      ..country = 'NG'
+      ..customer = customer;
+
+    final response = await FlutterwaveWebClient.checkout(charge: charge);
+    if (response.status) {
+      print('Successful, Transaction ref ${response.tx_ref}');
+    } else {
+      print('Transaction failed');
     }
   }
 

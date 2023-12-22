@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/services/account_viewer/services/get_user_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
@@ -26,6 +27,7 @@ class BookingDetails extends StatelessWidget {
   final String service_charge_in_person;
 
   var controller = Get.put(AccViewerServicesController());
+  var service = Get.put(AccViewerService());
 
   @override
   Widget build(BuildContext context) {
@@ -183,7 +185,7 @@ class BookingDetails extends StatelessWidget {
                       text: "Proceed to pay", 
                       onPressed: () {
                         //amount of service as argument
-                        Get.to(() => PaymentScreen(
+                        /*Get.to(() => PaymentScreen(
                           date: date,
                           serviceId: serviceId,
                           service_name: service_name,
@@ -192,8 +194,33 @@ class BookingDetails extends StatelessWidget {
                           amount: controller.isVirtual.value 
                           ? service_charge_virtual
                           : service_charge_in_person
-                        ));
-                        print('nothing');
+                        ));*/
+                        service.fetchFlutterwavePopUp(
+                          context: context, 
+                          name: controller.nameBAController.text, 
+                          email: controller.emailBAController.text.trim(), 
+                          service_name: service_name,                  
+                          serviceId: serviceId, 
+                          phone_number: "${controller.codeBA} ${controller.phoneNumberBAController.text}", 
+                          appointment_type: controller.step1Appointment, 
+                          date: controller.getDate(initialDate: date), 
+                          time: time, //controller.getTime()
+                          duration: duration, 
+                          message: controller.messageBAController.text, 
+                          location: controller.step1Appointment == 'Virtual' 
+                          ?"The location for this service is set to be virtual." 
+                          :"The location for this service is set to be physical."
+                        )
+                        .whenComplete(() {
+                          controller.nameBAController.clear();
+                          controller.emailBAController.clear();
+                          controller.phoneNumberBAController.clear();
+                          controller.messageBAController.clear();
+                          controller.cardholderNameController.clear();
+                          controller.cardNumberController.clear();
+                          controller.expiryDateController.clear();
+                          controller.cvvController.clear();
+                        });
                       },
                     ),
                     SizedBox(height: 10.h,),

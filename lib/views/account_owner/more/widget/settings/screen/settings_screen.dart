@@ -67,7 +67,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h,),
                 SettingsSelector(
-                  text: "Billing",
+                  text: "Pricing",
                   onFlip: () {
                     //Get.to(() => SubscriptionScreen());
                   },

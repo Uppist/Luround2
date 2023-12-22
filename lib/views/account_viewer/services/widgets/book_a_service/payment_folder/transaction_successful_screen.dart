@@ -21,7 +21,10 @@ import 'package:lottie/lottie.dart';
 
 
 class TransactionSuccesscreen extends StatefulWidget {
-  TransactionSuccesscreen({super.key,});
+  TransactionSuccesscreen({super.key, required this.servie_provider_name, required this.service_name,});
+  final String servie_provider_name;
+  final String service_name;
+
 
   @override
   State<TransactionSuccesscreen> createState() => _TransactionSuccesscreenState();
@@ -85,7 +88,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                               )
                             ),
                             TextSpan(
-                              text :' "Ronald Richie"          \n',
+                              text :' "${widget.servie_provider_name}"          \n',
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,
@@ -101,7 +104,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                               )
                             ),
                             TextSpan(
-                              text :' "Personal Training Session".',
+                              text :' ${widget.service_name}.',
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w600,

@@ -166,12 +166,16 @@ class AccViewerServicesPage extends StatelessWidget {
                                       children: [
                                         SvgPicture.asset("assets/svg/link_icon.svg"),
                                         SizedBox(width: 10.w,),
-                                        Text(
-                                          data[index].links[0],
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.blueColor,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500
+                                        Expanded(
+                                          child: Text(
+                                            data[index].links[0],
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.blueColor,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                              
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ],

@@ -84,7 +84,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Education & Certification',
+                            'Education & Certificates',
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 18.sp,

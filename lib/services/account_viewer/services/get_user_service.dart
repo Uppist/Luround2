@@ -1,6 +1,7 @@
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
+import 'package:luround/models/account_viewer/futter_wave_response.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -116,7 +117,7 @@ class AccViewerService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("$e");
     
     }
   }
@@ -147,7 +148,7 @@ class AccViewerService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("$e");
     
     }
   }
@@ -186,7 +187,7 @@ class AccViewerService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "booking/book-service?serviceId=$serviceId", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "booking/book-service?serviceId=6565b7dc4347aaa8590668f9", body: body);  //remove somto's service id later
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -197,7 +198,10 @@ class AccViewerService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "you've successfully booked this service"
-        ).whenComplete(() => getx.Get.to(() => TransactionSuccesscreen()));
+        ).whenComplete(() => getx.Get.to(() => TransactionSuccesscreen(
+          servie_provider_name: 'this service provider',
+          service_name: service_name,
+        )));
       } 
       else {
         isLoading.value = false;
@@ -215,7 +219,7 @@ class AccViewerService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong");
     }
   }
 
@@ -301,7 +305,68 @@ class AccViewerService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong");
+    }
+  }
+
+  /////[GET FLUTTERWAVE POP UP]/////
+  Future<dynamic> fetchFlutterwavePopUp({
+    required BuildContext context,
+    required String name,
+    required String email,
+    required String service_name,
+    ////
+    required String serviceId,
+    required String phone_number,
+    required String appointment_type,
+    required String date,
+    required String time,
+    required String duration,
+    required String message,
+    required String location
+  }) async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "payments/initialize-flw-payment",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        //decode the response body here
+        FlutterWaveResponse response = FlutterWaveResponse.fromJson(jsonDecode(res.body));
+        /////////////
+        print("flw-payment: $response");
+        await launchUrlLink(link: response.payment_link)
+        .whenComplete(() {
+          bookUserService(
+            context: context, 
+            name: name, 
+            email: email, 
+            service_name: service_name, 
+            serviceId: serviceId, 
+            phone_number: phone_number, 
+            appointment_type: appointment_type, 
+            date: date, 
+            time: time, 
+            duration: duration, 
+            message: message, 
+            location: location
+          );
+        });
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch flutterwave api');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
     }
   }
 

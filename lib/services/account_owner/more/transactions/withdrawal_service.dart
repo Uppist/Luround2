@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutterwave_web_client/flutterwave_web_client.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
@@ -577,22 +576,8 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
-  void makePayment() async {
-    final customer =
-        FlutterwaveCustomer('lazicah@gmail.com', '08102894804', 'Lazarus');
-    final charge = new Charge()
-      ..amount = 100
-      ..reference = 'test'
-      ..currency = 'NGN'
-      ..country = 'NG'
-      ..customer = customer;
-
-    final response = await FlutterwaveWebClient.checkout(charge: charge);
-    if (response.status) {
-      print('Successful, Transaction ref ${response.tx_ref}');
-    } else {
-      print('Transaction failed');
-    }
+  void makeFlutterWavePayment() async {
+    
   }
 
 

@@ -422,6 +422,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  flutter_inappwebview:
+    dependency: transitive
+    description:
+      name: flutter_inappwebview
+      sha256: d198297060d116b94048301ee6749cd2e7d03c1f2689783f52d210a6b7aba350
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.8.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -488,14 +496,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutterwave_web_client:
-    dependency: "direct main"
+  fluttertoast:
+    dependency: transitive
     description:
-      name: flutterwave_web_client
-      sha256: a2c134519a9d989a8e312bc04b7a3692d7de3389c6467483b12996dc2d2baaff
+      name: fluttertoast
+      sha256: dfdde255317af381bfc1c486ed968d5a43a2ded9c931e87cbecd88767d6a71c1
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.1"
+    version: "8.2.4"
+  flutterwave_standard:
+    dependency: "direct main"
+    description:
+      name: flutterwave_standard
+      sha256: "3026462b08b7782dad1aeece1ef0601897ae6bf2a5555e7e8d8d02ba0ece9f60"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.8"
   from_to_time_picker:
     dependency: "direct main"
     description:
@@ -1230,5 +1246,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.2.0 <4.0.0"
+  dart: ">=3.2.0 <3.5.0"
   flutter: ">=3.13.0"

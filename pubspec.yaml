@@ -88,11 +88,7 @@ dependencies:
   firebase_auth: ^4.15.0
   
   #flutter-wave
-  ade_flutterwave_working_version: ^0.0.2+2
-
-
-dependency_overrides:
-  http: ^0.13.5
+  flutterwave_standard: ^1.0.8
  
 
 dev_dependencies:

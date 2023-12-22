@@ -289,8 +289,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                       ),
                                                       SizedBox(height: 2.h,),
                                                       Text(
-                                                        service.filteredList[index].bookingUserInfo.userId.contains(userId) ? "you booked" : "booked you"
-                                                        "booked you",//index.isEven ? "booked you" : "you booked",
+                                                        service.filteredList[index].serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
+                                                        //"booked you",//index.isEven ? "booked you" : "you booked",
                                                         style: GoogleFonts.inter(
                                                           color: AppColor.textGreyColor,
                                                           fontSize: 12.sp,

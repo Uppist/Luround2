@@ -488,6 +488,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutterwave_web_client:
+    dependency: "direct main"
+    description:
+      name: flutterwave_web_client
+      sha256: a2c134519a9d989a8e312bc04b7a3692d7de3389c6467483b12996dc2d2baaff
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   from_to_time_picker:
     dependency: "direct main"
     description:

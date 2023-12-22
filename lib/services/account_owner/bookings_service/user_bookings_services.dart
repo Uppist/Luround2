@@ -65,7 +65,7 @@ class AccOwnerBookingService extends getx.GetxController {
     // Use the search query to filter the items
     filteredList.addAll(
       dataList.where((item) {
-        return item.bookingUserInfo.userId.toLowerCase().contains(userId); //== userId;
+        return item.serviceProviderInfo.userId.toLowerCase() == userId; //== userId;
       }),
     );  
     print("Sent List: $filteredList");
@@ -78,7 +78,7 @@ class AccOwnerBookingService extends getx.GetxController {
     // Use the search query to filter the items
     filteredList.addAll(
       dataList.where((item) {
-        return item.bookingUserInfo.userId.toLowerCase() != userId;
+        return item.serviceProviderInfo.userId.toLowerCase() != userId;
       }),
     );
     print("Received List: $filteredList");

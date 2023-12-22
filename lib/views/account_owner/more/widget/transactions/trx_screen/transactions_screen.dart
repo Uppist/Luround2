@@ -92,11 +92,7 @@ class TransactionPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //TRX DASHBOARD
-                      TrxDashBoard(
-                        amountPaid: "N100,000.00",
-                        amountReceived: "N250,000.00", 
-                        walletBalance: 'N400,000.00',
-                      ),
+                      TrxDashBoard(),
                       
                       SizedBox(height: 30.h,),
 

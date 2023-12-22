@@ -6,6 +6,7 @@ import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
 import 'package:luround/models/account_owner/more/saved_banks_response.dart';
 import 'package:luround/models/account_owner/more/transaction_model.dart';
+import 'package:luround/models/account_owner/more/wallet_balance.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -521,7 +522,35 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
-  
+  /////[GET USER WALLET BALANCE]/////
+  Future<WalletBalance> getUserWalletBalance() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "wallet/balance",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        //decode the response body here
+        WalletBalance response = WalletBalance.fromJson(jsonDecode(res.body));
+        print(response);
+        /////////////
+        return response;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user wallet balance');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
 
 
 

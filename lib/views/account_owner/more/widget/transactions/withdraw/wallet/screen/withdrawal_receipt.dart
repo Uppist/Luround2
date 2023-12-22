@@ -216,7 +216,7 @@ class WithdrawalReceipt extends StatelessWidget {
               SizedBox(height: 20.h,),
               TextButton(
                 onPressed: () {
-                  //Get.offAll(() => );
+                  //Get.offUntill(() => );
                 }, 
                 child: Text(
                   'Exit page',

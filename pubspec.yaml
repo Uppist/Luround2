@@ -58,9 +58,11 @@ dependencies:
   date_time_format: ^2.0.1 #for converting date/time
 
   #for network calls and jwt decoder
-  #http: ^1.1.1 #^1.1.2
-  http: 1.1.2
+  http: ^1.1.2
+  dio: ^5.4.0
   jwt_decoder: ^2.0.1
+
+  #for google auth
   google_sign_in: ^6.1.6
   
 
@@ -79,10 +81,15 @@ dependencies:
 
   #for sharing profile link
   share_plus: ^7.2.1
+
+  #firebase apis
   firebase_core: ^2.24.0
   firebase_messaging: ^14.7.6
   firebase_auth: ^4.15.0
-  dio: ^5.4.0
+  
+  #flutter-wave
+  flutterwave_web_client: ^0.0.1
+
 
   
 

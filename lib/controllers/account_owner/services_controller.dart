@@ -161,6 +161,34 @@ class ServicesController extends getx.GetxController {
   
   ////**[STEP 3]***////
   List<String> selectedDays = [];
+  //service_screen time picker (add_service_step 3)/// ///////////////////////////////
+  //(save to db) the two of them
+  final startTimeValue = "".obs; 
+  final stopTimeValue = "".obs;
+
+  List<String> availableTime = [];
+  void addStartTime() {
+    if (!availableTime.contains(startTimeValue.value)) {
+      //add all start time to the list
+      availableTime.add(startTimeValue.value);
+    } else {
+      print("${startTimeValue.value} is already in the list");
+    }
+  }
+
+  void removeStartTime({required int index}) {
+    if (index >= 0 && index < availableTime.length) {
+      //add all start time to the list
+      availableTime.removeAt(index);
+      print("Item ${availableTime[index]} removed at index $index");
+    } 
+    else {
+      print("Invalid index: $index");
+    }
+  }
+
+
+
 
   void addItem({required String item}) {
     if (!selectedDays.contains(item)) {
@@ -194,10 +222,12 @@ class ServicesController extends getx.GetxController {
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBox[index]['isChecked']) {
       addItem(item: daysOfTheWeekCheckBox[index]['day']);
+      addStartTime();
     } else {
       int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBox[index]['day']);
       if (selectedIndex != -1) {
         removeItem(index: selectedIndex);
+        removeStartTime(index: selectedIndex);
       }
     }
   }
@@ -227,17 +257,13 @@ class ServicesController extends getx.GetxController {
 
   //to activate the next/done button in step 3 screen
   final isCheckBoxActive = false.obs;
-
+  
 
 
 
 
   
-  //service_screen time picker (add_service_step 3)/// ///////////////////////////////
-  //(save to db) the two of them
-  final startTimeValue = "".obs; 
-  final stopTimeValue = "".obs;
-
+  
   /*String getStartTime ({required String initialTime}) {
     if(startTimeValue.isNotEmpty) { 
       debugPrint("t1: $startTimeValue");
@@ -502,6 +528,26 @@ class ServicesController extends getx.GetxController {
   
   ////**[STEP 3]***////////
   List<String> selectedDaysEdit = [];
+  List<String> availableTimeEdit = [];
+  void addStartTimeEdit() {
+    if (!availableTimeEdit.contains(startTimeValueEdit.value)) {
+      //add all start time to the list
+      availableTimeEdit.add(startTimeValueEdit.value);
+    } else {
+      print("${startTimeValueEdit.value} is already in the list");
+    }
+  }
+
+  void removeStartTimeEdit({required int index}) {
+    if (index >= 0 && index < availableTimeEdit.length) {
+      //add all start time to the list
+      availableTimeEdit.removeAt(index);
+      print("Item ${availableTimeEdit[index]} removed at index $index");
+    } 
+    else {
+      print("Invalid index: $index");
+    }
+  }
 
   void addItemEdit({required String item}) {
     if (!selectedDaysEdit.contains(item)) {
@@ -536,10 +582,12 @@ class ServicesController extends getx.GetxController {
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
       addItemEdit(item: daysOfTheWeekCheckBoxEdit[index]['day']);
+      addStartTimeEdit();
     } else {
       int selectedIndex = selectedDaysEdit.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
       if (selectedIndex != -1) {
         removeItemEdit(index: selectedIndex);
+        removeStartTimeEdit(index: selectedIndex);
       }
     }
   }

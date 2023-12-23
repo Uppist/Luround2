@@ -168,7 +168,7 @@ class AccViewerService extends getx.GetxController {
     required String time,
     required String duration,
     required String message,
-    required String location
+    required String location,
   }) async {
     isLoading.value = true;
 
@@ -183,7 +183,7 @@ class AccViewerService extends getx.GetxController {
       "time": time,
       "duration": duration,
       "message": message,
-      "location": location
+      "location": location,
     };
 
     try {
@@ -323,7 +323,7 @@ class AccViewerService extends getx.GetxController {
     required String time,
     required String duration,
     required String message,
-    required String location
+    required String location,
   }) async {
     isLoading.value = true;
     try {

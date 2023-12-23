@@ -103,6 +103,7 @@ class ServiceDetails {
   final String location;
   final String bookedStatus;
   final int createdAt;
+  final List<dynamic> available_time;
 
   ServiceDetails({
     required this.serviceId,
@@ -117,10 +118,12 @@ class ServiceDetails {
     required this.location,
     required this.bookedStatus,
     required this.createdAt,
+    required this.available_time,
   });
 
   factory ServiceDetails.fromJson(Map<String, dynamic> json) {
     return ServiceDetails(
+      available_time: json['available_time'] ?? [],
       serviceId: json['service_id'] ?? '',
       serviceName: json['service_name'] ?? '',
       serviceFee: json['service_fee'] ?? '',

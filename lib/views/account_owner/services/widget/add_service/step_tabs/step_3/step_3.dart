@@ -137,6 +137,7 @@ class _Step3PageState extends State<Step3Page> {
               //widget.onNext
               () {
                 servicesService.createUserService(
+                  available_time: mainController.availableTimeEdit,
                   context: context,
                   //service_type: "Virtual", //In-Person
                   service_name: mainController.serviceNameController.text, 

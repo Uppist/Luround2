@@ -122,6 +122,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String time,
     required String available_days,
     //required String service_type,
+    required List<dynamic> available_time,
     required String date
     
     }) async {
@@ -139,7 +140,8 @@ class AccOwnerServicePageService extends getx.GetxController {
       "time": time,
       'available_days': available_days,
       //"service_type": service_type,
-      "date": date
+      "date": date,
+      "available_time": available_time,
     };
 
     try {
@@ -189,6 +191,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String time,
     required String date,
     required String available_days,
+    required List<dynamic> available_time,
     
     }) async {
 
@@ -205,6 +208,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       "time": time,
       "date": date,
       'available_days': available_days,
+      "available_time": available_time,
       //"service_type": service_type
     };
 

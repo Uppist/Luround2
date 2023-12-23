@@ -161,6 +161,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                 servicesService.updateUserService(
                   context: context,
                   //service_type: "Virtual", //In-Person
+
                   serviceId: widget.serviceId,
                   service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
                   description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
@@ -170,7 +171,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
                   time: mainController.startTimeValueEdit.isEmpty ? widget.time : "${mainController.startTimeValueEdit} - ${mainController.stopTimeValueEdit}",
                   date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
-                  available_days: mainController.availableDaysEdit(),
+                  available_days: mainController.availableDaysEdit(), 
+                  available_time: mainController.availableTimeEdit,
                 ).whenComplete(() {
                   setState(() {
                     mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;

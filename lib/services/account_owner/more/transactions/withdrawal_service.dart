@@ -420,6 +420,28 @@ class WithdrawalService extends getx.GetxController {
   ///
   var trxList = <UserTransactionsModel>[].obs;
   var filteredTrxList = <UserTransactionsModel>[].obs;
+  getx.RxInt totalAmountPaid = 0.obs;
+  getx.RxInt totalAmountReceived = 0.obs;
+
+  Future<getx.RxInt> calculateTotalAmountPaid() async{
+    filteredTrxList.forEach((UserTransactionsModel user) {
+      if (user.transaction_status == "RECEIVED") {
+        totalAmountPaid.value += int.parse(user.amount);
+      }
+    });
+    print("amount paid: ${totalAmountPaid.value}");
+    return totalAmountPaid;
+  }
+
+  Future<getx.RxInt> calculateTotalAmountReceived() async{
+    filteredTrxList.forEach((UserTransactionsModel user) {
+      if (user.transaction_status == "SENT") {
+        totalAmountReceived.value += int.parse(user.amount);
+      }
+    });
+    print("amount received: ${totalAmountReceived.value}");
+    return totalAmountReceived;
+  }
 
   Future<void> filterTrxByPastDate() async{
     // Clear the filteredList so new values can come i n 

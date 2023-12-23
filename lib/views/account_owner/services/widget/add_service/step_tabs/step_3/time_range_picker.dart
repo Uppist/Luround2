@@ -45,6 +45,8 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
         controller.daysOfTheWeekCheckBox[index].addAll({
           "from" : controller.startTimeValue.value,
         });
+        controller.addStartTime();
+        print("time list: ${controller.availableTime}");
       });
     }
   }
@@ -183,7 +185,9 @@ class _TimeRangeSelectorState extends State<TimeRangeSelector> {
                   controller.daysOfTheWeekCheckBox[widget.index]["isChecked"] = false;
                   controller.daysOfTheWeekCheckBox[widget.index]['to'] = "to";
                   controller.daysOfTheWeekCheckBox[widget.index]['from'] = "from";
+                  controller.removeStartTime(index: widget.index);
                 });
+                print("time list: ${controller.availableTime}");
                 print(controller.daysOfTheWeekCheckBox[widget.index]["isChecked"]);
               }, 
               icon: Icon(Icons.delete_outline_rounded),

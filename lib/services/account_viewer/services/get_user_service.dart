@@ -1,7 +1,8 @@
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
-import 'package:luround/models/account_viewer/futter_wave_response.dart';
+import 'package:luround/models/account_viewer/booking/bookimg_response.dart';
+import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -191,17 +192,23 @@ class AccViewerService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("luround user got booked succesfully");
-        //await payWithFlutterwave()
-        //success snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "you've successfully booked this service"
-        ).whenComplete(() => getx.Get.to(() => TransactionSuccesscreen(
-          servie_provider_name: 'this service provider',
-          service_name: service_name,
-        )));
+        BookServiceResponseMdel response = BookServiceResponseMdel.fromJson(jsonDecode(res.body));
+        /////////////
+        print("flw-payment: $response");
+        await launchUrlLink(link: response.payment_link)
+        .whenComplete(() {
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "you've successfully booked this service"
+          ).whenComplete(() => getx.Get.to(() => TransactionSuccesscreen(
+            servie_provider_name: 'this service provider',
+            service_name: service_name,
+          )));
+        });
+        //return userServiceModel;
       } 
       else {
         isLoading.value = false;
@@ -310,7 +317,7 @@ class AccViewerService extends getx.GetxController {
   }
 
   /////[GET FLUTTERWAVE POP UP]/////
-  Future<dynamic> fetchFlutterwavePopUp({
+  /*Future<dynamic> fetchFlutterwavePopUp({
     required BuildContext context,
     required String name,
     required String email,
@@ -368,7 +375,7 @@ class AccViewerService extends getx.GetxController {
       throw Exception("$e");
     
     }
-  }
+  }*/
 
 
 }

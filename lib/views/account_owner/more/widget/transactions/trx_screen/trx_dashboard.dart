@@ -104,12 +104,17 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                         toggleAccountBalance(
                           context: context,
                           onAmountPaidBalance: () {
+
                             controller.filterMoneyTypeList('Total amount paid')
-                            .whenComplete(() => Get.back());
+                            .whenComplete(() {
+                              service.calculateTotalAmountPaid().whenComplete(() => Get.back());
+                            });
                           },
                           onAmountReceivedBalance: () {
                             controller.filterMoneyTypeList('Total amount received')
-                            .whenComplete(() => Get.back());
+                            .whenComplete(() {
+                              service.calculateTotalAmountReceived().whenComplete(() => Get.back());
+                            });
                           },
                           onWalletBalance: () {
                             controller.filterMoneyTypeList('Wallet')
@@ -166,7 +171,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                     Obx(
                       () {
                         return Text(
-                          controller.selectedMoneyType.value == "Total amount received" ?  "N100" : controller.selectedMoneyType.value == "Total amount paid" ? "N200" : "N${data.wallet_balance}",
+                          controller.selectedMoneyType.value == "Total amount received" ?  "N${service.totalAmountReceived}" : controller.selectedMoneyType.value == "Total amount paid" ? "N${service.totalAmountPaid}" : "N${data.wallet_balance}",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 19.sp,

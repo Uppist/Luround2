@@ -195,7 +195,7 @@ class BookingDetails extends StatelessWidget {
                           ? service_charge_virtual
                           : service_charge_in_person
                         ));*/
-                        service.fetchFlutterwavePopUp(
+                        service.bookUserService(
                           context: context, 
                           name: controller.nameBAController.text, 
                           email: controller.emailBAController.text.trim(), 

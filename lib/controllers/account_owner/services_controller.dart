@@ -170,7 +170,8 @@ class ServicesController extends getx.GetxController {
   void addStartTime() {
     if (!availableTime.contains(startTimeValue.value)) {
       //add all start time to the list
-      availableTime.add(startTimeValue.value);
+      availableTime.add(startTimeValue.value,);
+      print("avail_time_list: $availableTime");
     } else {
       print("${startTimeValue.value} is already in the list");
     }
@@ -180,6 +181,7 @@ class ServicesController extends getx.GetxController {
     if (index >= 0 && index < availableTime.length) {
       //add all start time to the list
       availableTime.removeAt(index);
+      print("avail_time_list: $availableTime");
       print("Item ${availableTime[index]} removed at index $index");
     } 
     else {
@@ -222,12 +224,12 @@ class ServicesController extends getx.GetxController {
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBox[index]['isChecked']) {
       addItem(item: daysOfTheWeekCheckBox[index]['day']);
-      addStartTime();
+      //addStartTime();
     } else {
       int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBox[index]['day']);
       if (selectedIndex != -1) {
         removeItem(index: selectedIndex);
-        removeStartTime(index: selectedIndex);
+        //removeStartTime(index: selectedIndexForAvailTime);
       }
     }
   }
@@ -582,12 +584,12 @@ class ServicesController extends getx.GetxController {
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
       addItemEdit(item: daysOfTheWeekCheckBoxEdit[index]['day']);
-      addStartTimeEdit();
+      //addStartTimeEdit();
     } else {
       int selectedIndex = selectedDaysEdit.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
       if (selectedIndex != -1) {
         removeItemEdit(index: selectedIndex);
-        removeStartTimeEdit(index: selectedIndex);
+        //removeStartTimeEdit(index: selectedIndex);
       }
     }
   }

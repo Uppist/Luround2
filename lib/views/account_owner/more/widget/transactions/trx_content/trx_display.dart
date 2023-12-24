@@ -39,7 +39,9 @@ class TrxDisplay extends StatelessWidget {
             Text(
               "N$amount",
               style: GoogleFonts.inter(
-                color: AppColor.darkGreen,
+                color: transaction_status == "SENT"
+                ?AppColor.darkGreen
+                :AppColor.redColor,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500
               ),
@@ -49,7 +51,9 @@ class TrxDisplay extends StatelessWidget {
         SizedBox(height: 20.h,),
         //2
         Text(
-          "$transaction_ref | Received from $affliate_user via LuroundPay", //"Transaction reference | Sent to Sheldon Cooper via LuroundPay",
+          transaction_status == "SENT"
+          ?"$transaction_ref | Received from $affliate_user via LuroundPay"
+          :"$transaction_ref | Sent to $affliate_user via LuroundPay",
           style: GoogleFonts.inter(
             color: AppColor.darkGreyColor,
             fontSize: 14.sp,

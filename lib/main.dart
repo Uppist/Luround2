@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'package:luround/test_flutterwave.dart';
+import 'package:luround/text_pdf.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
@@ -76,7 +76,7 @@ class _MainAppState extends State<MainApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Luround',
-        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra(), //MainPageAccViewer(),
+        home: WithdrawalReceipt(), //token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'), // English Locale
         ]

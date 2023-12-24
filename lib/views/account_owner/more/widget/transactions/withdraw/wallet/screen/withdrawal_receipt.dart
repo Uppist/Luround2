@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/more/transactions/transaction_pdf_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
 
 
 
 
 
 class WithdrawalReceipt extends StatelessWidget {
-  const WithdrawalReceipt({super.key});
+  WithdrawalReceipt({super.key});
+
+  var pdfService = Get.put(TransactionPdfService());
 
   @override
   Widget build(BuildContext context) {
@@ -211,12 +215,15 @@ class WithdrawalReceipt extends StatelessWidget {
               ReusableButton(
                 color: AppColor.navyBlue, 
                 text: 'Download Receipt', 
-                onPressed: () {}
+                onPressed: () async{
+                  await pdfService.writeTrxPdf()
+                  .whenComplete(() => pdfService.saveThePdf(context: context));
+                }
               ),
               SizedBox(height: 20.h,),
               TextButton(
                 onPressed: () {
-                  //Get.offUntill(() => );
+                  Get.offUntil(GetPageRoute(page: () => TransactionPage()), (route) => true);
                 }, 
                 child: Text(
                   'Exit page',

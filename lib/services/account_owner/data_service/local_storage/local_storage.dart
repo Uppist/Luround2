@@ -4,6 +4,18 @@ import 'package:get_storage/get_storage.dart';
 
 
 class LocalStorage {
+
+  /// use this to [saveToken] to local storage
+  static saveFCMToken(String tokenValue) {
+    return GetStorage().write("FCMToken", tokenValue);
+  }
+
+  /// use this to [getToken] from local storage
+  static getFCMToken() {
+    return GetStorage().read("FCMToken");
+  }
+
+
   /// use this to [saveToken] to local storage
   static saveToken(String tokenValue) {
     return GetStorage().write("token", tokenValue);

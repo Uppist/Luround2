@@ -1,10 +1,11 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:luround/controllers/account_owner/mainpage_controller.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'package:luround/text_pdf.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
@@ -18,6 +19,14 @@ import 'firebase_options.dart';
 
 
 
+
+
+var controller = Get.put(MainPageController());
+
+//Top level non-anonymous function for FCM push notifications for background mode
+Future<void> backgroundHandler(RemoteMessage message) async {
+  debugPrint('Handling a background message ${message.messageId}');
+}
 
 
 
@@ -42,7 +51,11 @@ void main() async{
 
   //initialize get_storage
   await GetStorage.init();
-  //check for existing token
+
+  //initialize firebase cloud messaging
+  controller.initFCM(backgroundHandler: backgroundHandler);
+
+  //check for existing token from luround's backend server 
   var token = LocalStorage.getToken();
   var userId = LocalStorage.getUserID();
   print(token);

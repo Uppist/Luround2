@@ -7,7 +7,8 @@ class UserTransactionsModel {
     required this.affliate_user,
     required this.transaction_status,
     required this.transaction_ref,
-    required this.transaction_date
+    required this.transaction_date,
+    required this.transaction_time
   });
   late final String service_id;
   late final String service_name;
@@ -16,6 +17,7 @@ class UserTransactionsModel {
   late final String transaction_status;
   late final String transaction_ref;
   late final int transaction_date;
+  late final int transaction_time;
 
   
   UserTransactionsModel.fromJson(Map<String, dynamic> json,){
@@ -25,6 +27,7 @@ class UserTransactionsModel {
     affliate_user = json['affliate_user'] ?? "affliate_user";
     transaction_status = json['transaction_status'] ?? "transaction_status";
     transaction_ref = json['transaction_ref'] ?? "transaction_ref";
-    transaction_date = json['transaction_date'] ?? 0;  
+    transaction_date = json['transaction_date'] ?? 0;
+    transaction_time = json['transaction_time'] ?? 1000;  
   }
 }

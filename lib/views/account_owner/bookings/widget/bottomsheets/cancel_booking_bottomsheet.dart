@@ -49,7 +49,7 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
               children: [
                 Text(
                   'Cancel "${serviceName}"',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold
@@ -58,11 +58,12 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
                 SizedBox(height: 40.h),
                 Text(
                   'Are you sure you want to cancel this booking ?',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14.sp,
-                    //fontWeight: FontWeight.bold
-                  )
+                    fontWeight: FontWeight.w400
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 40.h,),
                 InkWell(
@@ -83,7 +84,7 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
                     ),
                     child: Text(
                       "Cancel",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.bgColor,
                           fontSize: 16.sp,
@@ -112,7 +113,7 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
                     ),
                     child: Text(
                       "Do not cancel",
-                      style: GoogleFonts.poppins(
+                      style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
                           fontSize: 16.sp,

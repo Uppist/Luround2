@@ -74,7 +74,7 @@ class _SearchBankTextFieldState extends State<SearchBankTextField> {
             suffixIcon: controller.isFieldTapped.value == true ?
             IconButton(
               onPressed:() {
-                controller.searchController.clear();
+                widget.textController.clear();
               },
               icon: Icon(
                 CupertinoIcons.xmark, 

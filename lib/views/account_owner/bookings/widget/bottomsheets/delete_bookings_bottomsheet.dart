@@ -48,7 +48,7 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
               children: [
                 Text(
                   'Delete "${titleText}"',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold
@@ -57,11 +57,12 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                 SizedBox(height: 40.h,),
                 Text(
                   'Are you sure you want to delete this booking ?',
-                  style: GoogleFonts.poppins(
+                  style: GoogleFonts.inter(
                     color: AppColor.darkGreyColor,
                     fontSize: 14.sp,
-                    //fontWeight: FontWeight.bold
-                  )
+                    fontWeight: FontWeight.w400
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: 40.h,),
                 Row(
@@ -87,7 +88,7 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                           ),
                           child: Text(
                             "Cancel",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 16.sp,
@@ -117,7 +118,7 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                           ),
                           child: Text(
                             "Delete",
-                            style: GoogleFonts.poppins(
+                            style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.bgColor,
                                 fontSize: 16.sp,

@@ -78,6 +78,7 @@ class _TrxHistoryListState extends State<TrxHistoryList> {
           transaction_status: item.transaction_status,
           transaction_ref: item.transaction_ref,
           transaction_date: item.transaction_date,
+          transaction_time: item.transaction_time,
         );
       }
     );

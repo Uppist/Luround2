@@ -1,5 +1,7 @@
 import 'dart:core';
 
+import 'package:intl/intl.dart';
+
 // Function 1: Convert string to DateTime
 DateTime convertStringToDateTime(String dateString) {
   try {
@@ -74,4 +76,16 @@ String convertServerTimeToDate(int timestamp) {
 
   print(finalResult); // Output: 2023-01-27 20:48:47.960
   return finalResult;
+}
+
+
+String convertServerTimeToTime(int timestamp) {
+  // Convert the timestamp to a DateTime object
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+
+  // Use the intl package to format the time
+  String formattedTime = DateFormat('HH:mm a').format(dateTime);
+
+  print(formattedTime); // Output: 20:48:47
+  return formattedTime;
 }

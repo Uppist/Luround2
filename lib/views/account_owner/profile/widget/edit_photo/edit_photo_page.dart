@@ -237,7 +237,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.done,
                               ),
-                              SizedBox(height: 20.h),
+                              SizedBox(height: 30.h),
                               /////////////////
                               UploadLogoWidget(
                                 onPressed: () {},

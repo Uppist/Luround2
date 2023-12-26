@@ -403,7 +403,7 @@ class WithdrawalService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         final Map<String, dynamic> response = json.decode(res.body);
-        if(response["message"] == "Your wallet balance is low" || wallet_balance < amount) {
+        if(response["message"] == "Your wallet balance is low" || wallet_balance == 0 || amount == 0 || wallet_balance < amount) {
           debugPrint("insufficient funds");
           //failure snackbar
           showMySnackBar(
@@ -424,6 +424,7 @@ class WithdrawalService extends getx.GetxController {
             account_name: account_name,
             account_number: account_number,
             bank_name: bank_name,
+            //get all these below from the response body
             transaction_ref: "${Random().nextInt(2000000)}",  //get all these below from the response body
             transaction_date: 1960,
             transaction_time: 10,

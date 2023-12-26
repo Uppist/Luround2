@@ -97,7 +97,7 @@ class TransactionPdfService extends getx.GetxController {
               pw.SizedBox(height: 20.h),
               
               pw.Text(
-                convertServerTimeToDate(transaction_date),
+                "${convertServerTimeToDate(transaction_date)} | ${convertServerTimeToTime(transaction_time)}",
                 style: pw.TextStyle(
                   color: PdfColors.grey500,
                   fontSize: 14.sp,

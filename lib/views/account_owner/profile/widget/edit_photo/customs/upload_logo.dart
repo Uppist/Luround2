@@ -23,39 +23,44 @@ class UploadLogoWidget extends StatelessWidget {
       child: Container(
         color: AppColor.lightMainColor,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.h),
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.h),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              "Drag logo here or click the button below",
-              style: GoogleFonts.inter(
-                color: AppColor.textGreyColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w400
+            Center(
+              child: Text(
+                "Drag logo here or click the button below",
+                style: GoogleFonts.inter(
+                  color: AppColor.textGreyColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             SizedBox(height: 30.h,),
-            InkWell(
-              onTap: onPressed,
-              child: Container(
-                alignment: Alignment.center,
-                //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                height: 50.h,
-                width: 150.w,
-                decoration: BoxDecoration(
-                  color: AppColor.mainColor,
-                  borderRadius: BorderRadius.circular(15.r),
-                ),
-                child: Text(
-                  "Upload logo",
-                  style: GoogleFonts.inter(
-                    color: AppColor.bgColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500
+            Center(
+              child: InkWell(
+                onTap: onPressed,
+                child: Container(
+                  alignment: Alignment.center,
+                  //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  height: 50.h,
+                  width: 150.w,
+                  decoration: BoxDecoration(
+                    color: AppColor.mainColor,
+                    borderRadius: BorderRadius.circular(15.r),
                   ),
+                  child: Text(
+                    "Upload logo",
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+              
                 ),
-            
               ),
             )
           ],

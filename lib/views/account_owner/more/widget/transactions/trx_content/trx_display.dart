@@ -9,7 +9,7 @@ import 'package:luround/utils/components/converters.dart';
 
 
 class TrxDisplay extends StatelessWidget {
-  const TrxDisplay({super.key, required this.service_id, required this.service_name, required this.amount, required this.affliate_user, required this.transaction_status, required this.transaction_ref, required this.transaction_date});
+  const TrxDisplay({super.key, required this.service_id, required this.service_name, required this.amount, required this.affliate_user, required this.transaction_status, required this.transaction_ref, required this.transaction_date, required this.transaction_time});
   final String service_id;
   final String service_name;
   final String amount;
@@ -17,6 +17,7 @@ class TrxDisplay extends StatelessWidget {
   final String transaction_status;
   final String transaction_ref;
   final int transaction_date;
+  final int transaction_time;
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class TrxDisplay extends StatelessWidget {
         ),
         SizedBox(height: 20.h,),
         Text(
-          "${convertServerTimeToDate(transaction_date)} dummy_time",   //17:30
+          "${convertServerTimeToDate(transaction_date)} ${convertServerTimeToTime(transaction_time)}",   //17:30
           style: GoogleFonts.inter(
             color: AppColor.textGreyColor,
             fontSize: 14.sp,

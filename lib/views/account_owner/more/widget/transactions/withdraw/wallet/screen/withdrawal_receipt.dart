@@ -166,7 +166,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          convertServerTimeToDate(transaction_time),
+                          convertServerTimeToTime(transaction_time),
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,

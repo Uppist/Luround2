@@ -18,7 +18,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 class ShowSavedBanks extends StatefulWidget {
-  ShowSavedBanks({super.key});
+  ShowSavedBanks({super.key, required this.wallet_balance});
+  final int wallet_balance;
 
   @override
   State<ShowSavedBanks> createState() => _ShowSavedBanksState();
@@ -118,6 +119,7 @@ class _ShowSavedBanksState extends State<ShowSavedBanks> {
                     child: InkWell(
                       onTap: () {
                         Get.to(() => TransferScreen(
+                          wallet_balance: widget.wallet_balance,
                           bankCode: item.bank_code, //fetch from db
                           accountName: item.account_name,  //fetch from db
                           accountNumber: item.account_number,

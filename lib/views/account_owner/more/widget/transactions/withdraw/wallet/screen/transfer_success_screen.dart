@@ -5,19 +5,29 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/mainpage_controller.dart';
+import 'package:luround/controllers/account_owner/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/reusable_white_button.dart';
-import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
 
 
 
 class TransferFundsSuccessScreen extends StatelessWidget {
-TransferFundsSuccessScreen({super.key, required this.amount});
+  TransferFundsSuccessScreen({super.key, required this.amount, required this.account_name, required this.account_number, required this.bank_name, required this.transaction_ref, required this.transaction_date, required this.transaction_time});
+
   final String amount;
+  final String account_name;
+  final String account_number;
+  final String bank_name;
+  final String transaction_ref;
+  final int transaction_date;
+  final int transaction_time;
+
 
   final MainPageController mainPageController = MainPageController();
+  var trxController = Get.put(TransactionsController());
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +54,7 @@ TransferFundsSuccessScreen({super.key, required this.amount});
                   ),
                   InkWell(
                     onTap: () {
-                      Get.offAll(() => MainPage());
+                      Get.offUntil(GetPageRoute(page: () => TransactionPage()), (route) => false);
                     },
                     child: Icon(
                       CupertinoIcons.xmark,
@@ -95,7 +105,16 @@ TransferFundsSuccessScreen({super.key, required this.amount});
                 color: AppColor.mainColor,
                 text: 'Withdrawal Receipt',
                 onPressed: () async{
-                  Get.offAll(() => WithdrawalReceipt());
+                  Get.offAll(() => WithdrawalReceipt(
+                    amount: amount,
+                    remark: trxController.enterRemarkController.text,
+                    account_name: account_name,
+                    account_number: account_number,
+                    bank_name: bank_name,
+                    transaction_ref: transaction_ref,
+                    transaction_date: transaction_date,
+                    transaction_time: transaction_time,
+                  ));
                 },
               ),
               SizedBox(height: 30.h,),
@@ -103,7 +122,7 @@ TransferFundsSuccessScreen({super.key, required this.amount});
                 color: AppColor.bgColor,
                 text: 'Exit',
                 onPressed: () async{
-                  Get.offAll(() => MainPage());
+                  Get.offUntil(GetPageRoute(page: () => TransactionPage()), (route) => false);
                 },
               ),
               SizedBox(height: 20.h,),

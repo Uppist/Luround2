@@ -19,7 +19,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 class AddNewAccount extends StatefulWidget {
-  AddNewAccount({super.key});
+  AddNewAccount({super.key, required this.wallet_balance});
+  final int wallet_balance;
 
   @override
   State<AddNewAccount> createState() => _AddNewAccountState();
@@ -66,12 +67,15 @@ class _AddNewAccountState extends State<AddNewAccount> {
                 BankFieldFlipper2(
                   text: controller.enterBankController.text.isEmpty ? 'Tap to select' : controller.enterBankController.text,
                   onFlip: () {
-                    //obx will run the reactive state
-                    controller.isBankSelected2.value = true;
+                    setState(() {
+                      controller.isBankSelected2.value = true;
+                    });
                     
                     Get.to(() => SelectBankScreen2());
-                    //obx will run the reactive state 
-                    controller.isBankSelected2.value = false;
+
+                    setState(() {
+                      controller.isBankSelected2.value = false;
+                    });
                     
                   },
                 ),
@@ -115,18 +119,27 @@ class _AddNewAccountState extends State<AddNewAccount> {
                 RebrandedReusableButton(
                   textColor: controller.isButtonActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
                   color: controller.isButtonActive.value ? AppColor.mainColor : AppColor.lightPurple, 
-                  text: "Next", 
+                  text: "Next",  //"Save"
                   onPressed: controller.isButtonActive.value ? 
                   () {
                     if(controller.enterBankController.text.isNotEmpty && controller.enterAccountNumberController.text.isNotEmpty && controller.enterAccountNameController.text.isNotEmpty) {
                       service.createBankDetailsFromAddAccountTab(
+                        wallet_balance: widget.wallet_balance,
                         context: context, 
                         account_name: controller.enterAccountNameController.text, 
                         account_number: controller.enterAccountNumberController.text.trim(), 
                         bank_name: controller.enterBankController.text, 
                         country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "No Country",
                         bank_code: controller.enterBankCodeController.text, //controller.bankCode.value
-                      ).whenComplete(() => print("this function will create the bank details lowkey but will not clear the controllers because it would be used in the next screen"));
+                      ).whenComplete(() {
+                        /*controller.enterAccountNameController.clear();
+                        controller.enterAccountNumberController.clear();
+                        controller.enterBankController.clear(); 
+                        controller.selectedCountryController.clear();
+                        controller.enterBankCodeController.clear();*/
+                        print("this function will create the bank details lowkey.");
+
+                      });
                     }
                     else {
                       showMySnackBar(

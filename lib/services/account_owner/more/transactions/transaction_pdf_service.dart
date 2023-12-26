@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/text_pdf.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'dart:math';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,6 +23,8 @@ class TransactionPdfService extends getx.GetxController {
   
   var isLoading = false.obs;
 
+  var userName = LocalStorage.getUsername();
+
   //INSTANCE OF RANDOM INT(for generating random integers for naming the pdf) 
   Random random = Random();
   
@@ -28,7 +32,16 @@ class TransactionPdfService extends getx.GetxController {
   final pdf = pw.Document();
 
   //WRITE THE PDF
-  Future writeTrxPdf() async{
+  Future writeTrxPdf({
+    required String account_name,
+    required String account_number,
+    required String bank_name,
+    required String remark,
+    required String transaction_ref,
+    required int transaction_date,
+    required int transaction_time,
+    required String amount,
+  }) async{
     pdf.addPage(
       pw.Page(
         pageFormat: PdfPageFormat.a4,
@@ -62,7 +75,7 @@ class TransactionPdfService extends getx.GetxController {
               pw.SizedBox(height: 30.h),
               
               pw.Text(
-                "N5000",
+                "N$amount",
                 style: pw.TextStyle(
                   color: PdfColors.green,
                   fontSize: 26.sp,
@@ -84,7 +97,7 @@ class TransactionPdfService extends getx.GetxController {
               pw.SizedBox(height: 20.h),
               
               pw.Text(
-                "Sunday, 28th Dec, 2023",
+                convertServerTimeToDate(transaction_date),
                 style: pw.TextStyle(
                   color: PdfColors.grey500,
                   fontSize: 14.sp,
@@ -136,7 +149,7 @@ class TransactionPdfService extends getx.GetxController {
                     crossAxisAlignment: pw.CrossAxisAlignment.end,
                     children: [
                       pw.Text(
-                        "Japhet Alvin",
+                        account_name,
                         style: pw.TextStyle(
                           color: PdfColors.black,
                           fontSize: 18.sp,
@@ -145,7 +158,7 @@ class TransactionPdfService extends getx.GetxController {
                       ),
                       pw.SizedBox(height: 10.h,),
                       pw.Text(
-                        "Kuda MFB | 2022481315",
+                        "$bank_name | $account_number",
                         style: pw.TextStyle(
                           color: PdfColors.grey500,
                           fontSize: 16.sp,
@@ -175,7 +188,7 @@ class TransactionPdfService extends getx.GetxController {
                     crossAxisAlignment: pw.CrossAxisAlignment.end,
                     children: [
                       pw.Text(
-                        "Busy Pluto",
+                        userName,
                         style: pw.TextStyle(
                           color: PdfColors.black,
                           fontSize: 18.sp,
@@ -212,7 +225,7 @@ class TransactionPdfService extends getx.GetxController {
                   ),
 
                   pw.Text(
-                    "school fees",
+                    remark,
                     style: pw.TextStyle(
                       color: PdfColors.black,
                       fontSize: 18.sp,
@@ -237,7 +250,7 @@ class TransactionPdfService extends getx.GetxController {
                   ),
 
                   pw.Text(
-                    "Wth31243345345",
+                    transaction_ref,
                     style: pw.TextStyle(
                       color: PdfColors.black,
                       fontSize: 18.sp,
@@ -259,7 +272,7 @@ class TransactionPdfService extends getx.GetxController {
               ),
               pw.SizedBox(height: 20.h,),
               pw.Text(
-                "customerservice@luround.com",
+                "support@luround.com",
                 style: pw.TextStyle(
                   color: PdfColors.green,
                   fontSize: 16.sp,

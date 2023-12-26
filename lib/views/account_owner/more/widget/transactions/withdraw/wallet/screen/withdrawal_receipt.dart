@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/transactions/transaction_pdf_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
 
 
@@ -12,9 +15,18 @@ import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/
 
 
 class WithdrawalReceipt extends StatelessWidget {
-  WithdrawalReceipt({super.key});
+  WithdrawalReceipt({super.key, required this.account_name, required this.account_number, required this.bank_name, required this.remark, required this.transaction_ref, required this.transaction_date, required this.transaction_time, required this.amount});
+  final String account_name;
+  final String account_number;
+  final String bank_name;
+  final String remark;
+  final String transaction_ref;
+  final int transaction_date;
+  final int transaction_time;
+  final String amount;
 
   var pdfService = Get.put(TransactionPdfService());
+  var localStorage = LocalStorage.getUsername();
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +63,7 @@ class WithdrawalReceipt extends StatelessWidget {
                   children: [
                     Center(
                       child: Text(
-                        'Withdrawal Receipt',
+                        'Withdrawal Details',
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
                           fontSize: 16.sp,
@@ -73,7 +85,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Jane Cooper',
+                          account_name,
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -100,7 +112,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '12345678',
+                          account_number,
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -127,7 +139,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Sunday, 28th Dec, 2023',
+                          convertServerTimeToDate(transaction_date),
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -154,7 +166,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          '07:30 AM',
+                          convertServerTimeToDate(transaction_time),
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -181,7 +193,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Wth123565',
+                          transaction_ref,
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -198,7 +210,7 @@ class WithdrawalReceipt extends StatelessWidget {
                     //Amount
                     Center(
                       child: Text(
-                        'N5,000',
+                        "N$amount",
                         style: GoogleFonts.inter(
                           color: AppColor.darkMainColor,
                           fontSize: 36.sp,
@@ -216,14 +228,23 @@ class WithdrawalReceipt extends StatelessWidget {
                 color: AppColor.navyBlue, 
                 text: 'Download Receipt', 
                 onPressed: () async{
-                  await pdfService.writeTrxPdf()
+                  await pdfService.writeTrxPdf(
+                    account_name: account_name,
+                    account_number: account_number,
+                    bank_name: bank_name,
+                    remark: remark,
+                    transaction_ref: transaction_ref,
+                    transaction_date: transaction_date,
+                    transaction_time: transaction_time,
+                    amount: amount
+                  )
                   .whenComplete(() => pdfService.saveThePdf(context: context));
                 }
               ),
               SizedBox(height: 20.h,),
               TextButton(
                 onPressed: () {
-                  Get.offUntil(GetPageRoute(page: () => TransactionPage()), (route) => true);
+                  Get.offUntil(GetPageRoute(page: () => MainPage()), (route) => true);
                 }, 
                 child: Text(
                   'Exit page',

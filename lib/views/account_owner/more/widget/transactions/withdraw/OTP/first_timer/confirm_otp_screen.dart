@@ -21,7 +21,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/se
 
 
 class ConfirmOTPPage extends StatelessWidget {
-  ConfirmOTPPage({super.key});
+  ConfirmOTPPage({super.key, required this.wallet_balance});
+  final int wallet_balance;
 
   var service = Get.put(WithdrawalService());
   var controller = Get.put(TransactionsController());
@@ -114,6 +115,7 @@ class ConfirmOTPPage extends StatelessWidget {
                           text: 'Confirm',
                           onPressed: () async{
                             service.verifyWalletPin(
+                              wallet_balance: wallet_balance,
                               context: context, 
                               wallet_pin: controller.verifyFirstTimeOTP.value,
                             );                    

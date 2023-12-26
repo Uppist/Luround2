@@ -21,7 +21,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ot
 
 
 class InputPinPage extends StatelessWidget {
-  InputPinPage({super.key});
+  InputPinPage({super.key, required this.wallet_balance});
+  final int wallet_balance;
 
   var service = Get.put(WithdrawalService());
   var controller = Get.put(TransactionsController());
@@ -113,6 +114,7 @@ class InputPinPage extends StatelessWidget {
                           text: 'Next',
                           onPressed: () async{
                             service.createWalletPin(
+                              wallet_balance: wallet_balance,
                               context: context, 
                               wallet_pin: controller.firstTimeOTP.value,
                             );

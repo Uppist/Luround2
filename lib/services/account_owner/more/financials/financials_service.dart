@@ -19,7 +19,6 @@ import 'package:luround/utils/components/my_snackbar.dart';
 
 
 
-
 class FinancialsService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());

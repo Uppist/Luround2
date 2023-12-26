@@ -15,7 +15,8 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ac
 
 
 class SelectAccountPage extends StatefulWidget {
-  const SelectAccountPage({super.key});
+  const SelectAccountPage({super.key, required this.wallet_balance});
+  final int wallet_balance;
 
   @override
   State<SelectAccountPage> createState() => _SelectAccountPageState();
@@ -143,8 +144,12 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                           Get.to(() => AddAccountPageFromButton());
                         },
                       ),*/
-                      ShowSavedBanks(),
-                      AddNewAccount()     
+                      ShowSavedBanks(
+                        wallet_balance: widget.wallet_balance,
+                      ),
+                      AddNewAccount(
+                        wallet_balance: widget.wallet_balance,
+                      )     
                     ]
                   ),
                 )

@@ -9,7 +9,6 @@ import 'package:luround/services/account_owner/more/transactions/withdrawal_serv
 
 
 
-
 class TransactionsController extends getx.GetxController {
   
   //var service = getx.Get.put(WithdrawalService());

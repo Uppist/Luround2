@@ -18,12 +18,13 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 class SetPinToWithdrawPage extends StatefulWidget {
-  const SetPinToWithdrawPage({super.key, required this.amount, required this.bank, required this.accountName, required this.accountNumber, required this.bankCode});
+  const SetPinToWithdrawPage({super.key, required this.amount, required this.bank, required this.accountName, required this.accountNumber, required this.bankCode, required this.wallet_balance});
   final String amount;
   final String bank;
   final String bankCode;
   final String accountName;
   final String accountNumber;
+  final int wallet_balance;
 
   @override
   State<SetPinToWithdrawPage> createState() => _SetPinToWithdrawPageState();
@@ -157,17 +158,20 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                       }, // end onSubmit
                     ),
                   ),
-                  SizedBox(height: 440.h),
+                  SizedBox(height: 400.h),
                   ReusableButton(
                     color: AppColor.mainColor,
                     text: 'Withdraw',
                     onPressed: () {
                       service.withdrawFunds(
+                        wallet_balance: widget.wallet_balance,
                         context: context, 
                         bank_code: widget.bankCode, 
                         account_number: widget.accountNumber, 
                         amount: int.parse(widget.amount), 
-                        wallet_pin: controller.enterTrxPinController.text
+                        wallet_pin: controller.enterTrxPinController.text,
+                        account_name: widget.accountName,
+                        bank_name: widget.bank
                       );
                     },
                   ),

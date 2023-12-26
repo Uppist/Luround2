@@ -20,7 +20,8 @@ import 'package:country_picker/country_picker.dart';
 
 
 class SelectCountryPage extends StatefulWidget {
-  SelectCountryPage({super.key});
+  SelectCountryPage({super.key, required this.wallet_balance});
+  final int wallet_balance;
 
   @override
   State<SelectCountryPage> createState() => _SelectCountryPageState();
@@ -106,7 +107,9 @@ class _SelectCountryPageState extends State<SelectCountryPage> {
                       text: 'Next',
                       onPressed: () async{
                         if(controller.selectedCountryController.text.isNotEmpty) {
-                          Get.to(() => SelectAccountPage());
+                          Get.to(() => SelectAccountPage(
+                            wallet_balance: widget.wallet_balance,
+                          ));
                         }
                         else {
                           showMySnackBar(

@@ -47,7 +47,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
             width: double.infinity,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             padding: EdgeInsets.symmetric(
-              horizontal: 20.w, 
+              horizontal: 20.w,
               vertical: 30.h, 
             ),
             decoration: BoxDecoration(
@@ -107,13 +107,17 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
 
                             controller.filterMoneyTypeList('Total amount paid')
                             .whenComplete(() {
-                              service.calculateTotalAmountPaid().whenComplete(() => Get.back());
+                              service.isTotalAmountPaidCalculated.value 
+                              ? print("already calculated")
+                              : service.calculateTotalAmountPaid().whenComplete(() => Get.back());
                             });
                           },
                           onAmountReceivedBalance: () {
                             controller.filterMoneyTypeList('Total amount received')
                             .whenComplete(() {
-                              service.calculateTotalAmountReceived().whenComplete(() => Get.back());
+                              service.isTotalAmountReceivedCalculated.value
+                              ? print("already calculated")
+                              : service.calculateTotalAmountReceived().whenComplete(() => Get.back());
                             });
                           },
                           onWalletBalance: () {
@@ -183,8 +187,13 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                     InkWell(
                       onTap: () {
                         //TODO: Boolean check//
-                        Get.to(() => InputPinPage());
-                        //Get.to(() => SelectCountryPage());
+                        data.has_wallet_pin 
+                        ?Get.to(() => SelectCountryPage(
+                          wallet_balance: data.wallet_balance,
+                        ))
+                        :Get.to(() => InputPinPage(
+                          wallet_balance: data.wallet_balance,
+                        ));
                       },
                       child: Text(
                         "Withdraw",

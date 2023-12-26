@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/transactions_controller.dart';
@@ -37,6 +38,7 @@ class WithdrawalService extends getx.GetxController {
   Future<void> createWalletPin({
     required BuildContext context,
     required String wallet_pin,
+    required int wallet_balance
     }) async {
 
     isLoading.value = true;
@@ -57,7 +59,9 @@ class WithdrawalService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "wallet pin successfully created"
         );
-        getx.Get.to(() => ConfirmOTPPage());
+        getx.Get.to(() => ConfirmOTPPage(
+          wallet_balance: wallet_balance,
+        ));
       } 
       else {
         isLoading.value = false;
@@ -84,6 +88,7 @@ class WithdrawalService extends getx.GetxController {
   Future<void> verifyWalletPin({
     required BuildContext context,
     required String wallet_pin,
+    required int wallet_balance,
     }) async {
 
     isLoading.value = true;
@@ -104,7 +109,9 @@ class WithdrawalService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "wallet pin successfully verified"
         );
-        getx.Get.to(() => SelectCountryPage());
+        getx.Get.to(() => SelectCountryPage(
+          wallet_balance: wallet_balance,
+        ));
       } 
       else {
         isLoading.value = false;
@@ -188,6 +195,7 @@ class WithdrawalService extends getx.GetxController {
     required String bank_name,
     required String bank_code,
     required String country,
+    required int wallet_balance
     }) async {
 
     isLoading.value = true;
@@ -211,13 +219,16 @@ class WithdrawalService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "bank details created successfully"
-        );
-        getx.Get.to(() => TransferScreen(
-          bankCode: bank_code,
-          accountNumber: account_number,
-          accountName: account_name,
-          bankName: bank_name,
-        ));
+        ).whenComplete(() {
+          getx.Get.to(() => TransferScreen(
+            wallet_balance: wallet_balance,
+            bankCode: bank_code,
+            accountNumber: account_number,
+            accountName: account_name,
+            bankName: bank_name,
+          ));
+        });
+    
       } 
       else {
         isLoading.value = false;
@@ -371,6 +382,9 @@ class WithdrawalService extends getx.GetxController {
     required String account_number,
     required int amount,
     required String wallet_pin,
+    required String account_name,
+    required String bank_name,
+    required int wallet_balance
     }) async {
 
     isLoading.value = true;
@@ -387,13 +401,34 @@ class WithdrawalService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user withdrew funds successfully");
-        //success snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "transaction successful"
-        ).whenComplete(() => getx.Get.to(() => TransferFundsSuccessScreen(amount: "$amount",)));
+        debugPrint('this is response body ==> ${res.body}');
+        final Map<String, dynamic> response = json.decode(res.body);
+        if(response["message"] == "Your wallet balance is low" || wallet_balance < amount) {
+          debugPrint("insufficient funds");
+          //failure snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.redColor,
+            message: "transaction failed. insufficient funds"
+          );
+        }
+        else {
+          debugPrint("user withdrew funds successfully");
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "transaction successful"
+          ).whenComplete(() => getx.Get.to(() => TransferFundsSuccessScreen(
+            amount: "$amount",
+            account_name: account_name,
+            account_number: account_number,
+            bank_name: bank_name,
+            transaction_ref: "${Random().nextInt(2000000)}",  //get all these below from the response body
+            transaction_date: 1960,
+            transaction_time: 10,
+          )));
+        }
       } 
       else {
         isLoading.value = false;
@@ -420,27 +455,34 @@ class WithdrawalService extends getx.GetxController {
   ///
   var trxList = <UserTransactionsModel>[].obs;
   var filteredTrxList = <UserTransactionsModel>[].obs;
-  getx.RxInt totalAmountPaid = 0.obs;
-  getx.RxInt totalAmountReceived = 0.obs;
+  
+  getx.RxInt totalAmountPaid = getx.RxInt(0);
+  var isTotalAmountPaidCalculated = false.obs;
 
-  Future<getx.RxInt> calculateTotalAmountPaid() async{
-    filteredTrxList.forEach((UserTransactionsModel user) {
-      if (user.transaction_status == "RECEIVED") {
-        totalAmountPaid.value += int.parse(user.amount);
+  Future<void> calculateTotalAmountPaid() async {
+    if (!isTotalAmountPaidCalculated.value) {
+      for (var user in filteredTrxList) {
+        if (user.transaction_status == "RECEIVED") {
+          totalAmountPaid.value += int.parse(user.amount);
+        }
       }
-    });
-    print("amount paid: ${totalAmountPaid.value}");
-    return totalAmountPaid;
+      print("Amount paid: ${totalAmountPaid.value}");
+      isTotalAmountPaidCalculated.value = true;
+    }
   }
 
-  Future<getx.RxInt> calculateTotalAmountReceived() async{
-    filteredTrxList.forEach((UserTransactionsModel user) {
-      if (user.transaction_status == "SENT") {
-        totalAmountReceived.value += int.parse(user.amount);
+  getx.RxInt totalAmountReceived =  getx.RxInt(0);
+  var isTotalAmountReceivedCalculated = false.obs;
+  Future<void> calculateTotalAmountReceived() async{
+    if (!isTotalAmountReceivedCalculated.value) {
+      for (var user in filteredTrxList) {
+        if (user.transaction_status == "SENT") {
+          totalAmountReceived.value += int.parse(user.amount);
+        }
       }
-    });
-    print("amount received: ${totalAmountReceived.value}");
-    return totalAmountReceived;
+      print("amount received: ${totalAmountReceived.value}");
+      isTotalAmountReceivedCalculated.value = true;
+    }
   }
 
   Future<void> filterTrxByPastDate() async{
@@ -598,9 +640,6 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
-  void makeFlutterWavePayment() async {
-    
-  }
 
 
 

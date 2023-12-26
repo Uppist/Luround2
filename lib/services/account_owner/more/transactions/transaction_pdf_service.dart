@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
+import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/text_pdf.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'dart:math';
@@ -37,73 +38,238 @@ class TransactionPdfService extends getx.GetxController {
           return pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
             children: [
-              pw.Header(
-                level: 0,
-                child: pw.Text(
-                  "Transaction Receipt",
-                  style: pw.TextStyle(
-                    color: PdfColors.black,
-                    fontSize: 20.sp,
-                    fontWeight: pw.FontWeight.bold
-                  )
-                ),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.PdfLogo(
+                    color: PdfColors.red,
+                    fit: pw.BoxFit.contain
+                  ),
+                  //pw.FlutterLogo(),
+
+                  pw.Text(
+                    "Transaction Receipt",
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 16.sp,
+                      fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+              
+                ]
               ),
 
-              //pw.SizedBox(height: 10.h),
-
-              //USE pw.Row() to write the actual trx receipt later
-              pw.Paragraph(
-                text: "fdgxfthdruyrujytjyuftuytfyufyyfiuyfuiuftuf",
+              pw.SizedBox(height: 30.h),
+              
+              pw.Text(
+                "N5000",
                 style: pw.TextStyle(
-                  color: PdfColors.grey500,
+                  color: PdfColors.green,
+                  fontSize: 26.sp,
+                  fontWeight: pw.FontWeight.bold
+                )
+              ),
+
+              pw.SizedBox(height: 20.h),
+              
+              pw.Text(
+                "SUCCESS",
+                style: pw.TextStyle(
+                  color: PdfColors.black,
                   fontSize: 15.sp,
                   //fontWeight: pw.FontWeight.bold
                 )
               ),
 
-              pw.Paragraph(
-                text: "fdgxfthdruyrujytjyuftuytfyufyyfiuyfuiuftuf",
+              pw.SizedBox(height: 20.h),
+              
+              pw.Text(
+                "Sunday, 28th Dec, 2023",
                 style: pw.TextStyle(
                   color: PdfColors.grey500,
-                  fontSize: 15.sp,
+                  fontSize: 14.sp,
                   //fontWeight: pw.FontWeight.bold
                 )
               ),
+              pw.SizedBox(height: 20.h),
+              pw.Divider(
+                color: PdfColors.black
+              ),
+              pw.SizedBox(height: 20.h),
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Transfer Type",
+                    style: pw.TextStyle(
+                      color: PdfColors.grey500,
+                      fontSize: 16.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
 
-              pw.Paragraph(
-                text: "fdgxfthdruyrujytjyuftuytfyufyyfiuyfuiuftuf",
-                style: pw.TextStyle(
-                  color: PdfColors.grey500,
-                  fontSize: 15.sp,
-                  //fontWeight: pw.FontWeight.bold
-                )
+                  pw.Text(
+                    "Transfer to bank",
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 18.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+                ]
               ),
 
-              pw.Header(
-                level: 1,
-                child: pw.Text(
-                  "header 2 less prominent",
-                  style: pw.TextStyle(
-                    color: PdfColors.black,
-                    fontSize: 20.sp,
-                    fontWeight: pw.FontWeight.bold
-                  )
-                ),
+              pw.SizedBox(height: 30.h,),
+
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Recipient Details",
+                    style: pw.TextStyle(
+                      color: PdfColors.grey500,
+                      fontSize: 16.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.end,
+                    children: [
+                      pw.Text(
+                        "Japhet Alvin",
+                        style: pw.TextStyle(
+                          color: PdfColors.black,
+                          fontSize: 18.sp,
+                          //fontWeight: pw.FontWeight.bold
+                        )
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        "Kuda MFB | 2022481315",
+                        style: pw.TextStyle(
+                          color: PdfColors.grey500,
+                          fontSize: 16.sp,
+                          //fontWeight: pw.FontWeight.bold
+                        )
+                      ),
+                    ]
+                  ),
+
+                ]
+              ),
+
+              pw.SizedBox(height: 30.h,),
+
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Sender Details",
+                    style: pw.TextStyle(
+                      color: PdfColors.grey500,
+                      fontSize: 16.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.end,
+                    children: [
+                      pw.Text(
+                        "Busy Pluto",
+                        style: pw.TextStyle(
+                          color: PdfColors.black,
+                          fontSize: 18.sp,
+                          //fontWeight: pw.FontWeight.bold
+                        )
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        "LuroundPay | Wallet",
+                        style: pw.TextStyle(
+                          color: PdfColors.grey500,
+                          fontSize: 16.sp,
+                          //fontWeight: pw.FontWeight.bold
+                        )
+                      ),
+                    ]
+                  ),
+
+                ]
+              ),
+
+              pw.SizedBox(height: 30.h,),  
+              
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Remark",
+                    style: pw.TextStyle(
+                      color: PdfColors.grey500,
+                      fontSize: 16.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+
+                  pw.Text(
+                    "school fees",
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 18.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+                ]
+              ),
+
+              pw.SizedBox(height: 30.h,),
+
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+                  pw.Text(
+                    "Transaction Reference",
+                    style: pw.TextStyle(
+                      color: PdfColors.grey500,
+                      fontSize: 16.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+
+                  pw.Text(
+                    "Wth31243345345",
+                    style: pw.TextStyle(
+                      color: PdfColors.black,
+                      fontSize: 18.sp,
+                      //fontWeight: pw.FontWeight.bold
+                    )
+                  ),
+                ]
               ),
               
-              pw.Paragraph(
-                text: "fdgxfthdruyrujytjyuftuytfyufyyfiuyfuiuftuf",
+              pw.SizedBox(height: 80.h,),
+
+              pw.Text(
+                "Support",
                 style: pw.TextStyle(
-                  color: PdfColors.grey500,
-                  fontSize: 15.sp,
+                  color: PdfColors.grey600,
+                  fontSize: 16.sp,
                   //fontWeight: pw.FontWeight.bold
                 )
               ),
-
-              pw.Footer(
-                padding: pw.EdgeInsets.symmetric(horizontal: 32.w),
-                title: pw.Text("footer title")
+              pw.SizedBox(height: 20.h,),
+              pw.Text(
+                "customerservice@luround.com",
+                style: pw.TextStyle(
+                  color: PdfColors.green,
+                  fontSize: 16.sp,
+                  //fontWeight: pw.FontWeight.bold
+                )
               ),
+              pw.SizedBox(height: 20.h),
+              pw.Divider(
+                color: PdfColors.black
+              )
 
 
             ]
@@ -135,7 +301,7 @@ class TransactionPdfService extends getx.GetxController {
         .whenComplete(() {
           print("doc path on device: $docPath");
           print("pdf doc path on device: $fullPath");
-          //getx.Get.to(() => ViewTrxPdfScreen(pathPDF: "${docPath.value}/LUROUND_TRX_$uniqueNum.pdf",));
+          getx.Get.to(() => ViewTrxPdfScreen(pathPDF: fullPath,));
         }); 
 
       }

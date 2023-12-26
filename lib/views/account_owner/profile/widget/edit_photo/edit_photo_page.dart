@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
+import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/uploaded_logo.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/textfields/other_textfields.dart';
 import '../../../../../controllers/account_owner/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -41,6 +43,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
 
   var controller = Get.put(ProfilePageController());
   var profileService = Get.put(AccOwnerProfileService());
+  var logoUrl = LocalStorage.getCompanyLogoUrl();
 
   @override
   Widget build(BuildContext context) {
@@ -217,10 +220,8 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                           
                               SizedBox(height: 10.h,),
                               OccupationTextField(
-                                onChanged: (val) {
-                                  setState(() {
-                                    controller.companyNameController.text = val;
-                                  });
+                                onChanged: (val) {                                 
+                                  controller.companyNameController.text = val;
                                 },
                                 initialValue: widget.company,
                                 hintText: "Your company name",
@@ -239,8 +240,18 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               ),
                               SizedBox(height: 30.h),
                               /////////////////
-                              UploadLogoWidget(
-                                onPressed: () {},
+                              profileService.isLogoSelected.value
+                              ?UploadedLogoWidget(
+                                onDelete: () {
+                                  profileService.isLogoSelected.value = false;
+                                  profileService.logoFromGallery.value = null;
+                                },
+                                file: profileService.logoFromGallery.value!,
+                              )
+                              :UploadLogoWidget(
+                                onPressed: () {
+                                  profileService.pickCompanyLogoFromGallery(context: context);
+                                },
                               ),
                               ////////////////                  
                               SizedBox(height: 60.h,), //80.h
@@ -250,6 +261,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 onPressed: () async{
 
                                   await profileService.updatePersonalDetails(
+                                    logo_url: logoUrl,
                                     context: context,
                                     firstName: controller.firstNameController.text.isEmpty ? widget.firstName : controller.firstNameController.text, 
                                     lastName: controller.lastNameController.text.isEmpty ? widget.lastName : controller.lastNameController.text, 

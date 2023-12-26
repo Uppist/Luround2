@@ -171,7 +171,7 @@ class AccOwnerProfileService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("$e");
     
     }
   }
@@ -184,6 +184,7 @@ class AccOwnerProfileService extends getx.GetxController {
     required String lastName,
     required String occupation,
     required String company,
+    required String logo_url,
     }) async {
 
     isLoading.value = true;
@@ -192,7 +193,8 @@ class AccOwnerProfileService extends getx.GetxController {
       "firstName": firstName,
       "lastName": lastName,
       "occupation": occupation,
-      "company": company
+      "company": company,
+      "logo_url": logo_url
     };
 
     try {
@@ -313,7 +315,7 @@ class AccOwnerProfileService extends getx.GetxController {
     cloudName: "dxyzeiigv",
   );
   //upload image to cloudinary
-  Future<void> uploadImageToCloudinary() async{
+  Future<void> uploadImageToCloudinary({required BuildContext context}) async{
     
     final response = await cloudinary.upload(
       file: imageFromGallery.value!.path,
@@ -331,6 +333,13 @@ class AccOwnerProfileService extends getx.GetxController {
       print('cloudinary_image_url_saved: ${response.secureUrl}');
       await updateProfilePhoto(photoUrl: response.secureUrl);
     }
+    else {
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "failed to upload profile photo to cloudinary"
+      );
+    }
   }
 
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
@@ -341,26 +350,87 @@ class AccOwnerProfileService extends getx.GetxController {
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
         isImageSelected.value = true;
-        await uploadImageToCloudinary();
-        //success snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "photo updated successfully"
-        );
+        await uploadImageToCloudinary(context: context);
         update();
       }
     }
     catch (e) {
-      debugPrint("Error Pickig Image From Gallery: $e");
+      debugPrint("Error Picking Image From Gallery: $e");
       //success snackbar
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "failed to update photo"
+        message: "no photo was selected"
       );
     }
   }
+
+  
+  /////[COMPANY LOGO SECTION]//////
+  //picked image/logo from gallery {pass it to cloudinary}
+  getx.Rx<File?> logoFromGallery = getx.Rx<File?>(null);
+  /// checks if any image/logo is selected at all
+  var isLogoSelected = false.obs;
+
+  //upload image to cloudinary
+  Future<void> uploadCompanyLogoToCloudinary({required BuildContext context}) async{
+    
+    final response = await cloudinary.upload(
+      file: imageFromGallery.value!.path,
+      //uploadPreset: "somePreset",
+      resourceType: CloudinaryResourceType.image,
+      folder: "luround_users_photo",
+      fileName: 'lup_company_logo_$userId',
+      progressCallback: (count, total) {
+        print('Uploading logo from file in progress: $count/$total');
+      }
+    );
+  
+    if(response.isSuccessful) {
+      await LocalStorage.saveCompanyLogoUrl(response.secureUrl!);
+      print('cloudinary_logo_url_saved: ${response.secureUrl}');
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.darkGreen,
+        message: "company logo uploaded to cloudinary"
+      );
+      //await updateCompanyLogo(photoUrl: response.secureUrl);
+    }
+    else {
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "failed to upload logo to cloudinary"
+      );
+    }
+  }
+
+  //pick image from gallery, display the image picked and upload to cloudinary sharps.
+  Future<void> pickCompanyLogoFromGallery({required BuildContext context}) async {
+    try {
+      //var profileController = Provider.of<ProfileController>(context, listen: false);
+      final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        logoFromGallery.value = File(pickedImage.path);
+        isLogoSelected.value = true;
+        await uploadCompanyLogoToCloudinary(context: context);
+        update();
+      }
+    }
+    catch (e) {
+      debugPrint("Error Picking Logo From Gallery: $e");
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "no photo was selected"
+      );
+    }
+  }
+
+
+
 
 
   ////[ABOUT SECTION]////////

@@ -17,6 +17,22 @@ class LocalStorage {
 
 
   /// use this to [saveToken] to local storage
+  static saveCompanyLogoUrl(String value) {
+    return GetStorage().write("logoURL", value);
+  }
+
+  /// use this to [getToken] from local storage
+  static getCompanyLogoUrl() {
+    return GetStorage().read("logoURL");
+  }
+
+  /// use this to [deleteToken] from local storage
+  static deleteCompanyLogoUrl() {
+    return GetStorage().remove("logoURL");
+  }
+
+
+  /// use this to [saveToken] to local storage
   static saveToken(String tokenValue) {
     return GetStorage().write("token", tokenValue);
   }

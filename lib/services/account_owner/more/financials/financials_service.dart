@@ -30,6 +30,28 @@ class FinancialsService extends getx.GetxController {
   var filteredList = <UserServiceModel>[].obs;
 
   //////////////////////////////////////////////////////////////////////////////////
+  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER]///
+  Future<List<UserServiceModel>> loadServicesData() async {
+    try {
+      isLoading.value = true;
+      //await getUserServices();
+      final List<UserServiceModel> products = await getUserServices();
+      products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredList.value = List.from(products);  
+      print("initialized: ${filteredList}");
+      return filteredList;
+
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+
   //working well
   Future<void> filterProducts(String query) async {
     if (query.isEmpty) {
@@ -39,14 +61,10 @@ class FinancialsService extends getx.GetxController {
     } 
     else {
       filteredList.clear(); // Clear the previous filtered list
-
       // Use addAll to add the filtered items to the list
       filteredList.addAll(dataList
-        .where((user) => user.service_name.contains(query)) // == query
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query
         .toList());
-
-      /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)
-        .toList();*/
 
       print("when query is not empty: $filteredList");
     }
@@ -75,8 +93,14 @@ class FinancialsService extends getx.GetxController {
         debugPrint("user services fetched successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
-        debugPrint("$response");
-        return response.map((e) => UserServiceModel.fromJson(e)).toList();
+        final List<UserServiceModel> finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+
+        dataList.clear();
+        dataList.addAll(finalResult);
+        debugPrint("dataList/productList: $dataList");
+
+        // Return the user services list
+        return dataList;
       }
       else {
         isLoading.value = false;
@@ -89,7 +113,7 @@ class FinancialsService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("$e");
     
     }
   }

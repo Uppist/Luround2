@@ -78,7 +78,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                           
                     //list of user's services
                     FutureBuilder<List<UserServiceModel>>(
-                      future: service.getUserServices(),
+                      future: service.loadServicesData(), //.getUserServices(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Loader2();
@@ -90,17 +90,32 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                           print("sn-trace: ${snapshot.stackTrace}");
                           print("sn-data: ${snapshot.data}");                   
                         }
-                        if (snapshot.hasData) {  
+                        if (snapshot.hasData) {
+
                           var data = snapshot.data!;
+                      
                           return ListView.builder(
                             scrollDirection: Axis.vertical,
                             physics: BouncingScrollPhysics(),
                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                             shrinkWrap: true,
-                            itemCount: service.filteredList.length, //data.length,
+                            itemCount: data.length, //service.filteredList.length, //data.length,
                             itemBuilder: (context, index) {
             
-                              final product = snapshot.data![index];
+                              final item = data[index];
+
+                              if(data.isEmpty) {
+                                return Center(
+                                  child: Text(
+                                    "no service found",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 13.sp,
+                                      fontWeight: FontWeight.normal
+                                    )
+                                  )
+                                );
+                              }
             
                               return StatefulBuilder(
                                 builder: (BuildContext context, StateSetter setState) {
@@ -110,7 +125,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                         borderRadius: BorderRadius.circular(5.r)
                                       ),
                                       activeColor: AppColor.mainColor,
-                                      value: service.selectedProducts.contains(product), //selectedUsers.contains(user),
+                                      value: service.selectedProducts.contains(item), //selectedUsers.contains(user),
                                       onChanged: (bool? value) {
                                         //service.toggleProductSelection(product);
                                         //
@@ -118,13 +133,13 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                           if (value != null) {
                                             // Ensure the object is the same instance
                                             if (value) {
-                                              if (!service.selectedProducts.contains(product)) {
-                                                service.selectedProducts.add(product);
+                                              if (!service.selectedProducts.contains(item)) {
+                                                service.selectedProducts.add(item);
                                                 print(service.selectedProducts);
                                               }
                                             } 
                                             else {
-                                              service.selectedProducts.remove(product);
+                                              service.selectedProducts.remove(item);
                                               print(service.selectedProducts);
                                             }
                                           }
@@ -132,7 +147,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                         //                                                     
                                       },
                                     ),
-                                    productName: product.service_name,
+                                    productName: item.service_name,
                                   );
                                 }
                               );   
@@ -170,7 +185,9 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.back();
+                            },
                             child: Container(
                               height: 50.h,
                               width: 100.w,
@@ -192,7 +209,9 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                             ),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.back();
+                            },
                             child: Container(
                               height: 50.h,
                               width: 100.w,

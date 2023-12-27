@@ -250,6 +250,7 @@ class WithdrawalService extends getx.GetxController {
     }
   }
   
+  
   /////[GET USER PROFILE DETAILS]/////
   //filter list for select_bank_screen from add button
   var bankList2 = [].obs;
@@ -459,7 +460,6 @@ class WithdrawalService extends getx.GetxController {
   
   getx.RxInt totalAmountPaid = getx.RxInt(0);
   var isTotalAmountPaidCalculated = false.obs;
-
   Future<void> calculateTotalAmountPaid() async {
     if (!isTotalAmountPaidCalculated.value) {
       for (var user in filteredTrxList) {

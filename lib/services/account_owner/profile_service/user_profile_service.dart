@@ -376,7 +376,7 @@ class AccOwnerProfileService extends getx.GetxController {
   Future<void> uploadCompanyLogoToCloudinary({required BuildContext context}) async{
     
     final response = await cloudinary.upload(
-      file: imageFromGallery.value!.path,
+      file: logoFromGallery.value!.path,
       //uploadPreset: "somePreset",
       resourceType: CloudinaryResourceType.image,
       folder: "luround_users_photo",
@@ -415,17 +415,20 @@ class AccOwnerProfileService extends getx.GetxController {
         logoFromGallery.value = File(pickedImage.path);
         isLogoSelected.value = true;
         await uploadCompanyLogoToCloudinary(context: context);
-        update();
+        //update();
+      }
+      else {
+        throw Exception("no image/logo was picked");
       }
     }
     catch (e) {
       debugPrint("Error Picking Logo From Gallery: $e");
       //success snackbar
-      showMySnackBar(
+      /*showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
         message: "no photo was selected"
-      );
+      );*/
     }
   }
 

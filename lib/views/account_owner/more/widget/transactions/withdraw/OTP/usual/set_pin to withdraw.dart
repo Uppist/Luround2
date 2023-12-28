@@ -87,7 +87,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                           )
                         ),
                         TextSpan(
-                          text: "${widget.amount} ",
+                          text: "N${widget.amount} ",
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor,
                             fontSize: 15.sp,
@@ -158,7 +158,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                       }, // end onSubmit
                     ),
                   ),
-                  SizedBox(height: 400.h),
+                  SizedBox(height: 430.h),
                   ReusableButton(
                     color: AppColor.mainColor,
                     text: 'Withdraw',

@@ -434,7 +434,7 @@ class AuthService extends getx.GetxController {
         //generate grlink
         await generateQrLink(urlSlug: email);
         //move with agility to the next page
-        getx.Get.offAll(() => MainPage());  //MainPage()  MainPageAccViewer()
+        getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,

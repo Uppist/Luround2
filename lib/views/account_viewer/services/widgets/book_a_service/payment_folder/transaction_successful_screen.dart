@@ -75,12 +75,13 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                       ),
                     ),
                     SizedBox(height: 20.h,),
-                    Center(
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w,),
                       child: RichText(
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text :'    You have successfully booked',
+                              text :'         You have successfully booked',
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
@@ -88,15 +89,15 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                               )
                             ),
                             TextSpan(
-                              text :' "${widget.servie_provider_name}"          \n',
+                              text :" ${widget.servie_provider_name}",
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
+                                fontWeight: FontWeight.w500,
                                 color: AppColor.darkGreyColor
                               )
                             ),
                             TextSpan(
-                              text :'                 for a',
+                              text :' for',
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,

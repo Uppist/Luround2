@@ -1,4 +1,5 @@
 import 'package:get/get.dart' as getx;
+import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/models/account_viewer/booking/bookimg_response.dart';
@@ -22,9 +23,8 @@ import 'package:http/http.dart' as http;
 
 class AccViewerService extends getx.GetxController {
 
-
+  var controller = getx.Get.put(AccViewerServicesController());
   var baseService = getx.Get.put(BaseService());
-  
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var userEmail = LocalStorage.getUseremail();
@@ -202,13 +202,21 @@ class AccViewerService extends getx.GetxController {
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
-            message: "you've successfully booked this service"
-          ).whenComplete(() => getx.Get.to(() => TransactionSuccesscreen(
+            message: "you're a being redirected to make payment"
+          );
+          /*.whenComplete(() => getx.Get.to(() => TransactionSuccesscreen(
             servie_provider_name: 'this service provider',
             service_name: service_name,
-          )));
+          )));*/
+          /*controller.nameBAController.clear();
+          controller.emailBAController.clear();
+          controller.phoneNumberBAController.clear();
+          controller.messageBAController.clear();
+          controller.cardholderNameController.clear();
+          controller.cardNumberController.clear();
+          controller.expiryDateController.clear();
+          controller.cvvController.clear();*/
         });
-        //return userServiceModel;
       } 
       else {
         isLoading.value = false;

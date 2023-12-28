@@ -33,7 +33,7 @@ class _AppointmentTypeBAState extends State<AppointmentTypeBA> {
               activeColor: AppColor.mainColor,
               toggleable: false,
               //tileColor: AppColor.bgColor,
-              value: "In-person", 
+              value: "In-Person", 
               groupValue: controller.step1Appointment, 
               onChanged: (val) {
                 setState(() {

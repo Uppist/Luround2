@@ -12,6 +12,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/due_date_selector.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/send_quote_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/textfield_tool.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/quote_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/not_in_use/select_client_bottomsheet.dart';
@@ -474,7 +475,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                       child: ReusableButton(
                         color: AppColor.mainColor,
                         text: 'Send Quote',
-                        onPressed: () {},
+                        onPressed: () {
+                          sendQuoteBottomSheet(
+                            context: context,
+                            onShare: () {},
+                            onSave: () {},
+                            onDownload: () {},
+                          );
+                        },
                       ),
                     ),
                     SizedBox(height: 20.h,),

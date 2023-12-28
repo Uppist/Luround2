@@ -99,6 +99,16 @@ class FinancialsController extends getx.GetxController {
   }
 
 
+  //Edit added service screen/////
+  final TextEditingController serviceDescController = TextEditingController();
+  final TextEditingController meetingTypeController = TextEditingController();
+  final TextEditingController rateController = TextEditingController();
+  final TextEditingController durationController = TextEditingController();
+  final TextEditingController discountController = TextEditingController();
+
+   
+
+
 
 
   //for Speed dial floating action button (QUOTES)
@@ -114,6 +124,12 @@ class FinancialsController extends getx.GetxController {
     searchQuoteController.dispose();
     quoteNoteController.dispose();
     searchProductsController.dispose();
+
+    serviceDescController.dispose();
+    meetingTypeController.dispose();
+    rateController.dispose();
+    durationController.dispose();
+    discountController.dispose();
     // TODO: implement dispose
     super.dispose();
   }

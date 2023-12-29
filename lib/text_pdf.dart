@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
-import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:get/get.dart';
 import 'package:luround/services/account_owner/more/transactions/transaction_pdf_service.dart';
 import 'package:uuid/uuid.dart';

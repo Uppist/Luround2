@@ -64,7 +64,7 @@ class _QuotesPageState extends State<QuotesPage>{
               )
             ),*/
            
-            ///Navigation Section, Search TextField and Filter/////
+            ///Navigation Section////////////////
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.w,),
               //height: 70, //65
@@ -97,6 +97,9 @@ class _QuotesPageState extends State<QuotesPage>{
                       ),
                     ],
                   ),
+                  ////////////////////////////////////////////////
+
+                  ////Search TextField and Filter/////
                   SizedBox(height: 20.h,),
                   //search textfield
                   Padding(
@@ -211,7 +214,7 @@ class _QuotesPageState extends State<QuotesPage>{
                   borderRadius: BorderRadius.all(Radius.circular(30.r))
                 ),
                 onTap: () {
-                  Get.off(() => CreateQuotePage());
+                  Get.to(() => CreateQuotePage());
                 },
               )
             ],

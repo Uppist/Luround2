@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'package:luround/text_pdf.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'dart:math';
@@ -314,7 +313,7 @@ class TransactionPdfService extends getx.GetxController {
         .whenComplete(() {
           print("doc path on device: $docPath");
           print("pdf doc path on device: $fullPath");
-          getx.Get.to(() => ViewTrxPdfScreen(pathPDF: fullPath,));
+          //getx.Get.to(() => ViewTrxPdfScreen(pathPDF: fullPath,));
         }); 
 
       }

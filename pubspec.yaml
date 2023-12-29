@@ -79,7 +79,7 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.0
 
-  #for sharing profile link
+  #for sharing anything sharable
   share_plus: ^7.2.1
 
   #firebase apis
@@ -87,8 +87,6 @@ dependencies:
   firebase_messaging: ^14.7.6
   firebase_auth: ^4.15.0
   
-  #flutter-wave
-  flutterwave_standard: ^1.0.8
 
 dependency_overrides:
   intl: ^0.18.0

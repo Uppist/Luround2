@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/quotes_dropdown.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/sent_qoutes_dropdown.dart';
 
 
 
@@ -13,8 +13,8 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class QuotesDisplay extends StatelessWidget {
-  const QuotesDisplay({super.key, required this.onPressed});
+class RequestedQuotesDisplay extends StatelessWidget {
+  const RequestedQuotesDisplay({super.key, required this.onPressed});
   final VoidCallback onPressed;
 
   @override
@@ -86,30 +86,7 @@ class QuotesDisplay extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 20.h,),
-          //3
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              //trx type and status svg pictures
-              /*Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SvgPicture.asset("assets/financials/invoice.svg"),
-                  SizedBox(width: 10.w,),
-                  SvgPicture.asset("assets/financials/paid.svg"),
-                ],
-              ),*/
-              Text(
-                "N82,000",
-                style: GoogleFonts.inter(
-                  color: AppColor.blackColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600
-                ),
-              ),
-            ],
-          ),
+          //SizedBox(height: 20.h,),
           
         ],
       ),

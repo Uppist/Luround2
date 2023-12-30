@@ -6,10 +6,11 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
-import 'package:luround/controllers/account_owner/financials/qoutes/sent_quotes/sent_quotes_controller.dart';
+import 'package:luround/controllers/account_owner/financials/qoutes/requested_quotes/requested_quotes_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/screen/create_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/utils/search_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/requested_quotes/requested_quotes_list.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/sent_quotes/filter_sent_quotes_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/sent_quotes/sent_quotes_list.dart';
 
@@ -20,16 +21,17 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class SentQuotesPage extends StatefulWidget {
-  SentQuotesPage({super.key});
+
+class RequestedQuotesPage extends StatefulWidget {
+  RequestedQuotesPage({super.key});
 
   @override
-  State<SentQuotesPage> createState() => _SentQuotesPageState();
+  State<RequestedQuotesPage> createState() => _RequestedQuotesPageState();
 }
 
-class _SentQuotesPageState extends State<SentQuotesPage>{
+class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
 
-  var controller = Get.put(SentQuotesController());
+  var controller = Get.put(RequestedQuotesController());
   var fincontroller = Get.put(FinancialsController());
 
   @override
@@ -66,7 +68,7 @@ class _SentQuotesPageState extends State<SentQuotesPage>{
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                    textController: controller.searchQuoteController,
+                    textController: controller.searchRequestedQuoteController,
                   )                
                 ),
                 SizedBox(height: 30.h,),
@@ -82,7 +84,7 @@ class _SentQuotesPageState extends State<SentQuotesPage>{
           //SizedBox(height: 20,),
           //financils list and empty state (run future builder there)
           //FinancialsEmptyState(),
-          QuotesList()
+          RequestedQuotesList()
         ]
       ),  
       

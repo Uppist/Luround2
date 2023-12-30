@@ -85,7 +85,7 @@ class ViewQuoteScreen extends StatelessWidget {
                           Text(
                             "Sent from:",
                             style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
+                              color: AppColor.darkGreyColor,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600
                             ),
@@ -125,7 +125,7 @@ class ViewQuoteScreen extends StatelessWidget {
                           Text(
                             "Sent to:",
                             style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
+                              color: AppColor.darkGreyColor,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600
                             ),
@@ -166,7 +166,7 @@ class ViewQuoteScreen extends StatelessWidget {
                           Text(
                             "Quote Details",
                             style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
+                              color: AppColor.darkGreyColor,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600
                             ),
@@ -298,7 +298,7 @@ class ViewQuoteScreen extends StatelessWidget {
                                     Text(
                                       "Products/Services",
                                       style: GoogleFonts.inter(
-                                        color: AppColor.blackColor,
+                                        color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.w600
                                       ),
@@ -328,7 +328,7 @@ class ViewQuoteScreen extends StatelessWidget {
                                         Text(
                                           "Personal Training",
                                           style: GoogleFonts.inter(
-                                            color: AppColor.blackColor,
+                                            color: AppColor.darkGreyColor,
                                             fontSize: 13.sp,
                                             fontWeight: FontWeight.w600
                                           ),
@@ -486,7 +486,7 @@ class ViewQuoteScreen extends StatelessWidget {
                                     Text(
                                       "Note",
                                       style: GoogleFonts.inter(
-                                        color: AppColor.blackColor,
+                                        color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,
                                         fontWeight: FontWeight.w600
                                       ),

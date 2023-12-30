@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/requested_quotes/requested_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/sent_quote_screen.dart';
 
 
@@ -61,18 +62,19 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
               ),
             ],
           ),
-          SizedBox(height: 30.h),
+          SizedBox(height: 20.h),
           Expanded(
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.h),
+                  padding: EdgeInsets.symmetric(horizontal: 50.h),
                   child: AnimatedContainer(
+                    padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(color: AppColor.mainColor)
+                      borderRadius: BorderRadius.circular(50.r),
+                      border: Border.all(color: AppColor.navyBlue)
                     ),
                     duration: const Duration(milliseconds: 100),
                     child: Column(
@@ -80,22 +82,23 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
                         //added
                         TabBar(                    
                           physics: const BouncingScrollPhysics(),
-                          indicatorColor: AppColor.mainColor,
+                          indicatorColor: AppColor.navyBlue,
                           indicatorSize: TabBarIndicatorSize.tab,
                           //indicatorWeight: 0.1,
                           labelStyle: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.bgColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
-                          unselectedLabelColor: AppColor.mainColor,
+                          unselectedLabelColor: AppColor.navyBlue,
                           labelColor: AppColor.bgColor,
                           //padding: EdgeInsets.symmetric(horizontal: 10),
                           indicator: BoxDecoration(
-                            //borderRadius: BorderRadius.circular(5.r),
-                            color: AppColor.mainColor
+                            borderRadius: BorderRadius.circular(50.r),
+                            color: AppColor.navyBlue,
+                            shape: BoxShape.rectangle,
                           ),
                           controller: tabController,
                           isScrollable: false,
@@ -116,9 +119,9 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      QuotesPage(),
-                      QuotesPage(),
-                      QuotesPage(),
+                      SentQuotesPage(),
+                      RequestedQuotesPage(),
+                      SizedBox()
                     ]
                   ),
                 ),

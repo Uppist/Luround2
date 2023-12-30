@@ -13,46 +13,16 @@ class FinancialsController extends getx.GetxController {
   /////[FOR QUOTES]/////////////
   final isFinancialsListEmpty = false.obs;
   //search textField
-  final isFieldTapped = false.obs;
+  //final isFieldTapped = false.obs;
   final isSearchProduct = false.obs;
-  final TextEditingController searchQuoteController = TextEditingController();
+  //final TextEditingController searchQuoteController = TextEditingController();
   final TextEditingController quoteNoteController = TextEditingController();
   final TextEditingController quoteClientEmailController = TextEditingController();
   final TextEditingController searchProductsController = TextEditingController();
 
 
-  //filter by date range
-  var dates = <DateTime?>[].obs;
-  void selectedDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      dates.value = dateList;
-      update();
-    }
-  }
-  //(save both dates below to db)
-  String startDate () {
-    if(dates.isNotEmpty && dates.length >= 2) {
-      print(dates);
-      var result = dates[0].toString();
-      var refinedList = result.substring(0, 10);
-      print(refinedList);
-      return refinedList;
-    }
-    return "from";
-  }
-  String endDate () {
-    print(dates);
-    if(dates.isNotEmpty && dates.length >= 2) {
-      var result = dates[1].toString();
-      var refinedList = result.substring(0, 10);
-      print(refinedList);
-      return refinedList;
-    }
-    return "to";
-  }
-  ////////////////////////////
   
-
+  var dates = <DateTime?>[].obs;
 
   ///CREATE QUOTE SECTION/////
   int maxLength = 500;
@@ -121,7 +91,7 @@ class FinancialsController extends getx.GetxController {
 
   @override
   void dispose() {
-    searchQuoteController.dispose();
+    //searchQuoteController.dispose();
     quoteNoteController.dispose();
     searchProductsController.dispose();
 

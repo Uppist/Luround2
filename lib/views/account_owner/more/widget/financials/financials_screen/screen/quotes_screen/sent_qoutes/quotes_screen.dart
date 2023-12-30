@@ -6,11 +6,12 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/financials_controller.dart';
+import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/controllers/account_owner/financials/qoutes/sent_quotes/sent_quotes_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/screen/create_quotes.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/filter_quotes_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/quotes_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/sent_quotes/filter_quotes_button.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/sent_quotes/quotes_list.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/components/search_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
@@ -30,7 +31,8 @@ class QuotesPage extends StatefulWidget {
 
 class _QuotesPageState extends State<QuotesPage>{
 
-  var controller = Get.put(FinancialsController());
+  var controller = Get.put(SentQuotesController());
+  var fincontroller = Get.put(FinancialsController());
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +158,7 @@ class _QuotesPageState extends State<QuotesPage>{
             //icon:CupertinoIcons.add,        
             //animatedIcon: AnimatedIcons.menu_close,
             child: Icon(
-              controller.isQuotesOpened.value ? CupertinoIcons.xmark :
+              fincontroller.isQuotesOpened.value ? CupertinoIcons.xmark :
               CupertinoIcons.add,
               size: 30,
               color: AppColor.bgColor
@@ -165,10 +167,10 @@ class _QuotesPageState extends State<QuotesPage>{
               controller.isOpened.value = true;
             },*/
             onOpen: () {
-              controller.isQuotesOpened.value = true;
+              fincontroller.isQuotesOpened.value = true;
             },
             onClose: () {
-              controller.isQuotesOpened.value = false;
+              fincontroller.isQuotesOpened.value = false;
             },
             spaceBetweenChildren: 30,
             //childPadding: EdgeInsets.symmetric(horizontal: 20),

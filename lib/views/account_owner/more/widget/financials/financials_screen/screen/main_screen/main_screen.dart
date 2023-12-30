@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/main_screen/main_screen_container.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/sent_quote_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/main_screen/tab_widget.dart';
+
+
 
 
 
@@ -40,7 +42,7 @@ class FirstScreenForFinancials extends StatelessWidget {
             MainScreenContainer(
               text: 'Quotes',
               onTap: () {
-                Get.to(() => QuotesPage());
+                Get.to(() => QuoteScreenTab());
               },
             ),
             SizedBox(height: 30.h,),

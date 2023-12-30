@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 import 'notifications_empty_state.dart';

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/controllers/account_owner/transactions_controller.dart';
+import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
 import 'package:luround/models/account_owner/more/bank_response.dart';
 import 'package:luround/models/account_owner/more/saved_banks_response.dart';
 import 'package:luround/models/account_owner/more/transaction_model.dart';

@@ -11,7 +11,7 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/edit_cert_details.dart';
 import 'package:luround/views/account_owner/services/screen/service_screen.dart';
-import '../../views/account_owner/profile/screen/profile_screen.dart';
+import '../../../views/account_owner/profile/screen/profile_screen.dart';
 
 
 

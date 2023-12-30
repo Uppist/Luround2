@@ -20,7 +20,7 @@ import 'package:luround/views/account_owner/profile/widget/profile/about_section
 import 'package:luround/views/account_owner/profile/widget/profile/add_section_button.dart';
 import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import '../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../widget/edit_about/edit_about_page.dart';
 import '../widget/edit_photo/edit_photo_page.dart';
 import '../widget/profile/education_&_certifications_section.dart';

@@ -1,7 +1,7 @@
 import 'package:cloudinary/cloudinary.dart';
 import 'package:get/get.dart' as getx;
 import 'package:image_picker/image_picker.dart';
-import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/controllers/account_owner/profile/profile_page_controller.dart';
 import 'package:luround/models/account_owner/user_profile/certificate_model.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';

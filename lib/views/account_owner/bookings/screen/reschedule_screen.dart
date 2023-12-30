@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/bookings_controller.dart';
+import 'package:luround/controllers/account_owner/bookings/bookings_controller.dart';
 import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';

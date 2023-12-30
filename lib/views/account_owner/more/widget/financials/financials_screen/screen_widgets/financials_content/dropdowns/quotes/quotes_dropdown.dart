@@ -37,19 +37,6 @@ class QuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              print('gggggffff');
-            },
-            child: Text(
-              "Edit",
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: AppColor.blackColor
-              ),
-            )
-          ),
-          PopupMenuItem(
-            onTap: () {
               print('gggggeee');
             },
             child: Text(

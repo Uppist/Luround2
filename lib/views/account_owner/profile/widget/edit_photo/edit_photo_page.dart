@@ -11,7 +11,7 @@ import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/fi
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/uploaded_logo.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/textfields/other_textfields.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
 import '../../../../../utils/components/title_text.dart';

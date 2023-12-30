@@ -13,7 +13,7 @@ import 'package:luround/views/account_owner/profile/widget/edit_education/compon
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/delete_certificate.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/edit_cert_details.dart';
-import '../../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../../utils/colors/app_theme.dart';
 import '../../../../../../utils/components/reusable_button.dart';
 import '../../../../../../utils/components/title_text.dart';

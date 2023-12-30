@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 import '../edit_about/edit_about_page.dart';

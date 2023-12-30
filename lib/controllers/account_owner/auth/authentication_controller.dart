@@ -12,7 +12,7 @@ import 'package:luround/views/account_owner/auth/screen/onboarding/page/first_pa
 import 'package:luround/views/account_owner/auth/screen/onboarding/page/second_page.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/second_page.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import '../../views/account_owner/auth/screen/onboarding/page/third_page.dart';
+import '../../../views/account_owner/auth/screen/onboarding/page/third_page.dart';
 
 
 

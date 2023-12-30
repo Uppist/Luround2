@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart' as getx;
-import 'package:luround/controllers/account_owner/services_controller.dart';
+import 'package:luround/controllers/account_owner/services/services_controller.dart';
 import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';

@@ -11,7 +11,7 @@ import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 

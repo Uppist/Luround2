@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../controllers/account_owner/mainpage_controller.dart';
+import '../../../../controllers/account_owner/main/mainpage_controller.dart';
 import '../../../../controllers/account_viewer/mainpage_controller_acc_viewer.dart';
 import '../widget/bottom_bar_widget_acc_viewer.dart';
 

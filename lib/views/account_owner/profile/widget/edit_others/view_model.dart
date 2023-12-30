@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:luround/controllers/account_owner/profile_page_controller.dart';
+import 'package:luround/controllers/account_owner/profile/profile_page_controller.dart';
 
 
 

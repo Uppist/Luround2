@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import '../../../../controllers/account_owner/mainpage_controller.dart';
+import '../../../../controllers/account_owner/main/mainpage_controller.dart';
 
 
 

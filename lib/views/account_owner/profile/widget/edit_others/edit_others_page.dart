@@ -11,7 +11,7 @@ import 'package:luround/views/account_owner/profile/widget/edit_others/custom_ta
 import 'package:luround/views/account_owner/profile/widget/edit_others/phone_number_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/special_widget/special.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
-import '../../../../../controllers/account_owner/profile_page_controller.dart';
+import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
 import '../../../../../utils/components/title_text.dart';

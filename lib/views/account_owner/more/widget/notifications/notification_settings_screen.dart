@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/more_controller.dart';
+import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/notifications/custom_switch_cards.dart';
 import 'package:luround/views/account_owner/more/widget/notifications/switch_widget.dart';

@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:from_to_time_picker/from_to_time_picker.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services_controller.dart';
+import 'package:luround/controllers/account_owner/services/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:time_range_picker/time_range_picker.dart';
 

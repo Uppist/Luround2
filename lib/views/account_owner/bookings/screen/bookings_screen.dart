@@ -60,508 +60,503 @@ class _BookingsPageState extends State<BookingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.greyColor, //controller.isServicePresent.value ? AppColor.bgColor : AppColor.greyColor,
-      body: SafeArea(
-        child: Container(
-          //physics: NeverScrollableScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ///Header Section
-              Container(
-                color: AppColor.bgColor,
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          ///Header Section
+          Container(
+            color: AppColor.bgColor,
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /*Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    /*Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Image(
+                      image: AssetImage('assets/images/luround_logo.png'),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Image(
-                          image: AssetImage('assets/images/luround_logo.png'),
+                        InkWell(
+                          onTap: () {
+                            Get.to(() => NotificationsPage());
+                          },
+                          child: SvgPicture.asset("assets/svg/notify_active.svg"),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => NotificationsPage());
-                              },
-                              child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                            ),
-                          ],
-                        )
-                      ]
-                    ),*/
-                    const SizedBox(height: 10,), //40
-                    Center(
-                      child: Text(
-                        "Bookings",
-                        style: GoogleFonts.inter(
-                          color: AppColor.blackColor,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600
-                        ),
-                      ),
+                      ],
+                    )
+                  ]
+                ),*/
+                SizedBox(height: 10.h,), //40
+                Center(
+                  child: Text(
+                    "Bookings",
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600
                     ),
-                    SizedBox(height: 20.h,),
-                    //search textfield
-                    SearchTextField(
-                      onFocusChanged: (val) {},
-                      onFieldSubmitted: (val) {
-                        setState(() {
-                          controller.isFieldTapped.value = false;
-                          service.filterBookings(val);
-                        });
-                      },
-                      hintText: "Search",
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.done,  //.search,
-                      textController: controller.searchController,
-                      onTap: () {
-                        setState(() {
-                          controller.isFieldTapped.value = true;
-                        });
-                      },
-                    ),
-                  ],
+                  ),
                 ),
-              ),         
-              ////////////////////////////////////////////////////////          
-        
-              SizedBox(height: 5.h,),
-              //Filter widget here
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FilterContainer(
-                      onTaped: () {
-                        filterDialogueBox(
-                          context: context,
-                          onSentFilter: () {
-                            service.filterBySent()
-                            .whenComplete(() => Get.back());
-                          },
-                          onReceivedFilter: () {
-                            service.filterByReceived()
-                            .whenComplete(() => Get.back());
-                          },
-                          onUpcomingFilter: () {
-                            service.filterByUpcoming()
-                            .whenComplete(() => Get.back());
-                          },
-                          onPastFilter: () {
-                            service.filterByPast()
-                            .whenComplete(() => Get.back());
-                          },
-                          onCancelledFilter: () {
-                            service.fiterByCancelled()
-                            .whenComplete(() => Get.back());
-                          },
-                        );
-                      },
-                    ),
-                  ],
+                SizedBox(height: 20.h,),
+                //search textfield
+                SearchTextField(
+                  onFocusChanged: (val) {},
+                  onFieldSubmitted: (val) {
+                    setState(() {
+                      controller.isFieldTapped.value = false;
+                      service.filterBookings(val);
+                    });
+                  },
+                  hintText: "Search",
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.done,  //.search,
+                  textController: controller.searchController,
+                  onTap: () {
+                    setState(() {
+                      controller.isFieldTapped.value = true;
+                    });
+                  },
                 ),
-              ),
-              //SizedBox(height: 10.h,),
-        
-              //no booking available widget
-              //BookingScreenEmptyState(onPressed: () {},),
-        
-              FutureBuilder<List<DetailsModel>>(
-                future: service.getUserBookings(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Loader();
-                  }
-                  if (snapshot.hasError) {
-                   print(snapshot.error);
-                  }
-                  if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                    print("uh--oh! nothing dey;");
-                    return BookingScreenEmptyState(
-                      onPressed: () {
-                        service.getUserBookings();
+              ],
+            ),
+          ),         
+          ////////////////////////////////////////////////////////          
+              
+          SizedBox(height: 5.h,),
+          //Filter widget here
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                FilterContainer(
+                  onTaped: () {
+                    filterDialogueBox(
+                      context: context,
+                      onSentFilter: () {
+                        service.filterBySent()
+                        .whenComplete(() => Get.back());
+                      },
+                      onReceivedFilter: () {
+                        service.filterByReceived()
+                        .whenComplete(() => Get.back());
+                      },
+                      onUpcomingFilter: () {
+                        service.filterByUpcoming()
+                        .whenComplete(() => Get.back());
+                      },
+                      onPastFilter: () {
+                        service.filterByPast()
+                        .whenComplete(() => Get.back());
+                      },
+                      onCancelledFilter: () {
+                        service.fiterByCancelled()
+                        .whenComplete(() => Get.back());
                       },
                     );
-                  }
-                  if (snapshot.hasData) {
-      
-                    //var data = snapshot.data!;
+                  },
+                ),
+              ],
+            ),
+          ),
+          //SizedBox(height: 10.h,),
+              
+          //no booking available widget
+          //BookingScreenEmptyState(onPressed: () {},),
+              
+          FutureBuilder<List<DetailsModel>>(
+            future: service.getUserBookings(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Loader();
+              }
+              if (snapshot.hasError) {
+               print(snapshot.error);
+              }
+              if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                print("uh--oh! nothing dey;");
+                return BookingScreenEmptyState(
+                  onPressed: () {
+                    service.getUserBookings();
+                  },
+                );
+              }
+              if (snapshot.hasData) {
+            
+                //var data = snapshot.data!;
+            
+                return Expanded(
+                  child: Obx(
+                    () {
                 
-                    return Expanded(
-                      child: Obx(
-                        () {
-                    
-                          return ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            physics: const BouncingScrollPhysics(),
-                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                            itemCount: service.filteredList.length, //data.length,
-                            separatorBuilder: (context, index) => SizedBox(height: 25.h,),
-                            itemBuilder: (context, index) {
-
-                              if(service.filteredList.isEmpty) {
-                                print("data list is empty fam");
-                                return BookingScreenEmptyState(
-                                  onPressed: () {
-                                    service.getUserBookings();
-                                  },
-                                );
-                              }
-
-                              return Container(
-                                alignment: Alignment.center,
-                                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                decoration: BoxDecoration(
-                                color: AppColor.bgColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: AppColor.textGreyColor.withOpacity(0.2),
-                                    blurRadius: 0.2,
-                                    //spreadRadius: 0.1,
-                                    blurStyle: BlurStyle.solid
-                                  )
-                                ]
-                              ),
-                              child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: const BouncingScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
+                        itemCount: service.filteredList.length, //data.length,
+                        separatorBuilder: (context, index) => SizedBox(height: 25.h,),
+                        itemBuilder: (context, index) {
+      
+                          if(service.filteredList.isEmpty) {
+                            print("data list is empty fam");
+                            return BookingScreenEmptyState(
+                              onPressed: () {
+                                service.getUserBookings();
+                              },
+                            );
+                          }
+      
+                          return Container(
+                            alignment: Alignment.center,
+                            //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            decoration: BoxDecoration(
+                            color: AppColor.bgColor,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColor.textGreyColor.withOpacity(0.2),
+                                blurRadius: 0.2,
+                                //spreadRadius: 0.1,
+                                blurStyle: BlurStyle.solid
+                              )
+                            ]
+                          ),
+                          child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        //more vert icon
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
-                                            //more vert icon
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                IconButton(
-                                                  onPressed: () {
-                                                    bookingsListDialogueBox(
-                                                      serviceDate: service.filteredList[index].serviceDetails.date,
-                                                      serviceTime: service.filteredList[index].serviceDetails.time,
-                                                      serviceDuration: service.filteredList[index].serviceDetails.duration,
-                                                      bookingId: service.filteredList[index].id,
-                                                      onDelete: () {
-                                                        service.deleteBooking(
-                                                          context: context, 
-                                                          bookingId: service.filteredList[index].id
-                                                        ).whenComplete(() => Get.back());
-                                                      },
+                                            IconButton(
+                                              onPressed: () {
+                                                bookingsListDialogueBox(
+                                                  serviceDate: service.filteredList[index].serviceDetails.date,
+                                                  serviceTime: service.filteredList[index].serviceDetails.time,
+                                                  serviceDuration: service.filteredList[index].serviceDetails.duration,
+                                                  bookingId: service.filteredList[index].id,
+                                                  onDelete: () {
+                                                    service.deleteBooking(
                                                       context: context, 
-                                                      serviceName: service.filteredList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
-                                                    );
-                                                  }, 
-                                                  icon: Icon(
-                                                    Icons.more_vert_rounded,
-                                                    color: AppColor.blackColor,
-                                                  )
-                                                )
-                                              ],
-                                            ),
-                                            SizedBox(height: 5.h,),
-                                            //beginning
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                CircleAvatar(
-                                                  backgroundColor: AppColor.mainColor,
-                                                  //backgroundImage: ,
-                                                  radius: 30.r,  //25,
-                                                ),
-                                                SizedBox(width: 10.w,),
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        service.filteredList[index].bookingUserInfo.displayName,
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.darkGreyColor,
-                                                          fontSize: 14.sp,
-                                                          fontWeight: FontWeight.w600
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 2.h,),
-                                                      Text(
-                                                        service.filteredList[index].serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
-                                                        //"booked you",//index.isEven ? "booked you" : "you booked",
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.textGreyColor,
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w500
-                                                        ),
-                                                      )
-                                                    ],
-                                                  )
-                                                )
-                                              ],
-                                            ),
-                                            SizedBox(height: 10.h,),
-                                            Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
-                                            SizedBox(height: 10.h,),
-                                            //date of booking
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  service.filteredList[index].serviceDetails.date,
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                ),
-                                                SizedBox(width: 10.w,),
-                                                /////////////
-                                                service.filteredList[index].bookingUserInfo.userId.contains(userId) ?
-                                                SvgPicture.asset("assets/svg/sent_blue.svg")
-                                                :SvgPicture.asset("assets/svg/received_yellow.svg"),
-                                                /////////////////
-                                              ],
-                                            ),
-                                            SizedBox(height: 30.h,),
-                                            //service name
-                                            Text(
-                                              service.filteredList[index].serviceDetails.serviceName,
-                                              style: GoogleFonts.inter(
+                                                      bookingId: service.filteredList[index].id
+                                                    ).whenComplete(() => Get.back());
+                                                  },
+                                                  context: context, 
+                                                  serviceName: service.filteredList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
+                                                );
+                                              }, 
+                                              icon: Icon(
+                                                Icons.more_vert_rounded,
                                                 color: AppColor.blackColor,
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w600
-                                              ),
-                                            ),
-                                            SizedBox(height: 30,),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Text(
-                                                  service.filteredList[index].serviceDetails.time,
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.blackColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    SvgPicture.asset("assets/svg/time_icon.svg"),
-                                                    SizedBox(width: 10.w,),
-                                                    Text(
-                                                      service.filteredList[index].serviceDetails.duration,
-                                                      style: GoogleFonts.inter(
-                                                        color: AppColor.textGreyColor,
-                                                        fontSize: 12.sp,
-                                                        fontWeight: FontWeight.w400
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(height: 30.h,),
-                                          
-                                          
-                                            ///////////////////////////////////////
-                                            //collapsible and expandibles here,
-                                            controller.selectedIndex == index ?
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "Sender's Email",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.blackColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 10.h,),
-                                                Text(
-                                                  service.filteredList[index].bookingUserInfo.email,
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                          
-                                                SizedBox(height: 30.h,),
-                                                Text(
-                                                  "Meeting Type",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.blackColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 10.h,),
-                                                Text(
-                                                  service.filteredList[index].serviceDetails.appointmentType,
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 30.h,),
-                                          
-                                                Text(
-                                                  "Location",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.blackColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 10.h,),
-                                                Text(
-                                                  service.filteredList[index].serviceDetails.location,
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 30.h,),
-                                          
-                                                Text(
-                                                  "Sender's Time Zone",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.blackColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 10,),
-                                                Text(
-                                                  "West Africa Time",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 30.h,),
-                                          
-                                                Text(
-                                                  "Note",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.blackColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 10.h,),
-                                                Text(
-                                                  service.filteredList[index].serviceDetails.message,
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 30.h,),
-                                              
-                                                Text(
-                                                  "Created on ${convertServerTimeToDate(service.filteredList[index].serviceDetails.createdAt)}",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.textGreyColor.withOpacity(0.4),
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w400
-                                                  ),
-                                                  //maxLines: controller.selectedIndex == index ? null : 1,
-                                                  //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
-                                                ),
-                                                SizedBox(height: 10.h,),
-                                              ],
-                                            ): SizedBox(),
-                                            ///////////////////////////////////////    
-                                          
+                                              )
+                                            )
                                           ],
                                         ),
-                                      ),
-                                      ////////////////////
-                                      Divider(color: AppColor.mainColor, thickness: 0.8,),
-                                      //see more text button
-                                      Center(
-                                        child: TextButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              if (controller.selectedIndex == index) {
-                                                // Collapse the selected item.
-                                                controller.selectedIndex = -1;
-                                              } 
-                                              else {
-                                                // Expand the selected item.
-                                                controller.selectedIndex = index; 
-                                              }
-                                            });
-                                          }, 
-                                          child: Text(
-                                            controller.selectedIndex == index   ? 'See Less' : 'See More',
-                                            style: GoogleFonts.inter(
-                                              color: AppColor.mainColor,
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500
-                                              //decoration: TextDecoration.underline,
+                                        SizedBox(height: 5.h,),
+                                        //beginning
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: AppColor.mainColor,
+                                              //backgroundImage: ,
+                                              radius: 30.r,  //25,
                                             ),
+                                            SizedBox(width: 10.w,),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    service.filteredList[index].bookingUserInfo.displayName,
+                                                    style: GoogleFonts.inter(
+                                                      color: AppColor.darkGreyColor,
+                                                      fontSize: 14.sp,
+                                                      fontWeight: FontWeight.w600
+                                                    ),
+                                                  ),
+                                                  SizedBox(height: 2.h,),
+                                                  Text(
+                                                    service.filteredList[index].serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
+                                                    //"booked you",//index.isEven ? "booked you" : "you booked",
+                                                    style: GoogleFonts.inter(
+                                                      color: AppColor.textGreyColor,
+                                                      fontSize: 12.sp,
+                                                      fontWeight: FontWeight.w500
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            )
+                                          ],
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                        Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
+                                        SizedBox(height: 10.h,),
+                                        //date of booking
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              service.filteredList[index].serviceDetails.date,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                            ),
+                                            SizedBox(width: 10.w,),
+                                            /////////////
+                                            service.filteredList[index].bookingUserInfo.userId.contains(userId) ?
+                                            SvgPicture.asset("assets/svg/sent_blue.svg")
+                                            :SvgPicture.asset("assets/svg/received_yellow.svg"),
+                                            /////////////////
+                                          ],
+                                        ),
+                                        SizedBox(height: 30.h,),
+                                        //service name
+                                        Text(
+                                          service.filteredList[index].serviceDetails.serviceName,
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.blackColor,
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w600
                                           ),
                                         ),
-                                      ),
-                                      SizedBox(height: 10.h,),
-                                      ////////////////////
-                                    ],
+                                        SizedBox(height: 30,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              service.filteredList[index].serviceDetails.time,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blackColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                SvgPicture.asset("assets/svg/time_icon.svg"),
+                                                SizedBox(width: 10.w,),
+                                                Text(
+                                                  service.filteredList[index].serviceDetails.duration,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.textGreyColor,
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 30.h,),
+                                      
+                                      
+                                        ///////////////////////////////////////
+                                        //collapsible and expandibles here,
+                                        controller.selectedIndex == index ?
+                                        Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Sender's Email",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blackColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 10.h,),
+                                            Text(
+                                              service.filteredList[index].bookingUserInfo.email,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                      
+                                            SizedBox(height: 30.h,),
+                                            Text(
+                                              "Meeting Type",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blackColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 10.h,),
+                                            Text(
+                                              service.filteredList[index].serviceDetails.appointmentType,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 30.h,),
+                                      
+                                            Text(
+                                              "Location",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blackColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 10.h,),
+                                            Text(
+                                              service.filteredList[index].serviceDetails.location,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 30.h,),
+                                      
+                                            Text(
+                                              "Sender's Time Zone",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blackColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 10,),
+                                            Text(
+                                              "West Africa Time",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 30.h,),
+                                      
+                                            Text(
+                                              "Note",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.blackColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 10.h,),
+                                            Text(
+                                              service.filteredList[index].serviceDetails.message,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 30.h,),
+                                          
+                                            Text(
+                                              "Created on ${convertServerTimeToDate(service.filteredList[index].serviceDetails.createdAt)}",
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.textGreyColor.withOpacity(0.4),
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                              //maxLines: controller.selectedIndex == index ? null : 1,
+                                              //overflow: controller.selectedIndex == index  ? null : TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(height: 10.h,),
+                                          ],
+                                        ): SizedBox(),
+                                        ///////////////////////////////////////    
+                                      
+                                      ],
+                                    ),
                                   ),
-                                );
-                              }
-                          );
-                        }
-                      ),
-                    );
-                  }
-                  return Center(
-                    child: Text(
-                      "connection timed out",
-                      style: GoogleFonts.inter(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.normal
-                      )
-                    )
-                  );
-                }
-              ),                                         
-              ///
-              SizedBox(height: 20.h,)
-            ]
-          ),
-        )
+                                  ////////////////////
+                                  Divider(color: AppColor.mainColor, thickness: 0.8,),
+                                  //see more text button
+                                  Center(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (controller.selectedIndex == index) {
+                                            // Collapse the selected item.
+                                            controller.selectedIndex = -1;
+                                          } 
+                                          else {
+                                            // Expand the selected item.
+                                            controller.selectedIndex = index; 
+                                          }
+                                        });
+                                      }, 
+                                      child: Text(
+                                        controller.selectedIndex == index   ? 'See Less' : 'See More',
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.mainColor,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w500
+                                          //decoration: TextDecoration.underline,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                  ////////////////////
+                                ],
+                              ),
+                            );
+                          }
+                      );
+                    }
+                  ),
+                );
+              }
+              return Center(
+                child: Text(
+                  "connection timed out",
+                  style: GoogleFonts.inter(
+                    color: AppColor.darkGreyColor,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.normal
+                  )
+                )
+              );
+            }
+          ),                                         
+          ///
+          SizedBox(height: 20.h,)
+        ]
       )
     );
   }

@@ -9,8 +9,14 @@ import 'package:get/get.dart' as getx;
 
 class SentQuotesController extends getx.GetxController {
   
+  //to expnad the column
+  final isServiceTapped = false.obs;
+  final isNoteTapped = false.obs;
+  //for search textfield text cancellation
   final isFieldTapped = false.obs;
+  //
   final isFinancialsListEmpty = false.obs;
+  
   final TextEditingController searchQuoteController = TextEditingController();
 
   //filter by date range
@@ -43,4 +49,10 @@ class SentQuotesController extends getx.GetxController {
     return "to";
   }
   ////////////////////////////
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    searchQuoteController.dispose();
+    super.dispose();
+  }
 }

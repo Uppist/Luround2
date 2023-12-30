@@ -38,7 +38,7 @@ class _QuotesPageState extends State<QuotesPage>{
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: controller.isFinancialsListEmpty.value ? AppColor.bgColor : AppColor.greyColor,
-      body: SafeArea(
+      body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

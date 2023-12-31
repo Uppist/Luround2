@@ -103,7 +103,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                           Text(
                             "jay@gmail.com",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor.withOpacity(0.5),
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400
                             ),
@@ -112,7 +112,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                           Text(
                             "+234 7040571471",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor.withOpacity(0.5),
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400
                             ),
@@ -147,7 +147,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Status:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -178,7 +178,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Service name:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -201,7 +201,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Appointment type:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -224,7 +224,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Budget/offer:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),

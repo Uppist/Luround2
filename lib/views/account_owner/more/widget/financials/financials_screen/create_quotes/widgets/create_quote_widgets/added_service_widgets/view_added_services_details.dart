@@ -247,18 +247,18 @@ class ViewAddedServiceDetails extends StatelessWidget {
                           onTap: () {},
                           child: Container(
                             alignment: Alignment.center,
-                            width: 80.w,  //70.w
+                            width: 100.w,  //70.w
                             height: 70.h, //40.h
                             decoration: BoxDecoration(
-                              color: AppColor.bgColor,
+                              color: AppColor.mainColor,
                               borderRadius: BorderRadius.circular(10.r),
-                              border: Border.all(color: AppColor.darkGreyColor)
+                              border: Border.all(color: AppColor.mainColor)
                             ),
                             child: Text(
-                              'Calc',
+                              'Calculate',
                               style: GoogleFonts.inter(
-                                color: AppColor.darkGreyColor,
-                                fontSize: 15.sp,
+                                color: AppColor.bgColor,
+                                fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -152,7 +154,10 @@ class _DraftedQuotesPageState extends State<DraftedQuotesPage>{
                   borderRadius: BorderRadius.all(Radius.circular(30.r))
                 ),
                 onTap: () {
-                  Get.to(() => CreateQuotePage());
+                  final int qouteNumber = Random().nextInt(200000);
+                  Get.to(() => CreateQuotePage(
+                    quoteNumber: qouteNumber,
+                  ));
                 },
               )
             ],

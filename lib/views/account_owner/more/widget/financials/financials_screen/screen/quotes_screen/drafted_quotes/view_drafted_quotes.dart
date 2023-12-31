@@ -103,7 +103,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           Text(
                             "jay@gmail.com",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor.withOpacity(0.5),
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400
                             ),
@@ -132,7 +132,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "John Wick",
+                            "John Travolta",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -141,9 +141,9 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "johnwick@gmail.com",
+                            "johntravolta@gmail.com",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor.withOpacity(0.5),
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400
                             ),
@@ -152,7 +152,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           Text(
                             "+234 7040571471",
                             style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor.withOpacity(0.5),
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
                               fontWeight: FontWeight.w400
                             ),
@@ -187,7 +187,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Status:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -201,7 +201,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(7.r)
                                 ),
                                 child: Text(
-                                  'SENT',
+                                  'DRAFT',
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 10.sp,
@@ -218,7 +218,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Quote number:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -241,7 +241,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Valid till:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -264,7 +264,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                               Text(
                                 "Grand total:",
                                 style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   fontWeight: FontWeight.w500
                                 ),
@@ -343,7 +343,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                           ),
                                         ),
                                         SizedBox(height: 10.h,),
-                                        Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
+                                        Divider(color: AppColor.darkGreyColor.withOpacity(0.6), thickness: 0.5,),
                                         SizedBox(height: 10.h,),
                                         //row1
                                         Row(
@@ -352,7 +352,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                             Text(
                                               "Meeting Type:",
                                               style: GoogleFonts.inter(
-                                                color: AppColor.darkGreyColor.withOpacity(0.5),
+                                                color: AppColor.darkGreyColor.withOpacity(0.6),
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -375,7 +375,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                             Text(
                                               "Rate:",
                                               style: GoogleFonts.inter(
-                                                color: AppColor.darkGreyColor.withOpacity(0.5),
+                                                color: AppColor.darkGreyColor.withOpacity(0.6),
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -398,7 +398,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                             Text(
                                               "Duration:",
                                               style: GoogleFonts.inter(
-                                                color: AppColor.darkGreyColor.withOpacity(0.5),
+                                                color: AppColor.darkGreyColor.withOpacity(0.6),
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -421,7 +421,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                             Text(
                                               "Discount:",
                                               style: GoogleFonts.inter(
-                                                color: AppColor.darkGreyColor.withOpacity(0.5),
+                                                color: AppColor.darkGreyColor.withOpacity(0.6),
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -444,7 +444,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                             Text(
                                               "Total:",
                                               style: GoogleFonts.inter(
-                                                color: AppColor.darkGreyColor.withOpacity(0.5),
+                                                color: AppColor.darkGreyColor.withOpacity(0.6),
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -470,6 +470,113 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                         );
                       }
+                    ),
+
+                    SizedBox(height: 20.h),
+
+                    //QUOTES DISCOUNT AND GRAND TOTAL CONTAINER
+                    Container(
+                      //alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      width: double.infinity,
+                      color: AppColor.bgColor,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Subtotal",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Text(
+                                'N20,000',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                              
+                            ],
+                          ),
+                          SizedBox(height: 20.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Discount",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Text(
+                                'N1,500',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                              
+                            ],
+                          ),
+                          SizedBox(height: 20.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "VAT",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Text(
+                                'N500',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                              
+                            ],
+                          ),
+                          SizedBox(height: 20.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Total",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Text(
+                                'N50,000',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                              
+                            ],
+                          ),
+
+                        ],
+                      ),
                     ),
 
                     SizedBox(height: 20.h),

@@ -18,7 +18,6 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/not_in_use/select_client_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/not_in_use/select_client_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_service_widgets/view_added_services_details.dart';
-import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
 
@@ -29,7 +28,8 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 class CreateQuotePage extends StatefulWidget {
-  CreateQuotePage({super.key});
+  CreateQuotePage({super.key, required this.quoteNumber});
+  final int quoteNumber;
 
   @override
   State<CreateQuotePage> createState() => _CreateQuotePageState();
@@ -48,29 +48,6 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ///Header Section/////
-            /*Container(
-              color: AppColor.bgColor,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/images/luround_logo.png'),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => NotificationsPage());
-                        },
-                        child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                      ),
-                    ]
-                  ),
-                ]
-              )
-            ),*/
             SizedBox(height: 20.h,),
             ///Navigation Section, Search TextField and Filter/////
             Container(
@@ -93,7 +70,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                   ),
                   SizedBox(width: 100.w,),
                   Text(
-                    "Quote 000001",
+                    "Quote ${widget.quoteNumber}",
                     style: GoogleFonts.inter(
                       color: AppColor.textGreyColor,
                       fontSize: 14.sp,

@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart' as diomygee;
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebaseAuth;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +21,6 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -38,6 +35,7 @@ class AuthService extends getx.GetxController {
 
 
   var baseService = getx.Get.put(BaseService());
+  var FCMToken = LocalStorage.getFCMToken();
   var isLoading = false.obs;
 
 
@@ -59,6 +57,7 @@ class AuthService extends getx.GetxController {
       "password": password,
       "photoUrl": "my_photo",
       "accountCreatedFrom": "LOCAL",
+      "user_nToken": FCMToken,
     };
 
     try {
@@ -169,6 +168,7 @@ class AuthService extends getx.GetxController {
     var body = {
       "email": email,
       "password": password,
+      "user_nToken": FCMToken,
     };
 
     try {
@@ -373,7 +373,8 @@ class AuthService extends getx.GetxController {
         "firstName": firstName,
         "lastName": lastName,
         "photoUrl": photoUrl,
-        "google_user_id": google_user_id
+        "google_user_id": google_user_id,
+        "user_nToken": FCMToken,
       };
 
       //define or state your headers

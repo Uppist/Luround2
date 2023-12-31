@@ -71,6 +71,16 @@ class FinancialsController extends getx.GetxController {
   }
 
 
+
+
+  
+
+
+
+
+
+
+
   //Edit added service screen/////
   final TextEditingController serviceDescController = TextEditingController();
   final TextEditingController meetingTypeController = TextEditingController();
@@ -79,12 +89,9 @@ class FinancialsController extends getx.GetxController {
   final TextEditingController discountController = TextEditingController();
 
    
-
-
-
-
   //for Speed dial floating action button (QUOTES)
   final isQuotesOpened = false.obs;
+
 
 
 

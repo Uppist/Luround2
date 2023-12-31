@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/drafted_quotes/drafted_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/requested_quotes/requested_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/sent_quote_screen.dart';
 
@@ -121,7 +122,7 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
                     children: [
                       SentQuotesPage(),
                       RequestedQuotesPage(),
-                      SizedBox()
+                      DraftedQuotesPage(),
                     ]
                   ),
                 ),

@@ -60,17 +60,17 @@ class ViewAddedServiceDetails extends StatelessWidget {
                           onTap: () {},
                           child: Container(
                             alignment: Alignment.center,
-                            width: 70.w,
-                            height: 40.h,
+                            width: 60.w,
+                            height: 35.h,
                             decoration: BoxDecoration(
                               color: AppColor.mainColor,
-                              borderRadius: BorderRadius.circular(10.r)
+                              borderRadius: BorderRadius.circular(8.r)
                             ),
                             child: Text(
                               'Save',
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
-                                fontSize: 14.sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500
                               )
                             ),

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
@@ -53,16 +52,8 @@ class _SentQuotesPageState extends State<SentQuotesPage>{
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
                   child: QuotesSearchTextField(
-                    onTap: () {
-                      setState(() {
-                        controller.isFieldTapped.value = true;
-                      });
-                    },
-                    onFieldSubmitted: (p0) {
-                      setState(() {
-                        controller.isFieldTapped.value = false;
-                      });  
-                    },
+                    onTap: () {},
+                    onFieldSubmitted: (p0) {},
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,

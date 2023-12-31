@@ -9,7 +9,7 @@ import 'package:luround/services/account_owner/more/financials/financials_servic
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/add_product_bottomsheet.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_services_listtile.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/due_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/send_quote_bottomsheet.dart';
@@ -168,8 +168,10 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           ),
                           Divider(color: Colors.grey, thickness: 0.2,),
                           SizedBox(height: 30.h,),
+
+                          //Name
                           Text(
-                            "Send to*",
+                            "Send to",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 14.sp,
@@ -188,16 +190,61 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           ),*/
                           ClientEmailTextField(
                             onChanged: (val) {
+                              controller.quoteClientNameController.text = val;
+                            },
+                            hintText: "Receiver's name",
+                            keyboardType: TextInputType.name,
+                            textInputAction: TextInputAction.next,
+                            controller: controller.quoteClientNameController,
+                          ),
+                          
+                          //Email
+                          SizedBox(height: 30.h,),
+                          Text(
+                            "Email Address",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          ClientEmailTextField(
+                            onChanged: (val) {
                               controller.quoteClientEmailController.text = val;
                             },
-                            hintText: "Enter client email",
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.done,
-                            controller: controller.quoteNoteController,
+                            hintText: "Receiver's email address",
+                            keyboardType: TextInputType.emailAddress,
+                            textInputAction: TextInputAction.next,
+                            controller: controller.quoteClientEmailController,
                           ),
-                          SizedBox(height: 20.h,),
+
+                          //Email
+                          SizedBox(height: 30.h,),
                           Text(
-                            "Quote Date*",
+                            "Phone Number",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          ClientEmailTextField(
+                            onChanged: (val) {
+                              controller.quoteClientPhoneNumberController.text = val;
+                            },
+                            hintText: "Receiver's mobile number",
+                            keyboardType: TextInputType.phone,
+                            textInputAction: TextInputAction.done,
+                            controller: controller.quoteClientPhoneNumberController,
+                          ),
+
+
+                          SizedBox(height: 30.h,),
+
+                          Text(
+                            "Quote Date",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 14.sp,
@@ -227,7 +274,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           
                           SizedBox(height: 30.h,),
                           Text(
-                            "Due Date*",
+                            "Due Date",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 14.sp,

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/view_sent_quote_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/drafted_quotes/view_drafted_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/delete_quote/delete_quote.dart';
 
 
@@ -12,8 +12,8 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class QuoteDropDown extends StatelessWidget {
-  QuoteDropDown({super.key});
+class DraftedQuoteDropDown extends StatelessWidget {
+  DraftedQuoteDropDown({super.key});
 
   var service = Get.put(FinancialsService());
 
@@ -28,7 +28,7 @@ class QuoteDropDown extends StatelessWidget {
         return [
           PopupMenuItem(
             onTap: () {
-              Get.to(() => ViewSentQuoteScreen());
+              Get.to(() => ViewDraftedQuoteScreen());
             },
             child: Text(
               "View",

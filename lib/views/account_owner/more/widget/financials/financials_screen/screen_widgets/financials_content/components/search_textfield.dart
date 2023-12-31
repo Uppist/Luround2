@@ -72,18 +72,6 @@ class _SearchTextFieldState extends State<FinancialsSearchTextField> {
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),
-            suffixIcon: widget.controller.isFieldTapped.value == true ?
-            IconButton(
-              onPressed:() {
-                widget.controller.searchQuoteController.clear();
-              },
-              icon: Icon(
-                CupertinoIcons.xmark, 
-                color: AppColor.textGreyColor, 
-                size: 20
-              ),
-            )
-             : null
           ),
         ),
       ),

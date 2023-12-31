@@ -18,6 +18,8 @@ class FinancialsController extends getx.GetxController {
   //final TextEditingController searchQuoteController = TextEditingController();
   final TextEditingController quoteNoteController = TextEditingController();
   final TextEditingController quoteClientEmailController = TextEditingController();
+  final TextEditingController quoteClientNameController = TextEditingController();
+  final TextEditingController quoteClientPhoneNumberController = TextEditingController();
   final TextEditingController searchProductsController = TextEditingController();
 
 
@@ -93,6 +95,9 @@ class FinancialsController extends getx.GetxController {
   void dispose() {
     //searchQuoteController.dispose();
     quoteNoteController.dispose();
+    quoteClientEmailController.dispose();
+    quoteClientNameController.dispose();
+    quoteClientPhoneNumberController.dispose();
     searchProductsController.dispose();
 
     serviceDescController.dispose();

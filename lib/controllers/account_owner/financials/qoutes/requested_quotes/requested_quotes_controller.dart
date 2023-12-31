@@ -11,8 +11,7 @@ class RequestedQuotesController extends getx.GetxController {
   
 
   //for search textfield text cancellation
-  final isFieldTapped = false.obs;
-  //
+  final isNoteTapped = false.obs;
   final isFinancialsListEmpty = false.obs;
   
   final TextEditingController searchRequestedQuoteController = TextEditingController();

@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
-import 'package:luround/controllers/account_owner/financials/qoutes/requested_quotes/requested_quotes_controller.dart';
+import 'package:luround/controllers/account_owner/financials/qoutes/drafts/drafted_quotes_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/screen/create_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/utils/search_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/requested_quotes/filter_requested_quotes_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/requested_quotes/requested_quotes_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/drafted_quotes/drafted_quotes_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/drafted_quotes/filter_drafted_quotes_button.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/sent_quotes/sent_quotes_list.dart';
 
 
 
@@ -20,17 +20,16 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-
-class RequestedQuotesPage extends StatefulWidget {
-  RequestedQuotesPage({super.key});
+class DraftedQuotesPage extends StatefulWidget {
+  DraftedQuotesPage({super.key});
 
   @override
-  State<RequestedQuotesPage> createState() => _RequestedQuotesPageState();
+  State<DraftedQuotesPage> createState() => _DraftedQuotesPageState();
 }
 
-class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
+class _DraftedQuotesPageState extends State<DraftedQuotesPage>{
 
-  var controller = Get.put(RequestedQuotesController());
+  var controller = Get.put(DraftedQuotesController());
   var fincontroller = Get.put(FinancialsController());
 
   @override
@@ -59,14 +58,14 @@ class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                    textController: controller.searchRequestedQuoteController,
+                    textController: controller.searchDraftedQuoteController,
                   )                
                 ),
                 SizedBox(height: 30.h,),
                 //filter button
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
-                  child: FilterRequestedQuotesButton(),
+                  child: FilterDraftedQuotesButton(),
                 ),
                 SizedBox(height: 15.h,),                 
               ],
@@ -75,7 +74,7 @@ class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
           //SizedBox(height: 20,),
           //financils list and empty state (run future builder there)
           //FinancialsEmptyState(),
-          RequestedQuotesList()
+          DraftedQuotesList()
         ]
       ),  
       

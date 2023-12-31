@@ -135,7 +135,7 @@ class _ClientEmailTextFieldState extends State<ClientEmailTextField> {
           ),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
         ),
       ),
     );

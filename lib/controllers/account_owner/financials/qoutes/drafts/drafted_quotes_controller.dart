@@ -7,15 +7,15 @@ import 'package:get/get.dart' as getx;
 
 
 
-class SentQuotesController extends getx.GetxController {
+class DraftedQuotesController extends getx.GetxController {
   
-  //to expnad the column
+
+  //for search textfield text cancellation
   final isServiceTapped = false.obs;
   final isNoteTapped = false.obs;
-  //TODO
   final isFinancialsListEmpty = false.obs;
   
-  final TextEditingController searchQuoteController = TextEditingController();
+  final TextEditingController searchDraftedQuoteController = TextEditingController();
 
   //filter by date range
   var dates = <DateTime?>[].obs;
@@ -47,10 +47,16 @@ class SentQuotesController extends getx.GetxController {
     return "to";
   }
   ////////////////////////////
+  
+
+
+
+
+
   @override
   void dispose() {
     // TODO: implement dispose
-    searchQuoteController.dispose();
+    searchDraftedQuoteController.dispose();
     super.dispose();
   }
 }

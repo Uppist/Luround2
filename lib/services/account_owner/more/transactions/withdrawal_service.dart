@@ -579,7 +579,7 @@ class WithdrawalService extends getx.GetxController {
     if (query.isEmpty) {
       filteredSavedAccounts.clear();
       filteredSavedAccounts.addAll(savedAccounts);
-      print("when query is empty: $savedAccounts");
+      print("when query is empty: $filteredSavedAccounts");
     } 
     else {
       filteredSavedAccounts.clear(); // Clear the previous filtered list
@@ -632,6 +632,32 @@ class WithdrawalService extends getx.GetxController {
     
     }
   }
+
+  ///[TO LAZY LOAD THE USER LIST OF SAVED BANKS IN THE FUTURE BUILDER FOR WITHDRAWAL SCREEN]///
+  Future<List<SavedBanks>> loadSavedBanksData() async {
+    try {
+      isLoading.value = true;
+      final List<SavedBanks> banks = await getUserSavedAccounts();
+      banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredSavedAccounts.value = List.from(banks);  //addAll(service.savedAccounts);
+      print("initState: ${filteredSavedAccounts}");
+      return filteredSavedAccounts;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      print("Error loading data: $error");
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+  
+
+
+
 
   /////[GET USER WALLET BALANCE]/////
   Future<WalletBalance> getUserWalletBalance() async {

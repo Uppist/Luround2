@@ -27,34 +27,6 @@ class _TrxHistoryListState extends State<TrxHistoryList> {
   var service = Get.put(WithdrawalService());
 
 
-  /*Future<void> _loadData() async {
-    try {
-      setState(() {
-        service.isLoading.value = true;
-      });
-      final List<UserTransactionsModel> transactions = await service.getUserTransactions();
-      //transactions.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
-      setState(() {
-        service.isLoading.value = false;
-        service.filteredTrxList.value = List.from(transactions);
-        print("initState: ${service.filteredTrxList}");
-      });
-    } 
-    catch (error) {
-      setState(() {
-        service.isLoading.value = false;
-      });
-      print("Error fetching trx list: $error");
-      // Handle error as needed, e.g., show an error message to the user
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _loadData();
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<UserTransactionsModel>>(
@@ -92,7 +64,7 @@ class _TrxHistoryListState extends State<TrxHistoryList> {
               if(data.isEmpty) {
                 return TrxEmptyState(
                   onRefresh: () {
-                    service.getUserTransactions();
+                    service.loadTransactionData();
                   },
                 );
               }

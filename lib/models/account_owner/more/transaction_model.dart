@@ -17,7 +17,7 @@ class UserTransactionsModel {
   late final String transaction_status;
   late final String transaction_ref;
   late final int transaction_date;
-  late final int transaction_time;
+  late final String transaction_time;
 
   
   UserTransactionsModel.fromJson(Map<String, dynamic> json,){
@@ -28,6 +28,6 @@ class UserTransactionsModel {
     transaction_status = json['transaction_status'] ?? "transaction_status";
     transaction_ref = json['transaction_ref'] ?? "transaction_ref";
     transaction_date = json['transaction_date'] ?? 0;
-    transaction_time = json['transaction_time'] ?? 1000;  
+    transaction_time = json['transaction_time'] ?? "no time";  
   }
 }

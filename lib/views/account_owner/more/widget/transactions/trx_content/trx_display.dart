@@ -17,7 +17,7 @@ class TrxDisplay extends StatelessWidget {
   final String transaction_status;
   final String transaction_ref;
   final int transaction_date;
-  final int transaction_time;
+  final String transaction_time;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +63,7 @@ class TrxDisplay extends StatelessWidget {
         ),
         SizedBox(height: 20.h,),
         Text(
-          "${convertServerTimeToDate(transaction_date)} ${convertServerTimeToTime(transaction_time)}",   //17:30
+          "${convertServerTimeToDate(transaction_date)} $transaction_time",   //17:30
           style: GoogleFonts.inter(
             color: AppColor.textGreyColor,
             fontSize: 14.sp,

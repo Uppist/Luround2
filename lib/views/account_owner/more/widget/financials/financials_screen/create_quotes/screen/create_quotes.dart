@@ -410,6 +410,29 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
+                                "VAT",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Text(
+                                "N200",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 30.h,),
+                          //row3
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
                                 "Total",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
@@ -475,7 +498,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             children: [
                               Text(
                                 '${controller.quoteNoteController.text.length}/${controller.maxLength}',
-                                style: GoogleFonts.poppins(
+                                style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w400

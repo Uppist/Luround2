@@ -75,7 +75,7 @@ Future<void> addProductBottomSheetForInvoice({required BuildContext context, req
                     ),
 
                     SizedBox(height: 20.h,), 
-                          
+                
                     //list of user's services
                     FutureBuilder<List<UserServiceModel>>(
                       future: service.loadServicesDataForInvoice(),
@@ -91,7 +91,7 @@ Future<void> addProductBottomSheetForInvoice({required BuildContext context, req
                           print("sn-data: ${snapshot.data}");
                           return Center(
                             child: Text(
-                              "no service found",
+                              "couldn't fetch services",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 13.sp,

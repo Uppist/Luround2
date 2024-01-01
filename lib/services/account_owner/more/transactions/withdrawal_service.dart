@@ -547,6 +547,28 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
+  ///[TO LAZY LOAD THE USER LIST OF TRANSACTIONS IN THE FUTURE BUILDER FOR TRANSACTIONS SCREEN]///
+  Future<List<UserTransactionsModel>> loadTransactionData() async {
+    try {
+      isLoading.value = true;
+      final List<UserTransactionsModel> transactions = await getUserTransactions();
+      //transactions.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredTrxList.value = List.from(transactions);
+      print("initState: ${filteredTrxList}");
+      return filteredTrxList;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      print("Error fetching trx list: $error");
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+
 
   /////[GET LOGGED-IN USER'S LIST OF Saved Banks]//////
 

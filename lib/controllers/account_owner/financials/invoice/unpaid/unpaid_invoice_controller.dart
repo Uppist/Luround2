@@ -7,7 +7,7 @@ import 'package:get/get.dart' as getx;
 
 
 
-class UnpadInvoiceController extends getx.GetxController {
+class UnpaidInvoiceController extends getx.GetxController {
   
   //to expnad the column
   final isServiceTapped = false.obs;

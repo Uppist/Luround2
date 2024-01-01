@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 class FilterUnpaidInvoiceButton extends StatelessWidget {
   FilterUnpaidInvoiceButton({super.key,});
 
-  var controller = Get.put(UnpadInvoiceController());
+  var controller = Get.put(UnpaidInvoiceController());
 
   @override
   Widget build(BuildContext context) {

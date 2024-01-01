@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -201,7 +200,7 @@ class FinancialsService extends getx.GetxController {
         debugPrint("dataList/productList for invoice: $dataListForInvoice");
 
         // Return the user services list
-        return dataList;
+        return dataListForInvoice;
       }
       else {
         isLoading.value = false;

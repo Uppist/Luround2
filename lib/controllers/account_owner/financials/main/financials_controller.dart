@@ -112,7 +112,7 @@ class FinancialsController extends getx.GetxController {
   }
   //(save to db) this is the selected date 
   String updatedInvoiceDate ({required String initialDate}) {
-    if(quoteDate.isNotEmpty) {
+    if(invoiceDate.isNotEmpty) {
       var result = invoiceDate[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);

@@ -22,7 +22,6 @@ class FinancialsController extends getx.GetxController {
   final TextEditingController quoteClientPhoneNumberController = TextEditingController();
   final TextEditingController searchProductsController = TextEditingController();
 
-
   
   var dates = <DateTime?>[].obs;
 
@@ -70,17 +69,6 @@ class FinancialsController extends getx.GetxController {
     return initialDate;
   }
 
-
-
-
-  
-
-
-
-
-
-
-
   //Edit added service screen/////
   final TextEditingController serviceDescController = TextEditingController();
   final TextEditingController meetingTypeController = TextEditingController();
@@ -98,9 +86,82 @@ class FinancialsController extends getx.GetxController {
 
 
 
+  /////[FOR INVOICE]/////////////
+  final isInvoiceListEmpty = false.obs;
+  //search textField
+  final isSearchProductForInvoice = false.obs;
+  final TextEditingController invoiceNoteController = TextEditingController();
+  final TextEditingController invoiceClientEmailController = TextEditingController();
+  final TextEditingController invoiceClientNameController = TextEditingController();
+  final TextEditingController invoiceClientPhoneNumberController = TextEditingController();
+  final TextEditingController searchProductsControllerForInvoice = TextEditingController();
+
+  var datesForInvoice = <DateTime?>[].obs;
+
+  ///CREATE INVOICE SECTION/////
+  int maxLengthForInvoice = 500;
+  //invoice date
+  var invoiceDate = <DateTime?>[].obs;
+  void selectedInvoiceDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      invoiceDate.clear();
+      // Add the new unique item
+      invoiceDate.add(dateList[0]);
+    }
+  }
+  //(save to db) this is the selected date 
+  String updatedInvoiceDate ({required String initialDate}) {
+    if(quoteDate.isNotEmpty) {
+      var result = invoiceDate[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
+
+  //due date for invoice
+  var dueDateForInvoice = <DateTime?>[].obs;
+  void selectedDueDateForInvoice(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      dueDateForInvoice.clear();
+      // Add the new unique item
+      dueDateForInvoice.add(dateList[0]);
+    }
+  }
+  //(save to db) this is the selected date 
+  String updatedDueDateForInvoice ({required String initialDate}) {
+    if(dueDateForInvoice.isNotEmpty) {
+      var result = dueDateForInvoice[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
+
+  //EDIT ADDED SERVICE SCREEN FOR INVOICE/////
+  final TextEditingController serviceDescControllerForInvoice = TextEditingController();
+  final TextEditingController meetingTypeControllerForInvoice = TextEditingController();
+  final TextEditingController rateControllerForInvoice = TextEditingController();
+  final TextEditingController durationControllerForInvoice = TextEditingController();
+  final TextEditingController discountControllerForInvoice = TextEditingController();
+
+  //for Speed dial floating action button (QUOTES)
+  final isInvoiceOpened = false.obs;
+
+
+
+
+
+
+
   @override
   void dispose() {
-    //searchQuoteController.dispose();
+    
+    ////QUOTES CONTROLLERS///
     quoteNoteController.dispose();
     quoteClientEmailController.dispose();
     quoteClientNameController.dispose();
@@ -112,6 +173,20 @@ class FinancialsController extends getx.GetxController {
     rateController.dispose();
     durationController.dispose();
     discountController.dispose();
+
+
+    ////INVOICE CONTROLLERS///
+    invoiceNoteController.dispose();
+    invoiceClientEmailController.dispose();
+    invoiceClientNameController.dispose();
+    invoiceClientPhoneNumberController.dispose();
+    searchProductsControllerForInvoice.dispose();
+
+    serviceDescControllerForInvoice.dispose();
+    meetingTypeControllerForInvoice.dispose();
+    rateControllerForInvoice.dispose();
+    durationControllerForInvoice.dispose();
+    discountControllerForInvoice.dispose();
     // TODO: implement dispose
     super.dispose();
   }

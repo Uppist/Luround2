@@ -4,17 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/controllers/account_owner/financials/invoice/unpaid/unpaid_invoice_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-
-
-var controller = Get.put(FinancialsController());
-
-Future<void> selectDueDateBottomSheetForInvoice({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
+Future<void> unpaiddateBottomSheet({required BuildContext context, required UnpadInvoiceController controller, required VoidCallback onCancel, required VoidCallback onApply,}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -46,13 +41,13 @@ Future<void> selectDueDateBottomSheetForInvoice({required BuildContext context, 
               //mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20.h),
+                SizedBox(height: 20.h,),
                 CalendarDatePicker2(
                   /*config: CalendarDatePicker2Config(
                     calendarType: CalendarDatePicker2Type.range,
                   ),*/
                   config: CalendarDatePicker2Config(  
-                    calendarType: CalendarDatePicker2Type.single,         
+                    calendarType: CalendarDatePicker2Type.range,         
                     weekdayLabelTextStyle:  GoogleFonts.inter(
                       color: AppColor.mainColor
                     ),
@@ -69,13 +64,15 @@ Future<void> selectDueDateBottomSheetForInvoice({required BuildContext context, 
                     selectedDayHighlightColor: AppColor.mainColor,
                     //calendarViewMode: DatePickerMode.day
                   ),
-                  value: controller.datesForInvoice,
+                  value: controller.dates,
                   onValueChanged: (dates) {
-                    controller.selectedDueDateForInvoice(dates);
-                    debugPrint("${controller.dueDateForInvoice}");
+                    controller.selectedDate(dates);
+                    debugPrint("${controller.dates}");
                   },
                 ),
                 SizedBox(height: 20.h,),
+
+
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10.w),
                   child: Row(
@@ -84,7 +81,7 @@ Future<void> selectDueDateBottomSheetForInvoice({required BuildContext context, 
                       InkWell(
                         onTap: onCancel,
                         child: Container(
-                          //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+                          //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                           alignment: Alignment.center,
                           height: 50.h,
                           width: 150.w,

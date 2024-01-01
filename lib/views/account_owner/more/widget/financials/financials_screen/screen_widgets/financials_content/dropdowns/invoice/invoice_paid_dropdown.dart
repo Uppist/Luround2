@@ -8,8 +8,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class InvoiceUnpaidDropDown extends StatelessWidget {
-  const InvoiceUnpaidDropDown({super.key});
+
+class InvoicePaidDropDown extends StatelessWidget {
+  const InvoicePaidDropDown({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
       color: AppColor.bgColor,
       position: PopupMenuPosition.under,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      initialValue: "Quote",
+      initialValue: "Invoice",
       itemBuilder: (context) {
         return [
           PopupMenuItem(
@@ -65,19 +66,6 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
             },
             child: Text(
               "Download",
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: AppColor.blackColor
-              ),
-            )
-          ),
-          PopupMenuItem(
-            onTap: () {
-              print('gggggeee');
-            },
-            child: Text(
-              "Enter payment",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,

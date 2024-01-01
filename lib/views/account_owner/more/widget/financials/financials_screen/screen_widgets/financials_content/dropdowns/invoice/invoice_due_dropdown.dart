@@ -8,9 +8,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-class InvoiceDropDown extends StatelessWidget {
-  const InvoiceDropDown({super.key});
+class InvoiceDueDropDown extends StatelessWidget {
+  const InvoiceDueDropDown({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class InvoiceDropDown extends StatelessWidget {
       color: AppColor.bgColor,
       position: PopupMenuPosition.under,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      initialValue: "Invoice",
+      initialValue: "Quote",
       itemBuilder: (context) {
         return [
           PopupMenuItem(
@@ -34,12 +33,25 @@ class InvoiceDropDown extends StatelessWidget {
               ),
             )
           ),
-          PopupMenuItem(
+          /*PopupMenuItem(
             onTap: () {
               print('gggggffff');
             },
             child: Text(
               "Edit",
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16.sp,
+                color: AppColor.blackColor
+              ),
+            )
+          ),*/
+          PopupMenuItem(
+            onTap: () {
+              print('gggggeee');
+            },
+            child: Text(
+              "Resend",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
@@ -53,6 +65,19 @@ class InvoiceDropDown extends StatelessWidget {
             },
             child: Text(
               "Download",
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16.sp,
+                color: AppColor.blackColor
+              ),
+            )
+          ),
+          PopupMenuItem(
+            onTap: () {
+              print('gggggeee');
+            },
+            child: Text(
+              "Enter payment",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,

@@ -26,11 +26,14 @@ class FinancialsService extends getx.GetxController {
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
 
+
+
+  ////FOR QUOTES/////
   var dataList = <UserServiceModel>[].obs;
   var filteredList = <UserServiceModel>[].obs;
 
   //////////////////////////////////////////////////////////////////////////////////
-  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER]///
+  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR QUOTES]///
   Future<List<UserServiceModel>> loadServicesData() async {
     try {
       isLoading.value = true;
@@ -123,6 +126,100 @@ class FinancialsService extends getx.GetxController {
 
 
 
+  ////FOR INVOICE/////
+  var dataListForInvoice = <UserServiceModel>[].obs;
+  var filteredListForInvoice = <UserServiceModel>[].obs;
+
+  //////////////////////////////////////////////////////////////////////////////////
+  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR QUOTES]///
+  Future<List<UserServiceModel>> loadServicesDataForInvoice() async {
+    try {
+      isLoading.value = true;
+      //await getUserServices();
+      final List<UserServiceModel> products = await getUserServicesForInvoice();
+      products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredListForInvoice.value = List.from(products);  
+      print("initialized List ForInvoice: ${filteredListForInvoice}");
+      return filteredListForInvoice;
+
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+
+  //working well
+  Future<void> filterProductsForInvoice(String query) async {
+    if (query.isEmpty) {
+      filteredListForInvoice.clear();
+      filteredListForInvoice.addAll(dataListForInvoice);
+      print("when query is empty: $filteredListForInvoice");
+    } 
+    else {
+      filteredListForInvoice.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filteredListForInvoice.addAll(dataList
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query
+        .toList());
+
+      print("when query is not empty: $filteredListForInvoice");
+    }
+  }
+  
+
+  ///[CREATE INVOICE SCREEN]
+  getx.RxList<UserServiceModel> selectedProductsForInvoice = <UserServiceModel>[].obs;
+
+  void toggleProductSelectionForInvoice(UserServiceModel product) {
+    if (selectedProductsForInvoice.contains(product)) {
+      selectedProductsForInvoice.remove(product);
+    } else {
+      selectedProductsForInvoice.add(product);
+    }
+  }
+
+  /////[GET LOGGED-IN USER'S SERVICES LIST]//////
+  Future<List<UserServiceModel>> getUserServicesForInvoice() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user services fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        final List<UserServiceModel> finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+
+        dataListForInvoice.clear();
+        dataListForInvoice.addAll(finalResult);
+        debugPrint("dataList/productList for invoice: $dataListForInvoice");
+
+        // Return the user services list
+        return dataList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load user services data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
+
 
 
 
@@ -134,13 +231,19 @@ class FinancialsService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
-    //service.filteredList.addAll(service.dataList);
-    //print("initState: ${service.filteredList}");
-
+    
+    //FOR QUOTES
     getUserServices().then((List<UserServiceModel> list) {
       filteredList.clear();
       filteredList.addAll(list);  //service.dataList
-      print("initState: $filteredList");
+      print("initState FOR QUOTES: $filteredList");
+    });
+    
+    //FOR INVOICE
+    getUserServicesForInvoice().then((List<UserServiceModel> list) {
+      filteredListForInvoice.clear();
+      filteredListForInvoice.addAll(list);  //service.dataList
+      print("initState FOR INVOICE: $filteredListForInvoice");
     });
   }
 

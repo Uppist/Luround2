@@ -5,17 +5,19 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_service_widgets/border_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/added_service_widgets/no_border_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/no_border_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/no_border_textfield.dart';
 
 
 
 
 
-class ViewAddedServiceDetails extends StatelessWidget {
-  ViewAddedServiceDetails({super.key});
+class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
+  ViewAddedServiceDetailsForInvoice({super.key});
 
-  var controller = Get.put(FinancialsController());
+  //var controller = Get.put(FinancialsController());
   var finService = Get.put(FinancialsService());
 
   @override
@@ -135,7 +137,7 @@ class ViewAddedServiceDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.h,),
-                    NoBorderTextField(
+                    NoBorderTextFieldForInvoice(
                       onChanged: (p0) {},
                       hintText: 'Enter service name',
                       keyboardType: TextInputType.name,
@@ -153,7 +155,7 @@ class ViewAddedServiceDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.h,),
-                    NoBorderTextField(
+                    NoBorderTextFieldForInvoice(
                       onChanged: (p0) {},
                       hintText: 'Enter service description',
                       keyboardType: TextInputType.text,
@@ -172,7 +174,7 @@ class ViewAddedServiceDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.h,),
-                    NoBorderTextField(
+                    NoBorderTextFieldForInvoice(
                       onChanged: (p0) {},
                       hintText: 'Enter meeting type',
                       keyboardType: TextInputType.text,
@@ -191,7 +193,7 @@ class ViewAddedServiceDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.h,),
-                    BorderTextField(
+                    BorderTextFieldForInvoice(
                       onChanged: (p0) {},
                       hintText: 'Enter service fee',
                       keyboardType: TextInputType.number,
@@ -210,7 +212,7 @@ class ViewAddedServiceDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10.h,),
-                    BorderTextField(
+                    BorderTextFieldForInvoice(
                       onChanged: (p0) {},
                       hintText: 'Enter service duration',
                       keyboardType: TextInputType.text,
@@ -233,7 +235,7 @@ class ViewAddedServiceDetails extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Expanded(
-                          child: DiscountTextField(
+                          child: DiscountTextFieldForInvoice(
                             onChanged: (p0) {},
                             hintText: 'Enter service discount',
                             keyboardType: TextInputType.number,

@@ -19,7 +19,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-Future<void> addProductBottomSheet({required BuildContext context, required FinancialsService service, required FinancialsController controller}) async{
+Future<void> addProductBottomSheetForInvoice({required BuildContext context, required FinancialsService service, required FinancialsController controller}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -55,18 +55,18 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                             onFocusChanged: (val) {},
                             onFieldSubmitted: (val) {
                               setState(() {
-                                controller.isSearchProduct.value = false;
-                                print(controller.searchProductsController.text);
-                                service.filterProducts(val);
+                                controller.isSearchProductForInvoice.value = false;
+                                print(controller.searchProductsControllerForInvoice.text);
+                                service.filterProductsForInvoice(val);
                               });
                             },
                             hintText: "Search",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,  //.search,
-                            textController: controller.searchProductsController,
+                            textController: controller.searchProductsControllerForInvoice,
                             onTap: () {
                               setState(() {
-                                controller.isSearchProduct.value = true;
+                                controller.isSearchProductForInvoice.value = true;
                               });
                             },
                           );
@@ -78,7 +78,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                           
                     //list of user's services
                     FutureBuilder<List<UserServiceModel>>(
-                      future: service.loadServicesData(), //.getUserServices(),
+                      future: service.loadServicesDataForInvoice(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.waiting) {
                           return Loader2();
@@ -88,7 +88,17 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                         }
                         if (!snapshot.hasData || snapshot.data!.isEmpty) {
                           print("sn-trace: ${snapshot.stackTrace}");
-                          print("sn-data: ${snapshot.data}");                   
+                          print("sn-data: ${snapshot.data}");
+                          return Center(
+                            child: Text(
+                              "no service found",
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.normal
+                              )
+                            )
+                          );                   
                         }
                         if (snapshot.hasData) {
 
@@ -99,7 +109,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                             physics: BouncingScrollPhysics(),
                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                             shrinkWrap: true,
-                            itemCount: data.length, //service.filteredList.length, //data.length,
+                            itemCount: data.length,
                             itemBuilder: (context, index) {
             
                               final item = data[index];
@@ -125,22 +135,21 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                         borderRadius: BorderRadius.circular(5.r)
                                       ),
                                       activeColor: AppColor.mainColor,
-                                      value: service.selectedProducts.contains(item), //selectedUsers.contains(user),
+                                      value: service.selectedProductsForInvoice.contains(item), //selectedUsers.contains(user),
                                       onChanged: (bool? value) {
-                                        //service.toggleProductSelection(product);
-                                        //
+                      
                                         setState(() {
                                           if (value != null) {
                                             // Ensure the object is the same instance
                                             if (value) {
-                                              if (!service.selectedProducts.contains(item)) {
-                                                service.selectedProducts.add(item);
-                                                print(service.selectedProducts);
+                                              if (!service.selectedProductsForInvoice.contains(item)) {
+                                                service.selectedProductsForInvoice.add(item);
+                                                print(service.selectedProductsForInvoice);
                                               }
                                             } 
                                             else {
-                                              service.selectedProducts.remove(item);
-                                              print(service.selectedProducts);
+                                              service.selectedProductsForInvoice.remove(item);
+                                              print(service.selectedProductsForInvoice);
                                             }
                                           }
                                         });

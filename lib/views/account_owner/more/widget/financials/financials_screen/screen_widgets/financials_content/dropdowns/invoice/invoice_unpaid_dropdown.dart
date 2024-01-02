@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/unpaid_invoices/view_unpaid_invoice_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/receipts_contents/delete_invoice/delete_invoice.dart';
 
 
 
@@ -11,7 +13,9 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class InvoiceUnpaidDropDown extends StatelessWidget {
-  const InvoiceUnpaidDropDown({super.key});
+  InvoiceUnpaidDropDown({super.key});
+  
+  var service = Get.put(FinancialsService());
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +93,11 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              print('gggggrtt');
+              deleteInvoiceBottomSheet(
+                context: context,
+                onDelete: () {},
+                service: service
+              );
             },
             child: Text(
               "Delete",

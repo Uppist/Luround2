@@ -58,12 +58,12 @@ class NotificationSettingScreen extends StatelessWidget {
               width: double.infinity,
               height: 7.h,
             ),*/
-
+        
             //SizedBox(height: 20.h,),
             
             ///Navigation Section/////
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.h,),
+              padding: EdgeInsets.symmetric(horizontal: 7.w,),
               height: 70.h, //65
               width: double.infinity,
               color: AppColor.bgColor,
@@ -136,7 +136,7 @@ class NotificationSettingScreen extends StatelessWidget {
               ),
             )
           ]
-        )
+        ),
       )
     );
   }

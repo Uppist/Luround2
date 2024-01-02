@@ -30,160 +30,144 @@ class _ShowSavedBanksState extends State<ShowSavedBanks> {
   var controller = Get.put(TransactionsController());
   var service = Get.put(WithdrawalService());
 
+  @override
+  void initState() {
+    super.initState();
+    service.loadSavedBanksData().then(
+      (value) => print("Saved Banks Loaded into the Widget Tree: $value")
+    );
+    
+  }
+
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body:
-
-          FutureBuilder<List<SavedBanks>>(
-            future: service.loadSavedBanksData(),
-          
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Loader();
-              }
-              if (snapshot.hasError) {
-                debugPrint("${snapshot.error}");
-              }
-              if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                debugPrint("sn-trace: ${snapshot.stackTrace}");
-                debugPrint("sn-data: ${snapshot.data}");
-                return NoSavedAccounts(
-                  onPressed: () {
-                    Get.to(() => AddAccountPageFromButton());
+      body: Obx(
+        () {
+          return service.isLoading.value ? Loader() : Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30.h),
+                SearchBankTextField(
+                  onFieldSubmitted: (p0) {
+                    setState(() {
+                      service.filterSavedBank(p0);
+                    });
                   },
-                );               
-              }
-              if (snapshot.hasData) {
-          
-                var data = snapshot.data!;
-          
-                return Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 30.h),
-                    SearchBankTextField(
-                      onFieldSubmitted: (p0) {
-                        setState(() {
-                          service.filterSavedBank(p0);
-                        });
-                      },
-                      hintText: 'Search',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.go,
-                      textController: controller.searchSavedBankController,
-                    ),
-              
-                    SizedBox(height: 40.h,),
-              
-                    //LIST OF SAVED BANKS GOTTEN FROM BACKEND API/
-                    Expanded(
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        separatorBuilder: (context, index) => SizedBox(height: 30.h),
-                        itemCount: data.length,
-                        padding: EdgeInsets.symmetric(vertical: 10.h),
-                        itemBuilder: (context, index) {
-                          final item = data[index];
-                          if(data.isEmpty) {
-                            return NoSavedAccounts(
-                              onPressed: () {
-                                Get.to(() => AddAccountPageFromButton());
-                              },
-                            );
-                          }
-                          return Dismissible(
-                            direction: DismissDirection.endToStart,
-                            key: UniqueKey(),
-                            onDismissed: (direction) {},
-                            background: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(
-                                  Icons.delete_outline_rounded,
-                                  color: AppColor.redColor,
-                                ),
-                              ],
-                            ),
-                            child: InkWell(
-                              onTap: () {
-                                Get.to(() => TransferScreen(
-                                  wallet_balance: widget.wallet_balance,
-                                  bankCode: item.bank_code, //fetch from db
-                                  accountName: item.account_name,  //fetch from db
-                                  accountNumber: item.account_number,
-                                  bankName: item.bank_name,
-                                ));
-                              },
-                              child: AnimatedContainer(
-                                duration: Duration(milliseconds: 500),
-                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                                alignment: Alignment.center,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: AppColor.greyColor
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SvgPicture.asset("assets/svg/bank.svg"),
-                                    SizedBox(width: 20.w,),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            item.account_name,
-                                            style: GoogleFonts.inter(
+                  hintText: 'Search',
+                  keyboardType: TextInputType.name,
+                  textInputAction: TextInputAction.go,
+                  textController: controller.searchSavedBankController,
+                ),        
+                SizedBox(height: 40.h,),      
+                //LIST OF SAVED BANKS GOTTEN FROM BACKEND API/
+                Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    separatorBuilder: (context, index) => SizedBox(height: 30.h),
+                    itemCount: service.filteredSavedAccounts.length,
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    itemBuilder: (context, index) {
+
+                      final item = service.filteredSavedAccounts[index];    
+
+                      if(service.filteredSavedAccounts.isEmpty) {
+                        return NoSavedAccounts(
+                          onPressed: () {
+                            Get.to(() => AddAccountPageFromButton());
+                          },
+                        );
+                      }
+
+                      if(service.filteredSavedAccounts.isNotEmpty) {
+                        return Dismissible(
+                          direction: DismissDirection.endToStart,
+                          key: UniqueKey(),
+                          onDismissed: (direction) {},
+                          background: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Icon(
+                                Icons.delete_outline_rounded,
+                                color: AppColor.redColor,
+                              ),
+                            ],
+                          ),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(() => TransferScreen(
+                                wallet_balance: widget.wallet_balance,
+                                bankCode: item.bank_code, //fetch from db
+                                accountName: item.account_name,  //fetch from db
+                                accountNumber: item.account_number,
+                                bankName: item.bank_name,
+                              ));
+                            },
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 500),
+                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                              alignment: Alignment.center,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: AppColor.greyColor
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SvgPicture.asset("assets/svg/bank.svg"),
+                                  SizedBox(width: 20.w,),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          item.account_name,
+                                          style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
-                                              fontSize: 16.sp,
-                                              fontWeight: FontWeight.w500
-                                            ),
+                                            fontSize: 16.sp,
+                                            fontWeight: FontWeight.w500
                                           ),
-                                          SizedBox(height: 10.h,),
-                                          Text(
-                                            "${item.bank_name} | ${item.account_number}",
-                                            style: GoogleFonts.inter(
+                                        ),
+                                        SizedBox(height: 10.h,),
+                                        Text(
+                                          "${item.bank_name} | ${item.account_number}",
+                                          style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.w400
-                                            ),
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w400
                                           ),
-                                        ],
-                                      )
+                                        ),
+                                      ],
                                     )
-                                  ],
-                                ),
+                                  )
+                                ],
                               ),
                             ),
-                          );
-                        }
-                      ),
-                    )
-                  ]
-                ),
-                );
-              }
-              return Center(
-                child: Text(
-                  "connection timed out",
-                  style: GoogleFonts.inter(
-                    color: AppColor.darkGreyColor,
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.normal
-                  )
+                          ),
+                        );
+                      }
+                      
+                      return NoSavedAccounts(
+                        onPressed: () {
+                          Get.to(() => AddAccountPageFromButton());
+                        },
+                      );
+
+                    }
+                  ),
                 )
-              );
-            }
-          ),
-        
+              ]
+            ),
+          );
+        }
+      )   
     );
   }
 }

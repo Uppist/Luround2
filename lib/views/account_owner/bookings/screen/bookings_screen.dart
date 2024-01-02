@@ -16,9 +16,6 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/booking
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_bottomsheet.dart';
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_container.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
-import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
-import 'package:luround/views/account_owner/services/widget/delete_service/delete_service_bottomsheet.dart';
-
 
 
 
@@ -45,21 +42,20 @@ class _BookingsPageState extends State<BookingsPage> {
   @override
   void initState() {
     super.initState();
-    //service.filteredList.addAll(service.dataList);
-    //print("initState: ${service.filteredList}");
 
     service.getUserBookings().then((List<DetailsModel> list) {
       service.filteredList.clear();
       service.filteredList.addAll(list);  //service.dataList
       print("initState: ${service.filteredList}");
     });
+
   }
 
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.greyColor, //controller.isServicePresent.value ? AppColor.bgColor : AppColor.greyColor,
+      backgroundColor: AppColor.greyColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

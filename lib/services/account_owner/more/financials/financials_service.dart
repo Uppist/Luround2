@@ -42,13 +42,11 @@ class FinancialsService extends getx.GetxController {
 
       isLoading.value = false;
       filteredList.value = List.from(products);  
-      print("initialized: ${filteredList}");
       return filteredList;
 
     } 
     catch (error, stackTrace) {
       isLoading.value = false;
-      //print("Error loading data: $error");
       throw Exception("$error => $stackTrace");
       // Handle error as needed, e.g., show an error message to the user
     }

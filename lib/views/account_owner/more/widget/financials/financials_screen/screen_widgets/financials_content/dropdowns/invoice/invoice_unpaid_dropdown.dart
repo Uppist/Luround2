@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/unpaid_invoices/view_unpaid_invoice_screen.dart';
 
 
 
@@ -22,7 +24,7 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
         return [
           PopupMenuItem(
             onTap: () {
-              print('ggggg');
+              Get.to(() => ViewUnpaidInvoiceScreen());
             },
             child: Text(
               "View",

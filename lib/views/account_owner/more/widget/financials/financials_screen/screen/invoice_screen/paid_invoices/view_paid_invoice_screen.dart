@@ -92,7 +92,7 @@ class ViewPaidInvoiceScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "Judas Peter",
+                            "Judas Payd",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -197,14 +197,14 @@ class ViewPaidInvoiceScreen extends StatelessWidget {
                                 width: 60.w,
                                 height: 30.h,
                                 decoration: BoxDecoration(
-                                  color: AppColor.greyColor,
+                                  color: AppColor.bgColor,
                                   borderRadius: BorderRadius.circular(7.r),
-                                  border: Border.all(color: AppColor.greenColor)
+                                  border: Border.all(color: AppColor.darkGreen)
                                 ),
                                 child: Text(
                                   'PAID',
                                   style: GoogleFonts.inter(
-                                    color: AppColor.greenColor,
+                                    color: AppColor.darkGreen,
                                     fontSize: 10.sp,
                                     fontWeight: FontWeight.w500
                                   )

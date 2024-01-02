@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/invoice_paid_dropdown.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/invoice_unpaid_dropdown.dart';
 
 
@@ -56,7 +57,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
                   fontWeight: FontWeight.w400
                 ),
               ),
-              InvoiceUnpaidDropDown()
+              InvoicePaidDropDown()
             ],
           ),
           SizedBox(height: 10.h,),

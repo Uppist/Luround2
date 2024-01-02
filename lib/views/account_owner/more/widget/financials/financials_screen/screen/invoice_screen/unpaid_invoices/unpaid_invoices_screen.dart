@@ -36,7 +36,7 @@ class _UnpaidInvoicesPageState extends State<UnpaidInvoicesPage>{
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: controller.isFinancialsListEmpty.value ? AppColor.bgColor : AppColor.greyColor,
+      backgroundColor: AppColor.greyColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

@@ -7,7 +7,7 @@ import 'package:get/get.dart' as getx;
 
 
 
-class PaidInvoiceController extends getx.GetxController {
+class DueInvoiceController extends getx.GetxController {
   
   //to expnad the column
   final isServiceTapped = false.obs;
@@ -15,7 +15,7 @@ class PaidInvoiceController extends getx.GetxController {
   //TODO
   final isFinancialsListEmpty = false.obs;
   
-  final TextEditingController searchPaidInvoiceController = TextEditingController();
+  final TextEditingController searchDueInvoiceController = TextEditingController();
 
   //filter by date range
   var dates = <DateTime?>[].obs;
@@ -56,7 +56,7 @@ class PaidInvoiceController extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
-    searchPaidInvoiceController.dispose();
+    searchDueInvoiceController.dispose();
     super.dispose();
   }
 }

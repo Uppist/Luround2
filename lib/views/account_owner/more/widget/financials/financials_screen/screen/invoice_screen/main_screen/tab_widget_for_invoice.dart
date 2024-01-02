@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/due_invoices/due_invoice_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/paid_invoices/paid_invoices_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/unpaid_invoices/unpaid_invoices_screen.dart';
 
 
@@ -119,9 +121,9 @@ class _InvoiceScreenTabState extends State<InvoiceScreenTab> with SingleTickerPr
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      SizedBox(),
+                      PaidInvoicesPage(),
                       UnpaidInvoicesPage(),
-                      SizedBox()
+                      DueInvoicesPage()
                     ]
                   ),
                 ),

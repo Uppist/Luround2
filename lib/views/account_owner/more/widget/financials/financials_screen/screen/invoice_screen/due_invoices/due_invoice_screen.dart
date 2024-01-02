@@ -5,13 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/financials/invoice/paid/paid_invoice_controller.dart';
+import 'package:luround/controllers/account_owner/financials/invoice/due/due_invoice_controller.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/screen/create_invoice_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/utils/search_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/paid_invoice/filter_paid_invoice_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/paid_invoice/paid_invoice_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/due_invoice/due_invoice_list.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/due_invoice/filter_due_invoice_button.dart';
 
 
 
@@ -19,17 +19,16 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-
-class PaidInvoicesPage extends StatefulWidget {
-  PaidInvoicesPage({super.key});
+class DueInvoicesPage extends StatefulWidget {
+  DueInvoicesPage({super.key});
 
   @override
-  State<PaidInvoicesPage> createState() => _PaidInvoicesPageState();
+  State<DueInvoicesPage> createState() => _DueInvoicesPageState();
 }
 
-class _PaidInvoicesPageState extends State<PaidInvoicesPage>{
+class _DueInvoicesPageState extends State<DueInvoicesPage>{
 
-  var controller = Get.put(PaidInvoiceController());
+  var controller = Get.put(DueInvoiceController());
   var fincontroller = Get.put(FinancialsController());
 
   @override
@@ -58,14 +57,14 @@ class _PaidInvoicesPageState extends State<PaidInvoicesPage>{
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,
-                    textController: controller.searchPaidInvoiceController,
+                    textController: controller.searchDueInvoiceController,
                   )                
                 ),
                 SizedBox(height: 30.h,),
                 //filter button
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
-                  child: FilterPaidInvoiceButton(),
+                  child: FilterDueInvoiceButton(),
                 ),
                 SizedBox(height: 15.h,),                 
               ],
@@ -74,7 +73,7 @@ class _PaidInvoicesPageState extends State<PaidInvoicesPage>{
           //SizedBox(height: 20,),
           //financils list and empty state (run future builder there)
           //FinancialsEmptyState(),
-          PaidInvoiceList()
+          DueInvoiceList()
         ]
       ),  
       

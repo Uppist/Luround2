@@ -3,30 +3,31 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/drafted_quotes/drafted_quotes.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/requested_quotes/requested_quotes.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/sent_quote_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/due_invoices/due_invoice_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/paid_invoices/paid_invoices_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/unpaid_invoices/unpaid_invoices_screen.dart';
 
 
 
 
 
 
-class QuoteScreenTab extends StatefulWidget {
-  const QuoteScreenTab({super.key});
+
+class ReceiptScreenTab extends StatefulWidget {
+  const ReceiptScreenTab({super.key});
 
   @override
-  State<QuoteScreenTab> createState() => _QuoteScreenTabState();
+  State<ReceiptScreenTab> createState() => _ReceiptScreenTabState();
 }
 
-class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProviderStateMixin {
+class _ReceiptScreenTabState extends State<ReceiptScreenTab> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
   }
 
   @override
@@ -57,7 +58,7 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
               ),
               SizedBox(width: 3.w,),
               Text(
-                "Quotes",
+                "Receipts",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 17.sp,
@@ -71,7 +72,7 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.w),
+                  padding: EdgeInsets.symmetric(horizontal: 60.w),
                   child: AnimatedContainer(
                     padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                     width: double.infinity,
@@ -108,7 +109,6 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
                           isScrollable: false,
                           tabs: const [
                             Tab(text: 'Sent',),
-                            Tab(text: 'Requests',),
                             Tab(text: 'Drafts',),
                           ],
                         ),
@@ -123,9 +123,8 @@ class _QuoteScreenTabState extends State<QuoteScreenTab> with SingleTickerProvid
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      SentQuotesPage(),
-                      RequestedQuotesPage(),
-                      DraftedQuotesPage(),
+                      SizedBox(),
+                      SizedBox(),
                     ]
                   ),
                 ),

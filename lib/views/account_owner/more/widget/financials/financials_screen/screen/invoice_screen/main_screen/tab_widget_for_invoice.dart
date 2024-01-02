@@ -69,7 +69,7 @@ class _InvoiceScreenTabState extends State<InvoiceScreenTab> with SingleTickerPr
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.h),
+                  padding: EdgeInsets.symmetric(horizontal: 50.w),
                   child: AnimatedContainer(
                     padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                     width: double.infinity,

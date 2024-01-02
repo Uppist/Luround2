@@ -58,7 +58,7 @@ Future<void> deleteInvoiceBottomSheet({required BuildContext context, required V
                     ),
                     SizedBox(height: 30.h,),*/
                     Text(
-                      'Are you sure you want to delete this\n                          quote?',
+                      'Are you sure you want to delete?',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 16.sp,

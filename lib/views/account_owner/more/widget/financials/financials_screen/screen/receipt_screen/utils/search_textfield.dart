@@ -11,8 +11,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class QuotesSearchTextField extends StatefulWidget {
-  const QuotesSearchTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap,});
+class ReceiptSearchTextField extends StatefulWidget {
+  const ReceiptSearchTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
@@ -22,10 +22,10 @@ class QuotesSearchTextField extends StatefulWidget {
   final void Function()? onTap;
 
   @override
-  State<QuotesSearchTextField> createState() => _QuotesSearchTextFieldState();
+  State<ReceiptSearchTextField> createState() => _ReceiptSearchTextFieldState();
 }
 
-class _QuotesSearchTextFieldState extends State<QuotesSearchTextField> {
+class _ReceiptSearchTextFieldState extends State<ReceiptSearchTextField> {
 
 
   @override

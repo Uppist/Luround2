@@ -174,7 +174,7 @@ class FinancialsController extends getx.GetxController {
   int maxLengthForReceipt = 500;
 
   //receipt date
-  var receiptDate = <DateTime?>[].obs;
+  var receiptDate = <DateTime?>[].obs; 
 
   void selectedReceiptDate(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {

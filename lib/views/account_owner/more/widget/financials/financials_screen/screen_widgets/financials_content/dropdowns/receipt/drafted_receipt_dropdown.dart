@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/sent_receipts/view_sent_receipts.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/drafted_receipts/view_drafted_receipts.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/receipts_contents/delete_receipts/delete_receipt.dart';
 
 
@@ -28,7 +28,7 @@ class DraftedReceiptDropDown extends StatelessWidget {
         return [
           PopupMenuItem(
             onTap: () {
-              Get.to(() => ViewSentReceiptScreen());
+              Get.to(() => ViewDraftedReceiptScreen());
             },
             child: Text(
               "View",

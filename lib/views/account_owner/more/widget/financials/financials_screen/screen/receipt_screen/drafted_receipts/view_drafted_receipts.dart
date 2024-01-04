@@ -627,7 +627,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 10.h,),
                                     Text(
-                                      "sent receipt notes here",
+                                      "drafted receipt notes here",
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,

@@ -484,7 +484,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ),
 
                                 //dropdown menu item padding
-                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                                //padding: EdgeInsets.symmetric(horizontal: 20.w),
 
                                 items: controller.listOfModeOfPayments
                                 .map<DropdownMenuItem<String>>((String value) {

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/title_text.dart';
@@ -21,7 +22,7 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/ste
 
 
 class BookAppointmentScreen extends StatefulWidget {
-  BookAppointmentScreen({super.key, required this.serviceId, required this.service_name, required this.date, required this.time, required this.duration, required this.service_charge_virtual, required this.service_charge_in_person});
+  BookAppointmentScreen({super.key, required this.serviceId, required this.service_name, required this.date, required this.time, required this.duration, required this.service_charge_virtual, required this.service_charge_in_person, required this.avail_time});
   final String serviceId;
   final String service_name;
   final String date;
@@ -29,6 +30,7 @@ class BookAppointmentScreen extends StatefulWidget {
   final String duration;
   final String service_charge_virtual;
   final String service_charge_in_person;
+  final List<dynamic> avail_time;
    
 
   @override
@@ -170,6 +172,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
               title: Text(""), 
               isActive: controller.curentStep >= 2,
               content: Step3Screen(
+                avail_time: widget.avail_time,
                 onSubmit: () {
                   //save all details before getting to the next screen
                   //booking details

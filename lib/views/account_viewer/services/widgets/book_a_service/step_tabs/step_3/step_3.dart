@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_3/time_selector_grid_view.dart';
 import '../../../../../../../utils/colors/app_theme.dart';
@@ -15,8 +16,9 @@ import '../../../../../../../utils/colors/app_theme.dart';
 
 
 class Step3Screen extends StatefulWidget {
-  Step3Screen({super.key,required this.onSubmit});
+  Step3Screen({super.key,required this.onSubmit, required this.avail_time});
   final VoidCallback onSubmit;
+  final List<dynamic> avail_time;
 
   @override
   State<Step3Screen> createState() => _Step3ScreenState();
@@ -43,7 +45,9 @@ class _Step3ScreenState extends State<Step3Screen> {
           ),
           SizedBox(height: 20.h,),
           //time gridview        
-          TimeGridView(),
+          TimeGridView(
+            avail_time: widget.avail_time,
+          ),
           SizedBox(height: 220.h,),
           RebrandedReusableButton(
             textColor: AppColor.bgColor,

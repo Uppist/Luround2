@@ -14,12 +14,14 @@ class UserServiceModel {
     required this.service_provider_details,
     required this.date,
     required this.service_link,
+    required this.available_time,
   });
   late final String serviceId;
   late final String email;
   late final String service_name;
   late final String description;
   late final List<dynamic> links;
+  late final List<dynamic> available_time;
   late final String service_charge_in_person;
   late final String service_charge_virtual;
   late final String duration;
@@ -35,7 +37,8 @@ class UserServiceModel {
     email = json['email'] ?? "email";
     service_name = json['service_name'] ?? "service_name";
     description = json['description'] ?? "service_description";
-    links = json['links'] ?? ["null value"];
+    links = json['links'] ?? ["link1"];
+    available_time = json['available_time'] ?? ["time"];
     service_charge_in_person = json['service_charge_in_person'] ?? "service_charge_in_person";
     service_charge_virtual = json['service_charge_virtual'] ?? "service_charge_virtual";
     duration = json['duration'] ?? "duration";

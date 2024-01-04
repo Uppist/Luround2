@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -67,7 +66,15 @@ class AccViewerServicesController extends getx.GetxController {
   ///Book Appointment///////////////////////////////////////////
   //formKey
   final formKeyBA = GlobalKey();
+
   //(save to db)
+  final selectedAvailableTime = "".obs;
+  void onAvailableTimeSelected({required List<dynamic> avail_time, required int index}) {
+    selectedAvailableTime.value = avail_time[index];
+    print('Selected Avail Time: ${selectedAvailableTime.value}');
+    // You can perform any other actions based on the selected animal here
+  }
+
   final TextEditingController nameBAController = TextEditingController();
   final TextEditingController emailBAController = TextEditingController();
   final TextEditingController phoneNumberBAController = TextEditingController();
@@ -105,7 +112,17 @@ class AccViewerServicesController extends getx.GetxController {
   //(save the selected time below to db)
   //Logic to be implemented
   getx.RxString selectedTime = ''.obs;
+
+
   /////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 
   //proceed to pay screen (save to db)
   final TextEditingController cardholderNameController = TextEditingController();

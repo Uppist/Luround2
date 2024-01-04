@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -23,9 +24,29 @@ import 'firebase_options.dart';
 
 var controller = Get.put(MainPageController());
 
+
+//flutter local notifications fuckkinngg worked.. finallyyyyy
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
 //Top level non-anonymous function for FCM push notifications for background mode
 Future<void> backgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message ${message.messageId}');
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  AndroidNotificationChannel channel = const AndroidNotificationChannel(
+    'high_importance_channel', //id
+    'High Importance Notification', //title
+    importance: Importance.high
+  );
+
+  //added this to catch the back ground push notification and display it in foreground cause user may be using the app
+  flutterLocalNotificationsPlugin.show(
+    message.data.hashCode, 
+    message.data['title'], 
+    message.data['body'], 
+    NotificationDetails(
+      android: AndroidNotificationDetails(channel.id, channel.name,)
+    )
+  );
 }
 
 

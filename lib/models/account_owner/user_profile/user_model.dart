@@ -12,6 +12,7 @@ class UserModel {
     required this.company,
     required this.certificates,
     required this.media_links,
+    required this.logo_url
   });
   late final String id;
   late final String email;
@@ -22,6 +23,7 @@ class UserModel {
   late final String about;
   late final String luround_url;
   late final String company;
+  late final String logo_url;
   late final List<dynamic> certificates;
   late final List<dynamic> media_links;
   
@@ -34,6 +36,7 @@ class UserModel {
     occupation = json['occupation'] ?? "occ";
     about = json['about'] ?? "about";
     luround_url = json["luround_url"] ?? "url";
+    logo_url = json["logo_url"] ?? "logo_url";
     company = json["company"] ?? "company";
     certificates = json['certificates'] ?? [];
     media_links = json['media_links'] ?? [];
@@ -49,6 +52,7 @@ class UserModel {
     _data['occupation'] = occupation;
     _data['about'] = about;
     _data["luround_url"] = luround_url;
+    _data["logo_url"] = logo_url;
     _data["company"] = company;
     _data['certificates'] = certificates;
     _data['media_links'] = media_links;

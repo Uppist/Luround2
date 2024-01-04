@@ -28,12 +28,13 @@ import 'textfields/occupation_textfield.dart';
 
 
 class EditPhotoPage extends StatefulWidget {
-  EditPhotoPage({super.key, required this.firstName, required this.lastName, required this.company, required this.occupation, required this.photoUrl});
+  EditPhotoPage({super.key, required this.firstName, required this.lastName, required this.company, required this.occupation, required this.photoUrl, required this.logo_url});
   final String firstName;
   final String lastName;
   final String company;
   final String occupation;
   final String photoUrl;
+  final String logo_url;
 
   @override
   State<EditPhotoPage> createState() => _EditPhotoPageState();
@@ -43,7 +44,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
 
   var controller = Get.put(ProfilePageController());
   var profileService = Get.put(AccOwnerProfileService());
-  var logoUrl = LocalStorage.getCompanyLogoUrl();
+  final String logoUrl = LocalStorage.getCompanyLogoUrl();
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +262,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 onPressed: () async{
 
                                   await profileService.updatePersonalDetails(
-                                    logo_url: logoUrl,
+                                    logo_url: logoUrl.isEmpty ? widget.logo_url : logoUrl,
                                     context: context,
                                     firstName: controller.firstNameController.text.isEmpty ? widget.firstName : controller.firstNameController.text, 
                                     lastName: controller.lastNameController.text.isEmpty ? widget.lastName : controller.lastNameController.text, 

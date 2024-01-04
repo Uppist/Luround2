@@ -216,6 +216,7 @@ class _ProfilePageState extends State<ProfilePage> {
           return InkWell(
             onTap: () {
               Get.to(() => EditPhotoPage(
+                logo_url: data.logo_url,
                 firstName: getFirstName(fullName: data.displayName),
                 lastName: getLastName(fullName: data.displayName),
                 company: data.company,
@@ -331,6 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
               onPressed: () {
                 Get.to(
                   () => AddSectionPage(
+                    logo_url: data.logo_url,
                     aboutUser: data.about,
                     firstName: getFirstName(fullName: data.displayName),
                     lastName: getLastName(fullName: data.displayName),
@@ -348,15 +350,34 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Center(
-              child: Text(
-                data.company,
-                style: GoogleFonts.inter(
-                  textStyle: TextStyle(
-                    color: AppColor.blackColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    height: 25.h,
+                    width: 25.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.r),
+                      color: AppColor.greyColor,
+                      image: DecorationImage(
+                        image: NetworkImage(data.logo_url),
+                        fit: BoxFit.cover
+                      )
+                    ),
                   ),
-                ),
+                  SizedBox(width: 10.w,),
+                  Text(
+                    data.company,
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.blackColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
 
@@ -482,6 +503,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onPressed: () {
                   Get.to(
                     () => AddSectionPage(
+                      logo_url: data.logo_url,
                       aboutUser: data.about,
                       firstName: getFirstName(fullName: data.displayName),
                       lastName: getLastName(fullName: data.displayName),

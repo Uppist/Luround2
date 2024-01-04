@@ -1,0 +1,138 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/utils/colors/app_theme.dart';
+
+
+
+
+
+
+
+
+
+
+class NotesTextFieldForReceipt extends StatefulWidget {
+  const NotesTextFieldForReceipt ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.controller,});
+  //final String initialValue;
+  final TextInputType keyboardType;
+  final String hintText;
+  final TextInputAction textInputAction;
+  final void Function(String)? onChanged;
+  final TextEditingController controller;
+
+  @override
+  State<NotesTextFieldForReceipt> createState() => _NotesTextFieldForReceiptState();
+}
+
+class _NotesTextFieldForReceiptState extends State<NotesTextFieldForReceipt> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Focus(
+      onFocusChange: (hasFocus) {},
+      child: TextFormField(
+        onChanged: widget.onChanged,
+        //initialValue: widget.initialValue,
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        minLines: 1,
+        maxLines: 8,
+        autocorrect: true,
+        inputFormatters: const [],
+        enableSuggestions: true,
+        enableInteractiveSelection: true,
+        cursorColor: AppColor.blackColor,
+        style: GoogleFonts.inter(color: AppColor.blackColor),
+        textCapitalization: TextCapitalization.sentences,
+        textInputAction: widget.textInputAction,          
+        scrollPhysics: const BouncingScrollPhysics(),
+        decoration: InputDecoration(        
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none, // Remove the border
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
+          ),     
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(
+            color: AppColor.textGreyColor, 
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400
+          ),              
+          //filled: true,
+          //fillColor: swapSpaceWhiteColor,
+          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class ClientEmailTextFieldForReceipt extends StatefulWidget {
+  const ClientEmailTextFieldForReceipt ({super.key,required this.onChanged, required this.hintText, required this.keyboardType, required this.textInputAction, required this.controller,});
+  //final String initialValue;
+  final TextInputType keyboardType;
+  final String hintText;
+  final TextInputAction textInputAction;
+  final void Function(String)? onChanged;
+  final TextEditingController controller;
+
+  @override
+  State<ClientEmailTextFieldForReceipt> createState() => _ClientEmailTextFieldForReceiptState();
+}
+
+class _ClientEmailTextFieldForReceiptState extends State<ClientEmailTextFieldForReceipt> {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Focus(
+      onFocusChange: (hasFocus) {},
+      child: TextFormField(
+        onChanged: widget.onChanged,
+        //initialValue: widget.initialValue,
+        controller: widget.controller,
+        keyboardType: widget.keyboardType,
+        minLines: 1,
+        maxLines: 8,
+        autocorrect: true,
+        inputFormatters: const [],
+        enableSuggestions: true,
+        enableInteractiveSelection: true,
+        cursorColor: AppColor.blackColor,
+        style: GoogleFonts.inter(color: AppColor.blackColor),
+        textCapitalization: TextCapitalization.sentences,
+        textInputAction: widget.textInputAction,          
+        scrollPhysics: const BouncingScrollPhysics(),
+        decoration: InputDecoration(        
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none, // Remove the border
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
+          ),     
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(
+            color: AppColor.textGreyColor, 
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400
+          ),              
+          //filled: true,
+          //fillColor: swapSpaceWhiteColor,
+          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+        ),
+      ),
+    );
+  }
+}

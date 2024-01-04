@@ -158,6 +158,63 @@ class FinancialsController extends getx.GetxController {
 
 
 
+  /////[FOR RECEIPT]/////////////
+  final isReceiptListEmpty = false.obs;
+  //search textField
+  final isSearchProductForReceipt = false.obs;
+  final TextEditingController receiptNoteController = TextEditingController();
+  final TextEditingController receiptClientEmailController = TextEditingController();
+  final TextEditingController receiptClientNameController = TextEditingController();
+  final TextEditingController receiptClientPhoneNumberController = TextEditingController();
+  final TextEditingController searchProductsControllerForReceipt = TextEditingController();
+
+  var datesForReceipt = <DateTime?>[].obs;
+
+  ///CREATE RECEIPT SECTION/////
+  int maxLengthForReceipt = 500;
+
+  //receipt date
+  var receiptDate = <DateTime?>[].obs;
+
+  void selectedReceiptDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      receiptDate.clear();
+      // Add the new unique item
+      receiptDate.add(dateList[0]);
+    }
+  }
+  //(save to db) this is the selected date 
+  String updatedReceiptDate ({required String initialDate}) {
+    if(receiptDate.isNotEmpty) {
+      var result = receiptDate[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
+
+  
+  //EDIT ADDED SERVICE SCREEN FOR RECEIPT/////
+  final TextEditingController serviceDescControllerForReceipt = TextEditingController();
+  final TextEditingController meetingTypeControllerForReceipt = TextEditingController();
+  final TextEditingController rateControllerForReceipt = TextEditingController();
+  final TextEditingController durationControllerForReceipt = TextEditingController();
+  final TextEditingController discountControllerForReceipt = TextEditingController();
+
+  //for Speed dial floating action button (RECEIPTS)
+  final isReceiptOpened = false.obs;
+
+  //mode of payment value for create receipt screen (RECEIPTS)
+  final modeOfPayment = "".obs;
+
+  
+
+
+
+
+
   @override
   void dispose() {
     
@@ -187,6 +244,20 @@ class FinancialsController extends getx.GetxController {
     rateControllerForInvoice.dispose();
     durationControllerForInvoice.dispose();
     discountControllerForInvoice.dispose();
+
+
+    ////RECEIPT CONTROLLERS////
+    receiptNoteController.dispose();
+    receiptClientEmailController.dispose();
+    receiptClientNameController.dispose();
+    receiptClientPhoneNumberController.dispose();
+    searchProductsControllerForInvoice.dispose();
+
+    serviceDescControllerForReceipt.dispose();
+    meetingTypeControllerForReceipt.dispose();
+    rateControllerForReceipt.dispose();
+    durationControllerForReceipt.dispose();
+    discountControllerForReceipt.dispose();
     // TODO: implement dispose
     super.dispose();
   }

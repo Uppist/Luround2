@@ -8,12 +8,6 @@ import 'package:luround/controllers/account_owner/financials/main/financials_con
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/due_date_selector.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/invocie_date_selector.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/add_product_bottomsheet.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/view_added_services_details.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/textfield_tool_for_invoice.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/date_selectors/receipt_date_selector.dart';
@@ -438,7 +432,6 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                     SizedBox(height: 20.h,),
 
                     //4 dropdown menu textfield for selcting mode of payment
-                    //4 write notes section
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                       child: Column(
@@ -454,6 +447,62 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                           ),
                           SizedBox(height: 20.h,),
                           //DropDown Menu Button comes here
+                          Obx(
+                            () {
+                              return DropdownButtonFormField<String>(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
+                                decoration: InputDecoration(        
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide.none, // Remove the border
+                                  ),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+                                  ),
+                                  focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
+                                  ),     
+                                  hintText: "Tap to select",
+                                  hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
+                                ),
+                                icon: Icon(
+                                  CupertinoIcons.chevron_down,
+                                  color: AppColor.blackColor,
+                                ),
+                                iconDisabledColor: AppColor.textGreyColor,
+                                iconEnabledColor: AppColor.blackColor,
+                                dropdownColor: AppColor.bgColor,
+                                borderRadius: BorderRadius.circular(10.r),
+                                value: controller.selectedModeOfPayment.value,
+                                onChanged: (String? newValue) {
+                                  controller.selectedModeOfPayment.value = newValue!;
+                                  debugPrint("mode of payment: ${controller.selectedModeOfPayment.value}");
+                                },
+                                style: GoogleFonts.inter(
+                                  color: AppColor.textGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                ),
+
+                                //dropdown menu item padding
+                                padding: EdgeInsets.symmetric(horizontal: 20.w),
+
+                                items: controller.listOfModeOfPayments
+                                .map<DropdownMenuItem<String>>((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.darkGreyColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w400,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              );
+                            }
+                          ),
                         ]
                       )
                     ),

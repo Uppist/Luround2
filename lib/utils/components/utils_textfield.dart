@@ -41,7 +41,8 @@ class _UtilsTextFieldState extends State<UtilsTextField> {
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,
-        style: GoogleFonts.inter(color: AppColor.blackColor),
+        //style: GoogleFonts.inter(color: AppColor.blackColor),
+        style: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),             
         textCapitalization: TextCapitalization.sentences,
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),
@@ -56,10 +57,8 @@ class _UtilsTextFieldState extends State<UtilsTextField> {
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
           labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),              
-          //filled: true,
-          //fillColor: swapSpaceWhiteColor,
-          //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)
+          //labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp),
+          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),             
         ),
       ),
     );

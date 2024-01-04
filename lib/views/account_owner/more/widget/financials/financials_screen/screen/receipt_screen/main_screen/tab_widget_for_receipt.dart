@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/drafted_receipts/drafted_receipts_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/sent_receipts/sent_receipts_screen.dart';
 
 
 
@@ -121,8 +123,8 @@ class _ReceiptScreenTabState extends State<ReceiptScreenTab> with SingleTickerPr
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      SizedBox(),
-                      SizedBox(),
+                      SentReceiptsPage(),
+                      DraftedReceiptsPage()
                     ]
                   ),
                 ),

@@ -206,8 +206,9 @@ class FinancialsController extends getx.GetxController {
   //for Speed dial floating action button (RECEIPTS)
   final isReceiptOpened = false.obs;
 
-  //mode of payment value for create receipt screen (RECEIPTS)
-  final modeOfPayment = "".obs;
+  //mode of payment value for create receipt screen (DROPDOWM MENU FIELD) (RECEIPTS)
+  final selectedModeOfPayment = "Card".obs; //save to db
+  final listOfModeOfPayments = <String>["Card", "Transfer", "Others"];
 
   
 

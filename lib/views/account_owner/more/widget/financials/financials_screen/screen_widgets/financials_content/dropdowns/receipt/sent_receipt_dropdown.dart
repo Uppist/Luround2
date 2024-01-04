@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/sent_receipts/view_sent_receipts.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/receipts_contents/delete_receipts/delete_receipt.dart';
 
 
 
 
 
 
-class ReceiptDropDown extends StatelessWidget {
-  const ReceiptDropDown({super.key});
+class SentReceiptDropDown extends StatelessWidget {
+  SentReceiptDropDown({super.key});
+
+  var service = Get.put(FinancialsService());
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +23,12 @@ class ReceiptDropDown extends StatelessWidget {
       color: AppColor.bgColor,
       position: PopupMenuPosition.under,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      initialValue: "Quote",
+      initialValue: "Receipt",
       itemBuilder: (context) {
         return [
           PopupMenuItem(
             onTap: () {
-              print('ggggg');
+              Get.to(() => ViewSentReceiptScreen());
             },
             child: Text(
               "View",
@@ -33,12 +39,25 @@ class ReceiptDropDown extends StatelessWidget {
               ),
             )
           ),
-          PopupMenuItem(
+          /*PopupMenuItem(
             onTap: () {
               print('gggggffff');
             },
             child: Text(
               "Edit",
+              style: GoogleFonts.inter(
+                fontWeight: FontWeight.w400,
+                fontSize: 16.sp,
+                color: AppColor.blackColor
+              ),
+            )
+          ),*/
+          PopupMenuItem(
+            onTap: () {
+              print('gggggffff');
+            },
+            child: Text(
+              "Resend",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
@@ -61,7 +80,11 @@ class ReceiptDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              print('gggggrtt');
+              deleteReceiptsBottomSheet(
+                context: context,
+                onDelete: () {},
+                service: service
+              );
             },
             child: Text(
               "Delete",

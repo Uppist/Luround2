@@ -9,7 +9,7 @@ import 'package:get/get.dart' as getx;
 
 class SentQuotesController extends getx.GetxController {
   
-  //to expnad the column
+  //to expand the column
   final isServiceTapped = false.obs;
   final isNoteTapped = false.obs;
   //TODO
@@ -46,6 +46,10 @@ class SentQuotesController extends getx.GetxController {
     }
     return "to";
   }
+
+
+
+
   ////////////////////////////
   @override
   void dispose() {

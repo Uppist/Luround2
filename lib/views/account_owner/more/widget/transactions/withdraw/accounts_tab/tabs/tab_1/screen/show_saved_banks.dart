@@ -17,6 +17,7 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 
+
 class ShowSavedBanks extends StatefulWidget {
   ShowSavedBanks({super.key, required this.wallet_balance});
   final int wallet_balance;
@@ -36,7 +37,6 @@ class _ShowSavedBanksState extends State<ShowSavedBanks> {
     service.loadSavedBanksData().then(
       (value) => print("Saved Banks Loaded into the Widget Tree: $value")
     );
-    
   }
 
 

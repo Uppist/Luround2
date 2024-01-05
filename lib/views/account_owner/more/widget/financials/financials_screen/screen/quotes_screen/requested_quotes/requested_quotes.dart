@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/controllers/account_owner/financials/qoutes/requested_quotes/requested_quotes_controller.dart';
+import 'package:luround/services/account_owner/more/financials/quotes_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/screen/create_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/utils/search_textfield.dart';
@@ -34,11 +34,20 @@ class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
 
   var controller = Get.put(RequestedQuotesController());
   var fincontroller = Get.put(FinancialsController());
+  var service = Get.put(QuotesService());
+
+  /*@override
+  void initState() {
+    super.initState();
+    service.loadReceivedQuotesData().then(
+      (value) => print("Received Quotes Loaded into the Widget Tree: $value")
+    );  
+  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: controller.isFinancialsListEmpty.value ? AppColor.bgColor : AppColor.greyColor,
+      backgroundColor: AppColor.greyColor,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -57,7 +66,11 @@ class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
                   child: QuotesSearchTextField(
                     onTap: () {},
-                    onFieldSubmitted: (p0) {},
+                    onFieldSubmitted: (p0) {
+                      setState(() {
+                        service.filterReceivedQuotes(p0);
+                      });
+                    },
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,

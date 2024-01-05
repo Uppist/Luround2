@@ -20,7 +20,7 @@ class  ViewTrxPdfScreen extends StatefulWidget {
 }
 
 class _ViewTrxPdfScreenState extends State<ViewTrxPdfScreen> {
-  var pdfService = Get.put(TransactionPdfService());
+  //var pdfService = Get.put(TransactionPdfService());
 
   @override
   Widget build(BuildContext context) {

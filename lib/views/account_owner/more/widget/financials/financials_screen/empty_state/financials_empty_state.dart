@@ -11,7 +11,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class FinancialsEmptyState extends StatelessWidget {
-  const FinancialsEmptyState({super.key,});
+  const FinancialsEmptyState({super.key, required this.titleText, required this.subtitleText,});
+  final String titleText;
+  final String subtitleText;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class FinancialsEmptyState extends StatelessWidget {
           SvgPicture.asset('assets/financials/no_financials.svg'),
           SizedBox(height: 30.h,),
           Text(
-            'No Financial documents yet',
+            titleText,
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
@@ -36,7 +38,7 @@ class FinancialsEmptyState extends StatelessWidget {
               )
             )
           ),
-          SizedBox(height: 10.h,),
+          SizedBox(height: 15.h,),
           RichText(
             text: TextSpan(
               children: [
@@ -61,7 +63,7 @@ class FinancialsEmptyState extends StatelessWidget {
                   )
                 ),
                 TextSpan(
-                  text: 'to create\n          a financial document.',
+                  text: 'to create\n          $subtitleText.',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,

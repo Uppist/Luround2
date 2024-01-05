@@ -122,7 +122,6 @@ class FinancialsService extends getx.GetxController {
   ////////////////////////////////////////////////////////////
 
 
-
   ////FOR INVOICE/////
   var dataListForInvoice = <UserServiceModel>[].obs;
   var filteredListForInvoice = <UserServiceModel>[].obs;

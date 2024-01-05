@@ -376,6 +376,7 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
+
   ///[WITHDRAW FUNDS]//
   Future<void> withdrawFunds({
     required BuildContext context,

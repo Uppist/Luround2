@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/invoice/unpaid/unpaid_invoice_controller.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/services/account_owner/more/financials/invoice_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/screen/create_invoice_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/utils/search_textfield.dart';
@@ -32,6 +33,7 @@ class _UnpaidInvoicesPageState extends State<UnpaidInvoicesPage>{
 
   var controller = Get.put(UnpaidInvoiceController());
   var fincontroller = Get.put(FinancialsController());
+  var service = Get.put(InvoicesService());
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,11 @@ class _UnpaidInvoicesPageState extends State<UnpaidInvoicesPage>{
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
                   child: InvoicesSearchTextField(
                     onTap: () {},
-                    onFieldSubmitted: (p0) {},
+                    onFieldSubmitted: (p0) {
+                      setState(() {
+                        service.filterUnpaidInvoice(p0);
+                      });
+                    },
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,

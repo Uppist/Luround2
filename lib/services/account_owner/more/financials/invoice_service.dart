@@ -24,50 +24,50 @@ class InvoicesService extends getx.GetxController {
   var email = LocalStorage.getUseremail();
 
 
-  /////[GET LOGGED-IN USER'S LIST OF SENT QUOTES]//////
-  var sentQuotesList = <dynamic>[].obs;
-  var filteredSentQuotesList = <dynamic>[].obs;
+  /////[GET LOGGED-IN USER'S LIST OF PAID INVOICES]//////
+  var paidInvoiceList = <dynamic>[].obs;
+  var filteredPaidInvoiceList = <dynamic>[].obs;
 
-  Future<void> filterSentQuotes(String query) async {
+  Future<void> filterPaidInvoice(String query) async {
     if (query.isEmpty) {
-      filteredSentQuotesList.clear();
-      filteredSentQuotesList.addAll(sentQuotesList);
-      print("when query is empty: $filteredSentQuotesList");
+      filteredPaidInvoiceList.clear();
+      filteredPaidInvoiceList.addAll(paidInvoiceList);
+      print("when query is empty: $filteredPaidInvoiceList");
     } 
     else {
       // Clear the previous filtered list
-      filteredSentQuotesList.clear();
+      filteredPaidInvoiceList.clear();
       // Use addAll to add the filtered items to the list
-      filteredSentQuotesList.addAll(
-      sentQuotesList.where((e) =>
+      filteredPaidInvoiceList.addAll(
+      paidInvoiceList.where((e) =>
           e.customer_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
-      print("when query is not empty: $filteredSentQuotesList");
+      print("when query is not empty: $filteredPaidInvoiceList");
     }
   }
 
-  Future<List<dynamic>> getUserSentQuotes() async {
+  Future<List<dynamic>> getUserPaidInvoice() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "quotes/sent-quotes",);
+      http.Response res = await baseService.httpGet(endPoint: "invoice/paid-invoices",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
-        debugPrint("user sent quotes list fetched successfully!!");
+        debugPrint("user paid invoice list fetched successfully!!");
 
         //Decode the response body here
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<SentQuotesResponseModel> finalResult = response.map((e) => SentQuotesResponseModel.fromJson(e)).toList();
+          //final List<PaidInvoiceResponseModel> finalResult = response.map((e) => PaidInvoiceResponseModel.fromJson(e)).toList();
 
-          sentQuotesList.clear();
-          sentQuotesList.addAll(response);  //finalResult
-          debugPrint("sent quotes list: $sentQuotesList");
+          paidInvoiceList.clear();
+          paidInvoiceList.addAll(response);  //finalResult
+          debugPrint("paid invoice list: $paidInvoiceList");
 
           //Return the list of sent quotes
-          return sentQuotesList;
+          return paidInvoiceList;
         } else {
           throw Exception('Response body is null');
         }
@@ -77,7 +77,7 @@ class InvoicesService extends getx.GetxController {
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user sent quotes');
+        throw Exception('Failed to fetch user paid invoice list');
       }
     } 
     catch (e) {
@@ -87,17 +87,17 @@ class InvoicesService extends getx.GetxController {
   }
 
 
-  ///[TO LAZY LOAD THE USER LIST OF SENT QUOTES IN THE FUTURE BUILDER FOR SENT QUOTES]///
-  Future<List<dynamic>> loadSentQuotesData() async {
+  ///[TO LAZY LOAD THE USER LIST OF PAID INVOICES IN THE FUTURE BUILDER FOR PAID INVOICES]///
+  Future<List<dynamic>> loadPaidInvoicesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> quotes = await getUserSentQuotes();
-      quotes.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<dynamic> invoices = await getUserPaidInvoice();
+      invoices.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
 
       isLoading.value = false;
-      filteredSentQuotesList.value = List.from(quotes); 
-      print("initState: ${filteredSentQuotesList}");
-      return filteredSentQuotesList;
+      filteredPaidInvoiceList.value = List.from(invoices); 
+      print("initState: ${filteredPaidInvoiceList}");
+      return filteredPaidInvoiceList;
   
     } 
     catch (error, stackTrace) {
@@ -109,50 +109,50 @@ class InvoicesService extends getx.GetxController {
 
 
 
-  /////[GET LOGGED-IN USER'S LIST OF RECEIVED QUOTES]//////
-  var receivedQuotesList = <dynamic>[].obs;
-  var filteredReceivedQuotesList = <dynamic>[].obs;
+  /////[GET LOGGED-IN USER'S LIST OF UNPAID INVOICES]//////
+  var unpaidInvoiceList = <dynamic>[].obs;
+  var filteredUnpaidInvoiceList = <dynamic>[].obs;
 
-  Future<void> filterReceivedQuotes(String query) async {
+  Future<void> filterUnpaidInvoice(String query) async {
     if (query.isEmpty) {
-      filteredReceivedQuotesList.clear();
-      filteredReceivedQuotesList.addAll(receivedQuotesList);
-      print("when query is empty: $filteredReceivedQuotesList");
+      filteredUnpaidInvoiceList.clear();
+      filteredUnpaidInvoiceList.addAll(unpaidInvoiceList);
+      print("when query is empty: $filteredUnpaidInvoiceList");
     } 
     else {
       // Clear the previous filtered list
-      filteredReceivedQuotesList.clear();
+      filteredUnpaidInvoiceList.clear();
       // Use addAll to add the filtered items to the list
-      filteredReceivedQuotesList.addAll(
-      receivedQuotesList.where((e) =>
+      filteredUnpaidInvoiceList.addAll(
+      unpaidInvoiceList.where((e) =>
           e.customer_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
-      print("when query is not empty: $filteredReceivedQuotesList");
+      print("when query is not empty: $filteredUnpaidInvoiceList");
     }
   }
 
-  Future<List<dynamic>> getUserReceivedQuotes() async {
+  Future<List<dynamic>> getUserUnpaidInvoice() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "quotes/received-quotes",);
+      http.Response res = await baseService.httpGet(endPoint: "invoice/unpaid-invoices",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
-        debugPrint("user received quotes list fetched successfully!!");
+        debugPrint("user unpaid invoice list fetched successfully!!");
 
         //Decode the response body here
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<ReceivedQuotesResponseModel> finalResult = response.map((e) => ReceivedQuotesResponseModel.fromJson(e)).toList();
+          //final List<UnpaidInvoiceResponseModel> finalResult = response.map((e) => PaidInvoiceResponseModel.fromJson(e)).toList();
 
-          receivedQuotesList.clear();
-          receivedQuotesList.addAll(response);  //finalResult
-          debugPrint("received quotes list: $receivedQuotesList");
+          unpaidInvoiceList.clear();
+          unpaidInvoiceList.addAll(response);  //finalResult
+          debugPrint("unpaid invoice list: $unpaidInvoiceList");
 
-          //Return the list of received quotes
-          return receivedQuotesList;
+          //Return the list of unpaid invoices
+          return unpaidInvoiceList;
         } else {
           throw Exception('Response body is null');
         }
@@ -162,7 +162,7 @@ class InvoicesService extends getx.GetxController {
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user received quotes');
+        throw Exception('Failed to fetch user unpaid invoices');
       }
     } 
     catch (e) {
@@ -172,17 +172,17 @@ class InvoicesService extends getx.GetxController {
   }
 
 
-  ///[TO LAZY LOAD THE USER LIST OF RECEIVED QUOTES IN THE FUTURE BUILDER FOR RECEIVED QUOTES]///
-  Future<List<dynamic>> loadReceivedQuotesData() async {
+  ///[TO LAZY LOAD THE USER LIST OF UNPAID INVOICES IN THE FUTURE BUILDER FOR UNPAID INVOICES]///
+  Future<List<dynamic>> loadUnpaidInvoicesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> quotes = await getUserReceivedQuotes();
-      quotes.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<dynamic> invoices = await getUserUnpaidInvoice();
+      invoices.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
 
       isLoading.value = false;
-      filteredReceivedQuotesList.value = List.from(quotes); 
-      print("initState: ${filteredReceivedQuotesList}");
-      return filteredReceivedQuotesList;
+      filteredUnpaidInvoiceList.value = List.from(invoices); 
+      print("initState: ${filteredUnpaidInvoiceList}");
+      return filteredUnpaidInvoiceList;
   
     } 
     catch (error, stackTrace) {
@@ -197,11 +197,11 @@ class InvoicesService extends getx.GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    loadSentQuotesData().then(
-      (value) => print("Sent Quotes Loaded into the Widget Tree: $value")
+    loadPaidInvoicesData().then(
+      (value) => print("Paid Invoices Loaded into the Widget Tree: $value")
     );
-    loadReceivedQuotesData().then(
-      (value) => print("Received Quotes Loaded into the Widget Tree: $value")
+    loadUnpaidInvoicesData().then(
+      (value) => print("Unpaid Invoices Loaded into the Widget Tree: $value")
     );
     super.onInit();
   }

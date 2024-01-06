@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/controllers/account_owner/financials/receipt/draft/drafted_receipt_controller.dart';
+import 'package:luround/services/account_owner/more/financials/receipt_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/screen/create_receipt_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/utils/search_textfield.dart';
@@ -33,6 +34,7 @@ class _DraftedReceiptsPageState extends State<DraftedReceiptsPage>{
 
   var controller = Get.put(DraftedReceiptController());
   var fincontroller = Get.put(FinancialsController());
+  var service = Get.put(ReceiptsService());
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,11 @@ class _DraftedReceiptsPageState extends State<DraftedReceiptsPage>{
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
                   child: ReceiptSearchTextField(
                     onTap: () {},
-                    onFieldSubmitted: (p0) {},
+                    onFieldSubmitted: (p0) {
+                      setState(() {
+                        service.filterDraftedReceipt(p0);
+                      });
+                    },
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,

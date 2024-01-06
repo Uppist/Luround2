@@ -33,9 +33,12 @@ class DraftedQuotesList extends StatelessWidget {
             itemCount: service.filteredDraftedQuotesList.length,
             //padding: EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (context, index) {
+              
+              final item = service.filteredDraftedQuotesList[index];
+
               if(service.filteredDraftedQuotesList.isEmpty) {
                 return FinancialsEmptyState(
-                  titleText: 'No sent quotes yet',
+                  titleText: 'No drafts yet',
                   subtitleText: 'a quote',
                 );
               }
@@ -46,7 +49,7 @@ class DraftedQuotesList extends StatelessWidget {
               }
 
               return FinancialsEmptyState(
-                titleText: 'No sent quotes yet',
+                titleText: 'No drafts yet',
                 subtitleText: 'a quote',
               );
   

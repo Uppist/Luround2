@@ -33,7 +33,7 @@ class UnpaidInvoiceList extends StatelessWidget {
             itemCount: service.filteredUnpaidInvoiceList.length,
             //padding: EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (context, index) {
-              final item = service.filteredPaidInvoiceList[index]; 
+              final item = service.filteredUnpaidInvoiceList[index]; 
               if(service.filteredUnpaidInvoiceList.isEmpty) {
                 return FinancialsEmptyState(
                   titleText: 'No invoice yet',

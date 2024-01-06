@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/services/account_owner/more/financials/receipt_service.dart';
 
 
 
@@ -8,6 +9,8 @@ import 'package:get/get.dart' as getx;
 
 
 class SentReceiptController extends getx.GetxController {
+
+  var receiptService = getx.Get.put(ReceiptsService());
   
   //to expnad the column
   final isServiceTapped = false.obs;
@@ -48,6 +51,28 @@ class SentReceiptController extends getx.GetxController {
   }
   ////////////////////////////
   
+  
+  //filter
+  Future<List<dynamic>> filterReceiptByDate() async{
+    //Convert the start and end date strings to DateTime objects
+    DateTime startDateTime = DateTime.parse(startDate());
+    DateTime endDateTime = DateTime.parse(endDate());
+    print("conv datetime: $startDateTime");
+    print("conv datetime: $endDateTime");
+
+    //Filter the invoice list based on the date range
+    List<dynamic> result = receiptService.filteredSentReceiptList
+    .where((user) {
+    DateTime invoiceDate = DateTime.parse(user['date']);
+
+    // Check if the invoice date is within the selected range
+    return invoiceDate.isAfter(startDateTime.subtract(Duration(days: 1))) &&
+      invoiceDate.isBefore(endDateTime.add(Duration(days: 1)));
+    }).toList();
+    print("filtered by date list: ${result}");
+    return result;
+  }
+
 
 
 

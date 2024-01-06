@@ -107,7 +107,7 @@ class InvoicesService extends getx.GetxController {
   }
 
 
-
+  
 
   /////[GET LOGGED-IN USER'S LIST OF UNPAID INVOICES]//////
   var unpaidInvoiceList = <dynamic>[].obs;
@@ -194,6 +194,96 @@ class InvoicesService extends getx.GetxController {
 
 
 
+  /////[GET LOGGED-IN USER'S LIST OF DUE INVOICES]//////
+  var dueInvoiceList = <dynamic>[].obs;
+  var filteredDueInvoiceList = <dynamic>[].obs;
+
+  Future<void> filterDueInvoice(String query) async {
+    if (query.isEmpty) {
+      filteredDueInvoiceList.clear();
+      filteredDueInvoiceList.addAll(dueInvoiceList);
+      print("when query is empty: $filteredDueInvoiceList");
+    } 
+    else {
+      // Clear the previous filtered list
+      filteredDueInvoiceList.clear();
+      // Use addAll to add the filtered items to the list
+      filteredDueInvoiceList.addAll(
+      dueInvoiceList.where((e) =>
+          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+      .toList());
+      print("when query is not empty: $filteredDueInvoiceList");
+    }
+  }
+
+  Future<List<dynamic>> getUserDueInvoice() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "invoice/due-invoices",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user due invoice list fetched successfully!!");
+
+        //Decode the response body here
+        //Check if the response body is not null
+        if (res.body != null) {
+          final List<dynamic> response = jsonDecode(res.body);
+          //final List<DueInvoiceResponseModel> finalResult = response.map((e) => DueInvoiceResponseModel.fromJson(e)).toList();
+
+          dueInvoiceList.clear();
+          dueInvoiceList.addAll(response);  //finalResult
+          debugPrint("due invoice list: $dueInvoiceList");
+
+          //Return the list of due invoices
+          return dueInvoiceList;
+        } else {
+          throw Exception('Response body is null');
+        }
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user due invoices');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      throw Exception("$e");    
+    }
+  }
+
+
+  ///[TO LAZY LOAD THE USER LIST OF DUE INVOICES IN THE FUTURE BUILDER FOR due INVOICES]///
+  Future<List<dynamic>> loadDueInvoicesData() async {
+    try {
+      isLoading.value = true;
+      final List<dynamic> invoices = await getUserDueInvoice();
+      invoices.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredDueInvoiceList.value = List.from(invoices); 
+      print("initState: ${filteredDueInvoiceList}");
+      return filteredDueInvoiceList;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      throw Exception("$error => $stackTrace");
+    }
+  }
+
+
+
+
+
+
+
+
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -202,6 +292,9 @@ class InvoicesService extends getx.GetxController {
     );
     loadUnpaidInvoicesData().then(
       (value) => print("Unpaid Invoices Loaded into the Widget Tree: $value")
+    );
+    loadDueInvoicesData().then(
+      (value) => print("Due Invoices Loaded into the Widget Tree: $value")
     );
     super.onInit();
   }

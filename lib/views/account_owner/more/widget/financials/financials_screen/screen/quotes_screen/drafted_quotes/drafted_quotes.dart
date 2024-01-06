@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/controllers/account_owner/financials/qoutes/drafts/drafted_quotes_controller.dart';
+import 'package:luround/services/account_owner/more/financials/quotes_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/screen/create_quotes.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/utils/search_textfield.dart';
@@ -33,6 +34,7 @@ class _DraftedQuotesPageState extends State<DraftedQuotesPage>{
 
   var controller = Get.put(DraftedQuotesController());
   var fincontroller = Get.put(FinancialsController());
+  var service = Get.put(QuotesService());
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,11 @@ class _DraftedQuotesPageState extends State<DraftedQuotesPage>{
                   padding: EdgeInsets.symmetric(horizontal: 13.w),
                   child: QuotesSearchTextField(
                     onTap: () {},
-                    onFieldSubmitted: (p0) {},
+                    onFieldSubmitted: (p0) {
+                      setState(() {
+                        service.filterDraftedQuotes(p0);
+                      });
+                    },
                     hintText: "Search",
                     keyboardType: TextInputType.text,
                     textInputAction: TextInputAction.done,

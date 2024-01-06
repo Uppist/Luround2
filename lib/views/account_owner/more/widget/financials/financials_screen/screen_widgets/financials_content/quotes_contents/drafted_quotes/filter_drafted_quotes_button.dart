@@ -19,6 +19,7 @@ class FilterDraftedQuotesButton extends StatelessWidget {
 
   var controller = Get.put(DraftedQuotesController());
 
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -30,7 +31,8 @@ class FilterDraftedQuotesButton extends StatelessWidget {
             Get.back();
           },
           onApply: () {
-            Get.back();
+            controller.filterQuoteByDate()
+            .whenComplete(() => Get.back());
           },
         );
       },

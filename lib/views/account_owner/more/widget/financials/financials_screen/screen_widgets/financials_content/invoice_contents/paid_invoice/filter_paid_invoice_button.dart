@@ -27,7 +27,8 @@ class FilterPaidInvoiceButton extends StatelessWidget {
             Get.back();
           },
           onApply: () {
-            Get.back();
+            controller.filterInvoiceByDate()
+            .whenComplete(() => Get.back());
           },
         );
       },

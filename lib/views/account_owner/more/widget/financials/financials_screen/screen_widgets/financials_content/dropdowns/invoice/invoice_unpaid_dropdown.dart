@@ -81,19 +81,6 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              print('gggggeee');
-            },
-            child: Text(
-              "Enter payment",
-              style: GoogleFonts.inter(
-                fontWeight: FontWeight.w400,
-                fontSize: 16.sp,
-                color: AppColor.blackColor
-              ),
-            )
-          ),
-          PopupMenuItem(
-            onTap: () {
               deleteInvoiceBottomSheet(
                 context: context,
                 onDelete: () {},

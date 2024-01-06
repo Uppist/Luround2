@@ -31,7 +31,8 @@ class FilterQuotesButton extends StatelessWidget {
             Get.back();
           },
           onApply: () {
-            Get.back();
+            controller.filterQuoteByDate()
+            .whenComplete(() => Get.back());
           },
         );
       },

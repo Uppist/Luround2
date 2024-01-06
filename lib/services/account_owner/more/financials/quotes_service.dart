@@ -193,6 +193,90 @@ class QuotesService extends getx.GetxController {
 
 
 
+  /////[GET LOGGED-IN USER'S LIST OF DRAFTED QUOTES]//////
+  var draftedQuotesList = <dynamic>[].obs;
+  var filteredDraftedQuotesList = <dynamic>[].obs;
+
+  Future<void> filterDraftedQuotes(String query) async {
+    if (query.isEmpty) {
+      filteredDraftedQuotesList.clear();
+      filteredDraftedQuotesList.addAll(draftedQuotesList);
+      print("when query is empty: $filteredDraftedQuotesList");
+    } 
+    else {
+      // Clear the previous filtered list
+      filteredDraftedQuotesList.clear();
+      // Use addAll to add the filtered items to the list
+      filteredDraftedQuotesList.addAll(
+      draftedQuotesList.where((e) =>
+          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+      .toList());
+      print("when query is not empty: $filteredDraftedQuotesList");
+    }
+  }
+
+  Future<List<dynamic>> getUserDraftedQuotes() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "quotes/drafted-quotes",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user drafted quotes list fetched successfully!!");
+
+        //Decode the response body here
+        //Check if the response body is not null
+        if (res.body != null) {
+          final List<dynamic> response = jsonDecode(res.body);
+          //final List<DraftedQuotesResponseModel> finalResult = response.map((e) => DraftedQuotesResponseModel.fromJson(e)).toList();
+
+          draftedQuotesList.clear();
+          draftedQuotesList.addAll(response);  //finalResult
+          debugPrint("drafted quotes list: $draftedQuotesList");
+
+          //Return the list of received quotes
+          return draftedQuotesList;
+        } else {
+          throw Exception('Response body is null');
+        }
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user drafted quotes');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      throw Exception("$e");    
+    }
+  }
+
+
+  ///[TO LAZY LOAD THE USER LIST OF DRAFTED QUOTES IN THE FUTURE BUILDER FOR DRAFTED QUOTES]///
+  Future<List<dynamic>> loadDraftedQuotesData() async {
+    try {
+      isLoading.value = true;
+      final List<dynamic> quotes = await getUserDraftedQuotes();
+      quotes.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredDraftedQuotesList.value = List.from(quotes); 
+      print("initState: ${filteredDraftedQuotesList}");
+      return filteredDraftedQuotesList;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      throw Exception("$error => $stackTrace");
+    }
+  }
+
+
+
 
   @override
   void onInit() {
@@ -203,6 +287,10 @@ class QuotesService extends getx.GetxController {
     loadReceivedQuotesData().then(
       (value) => print("Received Quotes Loaded into the Widget Tree: $value")
     );
+    loadDraftedQuotesData().then(
+      (value) => print("Drafted Quotes Loaded into the Widget Tree: $value")
+    );
+
     super.onInit();
   }
 

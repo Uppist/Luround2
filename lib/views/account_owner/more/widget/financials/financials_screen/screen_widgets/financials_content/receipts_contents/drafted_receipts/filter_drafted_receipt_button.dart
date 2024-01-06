@@ -29,7 +29,8 @@ class FilterDraftedReceiptButton extends StatelessWidget {
             Get.back();
           },
           onApply: () {
-            Get.back();
+            controller.filterReceiptByDate()
+            .whenComplete(() => Get.back());
           },
         );
       },

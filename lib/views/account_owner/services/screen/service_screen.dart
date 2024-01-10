@@ -101,7 +101,7 @@ class ServicesPage extends StatelessWidget {
               future: userService.getUserServices(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Loader();
+                  return Expanded(child: Loader());
                 }
                 if (snapshot.hasError) {
                   debugPrint("${snapshot.error}");

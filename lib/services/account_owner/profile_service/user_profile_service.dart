@@ -757,8 +757,10 @@ class AccOwnerProfileService extends getx.GetxController {
         debugPrint("user reviews gotten successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
-        debugPrint("$response");
-        return response.map((e) => ReviewResponse.fromJson(e)).toList();
+        debugPrint("res: $response");
+        final List<ReviewResponse> result = response.map((e) => ReviewResponse.fromJson(e)).toList();
+        debugPrint("result: $result");
+        return result;
       }
       else {
         isLoading.value = false;
@@ -768,10 +770,10 @@ class AccOwnerProfileService extends getx.GetxController {
         throw Exception('Failed to load user reviews');
       }
     } 
-    catch (e) {
+    catch (e, stackTrace) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw Exception("$e");
+      throw Exception("$e : $stackTrace");
     
     }
   }

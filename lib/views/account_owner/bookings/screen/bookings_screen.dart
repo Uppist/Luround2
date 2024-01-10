@@ -164,32 +164,12 @@ class _BookingsPageState extends State<BookingsPage> {
           //no booking available widget
           //BookingScreenEmptyState(onPressed: () {},),
               
-          FutureBuilder<List<DetailsModel>>(
-            future: service.getUserBookings(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Loader();
-              }
-              if (snapshot.hasError) {
-               print(snapshot.error);
-              }
-              if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                print("uh--oh! nothing dey;");
-                return BookingScreenEmptyState(
-                  onPressed: () {
-                    service.getUserBookings();
-                  },
-                );
-              }
-              if (snapshot.hasData) {
+          
             
-                //var data = snapshot.data!;
-            
-                return Expanded(
-                  child: Obx(
-                    () {
-                
-                      return ListView.separated(
+          Expanded(
+            child: Obx(
+              () {              
+                return service.isLoading.value ? Loader() : ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         physics: const BouncingScrollPhysics(),
@@ -206,8 +186,10 @@ class _BookingsPageState extends State<BookingsPage> {
                               },
                             );
                           }
+
+                          if(service.filteredList.isNotEmpty){
       
-                          return Container(
+                            return Container(
                             alignment: Alignment.center,
                             //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                             decoration: BoxDecoration(
@@ -220,8 +202,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                 blurStyle: BlurStyle.solid
                               )
                             ]
-                          ),
-                          child: Column(
+                            ),
+                            child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Padding(
@@ -231,8 +213,33 @@ class _BookingsPageState extends State<BookingsPage> {
                                       children: [
                                         //more vert icon
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          mainAxisAlignment: service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                                           children: [
+                                            //confirm bookings button
+                                            service.filteredList[index].booked_status == "PENDING CONFIRMATION" ?
+                                            InkWell(
+                                              onTap: () {},
+                                              child: Container(
+                                                height: 40.h,
+                                                width: 80.w,
+                                                alignment: Alignment.center,
+                                                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(10.r),
+                                                  color: AppColor.mainColor,
+                                                ),
+                                                child: Text(
+                                                  "Confirm",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.bgColor,
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
+                                                ),
+                                              ),
+                                            ) : SizedBox(),
+
+                                            //more vert button
                                             IconButton(
                                               onPressed: () {
                                                 bookingsListDialogueBox(
@@ -257,7 +264,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                             )
                                           ],
                                         ),
-                                        SizedBox(height: 5.h,),
+
+                                        SizedBox(height: 30.h,),
+
                                         //beginning
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.start,
@@ -292,7 +301,17 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   )
                                                 ],
                                               )
-                                            )
+                                            ),
+
+                                            Text(
+                                              service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
+                                              style: GoogleFonts.inter(
+                                                color: service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500
+                                              ),
+                                            ),
+
                                           ],
                                         ),
                                         SizedBox(height: 10.h,),
@@ -533,28 +552,23 @@ class _BookingsPageState extends State<BookingsPage> {
                               ),
                             );
                           }
+
+                          return BookingScreenEmptyState(
+                            onPressed: () {
+                              service.getUserBookings();
+                            },
+                          );
+                        }
                       );
                     }
                   ),
-                );
-              }
-              return Center(
-                child: Text(
-                  "connection timed out",
-                  style: GoogleFonts.inter(
-                    color: AppColor.darkGreyColor,
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.normal
-                  )
-                )
-              );
-            }
-          ),                                         
-          ///
-          SizedBox(height: 20.h,)
+          )
+        
         ]
+        
       )
     );
+
   }
 }
 

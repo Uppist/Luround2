@@ -288,6 +288,15 @@ class AccOwnerBookingService extends getx.GetxController {
       throw const HttpException("Something went wrong");
     }
   }
+  
 
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    super.onInit();
+    getUserBookings().then(
+      (value) => debugPrint("bookings inserted into the widget tree: $value")
+    );
+  }
 
 }

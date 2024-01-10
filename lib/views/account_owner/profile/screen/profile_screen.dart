@@ -242,9 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
       future: userProfileService.getUserProfileDetails(email: userEmail),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return SafeArea(
-            child: Loader()
-          );
+          return Loader();
         }
         if (snapshot.hasError) {
           print(snapshot.error);
@@ -253,6 +251,8 @@ class _ProfilePageState extends State<ProfilePage> {
           print("sn-trace: ${snapshot.stackTrace}");
           print("sn-data: ${snapshot.data}");
           return Loader2();
+          
+          
         }
          
         if (snapshot.hasData) {
@@ -319,6 +319,7 @@ class _ProfilePageState extends State<ProfilePage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Loader();
+  
         }
         if (snapshot.hasError) {
           print(snapshot.error);

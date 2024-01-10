@@ -27,12 +27,16 @@ class DetailsModel {
   final ServiceProviderInfo serviceProviderInfo;
   final BookingUserInfo bookingUserInfo;
   final ServiceDetails serviceDetails;
+  final String booked_status;
+  final String payment_reference_id;
 
   DetailsModel({
     required this.id,
     required this.serviceProviderInfo,
     required this.bookingUserInfo,
     required this.serviceDetails,
+    required this.booked_status, 
+    required this.payment_reference_id,
   });
 
   factory DetailsModel.fromJson(Map<String, dynamic> json) {
@@ -43,6 +47,8 @@ class DetailsModel {
       bookingUserInfo:
           BookingUserInfo.fromJson(json['booking_user_info'] ?? {}),
       serviceDetails: ServiceDetails.fromJson(json['service_details'] ?? {}),
+      booked_status: json["booked_status"] ?? "",
+      payment_reference_id: json['payment_reference_id'] ?? ""
     );
   }
 }

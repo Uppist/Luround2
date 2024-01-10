@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
@@ -52,6 +53,11 @@ class ReviewsPage extends StatelessWidget {
           }
           if (snapshot.hasError) {
             print(snapshot.error);
+            return ReviewEmptyState(
+              onPressed: () {
+                service.getUserReviews();
+              },
+            );
           }
           if (!snapshot.hasData) {
             print("uh--oh! nothing dey;");
@@ -71,8 +77,8 @@ class ReviewsPage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(height: 10.h),
-                    Container(
+                  SizedBox(height: 10.h),
+                  /*Container(
                     color: AppColor.greyColor,
                     width: double.infinity,
                     height: 7.h,
@@ -132,7 +138,7 @@ class ReviewsPage extends StatelessWidget {
                         )
                       ],
                     ),
-                  ),
+                  ),*/
                   Container(
                     color: AppColor.greyColor,
                     width: double.infinity,
@@ -192,7 +198,7 @@ class ReviewsPage extends StatelessWidget {
                                       RatingBarIndicator(                      
                                         unratedColor: AppColor.textGreyColor.withOpacity(0.2),
                                         itemPadding: EdgeInsets.symmetric(horizontal: 2.w),
-                                        rating: data[index].rating,  //fetch from db
+                                        rating: double.parse("${data[index].rating}"),  //fetch from db
                                         itemBuilder: (context, index) => Icon(
                                           CupertinoIcons.star_fill,
                                           color: AppColor.yellowStar,
@@ -203,7 +209,8 @@ class ReviewsPage extends StatelessWidget {
                                       ),
                                       //SizedBox(width: 40,),
                                       Text(
-                                        '14 Sept. 2023',
+                                        //'14 Sept. 2023',
+                                        convertServerTimeToDate(data[index].createdAt),
                                         style: GoogleFonts.inter(
                                           textStyle: TextStyle(
                                             color: AppColor.textGreyColor,

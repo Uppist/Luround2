@@ -7,6 +7,7 @@ import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/more/widget/billings/subscription_screen.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/pin_management_options.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/bank_details_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/customize_your_url/customize_url.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/password_settings/change_password_screen.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/settings_selector.dart';
@@ -63,6 +64,13 @@ class SettingsScreen extends StatelessWidget {
                   text: "Withdrawal PIN management",
                   onFlip: () {
                     Get.to(() => PinManagementOptions());
+                  },
+                ),
+                SizedBox(height: 20.h,),
+                SettingsSelector(
+                  text: "Your account details",
+                  onFlip: () {
+                    Get.to(() => BankDetailsPage());
                   },
                 ),
                 SizedBox(height: 20.h,),

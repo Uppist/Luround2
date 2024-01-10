@@ -13,7 +13,6 @@ import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/bank_field_flipper.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/select_bank_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/select_bank_screen_for_tab2.dart';
 
 
 
@@ -22,14 +21,15 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ac
 
 
 
-class AddAccountPageFromButton extends StatefulWidget {
-  AddAccountPageFromButton({super.key});
+
+class AddBankFromButton extends StatefulWidget {
+  AddBankFromButton({super.key});
 
   @override
-  State<AddAccountPageFromButton> createState() => _AddAccountPageFromButtonState();
+  State<AddBankFromButton> createState() => _AddBankFromButtonState();
 }
 
-class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
+class _AddBankFromButtonState extends State<AddBankFromButton> {
 
   var controller = Get.put(TransactionsController());
   var service = Get.put(WithdrawalService());
@@ -50,7 +50,7 @@ class _AddAccountPageFromButtonState extends State<AddAccountPageFromButton> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Withdraw',),
+        title: CustomAppBarTitle(text: 'Account detauls',),
       ),
       body: Builder(
         builder: (context) {

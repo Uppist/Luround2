@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
-import 'package:luround/models/account_owner/more/bank_response.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -30,21 +29,21 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
 
   Future<void> _loadData() async {
     try {
-      setState(() {
+      //setState(() {
         service.isLoading.value = true;
-      });
+      //});
       final List<dynamic> banks = await service.getBanksApi2();
       banks.sort((a, b) => a['name'].toLowerCase().compareTo(b['name'].toLowerCase()));
-      setState(() {
+      //setState(() {
         service.isLoading.value = false;
         service.filteredBankList2.value = List.from(banks);
         print("initState: ${service.filteredBankList2}");
-      });
+      //});
     } 
     catch (error) {
-      setState(() {
+      //setState(() {
         service.isLoading.value = false;
-      });
+      //});
       print("Error loading data: $error");
       // Handle error as needed, e.g., show an error message to the user
     }
@@ -110,62 +109,63 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
 
               SizedBox(height: 30.h,),
 
-                  Expanded(
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      itemCount: service.filteredBankList2.length, //data.length,
-                      padding: EdgeInsets.symmetric(vertical: 10.h),
-                      itemBuilder: (context, index) {
-                        final item = service.filteredBankList2[index];
-                        if(service.filteredBankList2.isEmpty) {
-                          return const Loader();
-                        }
-                        return InkWell(
-                          onTap: () {
-                            setState(() {
-                              // Update the selected index
-                              service.selectedIndex2.value = index;
-                              controller.inputBankController.text = item['name'];
-                              controller.inputBankCodeController.text = item['code'];
-                            });
-                            // Print the selected item
-                            print('Selected Item: ${controller.inputBankController.text}/${controller.inputBankCodeController.text}');
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              Expanded(
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
+                  itemCount: service.filteredBankList2.length, //data.length,
+                  padding: EdgeInsets.symmetric(vertical: 10.h),
+                  itemBuilder: (context, index) {
+                    final item = service.filteredBankList2[index];
+                    if(service.filteredBankList2.isEmpty) {
+                      return const Loader();
+                    }
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          // Update the selected index
+                          service.selectedIndex2.value = index;
+                          controller.inputBankController.text = item['name'];
+                          controller.inputBankCodeController.text = item['code'];
+                        });
+
+                        // Print the selected item
+                        print('Selected Item: ${controller.inputBankController.text}/${controller.inputBankCodeController.text}');
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 15.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(height: 15.h,),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      item['name'],
-                                      //data[index]['name'],
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w500
-                                      ),
-                                    ),
+                              Expanded(
+                                child: Text(
+                                  item['name'],
+                                  //data[index]['name'],
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
                                   ),
-                                  service.selectedIndex2.value == index 
-                                  ?Icon(
-                                    CupertinoIcons.check_mark,
-                                    color: AppColor.blackColor,
-                                  ) : SizedBox(),
-                                ],
+                                ),
                               ),
-                              SizedBox(height: 15.h,)
+                              service.selectedIndex2.value == index 
+                              ?Icon(
+                                CupertinoIcons.check_mark,
+                                color: AppColor.blackColor,
+                              ) : SizedBox(),
                             ],
                           ),
-                        );
-                      }
-                    ),
-                  )
+                          SizedBox(height: 15.h,)
+                        ],
+                      ),
+                    );
+                  }
+                ),
+              )
       
 
             ],

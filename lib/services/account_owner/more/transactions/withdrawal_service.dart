@@ -249,6 +249,63 @@ class WithdrawalService extends getx.GetxController {
       throw const HttpException("Something went wrong");
     }
   }
+
+  ///[CREATE NEW BANK DETAILS WITHOUT NAVIGATION]//
+  Future<void> createBankDetailsForSettingsPage({
+    required BuildContext context,
+    required String account_name,
+    required String account_number,
+    required String bank_name,
+    required String bank_code,
+    required String country,
+    required int wallet_balance
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "account_name" : account_name,
+      "account_number": account_number,
+      "bank_name": bank_name,
+      "bank_code": bank_code,
+      "country": country
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "wallet/add-bank-details", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user bank details created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "bank details created successfully"
+        ).whenComplete(() {
+          print("bank deets created fam!!!");
+        });
+    
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create bank details"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
   
   
   /////[GET USER PROFILE DETAILS]/////

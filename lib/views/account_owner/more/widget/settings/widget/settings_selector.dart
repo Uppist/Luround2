@@ -36,7 +36,7 @@ class _SettingsSelectorState extends State<SettingsSelector> {
               Text(
                 widget.text,
                 style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor, 
+                  color: AppColor.blackColor, 
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500
                 ),

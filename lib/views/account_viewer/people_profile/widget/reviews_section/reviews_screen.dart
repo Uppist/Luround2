@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/profile_page_controller__acc_viewer.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/services/account_viewer/services/get_user_service.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
@@ -244,7 +245,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                                       ),
                                       //SizedBox(width: 40,),
                                       Text(
-                                        '14 Sept. 2023',
+                                        convertServerTimeToDate(data[index].createdAt),
                                         style: GoogleFonts.inter(
                                           textStyle: TextStyle(
                                             color: AppColor.textGreyColor,

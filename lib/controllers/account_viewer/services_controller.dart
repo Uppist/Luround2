@@ -1,9 +1,13 @@
 import 'dart:io';
+import 'dart:math';
+import 'package:cloudinary/cloudinary.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 
 
 
@@ -13,8 +17,71 @@ import 'package:get/get.dart' as getx;
 
 
 class AccViewerServicesController extends getx.GetxController {
+
+
+  ///*to confirm if payment has been made by the client  for booking///
+  //UPLOAD FILE TO SHOW CLIENT HAS PAID FOR A SERVICE (PDF, DOCX, e.t.c)
+  File? selectedFileForBooking;
+  //cloudinary config
+  /// This three params can be obtained directly from your Cloudinary account Dashboard.
+  /// The .signedConfig(...) factory constructor is recommended only for server side apps, where [apiKey] and 
+  /// [apiSecret] are secure. 
+  final cloudinary = Cloudinary.signedConfig(
+    apiKey: "134673496275271",
+    apiSecret: "csuDqyvZIWyXB7vuxR-fN5q9D4E",
+    cloudName: "dxyzeiigv",
+  );
+  //upload image to cloudinary
+  Future<void> uploadReceiptToCloudinary({
+    required BuildContext context,
+    required File? file
+  }) async{
+    final int randomNum = Random().nextInt(2000000);
+    final response = await cloudinary.upload(
+      file: file!.path,
+      //uploadPreset: "somePreset",
+      resourceType: CloudinaryResourceType.image,
+      folder: "luround_client_trx_receipts",
+      fileName: 'luround_client_trx_receipt_$randomNum',
+      progressCallback: (count, total) {
+        print('Uploading image from file in progress: $count/$total');
+      }
+    );
   
+    if(response.isSuccessful) {
+      debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.darkGreen,
+        message: "receipt uploaded to cloudinary"
+      );
+    }
+    else {
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "failed to upload receipt to cloudinary"
+      );
+    }
+  }
+  //file picker to pick user docs/pdf
+  var isFileSelectedForBooking = false.obs;
+  Future<void> pickFileForPayment(context) async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png','pdf', 'doc'],
+    );
+
+    if (result != null) {
+      isFileSelectedForBooking.value = true;
+      selectedFileForBooking = File(result.files.single.path!);
+      debugPrint("pdf path: ${selectedFileForBooking!.path}");
+      uploadReceiptToCloudinary(context: context, file: selectedFileForBooking!);
+    }
+  }
   
+
+
   //UPLOAD FILE WHEN REQUESTING FOR QUOTE (PDF, DOCX, e.t.c)
   //file picker to pick user docs/pdf
   File? selectedFile;
@@ -32,6 +99,8 @@ class AccViewerServicesController extends getx.GetxController {
       //uploadDocToCloudinary();
     }
   }
+
+
 
 
 
@@ -125,6 +194,7 @@ class AccViewerServicesController extends getx.GetxController {
 
 
   //proceed to pay screen (save to db)
+
   final TextEditingController cardholderNameController = TextEditingController();
   final TextEditingController cardNumberController = TextEditingController();
   final TextEditingController expiryDateController = TextEditingController();

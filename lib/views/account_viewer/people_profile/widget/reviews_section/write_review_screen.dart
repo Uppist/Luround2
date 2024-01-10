@@ -58,12 +58,13 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                 context: context, 
                 rating: controller.rating.value, 
                 comment: controller.reviewController.value.text
-              );
+              ).whenComplete(() => controller.reviewController.value.clear());
+
             },
             child: Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.all(8.0),
-              //height: 20,
+              //padding: EdgeInsets.all(8.0),
+              height: 35.h,
               width: 80.w,
               decoration: BoxDecoration(
                 color: AppColor.mainColor,
@@ -74,7 +75,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                 style: GoogleFonts.inter(
                   color: AppColor.bgColor,
                   fontSize: 13.sp,
-                  fontWeight: FontWeight.w500
+                  fontWeight: FontWeight.w400
                 ),
               ),
             ),

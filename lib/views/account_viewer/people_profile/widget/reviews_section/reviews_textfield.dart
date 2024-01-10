@@ -62,8 +62,8 @@ class _ReviewTextFieldState extends State<ReviewTextField> {
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
-          labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 16.sp, fontWeight: FontWeight.w400),              
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)

@@ -185,10 +185,14 @@ class BookingDetails extends StatelessWidget {
                         RebrandedReusableButton(
                           textColor: AppColor.bgColor,
                           color: AppColor.mainColor,
-                          text: "Proceed to pay", 
+                          text: "Proceed to payment", 
                           onPressed: () {
                             //amount of service as argument
-                            /*Get.to(() => PaymentScreen(
+                            Get.to(() => PaymentScreen(
+                              accountName: "John Drill",
+                              accountNumber: "2022481315",
+                              bank: "KUDA MFB",
+
                               date: date,
                               serviceId: serviceId,
                               service_name: service_name,
@@ -197,8 +201,9 @@ class BookingDetails extends StatelessWidget {
                               amount: controller.isVirtual.value 
                               ? service_charge_virtual
                               : service_charge_in_person
-                            ));*/
-                            service.bookUserService(
+                            ));
+                            
+                            /*service.bookUserService(
                               context: context, 
                               name: controller.nameBAController.text, 
                               email: controller.emailBAController.text.trim(), 
@@ -216,7 +221,8 @@ class BookingDetails extends StatelessWidget {
                             )
                             .whenComplete(() {
                               print("booking successfully completed");
-                            });
+                            });*/
+
                           },
                         ),
                         SizedBox(height: 10.h,),

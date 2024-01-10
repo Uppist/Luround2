@@ -76,7 +76,7 @@ class AccViewerServicesPage extends StatelessWidget {
               future: service.getUserServices(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Loader();
+                  return Expanded(child: Loader());
                 }
                 if (snapshot.hasError) {
                   debugPrint("${snapshot.error}");
@@ -84,7 +84,7 @@ class AccViewerServicesPage extends StatelessWidget {
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   print("sn-trace: ${snapshot.stackTrace}");
                   print("sn-data: ${snapshot.data}");
-                  return Loader2();
+                  return Expanded(child: Loader2());
                 } 
                      
                 //[Do this if anything sups]//

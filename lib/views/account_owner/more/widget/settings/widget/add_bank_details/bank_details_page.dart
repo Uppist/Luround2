@@ -119,12 +119,6 @@ class _BankDetailsPageState extends State<BankDetailsPage> with SingleTickerProv
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      //empty state
-                      /*NoSavedAccounts(
-                        onPressed: () {
-                          Get.to(() => AddAccountPageFromButton());
-                        },
-                      ),*/
                       ShowBanks(),
                       
                       AddAccountForSettings()    

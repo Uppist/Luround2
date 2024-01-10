@@ -70,9 +70,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
               future: service.getUserProfileDetails(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return SafeArea(
-                    child: Loader()
-                  );
+                  return Expanded(child: Loader());
                 }
                 if (snapshot.hasError) {
                   print(snapshot.error);
@@ -80,7 +78,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 if (!snapshot.hasData) {
                   print("sn-trace: ${snapshot.stackTrace}");
                   print("sn-data: ${snapshot.data}");
-                  return Loader2();
+                  return Expanded(child: Loader2());
                 }
                      
                 if (snapshot.hasData) {
@@ -170,11 +168,39 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               )
                             ),
                           ),
-                          SizedBox(height: 10.h,),
+
+                          SizedBox(height: 20.h,),
+
+                          //OWNER'S OCCUPATION Here
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 15.r,
+                                backgroundImage: NetworkImage(
+                                  data.logo_url
+                                ),
+                              ),
+                              SizedBox(width: 10.w,),
+                              Text(
+                                data.company,
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 14.h,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                )
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: 20.h,),
+
                           //Where the person works
                           Center(
                             child: Text(
-                              data.company,
+                              data.occupation,
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
@@ -184,21 +210,9 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               )
                             ),
                           ),
-                          SizedBox(height: 10.h,),
-                          //OWNER'S OCCUPATION Here
-                          Center(
-                            child: Text(
-                              data.occupation,
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.h,
-                                  fontWeight: FontWeight.w500
-                                )
-                              )
-                            ),
-                          ),
+                          
                           SizedBox(height: 30.h,),
+
                           Container(
                             alignment: Alignment.center,
                             decoration: BoxDecoration(

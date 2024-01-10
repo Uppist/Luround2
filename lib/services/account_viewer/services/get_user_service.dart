@@ -188,7 +188,7 @@ class AccViewerService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "booking/book-service?serviceId=6565b7dc4347aaa8590668f9", body: body);  //remove somto's service id later
+      http.Response res = await baseService.httpPost(endPoint: "booking/book-service?serviceId=$serviceId", body: body);  //remove somto's service id later
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -196,27 +196,32 @@ class AccViewerService extends getx.GetxController {
         debugPrint("luround user got booked succesfully");
         BookServiceResponseMdel response = BookServiceResponseMdel.fromJson(jsonDecode(res.body));
         /////////////
-        print("flw-payment: $response");
-        await launchUrlLink(link: response.payment_link)
-        .whenComplete(() {
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "you're a being redirected to make payment"
-          );
-          /*.whenComplete(() => getx.Get.to(() => TransactionSuccesscreen(
-            servie_provider_name: 'this service provider',
-            service_name: service_name,
-          )));*/
-          /*controller.nameBAController.clear();
+        print("bookings response here: $response");
+
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "you've successfully booked this service"
+        ).whenComplete(() {
+          //clear the controllers
+          controller.nameBAController.clear();
           controller.emailBAController.clear();
           controller.phoneNumberBAController.clear();
           controller.messageBAController.clear();
           controller.cardholderNameController.clear();
           controller.cardNumberController.clear();
           controller.expiryDateController.clear();
-          controller.cvvController.clear();*/
+          controller.cvvController.clear();
+
+          getx.Get.to(() => TransactionSuccesscreen(
+            servie_provider_name: 'this service provider',
+            service_name: service_name,
+          ));
+          
         });
+
+        //await launchUrlLink(link: response.payment_link)
+  
       } 
       else {
         isLoading.value = false;

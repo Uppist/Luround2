@@ -44,7 +44,7 @@ class AccViewerServicesController extends getx.GetxController {
       folder: "luround_client_trx_receipts",
       fileName: 'luround_client_trx_receipt_$randomNum',
       progressCallback: (count, total) {
-        print('Uploading image from file in progress: $count/$total');
+        print('Uploading file in progress: $count/$total');
       }
     );
   
@@ -96,7 +96,40 @@ class AccViewerServicesController extends getx.GetxController {
       isFileSelected.value = true;
       selectedFile = File(result.files.single.path!);
       debugPrint("pdf path: ${selectedFile!.path}");
-      //uploadDocToCloudinary();
+      uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFile);
+    }
+  }
+  //upload request quote file to cloudinary
+  Future<void> uploadRequestedQuoteFileToCloudinary({
+    required BuildContext context,
+    required File? file
+  }) async{
+    final int randomNum = Random().nextInt(2000000);
+    final response = await cloudinary.upload(
+      file: file!.path,
+      //uploadPreset: "somePreset",
+      resourceType: CloudinaryResourceType.image,
+      folder: "luround_quote_requests",
+      fileName: 'luround_client_quote_request_$randomNum',
+      progressCallback: (count, total) {
+        print('Uploading file in progress: $count/$total');
+      }
+    );
+  
+    if(response.isSuccessful) {
+      debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.darkGreen,
+        message: "receipt uploaded to cloudinary"
+      );
+    }
+    else {
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "failed to upload receipt to cloudinary"
+      );
     }
   }
 

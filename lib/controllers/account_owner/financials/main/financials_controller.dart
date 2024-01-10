@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
 
 
 
@@ -79,7 +83,8 @@ class FinancialsController extends getx.GetxController {
    
   //for Speed dial floating action button (QUOTES)
   final isQuotesOpened = false.obs;
-
+  
+  ////API////
 
 
 
@@ -211,7 +216,9 @@ class FinancialsController extends getx.GetxController {
   final listOfModeOfPayments = <String>["Card", "Transfer", "Others"];
 
   
+  
 
+  //C
 
 
 

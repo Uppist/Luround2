@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
+import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
@@ -28,9 +29,8 @@ import 'textfields/occupation_textfield.dart';
 
 
 class EditPhotoPage extends StatefulWidget {
-  EditPhotoPage({super.key, required this.firstName, required this.lastName, required this.company, required this.occupation, required this.photoUrl, required this.logo_url});
-  final String firstName;
-  final String lastName;
+  EditPhotoPage({super.key, required this.company, required this.occupation, required this.photoUrl, required this.logo_url, required this.displayName});
+  final String displayName;
   final String company;
   final String occupation;
   final String photoUrl;
@@ -44,7 +44,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
 
   var controller = Get.put(ProfilePageController());
   var profileService = Get.put(AccOwnerProfileService());
-  final String logoUrl = LocalStorage.getCompanyLogoUrl();
+  final String logoUrl = LocalStorage.getCompanyLogoUrl() ?? "";
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +179,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                             controller.firstNameController.text = val;
                                           });
                                         },
-                                        initialValue: widget.firstName,
+                                        initialValue: getFirstName(fullName: widget.displayName),
                                         hintText: 'Your first name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -199,7 +199,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                             controller.lastNameController.text = val;
                                           });
                                         },
-                                        initialValue: widget.lastName,
+                                        initialValue: getLastName(fullName: widget.displayName),
                                         hintText: 'Your last name',
                                         keyboardType: TextInputType.name,
                                         textInputAction: TextInputAction.next,              
@@ -264,8 +264,8 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                   await profileService.updatePersonalDetails(
                                     logo_url: logoUrl.isEmpty ? widget.logo_url : logoUrl,
                                     context: context,
-                                    firstName: controller.firstNameController.text.isEmpty ? widget.firstName : controller.firstNameController.text, 
-                                    lastName: controller.lastNameController.text.isEmpty ? widget.lastName : controller.lastNameController.text, 
+                                    firstName: controller.firstNameController.text.isEmpty ? getFirstName(fullName: widget.displayName) : controller.firstNameController.text, 
+                                    lastName: controller.lastNameController.text.isEmpty ? getLastName(fullName: widget.displayName) : controller.lastNameController.text, 
                                     occupation: controller.occupationController.text.isEmpty ? widget.occupation : controller.occupationController.text,
                                     company: controller.companyNameController.text.isEmpty ? widget.company : controller.companyNameController.text
                                   ).whenComplete(() {

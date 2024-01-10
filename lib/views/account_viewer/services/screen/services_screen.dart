@@ -106,211 +106,206 @@ class AccViewerServicesPage extends StatelessWidget {
                         width: double.infinity,
                         //color: AppColor.bgColor, //index.isEven ? AppColor.lightRed : AppColor.lightPurple,
                         alignment: Alignment.center,
-                        //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                         decoration: BoxDecoration(
-                          color: AppColor.bgColor,
-                          borderRadius: BorderRadius.circular(5.r),
-                          border: Border.all(
+                          color: index.isOdd ? AppColor.navyBlue : AppColor.darkMainColor,
+                          borderRadius: BorderRadius.circular(20.r),
+                          /*border: Border.all(
                             color: AppColor.darkGreyColor,
                             width: 1.0,
-                          )
+                          )*/
                         ),
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-
-                                  //check if the account owner selected in-person or virtual                     
-                                  Center(            
-                                    child: TogglePriceContainerAccViewer(index: index,)
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //check if the account owner selected in-person or virtual                     
+                                Center(            
+                                  child: TogglePriceContainerAccViewer(index: index,)
+                                ),
+                                SizedBox(height: 40.h,),
+                                Text(
+                                  data[index].service_name,
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.bgColor,
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w600
                                   ),
-                                  SizedBox(height: 40.h,),
-                                  Text(
-                                    data[index].service_name,
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.blackColor,
-                                      fontSize: 16.sp,
-                                      fontWeight: FontWeight.w600
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.h,),
-                                  Text(
-                                    "${data[index].available_days} . ${data[index].time}",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.textGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.h,),
-                                  Text(
-                                    data[index].description,
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400
-                                    ),
-                                  ),
-                                  SizedBox(height: 20.h,),
-                                  //link 1
-                                  InkWell(
-                                    onTap: () {
-                                      service.launchUrlLink(link: data[index].links[0]);
-                                    },
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SvgPicture.asset("assets/svg/link_icon.svg"),
-                                        SizedBox(width: 10.w,),
-                                        Expanded(
-                                          child: Text(
-                                            data[index].links[0],
+                                ),
+                            
+                                SizedBox(height: 30.h,),
+                            
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "${data[index].available_days}",
                                             style: GoogleFonts.inter(
-                                              color: AppColor.blueColor,
-                                              fontSize: 12.sp,
-                                              fontWeight: FontWeight.w500,
-                                              
+                                              color: AppColor.bgColor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400
                                             ),
                                             overflow: TextOverflow.ellipsis,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  /*SizedBox(height: 20.h,),
-                                  //link 1
-                                  InkWell(
-                                    onTap: () {},
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        SvgPicture.asset("assets/svg/link_icon.svg"),
-                                        SizedBox(width: 10.w,),
-                                        Text(
-                                          "https://www.link.com",
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.blueColor,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500
+                                          Text(
+                                            "${data[index].time}",
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.bgColor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w400
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),*/
-                                  SizedBox(height: 30.h,),
-                                  //price/session
-                                  Obx(
-                                    () {
-                                      return RichText(
-                                        text: TextSpan(
-                                          children: [
-                                            //price
-                                            TextSpan(
-                                              text: controller.isVirtual.value && controller.selectedIndex.value == index 
-                                              ? "N${data[index].service_charge_virtual}" 
-                                              : "N${data[index].service_charge_in_person}",
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.blackColor,
-                                                fontSize: 20.sp,
-                                                fontWeight: FontWeight.w600
-                                              ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          //price
+                                          Obx(
+                                            () {
+                                              return Text(
+                                                controller.isVirtual.value && controller.selectedIndex.value == index 
+                                                ? "N${data[index].service_charge_virtual}" 
+                                                : "N${data[index].service_charge_in_person}",
+                                                style: GoogleFonts.inter(
+                                                  color: AppColor.bgColor,
+                                                  fontSize: 20.sp,
+                                                  fontWeight: FontWeight.w600
+                                                ),
+                                              );
+                                            }
+                                          ),
+                                          SizedBox(height: 5.h,),
+                                          //time
+                                          data[index].duration.isEmpty ?
+                                          Text("")
+                                          :Text(
+                                            "per ${data[index].duration} session",
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.whiteTextColor,
+                                              fontSize: 12.sp,
+                                              fontWeight: FontWeight.w500,
+                                              //fontStyle: FontStyle.italic
                                             ),
-                                            //time
-                                            data[index].duration.isEmpty ?
-                                            TextSpan()
-                                            :TextSpan(
-                                              text: "/${data[index].duration}",
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.darkGreyColor,
-                                                fontSize: 15.sp,
-                                                fontWeight: FontWeight.w500,
-                                                //fontStyle: FontStyle.italic
-                                              ),
-                                            ),
-                                            //session
-                                            TextSpan(
-                                              text: " per session",
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.textGreyColor,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w500
-                                              ),
-                                            )
-                                          ]
-                                        ),
-                                      );
-                                    }
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                            
+                                SizedBox(height: 30.h,),
+                            
+                                Text(
+                                  data[index].description,
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.bgColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w400
                                   ),
-                                  SizedBox(height: 20.h,),
-                
-                                  //request quote                        
-                                  Row(
+                                ),
+                            
+                                SizedBox(height: 20.h,),
+                            
+                                //link 1
+                                InkWell(
+                                  onTap: () {
+                                    service.launchUrlLink(link: data[index].links[0]);
+                                  },
+                                  child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      //price
-                                      Text(
-                                        "Require a personalized touch?",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.textGreyColor,
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w500
-                                        ),
+                                      //SvgPicture.asset("assets/svg/link_icon.svg"),
+                                      Icon(
+                                        CupertinoIcons.link,
+                                        color: AppColor.whiteTextColor,
                                       ),
-                                      //SizedBox(width: 5,),
-                                      //time
-                                      TextButton(
-                                        onPressed: () {
-                                          Get.to(() => RequestQuoteScreen());
-                                        },
+                                      SizedBox(width: 10.w,),
+                                      Expanded(
                                         child: Text(
-                                          "Request Quote",
-                                            style: GoogleFonts.inter(
-                                            color: AppColor.yellowStar,
+                                          data[index].links[0],
+                                          style: GoogleFonts.inter(
+                                            color: index.isEven ? AppColor.navyBlue : AppColor.mainColor,
                                             fontSize: 12.sp,
-                                            fontWeight: FontWeight.w600,
-                                            decoration: TextDecoration.underline,
-                                            decorationColor: AppColor.yellowStar,
+                                            fontWeight: FontWeight.w500,
+                                            
                                           ),
+                                          overflow: TextOverflow.ellipsis,
                                         ),
                                       ),
-                                    ]
-                                  )
-                                ]
-                              )                                           
+                                    ],
+                                  ),
+                                ),
+                            
+                                SizedBox(height: 30.h,),
+                                            
+                                //request quote                        
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    //price
+                                    Text(
+                                      "Require a personalized touch?",
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.whiteTextColor,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                    //SizedBox(width: 5,),
+                                    //time
+                                    TextButton(
+                                      onPressed: () {
+                                        Get.to(() => RequestQuoteScreen());
+                                      },
+                                      child: Text(
+                                        "Request Quote",
+                                          style: GoogleFonts.inter(
+                                          color: AppColor.yellowStar,
+                                          fontSize: 12.sp,
+                                          fontWeight: FontWeight.w600,
+                                          decoration: TextDecoration.underline,
+                                          decorationColor: AppColor.yellowStar,
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                                ),
+
+                                SizedBox(height: 30.h,),
+                                
+                                //bookings button here
+                                ReusableButton(
+                                  onPressed: () {
+                                    Get.to(() => BookAppointmentScreen(
+                                      avail_time: data[index].available_time,
+                                      serviceId: data[index].serviceId,
+                                      service_name: data[index].service_name,
+                                      date: data[index].date,
+                                      time: data[index].time,
+                                      duration: data[index].duration,
+                                      service_charge_virtual: data[index].service_charge_virtual,
+                                      service_charge_in_person: data[index].service_charge_in_person,
+                                    ));
+                                  },
+                                  color: index.isEven ? AppColor.navyBlue : AppColor.mainColor,
+                                  text: "Book Now",
+                                ),
+                            
+                              ]
                             ),
-                            //
-                            Container(
-                              height: 100.h,
-                              width: double.infinity,
-                              color: AppColor.bgColor,
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                              child: ReusableButton(
-                                onPressed: () {
-                                  Get.to(() => BookAppointmentScreen(
-                                    avail_time: data[index].available_time,
-                                    serviceId: data[index].serviceId,
-                                    service_name: data[index].service_name,
-                                    date: data[index].date,
-                                    time: data[index].time,
-                                    duration: data[index].duration,
-                                    service_charge_virtual: data[index].service_charge_virtual,
-                                    service_charge_in_person: data[index].service_charge_in_person,
-                                  ));
-                                },
-                                color: AppColor.mainColor,
-                                text: "Book Now",
-                              ),
-                            ),
-                          ],
-                        ),
+                            //SizedBox(height: 10.h,) 
+                              
+                          
                       );
                     }
-                  ),
+                    ),
                   );
                 }
             

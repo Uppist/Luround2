@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/copy_to_clipboard.dart';
@@ -45,6 +46,8 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
 
+
+  //var service = Get.put(FinancialsPdfService());
 
   final ProfilePageController controller = Get.put(ProfilePageController());
 
@@ -105,6 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
               InkWell(
                 onTap: () {
                   Get.to(() => NotificationsPage());
+                  //service.saveAndShareQuotePDF(context: context);
                 },
                 child: SvgPicture.asset('assets/svg/notify_active.svg'),
               ),
@@ -216,11 +220,10 @@ class _ProfilePageState extends State<ProfilePage> {
           return InkWell(
             onTap: () {
               Get.to(() => EditPhotoPage(
-                logo_url: data.logo_url,
-                firstName: getFirstName(fullName: data.displayName),
-                lastName: getLastName(fullName: data.displayName),
-                company: data.company,
-                occupation: data.occupation,
+                  logo_url: data.logo_url,
+                  displayName: data.displayName,
+                  company: data.company,
+                  occupation: data.occupation,
                   photoUrl: data.photoUrl,
                 )
               );
@@ -334,8 +337,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   () => AddSectionPage(
                     logo_url: data.logo_url,
                     aboutUser: data.about,
-                    firstName: getFirstName(fullName: data.displayName),
-                    lastName: getLastName(fullName: data.displayName),
+                    displayName: data.displayName,
                     company: data.company,
                     occupation: data.occupation,
                     photoUrl: data.photoUrl,
@@ -505,8 +507,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     () => AddSectionPage(
                       logo_url: data.logo_url,
                       aboutUser: data.about,
-                      firstName: getFirstName(fullName: data.displayName),
-                      lastName: getLastName(fullName: data.displayName),
+                      displayName: data.displayName,
                       company: data.company,
                       occupation: data.occupation,
                       photoUrl: data.photoUrl,

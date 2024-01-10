@@ -61,7 +61,7 @@ class ServiceEmptyState extends StatelessWidget {
                       )
                     ),
                     TextSpan(
-                      text:' "Add Section" ',
+                      text:' "Add Service" ',
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blackColor,
@@ -100,7 +100,7 @@ class ServiceEmptyState extends StatelessWidget {
                     )
                   ),
                   child: Text(
-                    'Add Section',
+                    'Add Service',
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.bgColor,

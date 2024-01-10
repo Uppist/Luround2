@@ -20,10 +20,11 @@ import '../edit_photo/edit_photo_page.dart';
 
 
 class AddSectionPage extends StatelessWidget {
-  AddSectionPage({super.key, required this.aboutUser, required this.firstName, required this.lastName, required this.company, required this.occupation, required this.photoUrl, required this.logo_url});
+  AddSectionPage({super.key, required this.aboutUser, required this.displayName, required this.company, required this.occupation, required this.photoUrl, required this.logo_url});
   final String aboutUser;
-  final String firstName;
-  final String lastName;
+  //final String firstName;
+  //final String lastName;
+  final String displayName;
   final String company;
   final String occupation;
   final String photoUrl;
@@ -67,8 +68,7 @@ class AddSectionPage extends StatelessWidget {
                 onTap: () {
                   Get.to(() => EditPhotoPage(
                     logo_url: logo_url,
-                    firstName: firstName,
-                    lastName: lastName,
+                    displayName: displayName,
                     company: company,
                     occupation: occupation,
                     photoUrl: photoUrl,

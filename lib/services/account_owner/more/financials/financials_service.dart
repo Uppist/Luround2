@@ -71,16 +71,103 @@ class FinancialsService extends getx.GetxController {
   }
   
 
-  ///[CREATE QUOTES SCREEN]
+  ///[CREATE QUOTES SCREEN] ////THIS
   getx.RxList<UserServiceModel> selectedProducts = <UserServiceModel>[].obs;
 
   void toggleProductSelection(UserServiceModel product) {
     if (selectedProducts.contains(product)) {
-      selectedProducts.remove(product);
+      selectedProducts .remove(product);
     } else {
       selectedProducts.add(product);
     }
   }
+
+  Future<void> deleteSelectedProductForQuote(int index) async{
+    isLoading.value = true;
+    if (selectedProducts.isNotEmpty) {
+      isLoading.value = false;
+      selectedProducts.removeAt(index);
+    } else {
+      isLoading.value = false;
+      debugPrint("the item has already been removed at the index");
+    }
+  }
+  
+  getx.RxString totalPriceForQuote = "".obs;
+  getx.RxString vatForQuote = "".obs;
+  Future<String> calculateDiscount({  
+    required String discount, 
+    required String price
+    }) async{
+    // Convert discount and price strings to integers
+    int discountValue = int.tryParse(discount) ?? 0;
+    int priceValue = int.tryParse(price) ?? 0;
+    int totalValue = int.tryParse(totalPriceForQuote.value) ?? 0;
+
+    // Calculate the discount
+    double discountedPrice = (discountValue/100) * priceValue;
+
+    // Update the total string
+    double updatedTotalValue = totalValue -  discountedPrice;
+    String result = updatedTotalValue.toString();
+    totalPriceForQuote.value = result;
+
+    // Calculate the VAT
+    double vatPrice = (7.5/100) * totalValue;
+
+    // Update the VATPrice to string
+    String vatResult = vatPrice.toString();
+    vatForQuote.value = vatResult;
+
+    print("VAT on this product: ${vatForQuote.value}");
+    print(totalPriceForQuote.value);
+
+    return totalPriceForQuote.value;
+  }
+  
+
+  Future<void> editProductForCreatingQuote({
+    required BuildContext context,
+    required String service_id, //query parameter
+    required String service_description,
+    //required String discount,
+    required String price,
+    required String duration,
+    required String meetingType
+    
+  }) async{
+    isLoading.value = true;
+    //Find the index of the item you want to modify
+    int indexOfItemToModify = selectedProducts.indexWhere((userModel) => userModel.serviceId == service_id);
+    if (indexOfItemToModify != -1) {
+      isLoading.value = false;
+      // Modify the values of the found item
+      selectedProducts[indexOfItemToModify].description = service_description;
+      selectedProducts[indexOfItemToModify].duration = duration;
+      
+      if(meetingType == "In-Person") {
+        selectedProducts[indexOfItemToModify].service_charge_in_person = price;
+      }
+      else {
+        selectedProducts[indexOfItemToModify].service_charge_virtual = price;
+      }
+      // Print the modified list
+      debugPrint("edited list: $selectedProducts");
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.darkGreen,
+        message: "item edited and saved successfully"
+      ).whenComplete(() => getx.Get.back());
+    } 
+    else {
+      isLoading.value = false;
+      debugPrint("Item not found in the list.");
+    }
+  
+  }
+
+
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
   Future<List<UserServiceModel>> getUserServices() async {
@@ -175,6 +262,14 @@ class FinancialsService extends getx.GetxController {
       selectedProductsForInvoice.remove(product);
     } else {
       selectedProductsForInvoice.add(product);
+    }
+  }
+
+  Future<void> deleteSelectedProductForInvoice (int index) async{
+    if (selectedProductsForInvoice.isNotEmpty) {
+      selectedProductsForInvoice.removeAt(index);
+    } else {
+      debugPrint("the item has already been removed at the index");
     }
   }
 
@@ -275,6 +370,15 @@ class FinancialsService extends getx.GetxController {
       selectedProductsForReceipt.add(product);
     }
   }
+
+  Future<void> deleteSelectedProductForReceipt (int index) async{
+    if (selectedProductsForReceipt.isNotEmpty) {
+      selectedProductsForReceipt.removeAt(index);
+    } else {
+      debugPrint("the item has already been removed at the index");
+    }
+  }
+
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
   Future<List<UserServiceModel>> getUserServicesForReceipt() async {

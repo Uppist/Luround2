@@ -66,7 +66,7 @@ class AccViewerServicesController extends getx.GetxController {
   }
   //file picker to pick user docs/pdf
   var isFileSelectedForBooking = false.obs;
-  Future<void> pickFileForPayment(context) async {
+  Future<void> pickFileForPayment(BuildContext context) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png','pdf', 'doc'],
@@ -86,7 +86,7 @@ class AccViewerServicesController extends getx.GetxController {
   //file picker to pick user docs/pdf
   File? selectedFile;
   var isFileSelected = false.obs;
-  Future<void> selectFile(context) async {
+  Future<void> selectFile(BuildContext context) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'jpeg', 'png','pdf', 'doc'],
@@ -104,6 +104,7 @@ class AccViewerServicesController extends getx.GetxController {
     required BuildContext context,
     required File? file
   }) async{
+
     final int randomNum = Random().nextInt(2000000);
     final response = await cloudinary.upload(
       file: file!.path,

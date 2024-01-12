@@ -328,21 +328,27 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                     SizedBox(height: 10.h,),
 
                     //To show the items that were added (Use Future builder to show the items addedd)
-                    ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      itemCount: 2,
-                      itemBuilder: (BuildContext context, int index) {
-                        return AddedServicesTile(
-                          onTap: (){
-                            Get.to(() => ViewAddedServiceDetails());
-                          },
-                          productName: 'Personal Training',
-                          price: '25,000',
-                          duration: '1 hr',
-                        );
+                    Obx(
+                      () {
+                        return service.selectedProducts.isNotEmpty ?
+                        ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          itemCount: service.selectedProducts.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final item = service.selectedProducts[index];
+                            return AddedServicesTile(
+                              onTap: (){
+                                Get.to(() => ViewAddedServiceDetails());
+                              },
+                              productName: item.service_name,
+                              price: "${item.service_charge_in_person} || ${item.service_charge_virtual}",
+                              duration: item.duration,
+                            );
+                          }
+                        ) : SizedBox();
                       }
                     ),
 

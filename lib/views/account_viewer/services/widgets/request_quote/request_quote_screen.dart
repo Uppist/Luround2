@@ -148,7 +148,9 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           ),
                           SizedBox(height: 30.h,),
                           UploadFileWidget(
-                            onPressed: () {},
+                            onPressed: () {
+                              controller.selectFile(context);
+                            },
                           ),
                           SizedBox(height: 30,),
                           Text(

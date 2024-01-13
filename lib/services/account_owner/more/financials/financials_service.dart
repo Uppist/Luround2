@@ -85,13 +85,62 @@ class FinancialsService extends getx.GetxController {
     }
   }
   
+  ///////////////////
+  String calculateTotalForQuote() {
+    double total = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
+      // Extract the "total" value from each map and add it to the total variable
+      total += (double.tryParse(product['total']) ?? 0.0);
+    }
+    print(total);
+    return total.toString();
+  }
+
+  String calculateSubtotalForQuote() {
+    double rate = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
+      // Extract the "total" value from each map and add it to the total variable
+      rate += (double.tryParse(product['rate']) ?? 0.0);
+    }
+    print(rate);
+    return rate.toString();
+  }
+
+  String calculateTotalDiscountForQuote() {
+    double discount = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
+      // Extract the "total" value from each map and add it to the total variable
+      discount += (double.tryParse(product['discount']) ?? 0.0);
+    }
+    print(discount);
+    return discount.toString();
+  }
+
+  String calculateTotalVATForQuote() {
+    double total = 0.0;
+    double vat = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
+      // Extract the "total" value from each map and add it to the total variable
+      total += (double.tryParse(product['total']) ?? 0.0);
+    }
+    vat = (7.5/100) * total;
+    print("total vat: $vat");
+    return vat.toString();
+  }
+
+
+  /////////////////
   //1
   Future<void> deleteSelectedProductForQuote(int index) async{
     isLoading.value = true;
-    if (selectedProducts.isNotEmpty) {
+    if (editedSelectedProuctMapList.isNotEmpty) {
       isLoading.value = false;
-      selectedProducts.removeAt(index);
-      print(selectedProducts);
+      editedSelectedProuctMapList.removeAt(index);
+      print("list: $editedSelectedProuctMapList");
       //clear the figures
     } else {
       isLoading.value = false;
@@ -99,79 +148,36 @@ class FinancialsService extends getx.GetxController {
     }
   }
   
-  //2
+  //2(these act like text editing controllers)
   getx.RxString serviceDescriptionForQuote = "".obs; //
   getx.RxString durationForQuote = "".obs; //(not in use)
   getx.RxString rateForQuote = "".obs; //valid
   getx.RxString selectedMeetingTypeForQuote = "".obs; //valid
-  getx.RxString discountForQuote = "0.00".obs;
-  getx.RxString convertedToLocalCurrencyDiscountForQuote = "0.00".obs;
-  getx.RxString subTotalForQuote = "0.00".obs;
-  //getx.RxString totalPriceForQuote = "".obs;
-  //getx.RxString vatForQuote = "".obs;
+  getx.RxString discountForQuote = "".obs; //valid
+  getx.RxString convertedToLocalCurrencyDiscountForQuote = "".obs; //valid
+  getx.RxString subTotalForQuote = "".obs; //valid
   
 
-  //3*
-  Future<String>  calculateDiscount() async{
 
-    //define all these for summing up the values and then assigning them to a vriable
-    double subtotal = 0.0;
-    double totalVAT = 0.0;
-    double totalDiscount = 0.0;
-    double sumTotalPrice = 0.0;
+  Future<void> calculateDiscount() async {
+    // Convert parameters from string to double data type
+    double discountValue = double.tryParse(discountForQuote.value) ?? 0;
+    double rateValue = double.tryParse(rateForQuote.value) ?? 0;
+
+    // Calculate the discount
+    double calculatedDiscount = (discountValue / 100) * rateValue;
+
+    // Calculate the new total after the discount has been subtracted from it
+    double newSubtotal = rateValue - calculatedDiscount;
+
+    debugPrint("Calculated Discount: $calculatedDiscount");
+    debugPrint("New Subtotal: $newSubtotal");
   
-    for (Map<String, dynamic> userMap in editedSelectedProuctMapList) {
-      // Extract variable as a string from the userMap
-      //String meeting_type = userMap["meeting_type"];
-      String price = userMap['rate'];
-      String discount = userMap['discount'];
-      String total = userMap['total'];
-
-      // Update the subtotal string
-      subtotal = double.parse(price);
-      //sum them up the values
-      String resultingSubtotal = subtotal.toString();
-      subTotalForQuote.value = resultingSubtotal;
-
-      // Convert discount and price strings to integers
-      int discountValue = int.tryParse(discount) ?? 0;  //discountForQuote.value
-      int priceValue = int.tryParse(price) ?? 0;
-      int totalValue = int.tryParse(total) ?? 0;  //rateForQuote.value
-
-      // Calculate the discount
-      double discountedPrice = (discountValue/100) * priceValue;
-      //sum them up the values
-      totalDiscount += discountedPrice;
-      convertedToLocalCurrencyDiscountForQuote.value =  totalDiscount.toString();
-
-      // Update the total string
-      double updatedTotalValue = totalValue -  discountedPrice;
-      //sum them up the values
-      sumTotalPrice += updatedTotalValue;
-      String result = sumTotalPrice.toString();
-      totalPriceForQuote.value = result;
-
-      // Calculate the VAT
-      double vatPrice = (7.5/100) * double.parse(totalPriceForQuote.value);
-      //sum them up the values
-      totalVAT += vatPrice;
-      String vatResult = totalVAT.toString();
-      vatForQuote.value = vatResult;
-
-      // Calculate final total price
-      double finalTotalPrice = updatedTotalValue + vatPrice;
-      String finalResultingTotalPrice = finalTotalPrice.toString();
-      print("final total price: $finalResultingTotalPrice");
-      totalPriceForQuote.value = finalResultingTotalPrice;
-
-      print("VAT on this quote: ${vatForQuote.value} || total price for this quote: ${totalPriceForQuote.value} || discount price for quote ${discountedPrice}");
-
-      return totalPriceForQuote.value;
-
-    }
-    // return total price for quote
-    return totalPriceForQuote.value;
+    convertedToLocalCurrencyDiscountForQuote.value = calculatedDiscount.toString();
+    subTotalForQuote.value = newSubtotal.toString();
+ 
   }
+
   
   //4
   Future<void> editProductForCreatingQuote({
@@ -182,27 +188,23 @@ class FinancialsService extends getx.GetxController {
     required String rate,
     required String duration,
     required String meetingType,
-    //added
     required int index,
-    required String total,
-    
+    required String total, 
   }) async{
+
     isLoading.value = true;
     //Find the index of the item you want to modify
     if (index != -1) {
+
       isLoading.value = false;
+
       // Modify the values of the found item in the originally selected list
       editedSelectedProuctMapList[index]["description"] = service_description;
       editedSelectedProuctMapList[index]["duration"] = duration;
-      
-      if(meetingType == "In-Person") {
-        editedSelectedProuctMapList[index]["rate"] = rate;
-        subTotalForQuote.value = editedSelectedProuctMapList[index]["rate"];
-      }
-      else {
-        editedSelectedProuctMapList[index]["rate"] = rate;
-        subTotalForQuote.value = editedSelectedProuctMapList[index]["rate"];
-      }
+      editedSelectedProuctMapList[index]["discount"] = discount;
+      editedSelectedProuctMapList[index]["total"] = total;
+      editedSelectedProuctMapList[index]["meeting_type"] = meetingType;
+      editedSelectedProuctMapList[index]["rate"] = rate;
       
       //success snackbar
       showMySnackBar(
@@ -226,23 +228,28 @@ class FinancialsService extends getx.GetxController {
     required String client_email,
     required String client_phone_number,
     required String note,
+    required String quote_date,
     required DateTime? quoteDueDate
     }) async {
 
     isLoading.value = true;
 
     var body = {
-      "send_to": client_name,
+      "status": "SAVED",
+      "appointment_type": "what's this",
+      "quote_date": quote_date,
+      ////////////////
+      "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "user_email": user_email,
       "user_name": user_name,
       "notes": note,
       "due_date": quoteDueDate,
-      "vat": vatForQuote.value,
-      "sub_total": subTotalForQuote.value,
-      "discount": "-N${convertedToLocalCurrencyDiscountForQuote.value}",
-      "total": totalPriceForQuote.value,
+      "vat": calculateTotalVATForQuote(),
+      "sub_total": calculateSubtotalForQuote(),
+      "discount": "-N${calculateTotalDiscountForQuote()} ",
+      "total": calculateTotalForQuote(),
       "product_detail": editedSelectedProuctMapList
     };
 
@@ -257,7 +264,7 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "quote created and saved successfully"
-        );
+        ).whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;
@@ -269,7 +276,7 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to save quote"
-        );
+        ).whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {

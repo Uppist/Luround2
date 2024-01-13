@@ -9,6 +9,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
@@ -50,9 +51,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: Builder(
-        builder: (context)  {
-          return  SafeArea(
+      body: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -363,7 +362,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         //To show the items that were added (Use Future builder to show the items addedd)
                         Obx(
                           () {
-                            return service.selectedProducts.isNotEmpty ?
+                            return service.editedSelectedProuctMapList.isNotEmpty ?
                             ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: NeverScrollableScrollPhysics(),
@@ -386,7 +385,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                     ));
                                   },
                                   productName:item['service_name'],
-                                  price:  item['rate'],
+                                  price: item['total'],
                                   duration: item['duration'],
                                 );
                               }
@@ -407,6 +406,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                           child: Column(
                             children: [
+
                               //row1
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -419,18 +419,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  Obx(
-                                    () {
-                                      return Text(
-                                        service.subTotalForQuote.value.isNotEmpty ? "N${service.subTotalForQuote.value}" : "N0",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                      );
-                                    }
-                                  ),
+                                  
+                                  Text(
+                                    "N${service.calculateSubtotalForQuote()}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  )
+          
                                 ],
                               ),
                               SizedBox(height: 30.h,),
@@ -446,18 +444,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  Obx(
-                                    () {
-                                      return Text(
-                                        service.convertedToLocalCurrencyDiscountForQuote.value.isNotEmpty ? "-N${service.convertedToLocalCurrencyDiscountForQuote.value}" : "N0",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                      );
-                                    }
-                                  ),
+                                  Text(
+                                    "-N${service.calculateTotalDiscountForQuote()}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  )
                                 ],
                               ),
                               SizedBox(height: 30.h,),
@@ -473,18 +467,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  Obx(
-                                    () {
-                                      return Text(
-                                        service.vatForQuote.value.isNotEmpty ? "N${service.vatForQuote.value}" : "N0",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                      );
-                                    }
-                                  ),
+                                  Text(
+                                    "N${service.calculateTotalVATForQuote()}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  )
+                
+                                
                                 ],
                               ),
                               SizedBox(height: 30.h,),
@@ -500,18 +492,16 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       fontWeight: FontWeight.w500
                                     ),
                                   ),
-                                  Obx(
-                                    () {
-                                      return Text(
-                                        service.totalPriceForQuote.value.isNotEmpty ? "N${service.totalPriceForQuote.value}" : "N0",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                      );
-                                    }
-                                  ),
+                                  
+                                  Text(
+                                    "N${service.calculateTotalForQuote()}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  )                        
+                                  
                                 ],
                               ),
                             ],
@@ -597,8 +587,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       client_name: controller.quoteClientNameController.text, 
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
-                                      note: controller.quoteNoteController.text, 
-                                      quoteDueDate: controller.datetimeDueDateForQuote
+                                      note: controller.quoteNoteController.text,
+                                      quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
+                                      quoteDueDate: convertStringToDateTime(controller.updatedDueDate(initialDate: "(non)"))
                                     );
                                   },
                                   onDownload: () {},
@@ -623,9 +614,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
           
               ]
             )
-          );
-        }
-      )
+          )
+        
+      
     );
   }
 }

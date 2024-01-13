@@ -127,61 +127,46 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                       activeColor: AppColor.mainColor,
                                       value: service.selectedProducts.contains(item), //selectedUsers.contains(user),
                                       onChanged: (bool? value) {
-                                        //service.toggleProductSelection(product);
-                                        //
+                                        /////
                                         setState(() {
+                                         
                                           if (value != null) {
-                                            // Ensure the object is the same instance
                                             if (value) {
-                                              if (!service.selectedProducts.contains(item)) {
-                                                service.selectedProducts.add(item);
-                                                for (UserServiceModel product in service.selectedProducts) {
-                                                  Map<String, dynamic> userMap = { 
-                                                    "service_name": product.service_name,
-                                                    "meeting_type": "Virtual",
-                                                    "description": product.description,
-                                                    "rate": product.service_charge_virtual,
-                                                    "duration": product.duration,
-                                                    "discount": "0",
-                                                    "total": product.service_charge_virtual,
-                                                    "note": "no note",
-                                                  };
-
-                                                  //clear the list
-                                                  //service.editedSelectedProuctMapList.clear();
-                                                  //add items to the list
-                                                  service.editedSelectedProuctMapList.add(userMap);
-                                                  // Print the modified list
-                                                  debugPrint("edited list: ${service.editedSelectedProuctMapList}");
-                                                }
-                                              } 
-                                              else {
-                                                service.selectedProducts.remove(item);
-                                                for (UserServiceModel product in service.selectedProducts) {
-                                                  Map<String, dynamic> userMap = { 
-                                                    "service_name": product.service_name,
-                                                    "meeting_type": "Virtual",
-                                                    "description": product.description,
-                                                    "rate": product.service_charge_virtual,
-                                                    "duration": product.duration,
-                                                    "discount": "0",
-                                                    "total": product.service_charge_virtual,
-                                                    "note": "no note",
-                                                  };
-
-                                                  //clear the list
-                                                  //service.editedSelectedProuctMapList.clear();
-                                                  //add items to the list
-                                                  service.editedSelectedProuctMapList.remove(userMap);
-                                                  // Print the modified list
-                                                  debugPrint("edited list: ${service.editedSelectedProuctMapList}");
-                                                }
-                                              }
+                                              // Add item to the list
+                                              service.selectedProducts.add(item);
+                                            } else {
+                                              // Remove item from the list
+                                              service.selectedProducts.remove(item);
                                             }
+
+                                            // Clear the list
+                                            service.editedSelectedProuctMapList.clear();
+
+                                            // Add items to the list based on selected products
+                                            for (UserServiceModel product in service.selectedProducts) {
+                                              Map<String, dynamic> userMap = {
+                                                "service_name": product.service_name,
+                                                "meeting_type": "Virtual",
+                                                "description": product.description,
+                                                "rate": product.service_charge_virtual,
+                                                "duration": product.duration,
+                                                "discount": "0",
+                                                "total": product.service_charge_virtual,
+                                                "note": "no note",
+                                              };
+
+                                              service.editedSelectedProuctMapList.add(userMap);
+                                            }
+
+                                            // Print the modified list
+                                            debugPrint("edited list: ${service.editedSelectedProuctMapList}");
                                           }
-                                        });
-                                        //                                                     
-                                      },
+                                        }
+                                      );
+                                      
+          
+                                                                                         
+                                      }
                                     ),
                                     productName: item.service_name,
                                   );

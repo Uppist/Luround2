@@ -22,7 +22,7 @@ class SentReceiptList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Loader() : Expanded(
+        return service.isLoading.value ? Expanded(child: Loader()) : Expanded(
           child: ListView.separated(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),

@@ -63,8 +63,11 @@ class FinancialsController extends getx.GetxController {
     }
   }
   //(save to db) this is the selected date 
+  DateTime? datetimeDueDateForQuote;
   String updatedDueDate ({required String initialDate}) {
     if(dueDate.isNotEmpty) {
+      DateTime? datetimeDueDateeForQuote = dueDate[0];
+      print("date-time object: $datetimeDueDateeForQuote");
       var result = dueDate[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);
@@ -137,8 +140,11 @@ class FinancialsController extends getx.GetxController {
     }
   }
   //(save to db) this is the selected date 
+  DateTime? datetimeDueDateForInvoice;
   String updatedDueDateForInvoice ({required String initialDate}) {
     if(dueDateForInvoice.isNotEmpty) {
+      DateTime? datetimeDueDateeForInvoice = dueDate[0];
+      print("date-time object: $datetimeDueDateeForInvoice");
       var result = dueDateForInvoice[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);
@@ -190,8 +196,11 @@ class FinancialsController extends getx.GetxController {
     }
   }
   //(save to db) this is the selected date 
+  DateTime? datetimeDueDateForReceipt;
   String updatedReceiptDate ({required String initialDate}) {
     if(receiptDate.isNotEmpty) {
+      DateTime? datetimeDueDateeForReceipt = dueDate[0];
+      print("date-time object: $datetimeDueDateeForReceipt");
       var result = receiptDate[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);

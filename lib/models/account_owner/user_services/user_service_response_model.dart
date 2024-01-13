@@ -19,12 +19,12 @@ class UserServiceModel {
   late final String serviceId;
   late final String email;
   late final String service_name;
-  late final String description;
+  String? description;
   late final List<dynamic> links;
   late final List<dynamic> available_time;
-  late final String service_charge_in_person;
-  late final String service_charge_virtual;
-  late final String duration;
+  String? service_charge_in_person;
+  String? service_charge_virtual;
+  String? duration;
   late final String time;
   late final String available_days;
   late final Map<String, dynamic> service_provider_details;

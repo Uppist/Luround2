@@ -406,7 +406,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                       ),
                                       pw.Text(
-                                        item.duration,
+                                        item.duration!,
                                         style: pw.TextStyle(
                                           color: PdfColors.grey500,
                                           fontSize: 14.sp,
@@ -1147,7 +1147,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                       ),
                                       pw.Text(
-                                        item.duration,
+                                        item.duration!,
                                         style: pw.TextStyle(
                                           color: PdfColors.grey500,
                                           fontSize: 14.sp,
@@ -1887,7 +1887,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                       ),
                                       pw.Text(
-                                        item.duration,
+                                        item.duration!,
                                         style: pw.TextStyle(
                                           color: PdfColors.grey500,
                                           fontSize: 14.sp,

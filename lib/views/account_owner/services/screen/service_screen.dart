@@ -173,11 +173,11 @@ class ServicesPage extends StatelessWidget {
                                                 displayName: data[index].service_provider_details['displayName'],
                                                 serviceId: data[index].serviceId,
                                                 service_name: data[index].service_name,
-                                                description: data[index].description,
+                                                description: data[index].description!,
                                                 links: data[index].links,
-                                                service_charge_in_person: data[index].service_charge_in_person,
-                                                service_charge_virtual: data[index].service_charge_virtual,
-                                                duration: data[index].duration,
+                                                service_charge_in_person: data[index].service_charge_in_person!,
+                                                service_charge_virtual: data[index].service_charge_virtual!,
+                                                duration: data[index].duration!,
                                                 date: data[index].date,
                                                 time: data[index].time,
                                                 available_days: data[index].available_days
@@ -266,7 +266,7 @@ class ServicesPage extends StatelessWidget {
                                             ),
                                             SizedBox(height: 5.h,),
                                             //time
-                                            data[index].duration.isEmpty ?
+                                            data[index].duration!.isEmpty ?
                                             Text('')
                                             :Text(
                                               "per ${data[index].duration} session",
@@ -285,7 +285,7 @@ class ServicesPage extends StatelessWidget {
                   
                                   SizedBox(height: 30.h,),
                                   Text(
-                                    data[index].description,
+                                    data[index].description!,
                                     style: GoogleFonts.inter(
                                       color: AppColor.bgColor,
                                       fontSize: 14.sp,
@@ -372,11 +372,11 @@ class ServicesPage extends StatelessWidget {
                                               displayName: data[index].service_provider_details['displayName'],
                                               serviceId: data[index].serviceId,
                                               service_name: data[index].service_name,
-                                              description: data[index].description,
+                                              description: data[index].description!,
                                               links: data[index].links,
-                                              service_charge_in_person: data[index].service_charge_in_person,
-                                              service_charge_virtual: data[index].service_charge_virtual,
-                                              duration: data[index].duration,
+                                              service_charge_in_person: data[index].service_charge_in_person!,
+                                              service_charge_virtual: data[index].service_charge_virtual!,
+                                              duration: data[index].duration!,
                                               date: data[index].date,
                                               time: data[index].time,
                                               available_days: data[index].available_days
@@ -463,7 +463,7 @@ class ServicesPage extends StatelessWidget {
                                             ),
                                             SizedBox(height: 5.h,),
                                             //time
-                                            data[index].duration.isEmpty ?
+                                            data[index].duration!.isEmpty ?
                                             Text('')
                                             :Text(
                                               "per ${data[index].duration} session",
@@ -482,7 +482,7 @@ class ServicesPage extends StatelessWidget {
                   
                                   SizedBox(height: 30.h,),
                                   Text(
-                                    data[index].description,
+                                    data[index].description!,
                                     style: GoogleFonts.inter(
                                       color: AppColor.bgColor,
                                       fontSize: 14.sp,

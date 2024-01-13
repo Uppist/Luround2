@@ -250,9 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
         if (!snapshot.hasData) {
           print("sn-trace: ${snapshot.stackTrace}");
           print("sn-data: ${snapshot.data}");
-          return Loader2();
-          
-          
+          return Loader2(); 
         }
          
         if (snapshot.hasData) {

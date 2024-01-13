@@ -182,7 +182,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                           ),
                                           SizedBox(height: 5.h,),
                                           //time
-                                          data[index].duration.isEmpty ?
+                                          data[index].duration!.isEmpty ?
                                           Text("")
                                           :Text(
                                             "per ${data[index].duration} session",
@@ -203,7 +203,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                 SizedBox(height: 30.h,),
                             
                                 Text(
-                                  data[index].description,
+                                  data[index].description!,
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 14.sp,
@@ -289,9 +289,9 @@ class AccViewerServicesPage extends StatelessWidget {
                                       service_name: data[index].service_name,
                                       date: data[index].date,
                                       time: data[index].time,
-                                      duration: data[index].duration,
-                                      service_charge_virtual: data[index].service_charge_virtual,
-                                      service_charge_in_person: data[index].service_charge_in_person,
+                                      duration: data[index].duration!,
+                                      service_charge_virtual: data[index].service_charge_virtual!,
+                                      service_charge_in_person: data[index].service_charge_in_person!,
                                     ));
                                   },
                                   color: index.isEven ? AppColor.navyBlue : AppColor.mainColor,

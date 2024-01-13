@@ -23,7 +23,8 @@ class FinancialsService extends getx.GetxController {
   var baseService = getx.Get.put(BaseService());
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
-  var email = LocalStorage.getUseremail();
+  var user_email = LocalStorage.getUseremail();
+  var user_name = LocalStorage.getUsername();
 
 
 
@@ -73,86 +74,136 @@ class FinancialsService extends getx.GetxController {
 
   ///[CREATE QUOTES SCREEN] ////THIS
   getx.RxList<UserServiceModel> selectedProducts = <UserServiceModel>[].obs;
+  //getx.RxList<UserServiceModel> editedSelectedProducts = <UserServiceModel>[].obs;
+  getx.RxList<Map<String, dynamic>> editedSelectedProuctMapList = <Map<String, dynamic>>[].obs;
 
-  void toggleProductSelection(UserServiceModel product) {
+  Future<void> toggleProductSelection(UserServiceModel product) async{
     if (selectedProducts.contains(product)) {
       selectedProducts .remove(product);
     } else {
       selectedProducts.add(product);
     }
   }
-
+  
+  //1
   Future<void> deleteSelectedProductForQuote(int index) async{
     isLoading.value = true;
     if (selectedProducts.isNotEmpty) {
       isLoading.value = false;
       selectedProducts.removeAt(index);
+      print(selectedProducts);
+      //clear the figures
     } else {
       isLoading.value = false;
       debugPrint("the item has already been removed at the index");
     }
   }
   
-  getx.RxString totalPriceForQuote = "".obs;
-  getx.RxString vatForQuote = "".obs;
-  Future<String> calculateDiscount({  
-    required String discount, 
-    required String price
-    }) async{
-    // Convert discount and price strings to integers
-    int discountValue = int.tryParse(discount) ?? 0;
-    int priceValue = int.tryParse(price) ?? 0;
-    int totalValue = int.tryParse(totalPriceForQuote.value) ?? 0;
+  //2
+  getx.RxString serviceDescriptionForQuote = "".obs; //
+  getx.RxString durationForQuote = "".obs; //(not in use)
+  getx.RxString rateForQuote = "".obs; //valid
+  getx.RxString selectedMeetingTypeForQuote = "".obs; //valid
+  getx.RxString discountForQuote = "0.00".obs;
+  getx.RxString convertedToLocalCurrencyDiscountForQuote = "0.00".obs;
+  getx.RxString subTotalForQuote = "0.00".obs;
+  //getx.RxString totalPriceForQuote = "".obs;
+  //getx.RxString vatForQuote = "".obs;
+  
 
-    // Calculate the discount
-    double discountedPrice = (discountValue/100) * priceValue;
+  //3*
+  Future<String>  calculateDiscount() async{
 
-    // Update the total string
-    double updatedTotalValue = totalValue -  discountedPrice;
-    String result = updatedTotalValue.toString();
-    totalPriceForQuote.value = result;
+    //define all these for summing up the values and then assigning them to a vriable
+    double subtotal = 0.0;
+    double totalVAT = 0.0;
+    double totalDiscount = 0.0;
+    double sumTotalPrice = 0.0;
+  
+    for (Map<String, dynamic> userMap in editedSelectedProuctMapList) {
+      // Extract variable as a string from the userMap
+      //String meeting_type = userMap["meeting_type"];
+      String price = userMap['rate'];
+      String discount = userMap['discount'];
+      String total = userMap['total'];
 
-    // Calculate the VAT
-    double vatPrice = (7.5/100) * totalValue;
+      // Update the subtotal string
+      subtotal = double.parse(price);
+      //sum them up the values
+      String resultingSubtotal = subtotal.toString();
+      subTotalForQuote.value = resultingSubtotal;
 
-    // Update the VATPrice to string
-    String vatResult = vatPrice.toString();
-    vatForQuote.value = vatResult;
+      // Convert discount and price strings to integers
+      int discountValue = int.tryParse(discount) ?? 0;  //discountForQuote.value
+      int priceValue = int.tryParse(price) ?? 0;
+      int totalValue = int.tryParse(total) ?? 0;  //rateForQuote.value
 
-    print("VAT on this product: ${vatForQuote.value}");
-    print(totalPriceForQuote.value);
+      // Calculate the discount
+      double discountedPrice = (discountValue/100) * priceValue;
+      //sum them up the values
+      totalDiscount += discountedPrice;
+      convertedToLocalCurrencyDiscountForQuote.value =  totalDiscount.toString();
 
+      // Update the total string
+      double updatedTotalValue = totalValue -  discountedPrice;
+      //sum them up the values
+      sumTotalPrice += updatedTotalValue;
+      String result = sumTotalPrice.toString();
+      totalPriceForQuote.value = result;
+
+      // Calculate the VAT
+      double vatPrice = (7.5/100) * double.parse(totalPriceForQuote.value);
+      //sum them up the values
+      totalVAT += vatPrice;
+      String vatResult = totalVAT.toString();
+      vatForQuote.value = vatResult;
+
+      // Calculate final total price
+      double finalTotalPrice = updatedTotalValue + vatPrice;
+      String finalResultingTotalPrice = finalTotalPrice.toString();
+      print("final total price: $finalResultingTotalPrice");
+      totalPriceForQuote.value = finalResultingTotalPrice;
+
+      print("VAT on this quote: ${vatForQuote.value} || total price for this quote: ${totalPriceForQuote.value} || discount price for quote ${discountedPrice}");
+
+      return totalPriceForQuote.value;
+
+    }
+    // return total price for quote
     return totalPriceForQuote.value;
   }
   
-
+  //4
   Future<void> editProductForCreatingQuote({
     required BuildContext context,
-    required String service_id, //query parameter
+    required String service_name,
+    required String discount,
     required String service_description,
-    //required String discount,
-    required String price,
+    required String rate,
     required String duration,
-    required String meetingType
+    required String meetingType,
+    //added
+    required int index,
+    required String total,
     
   }) async{
     isLoading.value = true;
     //Find the index of the item you want to modify
-    int indexOfItemToModify = selectedProducts.indexWhere((userModel) => userModel.serviceId == service_id);
-    if (indexOfItemToModify != -1) {
+    if (index != -1) {
       isLoading.value = false;
-      // Modify the values of the found item
-      selectedProducts[indexOfItemToModify].description = service_description;
-      selectedProducts[indexOfItemToModify].duration = duration;
+      // Modify the values of the found item in the originally selected list
+      editedSelectedProuctMapList[index]["description"] = service_description;
+      editedSelectedProuctMapList[index]["duration"] = duration;
       
       if(meetingType == "In-Person") {
-        selectedProducts[indexOfItemToModify].service_charge_in_person = price;
+        editedSelectedProuctMapList[index]["rate"] = rate;
+        subTotalForQuote.value = editedSelectedProuctMapList[index]["rate"];
       }
       else {
-        selectedProducts[indexOfItemToModify].service_charge_virtual = price;
+        editedSelectedProuctMapList[index]["rate"] = rate;
+        subTotalForQuote.value = editedSelectedProuctMapList[index]["rate"];
       }
-      // Print the modified list
-      debugPrint("edited list: $selectedProducts");
+      
       //success snackbar
       showMySnackBar(
         context: context,
@@ -167,13 +218,74 @@ class FinancialsService extends getx.GetxController {
   
   }
 
+  //5
+  ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
+  Future<void> createNewQuoteAndSendToDB({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required DateTime? quoteDueDate
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "send_to": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      "user_email": user_email,
+      "user_name": user_name,
+      "notes": note,
+      "due_date": quoteDueDate,
+      "vat": vatForQuote.value,
+      "sub_total": subTotalForQuote.value,
+      "discount": "-N${convertedToLocalCurrencyDiscountForQuote.value}",
+      "total": totalPriceForQuote.value,
+      "product_detail": editedSelectedProuctMapList
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$user_email", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("quote created and saved successfully to database");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "quote created and saved successfully"
+        );
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save quote"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
 
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
   Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$user_email",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -205,8 +317,13 @@ class FinancialsService extends getx.GetxController {
     }
   }
 
-  
+
   ////////////////////////////////////////////////////////////
+
+
+
+
+
 
 
   ////FOR INVOICE/////
@@ -256,8 +373,9 @@ class FinancialsService extends getx.GetxController {
 
   ///[CREATE INVOICE SCREEN]
   getx.RxList<UserServiceModel> selectedProductsForInvoice = <UserServiceModel>[].obs;
+  getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForInvoice = <Map<String, dynamic>>[].obs;
 
-  void toggleProductSelectionForInvoice(UserServiceModel product) {
+  Future<void> toggleProductSelectionForInvoice(UserServiceModel product) async{
     if (selectedProductsForInvoice.contains(product)) {
       selectedProductsForInvoice.remove(product);
     } else {
@@ -277,7 +395,7 @@ class FinancialsService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserServicesForInvoice() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$user_email",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -309,10 +427,13 @@ class FinancialsService extends getx.GetxController {
     }
   }
 
-
-
   ///////////////////////////////////////////////////////////////////////////////
   
+
+
+
+
+
 
 
   ////FOR RECEIPT/////
@@ -362,8 +483,9 @@ class FinancialsService extends getx.GetxController {
 
   ///[CREATE INVOICE SCREEN]
   getx.RxList<UserServiceModel> selectedProductsForReceipt = <UserServiceModel>[].obs;
+  getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForReceipt = <Map<String, dynamic>>[].obs;
 
-  void toggleProductSelectionForReceipt(UserServiceModel product) {
+  Future<void> toggleProductSelectionForReceipt(UserServiceModel product) async{
     if (selectedProductsForReceipt.contains(product)) {
       selectedProductsForReceipt.remove(product);
     } else {
@@ -384,7 +506,7 @@ class FinancialsService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserServicesForReceipt() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$user_email",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

@@ -362,7 +362,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         //To show the items that were added (Use Future builder to show the items addedd)
                         Obx(
                           () {
-                            return service.editedSelectedProuctMapList.isNotEmpty ?
+                            return service.editedSelectedProuctMapList.value.isNotEmpty ?
                             ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: NeverScrollableScrollPhysics(),
@@ -374,6 +374,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 return AddedServicesTile(
                                   onTap: (){
                                     Get.to(() => ViewAddedServiceDetails(
+                                      discounted_total: item["discounted_total"] ?? item['total'],
                                       meeting_type: item['meeting_type'],
                                       index: index,
                                       service_name: item['service_name'],
@@ -589,8 +590,8 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
                                       quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
-                                      quoteDueDate: convertStringToDateTime(controller.updatedDueDate(initialDate: "(non)"))
-                                    );
+                                      quote_due_date: controller.isoDateForQuote.value
+                                    ).whenComplete(() => Get.back());
                                   },
                                   onDownload: () {},
                                 );

@@ -74,36 +74,29 @@ class FinancialsService extends getx.GetxController {
 
   ///[CREATE QUOTES SCREEN] ////THIS
   getx.RxList<UserServiceModel> selectedProducts = <UserServiceModel>[].obs;
-  //getx.RxList<UserServiceModel> editedSelectedProducts = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapList = <Map<String, dynamic>>[].obs;
-
-  Future<void> toggleProductSelection(UserServiceModel product) async{
-    if (selectedProducts.contains(product)) {
-      selectedProducts .remove(product);
-    } else {
-      selectedProducts.add(product);
-    }
-  }
   
   ///////////////////
   String calculateTotalForQuote() {
     double total = 0.0;
+    double vat = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapList) {
       // Extract the "total" value from each map and add it to the total variable
       total += (double.tryParse(product['total']) ?? 0.0);
     }
+    vat = (7.5/100) * total;
+    total += vat;
     print(total);
     return total.toString();
   }
 
   String calculateSubtotalForQuote() {
-    double rate = 0.0;
+    double rate = editedSelectedProuctMapList.fold(0.0, (previousValue, product) {
+      double productTotal = double.tryParse(product['rate']) ?? 0.0;
+      return previousValue + productTotal;
+    });
 
-    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
-      // Extract the "total" value from each map and add it to the total variable
-      rate += (double.tryParse(product['rate']) ?? 0.0);
-    }
     print(rate);
     return rate.toString();
   }
@@ -156,10 +149,11 @@ class FinancialsService extends getx.GetxController {
   getx.RxString discountForQuote = "".obs; //valid
   getx.RxString convertedToLocalCurrencyDiscountForQuote = "".obs; //valid
   getx.RxString subTotalForQuote = "".obs; //valid
-  
 
 
-  Future<void> calculateDiscount() async {
+
+  Future<void> calculateDiscount({required int index, required BuildContext context}) async {
+
     // Convert parameters from string to double data type
     double discountValue = double.tryParse(discountForQuote.value) ?? 0;
     double rateValue = double.tryParse(rateForQuote.value) ?? 0;
@@ -169,13 +163,25 @@ class FinancialsService extends getx.GetxController {
 
     // Calculate the new total after the discount has been subtracted from it
     double newSubtotal = rateValue - calculatedDiscount;
-
     debugPrint("Calculated Discount: $calculatedDiscount");
     debugPrint("New Subtotal: $newSubtotal");
   
     convertedToLocalCurrencyDiscountForQuote.value = calculatedDiscount.toString();
     subTotalForQuote.value = newSubtotal.toString();
- 
+
+    //updated from here
+    final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
+    editedSelectedProuctMapList[index].addEntries(indexed_subtotal.entries);
+    print("updated list with total updated: $editedSelectedProuctMapList");
+  
+    //success snackbar
+    showMySnackBar(
+      context: context,
+      backgroundColor: AppColor.darkGreen,
+      message: "your discounted total is N$newSubtotal"
+    );
+    ///
+    update();
   }
 
   
@@ -217,7 +223,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("Item not found in the list.");
     }
-  
+    update();
   }
 
   //5
@@ -229,14 +235,14 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String quote_date,
-    required DateTime? quoteDueDate
+    required String quote_due_date
     }) async {
 
     isLoading.value = true;
 
     var body = {
       "status": "SAVED",
-      "appointment_type": "what's this",
+      "appointment_type": "already in the product detail list",
       "quote_date": quote_date,
       ////////////////
       "send_to_name": client_name,
@@ -245,7 +251,7 @@ class FinancialsService extends getx.GetxController {
       "user_email": user_email,
       "user_name": user_name,
       "notes": note,
-      "due_date": quoteDueDate,
+      "due_date": quote_due_date,
       "vat": calculateTotalVATForQuote(),
       "sub_total": calculateSubtotalForQuote(),
       "discount": "-N${calculateTotalDiscountForQuote()} ",
@@ -382,21 +388,224 @@ class FinancialsService extends getx.GetxController {
   getx.RxList<UserServiceModel> selectedProductsForInvoice = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForInvoice = <Map<String, dynamic>>[].obs;
 
-  Future<void> toggleProductSelectionForInvoice(UserServiceModel product) async{
-    if (selectedProductsForInvoice.contains(product)) {
-      selectedProductsForInvoice.remove(product);
-    } else {
-      selectedProductsForInvoice.add(product);
+  ///////////////////
+  String calculateTotalForInvoice() {
+    double total = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
+      // Extract the "total" value from each map and add it to the total variable
+      total += (double.tryParse(product['total']) ?? 0.0);
     }
+    print(total);
+    return total.toString();
   }
 
-  Future<void> deleteSelectedProductForInvoice (int index) async{
-    if (selectedProductsForInvoice.isNotEmpty) {
-      selectedProductsForInvoice.removeAt(index);
+  String calculateSubtotalForInvoice() {
+    double rate = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
+      // Extract the "total" value from each map and add it to the total variable
+      rate += (double.tryParse(product['rate']) ?? 0.0);
+    }
+    print(rate);
+    return rate.toString();
+  }
+
+  String calculateTotalDiscountForInvoice() {
+    double discount = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
+      // Extract the "total" value from each map and add it to the total variable
+      discount += (double.tryParse(product['discount']) ?? 0.0);
+    }
+    print(discount);
+    return discount.toString();
+  }
+
+  String calculateTotalVATForInvoice() {
+    double total = 0.0;
+    double vat = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
+      // Extract the "total" value from each map and add it to the total variable
+      total += (double.tryParse(product['total']) ?? 0.0);
+    }
+    vat = (7.5/100) * total;
+    print("total vat: $vat");
+    return vat.toString();
+  }
+
+
+  /////////////////
+  //1
+  Future<void> deleteSelectedProductForInvoice(int index) async{
+    isLoading.value = true;
+    if (editedSelectedProuctMapListForInvoice.isNotEmpty) {
+      isLoading.value = false;
+      editedSelectedProuctMapListForInvoice.removeAt(index);
+      print("list: $editedSelectedProuctMapListForInvoice");
+      //clear the figures
     } else {
+      isLoading.value = false;
       debugPrint("the item has already been removed at the index");
     }
   }
+  
+  //2(these act like text editing controllers)
+  TextEditingController serviceDescriptionForInvoice = TextEditingController(); //
+  TextEditingController durationForInvoice = TextEditingController(); //(not in use)
+  TextEditingController rateForInvoice = TextEditingController(); //valid
+  TextEditingController selectedMeetingTypeForInvoice = TextEditingController(); //valid
+  TextEditingController discountForInvoice = TextEditingController(); //valid
+  TextEditingController convertedToLocalCurrencyDiscountForInvoice = TextEditingController(); //valid
+  TextEditingController subtotalForInvoice = TextEditingController(); //valid
+  
+
+
+  Future<void> calculateDiscountForInvoice({required int index, required BuildContext context}) async {
+    // Convert parameters from string to double data type
+    double discountValue = double.tryParse(discountForInvoice.text) ?? 0;
+    double rateValue = double.tryParse(rateForInvoice.text) ?? 0;
+
+    // Calculate the discount
+    double calculatedDiscount = (discountValue / 100) * rateValue;
+
+    // Calculate the new total after the discount has been subtracted from it
+    double newSubtotal = rateValue - calculatedDiscount;
+
+    debugPrint("Calculated Discount: $calculatedDiscount");
+    debugPrint("New Subtotal: $newSubtotal");
+  
+    convertedToLocalCurrencyDiscountForInvoice.text = calculatedDiscount.toString();
+    subtotalForInvoice.text = newSubtotal.toString();
+    
+    //updated from here
+    final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
+    editedSelectedProuctMapListForInvoice[index].addEntries(indexed_subtotal.entries);
+    print("updated list with total updated: $editedSelectedProuctMapListForInvoice");
+  
+    //success snackbar
+    showMySnackBar(
+      context: context,
+      backgroundColor: AppColor.darkGreen,
+      message: "your discounted total is N$newSubtotal"
+    );
+    ///
+    update();
+  }
+
+  //4
+  Future<void> editProductForInvoiceCreation({
+    required BuildContext context,
+    required String service_name,
+    required String discount,
+    required String service_description,
+    required String rate,
+    required String duration,
+    required String meetingType,
+    required int index,
+    required String total, 
+  }) async{
+
+    isLoading.value = true;
+    //Find the index of the item you want to modify
+    if (index != -1) {
+
+      isLoading.value = false;
+
+      // Modify the values of the found item in the originally selected list
+      editedSelectedProuctMapListForInvoice[index]["description"] = service_description;
+      editedSelectedProuctMapListForInvoice[index]["duration"] = duration;
+      editedSelectedProuctMapListForInvoice[index]["discount"] = discount;
+      editedSelectedProuctMapListForInvoice[index]["total"] = total;
+      editedSelectedProuctMapListForInvoice[index]["meeting_type"] = meetingType;
+      editedSelectedProuctMapListForInvoice[index]["rate"] = rate;
+      
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.darkGreen,
+        message: "item edited and saved successfully"
+      ).whenComplete(() => getx.Get.back());
+    } 
+    else {
+      isLoading.value = false;
+      debugPrint("Item not found in the list.");
+    }
+  
+  }
+
+  //5
+  ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
+  Future<void> createNewInvoiceAndSendToDB({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required String quote_date,
+    required String quote_due_date
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "status": "SAVED",
+      "appointment_type": "what's this",
+      "quote_date": quote_date,
+      ////////////////
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      "user_email": user_email,
+      "user_name": user_name,
+      "notes": note,
+      "due_date": quote_due_date,
+      "vat": calculateTotalVATForQuote(),
+      "sub_total": calculateSubtotalForQuote(),
+      "discount": "-N${calculateTotalDiscountForQuote()} ",
+      "total": calculateTotalForQuote(),
+      "product_detail": editedSelectedProuctMapList
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$user_email", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("quote created and saved successfully to database");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "quote created and saved successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save quote"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  } 
+
+
+
+
+
+
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
   Future<List<UserServiceModel>> getUserServicesForInvoice() async {

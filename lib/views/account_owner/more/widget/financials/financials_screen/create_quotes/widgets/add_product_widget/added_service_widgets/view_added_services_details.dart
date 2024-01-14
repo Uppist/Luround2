@@ -14,7 +14,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ViewAddedServiceDetails extends StatefulWidget {
-  ViewAddedServiceDetails({super.key, required this.duration, required this.service_description, required this.index, required this.service_name, required this.discount, required this.total, required this.meeting_type, required this.rate});
+  ViewAddedServiceDetails({super.key, required this.duration, required this.service_description, required this.index, required this.service_name, required this.discount, required this.total, required this.meeting_type, required this.rate, required this.discounted_total,});
   final String service_name;
   final String service_description;
   final String meeting_type;
@@ -23,6 +23,7 @@ class ViewAddedServiceDetails extends StatefulWidget {
   final String duration;
   final int index;
   final String total;
+  final String discounted_total;
 
   @override
   State<ViewAddedServiceDetails> createState() => _ViewAddedServiceDetailsState();
@@ -86,6 +87,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   duration: widget.duration, 
                                   meetingType: finService.selectedMeetingTypeForQuote.value
                                 ).whenComplete(() {
+                                  finService.subTotalForQuote.value = "";
                                   print(finService.editedSelectedProuctMapList);
                                 });
                               },
@@ -145,7 +147,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                               ),
                             ),
                             Text(
-                              finService.subTotalForQuote.value.isNotEmpty ? "N${finService.subTotalForQuote.value}" : "N${widget.total}",
+                              "N${widget.total}",
                               style: GoogleFonts.inter(
                                 color: AppColor.mainColor, 
                                 fontSize: 16.sp,
@@ -294,14 +296,14 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                 hintText: 'Enter service discount',
                                 keyboardType: TextInputType.number,
                                 textInputAction: TextInputAction.done,
-                                initialValue: finService.discountForQuote.value,
+                                initialValue: "",
                               ),
                             ),
                             SizedBox(width: 10.w,),
                             //calculate button
                             InkWell(
                               onTap: () {
-                                finService.calculateDiscount();
+                                finService.calculateDiscount(index: widget.index, context: context);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -321,62 +323,42 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   )
                                 ),
                               ),
-                            ),
+                            )
+                            
+                            
                           ],
                         ),
                         SizedBox(height: 30.h,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
+
                             RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Total: ',
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
-                                        )
-                                      ),
-                                      TextSpan(
-                                        text: finService.subTotalForQuote.value.isNotEmpty ? "N${finService.subTotalForQuote.value}" : "N${widget.total}",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600
-                                        )
-                                      ),
-                                          
-                                    ]
-                                  )
-                                ),
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Total: ',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    )
+                                  ),
+                                  TextSpan(
+                                    text: "N${widget.discounted_total}",
+                                    //text: finService.subTotalForQuote.value.isNotEmpty ? "N${finService.subTotalForQuote.value}" : "N${widget.total}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600
+                                    )
+                                  ),          
+                                ]
+                              )
+                            ),
                             
                             SizedBox(width: 10.w,),
-                            //discount
-                            RichText(
-                                  text: TextSpan(
-                                    children: [
-                                      TextSpan(
-                                        text: 'Discount: ',
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
-                                        )
-                                      ),
-                                      TextSpan(
-                                        text: "N${finService.convertedToLocalCurrencyDiscountForQuote.value}",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600
-                                        )
-                                      ),
-                                          
-                                    ]
-                                  )
-                                ),
+                  
                             //delete button
                             InkWell(
                               onTap: () {

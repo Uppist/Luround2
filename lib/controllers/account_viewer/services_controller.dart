@@ -84,7 +84,7 @@ class AccViewerServicesController extends getx.GetxController {
 
   //UPLOAD FILE WHEN REQUESTING FOR QUOTE (PDF, DOCX, e.t.c)
   //file picker to pick user docs/pdf
-  File? selectedFile;
+  File? selectedFileForRequestingQuote;
   var isFileSelected = false.obs;
   Future<void> selectFile(BuildContext context) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -94,9 +94,9 @@ class AccViewerServicesController extends getx.GetxController {
 
     if (result != null) {
       isFileSelected.value = true;
-      selectedFile = File(result.files.single.path!);
-      debugPrint("pdf path: ${selectedFile!.path}");
-      uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFile);
+      selectedFileForRequestingQuote = File(result.files.single.path!);
+      debugPrint("pdf path: ${selectedFileForRequestingQuote!.path}");
+      uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote);
     }
   }
   //upload request quote file to cloudinary

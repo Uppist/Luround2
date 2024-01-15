@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -21,6 +22,7 @@ import 'package:luround/utils/components/my_snackbar.dart';
 class FinancialsService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
+  var finController = getx.Get.put(FinancialsController());
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var user_email = LocalStorage.getUseremail();
@@ -244,7 +246,6 @@ class FinancialsService extends getx.GetxController {
       "status": "SAVED",
       "appointment_type": "already in the product detail list",
       "quote_date": quote_date,
-      ////////////////
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
@@ -265,12 +266,17 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("quote created and saved successfully to database");
+        finController.quoteClientNameController.clear();
+        finController.quoteClientEmailController.clear();
+        finController.quoteClientPhoneNumberController.clear();
+
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "quote created and saved successfully"
-        ).whenComplete(() => getx.Get.back());
+        );
+        //.whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;
@@ -282,7 +288,8 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to save quote"
-        ).whenComplete(() => getx.Get.back());
+        );
+        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -498,13 +505,22 @@ class FinancialsService extends getx.GetxController {
   Future<void> editProductForInvoiceCreation({
     required BuildContext context,
     required String service_name,
-    required String discount,
     required String service_description,
-    required String rate,
+    required String service_id,
+    required String discount,
+    required num rate,
+    required num total, 
     required String duration,
-    required String meetingType,
+    required String appointmentType,
     required int index,
-    required String total, 
+
+    //invoice gets converted to bookings according to somto
+    //these below corresponds to bookings
+    required String date, //leave emty
+    required String time, //leave emty
+    required String message,  //leave empty
+    required String location, //put the appointment type
+    required String phone_number,  //put client phone number
   }) async{
 
     isLoading.value = true;
@@ -518,8 +534,14 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapListForInvoice[index]["duration"] = duration;
       editedSelectedProuctMapListForInvoice[index]["discount"] = discount;
       editedSelectedProuctMapListForInvoice[index]["total"] = total;
-      editedSelectedProuctMapListForInvoice[index]["meeting_type"] = meetingType;
+      editedSelectedProuctMapListForInvoice[index]["appointment_type"] = appointmentType;
       editedSelectedProuctMapListForInvoice[index]["rate"] = rate;
+      editedSelectedProuctMapListForInvoice[index]["serviceID"] = service_id;
+      editedSelectedProuctMapListForInvoice[index]["time"] = time;
+      editedSelectedProuctMapListForInvoice[index]["date"] = date;
+      editedSelectedProuctMapListForInvoice[index]["message"] = message;
+      editedSelectedProuctMapListForInvoice[index]["location"] = location;
+      editedSelectedProuctMapListForInvoice[index]["phone_number"] = phone_number;
       
       //success snackbar
       showMySnackBar(
@@ -543,42 +565,45 @@ class FinancialsService extends getx.GetxController {
     required String client_email,
     required String client_phone_number,
     required String note,
-    required String quote_date,
-    required String quote_due_date
+    required String invoice_date,
+    required String due_date
     }) async {
 
     isLoading.value = true;
 
     var body = {
-      "status": "SAVED",
-      "appointment_type": "what's this",
-      "quote_date": quote_date,
+      "status": "UNPAID",
+      "appointment_type": "already in the product_detail_list",
+      "invoice_date": invoice_date,
       ////////////////
+      "user_email": user_email,
+      "user_name": user_name,
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "user_email": user_email,
-      "user_name": user_name,
-      "notes": note,
-      "due_date": quote_due_date,
-      "vat": calculateTotalVATForQuote(),
-      "sub_total": calculateSubtotalForQuote(),
-      "discount": "-N${calculateTotalDiscountForQuote()} ",
-      "total": calculateTotalForQuote(),
-      "product_detail": editedSelectedProuctMapList
+      "note": note,
+      "due_date": due_date,
+      "vat": calculateTotalVATForInvoice(),
+      "sub_total": int.parse(calculateSubtotalForInvoice()),
+      "discount": int.parse("-N${calculateTotalDiscountForInvoice()}"),
+      "total": int.parse(calculateTotalForInvoice()),
+      "booking_detail": editedSelectedProuctMapListForInvoice //product_detail
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$user_email", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "invoice/generate-invoice", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("quote created and saved successfully to database");
+        debugPrint("invoice created and saved successfully to database");
+        finController.invoiceClientNameController.clear();
+        finController.invoiceClientEmailController.clear();
+        finController.invoiceClientPhoneNumberController.clear();
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "quote created and saved successfully"
+          message: "invoice created and saved successfully"
         ).whenComplete(() => getx.Get.back());
       } 
       else {
@@ -590,7 +615,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save quote"
+          message: "failed to save invoice"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -701,19 +726,220 @@ class FinancialsService extends getx.GetxController {
   getx.RxList<UserServiceModel> selectedProductsForReceipt = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForReceipt = <Map<String, dynamic>>[].obs;
 
-  Future<void> toggleProductSelectionForReceipt(UserServiceModel product) async{
-    if (selectedProductsForReceipt.contains(product)) {
-      selectedProductsForReceipt.remove(product);
+  
+  ///////////////////
+  String calculateTotalForReceipt() {
+    double total = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
+      // Extract the "total" value from each map and add it to the total variable
+      total += (double.tryParse(product['total']) ?? 0.0);
+    }
+    print(total);
+    return total.toString();
+  }
+
+  String calculateSubtotalForReceipt() {
+    double rate = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
+      // Extract the "total" value from each map and add it to the total variable
+      rate += (double.tryParse(product['rate']) ?? 0.0);
+    }
+    print(rate);
+    return rate.toString();
+  }
+
+  String calculateTotalDiscountForReceipt() {
+    double discount = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
+      // Extract the "total" value from each map and add it to the total variable
+      discount += (double.tryParse(product['discount']) ?? 0.0);
+    }
+    print(discount);
+    return discount.toString();
+  }
+
+  String calculateTotalVATForReceipt() {
+    double total = 0.0;
+    double vat = 0.0;
+
+    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
+      // Extract the "total" value from each map and add it to the total variable
+      total += (double.tryParse(product['total']) ?? 0.0);
+    }
+    vat = (7.5/100) * total;
+    print("total vat: $vat");
+    return vat.toString();
+  }
+
+
+  /////////////////
+  //1
+  Future<void> deleteSelectedProductForReceipt(int index) async{
+    isLoading.value = true;
+    if (editedSelectedProuctMapListForReceipt.isNotEmpty) {
+      isLoading.value = false;
+      editedSelectedProuctMapListForReceipt.removeAt(index);
+      print("list: $editedSelectedProuctMapListForReceipt");
+      //clear the figures
     } else {
-      selectedProductsForReceipt.add(product);
+      isLoading.value = false;
+      debugPrint("the item has already been removed at the index");
     }
   }
 
-  Future<void> deleteSelectedProductForReceipt (int index) async{
-    if (selectedProductsForReceipt.isNotEmpty) {
-      selectedProductsForReceipt.removeAt(index);
-    } else {
-      debugPrint("the item has already been removed at the index");
+  //2(these act like text editing controllers)
+  TextEditingController serviceDescriptionForReceipt = TextEditingController(); //
+  TextEditingController durationForReceipt = TextEditingController(); //(not in use)
+  TextEditingController rateForReceipt = TextEditingController(); //valid
+  TextEditingController selectedMeetingTypeForReceipt = TextEditingController(); //valid
+  TextEditingController discountForReceipt = TextEditingController(); //valid
+  TextEditingController convertedToLocalCurrencyDiscountForReceipt = TextEditingController(); //valid
+  TextEditingController subtotalForReceipt = TextEditingController(); //valid
+  
+
+
+  Future<void> calculateDiscountForReceipt({required int index, required BuildContext context}) async {
+    // Convert parameters from string to double data type
+    double discountValue = double.tryParse(discountForReceipt.text) ?? 0;
+    double rateValue = double.tryParse(rateForReceipt.text) ?? 0;
+
+    // Calculate the discount
+    double calculatedDiscount = (discountValue / 100) * rateValue;
+
+    // Calculate the new total after the discount has been subtracted from it
+    double newSubtotal = rateValue - calculatedDiscount;
+
+    debugPrint("Calculated Discount: $calculatedDiscount");
+    debugPrint("New Subtotal: $newSubtotal");
+  
+    convertedToLocalCurrencyDiscountForReceipt.text = calculatedDiscount.toString();
+    subtotalForReceipt.text = newSubtotal.toString();
+    
+    //updated from here
+    final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
+    editedSelectedProuctMapListForReceipt[index].addEntries(indexed_subtotal.entries);
+    print("updated list with total updated: $editedSelectedProuctMapListForReceipt");
+  
+    //success snackbar
+    showMySnackBar(
+      context: context,
+      backgroundColor: AppColor.darkGreen,
+      message: "your discounted total is N$newSubtotal"
+    );
+    ///
+    update();
+  }
+
+  //4
+  Future<void> editProductForReceiptCreation({
+    required BuildContext context,
+    required String service_name,
+    required String service_description,
+    required String service_id,
+    required String discount,
+    required String rate,
+    required String total, 
+    required String duration,
+    required String appointmentType,
+    required int index,
+  }) async{
+
+    isLoading.value = true;
+    //Find the index of the item you want to modify
+    if (index != -1) {
+
+      isLoading.value = false;
+
+      // Modify the values of the found item in the originally selected list
+      editedSelectedProuctMapListForReceipt[index]["description"] = service_description;
+      editedSelectedProuctMapListForReceipt[index]["duration"] = duration;
+      editedSelectedProuctMapListForReceipt[index]["discount"] = discount;
+      editedSelectedProuctMapListForReceipt[index]["total"] = total;
+      editedSelectedProuctMapListForReceipt[index]["appointment_type"] = appointmentType;
+      editedSelectedProuctMapListForReceipt[index]["rate"] = rate;
+      editedSelectedProuctMapListForReceipt[index]["serviceID"] = service_id;
+      
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.darkGreen,
+        message: "item edited and saved successfully"
+      ).whenComplete(() => getx.Get.back());
+    } 
+    else {
+      isLoading.value = false;
+      debugPrint("Item not found in the list.");
+    }
+  
+  }
+
+  //5
+  ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
+  Future<void> createNewReceiptAndSendToDB({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required String receipt_date,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "status": "SAVED",
+      "appointment_type": "already in the product_detail_list",
+      "receipt_date": receipt_date,
+      ////////////////
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      "user_email": user_email,
+      "user_name": user_name,
+      "notes": note,
+      "vat": calculateTotalVATForReceipt(),
+      "sub_total": calculateSubtotalForReceipt(),
+      "discount": "-N${calculateTotalDiscountForReceipt()}",
+      "total": calculateTotalForReceipt(),
+      "product_detail": editedSelectedProuctMapListForReceipt //product_detail
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "receipt/generate-receipt", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("receipt created and saved successfully to database");
+        finController.receiptClientNameController.clear();
+        finController.receiptClientEmailController.clear();
+        finController.receiptClientPhoneNumberController.clear();
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "receipt created and saved successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save receipt"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
     }
   }
 

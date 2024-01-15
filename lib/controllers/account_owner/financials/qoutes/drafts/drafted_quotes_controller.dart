@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/financials/quotes/drafted_quotes_response_model.dart';
 import 'package:luround/services/account_owner/more/financials/quotes_service.dart';
 
 
@@ -52,26 +53,26 @@ class DraftedQuotesController extends getx.GetxController {
   
 
   //filter
-  Future<List<dynamic>> filterQuoteByDate() async{
-    //Convert the start and end date strings to DateTime objects
-    DateTime startDateTime = DateTime.parse(startDate());
-    DateTime endDateTime = DateTime.parse(endDate());
-    print("conv datetime: $startDateTime");
-    print("conv datetime: $endDateTime");
+  Future<List<DraftedQuotesResponse>> filterQuoteByDate() async {
+    String startDateString = startDate();
+    String endDateString = endDate();
+    print("start date: $startDateString");
+    print("end date: $endDateString");
 
-    //Filter the invoice list based on the date range
-    List<dynamic> result = quoteService.filteredDraftedQuotesList
-    .where((user) {
-    DateTime quoteDate = DateTime.parse(user['date']);
+    List<DraftedQuotesResponse> result = quoteService.filteredDraftedQuotesList
+      .where((user) {
+        String quoteDateString = user.quote_date;
 
-    // Check if the invoice date is within the selected range
-    return quoteDate.isAfter(startDateTime.subtract(Duration(days: 1))) &&
-      quoteDate.isBefore(endDateTime.add(Duration(days: 1)));
-    }).toList();
+        // Assuming the date strings are in the format "yyyy-MM-dd"
+        return quoteDateString.compareTo(startDateString) >= 0 &&
+            quoteDateString.compareTo(endDateString) <= 0;
+      })
+      .toList();
 
     print("filtered by date quote list: ${result}");
     return result;
   }
+
 
 
 

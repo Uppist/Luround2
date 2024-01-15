@@ -14,8 +14,42 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class QuotesDisplay extends StatelessWidget {
-  const QuotesDisplay({super.key, required this.onPressed});
+  const QuotesDisplay({
+    super.key, 
+    required this.onPressed,
+    required this.send_to_name, 
+    required this.send_to_email, 
+    required this.phone_number, 
+    required this.due_date, 
+    required this.quote_date, 
+    required this.sub_total, 
+    required this.discount, 
+    required this.vat, 
+    required this.total, 
+    required this.appointment_type, 
+    required this.status, 
+    required this.note, 
+    required this.service_provider,  
+    required this.product_details,
+    required this.quote_id,
+    
+  });
   final VoidCallback onPressed;
+  final String quote_id;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String due_date;
+  final String quote_date;
+  final String sub_total;
+  final String discount;
+  final String vat;
+  final String total;
+  final String appointment_type;
+  final String status;
+  final String note;
+  final Map<String, dynamic> service_provider;
+  final List<dynamic> product_details;
 
   @override
   Widget build(BuildContext context) {
@@ -50,15 +84,30 @@ class QuotesDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#0000001",
+                "#$quote_id",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400
                 ),
               ),
-              //QoutesDrpDown()  //ReceiptDropDown()  //InvoiceDropDown()
-              QuoteDropDown()
+              QuoteDropDown(
+                quote_id: quote_date, 
+                send_to_name: send_to_name,
+                send_to_email: send_to_email,
+                phone_number:phone_number,
+                due_date: due_date,
+                quote_date: quote_date,
+                sub_total: sub_total,
+                discount: discount,
+                vat: vat,
+                total: total,
+                appointment_type: appointment_type,
+                status: status,
+                note: note,
+                service_provider: service_provider,
+                product_details: product_details
+              )
             ],
           ),
           SizedBox(height: 10.h,),
@@ -69,7 +118,7 @@ class QuotesDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Sheldon Cooper",
+                send_to_name,
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,
@@ -77,7 +126,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                "28 Oct 2023",
+                quote_date,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -101,7 +150,7 @@ class QuotesDisplay extends StatelessWidget {
                 ],
               ),*/
               Text(
-                "N82,000",
+                "N$total",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,

@@ -14,7 +14,25 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewRequestedQuoteScreen extends StatelessWidget {
-  ViewRequestedQuoteScreen({super.key});
+  ViewRequestedQuoteScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_name, required this.offer, required this.uploaded_file});
+  final String quote_id;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String due_date;
+  final String quote_date;
+  final String sub_total;
+  final String discount;
+  final String vat;
+  final String total;
+  final String appointment_type;
+  final String status;
+  final String note;
+  final String service_name;
+  final String offer;
+  final String uploaded_file;
+  final Map<String, dynamic> service_provider;
+  final List<dynamic> product_details;
 
   var controller = Get.put(RequestedQuotesController());
 
@@ -92,7 +110,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "Japhet Alvin",
+                            send_to_name,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -101,7 +119,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "jay@gmail.com",
+                            send_to_email,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -110,7 +128,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "+234 7040571471",
+                            phone_number,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -161,7 +179,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(7.r)
                                 ),
                                 child: Text(
-                                  'REQUEST',
+                                  status,
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 10.sp,
@@ -184,7 +202,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'Django Course',
+                                service_name,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -207,7 +225,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'In-Person',
+                                appointment_type,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -230,7 +248,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N60,000',
+                                'N$offer', //
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -316,7 +334,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 10.h,),
                                     Text(
-                                      "gfhghchgchgjgj",
+                                      note,
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,

@@ -297,16 +297,16 @@ class AccViewerService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "reviews/add-review?serviceId=6572c7f714b0a81bd0de3c88", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "reviews/add-review", body: body);  //?serviceId=6572c7f714b0a81bd0de3c88
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("user about updated successfully");
+        debugPrint("review sent successfully");
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "updated successfully"
+          message: "review sent successfully"
         );
       } 
       else {
@@ -318,7 +318,7 @@ class AccViewerService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update"
+          message: "failed to send review"
         );
       }
     } 
@@ -329,66 +329,79 @@ class AccViewerService extends getx.GetxController {
     }
   }
 
-  /////[GET FLUTTERWAVE POP UP]/////
-  /*Future<dynamic> fetchFlutterwavePopUp({
+
+
+  ////[TO MAKE AN EXTERNAL USER REQUEST QUOTE]//////// 
+  Future<void> requestQuote({
     required BuildContext context,
-    required String name,
-    required String email,
     required String service_name,
-    ////
-    required String serviceId,
-    required String phone_number,
+    required String offer,
+    required String uploaded_file,
     required String appointment_type,
-    required String date,
-    required String time,
-    required String duration,
-    required String message,
-    required String location,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String client_note,
+    required String service_provider_email,
+    required String service_provider_name,
+
   }) async {
+
     isLoading.value = true;
+
+    var body = { 
+      "service_name": service_name,
+      "offer": offer,
+      "uploaded_file": uploaded_file,
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "user_email": service_provider_email,
+      "user_name": service_provider_name,
+      "phone_number": client_phone_number,
+      "notes": client_note,
+      "due_date": "(non)",
+      "quote_date": "(non)",
+      "appointment_type": appointment_type,
+      "status": "REQUEST",
+      "vat": "(non)",
+      "sub_total": "(non)",
+      "discount": "(non)",
+      "total": "(non)",
+      "product_detail":[]
+    };
+
     try {
-      http.Response res = await baseService.httpGet(endPoint: "payments/initialize-flw-payment",);
+      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$service_provider_email", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        //decode the response body here
-        FlutterWaveResponse response = FlutterWaveResponse.fromJson(jsonDecode(res.body));
-        /////////////
-        print("flw-payment: $response");
-        await launchUrlLink(link: response.payment_link)
-        .whenComplete(() {
-          bookUserService(
-            context: context, 
-            name: name, 
-            email: email, 
-            service_name: service_name, 
-            serviceId: serviceId, 
-            phone_number: phone_number, 
-            appointment_type: appointment_type, 
-            date: date, 
-            time: time, 
-            duration: duration, 
-            message: message, 
-            location: location
-          );
-        });
-      }
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("client requested quote successfuly");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "your request was sent successfully"
+        );
+      } 
       else {
         isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch flutterwave api');
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to send quote request"
+        );
       }
     } 
     catch (e) {
       isLoading.value = false;
-      //debugPrint("Error net: $e");
-      throw Exception("$e");
-    
+      debugPrint("$e");
+      throw Exception("Something went wrong");
     }
-  }*/
+  }
 
 
 }

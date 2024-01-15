@@ -14,8 +14,24 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewDraftedQuoteScreen extends StatelessWidget {
-  ViewDraftedQuoteScreen({super.key});
+  ViewDraftedQuoteScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details});
+  final String quote_id;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String due_date;
+  final String quote_date;
+  final String sub_total;
+  final String discount;
+  final String vat;
+  final String total;
+  final String appointment_type;
+  final String status;
+  final String note;
+  final Map<String, dynamic> service_provider;
+  final List<dynamic> product_details;
 
+  
   var controller = Get.put(DraftedQuotesController());
 
   @override
@@ -92,7 +108,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "Japhet Alvin",
+                            service_provider['name'],
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -101,7 +117,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "jay@gmail.com",
+                            service_provider['email'],
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -132,7 +148,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "John Travolta",
+                            send_to_name,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -141,7 +157,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "johntravolta@gmail.com",
+                            send_to_email,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -150,7 +166,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "+234 7040571471",
+                            phone_number,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -201,7 +217,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(7.r)
                                 ),
                                 child: Text(
-                                  'DRAFT',
+                                  status,
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 10.sp,
@@ -224,7 +240,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#00000001',
+                                '#$quote_id',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -247,7 +263,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '2023-04-12',
+                                due_date,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -270,7 +286,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N24,000',
+                                'N$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -328,14 +344,15 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                  itemCount: 2,
+                                  itemCount: product_details.length,
                                   itemBuilder: (context, index) {
+                                    final item = product_details[index];
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 15.h,),
                                         Text(
-                                          "Personal Training",
+                                          item['service_name'],
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
                                             fontSize: 13.sp,
@@ -358,7 +375,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'In-Person',
+                                              item['meeting_type'],
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -381,7 +398,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N20,000',
+                                              'N${item['rate']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -404,7 +421,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '30mins',
+                                              item["duration"],
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -427,7 +444,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N1,000',
+                                              'N${item['discount']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -450,7 +467,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N24,000',
+                                              'N${item['total']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -495,7 +512,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N20,000',
+                                'N$sub_total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -518,7 +535,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N1,500',
+                                discount,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -541,7 +558,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N500',
+                                'N$vat',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -564,7 +581,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N50,000',
+                                'N$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -625,7 +642,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 10.h,),
                                     Text(
-                                      "gfhghchgchgjgj",
+                                      note,
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,

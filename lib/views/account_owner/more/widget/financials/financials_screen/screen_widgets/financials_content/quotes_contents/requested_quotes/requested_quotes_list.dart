@@ -49,6 +49,24 @@ class RequestedQuotesList extends StatelessWidget {
               if(service.filteredReceivedQuotesList.isNotEmpty) {
                 return RequestedQuotesDisplay(
                   onPressed: (){},
+                  offer: item.offer,
+                  service_name: item.send_to_name,
+                  uploaded_file: item.uploaded_file,
+                  quote_id: item.quote_date, 
+                  send_to_name: item.send_to_name,
+                  send_to_email: item.send_to_email,
+                  phone_number:item.phone_number,
+                  due_date: item.due_date,
+                  quote_date: item.quote_date,
+                  sub_total: item.sub_total,
+                  discount: item.discount,
+                  vat: item.vat,
+                  total: item.total,
+                  appointment_type: item.appointment_type,
+                  status: item.status,
+                  note: item.note,
+                  service_provider: item.service_provider,
+                  product_details: item.product_details
                 );
               }
 

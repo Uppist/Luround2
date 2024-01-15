@@ -45,7 +45,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String quote_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -335,7 +335,7 @@ class FinancialsPdfService extends getx.GetxController {
                               children: [
                                 pw.SizedBox(height: 15.h,),
                                 pw.Text(
-                                  item.service_name,
+                                  item['service_name'],
                                   style: pw.TextStyle(
                                     color: PdfColors.grey500,
                                     fontSize: 13.sp,
@@ -361,7 +361,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      "meeting type",
+                                      item["meeting_type"],
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,
@@ -383,7 +383,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      'N${item.service_charge_in_person} || N${item.service_charge_virtual}',
+                                      'N${item['rate']}',
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,
@@ -406,7 +406,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                       ),
                                       pw.Text(
-                                        item.duration!,
+                                        item['duration'],
                                         style: pw.TextStyle(
                                           color: PdfColors.grey500,
                                           fontSize: 14.sp,
@@ -429,7 +429,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                         ),
                                         pw.Text(
-                                          'N0.00',
+                                          'N${item['discount']}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey500,
                                             fontSize: 14.sp,
@@ -452,7 +452,7 @@ class FinancialsPdfService extends getx.GetxController {
                                           ),
                                         ),
                                         pw.Text(
-                                          'N${item.service_charge_in_person} || N${item.service_charge_virtual}',
+                                          'N${item['total']}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey500,
                                             fontSize: 14.sp,
@@ -653,7 +653,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String quote_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -724,7 +724,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String quote_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -758,7 +758,7 @@ class FinancialsPdfService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "pdf saved successfully to device"
+          message: "pdf downloaded successfully to device"
         )
         .whenComplete(() {
           print("doc path on device: ${documentPath.value}");
@@ -777,6 +777,8 @@ class FinancialsPdfService extends getx.GetxController {
 
 
 
+
+
   //WRITE THE INVOICE PDF
   Future writeInvoicePdf({
     required int invoiceNumber,
@@ -786,7 +788,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String invoice_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -1076,7 +1078,7 @@ class FinancialsPdfService extends getx.GetxController {
                               children: [
                                 pw.SizedBox(height: 15.h,),
                                 pw.Text(
-                                  item.service_name,
+                                  item["service_name"],
                                   style: pw.TextStyle(
                                     color: PdfColors.grey500,
                                     fontSize: 13.sp,
@@ -1102,7 +1104,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      "meeting type",
+                                      item["appointment_type"],
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,
@@ -1124,7 +1126,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      'N${item.service_charge_in_person} || N${item.service_charge_virtual}',
+                                      'N${item["rate"]}',
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,
@@ -1147,7 +1149,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                       ),
                                       pw.Text(
-                                        item.duration!,
+                                        item["duration"],
                                         style: pw.TextStyle(
                                           color: PdfColors.grey500,
                                           fontSize: 14.sp,
@@ -1170,7 +1172,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                         ),
                                         pw.Text(
-                                          'N0.00',
+                                          'N${item['discount']}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey500,
                                             fontSize: 14.sp,
@@ -1193,7 +1195,7 @@ class FinancialsPdfService extends getx.GetxController {
                                           ),
                                         ),
                                         pw.Text(
-                                          'N${item.service_charge_in_person} || N${item.service_charge_virtual}',
+                                          'N${item["total"]}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey500,
                                             fontSize: 14.sp,
@@ -1394,7 +1396,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String invoice_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -1464,7 +1466,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String invoice_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -1526,7 +1528,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String receipt_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -1816,7 +1818,7 @@ class FinancialsPdfService extends getx.GetxController {
                               children: [
                                 pw.SizedBox(height: 15.h,),
                                 pw.Text(
-                                  item.service_name,
+                                  item["service_name"],
                                   style: pw.TextStyle(
                                     color: PdfColors.grey500,
                                     fontSize: 13.sp,
@@ -1842,7 +1844,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      "meeting type",
+                                      item["meeting_type"],
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,
@@ -1864,7 +1866,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      'N${item.service_charge_in_person} || N${item.service_charge_virtual}',
+                                      'N${item["rate"]}',
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,
@@ -1887,7 +1889,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                       ),
                                       pw.Text(
-                                        item.duration!,
+                                        item["duration"],
                                         style: pw.TextStyle(
                                           color: PdfColors.grey500,
                                           fontSize: 14.sp,
@@ -1910,7 +1912,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         ),
                                         ),
                                         pw.Text(
-                                          'N0.00',
+                                          'N${item["discount"]}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey500,
                                             fontSize: 14.sp,
@@ -1933,7 +1935,7 @@ class FinancialsPdfService extends getx.GetxController {
                                           ),
                                         ),
                                         pw.Text(
-                                          'N${item.service_charge_in_person} || N${item.service_charge_virtual}',
+                                          'N${item["total"]}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey500,
                                             fontSize: 14.sp,
@@ -2134,7 +2136,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String receipt_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,
@@ -2205,7 +2207,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String receipt_status,
     required String due_date,
     required String grand_total,
-    required List<UserServiceModel> serviceList,
+    required List<dynamic> serviceList,
     required String subtotal,
     required String discount,
     required String vat,

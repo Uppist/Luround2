@@ -55,21 +55,22 @@ class DraftedReceiptController extends getx.GetxController {
 
   //filter
   Future<List<dynamic>> filterReceiptByDate() async{
-    //Convert the start and end date strings to DateTime objects
-    DateTime startDateTime = DateTime.parse(startDate());
-    DateTime endDateTime = DateTime.parse(endDate());
-    print("conv datetime: $startDateTime");
-    print("conv datetime: $endDateTime");
 
-    //Filter the invoice list based on the date range
+    String startDateString = startDate();
+    String endDateString = endDate();
+    print("start date: $startDateString");
+    print("end date: $endDateString");
+
     List<dynamic> result = receiptService.filteredDraftedReceiptsList
-    .where((user) {
-    DateTime invoiceDate = DateTime.parse(user['date']);
+      .where((user) {
+        String receiptDateString = user['receipt_date'];
 
-    // Check if the invoice date is within the selected range
-    return invoiceDate.isAfter(startDateTime.subtract(Duration(days: 1))) &&
-      invoiceDate.isBefore(endDateTime.add(Duration(days: 1)));
-    }).toList();
+        // Assuming the date strings are in the format "yyyy-MM-dd"
+        return receiptDateString.compareTo(startDateString) >= 0 &&
+          receiptDateString.compareTo(endDateString) <= 0;
+      })
+      .toList();
+
     print("filtered by date list: ${result}");
     return result;
   }

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -46,6 +47,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
   var userProfileService = Get.put(AccOwnerProfileService());
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
+  var finPdfService = Get.put(FinancialsPdfService());
 
   @override
   Widget build(BuildContext context) {
@@ -581,7 +583,29 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                               if(controller.quoteClientNameController.text.isNotEmpty && controller.quoteClientEmailController.text.isNotEmpty && controller.quoteClientPhoneNumberController.text.isNotEmpty) {
                                 sendQuoteBottomSheet(
                                   context: context,
-                                  onShare: () {},
+                                  onShare: () {
+                                    finPdfService.shareQuotePDF(
+                                      context: context,
+                                      quoteNumber: widget.quoteNumber,
+                                      receiver_email: controller.quoteClientEmailController.text,
+                                      receiver_name: controller.quoteClientNameController.text,
+                                      receiver_phone_number: controller.quoteClientPhoneNumberController.text,
+                                      quote_status: "SENT VIA PDF",
+                                      due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      subtotal: service.calculateSubtotalForQuote(),
+                                      discount: service.calculateTotalDiscountForQuote(),
+                                      vat: service.calculateTotalVATForQuote(),
+                                      note: controller.quoteNoteController.text,
+                                      grand_total: service.calculateTotalForQuote(),
+                                      serviceList: service.editedSelectedProuctMapList,
+                                    ).whenComplete(() {
+                                      controller.quoteClientEmailController.clear();
+                                      controller.quoteClientNameController.clear();
+                                      controller.quoteClientPhoneNumberController.clear();
+                                      controller.quoteNoteController.clear();
+                                      Get.back();
+                                    });
+                                  },
                                   onSave: () {
                                     service.createNewQuoteAndSendToDB(
                                       context: context, 
@@ -590,10 +614,32 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
                                       quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
-                                      quote_due_date: controller.isoDateForQuote.value
+                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)")
                                     ).whenComplete(() => Get.back());
                                   },
-                                  onDownload: () {},
+                                  onDownload: () {
+                                    finPdfService.downloadQuotePDFToDevice(
+                                      context: context, 
+                                      quoteNumber: widget.quoteNumber,
+                                      receiver_email: controller.quoteClientEmailController.text,
+                                      receiver_name: controller.quoteClientNameController.text,
+                                      receiver_phone_number: controller.quoteClientPhoneNumberController.text,
+                                      quote_status: "SENT VIA PDF",
+                                      due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      subtotal: service.calculateSubtotalForQuote(),
+                                      discount: service.calculateTotalDiscountForQuote(),
+                                      vat: service.calculateTotalVATForQuote(),
+                                      note: controller.quoteNoteController.text,
+                                      grand_total: service.calculateTotalForQuote(),
+                                      serviceList: service.editedSelectedProuctMapList,
+                                    ).whenComplete(() {
+                                      controller.quoteClientEmailController.clear();
+                                      controller.quoteClientNameController.clear();
+                                      controller.quoteClientPhoneNumberController.clear();
+                                      controller.quoteNoteController.clear();
+                                      Get.back();
+                                    });
+                                  },
                                 );
                               }
                               else {

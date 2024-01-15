@@ -54,21 +54,22 @@ class DueInvoiceController extends getx.GetxController {
 
   //filter
   Future<List<dynamic>> filterInvoiceByDate() async{
-    //Convert the start and end date strings to DateTime objects
-    DateTime startDateTime = DateTime.parse(startDate());
-    DateTime endDateTime = DateTime.parse(endDate());
-    print("conv datetime: $startDateTime");
-    print("conv datetime: $endDateTime");
 
-    //Filter the invoice list based on the date range
+    String startDateString = startDate();
+    String endDateString = endDate();
+    print("start date: $startDateString");
+    print("end date: $endDateString");
+
     List<dynamic> result = invoiceService.filteredDueInvoiceList
-    .where((user) {
-    DateTime invoiceDate = DateTime.parse(user['date']);
+      .where((user) {
+        String invoiceDateString = user['invoice_date'];
 
-    // Check if the invoice date is within the selected range
-    return invoiceDate.isAfter(startDateTime.subtract(Duration(days: 1))) &&
-      invoiceDate.isBefore(endDateTime.add(Duration(days: 1)));
-    }).toList();
+        // Assuming the date strings are in the format "yyyy-MM-dd"
+        return invoiceDateString.compareTo(startDateString) >= 0 &&
+            invoiceDateString.compareTo(endDateString) <= 0;
+      })
+      .toList();
+
     print("filtered by date list: ${result}");
     return result;
   }

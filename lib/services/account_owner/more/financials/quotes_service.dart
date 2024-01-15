@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/financials/quotes/drafted_quotes_response_model.dart';
+import 'package:luround/models/account_owner/more/financials/quotes/received_quotes_response.dart';
+import 'package:luround/models/account_owner/more/financials/quotes/sent_quotes_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -25,8 +28,8 @@ class QuotesService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF SENT QUOTES]//////
-  var sentQuotesList = <dynamic>[].obs;
-  var filteredSentQuotesList = <dynamic>[].obs;
+  var sentQuotesList = <SentQuotesResponse>[].obs;
+  var filteredSentQuotesList = <SentQuotesResponse>[].obs;
 
   Future<void> filterSentQuotes(String query) async {
     if (query.isEmpty) {
@@ -40,13 +43,13 @@ class QuotesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredSentQuotesList.addAll(
       sentQuotesList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredSentQuotesList");
     }
   }
 
-  Future<List<dynamic>> getUserSentQuotes() async {
+  Future<List<SentQuotesResponse>> getUserSentQuotes() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "quotes/sent-quotes",);
@@ -60,10 +63,10 @@ class QuotesService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<SentQuotesResponseModel> finalResult = response.map((e) => SentQuotesResponseModel.fromJson(e)).toList();
+          final List<SentQuotesResponse> finalResult = response.map((e) => SentQuotesResponse.fromJson(e)).toList();
 
           sentQuotesList.clear();
-          sentQuotesList.addAll(response);  //finalResult
+          sentQuotesList.addAll(finalResult);  //finalResult
           debugPrint("sent quotes list: $sentQuotesList");
 
           //Return the list of sent quotes
@@ -88,11 +91,11 @@ class QuotesService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF SENT QUOTES IN THE FUTURE BUILDER FOR SENT QUOTES]///
-  Future<List<dynamic>> loadSentQuotesData() async {
+  Future<List<SentQuotesResponse>> loadSentQuotesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> quotes = await getUserSentQuotes();
-      quotes.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<SentQuotesResponse> quotes = await getUserSentQuotes();
+      quotes.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
       filteredSentQuotesList.value = List.from(quotes); 
@@ -110,8 +113,8 @@ class QuotesService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF RECEIVED QUOTES]//////
-  var receivedQuotesList = <dynamic>[].obs;
-  var filteredReceivedQuotesList = <dynamic>[].obs;
+  var receivedQuotesList = <ReceivedQuotesResponse>[].obs;
+  var filteredReceivedQuotesList = <ReceivedQuotesResponse>[].obs;
 
   Future<void> filterReceivedQuotes(String query) async {
     if (query.isEmpty) {
@@ -125,13 +128,13 @@ class QuotesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredReceivedQuotesList.addAll(
       receivedQuotesList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredReceivedQuotesList");
     }
   }
 
-  Future<List<dynamic>> getUserReceivedQuotes() async {
+  Future<List<ReceivedQuotesResponse>> getUserReceivedQuotes() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "quotes/received-quotes",);
@@ -145,10 +148,10 @@ class QuotesService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<ReceivedQuotesResponseModel> finalResult = response.map((e) => ReceivedQuotesResponseModel.fromJson(e)).toList();
+          final List<ReceivedQuotesResponse> finalResult = response.map((e) => ReceivedQuotesResponse.fromJson(e)).toList();
 
           receivedQuotesList.clear();
-          receivedQuotesList.addAll(response);  //finalResult
+          receivedQuotesList.addAll(finalResult);  //finalResult
           debugPrint("received quotes list: $receivedQuotesList");
 
           //Return the list of received quotes
@@ -173,11 +176,11 @@ class QuotesService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF RECEIVED QUOTES IN THE FUTURE BUILDER FOR RECEIVED QUOTES]///
-  Future<List<dynamic>> loadReceivedQuotesData() async {
+  Future<List<ReceivedQuotesResponse>> loadReceivedQuotesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> quotes = await getUserReceivedQuotes();
-      quotes.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<ReceivedQuotesResponse> quotes = await getUserReceivedQuotes();
+      quotes.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
       filteredReceivedQuotesList.value = List.from(quotes); 
@@ -194,8 +197,8 @@ class QuotesService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF DRAFTED QUOTES]//////
-  var draftedQuotesList = <dynamic>[].obs;
-  var filteredDraftedQuotesList = <dynamic>[].obs;
+  var draftedQuotesList = <DraftedQuotesResponse>[].obs;
+  var filteredDraftedQuotesList = <DraftedQuotesResponse>[].obs;
 
   Future<void> filterDraftedQuotes(String query) async {
     if (query.isEmpty) {
@@ -209,16 +212,16 @@ class QuotesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredDraftedQuotesList.addAll(
       draftedQuotesList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredDraftedQuotesList");
     }
   }
 
-  Future<List<dynamic>> getUserDraftedQuotes() async {
+  Future<List<DraftedQuotesResponse>> getUserDraftedQuotes() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "quotes/drafted-quotes",);
+      http.Response res = await baseService.httpGet(endPoint: "quotes/saved-quotes",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -229,10 +232,10 @@ class QuotesService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<DraftedQuotesResponseModel> finalResult = response.map((e) => DraftedQuotesResponseModel.fromJson(e)).toList();
+          final List<DraftedQuotesResponse> finalResult = response.map((e) => DraftedQuotesResponse.fromJson(e)).toList();
 
           draftedQuotesList.clear();
-          draftedQuotesList.addAll(response);  //finalResult
+          draftedQuotesList.addAll(finalResult);  //finalResult
           debugPrint("drafted quotes list: $draftedQuotesList");
 
           //Return the list of received quotes
@@ -257,13 +260,14 @@ class QuotesService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF DRAFTED QUOTES IN THE FUTURE BUILDER FOR DRAFTED QUOTES]///
-  Future<List<dynamic>> loadDraftedQuotesData() async {
+  Future<List<DraftedQuotesResponse>> loadDraftedQuotesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> quotes = await getUserDraftedQuotes();
-      quotes.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<DraftedQuotesResponse> quotes = await getUserDraftedQuotes();
+      quotes.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
+
       filteredDraftedQuotesList.value = List.from(quotes); 
       print("initState: ${filteredDraftedQuotesList}");
       return filteredDraftedQuotesList;

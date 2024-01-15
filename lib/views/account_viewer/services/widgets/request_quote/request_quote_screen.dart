@@ -3,7 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/services/account_viewer/services/get_user_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
@@ -20,14 +23,19 @@ import 'radio_section.dart';
 
 
 class RequestQuoteScreen extends StatefulWidget {
-  RequestQuoteScreen({super.key});
+  RequestQuoteScreen({super.key, required this.service_name, required this.service_provider_name, required this.service_provider_email});
+  final String service_name;
+  final String service_provider_name;
+  final String service_provider_email;
 
   @override
   State<RequestQuoteScreen> createState() => _RequestQuoteScreenState();
 }
 
 class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
+
   var controller = Get.put(AccViewerServicesController());
+  var service = Get.put(AccViewerService());
 
   @override
   void initState() {
@@ -59,29 +67,28 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
         ),
         title: CustomAppBarTitle(text: 'Request Quote',),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 10.h),
-              Container(
-                color: AppColor.greyColor,
-                width: double.infinity,
-                height: 7.h,
-              ),
-              SizedBox(height: 20.h,),
-              //important section
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //SizedBox(height: 10,),
-                    Form(
-                      key: controller.formKey,
-                      child: Column(
+      body: Obx(
+        () {
+          return service.isLoading.value ? Loader() : SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(height: 10.h),
+                Container(
+                  color: AppColor.greyColor,
+                  width: double.infinity,
+                  height: 7.h,
+                ),
+                SizedBox(height: 20.h,),
+                //important section
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //SizedBox(height: 10,),
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           UtilsTextField(  
@@ -94,7 +101,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 20.h),
                           UtilsTextField(  
                             onChanged: (val) {},
-                            hintText: "Email*",
+                            hintText: "Your email address",
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                             textController: controller.emailController,
@@ -103,7 +110,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           PhoneNumberTextField(
                             onChanged: (val) {},
                             countryCodeWidget: CountryCodeWidget(),
-                            hintText: "Phone number*",
+                            hintText: "Your mobile number",
                             keyboardType: TextInputType.phone,
                             textInputAction: TextInputAction.next,
                             textController: controller.phoneNumberController,
@@ -118,12 +125,16 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             ),
                           ),
                           SizedBox(height: 10.h),
-                          ReusableTextField(  
-                            onChanged: (val) {},
+                          UtilsTextField2(  
+                            onChanged: (val) {
+                              setState(() {
+                                controller.serviceNameController.text = val;
+                              });
+                            },
                             hintText: "Enter service name",
                             keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.done,
-                            textController: controller.serviceNameController,
+                            textInputAction: TextInputAction.next,
+                            initialValue: widget.service_name,
                           ),
                           SizedBox(height: 30.h),
                           Text(
@@ -137,6 +148,23 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 20.h,),
                           //appoint radio widget
                           AppointmentType(),
+                          SizedBox(height: 30.h),
+                          Text(
+                            "Your budget/offer",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 10.h),
+                          ReusableTextField(  
+                            onChanged: (val) {},
+                            hintText: "0.00",
+                            keyboardType: TextInputType.number,
+                            textInputAction: TextInputAction.done,
+                            textController: controller.offerController,
+                          ),
                           SizedBox(height: 20.h,),
                           Text(
                             "Upload file (optional)",
@@ -154,7 +182,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           ),
                           SizedBox(height: 30,),
                           Text(
-                            "Message (optional)",
+                            "Note (optional)",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 14.sp,
@@ -164,7 +192,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 10.h,),
                           ReusableTextField(  
                             onChanged: (val) {},
-                            hintText: "Type a message",
+                            hintText: "Any additional information you would like to add",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
                             textController: controller.messageController,
@@ -176,23 +204,65 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             text: "Submit", 
                             onPressed: controller.isButtonEnabled.value 
                             ? () {
-                              //do sumething
-                              print("tadaaaa");
+                              if(
+                                controller.nameController.text.isNotEmpty 
+                                && controller.emailController.text.isNotEmpty 
+                                && controller.phoneNumberController.text.isNotEmpty
+                                && controller.offerController.text.isNotEmpty
+                                && controller.code.value.isNotEmpty
+                              ) {
+                                //do sumething
+                                service.requestQuote(
+                                  context: context, 
+                                  service_name: widget.service_name, 
+                                  offer: controller.offerController.text, 
+                                  uploaded_file: controller.fileUrl.value, 
+                                  appointment_type: controller.apppointment,
+                                  client_name: controller.nameController.text, 
+                                  client_email: controller.emailController.text, 
+                                  client_phone_number: "${controller.code.value} ${controller.phoneNumberController.text}", 
+                                  client_note: controller.messageController.text, 
+                                  service_provider_email: widget.service_provider_email, 
+                                  service_provider_name: widget.service_provider_name
+                                ).whenComplete(() {
+                                  controller.nameController.clear();
+                                  controller.emailController.clear();
+                                  controller.phoneNumberController.clear();
+                                  controller.serviceNameController.clear();
+                                  controller.messageController.clear();
+                                  Get.back();
+                                });
+                              }
+                              else if(controller.code.value.isEmpty) {
+                                showMySnackBar(
+                                  context: context,
+                                  backgroundColor: AppColor.redColor,
+                                  message: "please select country code"
+                                );
+                              }
+                              else {
+                                showMySnackBar(
+                                  context: context,
+                                  backgroundColor: AppColor.redColor,
+                                  message: "fields must not be empty"
+                                );
+                              }
+                              
                             } 
                             : () {},
                           ),
                           SizedBox(height: 20.h,),
                         ],
                         
-                      ),
-                    )
-                  ]
+                      )
+                    ]
+                  )
                 )
-              )
-              ////
-            ]
-          )
-        )
+                ////
+              ]
+            )
+          );
+        }
       )
     );
   }

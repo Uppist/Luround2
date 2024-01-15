@@ -99,6 +99,8 @@ class AccViewerServicesController extends getx.GetxController {
       uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote);
     }
   }
+
+  getx.RxString fileUrl = "".obs;
   //upload request quote file to cloudinary
   Future<void> uploadRequestedQuoteFileToCloudinary({
     required BuildContext context,
@@ -118,7 +120,9 @@ class AccViewerServicesController extends getx.GetxController {
     );
   
     if(response.isSuccessful) {
+      fileUrl.value = response.secureUrl!;
       debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
+      debugPrint('cloudinary_trx_url_file_url: ${fileUrl.value}');
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
@@ -144,6 +148,7 @@ class AccViewerServicesController extends getx.GetxController {
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController serviceNameController = TextEditingController();
   final TextEditingController messageController = TextEditingController();
+  final TextEditingController offerController = TextEditingController();
   //formKey
   final formKey = GlobalKey();
   //radio widget (saved appointment option to db)
@@ -275,6 +280,7 @@ class AccViewerServicesController extends getx.GetxController {
     phoneNumberController.dispose();
     serviceNameController.dispose();
     messageController.dispose();
+    offerController.dispose();
     //BA (Book appointment controllers)
     nameBAController.dispose();
     emailBAController.dispose();

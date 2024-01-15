@@ -375,12 +375,12 @@ class AccViewerService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("client requested quote successfuly");
+        debugPrint("client requested quote successfully");
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "your request was sent successfully"
+          message: "your request has been sent successfully"
         );
       } 
       else {

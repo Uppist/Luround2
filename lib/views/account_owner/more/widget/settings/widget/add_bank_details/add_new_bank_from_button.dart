@@ -52,9 +52,7 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
         ),
         title: CustomAppBarTitle(text: 'Account detauls',),
       ),
-      body: Builder(
-        builder: (context) {
-          return service.isLoading.value ? const Loader() : Column(
+      body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SizedBox(height: 10.h),
@@ -136,7 +134,7 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
 
                         ReusableButton(
                           color: AppColor.mainColor,
-                          text: 'Save account',
+                          text: service.isLoading.value ? 'saving...' : 'Save account',
                           onPressed: () {
                             if(controller.inputBankController.text.isNotEmpty && controller.inputAccountNumberController.text.isNotEmpty && controller.inputAccountNameController.text.isNotEmpty) {
                               service.createBankDetailsFromAddDetailsButton(
@@ -154,6 +152,13 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
                                 Get.back();
                               });
                             }
+                            else if (service.filteredSavedAccounts.length >= 2) {
+                              showMySnackBar(
+                                context: context,
+                                backgroundColor: AppColor.redColor,
+                                message: "you can only create a maximum of two bank accounts"
+                              );
+                             }
                             else {
                               showMySnackBar(
                                 context: context,
@@ -173,9 +178,9 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
               )
 
             ]
-          );
-        }
-      )
+          )
+      
+    
     );
   }
 }

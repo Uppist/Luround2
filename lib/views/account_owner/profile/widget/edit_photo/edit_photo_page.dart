@@ -10,7 +10,6 @@ import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
-import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/uploaded_logo.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/textfields/other_textfields.dart';
 import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
@@ -242,7 +241,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                               SizedBox(height: 30.h),
                               /////////////////
                               profileService.isLogoSelected.value
-                              ?UploadedLogoWidget(
+                              ?UploadedLogoForProfile(
                                 onDelete: () {
                                   profileService.isLogoSelected.value = false;
                                   profileService.logoFromGallery.value = null;

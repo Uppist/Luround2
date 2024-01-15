@@ -349,8 +349,8 @@ class AccOwnerProfileService extends getx.GetxController {
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
-        isImageSelected.value = true;
         await uploadImageToCloudinary(context: context);
+        isImageSelected.value = true;
         update();
       }
     }
@@ -393,7 +393,7 @@ class AccOwnerProfileService extends getx.GetxController {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
-        message: "company logo uploaded to cloudinary"
+        message: "company logo uploaded successfully"
       );
       //await updateCompanyLogo(photoUrl: response.secureUrl);
     }
@@ -401,7 +401,7 @@ class AccOwnerProfileService extends getx.GetxController {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "failed to upload logo to cloudinary"
+        message: "failed to upload company logo"
       );
     }
   }

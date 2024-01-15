@@ -140,6 +140,13 @@ class _AddAccountForSettingsState extends State<AddAccountForSettings> {
 
                       });
                     }
+                    else if (service.filteredSavedAccounts.length >= 2) {
+                      showMySnackBar(
+                        context: context,
+                        backgroundColor: AppColor.redColor,
+                        message: "you can only create a maximum of two bank accounts"
+                      );
+                    }
                     else {
                       showMySnackBar(
                         context: context,

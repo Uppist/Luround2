@@ -299,6 +299,76 @@ class FinancialsService extends getx.GetxController {
     }
   }
 
+  ///[CREATE NEW QUOTE AND SAVE IT TO CLIENT]//
+  Future<void> createNewQuoteAndSendToClient({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required String quote_date,
+    required String quote_due_date
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "status": "SENT",
+      "appointment_type": "already in the product detail list",
+      "quote_date": quote_date,
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      "user_email": user_email,
+      "user_name": user_name,
+      "notes": note,
+      "due_date": quote_due_date,
+      "vat": calculateTotalVATForQuote(),
+      "sub_total": calculateSubtotalForQuote(),
+      "discount": "-N${calculateTotalDiscountForQuote()} ",
+      "total": calculateTotalForQuote(),
+      "product_detail": editedSelectedProuctMapList
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$user_email", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("quote created and saved successfully to database");
+        finController.quoteClientNameController.clear();
+        finController.quoteClientEmailController.clear();
+        finController.quoteClientPhoneNumberController.clear();
+
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "quote created and saved successfully"
+        );
+        //.whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save quote"
+        );
+        //.whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
 
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
@@ -572,7 +642,7 @@ class FinancialsService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "status": "UNPAID",
+      "status": "SAVED",
       "appointment_type": "already in the product_detail_list",
       "invoice_date": invoice_date,
       ////////////////
@@ -625,6 +695,74 @@ class FinancialsService extends getx.GetxController {
       throw Exception("Something went wrong");
     }
   } 
+
+  ///[CREATE NEW QUOTE AND SAVE IT TO CLIENT]//
+  Future<void> createNewInvoiceAndSendToClient({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required String invoice_date,
+    required String due_date
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "status": "SENT",
+      "appointment_type": "already in the product_detail_list",
+      "invoice_date": invoice_date,
+      ////////////////
+      "user_email": user_email,
+      "user_name": user_name,
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      "note": note,
+      "due_date": due_date,
+      "vat": calculateTotalVATForInvoice(),
+      "sub_total": int.parse(calculateSubtotalForInvoice()),
+      "discount": int.parse("-N${calculateTotalDiscountForInvoice()}"),
+      "total": int.parse(calculateTotalForInvoice()),
+      "booking_detail": editedSelectedProuctMapListForInvoice //product_detail
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "invoice/generate-invoice", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("invoice created and saved successfully to database");
+        finController.invoiceClientNameController.clear();
+        finController.invoiceClientEmailController.clear();
+        finController.invoiceClientPhoneNumberController.clear();
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "invoice created and saved successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save invoice"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
 
 
 

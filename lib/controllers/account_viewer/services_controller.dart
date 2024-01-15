@@ -53,14 +53,14 @@ class AccViewerServicesController extends getx.GetxController {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
-        message: "receipt uploaded to cloudinary"
+        message: "payment receipt uploaded successfully"
       );
     }
     else {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "failed to upload receipt to cloudinary"
+        message: "failed to upload receipt"
       );
     }
   }
@@ -101,6 +101,7 @@ class AccViewerServicesController extends getx.GetxController {
   }
 
   getx.RxString fileUrl = "".obs;
+  var isFileUploaded = false.obs;
   //upload request quote file to cloudinary
   Future<void> uploadRequestedQuoteFileToCloudinary({
     required BuildContext context,
@@ -123,17 +124,18 @@ class AccViewerServicesController extends getx.GetxController {
       fileUrl.value = response.secureUrl!;
       debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
       debugPrint('cloudinary_trx_url_file_url: ${fileUrl.value}');
+      isFileUploaded.value = true;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
-        message: "receipt uploaded to cloudinary"
+        message: "quote file uploaded to cloudinary"
       );
     }
     else {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "failed to upload receipt to cloudinary"
+        message: "failed to upload quote file to cloudinary"
       );
     }
   }

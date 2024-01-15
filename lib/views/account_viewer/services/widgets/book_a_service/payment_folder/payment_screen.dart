@@ -10,8 +10,9 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/black_card_for_accviewer.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/green_card_for_accviewer.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/upload_receipt_widget.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/uploaded_receipt.dart';
+
 
 
 
@@ -22,10 +23,7 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/pay
 
 
 class PaymentScreen extends StatefulWidget {
-  PaymentScreen({super.key, required this.accountName, required this.accountNumber, required this.bank, required this.amount, required this.service_name, required this.serviceId, required this.time, required this.duration, required this.date, });
-  final String accountName;
-  final String accountNumber;
-  final String bank;
+  PaymentScreen({super.key, required this.amount, required this.service_name, required this.serviceId, required this.time, required this.duration, required this.date, });
   
   final String amount;
   final String service_name;
@@ -67,9 +65,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         ),
         title: CustomAppBarTitle(text: 'Back',),
       ),
-      body: Obx(
-        () {
-          return service.isLoading.value ? Loader() : SingleChildScrollView(
+      body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +84,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Make your payment to the account detail below:",
+                        "Make your payment to any of the following account detail below:",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
                           fontSize: 16.sp,
@@ -96,7 +92,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         ),
                       ),
                       SizedBox(height: 30.h,),
-                      Text(
+                      /*Text(
                         "Account detail",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
@@ -104,21 +100,75 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           fontWeight: FontWeight.w500
                         ),
                       ),
-                      SizedBox(height: 10.h,),
-                      BlackCardAccViewer(
-                        accountName: widget.accountName,
-                        accountNumber: widget.accountNumber,
-                        bank: widget.bank,
+                      SizedBox(height: 10.h,),*/
+                      //Futurebuilder with the user list of aza
+                      ListView.separated(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        physics: NeverScrollableScrollPhysics(),
+                        separatorBuilder: (context, index) => SizedBox(height: 20.h,),
+                        itemCount: service.userBankAccountList.length,
+                        itemBuilder: (context, index) {
+
+                          final item = service.userBankAccountList[index];
+
+                          if(index.isEven) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Account Detail ${index + 1}",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                SizedBox(height: 10.h,),
+                                GreenCardAccViewer(
+                                  accountName: item.account_name, 
+                                  accountNumber: item.account_number, 
+                                  bank: item.bank_name
+                                ),
+                              ],
+                            );
+                          }
+                          if(index.isOdd) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Account Detail ${index + 1}",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                SizedBox(height: 10.h,),
+                                BlackCardAccViewer(
+                                  accountName: item.account_name, 
+                                  accountNumber: item.account_number, 
+                                  bank: item.bank_name
+                                ),
+                              ],
+                            );
+                          }
+                          return BlackCardAccViewer(
+                            accountName: 'unavailable',
+                            accountNumber: 'unavailable',
+                            bank: 'unavailable',
+                          );
+                        }
                       ),
+                      //////////
                       SizedBox(height: 40.h,),
-                      Center(
-                        child: Text(
-                          "Upload proof of payment",
-                          style: GoogleFonts.inter(
-                            color: AppColor.blackColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
-                          ),
+                      Text(
+                        "Upload proof of payment",
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
                         ),
                       ),
                       SizedBox(height: 30.h,),
@@ -128,7 +178,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           UploadedReceiptWidget(
                             onDelete: () {
                               controller.isFileSelectedForBooking.value = false;
-                              controller.selectedFileForBooking == null;
+                              controller.selectedFileForBooking = null;
                             },
                             file: controller.selectedFileForBooking!,
                           )
@@ -145,7 +195,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       //pay button
                       Obx(
                         () {
-                          return RebrandedReusableButton(
+                          return service.isLoading.value ? Loader2() : RebrandedReusableButton(
                             textColor: controller.isFileSelectedForBooking.value ? AppColor.bgColor : AppColor.darkGreyColor,
                             color: controller.isFileSelectedForBooking.value ? AppColor.mainColor : AppColor.lightPurple, 
                             text: controller.isFileSelectedForBooking.value ? "I've made payment" : "Pay N${widget.amount}", 
@@ -195,9 +245,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 ),
               ],
             )
-          );
-        }
-      )
+          )
+  
     );
   }
 }

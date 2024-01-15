@@ -1,11 +1,13 @@
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/models/account_viewer/booking/bookimg_response.dart';
 import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
@@ -24,6 +26,7 @@ import 'package:http/http.dart' as http;
 class AccViewerService extends getx.GetxController {
 
   var controller = getx.Get.put(AccViewerServicesController());
+  var withdrawalService = getx.Get.put(WithdrawalService());
   var baseService = getx.Get.put(BaseService());
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
@@ -255,7 +258,7 @@ class AccViewerService extends getx.GetxController {
   Future<List<ReviewResponse>> getUserReviews() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "reviews/service-reviews?serviceId=6572c7f714b0a81bd0de3c88",);
+      http.Response res = await baseService.httpGet(endPoint: "reviews/user-reviews?userId=${userId}",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -349,10 +352,12 @@ class AccViewerService extends getx.GetxController {
 
     isLoading.value = true;
 
-    var body = { 
+    var body = {
+      ///
       "service_name": service_name,
       "offer": offer,
       "uploaded_file": uploaded_file,
+      ///
       "send_to_name": client_name,
       "send_to_email": client_email,
       "user_email": service_provider_email,
@@ -362,7 +367,7 @@ class AccViewerService extends getx.GetxController {
       "due_date": "(non)",
       "quote_date": "(non)",
       "appointment_type": appointment_type,
-      "status": "REQUEST",
+      "status": "SENT", 
       "vat": "(non)",
       "sub_total": "(non)",
       "discount": "(non)",
@@ -401,6 +406,19 @@ class AccViewerService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+  }
+  
+  //user list of bank accounts from backend
+  var userBankAccountList = <SavedBanks>[].obs;
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    withdrawalService.loadSavedBanksData()
+    .then((value) {
+      userBankAccountList.value = value;
+      debugPrint("user bank accounts: $userBankAccountList");
+    });
+    super.onInit();
   }
 
 

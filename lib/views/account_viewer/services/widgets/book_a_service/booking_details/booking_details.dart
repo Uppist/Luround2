@@ -189,10 +189,6 @@ class BookingDetails extends StatelessWidget {
                           onPressed: () {
                             //amount of service as argument
                             Get.to(() => PaymentScreen(
-                              accountName: "John Drill",
-                              accountNumber: "2022481315",
-                              bank: "KUDA MFB",
-
                               date: date,
                               serviceId: serviceId,
                               service_name: service_name,

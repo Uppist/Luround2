@@ -37,7 +37,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
 
-  @override
+  /*@override
   void initState() {
     // Add a listener to the text controller
     controller.serviceNameController.addListener(() {
@@ -47,7 +47,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
       });
     });
     super.initState();
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +67,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
         ),
         title: CustomAppBarTitle(text: 'Request Quote',),
       ),
-      body: Obx(
-        () {
-          return service.isLoading.value ? Loader() : SingleChildScrollView(
+      body: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,33 +89,68 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          UtilsTextField(  
-                            onChanged: (val) {},
-                            hintText: "Your name*",
+                          Text(
+                            "Full name*",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          UtilsTextField2(  
+                            onChanged: (val) {
+                              setState(() {
+                                controller.nameController.text = val;
+                              });
+                            },
+                            hintText: "Your name",
                             keyboardType: TextInputType.name,
                             textInputAction: TextInputAction.next,
-                            textController: controller.nameController,
+                            initialValue: '',
                           ),
-                          SizedBox(height: 20.h),
-                          UtilsTextField(  
-                            onChanged: (val) {},
+                          SizedBox(height: 30.h),
+                          Text(
+                            "Email address*",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          UtilsTextField2(  
+                            onChanged: (val) {
+                              setState(() {
+                                controller.emailController.text = val;
+                              });
+                            },
                             hintText: "Your email address",
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
-                            textController: controller.emailController,
+                            initialValue: '',
                           ),
-                          SizedBox(height: 20.h),
+                          SizedBox(height: 30.h),
+                          Text(
+                            "Phone number",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
                           PhoneNumberTextField(
                             onChanged: (val) {},
                             countryCodeWidget: CountryCodeWidget(),
-                            hintText: "Your mobile number",
+                            hintText: "Your phone number",
                             keyboardType: TextInputType.phone,
                             textInputAction: TextInputAction.next,
                             textController: controller.phoneNumberController,
                           ),
                           SizedBox(height: 30.h),
                           Text(
-                            "Service name*",
+                            "Service name",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 14.sp,
@@ -165,7 +198,9 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textInputAction: TextInputAction.done,
                             textController: controller.offerController,
                           ),
-                          SizedBox(height: 20.h,),
+
+                          SizedBox(height: 30.h),    
+
                           Text(
                             "Upload file (optional)",
                             style: GoogleFonts.inter(
@@ -174,11 +209,25 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                               fontWeight: FontWeight.w500
                             ),
                           ),
+                          /////////////////
                           SizedBox(height: 30.h,),
-                          UploadFileWidget(
-                            onPressed: () {
-                              controller.selectFile(context);
-                            },
+                          Obx(
+                            () {
+                              return controller.isFileUploaded.value ?
+                                UploadedFileWidget(
+                                  onDelete: () {
+                                    //setState(() {
+                                      controller.selectedFileForRequestingQuote = null;
+                                      controller.isFileUploaded.value  = false;
+                                    //});
+                                    },
+                                  )
+                                  :UploadFileWidget(
+                                    onPressed: () {
+                                    controller.selectFile(context);
+                                  },
+                                );
+                              }
                           ),
                           SizedBox(height: 30,),
                           Text(
@@ -198,58 +247,62 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             textController: controller.messageController,
                           ),
                           SizedBox(height: 80.h,),
-                          RebrandedReusableButton(
-                            textColor: controller.isButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
-                            color: controller.isButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
-                            text: "Submit", 
-                            onPressed: controller.isButtonEnabled.value 
-                            ? () {
-                              if(
-                                controller.nameController.text.isNotEmpty 
-                                && controller.emailController.text.isNotEmpty 
-                                && controller.phoneNumberController.text.isNotEmpty
-                                && controller.offerController.text.isNotEmpty
-                                && controller.code.value.isNotEmpty
-                              ) {
-                                //do sumething
-                                service.requestQuote(
-                                  context: context, 
-                                  service_name: widget.service_name, 
-                                  offer: controller.offerController.text, 
-                                  uploaded_file: controller.fileUrl.value, 
-                                  appointment_type: controller.apppointment,
-                                  client_name: controller.nameController.text, 
-                                  client_email: controller.emailController.text, 
-                                  client_phone_number: "${controller.code.value} ${controller.phoneNumberController.text}", 
-                                  client_note: controller.messageController.text, 
-                                  service_provider_email: widget.service_provider_email, 
-                                  service_provider_name: widget.service_provider_name
-                                ).whenComplete(() {
-                                  controller.nameController.clear();
-                                  controller.emailController.clear();
-                                  controller.phoneNumberController.clear();
-                                  controller.serviceNameController.clear();
-                                  controller.messageController.clear();
-                                  Get.back();
-                                });
-                              }
-                              else if(controller.code.value.isEmpty) {
-                                showMySnackBar(
-                                  context: context,
-                                  backgroundColor: AppColor.redColor,
-                                  message: "please select country code"
-                                );
-                              }
-                              else {
-                                showMySnackBar(
-                                  context: context,
-                                  backgroundColor: AppColor.redColor,
-                                  message: "fields must not be empty"
-                                );
-                              }
-                              
-                            } 
-                            : () {},
+                          Obx(
+                            () {
+                              return RebrandedReusableButton(
+                                textColor: AppColor.bgColor,
+                                color: AppColor.mainColor, 
+                                text:  service.isLoading.value ? "sending..." : "Submit", 
+                                onPressed: () {
+                                  if(
+                                    controller.nameController.text.isNotEmpty 
+                                    && controller.emailController.text.isNotEmpty 
+                                    && controller.phoneNumberController.text.isNotEmpty
+                                    && controller.offerController.text.isNotEmpty
+                                    && controller.code.value.isNotEmpty
+                                  ) {
+                                    //do sumething
+                                    service.requestQuote(
+                                      context: context, 
+                                      service_name: widget.service_name, 
+                                      offer: controller.offerController.text, 
+                                      uploaded_file: controller.fileUrl.value, 
+                                      appointment_type: controller.apppointment,
+                                      client_name: controller.nameController.text, 
+                                      client_email: controller.emailController.text, 
+                                      client_phone_number: "${controller.code.value} ${controller.phoneNumberController.text}", 
+                                      client_note: controller.messageController.text, 
+                                      service_provider_email: widget.service_provider_email, 
+                                      service_provider_name: widget.service_provider_name
+                                    ).whenComplete(() {
+                                      controller.nameController.clear();
+                                      controller.emailController.clear();
+                                      controller.phoneNumberController.clear();
+                                      controller.serviceNameController.clear();
+                                      controller.messageController.clear();
+                                      controller.offerController.clear();
+                                      Get.back();
+                                    });
+                                  }
+                                  else if(controller.code.value.isEmpty) {
+                                    showMySnackBar(
+                                      context: context,
+                                      backgroundColor: AppColor.redColor,
+                                      message: "please select country code"
+                                    );
+                                  }
+                                  else {
+                                    showMySnackBar(
+                                      context: context,
+                                      backgroundColor: AppColor.redColor,
+                                      message: "fields must not be empty"
+                                    );
+                                  }
+                                  
+                                } 
+                                                
+                              );
+                            }
                           ),
                           SizedBox(height: 20.h,),
                         ],
@@ -261,9 +314,9 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                 ////
               ]
             )
-          );
-        }
-      )
+          )
+        
+    
     );
   }
 }

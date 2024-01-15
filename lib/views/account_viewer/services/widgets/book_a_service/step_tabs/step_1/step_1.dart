@@ -50,33 +50,68 @@ class _Step1ScreenState extends State<Step1Screen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          UtilsTextField(  
-            onChanged: (val) {},
-            hintText: "Your name*",
+          Text(
+            "Full name*",
+            style: GoogleFonts.inter(
+              color: AppColor.blackColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          SizedBox(height: 10.h,),
+          UtilsTextField2(  
+            onChanged: (val) {
+              setState(() {
+                controller.nameBAController.text = val;
+              });
+            },
+            hintText: "Your name",
             keyboardType: TextInputType.name,
             textInputAction: TextInputAction.next,
-            textController: controller.nameBAController,
+            initialValue: '',
           ),
-          SizedBox(height: 20.h),
-          UtilsTextField(  
-            onChanged: (val) {},
-            hintText: "Email*",
+          SizedBox(height: 30.h),
+          Text(
+            "Email address*",
+            style: GoogleFonts.inter(
+              color: AppColor.blackColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          SizedBox(height: 10.h,),
+          UtilsTextField2(  
+            onChanged: (val) {
+              setState(() {
+                controller.emailBAController.text = val;
+              });
+            },
+            hintText: "Your email address",
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
-            textController: controller.emailBAController,
+            initialValue: '',
           ),
-          SizedBox(height: 20.h),
+          SizedBox(height: 30.h),
+          Text(
+            "Phone number",
+            style: GoogleFonts.inter(
+              color: AppColor.blackColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w500
+            ),
+          ),
+          SizedBox(height: 10.h,),
           PhoneNumberTextField(
             onChanged: (val) {},
             countryCodeWidget: CountryCodeWidgetBA(),
-            hintText: "Phone number*",
+            hintText: "Your phone number",
             keyboardType: TextInputType.phone,
             textInputAction: TextInputAction.next,
             textController: controller.phoneNumberBAController,
           ),
           SizedBox(height: 30.h),
           Text(
-            "Service name*",
+            "Service name",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 14.sp,
@@ -109,7 +144,7 @@ class _Step1ScreenState extends State<Step1Screen> {
           AppointmentTypeBA(),
           SizedBox(height: 20.h,),
           Text(
-            "Message (optional)",
+            "Note (optional)",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 14.sp,
@@ -127,7 +162,7 @@ class _Step1ScreenState extends State<Step1Screen> {
               } 
               setState(() {}); // Update the UI
             },
-            hintText: "Any additional information you would like us to have.",
+            hintText: "Any additional information you would like to add.",
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.done,
             textController: controller.messageBAController,

@@ -2,20 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/no_border_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/no_border_textfield.dart';
 
 
 
 
 
+
+// ignore: must_be_immutable
 class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
-  ViewAddedServiceDetailsForInvoice({super.key});
+  ViewAddedServiceDetailsForInvoice({super.key, required this.service_id, required this.service_name, required this.service_description, required this.meeting_type, required this.rate, required this.total, required this.discount, required this.duration, required this.index, required this.discounted_total, required this.appointmentType, required this.client_phone_number});
+  final String service_id;
+  final String service_name;
+  final String service_description;
+  final String meeting_type;
+  final num rate;
+  final num total;
+  final String discount;
+  final String duration;
+  final int index;
+  final String discounted_total;
+  final String appointmentType;
+  final String client_phone_number;
 
   //var controller = Get.put(FinancialsController());
   var finService = Get.put(FinancialsService());
@@ -59,7 +70,24 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         ),
                         //Save button
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            finService.editProductForInvoiceCreation(
+                              context: context, 
+                              service_name: service_name, 
+                              service_description: service_description, 
+                              service_id: service_id, 
+                              discount: discount, 
+                              rate: rate, 
+                              total: total, 
+                              duration: duration, 
+                              appointmentType: appointmentType, 
+                              index: index, 
+                              phone_number: client_phone_number
+                            ).whenComplete(() {
+                              finService.subtotalForInvoice.clear();
+                              print(finService.editedSelectedProuctMapListForInvoice);
+                            });
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             width: 60.w,
@@ -105,7 +133,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Django Course",
+                          service_name,
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -113,7 +141,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "N20,000",
+                          "N$total",
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -142,7 +170,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter service name',
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      initialValue: 'Django Course',
+                      initialValue: service_name,
                     ),
                     SizedBox(height: 30.h,),
                     //2
@@ -156,11 +184,13 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                     ),
                     SizedBox(height: 5.h,),
                     NoBorderTextFieldForInvoice(
-                      onChanged: (p0) {},
+                      onChanged: (p0) {                    
+                        finService.serviceDescriptionForInvoice.text = p0;
+                      },
                       hintText: 'Enter service description',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: 'gfhgfgchfghcgf',
+                      initialValue: service_description,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -175,11 +205,13 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                     ),
                     SizedBox(height: 5.h,),
                     NoBorderTextFieldForInvoice(
-                      onChanged: (p0) {},
+                      onChanged: (p0) {
+                        finService.selectedMeetingTypeForInvoice.text = p0;
+                      },
                       hintText: 'Enter meeting type',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: 'In-Person',
+                      initialValue: appointmentType,
                     ),
                     SizedBox(height: 30.h,),
                     
@@ -194,11 +226,14 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h,),
                     BorderTextFieldForInvoice(
-                      onChanged: (p0) {},
+                      onChanged: (p0) {
+                        finService.rateForInvoice.text = p0;
+                        print(finService.rateForInvoice.text);
+                      },
                       hintText: 'Enter service fee',
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      initialValue: '25,000',
+                      initialValue: "$rate",
                     ),
                     SizedBox(height: 30.h,),
 
@@ -213,11 +248,14 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h,),
                     BorderTextFieldForInvoice(
-                      onChanged: (p0) {},
+                      onChanged: (p0) {
+                        finService.durationForInvoice.text = p0;
+                        print(finService.durationForInvoice.text);
+                      },
                       hintText: 'Enter service duration',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: '40 mins',
+                      initialValue: duration,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -236,17 +274,22 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       children: [
                         Expanded(
                           child: DiscountTextFieldForInvoice(
-                            onChanged: (p0) {},
+                            onChanged: (p0) {
+                              finService.discountForInvoice.text = p0;
+                              print(finService.discountForInvoice.text);
+                            },
                             hintText: 'Enter service discount',
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            initialValue: '0.00',
+                            initialValue: discount,
                           ),
                         ),
                         SizedBox(width: 10.w,),
                         //calculate button
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            finService.calculateDiscountForInvoice(index: index, context: context);
+                          },
                           child: Container(
                             alignment: Alignment.center,
                             width: 100.w,  //70.w
@@ -284,7 +327,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                                 )
                               ),
                               TextSpan(
-                                text: ' N25,000',
+                                text: "N$discounted_total",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -297,7 +340,10 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         ),
                         //delete button
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            finService.deleteSelectedProductForInvoice(index)
+                            .whenComplete(() => Get.back());
+                          },
                           child: Text(
                             "Delete",
                             style: GoogleFonts.inter(

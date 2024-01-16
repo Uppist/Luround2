@@ -170,7 +170,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 ),
                 SizedBox(height: 60.h,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Obx(
                       () {
@@ -184,7 +184,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                         );
                       }
                     ),
-                    InkWell(
+                    /*InkWell(
                       onTap: () {
                         //TODO: Boolean check//
                         data.has_wallet_pin 
@@ -206,7 +206,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                           fontWeight: FontWeight.w500
                         ),
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ]

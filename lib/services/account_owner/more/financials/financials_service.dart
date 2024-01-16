@@ -228,6 +228,53 @@ class FinancialsService extends getx.GetxController {
     update();
   }
 
+  
+  ///[DELETE QUOTE FROM DB]//
+  Future<void> deleteQuoteFromDB({
+    required BuildContext context,
+    required String quote_id,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {};
+
+    try {
+      http.Response res = await baseService.httpDelete(endPoint: "quotes/delete-quote?quote_id=$quote_id", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("quote deleted by id successfully from database");
+
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "quote deleted successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete quote"
+        );
+        //.whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
   //5
   ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
   Future<void> createNewQuoteAndSendToDB({
@@ -261,7 +308,7 @@ class FinancialsService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$user_email", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "quotes/save-quote", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -299,7 +346,7 @@ class FinancialsService extends getx.GetxController {
     }
   }
 
-  ///[CREATE NEW QUOTE AND SAVE IT TO CLIENT]//
+  ///[CREATE NEW QUOTE AND SEND IT TO CLIENT]//
   Future<void> createNewQuoteAndSendToClient({
     required BuildContext context,
     required String client_name,
@@ -331,7 +378,7 @@ class FinancialsService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$user_email", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -586,10 +633,6 @@ class FinancialsService extends getx.GetxController {
 
     //invoice gets converted to bookings according to somto
     //these below corresponds to bookings
-    required String date, //leave emty
-    required String time, //leave emty
-    required String message,  //leave empty
-    required String location, //put the appointment type
     required String phone_number,  //put client phone number
   }) async{
 
@@ -607,10 +650,12 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapListForInvoice[index]["appointment_type"] = appointmentType;
       editedSelectedProuctMapListForInvoice[index]["rate"] = rate;
       editedSelectedProuctMapListForInvoice[index]["serviceID"] = service_id;
-      editedSelectedProuctMapListForInvoice[index]["time"] = time;
-      editedSelectedProuctMapListForInvoice[index]["date"] = date;
-      editedSelectedProuctMapListForInvoice[index]["message"] = message;
-      editedSelectedProuctMapListForInvoice[index]["location"] = location;
+      //invoice gets converted to bookings according to somto
+      //these below corresponds to bookings
+      //editedSelectedProuctMapListForInvoice[index]["time"] = "";
+      //editedSelectedProuctMapListForInvoice[index]["date"] = "";
+      editedSelectedProuctMapListForInvoice[index]["message"] = "(non)";
+      editedSelectedProuctMapListForInvoice[index]["location"] = "location depends on this :$appointmentType";
       editedSelectedProuctMapListForInvoice[index]["phone_number"] = phone_number;
       
       //success snackbar
@@ -764,6 +809,52 @@ class FinancialsService extends getx.GetxController {
     }
   }
 
+  ///[DELETE INVOICE FROM DB]//
+  Future<void> deleteInvoiceFromDB({
+    required BuildContext context,
+    required String invoice_id,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {};
+
+    try {
+      http.Response res = await baseService.httpDelete(endPoint: "invoice/delete-invoice?invoice_id=$invoice_id", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("invoice deleted by id successfully from database");
+
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "invoice deleted successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete invoice"
+        );
+        //.whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
 
 
 
@@ -808,6 +899,9 @@ class FinancialsService extends getx.GetxController {
 
   ///////////////////////////////////////////////////////////////////////////////
   
+
+
+
 
 
 
@@ -1015,8 +1109,8 @@ class FinancialsService extends getx.GetxController {
   }
 
   //5
-  ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
-  Future<void> createNewReceiptAndSendToDB({
+  ///[CREATE NEW RECEIPT AND SEND TO CLIENT]//
+  Future<void> createNewReceiptAndSendToClient({
     required BuildContext context,
     required String client_name,
     required String client_email,
@@ -1035,14 +1129,13 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "user_email": user_email,
-      "user_name": user_name,
-      "notes": note,
+      "payment_status": "SENT",
+      "note": note,
       "vat": calculateTotalVATForReceipt(),
       "sub_total": calculateSubtotalForReceipt(),
       "discount": "-N${calculateTotalDiscountForReceipt()}",
       "total": calculateTotalForReceipt(),
-      "product_detail": editedSelectedProuctMapListForReceipt //product_detail
+      "service_detail": editedSelectedProuctMapListForReceipt //product_detail
     };
 
     try {
@@ -1080,6 +1173,124 @@ class FinancialsService extends getx.GetxController {
       throw Exception("Something went wrong");
     }
   }
+
+  //5
+  ///[CREATE NEW RECEIPT AND SAVE IT TO DB]//
+  Future<void> createNewReceiptAndSaveToDB({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required String receipt_date,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "status": "SAVED",
+      "appointment_type": "already in the product_detail_list",
+      "receipt_date": receipt_date,
+      ////////////////
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      "payment_status": "SENT",
+      "note": note,
+      "vat": calculateTotalVATForReceipt(),
+      "sub_total": calculateSubtotalForReceipt(),
+      "discount": "-N${calculateTotalDiscountForReceipt()}",
+      "total": calculateTotalForReceipt(),
+      "service_detail": editedSelectedProuctMapListForReceipt //product_detail
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "receipt/save-receipt", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("receipt created and saved successfully to database");
+        finController.receiptClientNameController.clear();
+        finController.receiptClientEmailController.clear();
+        finController.receiptClientPhoneNumberController.clear();
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "receipt created and saved successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save receipt"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
+
+
+
+
+
+  ///[DELETE RECEIPT FROM DB]//
+  Future<void> deleteReceiptFromDB({
+    required BuildContext context,
+    required String receipt_id,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {};
+
+    try {
+      http.Response res = await baseService.httpDelete(endPoint: "receipt/delete-receipt?receiptId=$receipt_id", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("receipt deleted by id successfully from database");
+
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "receipt deleted successfully"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete receipt"
+        );
+        //.whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
 
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////

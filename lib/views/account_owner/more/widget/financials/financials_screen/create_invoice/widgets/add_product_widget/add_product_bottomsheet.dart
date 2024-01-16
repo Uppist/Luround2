@@ -19,7 +19,12 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-Future<void> addProductBottomSheetForInvoice({required BuildContext context, required FinancialsService service, required FinancialsController controller}) async{
+Future<void> addProductBottomSheetForInvoice({
+  required BuildContext context, 
+  required FinancialsService service, 
+  required FinancialsController controller,
+  required String client_phone_number,
+}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -140,17 +145,44 @@ Future<void> addProductBottomSheetForInvoice({required BuildContext context, req
                       
                                         setState(() {
                                           if (value != null) {
-                                            // Ensure the object is the same instance
+
                                             if (value) {
-                                              if (!service.selectedProductsForInvoice.contains(item)) {
-                                                service.selectedProductsForInvoice.add(item);
-                                                print(service.selectedProductsForInvoice);
-                                              }
-                                            } 
-                                            else {
+                                              // Add item to the list
+                                              service.selectedProductsForInvoice.add(item);
+                                            } else {
+                                              // Remove item from the list
                                               service.selectedProductsForInvoice.remove(item);
-                                              print(service.selectedProductsForInvoice);
                                             }
+
+                                            // Clear the list
+                                            service.editedSelectedProuctMapListForInvoice.clear();
+
+                                            // Add items to the list based on selected products
+                                            for (UserServiceModel product in service.selectedProductsForInvoice) {
+                                              Map<String, dynamic> userMap = {
+                                                "service_name": product.service_name,
+                                                "serviceID": product.serviceId,
+                                                "appointment_type": "Virtual",
+                                                "description": product.description,
+                                                "rate": int.parse(product.service_charge_virtual!),
+                                                "total": int.parse(product.service_charge_virtual!),
+                                                "duration": product.duration,
+                                                "phone_number": client_phone_number,
+                                                "discount": "0",
+                                                "date": product.date,
+                                                "time": product.time,
+                                                "message": "(non)",
+                                                "location": "location depends on appointment type"
+                                              };
+
+                                              service.editedSelectedProuctMapListForInvoice.add(userMap);
+                                            }
+
+                                            // Print the modified list
+                                            debugPrint("edited product list for invoice: ${service.editedSelectedProuctMapListForInvoice}");
+
+
+
                                           }
                                         });
                                         //                                                     
@@ -219,7 +251,7 @@ Future<void> addProductBottomSheetForInvoice({required BuildContext context, req
                           ),
                           InkWell(
                             onTap: () {
-                              //Get.back();
+                              Get.back();
                             },
                             child: Container(
                               height: 50.h,

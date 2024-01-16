@@ -54,19 +54,19 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       body: SafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 20.h,),
-                ///Navigation Section, Search TextField and Filter/////
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 7.w,),
-                  //height: 70, //65
-                  width: double.infinity,
-                  color: AppColor.bgColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(height: 20.h,),
+            ///Navigation Section, Search TextField and Filter/////
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 7.w,),
+              //height: 70, //65
+              width: double.infinity,
+              color: AppColor.bgColor,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
                       SizedBox(height: 20.h,),
                       IconButton(
                         onPressed: () {
@@ -108,7 +108,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
           
                         //1 Header and Date Section
                         Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -364,7 +364,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         //To show the items that were added (Use Future builder to show the items addedd)
                         Obx(
                           () {
-                            return service.editedSelectedProuctMapList.value.isNotEmpty ?
+                            return service.editedSelectedProuctMapList.isNotEmpty ?
                             ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: NeverScrollableScrollPhysics(),
@@ -584,27 +584,37 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 sendQuoteBottomSheet(
                                   context: context,
                                   onShare: () {
-                                    finPdfService.shareQuotePDF(
-                                      context: context,
-                                      quoteNumber: widget.quoteNumber,
-                                      receiver_email: controller.quoteClientEmailController.text,
-                                      receiver_name: controller.quoteClientNameController.text,
-                                      receiver_phone_number: controller.quoteClientPhoneNumberController.text,
-                                      quote_status: "SENT VIA PDF",
-                                      due_date: controller.updatedDueDate(initialDate: "(non)"),
-                                      subtotal: service.calculateSubtotalForQuote(),
-                                      discount: service.calculateTotalDiscountForQuote(),
-                                      vat: service.calculateTotalVATForQuote(),
+                                    service.createNewQuoteAndSendToClient(
+                                      context: context, 
+                                      client_name: controller.quoteClientNameController.text, 
+                                      client_email: controller.quoteClientEmailController.text, 
+                                      client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
-                                      grand_total: service.calculateTotalForQuote(),
-                                      serviceList: service.editedSelectedProuctMapList,
+                                      quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
+                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)")
                                     ).whenComplete(() {
-                                      controller.quoteClientEmailController.clear();
-                                      controller.quoteClientNameController.clear();
-                                      controller.quoteClientPhoneNumberController.clear();
-                                      controller.quoteNoteController.clear();
-                                      Get.back();
-                                    });
+                                      finPdfService.shareQuotePDF(
+                                        context: context,
+                                        quoteNumber: widget.quoteNumber,
+                                        receiver_email: controller.quoteClientEmailController.text,
+                                        receiver_name: controller.quoteClientNameController.text,
+                                        receiver_phone_number: controller.quoteClientPhoneNumberController.text,
+                                        quote_status: "SENT VIA PDF",
+                                        due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                        subtotal: service.calculateSubtotalForQuote(),
+                                        discount: service.calculateTotalDiscountForQuote(),
+                                        vat: service.calculateTotalVATForQuote(),
+                                        note: controller.quoteNoteController.text,
+                                        grand_total: service.calculateTotalForQuote(),
+                                        serviceList: service.editedSelectedProuctMapList,
+                                      ).whenComplete(() {
+                                        controller.quoteClientEmailController.clear();
+                                        controller.quoteClientNameController.clear();
+                                        controller.quoteClientPhoneNumberController.clear();
+                                        controller.quoteNoteController.clear();
+                                        Get.back();
+                                      });
+                                    });                       
                                   },
                                   onSave: () {
                                     service.createNewQuoteAndSendToDB(

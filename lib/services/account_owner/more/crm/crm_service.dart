@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/models/account_owner/more/crm/contact_response_model.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -27,9 +28,17 @@ class CRMService extends getx.GetxController {
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
-  //var controller = getx.Get.put(MoreController());
+
+  //to expand the tile
+  int selectedIndex = -1;
   
-  /////[GET LOGGED-IN USER'S BOOKINGS LIST]//////
+  //for searching for contact and add contact screen
+  final TextEditingController searchContactController = TextEditingController();
+  final TextEditingController contactNameController = TextEditingController();
+  final TextEditingController contactEmailController = TextEditingController();
+  final TextEditingController contactPhoneNumberController = TextEditingController();
+  
+  /////[GET LOGGED-IN USER'S CONTACT LIST]//////
   var contactList = <ContactResponse>[].obs;
   var filteredContactList = <ContactResponse>[].obs;
 
@@ -45,7 +54,7 @@ class CRMService extends getx.GetxController {
 
       // Use addAll to add the filtered items to the list
       filteredContactList.addAll(contactList
-        .where((user) => user.contact_name.toLowerCase().contains(query)) // == query
+        .where((user) => user.client_name.toLowerCase().contains(query)) // == query
         .toList());
 
       print("when query is not empty: $filteredContactList");
@@ -53,7 +62,7 @@ class CRMService extends getx.GetxController {
   }
   
 
-  Future<List<ContactResponse>> getUserBookings() async {
+  Future<List<ContactResponse>> getUserContacts() async {
     try {
 
       isLoading.value = true;
@@ -89,6 +98,31 @@ class CRMService extends getx.GetxController {
       isLoading.value = false;
       throw Exception("$e");
     }
+  }
+
+
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    searchContactController.dispose();
+    contactEmailController.dispose();
+    contactNameController.dispose();
+    contactPhoneNumberController.dispose();
+    super.dispose();
+  }
+
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    getUserContacts().then((value) {
+      filteredContactList.value = value;
+      print("filtered contacts list: ${filteredContactList}");
+    });
+    super.onInit();
   }
 
 }

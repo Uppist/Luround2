@@ -355,8 +355,8 @@ class AccViewerService extends getx.GetxController {
     var body = {
       ///
       "service_name": service_name,
-      "offer": offer,
-      "uploaded_file": uploaded_file,
+      "budget": offer,
+      "file": uploaded_file,
       ///
       "send_to_name": client_name,
       "send_to_email": client_email,

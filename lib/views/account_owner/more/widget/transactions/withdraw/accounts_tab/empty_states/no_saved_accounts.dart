@@ -20,12 +20,13 @@ class NoSavedAccounts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height - 240.h,
         color: AppColor.bgColor,
+        alignment: Alignment.center,
+        padding: EdgeInsets.symmetric(vertical: 30.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 60.h,),
+            //SizedBox(height: 60.h,),
             SvgPicture.asset('assets/svg/no_acc.svg'),
             SizedBox(height: 60.h,),
             Text(
@@ -65,7 +66,7 @@ class NoSavedAccounts extends StatelessWidget {
                       )
                     ),
                     TextSpan(
-                      text:'button to \n                           proceed',
+                      text:'\n           button to proceed',
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
@@ -78,15 +79,15 @@ class NoSavedAccounts extends StatelessWidget {
                 )
               ),
             ),
-            SizedBox(height: 80.h,),
+            SizedBox(height: 60.h,),
             //ADD SECTION BUTTON
             InkWell(
               onTap: onPressed,
               child: Container(
-               //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                padding: EdgeInsets.symmetric(horizontal: 20.w,),
                 alignment: Alignment.center,
                 height: 50.h,
-                width: 350.w,
+                //width: 350.w,
                 decoration: BoxDecoration(
                   color: AppColor. mainColor,
                   borderRadius: BorderRadius.circular(10.r),

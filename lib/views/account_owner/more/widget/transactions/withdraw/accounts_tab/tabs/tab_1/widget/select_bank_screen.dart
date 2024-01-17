@@ -64,7 +64,7 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(height: 20.h),
               //header
@@ -108,63 +108,75 @@ class _SelectBankScreenState extends State<SelectBankScreen> {
               ),
 
               SizedBox(height: 30.h,),
-
-              Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                  itemCount: service.filteredBankList2.length, //data.length,
-                  padding: EdgeInsets.symmetric(vertical: 10.h),
-                  itemBuilder: (context, index) {
-                    final item = service.filteredBankList2[index];
-                    if(service.filteredBankList2.isEmpty) {
-                      return const Loader();
-                    }
-                    return InkWell(
-                      onTap: () {
-                        setState(() {
-                          // Update the selected index
-                          service.selectedIndex2.value = index;
-                          controller.inputBankController.text = item['name'];
-                          controller.inputBankCodeController.text = item['code'];
-                        });
-
-                        // Print the selected item
-                        print('Selected Item: ${controller.inputBankController.text}/${controller.inputBankCodeController.text}');
-                      },
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 15.h,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
+              Obx(
+                () {
+                  return service.filteredBankList2.isNotEmpty ?
+                  Expanded(
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
+                      itemCount: service.filteredBankList2.length, //data.length,
+                      padding: EdgeInsets.symmetric(vertical: 10.h),
+                      itemBuilder: (context, index) {
+                        final item = service.filteredBankList2[index];
+                        if(service.filteredBankList2.isEmpty) {
+                          return const Loader();
+                        }
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              // Update the selected index
+                              service.selectedIndex2.value = index;
+                              controller.inputBankController.text = item['name'];
+                              controller.inputBankCodeController.text = item['code'];
+                            });
+                  
+                            // Print the selected item
+                            print('Selected Item: ${controller.inputBankController.text}/${controller.inputBankCodeController.text}');
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  item['name'],
-                                  //data[index]['name'],
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.darkGreyColor,
-                                    fontSize: 14.sp,
-                                    fontWeight: FontWeight.w500
+                              SizedBox(height: 15.h,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      item['name'],
+                                      //data[index]['name'],
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.darkGreyColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  service.selectedIndex2.value == index 
+                                  ?Icon(
+                                    CupertinoIcons.check_mark,
+                                    color: AppColor.blackColor,
+                                  ) : SizedBox(),
+                                ],
                               ),
-                              service.selectedIndex2.value == index 
-                              ?Icon(
-                                CupertinoIcons.check_mark,
-                                color: AppColor.blackColor,
-                              ) : SizedBox(),
+                              SizedBox(height: 15.h,)
                             ],
                           ),
-                          SizedBox(height: 15.h,)
-                        ],
-                      ),
-                    );
-                  }
-                ),
+                        );
+                      }
+                    ),
+                  ):Text(
+                    "No Banks Found",
+                      style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  );
+                }
               )
       
 

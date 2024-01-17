@@ -44,17 +44,10 @@ class _BankFieldFlipperState extends State< BankFieldFlipper> {
                   fontWeight: FontWeight.w500
                 ),
               ),
-              Container(
-                child: controller.isBankSelected.value ? Icon(
-                  CupertinoIcons.chevron_up, 
-                  color: AppColor.blackColor, 
-                  size: 20,
-                ) 
-                :Icon(
-                  CupertinoIcons.chevron_down, 
-                  color: AppColor.blackColor, 
-                  size: 20,
-                )
+              Icon(
+                CupertinoIcons.chevron_down, 
+                color: AppColor.blackColor, 
+                size: 20,
               )
             ],
           ),

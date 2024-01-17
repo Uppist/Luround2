@@ -13,6 +13,8 @@ import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/bank_field_flipper.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/select_bank_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/bank_field_flipper_2.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/select_bank_screen_for_tab2.dart';
 
 
 
@@ -81,20 +83,22 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
                           )
                         ),
                         SizedBox(height: 50.h,),
-                        BankFieldFlipper(
+                        BankFieldFlipper2(
                           text: controller.inputBankController.text.isEmpty ? 'Tap to select' : controller.inputBankController.text,
                           onFlip: () {
+                            setState(() {
+                              controller.isBankSelected2.value = true;
+                            });
+                    
+                            Get.to(() => SelectBankScreen2());
 
-                            //obx will handle the reactive state
-                            controller.isBankSelected.value = true;
-                            
-                            Get.to(() => SelectBankScreen());
-
-                            //obx will handle the reactive state
-                            controller.isBankSelected.value = false;
-                            
+                            setState(() {
+                              controller.isBankSelected2.value = false;
+                            });
+                    
                           },
                         ),
+      
                         SizedBox(height: 50.h),
                         Text(
                           'Account Number',
@@ -131,10 +135,11 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
                         ),
                         
                         SizedBox(height: 270.h,),
-
+                        
+                        service.isLoading.value ?
                         ReusableButton(
                           color: AppColor.mainColor,
-                          text: service.isLoading.value ? 'saving...' : 'Save account',
+                          text: 'Save account',
                           onPressed: () {
                             if(controller.inputBankController.text.isNotEmpty && controller.inputAccountNumberController.text.isNotEmpty && controller.inputAccountNameController.text.isNotEmpty) {
                               service.createBankDetailsFromAddDetailsButton(
@@ -168,7 +173,7 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
                             }
                           
                           },
-                        ),
+                        ) : Loader(),
                         SizedBox(height: 20.h,),
 
                       ]

@@ -26,7 +26,7 @@ class FinancialsEmptyState2 extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 20.h,),
+          //SizedBox(height: 20.h,),
           SvgPicture.asset('assets/financials/no_financials.svg'),
           SizedBox(height: 30.h,),
           Text(
@@ -44,7 +44,7 @@ class FinancialsEmptyState2 extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Text(
               "When you get $subtitleText, \n            they'll show up here",
-              style: GoogleFonts.poppins(
+              style: GoogleFonts.inter(
                 textStyle: TextStyle(
                   color: AppColor.darkGreyColor,
                   fontSize: 16.sp,

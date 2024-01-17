@@ -22,11 +22,11 @@ class FinancialsEmptyState extends StatelessWidget {
       alignment: Alignment.center,
       //height: 800.h,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 100.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 100.h,),
+          SizedBox(height: 20.h,),
           SvgPicture.asset('assets/financials/no_financials.svg'),
           SizedBox(height: 30.h,),
           Text(

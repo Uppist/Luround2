@@ -71,6 +71,7 @@ class _ShowBanksState extends State<ShowBanks> {
                 ),        
                 SizedBox(height: 40.h,),      
                 //LIST OF SAVED BANKS GOTTEN FROM BACKEND API/
+                service.filteredSavedAccounts.isNotEmpty ?
                 Expanded(
                   child: ListView.separated(
                     shrinkWrap: true,
@@ -159,6 +160,10 @@ class _ShowBanksState extends State<ShowBanks> {
 
                     }
                   ),
+                ) : NoSavedAccounts(
+                    onPressed: () {
+                      Get.to(() => AddBankFromButton());
+                    },
                 )
               ]
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/more/financials/quotes/received_quotes_response.dart';
 import 'package:luround/services/account_owner/more/financials/quotes_service.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
@@ -12,6 +13,25 @@ import 'package:luround/services/account_owner/more/financials/quotes_service.da
 class RequestedQuotesController extends getx.GetxController {
   
   var quoteService = getx.Get.put(QuotesService());
+
+  //functions for url_launcher (to launch user socials link)
+  Future<void> launchUrlLink({required String link}) async{
+    //String myPhoneNumber = "+234 07040571471";
+    //Uri uri = Uri.parse(myPhoneNumber);
+    Uri linkUri = Uri(
+      scheme: 'https',
+      path: link.replaceFirst("https://", "")
+    );
+    if(await launcher.canLaunchUrl(linkUri)) {
+      launcher.launchUrl(
+        linkUri,
+        mode: launcher.LaunchMode.inAppWebView
+      );
+    }
+    else {
+      throw Exception('Can not launch uri: $linkUri');
+    }
+  }
 
   //for search textfield text cancellation
   final isNoteTapped = false.obs;

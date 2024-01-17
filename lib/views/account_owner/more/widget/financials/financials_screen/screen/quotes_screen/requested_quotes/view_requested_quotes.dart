@@ -284,6 +284,42 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                           SizedBox(height: 20.h,),
                           //TODO: FIND A PDF PACKAGE THAT CAN Display & READ PDF LINK GOTTEN FROM SERVER
                           //E.G CLOUDINARY PDF URL
+                          InkWell(
+                            onTap: (){
+                              controller.launchUrlLink(link: uploaded_file);
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10.r),
+                                color: AppColor.bgColor,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Icon(
+                                    Icons.picture_as_pdf_outlined,
+                                    color: AppColor.redColor,
+                                  ),
+                                  SizedBox(width: 10.w,),
+                                  Expanded(
+                                    child: Text(
+                                      uploaded_file,
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.darkGreyColor,
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+
                         ]
                       )
                     ),

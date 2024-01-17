@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/invoice/unpaid/unpaid_invoice_controller.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -30,6 +33,9 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
   final List<dynamic> booking_detail;
 
   var controller = Get.put(UnpaidInvoiceController());
+  var userName = LocalStorage.getUsername();
+  var userEmail = LocalStorage.getUseremail();
+  int randNum = Random().nextInt(2000000);
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +111,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "Japhet Alvin",
+                            userName,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -114,7 +120,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "jay@gmail.com",
+                            userEmail,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -145,7 +151,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "John Wick",
+                            send_to_name,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -154,7 +160,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "johnwick@gmail.com",
+                            send_to_email,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -163,7 +169,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "+234 7040571471",
+                            phone_number,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -215,7 +221,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                   border: Border.all(color: AppColor.redColor)
                                 ),
                                 child: Text(
-                                  'UNPAID',
+                                  status,
                                   style: GoogleFonts.inter(
                                     color: AppColor.redColor,
                                     fontSize: 10.sp,
@@ -238,7 +244,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#00000001',
+                                '#$randNum',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -261,7 +267,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '2023-04-12',
+                                due_date,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -284,7 +290,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N28,000',
+                                'N$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -342,14 +348,15 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                  itemCount: 2,
+                                  itemCount: booking_detail.length,
                                   itemBuilder: (context, index) {
+                                    final item = booking_detail[index];
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 15.h,),
                                         Text(
-                                          "Personal Training",
+                                          item['service_name'],
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
                                             fontSize: 13.sp,
@@ -372,7 +379,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'In-Person',
+                                              item['appointment_type'],
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -395,7 +402,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N20,000',
+                                              'N${item['rate']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -418,7 +425,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '30mins',
+                                              item['duration'],
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -441,7 +448,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N1,000',
+                                              'N${item['discount']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -464,7 +471,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N24,000',
+                                              'N${item['total']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -509,7 +516,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N20,000',
+                                'N$sub_total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -532,7 +539,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N1,500',
+                                "N${discount}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -555,7 +562,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N900',
+                                'N$vat',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -578,7 +585,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N50,000',
+                                'N$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -640,7 +647,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 10.h,),
                                     Text(
-                                      "gfhghchgchgjgjBLFY",
+                                      note,
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,

@@ -1,0 +1,72 @@
+
+class ReceiptResponse{
+  final String receipt_id;
+  final String service_provider_name;
+  final String service_provider_email;
+  final String service_provider_userId;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String payment_status;
+  final String mode_of_payment;
+  final String receipt_date;
+  final String sub_total;
+  final String discount;
+  final String vat;
+  final String total;
+  final String note;
+  final List<dynamic> service_detail;
+  
+  ReceiptResponse({
+    required this.receipt_id,
+    required this.send_to_name, 
+    required this.send_to_email, 
+    required this.phone_number, 
+    required this.sub_total, 
+    required this.discount, 
+    required this.vat, 
+    required this.total,  
+    required this.note,   
+    required this.service_provider_name, 
+    required this.service_provider_email, 
+    required this.service_provider_userId, 
+    required this.payment_status, 
+    required this.mode_of_payment, 
+    required this.receipt_date, 
+    required this.service_detail,
+  });
+
+  factory ReceiptResponse.fromJson(Map<String, dynamic> json) {
+    return ReceiptResponse( 
+      service_provider_userId: json['service_provider_userId'] ?? "nan",
+      service_provider_name: json['service_provider_name'] ?? "nan",
+      service_provider_email: json['service_provider_email'] ?? "nan",
+      receipt_id: json['_id'] ?? "nan",
+      receipt_date: json['receipt_date'] ?? "nan",
+      send_to_name: json['send_to'] ?? "nan",
+      send_to_email: json['send_to_email'] ?? "nan",
+      phone_number: json['phone_number'] ?? "nan",
+      sub_total: json['sub_total'] ?? "nan",
+      discount: json['discount'] ?? "nan",
+      vat: json['vat'] ?? "nan",
+      total: json['total'] ?? "nan",
+      mode_of_payment: json['mode_of_payment'] ?? "nan",
+      payment_status: json["payment_status"] ?? 'nan',
+      note: json['note'] ?? "nan", 
+      service_detail: json['service_detail'] ?? [],
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

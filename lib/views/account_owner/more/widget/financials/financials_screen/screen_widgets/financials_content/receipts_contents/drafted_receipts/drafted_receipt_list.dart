@@ -42,6 +42,22 @@ class DraftedReceiptList extends StatelessWidget {
               if(service.filteredDraftedReceiptsList.isNotEmpty) {
                 return DraftedReceiptDisplay(
                   onPressed: (){},
+                  receipt_id: item.receipt_id,
+                  send_to: item.send_to_name,
+                  sent_to_email: item.send_to_email,
+                  phone_number: item.phone_number,
+                  payment_status: item.payment_status,
+                  discount: item.discount,
+                  vat: item.vat,
+                  sub_total: item.sub_total,
+                  total: item.total,
+                  note: item.note,
+                  mode_of_payment: item.mode_of_payment,
+                  receipt_date: item.receipt_date,
+                  service_provider_name: item.service_provider_name,
+                  service_provider_email: item.service_provider_email,
+                  service_provider_userId: item.service_provider_userId,
+                  service_detail: item.service_detail,
                 );
               }
 

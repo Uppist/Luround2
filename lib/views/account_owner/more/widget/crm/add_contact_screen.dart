@@ -136,7 +136,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                       textInputAction: TextInputAction.done,                   
                     ),
       
-                    SizedBox(height: 300.h,),
+                    SizedBox(height: 320.h,),
                     
                     Obx(
                       () {
@@ -146,13 +146,12 @@ class _AddContactScreenState extends State<AddContactScreen> {
                           text: 'Save',
                           onPressed: () async{
                             if(service.contactNameController.text.isNotEmpty && service.contactEmailController.text.isNotEmpty && service.contactPhoneNumberController.text.isNotEmpty) {
-                              service.isLoading.value = true;
-                              showMySnackBar(
-                                context: context,
-                                message: "testing testing. nice", 
-                                backgroundColor: AppColor.darkGreen
+                              service.addNewContact(
+                                context: context, 
+                                client_name: service.contactNameController.text, 
+                                client_email: service.contactEmailController.text,
+                                client_phone_number: service.contactPhoneNumberController.text,
                               );
-                              service.isLoading.value = false;
                             }
                             else {
                               showMySnackBar(

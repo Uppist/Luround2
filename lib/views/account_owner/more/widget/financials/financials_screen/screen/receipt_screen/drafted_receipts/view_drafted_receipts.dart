@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/receipt/draft/drafted_receipt_controller.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -14,9 +17,28 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewDraftedReceiptScreen extends StatelessWidget {
-  ViewDraftedReceiptScreen({super.key});
+  ViewDraftedReceiptScreen({super.key, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail});
+  final String receipt_id;
+  final String send_to;
+  final String sent_to_email;
+  final String service_provider_name;
+  final String service_provider_email;
+  final String service_provider_userId;
+  final String phone_number;
+  final String payment_status;
+  final String discount;
+  final String vat;
+  final String sub_total;
+  final String total;
+  final String note;
+  final String mode_of_payment;
+  final String receipt_date;
+  final List<dynamic> service_detail;
 
   var controller = Get.put(DraftedReceiptController());
+  var userName = LocalStorage.getUsername();
+  var userEmail = LocalStorage.getUseremail();
+  int randNum = Random().nextInt(2000000);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +114,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "Judas Payd",
+                            userName,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -101,7 +123,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "jaypee@gmail.com",
+                            userEmail,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -132,7 +154,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "John Mellow",
+                            send_to,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 13.sp,
@@ -141,7 +163,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "mellow@gmail.com",
+                            sent_to_email,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -150,7 +172,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            "+234 7040571471",
+                            phone_number,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -194,7 +216,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                               ),
                               Container(
                                 alignment: Alignment.center,
-                                width: 65.w,
+                                width: 60.w,
                                 height: 30.h,
                                 decoration: BoxDecoration(
                                   color: AppColor.navyBlue,
@@ -202,7 +224,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                   border: Border.all(color: AppColor.navyBlue)
                                 ),
                                 child: Text(
-                                  'DRAFT',
+                                  payment_status,
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 10.sp,
@@ -225,7 +247,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#008901',
+                                '#$randNum',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -248,7 +270,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '2024-04-12',
+                                receipt_date,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -271,7 +293,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N28,000',
+                                'N$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -329,14 +351,15 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                   physics: NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                  itemCount: 2,
+                                  itemCount: service_detail.length,
                                   itemBuilder: (context, index) {
+                                    final item = service_detail[index];
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: 15.h,),
                                         Text(
-                                          "Personal Training",
+                                          item['service_name'],
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
                                             fontSize: 13.sp,
@@ -359,7 +382,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'In-Person',
+                                              item['appointment_type'],
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -382,7 +405,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N20,000',
+                                              'N${item['rate']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -405,7 +428,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              '30mins',
+                                              item['duration'],
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -428,7 +451,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N1,000',
+                                              'N${item['discount']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -451,7 +474,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N24,000',
+                                              'N${item['total']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -496,7 +519,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N25,000',
+                                'N$sub_total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -519,7 +542,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N400',
+                                discount,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -542,7 +565,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N700',
+                                'N$vat',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -565,7 +588,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N50,000',
+                                'N$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -627,7 +650,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 10.h,),
                                     Text(
-                                      "drafted receipt notes here",
+                                      note,
                                       style: GoogleFonts.inter(
                                         color: AppColor.darkGreyColor,
                                         fontSize: 14.sp,

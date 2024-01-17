@@ -5,8 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
+import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
@@ -36,6 +41,9 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
 
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
+  var finPdfService = Get.put(FinancialsPdfService());
+  var user_email = LocalStorage.getUseremail();
+  var userProfileService = Get.put(AccOwnerProfileService());
 
   @override
   Widget build(BuildContext context) {
@@ -101,45 +109,69 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           //Logged in user details
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              //crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius: 35.r,
-                                  backgroundColor: AppColor.mainColor,
-                                  //backgroundImage: ,
-                                ),
-                                SizedBox(width: 20.w),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,                       
+                          FutureBuilder(
+                            future: userProfileService.getUserProfileDetails(email: user_email),
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState == ConnectionState.waiting) {
+                                return Loader2();
+                              }
+                              if (snapshot.hasError) {
+                                print(snapshot.error);
+                              }
+                              if (!snapshot.hasData) {
+                                print("sn-trace: ${snapshot.stackTrace}");
+                                print("sn-data: ${snapshot.data}");
+                                return Loader2();   
+                              }
+             
+                              if (snapshot.hasData) {
+                                var data = snapshot.data!;
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    //crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Ivy Richie",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w600
+                                      CircleAvatar(
+                                        radius: 35.r,
+                                        backgroundColor: AppColor.mainColor,
+                                        backgroundImage: NetworkImage(
+                                          data.photoUrl
                                         ),
                                       ),
-                                      SizedBox(height: 5.h,),
-                                      Text(
-                                        "ivyleague@gmail.com",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.textGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400
+                                      SizedBox(width: 20.w),
+                                      Expanded(
+                                        child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,                       
+                                          children: [
+                                            Text(
+                                              data.displayName,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.darkGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w600
+                                              ),
+                                            ),
+                                            SizedBox(height: 5.h,),
+                                            Text(
+                                              data.email,
+                                              style: GoogleFonts.inter(
+                                                color: AppColor.textGreyColor,
+                                                fontSize: 14.sp,
+                                                fontWeight: FontWeight.w400
+                                              ),
+                                            ),
+                                          ],                      
                                         ),
-                                      ),
-                                    ],                      
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
+                                );
+                              }
+                              return Loader2();
+                            }
                           ),
+                      
                           Divider(color: Colors.grey, thickness: 0.2,),
                           SizedBox(height: 30.h,),
 
@@ -297,21 +329,34 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                     SizedBox(height: 10.h,),
 
                     //To show the items that were added (Use Future builder to show the items addedd)
-                    ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      padding: EdgeInsets.symmetric(horizontal: 20.w),
-                      itemCount: 2,
-                      itemBuilder: (BuildContext context, int index) {
-                        return AddedServicesTile(
-                          onTap: (){
-                            Get.to(() => ViewAddedServiceDetailsForReceipt());
-                          },
-                          productName: 'Marketing Training',
-                          price: '78,000',
-                          duration: '1 hr',
-                        );
+                    Obx(
+                      () {
+                        return service.editedSelectedProuctMapListForReceipt.isNotEmpty ? ListView.builder(
+                          scrollDirection: Axis.vertical,
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          itemCount: service.editedSelectedProuctMapListForReceipt.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final item = service.editedSelectedProuctMapListForReceipt[index];
+                            return AddedServicesTile(
+                              onTap: (){
+                                Get.to(() => ViewAddedServiceDetailsForReceipt(
+                                  appointment_type: item['appointment_type'],
+                                  service_name: item['service_name'],
+                                  total: item['total'],
+                                  discount: item['discount'],
+                                  rate: item['rate'],
+                                  duration: item['duration'],
+                                  index: index,
+                                ));
+                              },
+                              productName: item['service_name'],
+                              price: item['total'].toString(),
+                              duration: item['duration'],
+                            );
+                          }
+                        ) : SizedBox();
                       }
                     ),
 
@@ -341,7 +386,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ),
                               ),
                               Text(
-                                "N25,000",
+                                "N${service.calculateSubtotalForReceipt()}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -364,7 +409,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ),
                               ),
                               Text(
-                                "-N2,000",
+                                "-N${service.calculateTotalDiscountForReceipt()}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -387,7 +432,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ),
                               ),
                               Text(
-                                "N200",
+                                "N${service.calculateTotalVATForReceipt()}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -410,7 +455,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ),
                               ),
                               Text(
-                                "N23,000",
+                                "N${service.calculateTotalForReceipt()}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -578,12 +623,84 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                         color: AppColor.mainColor,
                         text: 'Send Receipt',
                         onPressed: () {
-                          sendReceiptBottomSheet(
-                            context: context,
-                            onShare: () {},
-                            onSave: () {},
-                            onDownload: () {},
-                          );
+                          if(
+                            controller.receiptClientNameController.text.isNotEmpty 
+                            && controller.receiptClientEmailController.text.isNotEmpty 
+                            && controller.receiptClientPhoneNumberController.text.isNotEmpty
+                          ) {
+                            sendReceiptBottomSheet(
+                              context: context,
+                              onShare: () {
+                                service.createNewReceiptAndSendToClient(
+                                  context: context, 
+                                  client_name: controller.receiptClientNameController.text, 
+                                  client_email: controller.receiptClientEmailController.text, 
+                                  client_phone_number: controller.receiptClientPhoneNumberController.text, 
+                                  note: controller.receiptNoteController.text,
+                                  receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
+                                  mode_of_payment: controller.selectedModeOfPayment.value
+                                ).whenComplete(() {
+                                    finPdfService.shareReceiptPDF(
+                                    context: context,
+                                    receiptNumber: widget.receiptNumber,
+                                    receiver_email: controller.invoiceClientEmailController.text,
+                                    receiver_name: controller.invoiceClientNameController.text,
+                                    receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
+                                    receipt_status: "SENT VIA PDF",
+                                    due_date: controller.updatedReceiptDate(initialDate: "(non)"),
+                                    subtotal: service.calculateSubtotalForReceipt(),
+                                    discount: service.calculateTotalDiscountForReceipt(),
+                                    vat: service.calculateTotalVATForReceipt(),
+                                    note: controller.receiptNoteController.text,
+                                    grand_total: service.calculateTotalForReceipt(),
+                                    serviceList: service.editedSelectedProuctMapListForReceipt,
+                                  ).whenComplete(() {
+                                    controller.receiptClientEmailController.clear();
+                                    controller.receiptClientNameController.clear();
+                                    controller.receiptClientPhoneNumberController.clear();
+                                    controller.receiptNoteController.clear();
+                                    Get.back();
+                                  });
+                                });
+                              },
+                              onSave: () {
+                                service.createNewReceiptAndSaveToDB(
+                                  context: context, 
+                                  client_name: controller.receiptClientNameController.text, 
+                                  client_email: controller.receiptClientEmailController.text, 
+                                  client_phone_number: controller.receiptClientPhoneNumberController.text, 
+                                  note: controller.receiptNoteController.text,
+                                  receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
+                                  mode_of_payment: controller.selectedModeOfPayment.value
+                                ); //.whenComplete(() => Get.back());
+                              },
+                              onDownload: () {
+                                finPdfService.downloadReceiptPDFToDevice(
+                                  context: context,
+                                  receiptNumber: widget.receiptNumber,
+                                  receiver_email: controller.invoiceClientEmailController.text,
+                                  receiver_name: controller.invoiceClientNameController.text,
+                                  receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
+                                  receipt_status: "SENT VIA PDF",
+                                  due_date: controller.updatedReceiptDate(initialDate: "(non)"),
+                                  subtotal: service.calculateSubtotalForReceipt(),
+                                  discount: service.calculateTotalDiscountForReceipt(),
+                                  vat: service.calculateTotalVATForReceipt(),
+                                  note: controller.receiptNoteController.text,
+                                  grand_total: service.calculateTotalForReceipt(),
+                                  serviceList: service.editedSelectedProuctMapListForReceipt,
+                                ).whenComplete(() => Get.back());
+                              },
+                            );
+                          }
+                          else {
+                            //failure snackbar
+                            showMySnackBar(
+                              context: context,
+                              backgroundColor: AppColor.redColor,
+                              message: "fields must not be empty"
+                            );
+                          }
                         },
                       ),
                     ),

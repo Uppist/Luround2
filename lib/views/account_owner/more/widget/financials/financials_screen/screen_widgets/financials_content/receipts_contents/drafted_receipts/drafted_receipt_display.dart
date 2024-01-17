@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,11 +15,28 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DraftedReceiptDisplay extends StatelessWidget {
-  const DraftedReceiptDisplay({super.key, required this.onPressed});
+  const DraftedReceiptDisplay({super.key, required this.onPressed, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail});
   final VoidCallback onPressed;
+  final String receipt_id;
+  final String send_to;
+  final String sent_to_email;
+  final String service_provider_name;
+  final String service_provider_email;
+  final String service_provider_userId;
+  final String phone_number;
+  final String payment_status;
+  final String discount;
+  final String vat;
+  final String sub_total;
+  final String total;
+  final String note;
+  final String mode_of_payment;
+  final String receipt_date;
+  final List<dynamic> service_detail;
 
   @override
   Widget build(BuildContext context) {
+    final int randNum = Random().nextInt(2000000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -49,14 +68,31 @@ class DraftedReceiptDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#0000001",
+                "#$randNum",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400
                 ),
               ),
-              DraftedReceiptDropDown()
+              DraftedReceiptDropDown(
+                receipt_id: receipt_id,
+                send_to: send_to,
+                sent_to_email: sent_to_email,
+                phone_number: phone_number,
+                payment_status: payment_status,
+                discount: discount,
+                vat: vat,
+                sub_total:sub_total,
+                total:total,
+                note: note,
+                mode_of_payment: mode_of_payment,
+                receipt_date: receipt_date,
+                service_provider_name: service_provider_name,
+                service_provider_email: service_provider_email,
+                service_provider_userId: service_provider_userId,
+                service_detail: service_detail,
+              )
             ],
           ),
           SizedBox(height: 10.h,),
@@ -67,7 +103,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Sheldon Cooper",
+                send_to,
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,
@@ -75,7 +111,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                "28 Oct 2023",
+                receipt_date,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -99,7 +135,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
                 ],
               ),*/
               Text(
-                "N82,000",
+                "N$total",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,

@@ -144,17 +144,33 @@ Future<void> addProductBottomSheetForReceipt({
                       
                                         setState(() {
                                           if (value != null) {
-                                            // Ensure the object is the same instance
                                             if (value) {
-                                              if (!service.selectedProductsForReceipt.contains(item)) {
-                                                service.selectedProductsForReceipt.add(item);
-                                                print(service.selectedProductsForReceipt);
-                                              }
-                                            } 
-                                            else {
+                                              // Add item to the list
+                                              service.selectedProductsForReceipt.add(item);
+                                            } else {
+                                              // Remove item from the list
                                               service.selectedProductsForReceipt.remove(item);
-                                              print(service.selectedProductsForReceipt);
                                             }
+
+                                            // Clear the list
+                                            service.editedSelectedProuctMapListForReceipt.clear();
+
+                                            // Add items to the list based on selected products
+                                            for (UserServiceModel product in service.selectedProductsForReceipt) {
+                                              Map<String, dynamic> userMap = {
+                                                "service_name": product.service_name,                                   
+                                                "appointment_type": "Virtual",
+                                                "rate": product.service_charge_virtual!,
+                                                "total": product.service_charge_virtual!,
+                                                "duration": product.duration,
+                                                "discount": "0",
+                                              };
+
+                                              service.editedSelectedProuctMapListForReceipt.add(userMap);
+                                            }
+
+                                            // Print the modified list
+                                            debugPrint("edited product list for invoice: ${service.editedSelectedProuctMapListForReceipt}");
                                           }
                                         });
                                         //                                                     
@@ -223,7 +239,7 @@ Future<void> addProductBottomSheetForReceipt({
                           ),
                           InkWell(
                             onTap: () {
-                              //Get.back();
+                              Get.back();
                             },
                             child: Container(
                               height: 50.h,

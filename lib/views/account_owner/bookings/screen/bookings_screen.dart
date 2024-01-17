@@ -169,7 +169,7 @@ class _BookingsPageState extends State<BookingsPage> {
           Expanded(
             child: Obx(
               () {              
-                return service.isLoading.value ? Loader() : ListView.separated(
+                return service.isLoading.value ? Loader() : service.filteredList.isNotEmpty ? ListView.separated(
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
                         physics: const BouncingScrollPhysics(),
@@ -559,6 +559,10 @@ class _BookingsPageState extends State<BookingsPage> {
                             },
                           );
                         }
+                      ) : BookingScreenEmptyState(
+                        onPressed: () {
+                          service.getUserBookings();
+                        },
                       );
                     }
                   ),

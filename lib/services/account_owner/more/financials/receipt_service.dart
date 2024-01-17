@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/financials/receipt/receipt_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -25,8 +26,8 @@ class ReceiptsService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF SENT RECEIPTS]//////
-  var sentReceiptsList = <dynamic>[].obs;
-  var filteredSentReceiptList = <dynamic>[].obs;
+  var sentReceiptsList = <ReceiptResponse>[].obs;
+  var filteredSentReceiptList = <ReceiptResponse>[].obs;
 
   Future<void> filterSentReceipt(String query) async {
     if (query.isEmpty) {
@@ -40,13 +41,13 @@ class ReceiptsService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredSentReceiptList.addAll(
       sentReceiptsList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredSentReceiptList");
     }
   }
 
-  Future<List<dynamic>> getUserSentReceipt() async {
+  Future<List<ReceiptResponse>> getUserSentReceipt() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "receipt/receipts",);
@@ -60,10 +61,10 @@ class ReceiptsService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<SentReceiptResponseModel> finalResult = response.map((e) => SentReceiptResponseModel.fromJson(e)).toList();
+          final List<ReceiptResponse> finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
 
           sentReceiptsList.clear();
-          sentReceiptsList.addAll(response);  //finalResult
+          sentReceiptsList.addAll(finalResult);  //finalResult
           debugPrint("sent receipts list: $sentReceiptsList");
 
           //Return the list of sent receipts
@@ -88,11 +89,11 @@ class ReceiptsService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF SENT RECEIPTS IN THE FUTURE BUILDER FOR SENT RECEIPTS]///
-  Future<List<dynamic>> loadSentReceiptsData() async {
+  Future<List<ReceiptResponse>> loadSentReceiptsData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> receipts = await getUserSentReceipt();
-      receipts.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<ReceiptResponse> receipts = await getUserSentReceipt();
+      receipts.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_email.toLowerCase()));
 
       isLoading.value = false;
       filteredSentReceiptList.value = List.from(receipts); 
@@ -110,8 +111,8 @@ class ReceiptsService extends getx.GetxController {
   
 
   /////[GET LOGGED-IN USER'S LIST OF DRAFTED RECEIPTS]//////
-  var draftedReceiptList = <dynamic>[].obs;
-  var filteredDraftedReceiptsList = <dynamic>[].obs;
+  var draftedReceiptList = <ReceiptResponse>[].obs;
+  var filteredDraftedReceiptsList = <ReceiptResponse>[].obs;
 
   Future<void> filterDraftedReceipt(String query) async {
     if (query.isEmpty) {
@@ -125,13 +126,13 @@ class ReceiptsService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredDraftedReceiptsList.addAll(
       draftedReceiptList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredDraftedReceiptsList");
     }
   }
 
-  Future<List<dynamic>> getUserDraftedReceipt() async {
+  Future<List<ReceiptResponse>> getUserDraftedReceipt() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "receipt/saved-receipts",);
@@ -145,10 +146,10 @@ class ReceiptsService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<DraftedReceiptResponseModel> finalResult = response.map((e) => DraftedReceiptResponseModel.fromJson(e)).toList();
+          final List<ReceiptResponse> finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
 
           draftedReceiptList.clear();
-          draftedReceiptList.addAll(response);  //finalResult
+          draftedReceiptList.addAll(finalResult);  //finalResult
           debugPrint("darfted receipt list: $draftedReceiptList");
 
           //Return the list of drafted receipts
@@ -173,11 +174,11 @@ class ReceiptsService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF DRAFTED RECEIPTS IN THE FUTURE BUILDER FOR DRAFTED RECEIPT]///
-  Future<List<dynamic>> loadDraftedReceiptsData() async {
+  Future<List<ReceiptResponse>> loadDraftedReceiptsData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> receipts = await getUserDraftedReceipt();
-      receipts.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<ReceiptResponse> receipts = await getUserDraftedReceipt();
+      receipts.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
       filteredDraftedReceiptsList.value = List.from(receipts); 

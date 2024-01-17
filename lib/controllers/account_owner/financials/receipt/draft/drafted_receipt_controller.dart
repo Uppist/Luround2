@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/financials/receipt/receipt_response_model.dart';
 import 'package:luround/services/account_owner/more/financials/receipt_service.dart';
 
 
@@ -54,16 +55,16 @@ class DraftedReceiptController extends getx.GetxController {
   
 
   //filter
-  Future<List<dynamic>> filterReceiptByDate() async{
+  Future<List<ReceiptResponse>> filterReceiptByDate() async{
 
     String startDateString = startDate();
     String endDateString = endDate();
     print("start date: $startDateString");
     print("end date: $endDateString");
 
-    List<dynamic> result = receiptService.filteredDraftedReceiptsList
+    List<ReceiptResponse> result = receiptService.filteredDraftedReceiptsList
       .where((user) {
-        String receiptDateString = user['receipt_date'];
+        String receiptDateString = user.receipt_date;
 
         // Assuming the date strings are in the format "yyyy-MM-dd"
         return receiptDateString.compareTo(startDateString) >= 0 &&

@@ -28,26 +28,36 @@ class DueInvoiceList extends StatelessWidget {
             scrollDirection: Axis.vertical,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             separatorBuilder: (context, index) => SizedBox(height: 20.h),
-            itemCount: service.filteredDueInvoiceList.length,
+            itemCount: service.filteredUnpaidInvoiceList.length,
             //padding: EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (context, index) {
-              final item = service.filteredDueInvoiceList[index];
-              if(service.filteredDueInvoiceList.isEmpty) {
+              final item = service.filteredUnpaidInvoiceList[index];
+
+              bool isDueInThreeDays = service.isDueInThreeDays(item.due_date);
+
+              if(isDueInThreeDays) {
+                return DueInvoiceDisplay (
+                  onPressed: (){},
+                  invoice_id: item.invoice_id,
+                  send_to_name: item.send_to_name,
+                  send_to_email: item.send_to_email,
+                  phone_number: item.phone_number,
+                  due_date: item.due_date,
+                  sub_total: item.sub_total,
+                  discount: item.discount,
+                  vat: item.vat,
+                  total: item.total,
+                  note: item.note,
+                  status: isDueInThreeDays ? "DUE" : item.status,
+                  booking_detail: item.booking_detail,
+                );
+              }
+              else {
                 return FinancialsEmptyState(
                   titleText: 'No invoice yet',
                   subtitleText: 'an invoice',
                 );
               }
-              if(service.filteredDueInvoiceList.isNotEmpty) {
-                return DueInvoiceDisplay (
-                  onPressed: (){},
-                );
-              }
-
-              return FinancialsEmptyState(
-                titleText: 'No invoice yet',
-                subtitleText: 'an invoice',
-              );
             
             }
           ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,11 +14,26 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DueInvoiceDisplay extends StatelessWidget {
-  const DueInvoiceDisplay({super.key, required this.onPressed});
+  const DueInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail});
   final VoidCallback onPressed;
+  final String invoice_id;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String due_date;
+  final num sub_total;
+  final num discount;
+  final String vat;
+  final num total;
+  final String note;
+  final String status;
+  final List<dynamic> booking_detail;
 
   @override
   Widget build(BuildContext context) {
+
+    final randNum = Random().nextInt(2000000);
+
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -48,14 +65,27 @@ class DueInvoiceDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#0000001",
+                "#$randNum",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400
                 ),
               ),
-              InvoiceDueDropDown()
+              InvoiceDueDropDown(
+                invoice_id: invoice_id,
+                send_to_name: send_to_email,
+                send_to_email: send_to_email,
+                phone_number: phone_number,
+                due_date: due_date,
+                sub_total: sub_total,
+                discount: discount,
+                vat: vat,
+                total: total,
+                note: note,
+                status: status,
+                booking_detail: booking_detail,
+              )
             ],
           ),
           SizedBox(height: 10.h,),

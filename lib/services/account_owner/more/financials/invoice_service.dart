@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -25,8 +26,8 @@ class InvoicesService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF PAID INVOICES]//////
-  var paidInvoiceList = <dynamic>[].obs;
-  var filteredPaidInvoiceList = <dynamic>[].obs;
+  var paidInvoiceList = <InvoiceResponse>[].obs;
+  var filteredPaidInvoiceList = <InvoiceResponse>[].obs;
 
   Future<void> filterPaidInvoice(String query) async {
     if (query.isEmpty) {
@@ -40,13 +41,13 @@ class InvoicesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredPaidInvoiceList.addAll(
       paidInvoiceList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredPaidInvoiceList");
     }
   }
 
-  Future<List<dynamic>> getUserPaidInvoice() async {
+  Future<List<InvoiceResponse>> getUserPaidInvoice() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "invoice/paid-invoices",);
@@ -60,10 +61,10 @@ class InvoicesService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<PaidInvoiceResponseModel> finalResult = response.map((e) => PaidInvoiceResponseModel.fromJson(e)).toList();
+          final List<InvoiceResponse> finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
 
           paidInvoiceList.clear();
-          paidInvoiceList.addAll(response);  //finalResult
+          paidInvoiceList.addAll(finalResult);
           debugPrint("paid invoice list: $paidInvoiceList");
 
           //Return the list of sent quotes
@@ -88,11 +89,11 @@ class InvoicesService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF PAID INVOICES IN THE FUTURE BUILDER FOR PAID INVOICES]///
-  Future<List<dynamic>> loadPaidInvoicesData() async {
+  Future<List<InvoiceResponse>> loadPaidInvoicesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> invoices = await getUserPaidInvoice();
-      invoices.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<InvoiceResponse> invoices = await getUserPaidInvoice();
+      invoices.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
       filteredPaidInvoiceList.value = List.from(invoices); 
@@ -110,8 +111,25 @@ class InvoicesService extends getx.GetxController {
   
 
   /////[GET LOGGED-IN USER'S LIST OF UNPAID INVOICES]//////
-  var unpaidInvoiceList = <dynamic>[].obs;
-  var filteredUnpaidInvoiceList = <dynamic>[].obs;
+  var unpaidInvoiceList = <InvoiceResponse>[].obs;
+  var filteredUnpaidInvoiceList = <InvoiceResponse>[].obs;
+
+  //check if today's date is 3 days before the unpaid invoice
+  bool isDueInThreeDays(String dueDate) {
+    // Convert the due date string to a DateTime object
+    DateTime dueDateTime = DateTime.parse(dueDate);
+
+    // Calculate today's date
+    DateTime today = DateTime.now();
+
+    // Calculate the date 3 days before the due date
+    DateTime threeDaysBeforeDueDate = dueDateTime.subtract(Duration(days: 3));
+
+    // Check if today's date is 3 days before the due date
+    print(today.isBefore(threeDaysBeforeDueDate));
+    return today.isBefore(threeDaysBeforeDueDate);
+  }
+
 
   Future<void> filterUnpaidInvoice(String query) async {
     if (query.isEmpty) {
@@ -125,13 +143,13 @@ class InvoicesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredUnpaidInvoiceList.addAll(
       unpaidInvoiceList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredUnpaidInvoiceList");
     }
   }
 
-  Future<List<dynamic>> getUserUnpaidInvoice() async {
+  Future<List<InvoiceResponse>> getUserUnpaidInvoice() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "invoice/unpaid-invoices",);
@@ -145,10 +163,10 @@ class InvoicesService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<UnpaidInvoiceResponseModel> finalResult = response.map((e) => PaidInvoiceResponseModel.fromJson(e)).toList();
+          final List<InvoiceResponse> finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
 
           unpaidInvoiceList.clear();
-          unpaidInvoiceList.addAll(response);  //finalResult
+          unpaidInvoiceList.addAll(finalResult);  //finalResult
           debugPrint("unpaid invoice list: $unpaidInvoiceList");
 
           //Return the list of unpaid invoices
@@ -173,11 +191,11 @@ class InvoicesService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF UNPAID INVOICES IN THE FUTURE BUILDER FOR UNPAID INVOICES]///
-  Future<List<dynamic>> loadUnpaidInvoicesData() async {
+  Future<List<InvoiceResponse>> loadUnpaidInvoicesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> invoices = await getUserUnpaidInvoice();
-      invoices.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<InvoiceResponse> invoices = await getUserUnpaidInvoice();
+      invoices.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
       filteredUnpaidInvoiceList.value = List.from(invoices); 
@@ -195,8 +213,8 @@ class InvoicesService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S LIST OF DUE INVOICES]//////
-  var dueInvoiceList = <dynamic>[].obs;
-  var filteredDueInvoiceList = <dynamic>[].obs;
+  var dueInvoiceList = <InvoiceResponse>[].obs;
+  var filteredDueInvoiceList = <InvoiceResponse>[].obs;
 
   Future<void> filterDueInvoice(String query) async {
     if (query.isEmpty) {
@@ -210,13 +228,13 @@ class InvoicesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredDueInvoiceList.addAll(
       dueInvoiceList.where((e) =>
-          e.customer_name.toLowerCase().contains(query.toLowerCase()))
+          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredDueInvoiceList");
     }
   }
 
-  Future<List<dynamic>> getUserDueInvoice() async {
+  Future<List<InvoiceResponse>> getUserDueInvoice() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "invoice/due-invoices",);
@@ -230,10 +248,10 @@ class InvoicesService extends getx.GetxController {
         //Check if the response body is not null
         if (res.body != null) {
           final List<dynamic> response = jsonDecode(res.body);
-          //final List<DueInvoiceResponseModel> finalResult = response.map((e) => DueInvoiceResponseModel.fromJson(e)).toList();
+          final List<InvoiceResponse> finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
 
           dueInvoiceList.clear();
-          dueInvoiceList.addAll(response);  //finalResult
+          dueInvoiceList.addAll(finalResult);  //finalResult
           debugPrint("due invoice list: $dueInvoiceList");
 
           //Return the list of due invoices
@@ -258,11 +276,11 @@ class InvoicesService extends getx.GetxController {
 
 
   ///[TO LAZY LOAD THE USER LIST OF DUE INVOICES IN THE FUTURE BUILDER FOR due INVOICES]///
-  Future<List<dynamic>> loadDueInvoicesData() async {
+  Future<List<InvoiceResponse>> loadDueInvoicesData() async {
     try {
       isLoading.value = true;
-      final List<dynamic> invoices = await getUserDueInvoice();
-      invoices.sort((a, b) => a.customer_name.toLowerCase().compareTo(b.customer_name.toLowerCase()));
+      final List<InvoiceResponse> invoices = await getUserDueInvoice();
+      invoices.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
 
       isLoading.value = false;
       filteredDueInvoiceList.value = List.from(invoices); 
@@ -293,9 +311,9 @@ class InvoicesService extends getx.GetxController {
     loadUnpaidInvoicesData().then(
       (value) => print("Unpaid Invoices Loaded into the Widget Tree: $value")
     );
-    loadDueInvoicesData().then(
+    /*loadDueInvoicesData().then(
       (value) => print("Due Invoices Loaded into the Widget Tree: $value")
-    );
+    );*/
     super.onInit();
   }
 

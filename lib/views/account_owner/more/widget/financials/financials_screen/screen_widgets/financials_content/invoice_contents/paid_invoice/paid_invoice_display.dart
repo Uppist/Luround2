@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/invoice_paid_dropdown.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/invoice_unpaid_dropdown.dart';
+
 
 
 
@@ -14,11 +15,24 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class PaidInvoiceDisplay extends StatelessWidget {
-  const PaidInvoiceDisplay({super.key, required this.onPressed});
+  const PaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.booking_detail, required this.status});
   final VoidCallback onPressed;
+  final String invoice_id;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String due_date;
+  final num sub_total;
+  final num discount;
+  final String vat;
+  final num total;
+  final String note;
+  final String status;
+  final List<dynamic> booking_detail;
 
   @override
   Widget build(BuildContext context) {
+    int randomNum = Random().nextInt(200000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -50,14 +64,27 @@ class PaidInvoiceDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#0000001",
+                "#$randomNum",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400
                 ),
               ),
-              InvoicePaidDropDown()
+              InvoicePaidDropDown(
+                invoice_id: invoice_id,
+                send_to_name: send_to_email,
+                send_to_email: send_to_email,
+                phone_number: phone_number,
+                due_date: due_date,
+                sub_total: sub_total,
+                discount: discount,
+                vat: vat,
+                total: total,
+                note: note,
+                status: status,
+                booking_detail: booking_detail,
+              )
             ],
           ),
           SizedBox(height: 10.h,),
@@ -68,7 +95,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Sheldon Cooper",
+                send_to_name,
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,
@@ -76,7 +103,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                "28 Oct 2023",
+                due_date,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -100,7 +127,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
                 ],
               ),*/
               Text(
-                "N82,000",
+                "N$total",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -56,6 +58,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final randNum = Random().nextInt(2000000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -87,7 +90,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$quote_id",
+                "#$randNum",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,

@@ -674,7 +674,7 @@ class FinancialsService extends getx.GetxController {
 
   //5
   ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
-  Future<void> createNewInvoiceAndSendToDB({
+  Future<void> createNewInvoiceAndSaveToDB({
     required BuildContext context,
     required String client_name,
     required String client_email,
@@ -697,6 +697,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "note": note,
+      "notes": note,
       "due_date": due_date,
       "vat": calculateTotalVATForInvoice(),
       "sub_total": int.parse(calculateSubtotalForInvoice()),
@@ -710,6 +711,7 @@ class FinancialsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
         finController.invoiceClientNameController.clear();
         finController.invoiceClientEmailController.clear();
@@ -741,7 +743,7 @@ class FinancialsService extends getx.GetxController {
     }
   } 
 
-  ///[CREATE NEW QUOTE AND SAVE IT TO CLIENT]//
+  ///[CREATE NEW QUOTE AND SEND IT TO CLIENT]//
   Future<void> createNewInvoiceAndSendToClient({
     required BuildContext context,
     required String client_name,
@@ -1068,8 +1070,6 @@ class FinancialsService extends getx.GetxController {
   //4
   Future<void> editProductForReceiptCreation({
     required BuildContext context,
-    required String service_name,
-    required String service_description,
     required String service_id,
     required String discount,
     required String rate,
@@ -1086,13 +1086,11 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
 
       // Modify the values of the found item in the originally selected list
-      editedSelectedProuctMapListForReceipt[index]["description"] = service_description;
       editedSelectedProuctMapListForReceipt[index]["duration"] = duration;
       editedSelectedProuctMapListForReceipt[index]["discount"] = discount;
       editedSelectedProuctMapListForReceipt[index]["total"] = total;
       editedSelectedProuctMapListForReceipt[index]["appointment_type"] = appointmentType;
       editedSelectedProuctMapListForReceipt[index]["rate"] = rate;
-      editedSelectedProuctMapListForReceipt[index]["serviceID"] = service_id;
       
       //success snackbar
       showMySnackBar(
@@ -1117,19 +1115,19 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String receipt_date,
+    required String mode_of_payment
     }) async {
 
     isLoading.value = true;
 
     var body = {
-      "status": "SAVED",
-      "appointment_type": "already in the product_detail_list",
       "receipt_date": receipt_date,
       ////////////////
-      "send_to_name": client_name,
+      "send_to": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "payment_status": "SENT",
+      "mode_of_payment": mode_of_payment,
       "note": note,
       "vat": calculateTotalVATForReceipt(),
       "sub_total": calculateSubtotalForReceipt(),
@@ -1183,19 +1181,19 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String receipt_date,
+    required String mode_of_payment
     }) async {
 
     isLoading.value = true;
 
     var body = {
-      "status": "SAVED",
-      "appointment_type": "already in the product_detail_list",
       "receipt_date": receipt_date,
       ////////////////
-      "send_to_name": client_name,
+      "send_to": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "payment_status": "SENT",
+      "mode_of_payment": mode_of_payment,
       "note": note,
       "vat": calculateTotalVATForReceipt(),
       "sub_total": calculateSubtotalForReceipt(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/services/account_owner/more/financials/invoice_service.dart';
 
 
@@ -53,16 +54,16 @@ class DueInvoiceController extends getx.GetxController {
   
 
   //filter
-  Future<List<dynamic>> filterInvoiceByDate() async{
+  Future<List<InvoiceResponse>> filterInvoiceByDate() async{
 
     String startDateString = startDate();
     String endDateString = endDate();
     print("start date: $startDateString");
     print("end date: $endDateString");
 
-    List<dynamic> result = invoiceService.filteredDueInvoiceList
+    List<InvoiceResponse> result = invoiceService.filteredDueInvoiceList
       .where((user) {
-        String invoiceDateString = user['invoice_date'];
+        String invoiceDateString = user.due_date;
 
         // Assuming the date strings are in the format "yyyy-MM-dd"
         return invoiceDateString.compareTo(startDateString) >= 0 &&

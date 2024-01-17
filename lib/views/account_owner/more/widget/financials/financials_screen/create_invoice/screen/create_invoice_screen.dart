@@ -579,7 +579,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                             sendInvoiceBottomSheet(
                               context: context,
                               onShare: () {
-                                service.createNewInvoiceAndSendToDB(
+                                service.createNewInvoiceAndSaveToDB(
                                   context: context, 
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 
@@ -613,7 +613,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
 
                               },
                               onSave: () {
-                                service.createNewInvoiceAndSendToDB(
+                                service.createNewInvoiceAndSaveToDB(
                                   context: context, 
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 

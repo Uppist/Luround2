@@ -147,7 +147,9 @@ class QuoteDropDown extends StatelessWidget {
             onTap: () {
               deleteQuoteBottomSheet(
                 context: context,
-                onDelete: () {},
+                onDelete: () {
+                  service.deleteQuoteFromDB(context: context, quote_id: quote_id);
+                },
                 service: service 
               );
             },

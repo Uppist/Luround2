@@ -14,7 +14,20 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewDueInvoiceScreen extends StatelessWidget {
-  ViewDueInvoiceScreen({super.key});
+  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail});
+  final VoidCallback onPressed;
+  final String invoice_id;
+  final String send_to_name;
+  final String send_to_email;
+  final String phone_number;
+  final String due_date;
+  final num sub_total;
+  final num discount;
+  final String vat;
+  final num total;
+  final String note;
+  final String status;
+  final List<dynamic> booking_detail;
 
   var controller = Get.put(DueInvoiceController());
 

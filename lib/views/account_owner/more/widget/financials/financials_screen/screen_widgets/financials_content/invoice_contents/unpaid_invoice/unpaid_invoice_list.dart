@@ -43,6 +43,18 @@ class UnpaidInvoiceList extends StatelessWidget {
               if(service.filteredUnpaidInvoiceList.isNotEmpty) {
                  return UnpaidInvoiceDisplay(
                   onPressed: (){},
+                  invoice_id: item.invoice_id,
+                  send_to_name: item.send_to_name,
+                  send_to_email: item.send_to_email,
+                  phone_number: item.phone_number,
+                  due_date: item.due_date,
+                  sub_total: item.sub_total,
+                  discount: item.discount,
+                  vat: item.vat,
+                  total: item.total,
+                  note: item.note,
+                  status: item.status,
+                  booking_detail: item.booking_detail,
                 );
               }
 

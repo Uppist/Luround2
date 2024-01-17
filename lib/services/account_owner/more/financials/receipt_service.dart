@@ -49,7 +49,7 @@ class ReceiptsService extends getx.GetxController {
   Future<List<dynamic>> getUserSentReceipt() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "receipt/sent-receipts",);
+      http.Response res = await baseService.httpGet(endPoint: "receipt/receipts",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -134,7 +134,7 @@ class ReceiptsService extends getx.GetxController {
   Future<List<dynamic>> getUserDraftedReceipt() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "receipt/drafted-receipts",);
+      http.Response res = await baseService.httpGet(endPoint: "receipt/saved-receipts",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

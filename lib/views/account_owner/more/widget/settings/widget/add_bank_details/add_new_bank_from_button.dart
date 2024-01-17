@@ -87,13 +87,13 @@ class _AddBankFromButtonState extends State<AddBankFromButton> {
                           text: controller.inputBankController.text.isEmpty ? 'Tap to select' : controller.inputBankController.text,
                           onFlip: () {
                             setState(() {
-                              controller.isBankSelected2.value = true;
+                              controller.isBankSelected.value = true;
                             });
                     
-                            Get.to(() => SelectBankScreen2());
+                            Get.to(() => SelectBankScreen());
 
                             setState(() {
-                              controller.isBankSelected2.value = false;
+                              controller.isBankSelected.value = false;
                             });
                     
                           },

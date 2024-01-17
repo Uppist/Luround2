@@ -20,8 +20,9 @@ class FinancialsEmptyState extends StatelessWidget {
     return Container(
       color: AppColor.bgColor,
       alignment: Alignment.center,
+      //height: 800.h,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 60.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -63,7 +64,7 @@ class FinancialsEmptyState extends StatelessWidget {
                   )
                 ),
                 TextSpan(
-                  text: 'to create\n          $subtitleText.',
+                  text: 'to create\n                   $subtitleText.',
                   style: GoogleFonts.poppins(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,

@@ -38,7 +38,7 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Expanded(child: Loader()) : Expanded(
+        return service.isLoading.value ? Expanded(child: Loader()) : service.filteredDraftedQuotesList.isNotEmpty ? Expanded(
           child: ListView.separated(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -85,6 +85,9 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
   
             }
           ),
+        ) : FinancialsEmptyState(
+          titleText: 'No drafts yet',
+          subtitleText: 'a quote',
         );
       }
     );

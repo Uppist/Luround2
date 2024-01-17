@@ -22,7 +22,7 @@ class PaidInvoiceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Expanded(child: Loader()) : Expanded(
+        return service.isLoading.value ? Expanded(child: Loader()) : service.filteredPaidInvoiceList.isNotEmpty ? Expanded(
           child: ListView.separated(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -63,6 +63,9 @@ class PaidInvoiceList extends StatelessWidget {
               );
             }
           ),
+        ) : const FinancialsEmptyState(
+          titleText: 'No invoice yet',
+          subtitleText: 'an invoice',
         );
       }
     );

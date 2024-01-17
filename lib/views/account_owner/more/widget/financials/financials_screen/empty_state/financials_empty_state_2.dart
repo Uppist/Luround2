@@ -22,11 +22,11 @@ class FinancialsEmptyState2 extends StatelessWidget {
       color: AppColor.bgColor,
       alignment: Alignment.center,
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 70.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 100.h,),
+          SizedBox(height: 20.h,),
           SvgPicture.asset('assets/financials/no_financials.svg'),
           SizedBox(height: 30.h,),
           Text(
@@ -39,16 +39,19 @@ class FinancialsEmptyState2 extends StatelessWidget {
               )
             )
           ),
-          SizedBox(height: 15.h,),
-          Text(
-            "When you get $subtitleText, they'll show up here",
-            style: GoogleFonts.poppins(
-              textStyle: TextStyle(
-                color: AppColor.darkGreyColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
+          SizedBox(height: 20.h,),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Text(
+              "When you get $subtitleText, \n            they'll show up here",
+              style: GoogleFonts.poppins(
+                textStyle: TextStyle(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500
+                )
               )
-            )
+            ),
           ),
 
           SizedBox(height: 60.h,),

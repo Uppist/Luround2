@@ -21,7 +21,7 @@ class DueInvoiceList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Expanded(child: Loader()) : Expanded(
+        return service.isLoading.value ? Expanded(child: Loader()) : service.filteredUnpaidInvoiceList.isNotEmpty ? Expanded(
           child: ListView.separated(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -61,7 +61,10 @@ class DueInvoiceList extends StatelessWidget {
             
             }
           ),
-        );
+        ) : FinancialsEmptyState(
+            titleText: 'No invoice yet',
+            subtitleText: 'an invoice',
+          );
       }
     );
   }

@@ -827,6 +827,44 @@ class AccOwnerProfileService extends getx.GetxController {
   }
   
 
+  /////[GET LOGGED-IN USER'S LIST  OF NOTIFICATIONS]/////
+  var fetchNoticationList = <dynamic>[].obs;
+  Future<List<dynamic>> getUserNotifications() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "notifications/user-notifications",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user notifications fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //final List<ReviewResponse> result = response.map((e) => ReviewResponse.fromJson(e)).toList();
+        //debugPrint("result: $result");
+        //clear the list
+        fetchNoticationList.clear();
+        //add items to the list
+        fetchNoticationList.addAll(response);
+        //print the updated list
+        debugPrint("fetched notification list: $fetchNoticationList");
+        return fetchNoticationList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        throw Exception('Failed to fetch user notifications');
+      }
+    } 
+    catch (e, stackTrace) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e : $stackTrace");
+    
+    }
+  }
 
 
 

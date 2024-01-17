@@ -23,7 +23,7 @@ class QuotesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Expanded(child: Loader()) : Expanded(
+        return service.isLoading.value ? Expanded(child: Loader()) : service.filteredSentQuotesList.isNotEmpty ? Expanded(
           child: ListView.separated(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -67,6 +67,9 @@ class QuotesList extends StatelessWidget {
               );
             }
           ),
+        ):FinancialsEmptyState(
+          titleText: 'No sent quotes yet',
+          subtitleText: 'a quote',
         );
       }
     );

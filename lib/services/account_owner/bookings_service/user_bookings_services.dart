@@ -151,7 +151,6 @@ class AccOwnerBookingService extends getx.GetxController {
 
   /////////////////////////////////////////////////////////////////////////////////
 
-
   Future<List<DetailsModel>> getUserBookings() async {
     try {
 
@@ -189,6 +188,49 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
         throw Exception('Failed to load user details');
+      }
+    }   
+    catch (e) {
+      isLoading.value = false;
+      throw Exception("$e");
+    }
+  }
+  
+  //confirm booking
+  Future<dynamic> confirmBooking({
+    required BuildContext context,
+    required String bookingId
+  }) async {
+    try {
+
+      isLoading.value = true;
+      http.Response res = await baseService.httpGet(endPoint: "booking/confirm-booking?bookingId=$bookingId");
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("booking confirmed");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "booking successfully confirmed"
+        );
+        
+
+      } else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to confirm booking"
+        );
+        throw Exception('failed to confirm booking');
       }
     }   
     catch (e) {

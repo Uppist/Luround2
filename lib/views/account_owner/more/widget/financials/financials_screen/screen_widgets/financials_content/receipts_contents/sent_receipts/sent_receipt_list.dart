@@ -22,7 +22,7 @@ class SentReceiptList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Expanded(child: Loader()) : Expanded(
+        return service.isLoading.value ? Expanded(child: Loader()) : service.filteredSentReceiptList.isNotEmpty ? Expanded(
           child: ListView.separated(
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
@@ -68,6 +68,9 @@ class SentReceiptList extends StatelessWidget {
               
             }
           ),
+        ):FinancialsEmptyState(
+          titleText: 'No receipt yet',
+          subtitleText: 'a receipt',
         );
       }
     );

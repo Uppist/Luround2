@@ -13,10 +13,11 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
-  ViewAddedServiceDetailsForReceipt({super.key, required this.appointment_type, required this.service_name, required this.total, required this.discount, required this.rate, required this.duration, required this.index});
+  ViewAddedServiceDetailsForReceipt({super.key, required this.appointment_type, required this.service_name, required this.total, required this.discount, required this.rate, required this.duration, required this.index, required this.discounted_total});
   final String appointment_type;
   final String service_name;
   final String total;
+  final String discounted_total;
   final String discount;
   final String rate;
   final String duration;
@@ -70,7 +71,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                               service_id: "(not needed)", 
                               discount: discount, 
                               rate: rate, 
-                              total: total, 
+                              total: discounted_total, 
                               duration: duration, 
                               appointmentType: appointment_type, 
                               index: index
@@ -219,8 +220,8 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                     SizedBox(height: 10.h,),
                     BorderTextFieldForReceipt(
                       onChanged: (p0) {
-                        finService.durationForReceipt.text = p0;
-                        print(finService.durationForReceipt.text);
+                        finService.rateForReceipt.text = p0;
+                        print(finService.rateForReceipt.text);
                       },
                       hintText: 'Enter service fee',
                       keyboardType: TextInputType.number,
@@ -319,7 +320,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                                 )
                               ),
                               TextSpan(
-                                text: "N$total",
+                                text: "N$discounted_total",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

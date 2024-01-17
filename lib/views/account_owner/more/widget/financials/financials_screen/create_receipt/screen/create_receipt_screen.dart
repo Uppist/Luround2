@@ -342,6 +342,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             return AddedServicesTile(
                               onTap: (){
                                 Get.to(() => ViewAddedServiceDetailsForReceipt(
+                                  discounted_total: item['discounted_total'] ?? item['total'],
                                   appointment_type: item['appointment_type'],
                                   service_name: item['service_name'],
                                   total: item['total'],
@@ -352,7 +353,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ));
                               },
                               productName: item['service_name'],
-                              price: item['total'].toString(),
+                              price: item['discounted_total'].toString(),
                               duration: item['duration'],
                             );
                           }

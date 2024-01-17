@@ -218,7 +218,12 @@ class _BookingsPageState extends State<BookingsPage> {
                                             //confirm bookings button
                                             service.filteredList[index].booked_status == "PENDING CONFIRMATION" ?
                                             InkWell(
-                                              onTap: () {},
+                                              onTap: () {
+                                                service.confirmBooking(
+                                                  context: context, 
+                                                  bookingId: service.filteredList[index].id
+                                                );
+                                              },
                                               child: Container(
                                                 height: 40.h,
                                                 width: 80.w,
@@ -275,6 +280,14 @@ class _BookingsPageState extends State<BookingsPage> {
                                               backgroundColor: AppColor.mainColor,
                                               //backgroundImage: ,
                                               radius: 30.r,  //25,
+                                              child: Text(
+                                                service.filteredList[index].bookingUserInfo.displayName.toUpperCase().substring(0, 1),
+                                                style: GoogleFonts.inter(
+                                                  color: AppColor.bgColor,
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.w600
+                                                ),
+                                              ),
                                             ),
                                             SizedBox(width: 10.w,),
                                             Expanded(

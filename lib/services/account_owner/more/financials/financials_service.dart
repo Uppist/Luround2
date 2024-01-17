@@ -941,7 +941,7 @@ class FinancialsService extends getx.GetxController {
   Future<void> filterProductsForReceipt(String query) async {
     if (query.isEmpty) {
       filteredListForReceipt.clear();
-      filteredListForReceipt.addAll(dataListForInvoice);
+      filteredListForReceipt.addAll(dataListForReceipt);
       print("when query is empty: $filteredListForReceipt");
     } 
     else {
@@ -956,7 +956,7 @@ class FinancialsService extends getx.GetxController {
   }
   
 
-  ///[CREATE INVOICE SCREEN]
+  ///[CREATE RECEIPT SCREEN]
   getx.RxList<UserServiceModel> selectedProductsForReceipt = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForReceipt = <Map<String, dynamic>>[].obs;
 
@@ -1061,7 +1061,7 @@ class FinancialsService extends getx.GetxController {
     showMySnackBar(
       context: context,
       backgroundColor: AppColor.darkGreen,
-      message: "your discounted total is N$newSubtotal"
+      message: "your discounted total is N${subtotalForReceipt.text}"
     );
     ///
     update();
@@ -1192,7 +1192,7 @@ class FinancialsService extends getx.GetxController {
       "send_to": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "payment_status": "SENT",
+      "payment_status": "DRAFT",
       "mode_of_payment": mode_of_payment,
       "note": note,
       "vat": calculateTotalVATForReceipt(),
@@ -1258,7 +1258,7 @@ class FinancialsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        //debugPrint('this is response body ==> ${res.body}');
         debugPrint("receipt deleted by id successfully from database");
 
         //success snackbar

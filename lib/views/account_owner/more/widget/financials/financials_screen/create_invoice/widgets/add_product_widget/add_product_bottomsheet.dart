@@ -168,7 +168,7 @@ Future<void> addProductBottomSheetForInvoice({
                                                 "total": int.parse(product.service_charge_virtual!),
                                                 "duration": product.duration,
                                                 "phone_number": client_phone_number,
-                                                "discount": "0",
+                                                "discount": 0,
                                                 "date": product.date,
                                                 "time": product.time,
                                                 "message": "(non)",

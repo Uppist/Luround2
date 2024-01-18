@@ -21,7 +21,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
   final String meeting_type;
   final num rate;
   final num total;
-  final String discount;
+  final int discount;
   final String duration;
   final int index;
   final String discounted_total;
@@ -76,7 +76,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                               service_name: service_name, 
                               service_description: service_description, 
                               service_id: service_id, 
-                              discount: discount, 
+                              discount: discount.toString(), 
                               rate: rate, 
                               total: total, 
                               duration: duration, 
@@ -281,7 +281,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                             hintText: 'Enter service discount',
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            initialValue: discount,
+                            initialValue: discount.toString(),
                           ),
                         ),
                         SizedBox(width: 10.w,),

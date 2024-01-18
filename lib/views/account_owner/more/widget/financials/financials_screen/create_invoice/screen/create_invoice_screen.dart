@@ -362,9 +362,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                     SizedBox(height: 10.h,),
 
                     //To show the items that were added (Use Future builder to show the items addedd)
-                    Obx(
-                      () {
-                        return service.editedSelectedProuctMapListForInvoice.isNotEmpty ? ListView.builder(
+                    GetX<FinancialsService>(
+                      builder: (controller) {
+                        return controller.editedSelectedProuctMapListForInvoice.isNotEmpty ? ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -379,7 +379,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   service_name: item['service_name'],
                                   service_id: item['serviceID'],
                                   service_description: item['description'],
-                                  discounted_total: item["discounted_total"] ?? item['total'],
+                                  discounted_total: item["discounted_total"].toString() ?? item['total'].toString(),
                                   meeting_type: item['appointment_type'],
                                   appointmentType: item['appointment_type'],
                                   index: index,

@@ -187,8 +187,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                             onDelete: () {
                               controller.isFileSelectedForBooking.value = false;
                               controller.selectedFileForBooking = null;
+                              controller.isReceitUploaded.value = false;
                             },
                             file: controller.selectedFileForBooking!,
+                            text: controller.isReceitUploaded.value ? "file uploaded" : "file selected",
                           )
                           :UploadReceiptWidget(
                             onPressed: () {
@@ -198,16 +200,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         }
                       ),
           
-                      SizedBox(height: 155.h,),
+                      SizedBox(height: 160.h,),
           
                       //pay button
-                      Obx(
+                      Obx(    //isFileSelectedForBooking
                         () {
                           return service.isLoading.value ? Loader() : RebrandedReusableButton(
-                            textColor: controller.isFileSelectedForBooking.value ? AppColor.bgColor : AppColor.darkGreyColor,
-                            color: controller.isFileSelectedForBooking.value ? AppColor.mainColor : AppColor.lightPurple, 
-                            text: controller.isFileSelectedForBooking.value ? "I've made payment" : "Pay N${widget.amount}", 
-                            onPressed: controller.isFileSelectedForBooking.value  
+                            textColor: controller.isReceitUploaded.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                            color: controller.isReceitUploaded.value ? AppColor.mainColor : AppColor.lightPurple, 
+                            text: controller.isReceitUploaded.value ? "I've made payment" : "Pay N${widget.amount}", 
+                            onPressed: controller.isReceitUploaded.value  
                             ? () async{
                               await service.bookUserService(
                                 context: context, 
@@ -215,7 +217,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 email: controller.emailBAController.text.trim(), 
                                 service_name: widget.service_name,                  
                                 serviceId: widget.serviceId, 
-                                phone_number: "${controller.codeBA} ${controller.phoneNumberBAController.text}", 
+                                phone_number: "${controller.codeBA.value} ${controller.phoneNumberBAController.text}", 
                                 appointment_type: controller.step1Appointment, 
                                 date: controller.getDate(initialDate: widget.date), 
                                 time: widget.time, //controller.getTime()
@@ -227,6 +229,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ).whenComplete(() {
                                 controller.isFileSelectedForBooking.value = false;
                                 controller.selectedFileForBooking = null;
+                                controller.isReceitUploaded.value = false;
                               });
                             }
                             : () {

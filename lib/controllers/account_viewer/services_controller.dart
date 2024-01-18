@@ -31,6 +31,8 @@ class AccViewerServicesController extends getx.GetxController {
     apiSecret: "csuDqyvZIWyXB7vuxR-fN5q9D4E",
     cloudName: "dxyzeiigv",
   );
+  
+  var isReceitUploaded = false.obs;
   //upload image to cloudinary
   Future<void> uploadReceiptToCloudinary({
     required BuildContext context,
@@ -54,7 +56,9 @@ class AccViewerServicesController extends getx.GetxController {
         context: context,
         backgroundColor: AppColor.darkGreen,
         message: "payment receipt uploaded successfully"
-      );
+      ).whenComplete(() {
+        isReceitUploaded.value = true;
+      });
     }
     else {
       showMySnackBar(
@@ -155,7 +159,7 @@ class AccViewerServicesController extends getx.GetxController {
   //formKey
   final formKey = GlobalKey();
   //radio widget (saved appointment option to db)
-  String apppointment = "selected option";
+  String apppointment = "";
   //country code picker (append with phone number controller.text and save to db)
   var code = "".obs; 
   void onCountryChange(CountryCode countryCode) {
@@ -193,7 +197,7 @@ class AccViewerServicesController extends getx.GetxController {
   final TextEditingController messageBAController = TextEditingController();
 
   //country code picker (append with phone number controller.text and save to db)
-  var codeBA = "".obs; 
+  var codeBA = "+234".obs; 
   void onCountryChangeBA(CountryCode countryCode) {
     //TODO : manipulate the selected country code here
     codeBA.value = countryCode.dialCode.toString();

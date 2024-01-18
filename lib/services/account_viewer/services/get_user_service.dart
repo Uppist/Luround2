@@ -10,6 +10,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'dart:convert';
@@ -235,8 +236,10 @@ class AccViewerService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to book service"
-        ).whenComplete(() => getx.Get.back());
+          message: "failed to book service",
+        ).whenComplete(() {
+          getx.Get.offAll(() => MainPageAccViewer());
+        });
       }
     } 
     catch (e) {

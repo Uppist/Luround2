@@ -272,7 +272,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                       client_name: controller.nameController.text, 
                                       client_email: controller.emailController.text, 
                                       client_phone_number: "${controller.code.value} ${controller.phoneNumberController.text}", 
-                                      client_note: controller.messageController.text,
+                                      client_note: controller.messageController.text.isNotEmpty ? controller.messageController.text : "(non)",
                                     ).whenComplete(() {
                                       controller.nameController.clear();
                                       controller.emailController.clear();
@@ -290,6 +290,13 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                       context: context,
                                       backgroundColor: AppColor.redColor,
                                       message: "please select country code"
+                                    );
+                                  }
+                                  else if(controller.apppointment.isEmpty) {
+                                    showMySnackBar(
+                                      context: context,
+                                      backgroundColor: AppColor.redColor,
+                                      message: "please select an appointment type"
                                     );
                                   }
                                   else {

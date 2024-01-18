@@ -90,7 +90,7 @@ class UploadedFileWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 10.w,),
                 Text(
-                  "file uploaded",
+                  "file selected",
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 14.sp,

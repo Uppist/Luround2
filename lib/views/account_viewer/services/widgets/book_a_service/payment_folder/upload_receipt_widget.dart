@@ -64,9 +64,10 @@ class UploadReceiptWidget extends StatelessWidget {
 
 
 class UploadedReceiptWidget extends StatelessWidget {
-  UploadedReceiptWidget({super.key, required this.onDelete, required this.file});
+  UploadedReceiptWidget({super.key, required this.onDelete, required this.file, required this.text});
   final VoidCallback onDelete;
   final File? file;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +92,7 @@ class UploadedReceiptWidget extends StatelessWidget {
                 ),
                 SizedBox(width: 10.w,),
                 Text(
-                  "file uploaded",
+                  text,
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 14.sp,

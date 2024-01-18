@@ -23,8 +23,9 @@ import 'radio_section.dart';
 
 
 class RequestQuoteScreen extends StatefulWidget {
-  RequestQuoteScreen({super.key, required this.service_name, required this.service_provider_name, required this.service_provider_email});
+  RequestQuoteScreen({super.key, required this.service_name, required this.service_provider_name, required this.service_provider_email, required this.service_id});
   final String service_name;
+  final String service_id;
   final String service_provider_name;
   final String service_provider_email;
 
@@ -264,16 +265,14 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                     //do sumething
                                     service.requestQuote(
                                       context: context, 
-                                      service_name: widget.service_name, 
+                                      service_id: widget.service_id, 
                                       offer: controller.offerController.text, 
                                       uploaded_file: controller.fileUrl.value, 
                                       appointment_type: controller.apppointment,
                                       client_name: controller.nameController.text, 
                                       client_email: controller.emailController.text, 
                                       client_phone_number: "${controller.code.value} ${controller.phoneNumberController.text}", 
-                                      client_note: controller.messageController.text, 
-                                      service_provider_email: widget.service_provider_email, 
-                                      service_provider_name: widget.service_provider_name
+                                      client_note: controller.messageController.text,
                                     ).whenComplete(() {
                                       controller.nameController.clear();
                                       controller.emailController.clear();

@@ -265,7 +265,8 @@ class AccViewerServicesPage extends StatelessWidget {
                                         Get.to(() => RequestQuoteScreen(
                                           service_name: data[index].service_name,
                                           service_provider_email: data[index].service_provider_details['email'],
-                                          service_provider_name: data[index].service_provider_details['displayName'],
+                                          service_provider_name: data[index].service_provider_details['displayName'], 
+                                          service_id: data[index].serviceId,
                                         ));
                                       },
                                       child: Text(

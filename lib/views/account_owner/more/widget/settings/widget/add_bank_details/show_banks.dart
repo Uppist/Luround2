@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/add_new_bank.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/add_new_bank_from_button.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/empty_states/no_saved_accounts.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/widget/search_bank_textfield.dart';
@@ -87,7 +88,7 @@ class _ShowBanksState extends State<ShowBanks> {
                       if(service.filteredSavedAccounts.isEmpty) {
                         return NoSavedAccounts(
                           onPressed: () {
-                            Get.to(() => AddBankFromButton());
+                            Get.to(() => AddAccountForSettings());
                           },
                         );
                       }
@@ -154,7 +155,7 @@ class _ShowBanksState extends State<ShowBanks> {
                       
                       return NoSavedAccounts(
                         onPressed: () {
-                          Get.to(() => AddBankFromButton());
+                          Get.to(() => AddAccountForSettings());
                         },
                       );
 
@@ -162,7 +163,7 @@ class _ShowBanksState extends State<ShowBanks> {
                   ),
                 ) : NoSavedAccounts(
                     onPressed: () {
-                      Get.to(() => AddBankFromButton());
+                      Get.to(() => AddAccountForSettings());
                     },
                 )
               ]

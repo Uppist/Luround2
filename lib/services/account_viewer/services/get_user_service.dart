@@ -337,7 +337,7 @@ class AccViewerService extends getx.GetxController {
   ////[TO MAKE AN EXTERNAL USER REQUEST QUOTE]//////// 
   Future<void> requestQuote({
     required BuildContext context,
-    required String service_name,
+    required String service_id,
     required String offer,
     required String uploaded_file,
     required String appointment_type,
@@ -345,38 +345,24 @@ class AccViewerService extends getx.GetxController {
     required String client_email,
     required String client_phone_number,
     required String client_note,
-    required String service_provider_email,
-    required String service_provider_name,
 
   }) async {
 
     isLoading.value = true;
 
     var body = {
-      ///
-      "service_name": service_name,
+      "user_email": client_email,
+      "full_name": client_name,
+      "phone_number": client_phone_number,
+      "appointment_type": appointment_type,
       "budget": offer,
       "file": uploaded_file,
-      ///
-      "send_to_name": client_name,
-      "send_to_email": client_email,
-      "user_email": service_provider_email,
-      "user_name": service_provider_name,
-      "phone_number": client_phone_number,
-      "notes": client_note,
-      "due_date": "(non)",
-      "quote_date": "(non)",
-      "appointment_type": appointment_type,
-      "status": "SENT", 
-      "vat": "(non)",
-      "sub_total": "(non)",
-      "discount": "(non)",
-      "total": "(non)",
-      "product_detail":[]
+      "note": client_note
+
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "quotes/send-quote?service_provider_email=$service_provider_email", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "quotes/request-quote?serviceId=$service_id", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

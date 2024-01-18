@@ -33,7 +33,7 @@ class _AppointmentTypeState extends State<AppointmentType> {
               activeColor: AppColor.mainColor,
               toggleable: false,
               //tileColor: AppColor.bgColor,
-              value: "In-person", 
+              value: "In-Person", 
               groupValue: controller.apppointment, 
               onChanged: (val) {
                 setState(() {
@@ -44,7 +44,7 @@ class _AppointmentTypeState extends State<AppointmentType> {
             ),
             SizedBox(width: 10.w,),
             Text(
-              "In-person",
+              "In-Person",
               style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
                 fontSize: 14.sp,

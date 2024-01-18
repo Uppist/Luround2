@@ -22,7 +22,7 @@ class AccViewerEducationAndCertificationSection extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
           child: Text(
-            'Education & Certifications',
+            'Certification',
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,

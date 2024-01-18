@@ -125,9 +125,9 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                         color: AppColor.mainColor, 
                         text: "Okay", 
                         onPressed: () {
-                          signMeUpBottomSheet(context: context);
+                          //signMeUpBottomSheet(context: context);
                           //.then((value) => Get.offAll(() => MainPageAccViewer()));
-                          //Get.offAll(() => MainPageAccViewer());
+                          Get.offAll(() => MainPageAccViewer());
                         }
                       ),
                     ),

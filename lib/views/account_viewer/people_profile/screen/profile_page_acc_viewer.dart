@@ -278,7 +278,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                 
                                 
                         //Sign Me Up section///////////////////////////
-                        controller.showSignMeUpSection.value ?
+                        /*controller.showSignMeUpSection.value ?
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Column(
@@ -348,7 +348,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             ]
                           ),
                         ) 
-                        : const SizedBox()
+                        : const SizedBox()*/
                         //////////////////////////////////////////////////   
                                          
                         ]

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 
 
 
@@ -20,6 +21,27 @@ class SplashScreenXtra extends StatelessWidget {
         child: Image.asset("assets/splash/splash_1.png")
       ), 
       nextScreen: MainPage(),
+      duration: 1000, //4000
+      backgroundColor: AppColor.bgColor,
+      centered: true,
+      //splashIconSize: 500,
+      splashTransition: SplashTransition.fadeTransition,
+      animationDuration: const Duration(milliseconds: 1000),  //2
+    );
+  }
+}
+
+
+class SplashScreenXtra2 extends StatelessWidget {
+  const SplashScreenXtra2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedSplashScreen(
+      splash: Center(
+        child: Image.asset("assets/splash/splash_1.png")
+      ), 
+      nextScreen: MainPageAccViewer(),
       duration: 1000, //4000
       backgroundColor: AppColor.bgColor,
       centered: true,

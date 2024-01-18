@@ -153,6 +153,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                                 "discount": "0",
                                                 "total": product.service_charge_virtual,
                                                 "note": "no note",
+                                                "vat": "vat",
                                               };
 
                                               service.editedSelectedProuctMapList.add(userMap);

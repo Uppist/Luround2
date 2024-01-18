@@ -55,11 +55,11 @@ class ServicesPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10.h,),
+                  SizedBox(height: 20.h,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-        
+                   
                       Text(
                         "Services",
                         style: GoogleFonts.inter(

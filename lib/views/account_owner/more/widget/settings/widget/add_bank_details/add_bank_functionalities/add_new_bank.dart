@@ -116,7 +116,12 @@ class _AddAccountForSettingsState extends State<AddAccountForSettings> {
                     context: context,
                     backgroundColor: AppColor.redColor,
                     message: "you can only create a maximum of two bank accounts"
-                  );
+                  ).whenComplete(() {
+                    service.enterAccountNameController.clear();
+                    service.enterAccountNumberController.clear();
+                    service.enterBankCodeController.clear();
+                    service.selectedBank.value = "";
+                  });
                 }
                 else {
                   if(service.selectedBank.value.isNotEmpty && service.enterAccountNumberController.text.isNotEmpty && service.enterAccountNameController.text.isNotEmpty) {

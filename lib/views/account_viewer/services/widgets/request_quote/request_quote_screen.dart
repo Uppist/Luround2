@@ -250,10 +250,10 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 80.h,),
                           Obx(
                             () {
-                              return RebrandedReusableButton(
+                              return service.isLoading.value ? Loader() : RebrandedReusableButton(
                                 textColor: AppColor.bgColor,
                                 color: AppColor.mainColor, 
-                                text:  service.isLoading.value ? "sending..." : "Submit", 
+                                text:  "Submit", 
                                 onPressed: () {
                                   if(
                                     controller.nameController.text.isNotEmpty 
@@ -280,6 +280,8 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                       controller.serviceNameController.clear();
                                       controller.messageController.clear();
                                       controller.offerController.clear();
+                                      controller.selectedFileForRequestingQuote = null;
+                                      controller.isFileUploaded.value  = false;
                                       Get.back();
                                     });
                                   }

@@ -44,7 +44,7 @@ class _AppointmentTypeBAState extends State<AppointmentTypeBA> {
             ),
             SizedBox(width: 10.w,),
             Text(
-              "In-person",
+              "In-Person",
               style: GoogleFonts.inter(
                 color: AppColor.darkGreyColor,
                 fontSize: 14.sp,

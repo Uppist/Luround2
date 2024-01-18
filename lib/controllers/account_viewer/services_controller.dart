@@ -73,9 +73,9 @@ class AccViewerServicesController extends getx.GetxController {
     );
 
     if (result != null) {
-      isFileSelectedForBooking.value = true;
       selectedFileForBooking = File(result.files.single.path!);
       debugPrint("pdf path: ${selectedFileForBooking!.path}");
+      isFileSelectedForBooking.value = true;
       uploadReceiptToCloudinary(context: context, file: selectedFileForBooking!);
     }
   }
@@ -124,12 +124,13 @@ class AccViewerServicesController extends getx.GetxController {
       fileUrl.value = response.secureUrl!;
       debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
       debugPrint('cloudinary_trx_url_file_url: ${fileUrl.value}');
-      isFileUploaded.value = true;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
         message: "quote file uploaded to cloudinary"
-      );
+      ).whenComplete(() {
+        isFileUploaded.value = true;
+      });
     }
     else {
       showMySnackBar(

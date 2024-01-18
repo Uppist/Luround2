@@ -164,7 +164,7 @@ class AccViewerService extends getx.GetxController {
     required String name,
     required String email,
     required String service_name,
-    ////
+    //
     required String serviceId,
     required String phone_number,
     required String appointment_type,
@@ -177,9 +177,8 @@ class AccViewerService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "name": name,
       "email": email,
-      "service_name": service_name,
+      "displayName": name,
       //the above was added by me
       "phone_number": phone_number,
       "appointment_type": appointment_type,
@@ -211,10 +210,6 @@ class AccViewerService extends getx.GetxController {
           controller.emailBAController.clear();
           controller.phoneNumberBAController.clear();
           controller.messageBAController.clear();
-          controller.cardholderNameController.clear();
-          controller.cardNumberController.clear();
-          controller.expiryDateController.clear();
-          controller.cvvController.clear();
 
           getx.Get.to(() => TransactionSuccesscreen(
             servie_provider_name: 'this service provider',
@@ -231,12 +226,17 @@ class AccViewerService extends getx.GetxController {
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
+        //clear the controllers
+        controller.nameBAController.clear();
+        controller.emailBAController.clear();
+        controller.phoneNumberBAController.clear();
+        controller.messageBAController.clear();
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to book service"
-        ); //.whenComplete(() => getx.Get.back());
+        ).whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {

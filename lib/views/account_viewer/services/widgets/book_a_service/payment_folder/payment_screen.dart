@@ -102,59 +102,67 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       ),
                       SizedBox(height: 10.h,),*/
                       //Futurebuilder with the user list of aza
-                      ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: NeverScrollableScrollPhysics(),
-                        separatorBuilder: (context, index) => SizedBox(height: 20.h,),
-                        itemCount: service.userBankAccountList.length,
-                        itemBuilder: (context, index) {
-
-                          final item = service.userBankAccountList[index];
-
-                          if(index.isEven) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Account Detail ${index + 1}",
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.blackColor,
-                                    fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                  ),
-                                ),
-                                SizedBox(height: 10.h,),
-                                GreenCardAccViewer(
-                                  accountName: item.account_name, 
-                                  accountNumber: item.account_number, 
-                                  bank: item.bank_name
-                                ),
-                              ],
-                            );
-                          }
-                          if(index.isOdd) {
-                            return Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Account Detail ${index + 1}",
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.blackColor,
-                                    fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                  ),
-                                ),
-                                SizedBox(height: 10.h,),
-                                BlackCardAccViewer(
-                                  accountName: item.account_name, 
-                                  accountNumber: item.account_number, 
-                                  bank: item.bank_name
-                                ),
-                              ],
-                            );
-                          }
-                          return BlackCardAccViewer(
+                      Obx(
+                        () {
+                          return service.userBankAccountList.isNotEmpty ? ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            physics: NeverScrollableScrollPhysics(),
+                            separatorBuilder: (context, index) => SizedBox(height: 20.h,),
+                            itemCount: service.userBankAccountList.length,
+                            itemBuilder: (context, index) {
+                          
+                              final item = service.userBankAccountList[index];
+                          
+                              if(index.isEven) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Account Detail ${index + 1}",
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.blackColor,
+                                        fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                    SizedBox(height: 10.h,),
+                                    GreenCardAccViewer(
+                                      accountName: item.account_name, 
+                                      accountNumber: item.account_number, 
+                                      bank: item.bank_name
+                                    ),
+                                  ],
+                                );
+                              }
+                              if(index.isOdd) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Account Detail ${index + 1}",
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.blackColor,
+                                        fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                    SizedBox(height: 10.h,),
+                                    BlackCardAccViewer(
+                                      accountName: item.account_name, 
+                                      accountNumber: item.account_number, 
+                                      bank: item.bank_name
+                                    ),
+                                  ],
+                                );
+                              }
+                              return BlackCardAccViewer(
+                                accountName: 'unavailable',
+                                accountNumber: 'unavailable',
+                                bank: 'unavailable',
+                              );
+                            }
+                          ) : BlackCardAccViewer(
                             accountName: 'unavailable',
                             accountNumber: 'unavailable',
                             bank: 'unavailable',
@@ -195,7 +203,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       //pay button
                       Obx(
                         () {
-                          return service.isLoading.value ? Loader2() : RebrandedReusableButton(
+                          return service.isLoading.value ? Loader() : RebrandedReusableButton(
                             textColor: controller.isFileSelectedForBooking.value ? AppColor.bgColor : AppColor.darkGreyColor,
                             color: controller.isFileSelectedForBooking.value ? AppColor.mainColor : AppColor.lightPurple, 
                             text: controller.isFileSelectedForBooking.value ? "I've made payment" : "Pay N${widget.amount}", 
@@ -217,14 +225,8 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 ?"The location for this service is set to be virtual." 
                                 :"The location for this service is set to be physical."
                               ).whenComplete(() {
-                                controller.nameBAController.clear();
-                                controller.emailBAController.clear();
-                                controller.phoneNumberBAController.clear();
-                                controller.messageBAController.clear();
-                                controller.cardholderNameController.clear();
-                                controller.cardNumberController.clear();
-                                controller.expiryDateController.clear();
-                                controller.cvvController.clear();
+                                controller.isFileSelectedForBooking.value = false;
+                                controller.selectedFileForBooking = null;
                               });
                             }
                             : () {

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -305,6 +306,269 @@ class SettingsService extends getx.GetxController {
     }
   }
 
+  
+
+
+
+
+
+
+
+
+
+
+  //filter list for select_bank_screen2
+  var bankList = [].obs;
+  var filteredBankList = [].obs;
+  var selectedIndex = 0.obs; // Initialize with the default selected index
+
+  //GET REQUEST TO CALL THE LIST OF BANKS API
+  Future<List<dynamic>> getBanksApi() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "wallet/get-banks",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        // Update loading state within the success block
+        isLoading.value = false;
+
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('List of banks fetched successfully!');
+        // If the server returns a 200 OK response, parse the JSON
+        final Map<String, dynamic> jsonResponse = json.decode(res.body);
+
+        // Access the "data" key and assume its value is a list
+        List<dynamic> dataList = jsonResponse['data'];
+
+        bankList.clear();
+        bankList.addAll(dataList);
+        print("list of banks fetched: $bankList");
+        
+        //return data list
+        return bankList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load available banks');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+  //search functionality for searching through the "FETCH BANKS API"
+  Future<void> filterForSelectBankScreen(String query) async {
+    if (query.isEmpty) {
+      filteredBankList.clear();
+      filteredBankList.addAll(bankList);
+      print("when query is empty: $bankList");
+    } 
+    else {
+      filteredBankList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filteredBankList.addAll(
+        bankList.where((user) => user['name'].toString().toLowerCase().contains(query.toLowerCase()))  //.contains(query)
+      .toList());
+      print("when query is not empty: $filteredBankList");
+    }
+  }
+
+
+  ///[TO LAZY LOAD THE LIST OF BANKS API ]///
+  Future<List<dynamic>> loadFetchedBank() async {
+    try {
+      isLoading.value = true;
+      final List<dynamic> banks = await getBanksApi();
+      banks.sort((a, b) => a["name"].toString().toLowerCase().compareTo(b["name"].toString().toLowerCase()));
+
+      isLoading.value = false;
+      filteredBankList.value = List.from(banks);
+      print("loaded fetched banks: ${filteredBankList}");
+      return filteredBankList;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      print("Error loading data: $error");
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+  
+
+  /////[GET LOGGED-IN USER'S LIST OF Saved Banks]//////
+  var savedAccounts = <SavedBanks>[].obs;
+  var filteredSavedAccounts = <SavedBanks>[].obs;
+
+  Future<void> filterSavedBank(String query) async {
+    if (query.isEmpty) {
+      filteredSavedAccounts.clear();
+      filteredSavedAccounts.addAll(savedAccounts);
+      print("when query is empty: $filteredSavedAccounts");
+    } 
+    else {
+      filteredSavedAccounts.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filteredSavedAccounts.addAll(
+      savedAccounts.where((user) =>
+          user.account_name.toLowerCase().contains(query.toLowerCase()))
+      .toList());
+      print("when query is not empty: $filteredSavedAccounts");
+    }
+  }
+  //GET REQUEST TO FETCH USER'S BANK DETAILS
+  Future<List<SavedBanks>> getUserSavedAccounts() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        //debugPrint('this is response body ==>${res.body}');
+        debugPrint("user saved accounts fetched successfully!!");
+        //decode the response body here
+        // Check if the response body is not null
+        if (res.body != null) {
+          final List<dynamic> response = jsonDecode(res.body);
+          final List<SavedBanks> finalResult = response.map((e) => SavedBanks.fromJson(e)).toList();
+
+          savedAccounts.clear();
+          savedAccounts.addAll(finalResult);
+          debugPrint("$savedAccounts");
+
+          // Return saved bank account list
+          return savedAccounts;
+        } else {
+          throw Exception('Response body is null');
+        }
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user saved banks');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
+  ///[TO LAZY LOAD THE USER LIST OF SAVED BANKS IN THE FUTURE BUILDER FOR WITHDRAWAL SCREEN]///
+  Future<List<SavedBanks>> loadSavedBanksData() async {
+    try {
+      isLoading.value = true;
+      final List<SavedBanks> banks = await getUserSavedAccounts();
+      banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredSavedAccounts.value = List.from(banks);  //addAll(service.savedAccounts);
+      print("loaded: ${filteredSavedAccounts}");
+      return filteredSavedAccounts;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      print("Error loading data: $error");
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
+  
+
+  ///[CREATE NEW BANK DETAILS]//
+  Future<void> createBankDetails({
+    required BuildContext context,
+    required String account_name,
+    required String account_number,
+    required String bank_name,
+    required String bank_code,
+    required String country,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "account_name" : account_name,
+      "account_number": account_number,
+      "bank_name": bank_name,
+      "bank_code": bank_code,
+      "country": country,
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "wallet/add-bank-details", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user bank details created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "bank details created successfully"
+        );
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create bank details"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw const HttpException("Something went wrong");
+    }
+  }
+ 
+  //TextControllers for inputing bank details
+  //final enterBankController = TextEditingController();
+  final enterBankCodeController = TextEditingController();
+  final enterAccountNameController = TextEditingController();
+  final enterAccountNumberController = TextEditingController();
+  //TextController for searching for available banks
+  final searchBankController = TextEditingController();
+  //reactive string to check if a bank is selected
+  getx.RxString selectedBank = ''.obs;
+
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    enterAccountNameController.dispose();
+    enterAccountNameController.dispose();
+    enterBankCodeController.dispose();
+    super.dispose();
+  }
+  
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    loadSavedBanksData();
+    loadFetchedBank();
+    super.onInit();
+  }
 
 
 }

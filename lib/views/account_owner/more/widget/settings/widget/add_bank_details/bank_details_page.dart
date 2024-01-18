@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/add_new_bank.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/show_banks.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/add_bank_functionalities/add_new_bank.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/show_bank_page/show_banks.dart';
 
 
 
@@ -119,8 +119,7 @@ class _BankDetailsPageState extends State<BankDetailsPage> with SingleTickerProv
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      ShowBanks(),
-                      
+                      ShowBanks(),    
                       AddAccountForSettings()    
                     ]
                   ),

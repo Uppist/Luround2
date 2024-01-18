@@ -47,8 +47,8 @@ class ReceivedQuotesResponse{
   factory ReceivedQuotesResponse.fromJson(Map<String, dynamic> json) {
     return ReceivedQuotesResponse(
       quote_id: json['_id'] ?? "nan", 
-      send_to_name: json['send_to_name'] ?? "nan",
-      send_to_email: json['send_to_email'] ?? "nan",
+      send_to_name: json['full_name'] ?? "nan",
+      send_to_email: json['user_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "nan",
       due_date: json['due_date'] ?? "nan",
       quote_date: json['quote_date'] ?? "nan",
@@ -59,11 +59,11 @@ class ReceivedQuotesResponse{
       appointment_type: json['appointment_type'] ?? "nan",
       status: json['status'] ?? "nan",
       note: json['note'] ?? "nan",
-      service_provider: json['service_provider'] ?? {},
+      service_provider: json['quote_to'] ?? {},
       product_details: json['product_details'] ?? [],
       service_name: json['service_name'] ?? 'nan',
-      offer: json['offer'] ?? 'nan',
-      uploaded_file: json['uploaded_file'] ?? "nan"
+      offer: json['budget'] ?? 'nan',
+      uploaded_file: json['file'] ?? "nan"
     );
   }
 }

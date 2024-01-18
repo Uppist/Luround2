@@ -52,8 +52,8 @@ class RequestedQuoteDropDown extends StatelessWidget {
             onTap: () {
               Get.to(() => ViewRequestedQuoteScreen(
                 offer: offer,
-                service_name: offer,
-                uploaded_file: offer,
+                service_name: service_name,
+                uploaded_file: uploade_file,
                 quote_id: quote_date, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,

@@ -50,7 +50,7 @@ class RequestedQuotesList extends StatelessWidget {
                 return RequestedQuotesDisplay(
                   onPressed: (){},
                   offer: item.offer,
-                  service_name: item.send_to_name,
+                  service_name: item.service_name,
                   uploaded_file: item.uploaded_file,
                   quote_id: item.quote_date, 
                   send_to_name: item.send_to_name,

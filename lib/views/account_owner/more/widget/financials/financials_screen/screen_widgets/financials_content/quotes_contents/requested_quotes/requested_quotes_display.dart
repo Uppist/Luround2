@@ -135,11 +135,11 @@ class RequestedQuotesDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                quote_date,
+                "N$offer",
                 style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400
+                  color: AppColor.blackColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600
                 ),
               ),
             ],

@@ -294,7 +294,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                               width: double.infinity,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.r),
-                                color: AppColor.bgColor,
+                                color: AppColor.greyColor,
                               ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,

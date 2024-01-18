@@ -66,12 +66,12 @@ class FinancialsController extends getx.GetxController {
   getx.RxString isoDateForQuote = ''.obs;
   String updatedDueDate ({required String initialDate}) {
     if(dueDate.isNotEmpty) {
-      isoDateForQuote.value = dueDate[0]!.toUtc().toIso8601String();
-      print(isoDateForInvoice.value);
-      //var result = dueDate[0].toString();
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      return isoDateForQuote.value;
+      //isoDateForQuote.value = dueDate[0]!.toUtc().toIso8601String();
+      //print(isoDateForInvoice.value);
+      var result = dueDate[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
     }
     return initialDate;
   }
@@ -143,12 +143,12 @@ class FinancialsController extends getx.GetxController {
   getx.RxString isoDateForInvoice = ''.obs;
   String updatedDueDateForInvoice ({required String initialDate}) {
     if(dueDateForInvoice.isNotEmpty) {
-      isoDateForInvoice.value = dueDateForInvoice[0]!.toUtc().toIso8601String();
-      print(isoDateForInvoice.value);
-      //var result = dueDateForInvoice[0].toString();
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      return isoDateForInvoice.value;
+      //isoDateForInvoice.value = dueDateForInvoice[0]!.toUtc().toIso8601String();
+      //print(isoDateForInvoice.value);
+      var result = dueDateForInvoice[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
     }
     return initialDate;
   }

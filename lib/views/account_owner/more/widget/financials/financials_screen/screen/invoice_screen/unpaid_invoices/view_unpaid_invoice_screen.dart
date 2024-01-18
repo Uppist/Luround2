@@ -356,7 +356,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                       children: [
                                         SizedBox(height: 15.h,),
                                         Text(
-                                          item['service_name'],
+                                          item['service_name'] ?? "no service name",
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
                                             fontSize: 13.sp,

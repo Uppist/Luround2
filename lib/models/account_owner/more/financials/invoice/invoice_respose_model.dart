@@ -1,9 +1,7 @@
 
 class InvoiceResponse{
   final String invoice_id;
-  final String service_provider_name;
-  final String service_provider_email;
-  final String service_provider_userId;
+  final Map<String, dynamic> service_provider;
   final String send_to_name;
   final String send_to_email;
   final String phone_number;
@@ -17,9 +15,7 @@ class InvoiceResponse{
   final List<dynamic> booking_detail;
   
   InvoiceResponse({
-    required this.service_provider_name,
-    required this.service_provider_email,
-    required this.service_provider_userId,
+    required this.service_provider,
     required this.invoice_id,
     required this.send_to_name, 
     required this.send_to_email, 
@@ -36,12 +32,10 @@ class InvoiceResponse{
 
   factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
     return InvoiceResponse( 
-      service_provider_name: json['service_provider_name'] ?? "nan",
-      service_provider_email: json['service_provider_email'] ?? "nan",
-      service_provider_userId: json['service_provider_userId'] ?? "nan",
-      status: json['status'] ?? "nan",
+      service_provider: json['service_provider'] ?? {},
+      status: json['payment_status'] ?? "nan",
       invoice_id: json['_id'],
-      send_to_name: json['send_to_name'] ?? "nan",
+      send_to_name: json['send_to'] ?? "nan",
       send_to_email: json['send_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "nan",
       due_date: json['due_date'] ?? "nan",

@@ -296,9 +296,6 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "user_email": user_email,
-      "user_name": user_name,
-      "notes": note,
       "due_date": quote_due_date,
       "vat": calculateTotalVATForQuote(),
       "sub_total": calculateSubtotalForQuote(),
@@ -366,9 +363,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "user_email": user_email,
-      "user_name": user_name,
-      "notes": note,
+
       "due_date": quote_due_date,
       "vat": calculateTotalVATForQuote(),
       "sub_total": calculateSubtotalForQuote(),
@@ -687,13 +682,7 @@ class FinancialsService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "status": "SAVED",
-      "appointment_type": "already in the product_detail_list",
-      "invoice_date": invoice_date,
-      ////////////////
-      "user_email": user_email,
-      "user_name": user_name,
-      "send_to_name": client_name,
+      "send_to": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "note": note,
@@ -757,16 +746,11 @@ class FinancialsService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "status": "SENT",
-      "appointment_type": "already in the product_detail_list",
-      "invoice_date": invoice_date,
-      ////////////////
-      "user_email": user_email,
-      "user_name": user_name,
-      "send_to_name": client_name,
+      "send_to": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "note": note,
+      "notes": note,
       "due_date": due_date,
       "vat": calculateTotalVATForInvoice(),
       "sub_total": int.parse(calculateSubtotalForInvoice()),
@@ -780,6 +764,7 @@ class FinancialsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
         finController.invoiceClientNameController.clear();
         finController.invoiceClientEmailController.clear();

@@ -335,7 +335,7 @@ class FinancialsPdfService extends getx.GetxController {
                               children: [
                                 pw.SizedBox(height: 15.h,),
                                 pw.Text(
-                                  item['service_name'],
+                                  item['service_name'] ?? "non",
                                   style: pw.TextStyle(
                                     color: PdfColors.grey500,
                                     fontSize: 13.sp,
@@ -1078,7 +1078,7 @@ class FinancialsPdfService extends getx.GetxController {
                               children: [
                                 pw.SizedBox(height: 15.h,),
                                 pw.Text(
-                                  item["service_name"],
+                                  item["service_name"] ?? "non",
                                   style: pw.TextStyle(
                                     color: PdfColors.grey500,
                                     fontSize: 13.sp,
@@ -1818,7 +1818,7 @@ class FinancialsPdfService extends getx.GetxController {
                               children: [
                                 pw.SizedBox(height: 15.h,),
                                 pw.Text(
-                                  item["service_name"],
+                                  item["service_name"] ?? "non",
                                   style: pw.TextStyle(
                                     color: PdfColors.grey500,
                                     fontSize: 13.sp,
@@ -1844,7 +1844,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      item["meeting_type"],
+                                      item["appointment_type"],
                                       style: pw.TextStyle(
                                         color: PdfColors.grey500,
                                         fontSize: 14.sp,

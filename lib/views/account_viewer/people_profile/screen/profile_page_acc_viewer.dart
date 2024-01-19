@@ -26,7 +26,8 @@ import '../widget/education_&_certificate_section/education_&_certifications_sec
 
 
 class AccViewerProfilePage extends StatefulWidget {
-  AccViewerProfilePage({super.key});
+  AccViewerProfilePage({super.key, required this.userName});
+  final String userName;
 
   @override
   State<AccViewerProfilePage> createState() => _AccViewerProfilePageState();
@@ -63,11 +64,12 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 ]
               ),         
             ),
+            
             SizedBox(height: 10.h),
             
             //CUSTOM BODY SECTION//
             FutureBuilder<UserModel>(
-              future: service.getUserProfileDetails(),
+              future: service.getUserProfileDetails(userName: widget.userName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

@@ -24,7 +24,8 @@ import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggl
 
 
 class AccViewerServicesPage extends StatelessWidget {
-  AccViewerServicesPage({super.key});
+  AccViewerServicesPage({super.key, required this.userName});
+  final String userName;
 
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());

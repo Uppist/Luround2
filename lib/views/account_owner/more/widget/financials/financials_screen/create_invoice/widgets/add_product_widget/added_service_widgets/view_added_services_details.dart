@@ -19,9 +19,9 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
   final String service_name;
   final String service_description;
   final String meeting_type;
-  final num rate;
-  final num total;
-  final int discount;
+  final String rate;
+  final String total;
+  final String discount;
   final String duration;
   final int index;
   final String discounted_total;
@@ -233,7 +233,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter service fee',
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      initialValue: "$rate",
+                      initialValue: rate,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -288,7 +288,11 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         //calculate button
                         InkWell(
                           onTap: () {
-                            finService.calculateDiscountForInvoice(index: index, context: context);
+                            finService.calculateDiscountForInvoice(
+                              index: index, 
+                              context: context,
+                              initialRateValue: rate
+                            );
                           },
                           child: Container(
                             alignment: Alignment.center,

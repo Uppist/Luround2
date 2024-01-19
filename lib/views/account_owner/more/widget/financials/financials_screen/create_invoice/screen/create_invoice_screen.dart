@@ -369,9 +369,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          itemCount: service.editedSelectedProuctMapListForInvoice.length,
+                          itemCount: controller.editedSelectedProuctMapListForInvoice.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = service.editedSelectedProuctMapListForInvoice[index];
+                            final item = controller.editedSelectedProuctMapListForInvoice[index];
                             return AddedServicesTile(
                               onTap: (){
                                 Get.to(() => ViewAddedServiceDetailsForInvoice(
@@ -407,103 +407,107 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                     SizedBox(height: 20.h,),
 
                     //3 calculations
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-                      child: Column(
-                        children: [
-                          //row1
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Obx(
+                      () {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                          child: Column(
                             children: [
-                              Text(
-                                "Subtotal",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
+                              //row1
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Subtotal",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "N${service.reactiveSubtotalForInvoice.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "N${service.calculateSubtotalForInvoice()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
+                              SizedBox(height: 30.h,),
+                              //row2
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Discount",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "-N${service.reactiveTotalDiscountForInvoice.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h,),
+                              //row3
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "VAT",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "N${service.reactiveTotalVATForInvoice.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h,),
+                              //row4
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "N${service.reactiveTotalForInvoice.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(height: 30.h,),
-                          //row2
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Discount",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              Text(
-                                "-N${service.calculateTotalDiscountForInvoice()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.h,),
-                          //row3
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "VAT",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              Text(
-                                "N${service.calculateTotalVATForInvoice()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.h,),
-                          //row4
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Total",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              Text(
-                                "N${service.calculateTotalForInvoice()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        );
+                      }
                     ),
                     SizedBox(height: 20.h,),
                     //style
@@ -596,11 +600,11 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                     receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
                                     invoice_status: "SENT VIA PDF",
                                     due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
-                                    subtotal: service.calculateSubtotalForInvoice(),
-                                    discount: service.calculateTotalDiscountForInvoice(),
-                                    vat: service.calculateTotalVATForInvoice(),
+                                    subtotal: service.reactiveSubtotalForInvoice.value,
+                                    discount: service.reactiveTotalDiscountForInvoice.value,
+                                    vat: service.reactiveTotalVATForInvoice.value,
                                     note: controller.invoiceNoteController.text,
-                                    grand_total: service.calculateTotalForInvoice(),
+                                    grand_total: service.reactiveTotalForInvoice.value,
                                     serviceList: service.editedSelectedProuctMapListForInvoice,
                                   ).whenComplete(() {
                                     controller.invoiceClientEmailController.clear();
@@ -632,11 +636,11 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
                                   invoice_status: "SENT VIA PDF",
                                   due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
-                                  subtotal: service.calculateSubtotalForInvoice(),
-                                  discount: service.calculateTotalDiscountForInvoice(),
-                                  vat: service.calculateTotalVATForInvoice(),
+                                  subtotal: service.reactiveSubtotalForInvoice.value,
+                                  discount: service.reactiveTotalDiscountForInvoice.value,
+                                  vat: service.reactiveTotalVATForInvoice.value,
                                   note: controller.invoiceNoteController.text,
-                                  grand_total: service.calculateTotalForInvoice(),
+                                  grand_total: service.reactiveTotalForInvoice.value,
                                   serviceList: service.editedSelectedProuctMapListForInvoice,
                                 ).whenComplete(() {
                                   controller.invoiceClientEmailController.clear();

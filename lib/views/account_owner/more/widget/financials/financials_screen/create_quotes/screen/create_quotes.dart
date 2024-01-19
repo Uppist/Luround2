@@ -405,110 +405,113 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         SizedBox(height: 20.h,),
           
                         //3 calculations
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-                          child: Column(
-                            children: [
-
-                              //row1
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        Obx(
+                          () {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                              child: Column(
                                 children: [
-                                  Text(
-                                    "Subtotal",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
+                                  //row1
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Subtotal",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      ),
+                                      
+                                      Text(
+                                        "N${service.reactiveSubtotalForQuote.value}",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      )
+                                      
+                                    ],
                                   ),
-                                  
-                                  Text(
-                                    "N${service.calculateSubtotalForQuote()}",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  )
-          
+                                  SizedBox(height: 30.h,),
+                                  //row2
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Discount",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      ),
+                                      Text(
+                                        "-N${service.reactiveTotalDiscountForQuote.value}",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  SizedBox(height: 30.h,),
+                                  //row3
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "VAT",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      ),
+                                      Text(
+                                        "N${service.reactiveTotalVATForQuote.value}",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      )
+                                            
+                                    
+                                    ],
+                                  ),
+                                  SizedBox(height: 30.h,),
+                                  //row3
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Total",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      ),
+                                      
+                                      Text(
+                                        "N${service.reactiveTotalForQoute.value}",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
+                                      )                        
+                                      
+                                    ],
+                                  ),
                                 ],
                               ),
-                              SizedBox(height: 30.h,),
-                              //row2
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Discount",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                  Text(
-                                    "-N${service.calculateTotalDiscountForQuote()}",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  )
-                                ],
-                              ),
-                              SizedBox(height: 30.h,),
-                              //row3
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "VAT",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                  Text(
-                                    "N${service.calculateTotalVATForQuote()}",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  )
-                
-                                
-                                ],
-                              ),
-                              SizedBox(height: 30.h,),
-                              //row3
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "Total",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                  
-                                  Text(
-                                    "N${service.calculateTotalForQuote()}",
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  )                        
-                                  
-                                ],
-                              ),
-                            ],
-                          ),
+                            );
+                          }
                         ),
                         SizedBox(height: 20.h,),
                         //style
@@ -601,11 +604,11 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         receiver_phone_number: controller.quoteClientPhoneNumberController.text,
                                         quote_status: "SENT VIA PDF",
                                         due_date: controller.updatedDueDate(initialDate: "(non)"),
-                                        subtotal: service.calculateSubtotalForQuote(),
-                                        discount: service.calculateTotalDiscountForQuote(),
-                                        vat: service.calculateTotalVATForQuote(),
+                                        subtotal: service.reactiveSubtotalForQuote.value,
+                                        discount: service.reactiveTotalDiscountForQuote.value,
+                                        vat: service.reactiveTotalVATForQuote.value,
                                         note: controller.quoteNoteController.text,
-                                        grand_total: service.calculateTotalForQuote(),
+                                        grand_total: service.reactiveTotalForQoute.value,
                                         serviceList: service.editedSelectedProuctMapList,
                                       ).whenComplete(() {
                                         controller.quoteClientEmailController.clear();
@@ -636,11 +639,11 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       receiver_phone_number: controller.quoteClientPhoneNumberController.text,
                                       quote_status: "SENT VIA PDF",
                                       due_date: controller.updatedDueDate(initialDate: "(non)"),
-                                      subtotal: service.calculateSubtotalForQuote(),
-                                      discount: service.calculateTotalDiscountForQuote(),
-                                      vat: service.calculateTotalVATForQuote(),
+                                      subtotal: service.reactiveSubtotalForQuote.value,
+                                      discount: service.reactiveTotalDiscountForQuote.value,
+                                      vat: service.reactiveTotalVATForQuote.value,
                                       note: controller.quoteNoteController.text,
-                                      grand_total: service.calculateTotalForQuote(),
+                                      grand_total: service.reactiveTotalForQoute.value,
                                       serviceList: service.editedSelectedProuctMapList,
                                     ).whenComplete(() {
                                       controller.quoteClientEmailController.clear();

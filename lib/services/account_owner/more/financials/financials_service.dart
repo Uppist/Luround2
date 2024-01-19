@@ -71,6 +71,7 @@ class FinancialsService extends getx.GetxController {
 
       print("when query is not empty: $filteredList");
     }
+    update();
   }
   
 
@@ -79,7 +80,8 @@ class FinancialsService extends getx.GetxController {
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapList = <Map<String, dynamic>>[].obs;
   
   ///////////////////
-  String calculateTotalForQuote() {
+  var reactiveTotalForQoute = "".obs;
+  void calculateTotalForQuote() {
     double total = 0.0;
     double vat = 0.0;
 
@@ -90,20 +92,24 @@ class FinancialsService extends getx.GetxController {
     vat = (7.5/100) * total;
     total += vat;
     print(total);
-    return total.toString();
+    reactiveTotalForQoute.value = total.toString();
+    update();
   }
 
-  String calculateSubtotalForQuote() {
+  var reactiveSubtotalForQuote = "".obs;
+  void calculateSubtotalForQuote() {
     double rate = editedSelectedProuctMapList.fold(0.0, (previousValue, product) {
       double productTotal = double.tryParse(product['rate']) ?? 0.0;
       return previousValue + productTotal;
     });
 
     print(rate);
-    return rate.toString();
+    reactiveSubtotalForQuote.value = rate.toString();
+    update();
   }
-
-  String calculateTotalDiscountForQuote() {
+  
+  var reactiveTotalDiscountForQuote = "".obs;
+  void calculateTotalDiscountForQuote() {
     double discount = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapList) {
@@ -111,10 +117,12 @@ class FinancialsService extends getx.GetxController {
       discount += (double.tryParse(product['discount']) ?? 0.0);
     }
     print(discount);
-    return discount.toString();
+    reactiveTotalDiscountForQuote.value = discount.toString();
+    update();
   }
-
-  String calculateTotalVATForQuote() {
+  
+  var reactiveTotalVATForQuote = "".obs;
+  void calculateTotalVATForQuote() {
     double total = 0.0;
     double vat = 0.0;
 
@@ -124,7 +132,8 @@ class FinancialsService extends getx.GetxController {
     }
     vat = (7.5/100) * total;
     print("total vat: $vat");
-    return vat.toString();
+    update();
+    reactiveTotalVATForQuote.value = vat.toString();
   }
 
 
@@ -141,6 +150,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("the item has already been removed at the index");
     }
+    update();
   }
   
   //2(these act like text editing controllers)
@@ -154,11 +164,11 @@ class FinancialsService extends getx.GetxController {
 
 
 
-  Future<void> calculateDiscount({required int index, required BuildContext context}) async {
+  Future<void> calculateDiscount({required int index, required BuildContext context, required String initialRateValue}) async {
 
     // Convert parameters from string to double data type
     double discountValue = double.tryParse(discountForQuote.value) ?? 0;
-    double rateValue = double.tryParse(rateForQuote.value) ?? 0;
+    double rateValue = double.tryParse(rateForQuote.value.isEmpty ? initialRateValue : rateForQuote.value) ?? 0;
 
     // Calculate the discount
     double calculatedDiscount = (discountValue / 100) * rateValue;
@@ -214,6 +224,12 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapList[index]["meeting_type"] = meetingType;
       editedSelectedProuctMapList[index]["rate"] = rate;
       
+      //calculate the functions
+      calculateTotalForQuote();
+      calculateSubtotalForQuote();
+      calculateTotalDiscountForQuote();
+      calculateTotalVATForQuote();
+
       //success snackbar
       showMySnackBar(
         context: context,
@@ -273,6 +289,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
   //5
@@ -297,10 +314,10 @@ class FinancialsService extends getx.GetxController {
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "due_date": quote_due_date,
-      "vat": calculateTotalVATForQuote(),
-      "sub_total": calculateSubtotalForQuote(),
-      "discount": "-N${calculateTotalDiscountForQuote()} ",
-      "total": calculateTotalForQuote(),
+      "vat": reactiveTotalVATForQuote.value,
+      "sub_total": reactiveSubtotalForQuote.value,
+      "discount": "-N${reactiveTotalDiscountForQuote.value} ",
+      "total": reactiveTotalForQoute.value,
       "product_detail": editedSelectedProuctMapList
     };
 
@@ -341,6 +358,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
   ///[CREATE NEW QUOTE AND SEND IT TO CLIENT]//
@@ -365,10 +383,10 @@ class FinancialsService extends getx.GetxController {
       "phone_number": client_phone_number,
 
       "due_date": quote_due_date,
-      "vat": calculateTotalVATForQuote(),
-      "sub_total": calculateSubtotalForQuote(),
-      "discount": "-N${calculateTotalDiscountForQuote()} ",
-      "total": calculateTotalForQuote(),
+      "vat": reactiveTotalVATForQuote.value,
+      "sub_total": reactiveSubtotalForQuote.value,
+      "discount": "-N${reactiveTotalDiscountForQuote.value} ",
+      "total": reactiveTotalForQoute.value,
       "product_detail": editedSelectedProuctMapList
     };
 
@@ -409,6 +427,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
 
@@ -445,11 +464,8 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       //debugPrint("Error net: $e");
       throw Exception("$e");
-    
     }
   }
-
-
   ////////////////////////////////////////////////////////////
 
 
@@ -473,6 +489,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       filteredListForInvoice.value = List.from(products);  
       print("initialized List ForInvoice: ${filteredListForInvoice}");
+      update();
       return filteredListForInvoice;
 
     } 
@@ -499,6 +516,7 @@ class FinancialsService extends getx.GetxController {
         .toList());
 
       print("when query is not empty: $filteredListForInvoice");
+      update();
     }
   }
   
@@ -507,8 +525,9 @@ class FinancialsService extends getx.GetxController {
   getx.RxList<UserServiceModel> selectedProductsForInvoice = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForInvoice = <Map<String, dynamic>>[].obs;
 
-  ///////////////////
-  String calculateTotalForInvoice() {
+  ///////////////////h
+  var reactiveTotalForInvoice = "".obs;
+  void calculateTotalForInvoice() {
     double total = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
@@ -516,10 +535,12 @@ class FinancialsService extends getx.GetxController {
       total += (double.tryParse(product['total']) ?? 0.0);
     }
     print(total);
-    return total.toString();
+    reactiveTotalForInvoice.value = total.toString();
+    update();
   }
-
-  String calculateSubtotalForInvoice() {
+  
+  var reactiveSubtotalForInvoice = "".obs;
+  void calculateSubtotalForInvoice() {
     double rate = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
@@ -527,10 +548,12 @@ class FinancialsService extends getx.GetxController {
       rate += (double.tryParse(product['rate']) ?? 0.0);
     }
     print(rate);
-    return rate.toString();
+    reactiveSubtotalForInvoice.value = rate.toString();
+    update();
   }
 
-  String calculateTotalDiscountForInvoice() {
+  var reactiveTotalDiscountForInvoice = "".obs;
+  void calculateTotalDiscountForInvoice() {
     double discount = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
@@ -538,10 +561,12 @@ class FinancialsService extends getx.GetxController {
       discount += (double.tryParse(product['discount']) ?? 0.0);
     }
     print(discount);
-    return discount.toString();
+    reactiveTotalDiscountForInvoice.value = discount.toString();
+    update();
   }
-
-  String calculateTotalVATForInvoice() {
+  
+  var reactiveTotalVATForInvoice = "".obs;
+  void calculateTotalVATForInvoice() {
     double total = 0.0;
     double vat = 0.0;
 
@@ -551,7 +576,8 @@ class FinancialsService extends getx.GetxController {
     }
     vat = (7.5/100) * total;
     print("total vat: $vat");
-    return vat.toString();
+    reactiveTotalVATForInvoice.value = vat.toString();
+    update();
   }
 
 
@@ -563,6 +589,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       editedSelectedProuctMapListForInvoice.removeAt(index);
       print("list: $editedSelectedProuctMapListForInvoice");
+      update();
       //clear the figures
     } else {
       isLoading.value = false;
@@ -581,10 +608,10 @@ class FinancialsService extends getx.GetxController {
   
 
 
-  Future<void> calculateDiscountForInvoice({required int index, required BuildContext context}) async {
+  Future<void> calculateDiscountForInvoice({required int index, required BuildContext context, required String initialRateValue}) async{
     // Convert parameters from string to double data type
     double discountValue = double.tryParse(discountForInvoice.text) ?? 0;
-    double rateValue = double.tryParse(rateForInvoice.text) ?? 0;
+    double rateValue = double.tryParse(rateForInvoice.text.isNotEmpty ? rateForInvoice.text : initialRateValue) ?? 0;
 
     // Calculate the discount
     double calculatedDiscount = (discountValue / 100) * rateValue;
@@ -620,8 +647,8 @@ class FinancialsService extends getx.GetxController {
     required String service_description,
     required String service_id,
     required String discount,
-    required num rate,
-    required num total, 
+    required String rate,
+    required String total, 
     required String duration,
     required String appointmentType,
     required int index,
@@ -653,6 +680,12 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapListForInvoice[index]["location"] = "location depends on this :$appointmentType";
       editedSelectedProuctMapListForInvoice[index]["phone_number"] = phone_number;
       
+      calculateSubtotalForInvoice();
+      calculateTotalForInvoice();
+      calculateTotalVATForInvoice();
+      calculateTotalDiscountForInvoice();
+
+
       //success snackbar
       showMySnackBar(
         context: context,
@@ -664,7 +697,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("Item not found in the list.");
     }
-  
+    update();
   }
 
   //5
@@ -688,10 +721,10 @@ class FinancialsService extends getx.GetxController {
       "note": note,
       "notes": note,
       "due_date": due_date,
-      "vat": calculateTotalVATForInvoice(),
-      "sub_total": int.parse(calculateSubtotalForInvoice()),
-      "discount": int.parse("-N${calculateTotalDiscountForInvoice()}"),
-      "total": int.parse(calculateTotalForInvoice()),
+      "vat": reactiveTotalVATForInvoice.value,
+      "sub_total": reactiveSubtotalForInvoice.value,
+      "discount": "-N${reactiveTotalDiscountForInvoice.value}",
+      "total": reactiveTotalForInvoice.value,
       "booking_detail": editedSelectedProuctMapListForInvoice //product_detail
     };
 
@@ -730,6 +763,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   } 
 
   ///[CREATE NEW QUOTE AND SEND IT TO CLIENT]//
@@ -752,10 +786,10 @@ class FinancialsService extends getx.GetxController {
       "note": note,
       "notes": note,
       "due_date": due_date,
-      "vat": calculateTotalVATForInvoice(),
-      "sub_total": int.parse(calculateSubtotalForInvoice()),
-      "discount": int.parse("-N${calculateTotalDiscountForInvoice()}"),
-      "total": int.parse(calculateTotalForInvoice()),
+      "vat": reactiveTotalVATForInvoice.value,
+      "sub_total": reactiveSubtotalForInvoice.value,
+      "discount": "-N${reactiveTotalDiscountForInvoice.value}",
+      "total": reactiveTotalForInvoice.value,
       "booking_detail": editedSelectedProuctMapListForInvoice //product_detail
     };
 
@@ -794,6 +828,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
   ///[DELETE INVOICE FROM DB]//
@@ -840,6 +875,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
 
@@ -866,6 +902,7 @@ class FinancialsService extends getx.GetxController {
         debugPrint("dataList/productList for invoice: $dataListForInvoice");
 
         // Return the user services list
+        update();
         return dataListForInvoice;
       }
       else {
@@ -873,6 +910,7 @@ class FinancialsService extends getx.GetxController {
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
+        update();
         throw Exception('Failed to load user services data');
       }
     } 
@@ -880,7 +918,6 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       //debugPrint("Error net: $e");
       throw Exception("$e");
-    
     }
   }
 
@@ -911,6 +948,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       filteredListForReceipt.value = List.from(products);  
       print("initialized List For Receipt: ${filteredListForReceipt}");
+      update();
       return filteredListForReceipt;
 
     } 
@@ -938,6 +976,7 @@ class FinancialsService extends getx.GetxController {
 
       print("when query is not empty: $filteredListForReceipt");
     }
+    update();
   }
   
 
@@ -947,7 +986,8 @@ class FinancialsService extends getx.GetxController {
 
   
   ///////////////////
-  String calculateTotalForReceipt() {
+  var reactiveTotalForReceipt = "".obs;
+  void calculateTotalForReceipt() {
     double total = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
@@ -955,10 +995,12 @@ class FinancialsService extends getx.GetxController {
       total += (double.tryParse(product['total']) ?? 0.0);
     }
     print(total);
-    return total.toString();
+    reactiveTotalForReceipt.value = total.toString();
+    update();
   }
-
-  String calculateSubtotalForReceipt() {
+  
+  var reactiveSubtotalForReceipt = "".obs;
+  void calculateSubtotalForReceipt() {
     double rate = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
@@ -966,10 +1008,12 @@ class FinancialsService extends getx.GetxController {
       rate += (double.tryParse(product['rate']) ?? 0.0);
     }
     print(rate);
-    return rate.toString();
+    reactiveSubtotalForReceipt.value = rate.toString();
+    update();
   }
-
-  String calculateTotalDiscountForReceipt() {
+  
+  var reactiveTotalDiscountForReceipt = "".obs;
+  void calculateTotalDiscountForReceipt() {
     double discount = 0.0;
 
     for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
@@ -977,10 +1021,12 @@ class FinancialsService extends getx.GetxController {
       discount += (double.tryParse(product['discount']) ?? 0.0);
     }
     print(discount);
-    return discount.toString();
+    reactiveTotalDiscountForReceipt.value = discount.toString();
+    update();
   }
-
-  String calculateTotalVATForReceipt() {
+  
+  var reactiveTotalVATForReceipt = "".obs;
+  void calculateTotalVATForReceipt() {
     double total = 0.0;
     double vat = 0.0;
 
@@ -990,9 +1036,9 @@ class FinancialsService extends getx.GetxController {
     }
     vat = (7.5/100) * total;
     print("total vat: $vat");
-    return vat.toString();
+    reactiveTotalVATForReceipt.value = vat.toString();
+    update();
   }
-
 
   /////////////////
   //1
@@ -1007,6 +1053,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("the item has already been removed at the index");
     }
+    update();
   }
 
   //2(these act like text editing controllers)
@@ -1020,10 +1067,10 @@ class FinancialsService extends getx.GetxController {
   
 
 
-  Future<void> calculateDiscountForReceipt({required int index, required BuildContext context}) async {
+  Future<void> calculateDiscountForReceipt({required int index, required BuildContext context, required String initialRateValue}) async {
     // Convert parameters from string to double data type
     double discountValue = double.tryParse(discountForReceipt.text) ?? 0;
-    double rateValue = double.tryParse(rateForReceipt.text) ?? 0;
+    double rateValue = double.tryParse(rateForReceipt.text.isNotEmpty ? rateForReceipt.text : initialRateValue) ?? 0;
 
     // Calculate the discount
     double calculatedDiscount = (discountValue / 100) * rateValue;
@@ -1077,6 +1124,12 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapListForReceipt[index]["appointment_type"] = appointmentType;
       editedSelectedProuctMapListForReceipt[index]["rate"] = rate;
       
+      //calculate the funcions
+      calculateTotalForReceipt();
+      calculateSubtotalForReceipt();
+      calculateTotalDiscountForReceipt();
+      calculateTotalVATForReceipt();
+    
       //success snackbar
       showMySnackBar(
         context: context,
@@ -1088,6 +1141,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("Item not found in the list.");
     }
+    update();
   
   }
 
@@ -1114,10 +1168,10 @@ class FinancialsService extends getx.GetxController {
       "payment_status": "SENT",
       "mode_of_payment": mode_of_payment,
       "note": note,
-      "vat": calculateTotalVATForReceipt(),
-      "sub_total": calculateSubtotalForReceipt(),
-      "discount": "-N${calculateTotalDiscountForReceipt()}",
-      "total": calculateTotalForReceipt(),
+      "vat": reactiveTotalVATForReceipt.value,
+      "sub_total": reactiveSubtotalForReceipt.value,
+      "discount": "-N${reactiveTotalDiscountForReceipt.value}",
+      "total": reactiveTotalForReceipt.value,
       "service_detail": editedSelectedProuctMapListForReceipt //product_detail
     };
 
@@ -1155,6 +1209,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
   //5
@@ -1180,10 +1235,10 @@ class FinancialsService extends getx.GetxController {
       "payment_status": "DRAFT",
       "mode_of_payment": mode_of_payment,
       "note": note,
-      "vat": calculateTotalVATForReceipt(),
-      "sub_total": calculateSubtotalForReceipt(),
-      "discount": "-N${calculateTotalDiscountForReceipt()}",
-      "total": calculateTotalForReceipt(),
+      "vat": reactiveTotalVATForReceipt.value,
+      "sub_total": reactiveSubtotalForReceipt.value,
+      "discount": "-N${reactiveTotalDiscountForReceipt.value}",
+      "total": reactiveTotalForReceipt.value,
       "service_detail": editedSelectedProuctMapListForReceipt //product_detail
     };
 
@@ -1221,6 +1276,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
 
@@ -1272,6 +1328,7 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
+    update();
   }
 
 
@@ -1294,6 +1351,7 @@ class FinancialsService extends getx.GetxController {
         debugPrint("dataList/productList for receipt: $dataListForReceipt");
 
         // Return the user services list
+        update();
         return dataListForReceipt;
       }
       else {
@@ -1331,6 +1389,7 @@ class FinancialsService extends getx.GetxController {
       filteredList.clear();
       filteredList.addAll(list);  //service.dataList
       print("initState FOR QUOTES: $filteredList");
+      update();
     });
     
     //FOR INVOICE
@@ -1338,6 +1397,7 @@ class FinancialsService extends getx.GetxController {
       filteredListForInvoice.clear();
       filteredListForInvoice.addAll(list);  //service.dataList
       print("initState FOR INVOICE: $filteredListForInvoice");
+      update();
     });
 
     //FOR RECEIPT
@@ -1345,6 +1405,7 @@ class FinancialsService extends getx.GetxController {
       filteredListForReceipt.clear();
       filteredListForReceipt.addAll(list);  //service.dataList
       print("initState FOR RECEIPT: $filteredListForReceipt");
+      update();
     });
   }
 

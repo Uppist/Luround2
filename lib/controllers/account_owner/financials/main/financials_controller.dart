@@ -63,7 +63,7 @@ class FinancialsController extends getx.GetxController {
     }
   }
   //(save to db) this is the selected date 
-  getx.RxString isoDateForQuote = ''.obs;
+  //getx.RxString isoDateForQuote = ''.obs;
   String updatedDueDate ({required String initialDate}) {
     if(dueDate.isNotEmpty) {
       //isoDateForQuote.value = dueDate[0]!.toUtc().toIso8601String();
@@ -140,7 +140,7 @@ class FinancialsController extends getx.GetxController {
     }
   }
   //(save to db) this is the selected date 
-  getx.RxString isoDateForInvoice = ''.obs;
+  //getx.RxString isoDateForInvoice = ''.obs;
   String updatedDueDateForInvoice ({required String initialDate}) {
     if(dueDateForInvoice.isNotEmpty) {
       //isoDateForInvoice.value = dueDateForInvoice[0]!.toUtc().toIso8601String();

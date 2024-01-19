@@ -370,103 +370,107 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                     SizedBox(height: 20.h,),
 
                     //3 calculations
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-                      child: Column(
-                        children: [
-                          //row1
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    Obx(
+                      () {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                          child: Column(
                             children: [
-                              Text(
-                                "Subtotal",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
+                              //row1
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Subtotal",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "N${service.reactiveSubtotalForReceipt.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
                               ),
-                              Text(
-                                "N${service.calculateSubtotalForReceipt()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
+                              SizedBox(height: 30.h,),
+                              //row2
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Discount",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "-N${service.reactiveTotalDiscountForReceipt.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h,),
+                              //row3
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "VAT",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "N${service.reactiveTotalVATForReceipt.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30.h,),
+                              //row4
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Total",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  Text(
+                                    "N${service.reactiveTotalForReceipt.value}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.darkGreyColor,
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                          SizedBox(height: 30.h,),
-                          //row2
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Discount",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              Text(
-                                "-N${service.calculateTotalDiscountForReceipt()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.h,),
-                          //row3
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "VAT",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              Text(
-                                "N${service.calculateTotalVATForReceipt()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 30.h,),
-                          //row4
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Total",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              Text(
-                                "N${service.calculateTotalForReceipt()}",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        );
+                      }
                     ),
                     SizedBox(height: 20.h,),
                     //style
@@ -649,11 +653,11 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
                                     receipt_status: "SENT VIA PDF",
                                     due_date: controller.updatedReceiptDate(initialDate: "(non)"),
-                                    subtotal: service.calculateSubtotalForReceipt(),
-                                    discount: service.calculateTotalDiscountForReceipt(),
-                                    vat: service.calculateTotalVATForReceipt(),
+                                    subtotal: service.reactiveSubtotalForReceipt.value,
+                                    discount: service.reactiveTotalDiscountForReceipt.value,
+                                    vat: service.reactiveTotalVATForReceipt.value,
                                     note: controller.receiptNoteController.text,
-                                    grand_total: service.calculateTotalForReceipt(),
+                                    grand_total: service.reactiveTotalForReceipt.value,
                                     serviceList: service.editedSelectedProuctMapListForReceipt,
                                   ).whenComplete(() {
                                     controller.receiptClientEmailController.clear();
@@ -684,11 +688,11 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
                                   receipt_status: "SENT VIA PDF",
                                   due_date: controller.updatedReceiptDate(initialDate: "(non)"),
-                                  subtotal: service.calculateSubtotalForReceipt(),
-                                  discount: service.calculateTotalDiscountForReceipt(),
-                                  vat: service.calculateTotalVATForReceipt(),
+                                  subtotal: service.reactiveSubtotalForReceipt.value,
+                                  discount: service.reactiveTotalDiscountForReceipt.value,
+                                  vat: service.reactiveTotalVATForReceipt.value,
                                   note: controller.receiptNoteController.text,
-                                  grand_total: service.calculateTotalForReceipt(),
+                                  grand_total: service.reactiveTotalForReceipt.value,
                                   serviceList: service.editedSelectedProuctMapListForReceipt,
                                 ).whenComplete(() => Get.back());
                               },

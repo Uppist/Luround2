@@ -303,7 +303,11 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                             //calculate button
                             InkWell(
                               onTap: () {
-                                finService.calculateDiscount(index: widget.index, context: context);
+                                finService.calculateDiscount(
+                                  index: widget.index, 
+                                  context: context,
+                                  initialRateValue: widget.rate
+                                );
                               },
                               child: Container(
                                 alignment: Alignment.center,

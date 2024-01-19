@@ -7,11 +7,14 @@ import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/test.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
+import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
+import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -99,6 +102,8 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
+  //name gotten from the scanned qrcode
+  final String userName = "";
 
   @override
   Widget build(BuildContext context) {
@@ -109,10 +114,17 @@ class _MainAppState extends State<MainApp> {
       },
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Luround',
-        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //title: 'Luround',
+        ////
+        title: 'Flutter Web Routing Example',
+        initialRoute: '/$userName/profile',
+        routes: {
+          '/$userName/profile': (context) => AccViewerProfilePage(userName: userName),
+          '/$userName/services': (context) => AccViewerServicesPage(userName: userName),
+        },
+        //home: //MyApp(), //token == null ? SplashScreen1() : MainPageAccViewer(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
-          Locale('en'), // English Locale
+          Locale('en'),
         ]
       ),
     );

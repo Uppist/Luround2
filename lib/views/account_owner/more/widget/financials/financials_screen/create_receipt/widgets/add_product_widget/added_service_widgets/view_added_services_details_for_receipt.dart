@@ -281,7 +281,11 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         //calculate button
                         InkWell(
                           onTap: () {
-                            finService.calculateDiscountForReceipt(index: index, context: context);
+                            finService.calculateDiscountForReceipt(
+                              index: index, 
+                              context: context,
+                              initialRateValue: rate
+                            );
                           },
                           child: Container(
                             alignment: Alignment.center,

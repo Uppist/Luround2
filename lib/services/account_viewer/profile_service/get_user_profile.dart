@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
@@ -93,16 +95,26 @@ class AccViewerProfileService extends getx.GetxController {
 
 
   /////[GET USER PROFILE DETAILS]/////
-  Future<UserModel> getUserProfileDetails() async {
+  // Create a StreamController to emit the results
+  //final _userProfileStreamController = StreamController<UserModel>();
+
+  // Getter to expose the stream to external widgets
+  //Stream<UserModel> get userProfileStream => _userProfileStreamController.stream;
+
+  Future<UserModel> getUserProfileDetails({
+    required String userName
+  }) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "profile/get?email=$userEmail",);
+      http.Response res = await baseService.httpGet(endPoint: "profile/get-user-profile-link?url=luround.com/$userName",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         //decode the response body here
         UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
         await LocalStorage.saveUserID(userModel.id);
+        // Emit the user profile using the stream controller
+        //_userProfileStreamController.add(userModel);
         /////////////
         return userModel;
       }
@@ -209,4 +221,13 @@ class AccViewerProfileService extends getx.GetxController {
   }
 
 
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    //_userProfileStreamController.close();
+    super.dispose();
+  }
 }

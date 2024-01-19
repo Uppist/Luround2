@@ -139,41 +139,27 @@ Future<void> addProductBottomSheetForReceipt({
                                         borderRadius: BorderRadius.circular(5.r)
                                       ),
                                       activeColor: AppColor.mainColor,
-                                      value: service.selectedProductsForReceipt.contains(item), //selectedUsers.contains(user),
+                                      value: service.editedSelectedProuctMapListForReceipt.contains(item.toJson()), 
                                       onChanged: (bool? value) {
-                      
+                                        /////
                                         setState(() {
+                                         
                                           if (value != null) {
                                             if (value) {
                                               // Add item to the list
-                                              service.selectedProductsForReceipt.add(item);
+                                              service.editedSelectedProuctMapListForReceipt.add(item.toJson());
                                             } else {
                                               // Remove item from the list
-                                              service.selectedProductsForReceipt.remove(item);
+                                              service.editedSelectedProuctMapListForReceipt.remove(item.toJson());
                                             }
-
-                                            // Clear the list
-                                            service.editedSelectedProuctMapListForReceipt.clear();
-
-                                            // Add items to the list based on selected products
-                                            for (UserServiceModel product in service.selectedProductsForReceipt) {
-                                              Map<String, dynamic> userMap = {
-                                                "service_name": product.service_name,                                   
-                                                "appointment_type": "Virtual",
-                                                "rate": product.service_charge_virtual!,
-                                                "total": product.service_charge_virtual!,
-                                                "duration": product.duration,
-                                                "discount": "0",
-                                              };
-
-                                              service.editedSelectedProuctMapListForReceipt.add(userMap);
-                                            }
-
                                             // Print the modified list
-                                            debugPrint("edited product list for invoice: ${service.editedSelectedProuctMapListForReceipt}");
+                                            debugPrint("edited list: ${service.editedSelectedProuctMapListForReceipt}");
+                                          
                                           }
-                                        });
-                                        //                                                     
+                                        }
+                                      );
+                                                                                 
+                                                                                       
                                       },
                                     ),
                                     productName: item.service_name,

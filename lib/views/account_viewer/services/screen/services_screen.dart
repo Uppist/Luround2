@@ -24,12 +24,12 @@ import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggl
 
 
 class AccViewerServicesPage extends StatelessWidget {
-  AccViewerServicesPage({super.key, required this.userName});
-  final String userName;
+  AccViewerServicesPage({super.key, required this.userEmail});
+  final String userEmail;
 
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
-  final String userEmail = LocalStorage.getUseremail();
+  //final String userEmail = LocalStorage.getUseremail();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class AccViewerServicesPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset('assets/images/luround_logo.png'),
+                      Image.asset('assets/images/latest_logo.png'),
                     ]
                   ),
                   SizedBox(height: 30.h,),
@@ -74,7 +74,7 @@ class AccViewerServicesPage extends StatelessWidget {
 
             //Futurebuilder will start from here (will wrap this listview)
             FutureBuilder<List<UserServiceModel>>(
-              future: service.getUserServices(),
+              future: service.getUserServices(email: userEmail),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

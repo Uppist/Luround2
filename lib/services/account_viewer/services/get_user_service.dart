@@ -31,7 +31,7 @@ class AccViewerService extends getx.GetxController {
   var baseService = getx.Get.put(BaseService());
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
-  var userEmail = LocalStorage.getUseremail();
+  //var userEmail = LocalStorage.getUseremail();
 
 
 
@@ -98,10 +98,10 @@ class AccViewerService extends getx.GetxController {
   }
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<List<UserServiceModel>> getUserServices() async {
+  Future<List<UserServiceModel>> getUserServices({required String email}) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$userEmail",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

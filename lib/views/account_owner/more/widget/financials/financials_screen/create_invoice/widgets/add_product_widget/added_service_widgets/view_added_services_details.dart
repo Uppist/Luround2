@@ -85,6 +85,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                               phone_number: client_phone_number
                             ).whenComplete(() {
                               finService.subtotalForInvoice.clear();
+                              finService.showEverythingForInvoiceList();
                               print(finService.editedSelectedProuctMapListForInvoice);
                             });
                           },
@@ -346,7 +347,10 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.deleteSelectedProductForInvoice(index)
-                            .whenComplete(() => Get.back());
+                            .whenComplete(() {
+                              finService.showEverythingForInvoiceList();
+                              Get.back();
+                            });
                           },
                           child: Text(
                             "Delete",

@@ -37,7 +37,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
   
   var controller = Get.put(ProfilePageAccViewerController());
   var service = Get.put(AccViewerProfileService());
-  final String userEmail = LocalStorage.getUseremail();
+  //final String userEmail = LocalStorage.getUseremail();
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset('assets/images/luround_logo.png'),
+                  Image.asset('assets/images/latest_logo.png'),
                 ]
               ),         
             ),
@@ -69,7 +69,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
             
             //CUSTOM BODY SECTION//
             FutureBuilder<UserModel>(
-              future: service.getUserProfileDetails(userName: widget.userName),
+              future: service.getUserProfileDetails(fullURL: widget.userName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

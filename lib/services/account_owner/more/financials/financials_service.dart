@@ -79,62 +79,32 @@ class FinancialsService extends getx.GetxController {
   getx.RxList<UserServiceModel> selectedProducts = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapList = <Map<String, dynamic>>[].obs;
   
+
+
   ///////////////////
   var reactiveTotalForQoute = "".obs;
-  void calculateTotalForQuote() {
-    double total = 0.0;
-    double vat = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
-      // Extract the "total" value from each map and add it to the total variable
-      total += (double.tryParse(product['total']) ?? 0.0);
-    }
-    vat = (7.5/100) * total;
-    total += vat;
-    print(total);
-    reactiveTotalForQoute.value = total.toString();
-    update();
-  }
-
   var reactiveSubtotalForQuote = "".obs;
-  void calculateSubtotalForQuote() {
-    double rate = editedSelectedProuctMapList.fold(0.0, (previousValue, product) {
-      double productTotal = double.tryParse(product['rate']) ?? 0.0;
-      return previousValue + productTotal;
-    });
-
-    print(rate);
-    reactiveSubtotalForQuote.value = rate.toString();
-    update();
-  }
-  
   var reactiveTotalDiscountForQuote = "".obs;
-  void calculateTotalDiscountForQuote() {
-    double discount = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
-      // Extract the "total" value from each map and add it to the total variable
-      discount += (double.tryParse(product['discount']) ?? 0.0);
-    }
-    print(discount);
-    reactiveTotalDiscountForQuote.value = discount.toString();
-    update();
-  }
-  
   var reactiveTotalVATForQuote = "".obs;
-  void calculateTotalVATForQuote() {
-    double total = 0.0;
-    double vat = 0.0;
+  void showEverythingForQuoteList() {
+    double subtotalPrice = 0;
+    double totalPrice = 0;
+    double totalDiscount = 0;
+    double totalVat = 0;
 
-    for (Map<String, dynamic> product in editedSelectedProuctMapList) {
-      // Extract the "total" value from each map and add it to the total variable
-      total += (double.tryParse(product['total']) ?? 0.0);
+    for (var product in editedSelectedProuctMapList) {
+      subtotalPrice += double.parse(product['rate']);
+      totalDiscount += double.parse(product['discount']);
+      totalVat += double.parse(product['total']) * 0.075;
+      totalPrice += double.parse(product['total']);
     }
-    vat = (7.5/100) * total;
-    print("total vat: $vat");
-    update();
-    reactiveTotalVATForQuote.value = vat.toString();
+    ///////////////////
+    reactiveTotalForQoute.value = (totalPrice + totalVat).toString();
+    reactiveSubtotalForQuote.value = subtotalPrice.toString();
+    reactiveTotalDiscountForQuote.value = totalDiscount.toString();
+    reactiveTotalVATForQuote.value = totalVat.toString();
   }
+
 
 
   /////////////////
@@ -223,12 +193,6 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapList[index]["total"] = total;
       editedSelectedProuctMapList[index]["meeting_type"] = meetingType;
       editedSelectedProuctMapList[index]["rate"] = rate;
-      
-      //calculate the functions
-      calculateTotalForQuote();
-      calculateSubtotalForQuote();
-      calculateTotalDiscountForQuote();
-      calculateTotalVATForQuote();
 
       //success snackbar
       showMySnackBar(
@@ -524,61 +488,33 @@ class FinancialsService extends getx.GetxController {
   ///[CREATE INVOICE SCREEN]
   getx.RxList<UserServiceModel> selectedProductsForInvoice = <UserServiceModel>[].obs;
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForInvoice = <Map<String, dynamic>>[].obs;
+  
 
   ///////////////////h
   var reactiveTotalForInvoice = "".obs;
-  void calculateTotalForInvoice() {
-    double total = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
-      // Extract the "total" value from each map and add it to the total variable
-      total += (double.tryParse(product['total']) ?? 0.0);
-    }
-    print(total);
-    reactiveTotalForInvoice.value = total.toString();
-    update();
-  }
-  
   var reactiveSubtotalForInvoice = "".obs;
-  void calculateSubtotalForInvoice() {
-    double rate = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
-      // Extract the "total" value from each map and add it to the total variable
-      rate += (double.tryParse(product['rate']) ?? 0.0);
-    }
-    print(rate);
-    reactiveSubtotalForInvoice.value = rate.toString();
-    update();
-  }
-
   var reactiveTotalDiscountForInvoice = "".obs;
-  void calculateTotalDiscountForInvoice() {
-    double discount = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
-      // Extract the "total" value from each map and add it to the total variable
-      discount += (double.tryParse(product['discount']) ?? 0.0);
-    }
-    print(discount);
-    reactiveTotalDiscountForInvoice.value = discount.toString();
-    update();
-  }
-  
   var reactiveTotalVATForInvoice = "".obs;
-  void calculateTotalVATForInvoice() {
-    double total = 0.0;
-    double vat = 0.0;
+  void showEverythingForInvoiceList() {
+    double subtotalPrice = 0;
+    double totalPrice = 0;
+    double totalDiscount = 0;
+    double totalVat = 0;
 
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForInvoice) {
-      // Extract the "total" value from each map and add it to the total variable
-      total += (double.tryParse(product['total']) ?? 0.0);
+    for (var product in editedSelectedProuctMapListForInvoice) {
+      subtotalPrice += double.parse(product['rate']);
+      totalPrice += double.parse(product['total']);
+      totalDiscount += double.parse(product['discount']);
+      totalVat += double.parse(product['total']) * 0.075;
     }
-    vat = (7.5/100) * total;
-    print("total vat: $vat");
-    reactiveTotalVATForInvoice.value = vat.toString();
-    update();
+    ///////////////////
+    reactiveTotalForInvoice.value = (totalPrice + totalVat).toString();
+    reactiveSubtotalForInvoice.value = subtotalPrice.toString();
+    reactiveTotalDiscountForInvoice.value = totalDiscount.toString();
+    reactiveTotalVATForInvoice.value = totalVat.toString();
   }
+
+
 
 
   /////////////////
@@ -680,10 +616,7 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapListForInvoice[index]["location"] = "location depends on this :$appointmentType";
       editedSelectedProuctMapListForInvoice[index]["phone_number"] = phone_number;
       
-      calculateSubtotalForInvoice();
-      calculateTotalForInvoice();
-      calculateTotalVATForInvoice();
-      calculateTotalDiscountForInvoice();
+      //showEverythingForInvoiceList();
 
 
       //success snackbar
@@ -985,60 +918,35 @@ class FinancialsService extends getx.GetxController {
   getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForReceipt = <Map<String, dynamic>>[].obs;
 
   
+  
+  void showEverythingForReceiptList() {
+    double subtotalPrice = 0;
+    double totalPrice = 0;
+    double totalDiscount = 0;
+    double totalVat = 0;
+
+    for (var product in editedSelectedProuctMapListForReceipt) {
+      subtotalPrice += double.parse(product['rate']);
+      totalPrice += double.parse(product['total']);
+      totalDiscount += double.parse(product['discount']);
+      totalVat += double.parse(product['total']) * 0.075;
+    }
+    ///////////////////
+    reactiveTotalForReceipt.value = (totalPrice + totalVat).toString();
+    reactiveSubtotalForReceipt.value = subtotalPrice.toString();
+    reactiveTotalDiscountForReceipt.value = totalDiscount.toString();
+    reactiveTotalVATForReceipt.value = totalVat.toString();
+  }
+
+
+
+
+
   ///////////////////
   var reactiveTotalForReceipt = "".obs;
-  void calculateTotalForReceipt() {
-    double total = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
-      // Extract the "total" value from each map and add it to the total variable
-      total += (double.tryParse(product['total']) ?? 0.0);
-    }
-    print(total);
-    reactiveTotalForReceipt.value = total.toString();
-    update();
-  }
-  
   var reactiveSubtotalForReceipt = "".obs;
-  void calculateSubtotalForReceipt() {
-    double rate = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
-      // Extract the "total" value from each map and add it to the total variable
-      rate += (double.tryParse(product['rate']) ?? 0.0);
-    }
-    print(rate);
-    reactiveSubtotalForReceipt.value = rate.toString();
-    update();
-  }
-  
   var reactiveTotalDiscountForReceipt = "".obs;
-  void calculateTotalDiscountForReceipt() {
-    double discount = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
-      // Extract the "total" value from each map and add it to the total variable
-      discount += (double.tryParse(product['discount']) ?? 0.0);
-    }
-    print(discount);
-    reactiveTotalDiscountForReceipt.value = discount.toString();
-    update();
-  }
-  
   var reactiveTotalVATForReceipt = "".obs;
-  void calculateTotalVATForReceipt() {
-    double total = 0.0;
-    double vat = 0.0;
-
-    for (Map<String, dynamic> product in editedSelectedProuctMapListForReceipt) {
-      // Extract the "total" value from each map and add it to the total variable
-      total += (double.tryParse(product['total']) ?? 0.0);
-    }
-    vat = (7.5/100) * total;
-    print("total vat: $vat");
-    reactiveTotalVATForReceipt.value = vat.toString();
-    update();
-  }
 
   /////////////////
   //1
@@ -1124,11 +1032,6 @@ class FinancialsService extends getx.GetxController {
       editedSelectedProuctMapListForReceipt[index]["appointment_type"] = appointmentType;
       editedSelectedProuctMapListForReceipt[index]["rate"] = rate;
       
-      //calculate the funcions
-      calculateTotalForReceipt();
-      calculateSubtotalForReceipt();
-      calculateTotalDiscountForReceipt();
-      calculateTotalVATForReceipt();
     
       //success snackbar
       showMySnackBar(

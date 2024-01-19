@@ -140,52 +140,26 @@ Future<void> addProductBottomSheetForInvoice({
                                         borderRadius: BorderRadius.circular(5.r)
                                       ),
                                       activeColor: AppColor.mainColor,
-                                      value: service.selectedProductsForInvoice.contains(item), //selectedUsers.contains(user),
+                                      value:service.editedSelectedProuctMapListForInvoice.contains(item.toJson()), 
                                       onChanged: (bool? value) {
-                      
+                                        /////
                                         setState(() {
+                                         
                                           if (value != null) {
-
                                             if (value) {
                                               // Add item to the list
-                                              service.selectedProductsForInvoice.add(item);
+                                              service.editedSelectedProuctMapListForInvoice.add(item.toJson());
                                             } else {
                                               // Remove item from the list
-                                              service.selectedProductsForInvoice.remove(item);
+                                              service.editedSelectedProuctMapListForInvoice.remove(item.toJson());
                                             }
-
-                                            // Clear the list
-                                            service.editedSelectedProuctMapListForInvoice.clear();
-
-                                            // Add items to the list based on selected products
-                                            for (UserServiceModel product in service.selectedProductsForInvoice) {
-                                              Map<String, dynamic> userMap = {
-                                                "service_name": product.service_name,
-                                                "serviceID": product.serviceId,
-                                                "appointment_type": "Virtual",
-                                                "description": product.description,
-                                                "rate": product.service_charge_virtual,
-                                                "total": product.service_charge_virtual,
-                                                "duration": product.duration,
-                                                "phone_number": client_phone_number,
-                                                "discount": "0.0",
-                                                "date": product.date,
-                                                "time": product.time,
-                                                "message": "(non)",
-                                                "location": "location depends on appointment type"
-                                              };
-
-                                              service.editedSelectedProuctMapListForInvoice.add(userMap);
-                                            }
-
                                             // Print the modified list
-                                            debugPrint("edited product list for invoice: ${service.editedSelectedProuctMapListForInvoice}");
-
-
-
+                                            debugPrint("edited list: ${service.editedSelectedProuctMapListForInvoice}");
+                                          
                                           }
-                                        });
-                                        //                                                     
+                                        }
+                                      );
+                                                                                 
                                       },
                                     ),
                                     productName: item.service_name,

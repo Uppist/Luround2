@@ -125,7 +125,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                         borderRadius: BorderRadius.circular(5.r)
                                       ),
                                       activeColor: AppColor.mainColor,
-                                      value: service.selectedProducts.contains(item), //selectedUsers.contains(user),
+                                      value: service.editedSelectedProuctMapList.contains(item.toJson()), 
                                       onChanged: (bool? value) {
                                         /////
                                         setState(() {
@@ -133,40 +133,19 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                           if (value != null) {
                                             if (value) {
                                               // Add item to the list
-                                              service.selectedProducts.add(item);
+                                              service.editedSelectedProuctMapList.add(item.toJson());
                                             } else {
                                               // Remove item from the list
-                                              service.selectedProducts.remove(item);
+                                              service.editedSelectedProuctMapList.remove(item.toJson());
                                             }
-
-                                            // Clear the list
-                                            service.editedSelectedProuctMapList.clear();
-
-                                            // Add items to the list based on selected products
-                                            for (UserServiceModel product in service.selectedProducts) {
-                                              Map<String, dynamic> userMap = {
-                                                "service_name": product.service_name,
-                                                "meeting_type": "Virtual",
-                                                "description": product.description,
-                                                "rate": product.service_charge_virtual,
-                                                "duration": product.duration,
-                                                "discount": "0",
-                                                "total": product.service_charge_virtual,
-                                                "note": "no note",
-                                                "vat": "vat",
-                                              };
-
-                                              service.editedSelectedProuctMapList.add(userMap);
-                                            }
-
                                             // Print the modified list
                                             debugPrint("edited list: ${service.editedSelectedProuctMapList}");
+                                          
                                           }
                                         }
                                       );
                                       
-          
-                                                                                         
+                                                                               
                                       }
                                     ),
                                     productName: item.service_name,

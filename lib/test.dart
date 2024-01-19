@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
 class Product {
   final String name;
@@ -18,7 +15,7 @@ class Product {
   });
 }
 
-class MyApp extends StatelessWidget {
+class MyAppTest extends StatelessWidget {
   final List<Product> products = [
     Product(name: 'Product 1', price: 50.0, vat: 0.05, discount: 0.1),
     Product(name: 'Product 2', price: 30.0, vat: 0.08, discount: 0.05),

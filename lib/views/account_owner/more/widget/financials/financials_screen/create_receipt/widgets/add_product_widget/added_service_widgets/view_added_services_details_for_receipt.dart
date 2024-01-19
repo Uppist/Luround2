@@ -77,6 +77,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                               index: index
                             ).whenComplete(() {
                               finService.subtotalForReceipt.clear();
+                               finService.showEverythingForReceiptList();
                               print(finService.editedSelectedProuctMapListForReceipt);
                             });
                           },
@@ -339,7 +340,10 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.deleteSelectedProductForReceipt(index)
-                            .whenComplete(() => Get.back());
+                            .whenComplete(() {
+                              finService.showEverythingForReceiptList();
+                              Get.back();
+                            });
                           },
                           child: Text(
                             "Delete",

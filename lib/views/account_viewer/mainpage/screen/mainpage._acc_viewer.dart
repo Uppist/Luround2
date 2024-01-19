@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
+import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
 import '../../../../controllers/account_owner/main/mainpage_controller.dart';
 import '../../../../controllers/account_viewer/mainpage_controller_acc_viewer.dart';
 import '../widget/bottom_bar_widget_acc_viewer.dart';
@@ -8,7 +11,7 @@ import '../widget/bottom_bar_widget_acc_viewer.dart';
 
 
 class MainPageAccViewer extends StatefulWidget {
-  const MainPageAccViewer({super.key});
+  MainPageAccViewer({super.key,});
 
   @override
   State<MainPageAccViewer> createState() => _MainPageAccViewerState();
@@ -17,6 +20,7 @@ class MainPageAccViewer extends StatefulWidget {
 class _MainPageAccViewerState extends State<MainPageAccViewer> {
 
   final MainPageControllerAccViewer controller = MainPageControllerAccViewer();
+
 
   void _onItemTapped(int index) {
     setState(() {

@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('assets/images/luround_logo.png'),
+          Image.asset('assets/images/latest_logo.png'),
           //SvgPicture.asset('assets/svg/logo_new.svg'),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

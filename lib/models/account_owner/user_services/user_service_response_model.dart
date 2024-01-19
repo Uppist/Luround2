@@ -37,7 +37,7 @@ class UserServiceModel {
     email = json['email'] ?? "email";
     service_name = json['service_name'] ?? "service_name";
     description = json['description'] ?? "service_description";
-    links = json['links'] ?? ["link1"];
+    links = json['links'] ?? [];
     available_time = json['available_time'] ?? ["time"];
     service_charge_in_person = json['service_charge_in_person'] ?? "service_charge_in_person";
     service_charge_virtual = json['service_charge_virtual'] ?? "service_charge_virtual";
@@ -47,6 +47,31 @@ class UserServiceModel {
     service_provider_details = json['service_provider_details'] ?? {};
     date = json['date'] ?? "already covered by available days";
     service_link = json['service_link'] ?? "auto_generated_service_link";
+  }
+  
+  //to Map
+  Map<String, dynamic> toJson() {
+    final _data = <String, dynamic>{};
+    _data['_id'] = serviceId;
+    _data['email'] = email;
+    _data['service_name'] = service_name;
+    _data['description'] = description;
+    _data['links'] = links;
+    _data['available_time'] = available_time;
+    _data['phone_number'] = "phone number";
+    _data["rate"] = service_charge_virtual;
+    _data["total"] = service_charge_virtual;
+    _data["discount"] = "0";
+    _data["appointment_type"] = "Virtual";
+    _data["meeting_type"] = "Virtual";
+    _data["vat"] = "0";
+    _data["duration"] = duration;
+    _data['time'] = time;
+    _data['available_days'] = available_days;
+    _data['service_provider_details'] = service_provider_details;
+    _data['date'] = date;
+    _data['service_link'] = service_link;
+    return _data;
   }
   
   

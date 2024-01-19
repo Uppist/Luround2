@@ -103,7 +103,8 @@ class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
   //name gotten from the scanned qrcode
-  final String userName = "";
+  //String userName = "";
+  //String userEmail = "japhetebelechukwu@gmail.com";
 
   @override
   Widget build(BuildContext context) {
@@ -114,15 +115,14 @@ class _MainAppState extends State<MainApp> {
       },
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        //title: 'Luround',
-        ////
-        title: 'Flutter Web Routing Example',
-        initialRoute: '/$userName/profile',
-        routes: {
-          '/$userName/profile': (context) => AccViewerProfilePage(userName: userName),
-          '/$userName/services': (context) => AccViewerServicesPage(userName: userName),
-        },
-        //home: //MyApp(), //token == null ? SplashScreen1() : MainPageAccViewer(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        title: 'Luround',
+        //initialRoute: '/$userName',
+        /*getPages: [
+          GetPage(name: '/$userName', page: () => AccViewerProfilePage(userName: userName)),
+          GetPage(name: '/$userEmail', page: () => AccViewerServicesPage(userEmail: userEmail)),
+          // Add other pages as needed
+        ],*/
+        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

@@ -88,6 +88,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   meetingType: finService.selectedMeetingTypeForQuote.value
                                 ).whenComplete(() {
                                   finService.subTotalForQuote.value = "";
+                                  finService.showEverythingForQuoteList();
                                   print(finService.editedSelectedProuctMapList);
                                 });
                               },
@@ -367,7 +368,10 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                             InkWell(
                               onTap: () {
                                 finService.deleteSelectedProductForQuote(widget.index)
-                                .whenComplete(() => Get.back());
+                                .whenComplete(() {
+                                  finService.showEverythingForQuoteList();
+                                  Get.back();
+                                });
                               },
                               child: Text(
                                 "Delete",

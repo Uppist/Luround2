@@ -377,7 +377,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   onTap: (){
                                     Get.to(() => ViewAddedServiceDetails(
                                       discounted_total: item["discounted_total"] ?? item['total'],
-                                      meeting_type: item['meeting_type'],
+                                      meeting_type: item['appointment_type'],
                                       index: index,
                                       service_name: item['service_name'],
                                       rate: item['rate'],
@@ -415,12 +415,17 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        "Subtotal",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.darkGreyColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w500
+                                      InkWell(
+                                        onTap: () {
+                                          //service.showEverythingForQuoteList();
+                                        },
+                                        child: Text(
+                                          "Subtotal",
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
                                         ),
                                       ),
                                       

@@ -117,6 +117,7 @@ Future<void> addProductBottomSheetForReceipt({
                             itemBuilder: (context, index) {
             
                               final item = data[index];
+                              bool isChecked = service.editedSelectedProuctMapListForReceipt.contains(item.toJson());
 
                               if(data.isEmpty) {
                                 return Center(
@@ -141,9 +142,10 @@ Future<void> addProductBottomSheetForReceipt({
                                       activeColor: AppColor.mainColor,
                                       value: service.editedSelectedProuctMapListForReceipt.contains(item.toJson()), 
                                       onChanged: (bool? value) {
-                                        /////
+                                         /////
+                                        print('$value');
                                         setState(() {
-                                         
+                                          isChecked = value!;
                                           if (value != null) {
                                             if (value) {
                                               // Add item to the list

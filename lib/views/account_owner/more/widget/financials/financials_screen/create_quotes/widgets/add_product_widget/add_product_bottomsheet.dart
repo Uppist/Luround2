@@ -103,6 +103,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                             itemBuilder: (context, index) {
             
                               final item = data[index];
+                              bool isChecked = service.editedSelectedProuctMapList.contains(item.toJson());
 
                               if(data.isEmpty) {
                                 return Center(
@@ -116,7 +117,7 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                   )
                                 );
                               }
-            
+                              
                               return StatefulBuilder(
                                 builder: (BuildContext context, StateSetter setState) {
                                   return ServicesTile(
@@ -125,11 +126,12 @@ Future<void> addProductBottomSheet({required BuildContext context, required Fina
                                         borderRadius: BorderRadius.circular(5.r)
                                       ),
                                       activeColor: AppColor.mainColor,
-                                      value: service.editedSelectedProuctMapList.contains(item.toJson()), 
+                                      value: isChecked, 
                                       onChanged: (bool? value) {
                                         /////
+                                        print('$value');
                                         setState(() {
-                                         
+                                          isChecked = value!;
                                           if (value != null) {
                                             if (value) {
                                               // Add item to the list

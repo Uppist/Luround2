@@ -69,7 +69,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
             
             //CUSTOM BODY SECTION//
             FutureBuilder<UserModel>(
-              future: service.getUserProfileDetails(fullURL: widget.userName),
+              future: service.getUserProfileDetails(userName: widget.userName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

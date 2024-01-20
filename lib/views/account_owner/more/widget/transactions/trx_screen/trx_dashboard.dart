@@ -105,12 +105,12 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                           context: context,
                           onAmountPaidBalance: () {
 
-                            controller.filterMoneyTypeList('Total amount paid')
+                            /*controller.filterMoneyTypeList('Total amount paid')
                             .whenComplete(() {
                               service.isTotalAmountPaidCalculated.value 
                               ? print("already calculated")
                               : service.calculateTotalAmountPaid().whenComplete(() => Get.back());
-                            });
+                            });*/
                           },
                           onAmountReceivedBalance: () {
                             controller.filterMoneyTypeList('Total amount received')
@@ -121,8 +121,8 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                             });
                           },
                           onWalletBalance: () {
-                            controller.filterMoneyTypeList('Wallet')
-                            .whenComplete(() => Get.back());
+                            /*controller.filterMoneyTypeList('Wallet')
+                            .whenComplete(() => Get.back());*/
                           }
                         );
                       },
@@ -146,7 +146,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                             Obx(
                               () {
                                 return Text(
-                                  controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet",
+                                  controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet", //wallet
                                   style: GoogleFonts.inter(
                                     textStyle: TextStyle(
                                       color: AppColor.whiteTextColor,
@@ -175,7 +175,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                     Obx(
                       () {
                         return Text(
-                          controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
+                          controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 19.sp,

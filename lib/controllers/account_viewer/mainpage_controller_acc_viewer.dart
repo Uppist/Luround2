@@ -22,7 +22,7 @@ class MainPageControllerAccViewer extends getx.GetxController {
   //widget options
   final List<Widget> widgetOptions = <Widget>[
     AccViewerProfilePage(userName: "",),
-    AccViewerServicesPage(userEmail: "",),
+    AccViewerServicesPage(userName: "",),
   ];
 
   

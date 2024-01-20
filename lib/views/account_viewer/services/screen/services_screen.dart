@@ -24,8 +24,8 @@ import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggl
 
 
 class AccViewerServicesPage extends StatelessWidget {
-  AccViewerServicesPage({super.key, required this.userEmail});
-  final String userEmail;
+  AccViewerServicesPage({super.key, required this.userName});
+  final String userName;
 
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
@@ -74,7 +74,7 @@ class AccViewerServicesPage extends StatelessWidget {
 
             //Futurebuilder will start from here (will wrap this listview)
             FutureBuilder<List<UserServiceModel>>(
-              future: service.getUserServices(email: userEmail),
+              future: service.getUserServices(userName: userName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

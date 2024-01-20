@@ -102,12 +102,14 @@ class AccViewerProfileService extends getx.GetxController {
   //Stream<UserModel> get userProfileStream => _userProfileStreamController.stream;
 
   Future<UserModel> getUserProfileDetails({
-    required String fullURL
+    required String userName
   }) async {
     isLoading.value = true;
-    print("full url: $fullURL");
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "profile/get-user-profile-link?url=${fullURL}",);
+    print("custom name: $userName");
+    //var uri = Uri.https('luround.onrender.com','api/v1/profile/get-user-profile-link?url=${fullURL}');
+    //print("url: $uri");
+    try {   // await http.get(uri);
+      http.Response res = await baseService.httpGet(endPoint: "profile/get-user-profile-link?url=luround.com/$userName",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

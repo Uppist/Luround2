@@ -22,6 +22,7 @@ class QuotesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
+      //stream: service.streamController.stream,
       () {
         return service.isLoading.value ? Expanded(child: Loader()) : service.filteredSentQuotesList.isNotEmpty ? Expanded(
           child: ListView.separated(

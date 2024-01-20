@@ -98,10 +98,10 @@ class AccViewerService extends getx.GetxController {
   }
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<List<UserServiceModel>> getUserServices({required String email}) async {
+  Future<List<UserServiceModel>> getUserServices({required String userName}) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$email",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=luround.com/$userName",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

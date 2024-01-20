@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
@@ -48,7 +49,10 @@ class QuotesService extends getx.GetxController {
       print("when query is not empty: $filteredSentQuotesList");
     }
   }
+  
 
+  //get sent quotes
+  final StreamController<List<SentQuotesResponse>> streamController = StreamController<List<SentQuotesResponse>>();
   Future<List<SentQuotesResponse>> getUserSentQuotes() async {
     isLoading.value = true;
     try {
@@ -68,6 +72,7 @@ class QuotesService extends getx.GetxController {
           sentQuotesList.clear();
           sentQuotesList.addAll(finalResult);  //finalResult
           debugPrint("sent quotes list: $sentQuotesList");
+          streamController.add(sentQuotesList); // Simulating a stream with a single event
 
           //Return the list of sent quotes
           return sentQuotesList;
@@ -280,6 +285,24 @@ class QuotesService extends getx.GetxController {
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  @override
+   void dispose() {
+    streamController.close();
+    super.dispose();
+  }
 
 
   @override

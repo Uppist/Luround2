@@ -18,11 +18,12 @@ class MainPageControllerAccViewer extends getx.GetxController {
   
   //selected index
   int selectedIndex = 0;
+  
 
   //widget options
   final List<Widget> widgetOptions = <Widget>[
-    AccViewerProfilePage(userName: "",),
-    AccViewerServicesPage(userName: "",),
+    AccViewerProfilePage(),
+    AccViewerServicesPage(),
   ];
 
   

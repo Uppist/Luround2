@@ -26,8 +26,8 @@ import '../widget/education_&_certificate_section/education_&_certifications_sec
 
 
 class AccViewerProfilePage extends StatefulWidget {
-  AccViewerProfilePage({super.key, required this.userName});
-  final String userName;
+  AccViewerProfilePage({super.key,});
+  //final String userName;
 
   @override
   State<AccViewerProfilePage> createState() => _AccViewerProfilePageState();
@@ -41,6 +41,10 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    
+    // Access the parameter using Get.parameters['userName']
+    String userName = Get.parameters['user'] ?? 'DefaultUserName';
+    
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       /*appBar: AppBar(
@@ -69,7 +73,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
             
             //CUSTOM BODY SECTION//
             FutureBuilder<UserModel>(
-              future: service.getUserProfileDetails(userName: widget.userName),
+              future: service.getUserProfileDetails(userName: userName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

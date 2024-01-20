@@ -6,6 +6,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
+import 'package:luround/parsing_url_accviewer/routes.dart';
+import 'package:luround/parsing_url_accviewer/routing_technique.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/test.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -15,6 +17,7 @@ import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
 import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
 import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
+import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -106,6 +109,9 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
+    
+    // Access the parameter using Get.parameters['userName']
+    String userName = Get.parameters['user'] ?? 'DefaultUserName';
 
     return ScreenUtilInit(
       designSize: const Size(414, 896),
@@ -120,83 +126,49 @@ class _MainAppState extends State<MainApp> {
           '/': (context) => HomeScreen(),
           '/destination': (context) => DestinationScreen(argument: ''),
         },*/
-        /*initialRoute: '/profile',
-        onGenerateRoute: (settings) {
-           
-          var startParamIndex = settings.name?.indexOf('=');
-          var fragmentEndIndex = settings.name?.indexOf('?');
-          if (settings.name != null &&
-              startParamIndex != -1 &&
-              startParamIndex != null &&
-              settings.name?.substring(0, fragmentEndIndex) == '/profile'
-            ) {
-              var name = settings.name!;
-              var queryParameter = name.substring(startParamIndex).replaceFirst('=', '');
-              return MaterialPageRoute(
-                builder: (_) =>
-                  AccViewerProfilePage(userName: queryParameter)
-              );
-            } else {
-              return MaterialPageRoute(
-                builder: (_) => AccViewerProfilePage(userName: 'noting'));
-            }
-      
-          
-          /*if (settings.name == '/profile') {
-            //var uriData = Uri.parse(settings.name!);
-            // Extract the username from the query parameters
-            final Map<String, dynamic>? arguments = settings.arguments as Map<String, dynamic>?;
-
-            // Access the 'user' parameter
-            String userName = arguments?['user'] ?? 'kds-osx';
-            // Return a GetPageRoute with the destination screen and pass the argument
-            return GetPageRoute(
-              page: () => AccViewerProfilePage(userName: userName),
-            );
-          }
-          if (settings.name == '/services') {
-            // Extract the username from the query parameters
-            final Map<String, dynamic>? arguments = settings.arguments as Map<String, dynamic>?;
-
-            // Access the 'user' parameter
-            String userName = arguments?['user'] ?? 'kds-osx';
-
-            // Return a GetPageRoute with the destination screen and pass the argument
-            return GetPageRoute(
-              page: () => AccViewerServicesPage(userName: userName),
-            );
-          }
-          // Handle other named routes here if needed
-          // Return null for routes that are not defined
-          return null;*/
 
 
-        },
-
+        initialRoute: ProfileRoute,
+        defaultTransition: Transition.fade,
+        /*onGenerateRoute: (settings) {
+          return generateRoute(settings);
+        },*/
         getPages: [
+          
           GetPage(
-            name: '/profile',
+            name: ProfileRoute,
             page: () {
-              final Map<String, dynamic>? arguments = Get.arguments as Map<String, dynamic>?;
-
-              // Access the 'user' parameter
-              String userName = arguments?['user'] ?? '';
       
-              return AccViewerProfilePage(userName: userName);
-            },
-          ),
-          GetPage(
-            name: '/services',
-            page: () {
-              final Map<String, dynamic>? arguments = Get.arguments as Map<String, dynamic>?;
+              /*final Map<String, dynamic>? arguments = Get.arguments as Map<String, dynamic>?;
+              Uri uri = Uri(query: arguments as String);
+              var queryParameters = uri.queryParameters;
+              var userName = queryParameters["user"];*/
+              
               // Access the 'user' parameter
-              String userName = arguments?['user'] ?? 'kds-osx';
-              return AccViewerServicesPage(userName: userName);
+              //String userName = arguments?['user'] ?? '';
+      
+              return SplashScreenXtra2();
             },
           ),
-        ],*/
+          /*GetPage(
+            name: ServicesRoute,
+            page: () {
+              ///var routingData = settings.name!.getRoutingData; // Get the routing Data
+              /*final Map<String, dynamic>? arguments = Get.arguments as Map<String, dynamic>?;
+              // Access the 'user' parameter
+              String userName = arguments?['user'] ?? 'kds-osx';*/
 
-        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+              return RequestQuoteScreen(
+                service_name: "",
+                service_id: "",
+                service_provider_email: '',
+                service_provider_name: '',
+              );
+            },
+          ),*/
+        ],
+
+        //home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

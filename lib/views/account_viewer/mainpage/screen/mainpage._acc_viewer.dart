@@ -20,7 +20,7 @@ class MainPageAccViewer extends StatefulWidget {
 class _MainPageAccViewerState extends State<MainPageAccViewer> {
 
   final MainPageControllerAccViewer controller = MainPageControllerAccViewer();
-
+  
 
   void _onItemTapped(int index) {
     setState(() {

@@ -24,8 +24,7 @@ import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggl
 
 
 class AccViewerServicesPage extends StatelessWidget {
-  AccViewerServicesPage({super.key, required this.userName});
-  final String userName;
+  AccViewerServicesPage({super.key,});
 
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
@@ -33,6 +32,8 @@ class AccViewerServicesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Access the parameter using Get.parameters['userName']
+    String userName = Get.parameters['user'] ?? 'DefaultUserName';
     return Scaffold(
       backgroundColor: AppColor.greyColor,
       body: SafeArea(

@@ -128,7 +128,7 @@ class _MainAppState extends State<MainApp> {
         },*/
 
 
-        initialRoute: ProfileRoute,
+        /*initialRoute: ProfileRoute,
         defaultTransition: Transition.fade,
         /*onGenerateRoute: (settings) {
           return generateRoute(settings);
@@ -166,9 +166,9 @@ class _MainAppState extends State<MainApp> {
               );
             },
           ),*/
-        ],
+        ],*/
 
-        //home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

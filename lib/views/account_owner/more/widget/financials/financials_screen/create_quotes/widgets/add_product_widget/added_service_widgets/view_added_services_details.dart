@@ -87,9 +87,9 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   duration: widget.duration, 
                                   meetingType: finService.selectedMeetingTypeForQuote.value
                                 ).whenComplete(() {
-                                  finService.subTotalForQuote.value = "";
+                                  //finService.subTotalForQuote.value = "";
                                   finService.showEverythingForQuoteList();
-                                  print(finService.editedSelectedProuctMapList);
+                                  print(finService.selectedQuotebslist);
                                 });
                               },
                               child: Container(
@@ -305,6 +305,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                             InkWell(
                               onTap: () {
                                 finService.calculateDiscount(
+                                  initialDiscountValue: '0',
                                   index: widget.index, 
                                   context: context,
                                   initialRateValue: widget.rate

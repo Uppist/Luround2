@@ -68,7 +68,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h,),
                 SettingsSelector(
-                  text: "Your account details",
+                  text: "Your bank account details",
                   onFlip: () {
                     Get.to(() => BankDetailsPage());
                   },

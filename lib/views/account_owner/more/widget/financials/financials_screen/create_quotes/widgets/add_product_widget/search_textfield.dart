@@ -33,10 +33,10 @@ class _SearchTextFieldState extends State<SearchTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      child: Focus(
-        onFocusChange: widget.onFocusChanged,
+    return Focus(
+      onFocusChange: widget.onFocusChanged,
+      child: SizedBox(
+        height: 50,
         child: TextFormField(
           onFieldSubmitted: widget.onFieldSubmitted,
           //onChanged: widget.onChanged,

@@ -21,10 +21,10 @@ class InvoiceDueDropDown extends StatelessWidget {
   final String send_to_email;
   final String phone_number;
   final String due_date;
-  final num sub_total;
-  final num discount;
+  final String sub_total;
+  final String discount;
   final String vat;
-  final num total;
+  final String total;
   final String note;
   final String status;
   final List<dynamic> booking_detail;
@@ -69,19 +69,19 @@ class InvoiceDueDropDown extends StatelessWidget {
               ),
             )
           ),
-          /*PopupMenuItem(
+          PopupMenuItem(
             onTap: () {
               print('gggggffff');
             },
             child: Text(
-              "Edit",
+              "Enter Payment",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )
-          ),*/
+          ),
           PopupMenuItem(
             onTap: () {
               int randNum = Random().nextInt(2000000);

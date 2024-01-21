@@ -71,6 +71,10 @@ class UserServiceModel {
     _data['service_provider_details'] = service_provider_details;
     _data['date'] = date;
     _data['service_link'] = service_link;
+    //added
+    _data["message"] = "no message";
+    _data["location"] = "no location";
+    _data['phone_number'] = "no phone number";
     return _data;
   }
   

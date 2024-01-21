@@ -30,22 +30,37 @@ class FinancialsService extends getx.GetxController {
 
 
 
-  ////FOR QUOTES/////
+
+
+  //API LIST//
   var dataList = <UserServiceModel>[].obs;
-  var filteredList = <UserServiceModel>[].obs;
+  
+
+
+
+
+  //FOR QUOTES//
+  var quotebslist = <Map<String, dynamic>>[].obs;
+  var filteredQoutebslist = <Map<String, dynamic>>[].obs;
+  var selectedQuotebslist = <Map<String, dynamic>>[].obs;
+
 
   //////////////////////////////////////////////////////////////////////////////////
   ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR QUOTES]///
-  Future<List<UserServiceModel>> loadServicesData() async {
+  Future <List<Map<String, dynamic>>> loadServicesDataForQuote() async {
     try {
       isLoading.value = true;
-      //await getUserServices();
+
       final List<UserServiceModel> products = await getUserServices();
       products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
-
       isLoading.value = false;
-      filteredList.value = List.from(products);  
-      return filteredList;
+      //filteredList.value = List.from(products);
+      //Populate filteredQoutebslist using map
+      quotebslist.value = products.map((userModel) => userModel.toJson()).toList();
+
+      // Print the modified list
+      print("Qoutebslist: $quotebslist");
+      return quotebslist;
 
     } 
     catch (error, stackTrace) {
@@ -58,26 +73,23 @@ class FinancialsService extends getx.GetxController {
   //working well
   Future<void> filterProducts(String query) async {
     if (query.isEmpty) {
-      filteredList.clear();
-      filteredList.addAll(dataList);
-      print("when query is empty: $filteredList");
+      filteredQoutebslist.clear();
+      filteredQoutebslist.addAll(quotebslist);
+      print("when query is empty: $filteredQoutebslist");
     } 
     else {
-      filteredList.clear(); // Clear the previous filtered list
+      filteredQoutebslist.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filteredList.addAll(dataList
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query
+      filteredQoutebslist.addAll(quotebslist
+        .where((user) => user['service_name'].toString().toLowerCase().contains(query.toLowerCase())) // == query
         .toList());
-
-      print("when query is not empty: $filteredList");
+      print("when query is not empty: $filteredQoutebslist");
     }
     update();
   }
   
 
   ///[CREATE QUOTES SCREEN] ////THIS
-  getx.RxList<UserServiceModel> selectedProducts = <UserServiceModel>[].obs;
-  getx.RxList<Map<String, dynamic>> editedSelectedProuctMapList = <Map<String, dynamic>>[].obs;
   
 
 
@@ -92,7 +104,7 @@ class FinancialsService extends getx.GetxController {
     double totalDiscount = 0;
     double totalVat = 0;
 
-    for (var product in editedSelectedProuctMapList) {
+    for (var product in selectedQuotebslist) {
       subtotalPrice += double.parse(product['rate']);
       totalDiscount += double.parse(product['discount']);
       totalVat += double.parse(product['total']) * 0.075;
@@ -111,10 +123,10 @@ class FinancialsService extends getx.GetxController {
   //1
   Future<void> deleteSelectedProductForQuote(int index) async{
     isLoading.value = true;
-    if (editedSelectedProuctMapList.isNotEmpty) {
+    if (selectedQuotebslist.isNotEmpty) {
       isLoading.value = false;
-      editedSelectedProuctMapList.removeAt(index);
-      print("list: $editedSelectedProuctMapList");
+      selectedQuotebslist.removeAt(index);
+      print("list: $selectedQuotebslist");
       //clear the figures
     } else {
       isLoading.value = false;
@@ -134,10 +146,10 @@ class FinancialsService extends getx.GetxController {
 
 
 
-  Future<void> calculateDiscount({required int index, required BuildContext context, required String initialRateValue}) async {
+  Future<void> calculateDiscount({required int index, required BuildContext context, required String initialRateValue, required String initialDiscountValue}) async {
 
     // Convert parameters from string to double data type
-    double discountValue = double.tryParse(discountForQuote.value) ?? 0;
+    double discountValue = double.tryParse(discountForQuote.value.isEmpty ? initialDiscountValue : discountForQuote.value) ?? 0;
     double rateValue = double.tryParse(rateForQuote.value.isEmpty ? initialRateValue : rateForQuote.value) ?? 0;
 
     // Calculate the discount
@@ -153,8 +165,8 @@ class FinancialsService extends getx.GetxController {
 
     //updated from here
     final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
-    editedSelectedProuctMapList[index].addEntries(indexed_subtotal.entries);
-    print("updated list with total updated: $editedSelectedProuctMapList");
+    selectedQuotebslist[index].addEntries(indexed_subtotal.entries);
+    print("updated list with total updated: $selectedQuotebslist");
   
     //success snackbar
     showMySnackBar(
@@ -187,12 +199,13 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
 
       // Modify the values of the found item in the originally selected list
-      editedSelectedProuctMapList[index]["description"] = service_description;
-      editedSelectedProuctMapList[index]["duration"] = duration;
-      editedSelectedProuctMapList[index]["discount"] = discount;
-      editedSelectedProuctMapList[index]["total"] = total;
-      editedSelectedProuctMapList[index]["meeting_type"] = meetingType;
-      editedSelectedProuctMapList[index]["rate"] = rate;
+      selectedQuotebslist[index]["description"] = service_description;
+      selectedQuotebslist[index]["duration"] = duration;
+      selectedQuotebslist[index]["discount"] = discount;
+      selectedQuotebslist[index]["total"] = total;
+      selectedQuotebslist[index]["meeting_type"] = meetingType;
+      selectedQuotebslist[index]["appointment_type"] = meetingType;
+      selectedQuotebslist[index]["rate"] = rate;
 
       //success snackbar
       showMySnackBar(
@@ -243,9 +256,8 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete quote"
-        );
-        //.whenComplete(() => getx.Get.back());
+          message: "failed to delete quote ${res.body}"
+        ).whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -282,7 +294,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": reactiveSubtotalForQuote.value,
       "discount": "-N${reactiveTotalDiscountForQuote.value} ",
       "total": reactiveTotalForQoute.value,
-      "product_detail": editedSelectedProuctMapList
+      "product_detail": selectedQuotebslist,
     };
 
     try {
@@ -312,7 +324,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save quote"
+          message: "failed to save quote ${res.body}"
         );
         //.whenComplete(() => getx.Get.back());
       }
@@ -351,7 +363,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": reactiveSubtotalForQuote.value,
       "discount": "-N${reactiveTotalDiscountForQuote.value} ",
       "total": reactiveTotalForQoute.value,
-      "product_detail": editedSelectedProuctMapList
+      "product_detail": selectedQuotebslist
     };
 
     try {
@@ -381,7 +393,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save quote"
+          message: "failed to save quote ${res.body}"
         );
         //.whenComplete(() => getx.Get.back());
       }
@@ -411,7 +423,7 @@ class FinancialsService extends getx.GetxController {
 
         dataList.clear();
         dataList.addAll(finalResult);
-        debugPrint("dataList/productList: $dataList");
+        debugPrint("user list of services: $dataList");
 
         // Return the user services list
         return dataList;
@@ -439,27 +451,29 @@ class FinancialsService extends getx.GetxController {
 
 
   ////FOR INVOICE/////
-  var dataListForInvoice = <UserServiceModel>[].obs;
-  var filteredListForInvoice = <UserServiceModel>[].obs;
+  var invoicebslist = <Map<String, dynamic>>[].obs;
+  var filteredInvoicebslist = <Map<String, dynamic>>[].obs;
+  var selectedInvoicebslist = <Map<String, dynamic>>[].obs;
 
   //////////////////////////////////////////////////////////////////////////////////
-  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR QUOTES]///
-  Future<List<UserServiceModel>> loadServicesDataForInvoice() async {
+  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR INVOICE]///
+  Future <List<Map<String, dynamic>>> loadServicesDataForInvoice() async {
     try {
       isLoading.value = true;
-      final List<UserServiceModel> products = await getUserServicesForInvoice();
+
+      final List<UserServiceModel> products = await getUserServices();
       products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
-
       isLoading.value = false;
-      filteredListForInvoice.value = List.from(products);  
-      print("initialized List ForInvoice: ${filteredListForInvoice}");
-      update();
-      return filteredListForInvoice;
+      //filteredList.value = List.from(products);
+      //Populate filteredQoutebslist using map
+      invoicebslist.value = products.map((userModel) => userModel.toJson()).toList();
 
+      // Print the modified list
+      print("Invoicebslist: $invoicebslist");
+      return invoicebslist;
     } 
     catch (error, stackTrace) {
       isLoading.value = false;
-      //print("Error loading data: $error");
       throw Exception("$error => $stackTrace");
       // Handle error as needed, e.g., show an error message to the user
     }
@@ -468,27 +482,24 @@ class FinancialsService extends getx.GetxController {
   //working well
   Future<void> filterProductsForInvoice(String query) async {
     if (query.isEmpty) {
-      filteredListForInvoice.clear();
-      filteredListForInvoice.addAll(dataListForInvoice);
-      print("when query is empty: $filteredListForInvoice");
+      filteredInvoicebslist.clear();
+      filteredInvoicebslist.addAll(invoicebslist);
+      print("when query is empty: $filteredInvoicebslist");
     } 
     else {
-      filteredListForInvoice.clear(); // Clear the previous filtered list
+      filteredInvoicebslist.clear(); // Clear the previous filtered list
       // Use .addAll() to add the filtered items to the list
-      filteredListForInvoice.addAll(dataListForInvoice
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query
+      filteredInvoicebslist.addAll(invoicebslist
+        .where((user) => user['service_name'].toString().toLowerCase().contains(query.toLowerCase())) // == query
         .toList());
 
-      print("when query is not empty: $filteredListForInvoice");
+      print("when query is not empty: $filteredInvoicebslist");
       update();
     }
   }
   
 
   ///[CREATE INVOICE SCREEN]
-  getx.RxList<UserServiceModel> selectedProductsForInvoice = <UserServiceModel>[].obs;
-  getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForInvoice = <Map<String, dynamic>>[].obs;
-  
 
   ///////////////////h
   var reactiveTotalForInvoice = "".obs;
@@ -501,7 +512,7 @@ class FinancialsService extends getx.GetxController {
     double totalDiscount = 0;
     double totalVat = 0;
 
-    for (var product in editedSelectedProuctMapListForInvoice) {
+    for (var product in selectedInvoicebslist) {
       subtotalPrice += double.parse(product['rate']);
       totalPrice += double.parse(product['total']);
       totalDiscount += double.parse(product['discount']);
@@ -521,10 +532,10 @@ class FinancialsService extends getx.GetxController {
   //1
   Future<void> deleteSelectedProductForInvoice(int index) async{
     isLoading.value = true;
-    if (editedSelectedProuctMapListForInvoice.isNotEmpty) {
+    if (selectedInvoicebslist.isNotEmpty) {
       isLoading.value = false;
-      editedSelectedProuctMapListForInvoice.removeAt(index);
-      print("list: $editedSelectedProuctMapListForInvoice");
+      selectedInvoicebslist.removeAt(index);
+      print("list: $selectedInvoicebslist");
       update();
       //clear the figures
     } else {
@@ -544,9 +555,9 @@ class FinancialsService extends getx.GetxController {
   
 
 
-  Future<void> calculateDiscountForInvoice({required int index, required BuildContext context, required String initialRateValue}) async{
+  Future<void> calculateDiscountForInvoice({required int index, required BuildContext context, required String initialRateValue, required String initialDiscountValue}) async{
     // Convert parameters from string to double data type
-    double discountValue = double.tryParse(discountForInvoice.text) ?? 0;
+    double discountValue = double.tryParse(discountForInvoice.text.isNotEmpty ? discountForInvoice.text : initialDiscountValue) ?? 0;
     double rateValue = double.tryParse(rateForInvoice.text.isNotEmpty ? rateForInvoice.text : initialRateValue) ?? 0;
 
     // Calculate the discount
@@ -563,8 +574,8 @@ class FinancialsService extends getx.GetxController {
     
     //updated from here
     final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
-    editedSelectedProuctMapListForInvoice[index].addEntries(indexed_subtotal.entries);
-    print("updated list with total updated: $editedSelectedProuctMapListForInvoice");
+    selectedInvoicebslist[index].addEntries(indexed_subtotal.entries);
+    print("updated list with total updated: $selectedInvoicebslist");
   
     //success snackbar
     showMySnackBar(
@@ -601,22 +612,19 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
 
       // Modify the values of the found item in the originally selected list
-      editedSelectedProuctMapListForInvoice[index]["description"] = service_description;
-      editedSelectedProuctMapListForInvoice[index]["duration"] = duration;
-      editedSelectedProuctMapListForInvoice[index]["discount"] = discount;
-      editedSelectedProuctMapListForInvoice[index]["total"] = total;
-      editedSelectedProuctMapListForInvoice[index]["appointment_type"] = appointmentType;
-      editedSelectedProuctMapListForInvoice[index]["rate"] = rate;
-      editedSelectedProuctMapListForInvoice[index]["serviceID"] = service_id;
+      selectedInvoicebslist[index]["description"] = service_description;
+      selectedInvoicebslist[index]["duration"] = duration;
+      selectedInvoicebslist[index]["discount"] = discount;
+      selectedInvoicebslist[index]["total"] = total;
+      selectedInvoicebslist[index]["appointment_type"] = appointmentType;
+      selectedInvoicebslist[index]["rate"] = rate;
+      selectedInvoicebslist[index]["serviceID"] = service_id;
       //invoice gets converted to bookings according to somto
       //these below corresponds to bookings
-      //editedSelectedProuctMapListForInvoice[index]["time"] = "";
-      //editedSelectedProuctMapListForInvoice[index]["date"] = "";
-      editedSelectedProuctMapListForInvoice[index]["message"] = "(non)";
-      editedSelectedProuctMapListForInvoice[index]["location"] = "location depends on this :$appointmentType";
-      editedSelectedProuctMapListForInvoice[index]["phone_number"] = phone_number;
+      selectedInvoicebslist[index]["message"] = "(non)";
+      selectedInvoicebslist[index]["location"] = "location depends on this :$appointmentType";
+      selectedInvoicebslist[index]["phone_number"] = phone_number;
       
-      //showEverythingForInvoiceList();
 
 
       //success snackbar
@@ -658,7 +666,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": reactiveSubtotalForInvoice.value,
       "discount": "-N${reactiveTotalDiscountForInvoice.value}",
       "total": reactiveTotalForInvoice.value,
-      "booking_detail": editedSelectedProuctMapListForInvoice //product_detail
+      "booking_detail": selectedInvoicebslist
     };
 
     try {
@@ -687,7 +695,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save invoice"
+          message: "failed to save invoice ${res.body}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -723,7 +731,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": reactiveSubtotalForInvoice.value,
       "discount": "-N${reactiveTotalDiscountForInvoice.value}",
       "total": reactiveTotalForInvoice.value,
-      "booking_detail": editedSelectedProuctMapListForInvoice //product_detail
+      "booking_detail": selectedInvoicebslist
     };
 
     try {
@@ -752,7 +760,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save invoice"
+          message: "failed to save invoice ${res.body}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -761,7 +769,6 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
-    update();
   }
 
   ///[DELETE INVOICE FROM DB]//
@@ -798,7 +805,56 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete invoice"
+          message: "failed to delete invoice ${res.body}"
+        ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
+  ///[ADD INVOICE PAYMENT TO MARK IT AS PAID]//
+  Future<void> markInvoiceAsPaid({
+    required BuildContext context,
+    required String amount_paid,
+    required String payment_method,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "amount_paid": amount_paid,
+      "payment_method": payment_method
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "invoice/add-invoice-payment-detail", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("invoice marked as paid successfully");
+
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "invoice has been marked as 'paid'"
+        ).whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to mark invoice as 'paid': ${res.body}"
         );
         //.whenComplete(() => getx.Get.back());
       }
@@ -808,7 +864,6 @@ class FinancialsService extends getx.GetxController {
       debugPrint("$e");
       throw Exception("Something went wrong");
     }
-    update();
   }
 
 
@@ -817,107 +872,67 @@ class FinancialsService extends getx.GetxController {
 
 
 
-  /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<List<UserServiceModel>> getUserServicesForInvoice() async {
-    isLoading.value = true;
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$user_email",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint("user services fetched successfully!!");
-        //decode the response body here
-        final List<dynamic> response = jsonDecode(res.body);
-        final List<UserServiceModel> finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
 
-        dataListForInvoice.clear();
-        dataListForInvoice.addAll(finalResult);
-        debugPrint("dataList/productList for invoice: $dataListForInvoice");
-
-        // Return the user services list
-        update();
-        return dataListForInvoice;
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        update();
-        throw Exception('Failed to load user services data');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      //debugPrint("Error net: $e");
-      throw Exception("$e");
-    }
-  }
 
   ///////////////////////////////////////////////////////////////////////////////
   
-
-
-
-
-
-
-
-
-
-
   ////FOR RECEIPT/////
-  var dataListForReceipt = <UserServiceModel>[].obs;
-  var filteredListForReceipt = <UserServiceModel>[].obs;
+  var receiptbslist = <Map<String, dynamic>>[].obs;
+  var filteredReceiptbslist = <Map<String, dynamic>>[].obs;
+  var selectedReceiptbslist = <Map<String, dynamic>>[].obs;
 
   //////////////////////////////////////////////////////////////////////////////////
-  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR QUOTES]///
-  Future<List<UserServiceModel>> loadServicesDataForReceipt() async {
+  ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR RECEIPT]///
+  Future<List<Map<String, dynamic>>> loadServicesDataForReceipt() async {
     try {
       isLoading.value = true;
-      final List<UserServiceModel> products = await getUserServicesForReceipt();
+
+      final List<UserServiceModel> products = await getUserServices();
       products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
-
       isLoading.value = false;
-      filteredListForReceipt.value = List.from(products);  
-      print("initialized List For Receipt: ${filteredListForReceipt}");
-      update();
-      return filteredListForReceipt;
+      //filteredList.value = List.from(products);
+      //Populate the receipt list using map
+      receiptbslist.value = products.map((userModel) => userModel.toJson()).toList();
 
+      // Print the modified list
+      print("Receiptbslist: $receiptbslist");
+      return receiptbslist;
     } 
     catch (error, stackTrace) {
       isLoading.value = false;
-      //print("Error loading data: $error");
       throw Exception("$error => $stackTrace");
       // Handle error as needed, e.g., show an error message to the user
     }
   }
 
+
   //working well
   Future<void> filterProductsForReceipt(String query) async {
     if (query.isEmpty) {
-      filteredListForReceipt.clear();
-      filteredListForReceipt.addAll(dataListForReceipt);
-      print("when query is empty: $filteredListForReceipt");
+      filteredReceiptbslist.clear();
+      filteredReceiptbslist.addAll(receiptbslist);
+      print("when query is empty: $filteredReceiptbslist");
     } 
     else {
-      filteredListForReceipt.clear(); // Clear the previous filtered list
+      filteredReceiptbslist.clear(); // Clear the previous filtered list
       // Use .addAll() to add the filtered items to the list
-      filteredListForReceipt.addAll(dataListForReceipt
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query
+      filteredReceiptbslist.addAll(receiptbslist
+        .where((user) => user['service_name'].toString().toLowerCase().contains(query.toLowerCase())) // == query
         .toList());
 
-      print("when query is not empty: $filteredListForReceipt");
+      print("when query is not empty: $filteredReceiptbslist");
     }
     update();
   }
   
 
-  ///[CREATE RECEIPT SCREEN]
-  getx.RxList<UserServiceModel> selectedProductsForReceipt = <UserServiceModel>[].obs;
-  getx.RxList<Map<String, dynamic>> editedSelectedProuctMapListForReceipt = <Map<String, dynamic>>[].obs;
 
-  
+  ///[CREATE RECEIPT SCREEN]
+  ///////////////////
+  var reactiveTotalForReceipt = "".obs;
+  var reactiveSubtotalForReceipt = "".obs;
+  var reactiveTotalDiscountForReceipt = "".obs;
+  var reactiveTotalVATForReceipt = "".obs;
   
   void showEverythingForReceiptList() {
     double subtotalPrice = 0;
@@ -925,7 +940,7 @@ class FinancialsService extends getx.GetxController {
     double totalDiscount = 0;
     double totalVat = 0;
 
-    for (var product in editedSelectedProuctMapListForReceipt) {
+    for (var product in selectedReceiptbslist) {
       subtotalPrice += double.parse(product['rate']);
       totalPrice += double.parse(product['total']);
       totalDiscount += double.parse(product['discount']);
@@ -939,29 +954,19 @@ class FinancialsService extends getx.GetxController {
   }
 
 
-
-
-
-  ///////////////////
-  var reactiveTotalForReceipt = "".obs;
-  var reactiveSubtotalForReceipt = "".obs;
-  var reactiveTotalDiscountForReceipt = "".obs;
-  var reactiveTotalVATForReceipt = "".obs;
-
   /////////////////
   //1
   Future<void> deleteSelectedProductForReceipt(int index) async{
     isLoading.value = true;
-    if (editedSelectedProuctMapListForReceipt.isNotEmpty) {
+    if (selectedReceiptbslist.isNotEmpty) {
       isLoading.value = false;
-      editedSelectedProuctMapListForReceipt.removeAt(index);
-      print("list: $editedSelectedProuctMapListForReceipt");
+      selectedReceiptbslist.removeAt(index);
+      print("list: $selectedReceiptbslist");
       //clear the figures
     } else {
       isLoading.value = false;
       debugPrint("the item has already been removed at the index");
     }
-    update();
   }
 
   //2(these act like text editing controllers)
@@ -975,9 +980,9 @@ class FinancialsService extends getx.GetxController {
   
 
 
-  Future<void> calculateDiscountForReceipt({required int index, required BuildContext context, required String initialRateValue}) async {
+  Future<void> calculateDiscountForReceipt({required int index, required BuildContext context, required String initialRateValue, required String initialDiscountValue}) async {
     // Convert parameters from string to double data type
-    double discountValue = double.tryParse(discountForReceipt.text) ?? 0;
+    double discountValue = double.tryParse(discountForReceipt.text.isNotEmpty ? discountForReceipt.text : initialDiscountValue) ?? 0;
     double rateValue = double.tryParse(rateForReceipt.text.isNotEmpty ? rateForReceipt.text : initialRateValue) ?? 0;
 
     // Calculate the discount
@@ -994,8 +999,8 @@ class FinancialsService extends getx.GetxController {
     
     //updated from here
     final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
-    editedSelectedProuctMapListForReceipt[index].addEntries(indexed_subtotal.entries);
-    print("updated list with total updated: $editedSelectedProuctMapListForReceipt");
+    selectedReceiptbslist[index].addEntries(indexed_subtotal.entries);
+    print("updated list with total updated: $selectedReceiptbslist");
   
     //success snackbar
     showMySnackBar(
@@ -1003,8 +1008,7 @@ class FinancialsService extends getx.GetxController {
       backgroundColor: AppColor.darkGreen,
       message: "your discounted total is N${subtotalForReceipt.text}"
     );
-    ///
-    update();
+    //
   }
 
   //4
@@ -1026,11 +1030,11 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
 
       // Modify the values of the found item in the originally selected list
-      editedSelectedProuctMapListForReceipt[index]["duration"] = duration;
-      editedSelectedProuctMapListForReceipt[index]["discount"] = discount;
-      editedSelectedProuctMapListForReceipt[index]["total"] = total;
-      editedSelectedProuctMapListForReceipt[index]["appointment_type"] = appointmentType;
-      editedSelectedProuctMapListForReceipt[index]["rate"] = rate;
+      selectedReceiptbslist[index]["duration"] = duration;
+      selectedReceiptbslist[index]["discount"] = discount;
+      selectedReceiptbslist[index]["total"] = total;
+      selectedReceiptbslist[index]["appointment_type"] = appointmentType;
+      selectedReceiptbslist[index]["rate"] = rate;
       
     
       //success snackbar
@@ -1044,7 +1048,6 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = false;
       debugPrint("Item not found in the list.");
     }
-    update();
   
   }
 
@@ -1075,7 +1078,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": reactiveSubtotalForReceipt.value,
       "discount": "-N${reactiveTotalDiscountForReceipt.value}",
       "total": reactiveTotalForReceipt.value,
-      "service_detail": editedSelectedProuctMapListForReceipt //product_detail
+      "service_detail": selectedReceiptbslist
     };
 
     try {
@@ -1103,7 +1106,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save receipt"
+          message: "failed to save receipt ${res.body}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -1142,7 +1145,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": reactiveSubtotalForReceipt.value,
       "discount": "-N${reactiveTotalDiscountForReceipt.value}",
       "total": reactiveTotalForReceipt.value,
-      "service_detail": editedSelectedProuctMapListForReceipt //product_detail
+      "service_detail": selectedReceiptbslist
     };
 
     try {
@@ -1170,7 +1173,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save receipt"
+          message: "failed to save receipt ${res.body}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -1221,9 +1224,8 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete receipt"
-        );
-        //.whenComplete(() => getx.Get.back());
+          message: "failed to delete receipt ${res.body}"
+        ).whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -1236,42 +1238,6 @@ class FinancialsService extends getx.GetxController {
 
 
 
-  /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<List<UserServiceModel>> getUserServicesForReceipt() async {
-    isLoading.value = true;
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$user_email",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint("user services fetched successfully!!");
-        //decode the response body here
-        final List<dynamic> response = jsonDecode(res.body);
-        final List<UserServiceModel> finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-
-        dataListForReceipt.clear();
-        dataListForReceipt.addAll(finalResult);
-        debugPrint("dataList/productList for receipt: $dataListForReceipt");
-
-        // Return the user services list
-        update();
-        return dataListForReceipt;
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to load user services data');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      //debugPrint("Error net: $e");
-      throw Exception("$e");
-    
-    }
-  }
 
 
 
@@ -1286,30 +1252,12 @@ class FinancialsService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
-    ///////////just trying to test this on init func
-    //FOR QUOTES
+
+    ///just trying to test this on init func////
     getUserServices().then((List<UserServiceModel> list) {
-      filteredList.clear();
-      filteredList.addAll(list);  //service.dataList
-      print("initState FOR QUOTES: $filteredList");
-      update();
+      print("list of user services: $list");
     });
     
-    //FOR INVOICE
-    getUserServicesForInvoice().then((List<UserServiceModel> list) {
-      filteredListForInvoice.clear();
-      filteredListForInvoice.addAll(list);  //service.dataList
-      print("initState FOR INVOICE: $filteredListForInvoice");
-      update();
-    });
-
-    //FOR RECEIPT
-    getUserServicesForReceipt().then((List<UserServiceModel> list) {
-      filteredListForReceipt.clear();
-      filteredListForReceipt.addAll(list);  //service.dataList
-      print("initState FOR RECEIPT: $filteredListForReceipt");
-      update();
-    });
   }
 
 }

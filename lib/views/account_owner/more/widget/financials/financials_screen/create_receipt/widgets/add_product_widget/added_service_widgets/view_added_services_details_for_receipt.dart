@@ -76,9 +76,9 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                               appointmentType: appointment_type, 
                               index: index
                             ).whenComplete(() {
-                              finService.subtotalForReceipt.clear();
-                               finService.showEverythingForReceiptList();
-                              print(finService.editedSelectedProuctMapListForReceipt);
+                              //finService.subtotalForReceipt.clear();
+                              finService.showEverythingForReceiptList();
+                              print(finService.selectedReceiptbslist);
                             });
                           },
                           child: Container(
@@ -283,6 +283,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.calculateDiscountForReceipt(
+                              initialDiscountValue: discount,
                               index: index, 
                               context: context,
                               initialRateValue: rate

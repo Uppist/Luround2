@@ -269,6 +269,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                       Get.back();
                                     },
                                     onApply: () {
+                                      controller.updatedInvoiceDate(initialDate: "Select Date");
                                       Get.back();
                                     },
                                   );
@@ -298,6 +299,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                       Get.back();
                                     },
                                     onApply: () {
+                                      controller.updatedDueDateForInvoice(initialDate: "Select Date");
                                       Get.back();
                                     },
                                   );
@@ -340,8 +342,6 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   addProductBottomSheetForInvoice(
                                     client_phone_number: controller.invoiceClientPhoneNumberController.text ,
                                     context: context, 
-                                    service: service, 
-                                    controller: controller
                                   );
                                 },
                                 child: SvgPicture.asset("assets/svg/add_icon.svg")
@@ -364,14 +364,14 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                     //To show the items that were added (Use Future builder to show the items addedd)
                     GetX<FinancialsService>(
                       builder: (controller) {
-                        return controller.editedSelectedProuctMapListForInvoice.isNotEmpty ? ListView.builder(
+                        return controller.selectedInvoicebslist.isNotEmpty ? ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          itemCount: controller.editedSelectedProuctMapListForInvoice.length,
+                          itemCount: controller.selectedInvoicebslist.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = controller.editedSelectedProuctMapListForInvoice[index];
+                            final item = controller.selectedInvoicebslist[index];
                             return AddedServicesTile(
                               onTap: (){
                                 Get.to(() => ViewAddedServiceDetailsForInvoice(
@@ -605,7 +605,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                     vat: service.reactiveTotalVATForInvoice.value,
                                     note: controller.invoiceNoteController.text,
                                     grand_total: service.reactiveTotalForInvoice.value,
-                                    serviceList: service.editedSelectedProuctMapListForInvoice,
+                                    serviceList: service.selectedInvoicebslist
                                   ).whenComplete(() {
                                     controller.invoiceClientEmailController.clear();
                                     controller.invoiceClientNameController.clear();
@@ -641,7 +641,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   vat: service.reactiveTotalVATForInvoice.value,
                                   note: controller.invoiceNoteController.text,
                                   grand_total: service.reactiveTotalForInvoice.value,
-                                  serviceList: service.editedSelectedProuctMapListForInvoice,
+                                  serviceList: service.selectedInvoicebslist,
                                 ).whenComplete(() {
                                   controller.invoiceClientEmailController.clear();
                                   controller.invoiceClientNameController.clear();

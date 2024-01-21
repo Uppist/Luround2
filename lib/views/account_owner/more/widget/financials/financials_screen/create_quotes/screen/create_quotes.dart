@@ -272,6 +272,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                               Get.back();
                                             },
                                             onApply: () {
+                                              controller.updatedQuoteDate(initialDate: "Select Date");
                                               Get.back();
                                             },
                                           );
@@ -301,6 +302,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                               Get.back();
                                             },
                                             onApply: () {
+                                              controller.updatedDueDate(initialDate: "Select Date");
                                               Get.back();
                                             },
                                           );
@@ -342,7 +344,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      addProductBottomSheet(context: context, service: service, controller: controller);
+                                      addProductBottomSheetForQuote(context: context);
                                     },
                                     child: SvgPicture.asset("assets/svg/add_icon.svg")
                                   )
@@ -364,15 +366,15 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         //To show the items that were added (Use Future builder to show the items addedd)
                         Obx(
                           () {
-                            return service.editedSelectedProuctMapList.isNotEmpty ?
+                            return service.selectedQuotebslist.isNotEmpty ?
                             ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
-                              itemCount: service.editedSelectedProuctMapList.length,
+                              itemCount: service.selectedQuotebslist.length,
                               itemBuilder: (BuildContext context, int index) {
-                                final item = service.editedSelectedProuctMapList[index];
+                                final item = service.selectedQuotebslist[index];
                                 return AddedServicesTile(
                                   onTap: (){
                                     Get.to(() => ViewAddedServiceDetails(
@@ -614,7 +616,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         vat: service.reactiveTotalVATForQuote.value,
                                         note: controller.quoteNoteController.text,
                                         grand_total: service.reactiveTotalForQoute.value,
-                                        serviceList: service.editedSelectedProuctMapList,
+                                        serviceList: service.selectedQuotebslist,
                                       ).whenComplete(() {
                                         controller.quoteClientEmailController.clear();
                                         controller.quoteClientNameController.clear();
@@ -649,7 +651,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       vat: service.reactiveTotalVATForQuote.value,
                                       note: controller.quoteNoteController.text,
                                       grand_total: service.reactiveTotalForQoute.value,
-                                      serviceList: service.editedSelectedProuctMapList,
+                                      serviceList: service.selectedQuotebslist,
                                     ).whenComplete(() {
                                       controller.quoteClientEmailController.clear();
                                       controller.quoteClientNameController.clear();

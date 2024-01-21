@@ -84,9 +84,9 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                               index: index, 
                               phone_number: client_phone_number
                             ).whenComplete(() {
-                              finService.subtotalForInvoice.clear();
+                              //finService.subtotalForInvoice.clear();
                               finService.showEverythingForInvoiceList();
-                              print(finService.editedSelectedProuctMapListForInvoice);
+                              print(finService.selectedInvoicebslist);
                             });
                           },
                           child: Container(
@@ -290,6 +290,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.calculateDiscountForInvoice(
+                              initialDiscountValue: discount.toString(),
                               index: index, 
                               context: context,
                               initialRateValue: rate

@@ -9,7 +9,6 @@ import 'package:luround/controllers/account_owner/main/mainpage_controller.dart'
 import 'package:luround/parsing_url_accviewer/routes.dart';
 import 'package:luround/parsing_url_accviewer/routing_technique.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'package:luround/test.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';

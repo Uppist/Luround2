@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
-import 'dart:convert';
-import 'dart:io';
-import 'package:http/http.dart' as http;
+//import 'dart:convert';
+//import 'dart:io';
+//import 'package:http/http.dart' as http;
 
 
 
@@ -40,6 +40,7 @@ class FinancialsController extends getx.GetxController {
       // Add the new unique item
       quoteDate.add(dateList[0]);
     }
+    update();
   }
   //(save to db) this is the selected date 
   String updatedQuoteDate ({required String initialDate}) {
@@ -61,6 +62,7 @@ class FinancialsController extends getx.GetxController {
       // Add the new unique item
       dueDate.add(dateList[0]);
     }
+    update();
   }
   //(save to db) this is the selected date 
   //getx.RxString isoDateForQuote = ''.obs;
@@ -117,6 +119,7 @@ class FinancialsController extends getx.GetxController {
       // Add the new unique item
       invoiceDate.add(dateList[0]);
     }
+    update();
   }
   //(save to db) this is the selected date 
   String updatedInvoiceDate ({required String initialDate}) {
@@ -138,6 +141,7 @@ class FinancialsController extends getx.GetxController {
       // Add the new unique item
       dueDateForInvoice.add(dateList[0]);
     }
+    update();
   }
   //(save to db) this is the selected date 
   //getx.RxString isoDateForInvoice = ''.obs;
@@ -186,7 +190,6 @@ class FinancialsController extends getx.GetxController {
 
   //receipt date
   var receiptDate = <DateTime?>[].obs; 
-
   void selectedReceiptDate(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
       // Remove any previous items, if any
@@ -194,6 +197,7 @@ class FinancialsController extends getx.GetxController {
       // Add the new unique item
       receiptDate.add(dateList[0]);
     }
+    update();
   }
 
   //(save to db) this is the selected date 
@@ -225,7 +229,6 @@ class FinancialsController extends getx.GetxController {
   
   
 
-  //C
 
 
 

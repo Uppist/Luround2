@@ -309,7 +309,9 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  addProductBottomSheetForReceipt(context: context, service: service, controller: controller);
+                                  addProductBottomSheetForReceipt(
+                                    context: context
+                                  );
                                 },
                                 child: SvgPicture.asset("assets/svg/add_icon.svg")
                               )
@@ -331,14 +333,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                     //To show the items that were added (Use Future builder to show the items addedd)
                     Obx(
                       () {
-                        return service.editedSelectedProuctMapListForReceipt.isNotEmpty ? ListView.builder(
+                        return service.selectedReceiptbslist.isNotEmpty ? ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          itemCount: service.editedSelectedProuctMapListForReceipt.length,
+                          itemCount: service.selectedReceiptbslist.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = service.editedSelectedProuctMapListForReceipt[index];
+                            final item = service.selectedReceiptbslist[index];
                             return AddedServicesTile(
                               onTap: (){
                                 Get.to(() => ViewAddedServiceDetailsForReceipt(
@@ -658,7 +660,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     vat: service.reactiveTotalVATForReceipt.value,
                                     note: controller.receiptNoteController.text,
                                     grand_total: service.reactiveTotalForReceipt.value,
-                                    serviceList: service.editedSelectedProuctMapListForReceipt,
+                                    serviceList: service.selectedReceiptbslist,
                                   ).whenComplete(() {
                                     controller.receiptClientEmailController.clear();
                                     controller.receiptClientNameController.clear();
@@ -693,7 +695,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   vat: service.reactiveTotalVATForReceipt.value,
                                   note: controller.receiptNoteController.text,
                                   grand_total: service.reactiveTotalForReceipt.value,
-                                  serviceList: service.editedSelectedProuctMapListForReceipt,
+                                  serviceList: service.selectedReceiptbslist,
                                 ).whenComplete(() => Get.back());
                               },
                             );

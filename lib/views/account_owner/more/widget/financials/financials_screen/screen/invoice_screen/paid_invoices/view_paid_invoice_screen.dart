@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,10 +23,10 @@ class ViewPaidInvoiceScreen extends StatelessWidget {
   final String send_to_email;
   final String phone_number;
   final String due_date;
-  final num sub_total;
-  final num discount;
+  final String sub_total;
+  final String discount;
   final String vat;
-  final num total;
+  final String total;
   final String note;
   final String status;
   final List<dynamic> booking_detail;

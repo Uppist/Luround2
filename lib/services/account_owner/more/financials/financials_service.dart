@@ -816,60 +816,6 @@ class FinancialsService extends getx.GetxController {
     }
   }
 
-  ///[ADD INVOICE PAYMENT TO MARK IT AS PAID]//
-  Future<void> markInvoiceAsPaid({
-    required BuildContext context,
-    required String amount_paid,
-    required String payment_method,
-    }) async {
-
-    isLoading.value = true;
-
-    var body = {
-      "amount_paid": amount_paid,
-      "payment_method": payment_method
-    };
-
-    try {
-      http.Response res = await baseService.httpPut(endPoint: "invoice/add-invoice-payment-detail", body: body);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        debugPrint("invoice marked as paid successfully");
-
-        //success snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "invoice has been marked as 'paid'"
-        ).whenComplete(() => getx.Get.back());
-      } 
-      else {
-        isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        //failure snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.redColor,
-          message: "failed to mark invoice as 'paid': ${res.body}"
-        );
-        //.whenComplete(() => getx.Get.back());
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      debugPrint("$e");
-      throw Exception("Something went wrong");
-    }
-  }
-
-
-
-
-
 
 
 

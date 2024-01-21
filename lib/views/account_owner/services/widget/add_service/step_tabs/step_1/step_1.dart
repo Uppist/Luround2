@@ -108,7 +108,7 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ],
         ),
-        SizedBox(height: 20.h),
+        /*SizedBox(height: 20.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -170,7 +170,7 @@ class _Step1PageState extends State<Step1Page> {
         
         controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
         
-        controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),
+        controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),*/
     
         SizedBox(height: 20.h,),
         Text(

@@ -213,7 +213,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                   ),
                                 ),
                             
-                                SizedBox(height: 20.h,),
+                                /*SizedBox(height: 20.h,),
                             
                                 //link 1
                                 InkWell(
@@ -243,7 +243,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                ),
+                                ),*/
                             
                                 SizedBox(height: 30.h,),
                                             
@@ -291,6 +291,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                 ReusableButton(
                                   onPressed: () {
                                     Get.to(() => BookAppointmentScreen(
+                                      service_provider_id: data[index].service_provider_details['_id'],
                                       avail_time: data[index].available_time,
                                       serviceId: data[index].serviceId,
                                       service_name: data[index].service_name,

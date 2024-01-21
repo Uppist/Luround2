@@ -112,7 +112,7 @@ class AddSectionPage extends StatelessWidget {
                   ),
                 ),
               ),
-              Divider(color: AppColor.darkGreyColor, thickness: 0.2),
+              /*Divider(color: AppColor.darkGreyColor, thickness: 0.2),
               //education
               InkWell(
                 onTap: () {
@@ -132,7 +132,7 @@ class AddSectionPage extends StatelessWidget {
                     ),
                   ),
                 ),
-              ),
+              ),*/
               Divider(color: AppColor.darkGreyColor, thickness: 0.2),
               //Others
               InkWell(

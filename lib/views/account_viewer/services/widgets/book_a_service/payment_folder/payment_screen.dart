@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/services/account_viewer/services/get_user_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -23,7 +24,7 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/pay
 
 
 class PaymentScreen extends StatefulWidget {
-  PaymentScreen({super.key, required this.amount, required this.service_name, required this.serviceId, required this.time, required this.duration, required this.date, });
+  PaymentScreen({super.key, required this.amount, required this.service_name, required this.serviceId, required this.time, required this.duration, required this.date, required this.service_provider_id, });
   
   final String amount;
   final String service_name;
@@ -31,6 +32,7 @@ class PaymentScreen extends StatefulWidget {
   final String time;
   final String duration;
   final String date;
+  final String service_provider_id;
 
   @override
   State<PaymentScreen> createState() => _PaymentScreenState();
@@ -40,9 +42,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
 
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
+  var withdrawalService = Get.put(WithdrawalService());
 
   @override
   void initState() {
+    // TODO: implement onInit
+    withdrawalService.loadSavedBanksData(user_id: widget.service_provider_id)
+    .then((value) {
+      service.userBankAccountList.value = value;
+      debugPrint("user bank accounts: ${service.userBankAccountList}");
+    });
     super.initState();
   }
 

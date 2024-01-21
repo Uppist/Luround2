@@ -119,7 +119,8 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           ],
         ),
         SizedBox(height: 20.h),
-        Row(
+
+        /*Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -187,7 +188,9 @@ class _Step1PageEditState extends State<Step1PageEdit> {
         
         controller.isTextGoneEdit.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),
     
-        SizedBox(height: 20.h,),
+        SizedBox(height: 20.h,),*/
+
+
         Text(
           "Service fee per session*",
           style: GoogleFonts.inter(

@@ -18,7 +18,7 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/pay
 
 
 class BookingDetails extends StatelessWidget {
-  BookingDetails({super.key, required this.serviceId, required this.service_name, required this.date, required this.time, required this.service_charge_virtual, required this.service_charge_in_person, required this.duration});
+  BookingDetails({super.key, required this.serviceId, required this.service_name, required this.date, required this.time, required this.service_charge_virtual, required this.service_charge_in_person, required this.duration, required this.service_provider_id});
   final String serviceId;
   final String service_name;
   final String date;
@@ -26,6 +26,7 @@ class BookingDetails extends StatelessWidget {
   final String duration;
   final String service_charge_virtual;
   final String service_charge_in_person;
+  final String service_provider_id;
 
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
@@ -189,6 +190,7 @@ class BookingDetails extends StatelessWidget {
                           onPressed: () {
                             //amount of service as argument
                             Get.to(() => PaymentScreen(
+                              service_provider_id: service_provider_id,
                               date: date,
                               serviceId: serviceId,
                               service_name: service_name,

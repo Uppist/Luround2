@@ -650,10 +650,10 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
-  Future<List<SavedBanks>> getUserSavedAccounts() async {
+  Future<List<SavedBanks>> getUserSavedAccounts({required String user_id}) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks",);
+      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks?userId=$user_id",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -692,10 +692,10 @@ class WithdrawalService extends getx.GetxController {
   }
 
   ///[TO LAZY LOAD THE USER LIST OF SAVED BANKS IN THE FUTURE BUILDER FOR WITHDRAWAL SCREEN]///
-  Future<List<SavedBanks>> loadSavedBanksData() async {
+  Future<List<SavedBanks>> loadSavedBanksData({required String user_id}) async {
     try {
       isLoading.value = true;
-      final List<SavedBanks> banks = await getUserSavedAccounts();
+      final List<SavedBanks> banks = await getUserSavedAccounts(user_id: user_id);
       banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
 
       isLoading.value = false;

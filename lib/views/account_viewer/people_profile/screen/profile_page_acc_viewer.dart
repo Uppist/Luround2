@@ -10,7 +10,9 @@ import 'package:luround/services/account_viewer/profile_service/get_user_profile
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/border_button.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/additional_information/additional_info_section.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_screen.dart';
 import '../widget/about_section/about_section.dart';
@@ -64,7 +66,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Image.asset('assets/images/latest_logo.png'),
+                  Image.asset('assets/images/luround_logo.png'),
                 ]
               ),         
             ),
@@ -80,11 +82,29 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 }
                 if (snapshot.hasError) {
                   print(snapshot.error);
+                  return ProfileEmptyState(
+                    onPressed: () {
+                      showMySnackBar(
+                        context: context, 
+                        message: "uh-oh! something went wrong", 
+                        backgroundColor: AppColor.redColor
+                      );
+                    },
+                  );
                 }
                 if (!snapshot.hasData) {
                   print("sn-trace: ${snapshot.stackTrace}");
                   print("sn-data: ${snapshot.data}");
-                  return Expanded(child: Loader2());
+                  //return Expanded(child: Loader2());
+                  return ProfileEmptyState(
+                    onPressed: () {
+                      showMySnackBar(
+                        context: context, 
+                        message: "uh-oh! no available data to be fetched", 
+                        backgroundColor: AppColor.redColor
+                      );
+                    },
+                  );
                 }
                      
                 if (snapshot.hasData) {
@@ -181,6 +201,19 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
+                              Container(
+                                alignment: Alignment.center,
+                                height: 40.h,
+                                width: 60.w,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.r),
+                                  color: AppColor.greyColor,
+                                  image: DecorationImage(
+                                    image: NetworkImage(data.logo_url),
+                                    fit: BoxFit.cover
+                                  )
+                                ),
+                              ),
                               CircleAvatar(
                                 radius: 15.r,
                                 backgroundImage: NetworkImage(
@@ -193,7 +226,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.darkGreyColor,
-                                    fontSize: 14.h,
+                                    fontSize: 15.h,
                                     fontWeight: FontWeight.w500
                                   )
                                 )
@@ -210,7 +243,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               style: GoogleFonts.inter(
                                 textStyle: TextStyle(
                                   color: AppColor.blackColor,
-                                  fontSize: 15.h,
+                                  fontSize: 16.h,
                                   fontWeight: FontWeight.w500
                                 )
                               )
@@ -245,7 +278,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             height: 7,
                             width: double.infinity,
                           ),
-                          SizedBox(height: 30.h),                 
+                          /*SizedBox(height: 30.h),                 
                           AccViewerEducationAndCertificationSection(
                             eduAndCertList: data.certificates,
                             service: service,
@@ -258,7 +291,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             ),
                             height: 7.h,
                             width: double.infinity,
-                          ),
+                          ),*/
                                 
                         SizedBox(height: 30.h,),
                         //Additional information
@@ -362,17 +395,17 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                     ),
                   );
                 }
-            
-                return Center(
-                  child: Text(
-                    "connection timed out",
-                    style: GoogleFonts.inter(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.normal
-                    ) 
-                  )
+
+                return ProfileEmptyState(
+                  onPressed: () {
+                    showMySnackBar(
+                      context: context, 
+                      message: "connection timed out. please check for internet connectivity", 
+                      backgroundColor: AppColor.redColor
+                    );
+                  },
                 );
+  
             
               }
             ),

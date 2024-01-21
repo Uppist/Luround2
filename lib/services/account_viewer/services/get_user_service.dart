@@ -402,11 +402,11 @@ class AccViewerService extends getx.GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    withdrawalService.loadSavedBanksData()
+    /*withdrawalService.loadSavedBanksData()
     .then((value) {
       userBankAccountList.value = value;
       debugPrint("user bank accounts: $userBankAccountList");
-    });
+    });*/
     super.onInit();
   }
 

@@ -100,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset('assets/images/latest_logo.png'),
+          Image.asset('assets/images/luround_logo.png'),
           //SvgPicture.asset('assets/svg/logo_new.svg'),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -356,10 +356,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    height: 25.h,
-                    width: 25.w,
+                    height: 40.h,
+                    width: 60.w,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.r),
+                      borderRadius: BorderRadius.circular(5.r),
                       color: AppColor.greyColor,
                       image: DecorationImage(
                         image: NetworkImage(data.logo_url),
@@ -448,7 +448,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
             SizedBox(height: 30.h),
-            Container(
+            /*Container(
               color: AppColor.greyColor,
               width: double.infinity,
               height: 7.h,
@@ -464,7 +464,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 },     
               ),
             ),
-            SizedBox(height: 30.h),
+            SizedBox(height: 30.h),*/
             Container(
               color: AppColor.greyColor,
               width: double.infinity,

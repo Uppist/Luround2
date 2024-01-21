@@ -20,12 +20,12 @@ class SplashScreen2 extends StatelessWidget {
         child: Image.asset("assets/splash/splash_1.png")
       ), 
       nextScreen: OnBoardingPage(),
-      duration: 2000, //4000
+      duration: 1000, //4000
       backgroundColor: AppColor.bgColor,
       centered: true,
       //splashIconSize: 500,
       splashTransition: SplashTransition.fadeTransition,
-      animationDuration: const Duration(milliseconds: 2000),  //2
+      animationDuration: const Duration(milliseconds: 1000),  //2
     );
   }
 }

@@ -21,12 +21,12 @@ class SplashScreenXtra extends StatelessWidget {
         child: Image.asset("assets/splash/splash_1.png")
       ), 
       nextScreen: MainPage(),
-      duration: 1000, //4000
+      duration: 500, //4000
       backgroundColor: AppColor.bgColor,
       centered: true,
       //splashIconSize: 500,
       splashTransition: SplashTransition.fadeTransition,
-      animationDuration: const Duration(milliseconds: 1000),  //2
+      animationDuration: const Duration(milliseconds: 500),  //2
     );
   }
 }
@@ -42,12 +42,12 @@ class SplashScreenXtra2 extends StatelessWidget {
         child: Image.asset("assets/splash/splash_1.png")
       ), 
       nextScreen: MainPageAccViewer(),
-      duration: 1000, //4000
+      duration: 200, //4000
       backgroundColor: AppColor.bgColor,
       centered: true,
       //splashIconSize: 500,
       splashTransition: SplashTransition.fadeTransition,
-      animationDuration: const Duration(milliseconds: 1000),  //2
+      animationDuration: const Duration(milliseconds: 200),  //2
     );
   }
 }

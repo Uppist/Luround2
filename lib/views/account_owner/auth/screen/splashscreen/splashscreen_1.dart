@@ -30,12 +30,12 @@ class _SplashScreen1State extends State<SplashScreen1> {
         child: Image.asset("assets/splash/splash_2.png")
       ), 
       nextScreen: SplashScreen2(),
-      duration: 2000, //4000
+      duration: 1000, //4000
       backgroundColor: AppColor.mainColor,
       centered: true,
       //splashIconSize: 500,
       splashTransition: SplashTransition.fadeTransition,
-      animationDuration: const Duration(milliseconds: 2000),  //2
+      animationDuration: const Duration(milliseconds: 1000),  //2
     );
   }
 }

@@ -295,7 +295,7 @@ class ServicesPage extends StatelessWidget {
                                   SizedBox(height: 30.h,),
                                   
                                   //link 1
-                                  InkWell(
+                                  /*InkWell(
                                     onTap: () {},
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.start,
@@ -325,7 +325,7 @@ class ServicesPage extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  SizedBox(height: 20.h,),
+                                  SizedBox(height: 20.h,),*/
                                 ]
                               )
                             )

@@ -291,7 +291,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                 ReusableButton(
                                   onPressed: () {
                                     Get.to(() => BookAppointmentScreen(
-                                      service_provider_id: data[index].service_provider_details['_id'],
+                                      service_provider_id: data[index].service_provider_details['userId'],
                                       avail_time: data[index].available_time,
                                       serviceId: data[index].serviceId,
                                       service_name: data[index].service_name,

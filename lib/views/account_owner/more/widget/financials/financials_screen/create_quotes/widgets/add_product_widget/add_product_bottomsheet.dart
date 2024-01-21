@@ -129,10 +129,12 @@ class _BodyWidgetState extends State<BodyWidget> {
                                 if (value) {
                                   // Add to the selected items list
                                   service.selectedQuotebslist.add(item);
+                                  service.showEverythingForQuoteList();
                                 } 
                                 else {
                                   // Remove from the selected items list
                                   service.selectedQuotebslist.remove(item);
+                                  service.showEverythingForQuoteList();
                                 }
                               }
                               // Print the modified list

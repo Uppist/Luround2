@@ -129,10 +129,12 @@ class _BodyWidgetState extends State<BodyWidget> {
                                 if (value) {
                                   // Add to the selected items list
                                   service.selectedInvoicebslist.add(item);
+                                  service.showEverythingForInvoiceList();
                                 } 
                                 else {
                                   // Remove from the selected items list
                                   service.selectedInvoicebslist.remove(item);
+                                  service.showEverythingForInvoiceList();
                                 }
                               }
                               // Print the modified list

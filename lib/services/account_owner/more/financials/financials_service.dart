@@ -99,13 +99,13 @@ class FinancialsService extends getx.GetxController {
   var reactiveTotalDiscountForQuote = "".obs;
   var reactiveTotalVATForQuote = "".obs;
   void showEverythingForQuoteList() {
-    double subtotalPrice = 0;
-    double totalPrice = 0;
-    double totalDiscount = 0;
-    double totalVat = 0;
+    int subtotalPrice = 0;
+    double totalPrice = 0.0;
+    double totalDiscount = 0.0;
+    double totalVat = 0.0;
 
     for (var product in selectedQuotebslist) {
-      subtotalPrice += double.parse(product['rate']);
+      subtotalPrice += int.parse(product['rate']);
       totalDiscount += double.parse(product['discount']);
       totalVat += double.parse(product['total']) * 0.075;
       totalPrice += double.parse(product['total']);
@@ -507,10 +507,10 @@ class FinancialsService extends getx.GetxController {
   var reactiveTotalDiscountForInvoice = "".obs;
   var reactiveTotalVATForInvoice = "".obs;
   void showEverythingForInvoiceList() {
-    double subtotalPrice = 0;
-    double totalPrice = 0;
-    double totalDiscount = 0;
-    double totalVat = 0;
+    double subtotalPrice = 0.0;
+    double totalPrice = 0.0;
+    double totalDiscount = 0.0;
+    double totalVat = 0.0;
 
     for (var product in selectedInvoicebslist) {
       subtotalPrice += double.parse(product['rate']);
@@ -881,10 +881,10 @@ class FinancialsService extends getx.GetxController {
   var reactiveTotalVATForReceipt = "".obs;
   
   void showEverythingForReceiptList() {
-    double subtotalPrice = 0;
-    double totalPrice = 0;
-    double totalDiscount = 0;
-    double totalVat = 0;
+    double subtotalPrice = 0.0;
+    double totalPrice = 0.0;
+    double totalDiscount = 0.0;
+    double totalVat = 0.0;
 
     for (var product in selectedReceiptbslist) {
       subtotalPrice += double.parse(product['rate']);

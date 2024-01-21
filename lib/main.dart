@@ -128,10 +128,13 @@ class _MainAppState extends State<MainApp> {
 
 
         /*initialRoute: ProfileRoute,
+
         defaultTransition: Transition.fade,
+        
         /*onGenerateRoute: (settings) {
           return generateRoute(settings);
         },*/
+
         getPages: [
           
           GetPage(

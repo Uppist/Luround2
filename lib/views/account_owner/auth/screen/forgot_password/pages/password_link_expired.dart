@@ -60,7 +60,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                           size: 23,
                         ),
                       ),
-                      SizedBox(width: 120.w,),
+                      SizedBox(width: 150.w,),
                       //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                       Image.asset('assets/images/luround_logo.png')
                     ]

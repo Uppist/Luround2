@@ -99,16 +99,16 @@ class FinancialsService extends getx.GetxController {
   var reactiveTotalDiscountForQuote = "".obs;
   var reactiveTotalVATForQuote = "".obs;
   void showEverythingForQuoteList() {
-    int subtotalPrice = 0;
+    double subtotalPrice = 0.0;
     double totalPrice = 0.0;
     double totalDiscount = 0.0;
     double totalVat = 0.0;
 
     for (var product in selectedQuotebslist) {
-      subtotalPrice += int.parse(product['rate']);
+      subtotalPrice += double.parse(product['rate'].toString());
       totalDiscount += double.parse(product['discount']);
-      totalVat += double.parse(product['total']) * 0.075;
-      totalPrice += double.parse(product['total']);
+      totalVat += double.parse(product['total'].toString()) * 0.075;
+      totalPrice += double.parse(product['discounted_total'] ?? product['total']);
     }
     ///////////////////
     reactiveTotalForQoute.value = (totalPrice + totalVat).toString();
@@ -292,7 +292,7 @@ class FinancialsService extends getx.GetxController {
       "due_date": quote_due_date,
       "vat": reactiveTotalVATForQuote.value,
       "sub_total": reactiveSubtotalForQuote.value,
-      "discount": "-N${reactiveTotalDiscountForQuote.value} ",
+      "discount": "${reactiveTotalDiscountForQuote.value} ",
       "total": reactiveTotalForQoute.value,
       "product_detail": selectedQuotebslist,
     };
@@ -361,7 +361,7 @@ class FinancialsService extends getx.GetxController {
       "due_date": quote_due_date,
       "vat": reactiveTotalVATForQuote.value,
       "sub_total": reactiveSubtotalForQuote.value,
-      "discount": "-N${reactiveTotalDiscountForQuote.value} ",
+      "discount": "${reactiveTotalDiscountForQuote.value} ",
       "total": reactiveTotalForQoute.value,
       "product_detail": selectedQuotebslist
     };
@@ -513,8 +513,8 @@ class FinancialsService extends getx.GetxController {
     double totalVat = 0.0;
 
     for (var product in selectedInvoicebslist) {
-      subtotalPrice += double.parse(product['rate']);
-      totalPrice += double.parse(product['total']);
+      subtotalPrice += double.parse(product['rate'].toString());
+      totalPrice += double.parse(product['discounted_total'] ?? product['total']);
       totalDiscount += double.parse(product['discount']);
       totalVat += double.parse(product['total']) * 0.075;
     }
@@ -664,7 +664,7 @@ class FinancialsService extends getx.GetxController {
       "due_date": due_date,
       "vat": reactiveTotalVATForInvoice.value,
       "sub_total": reactiveSubtotalForInvoice.value,
-      "discount": "-N${reactiveTotalDiscountForInvoice.value}",
+      "discount": "${reactiveTotalDiscountForInvoice.value}",
       "total": reactiveTotalForInvoice.value,
       "booking_detail": selectedInvoicebslist
     };
@@ -729,7 +729,7 @@ class FinancialsService extends getx.GetxController {
       "due_date": due_date,
       "vat": reactiveTotalVATForInvoice.value,
       "sub_total": reactiveSubtotalForInvoice.value,
-      "discount": "-N${reactiveTotalDiscountForInvoice.value}",
+      "discount": "${reactiveTotalDiscountForInvoice.value}",
       "total": reactiveTotalForInvoice.value,
       "booking_detail": selectedInvoicebslist
     };
@@ -887,8 +887,8 @@ class FinancialsService extends getx.GetxController {
     double totalVat = 0.0;
 
     for (var product in selectedReceiptbslist) {
-      subtotalPrice += double.parse(product['rate']);
-      totalPrice += double.parse(product['total']);
+      subtotalPrice += double.parse(product['rate'].toString());
+      totalPrice += double.parse(product['discounted_total'] ?? product['total']);
       totalDiscount += double.parse(product['discount']);
       totalVat += double.parse(product['total']) * 0.075;
     }
@@ -1022,7 +1022,7 @@ class FinancialsService extends getx.GetxController {
       "note": note,
       "vat": reactiveTotalVATForReceipt.value,
       "sub_total": reactiveSubtotalForReceipt.value,
-      "discount": "-N${reactiveTotalDiscountForReceipt.value}",
+      "discount": "${reactiveTotalDiscountForReceipt.value}",
       "total": reactiveTotalForReceipt.value,
       "service_detail": selectedReceiptbslist
     };
@@ -1089,7 +1089,7 @@ class FinancialsService extends getx.GetxController {
       "note": note,
       "vat": reactiveTotalVATForReceipt.value,
       "sub_total": reactiveSubtotalForReceipt.value,
-      "discount": "-N${reactiveTotalDiscountForReceipt.value}",
+      "discount": "${reactiveTotalDiscountForReceipt.value}",
       "total": reactiveTotalForReceipt.value,
       "service_detail": selectedReceiptbslist
     };

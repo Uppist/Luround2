@@ -444,7 +444,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['discount']}',
+                                              '${item['discount']}%',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -535,7 +535,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                discount,
+                                "$discount%",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

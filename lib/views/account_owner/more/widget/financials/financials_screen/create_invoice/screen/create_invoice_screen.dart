@@ -362,16 +362,16 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                     SizedBox(height: 10.h,),
 
                     //To show the items that were added (Use Future builder to show the items addedd)
-                    GetX<FinancialsService>(
-                      builder: (controller) {
-                        return controller.selectedInvoicebslist.isNotEmpty ? ListView.builder(
+                    Obx(
+                      () {
+                        return service.selectedInvoicebslist.isNotEmpty ? ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          itemCount: controller.selectedInvoicebslist.length,
+                          itemCount: service.selectedInvoicebslist.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = controller.selectedInvoicebslist[index];
+                            final item = service.selectedInvoicebslist[index];
                             return AddedServicesTile(
                               onTap: (){
                                 Get.to(() => ViewAddedServiceDetailsForInvoice(
@@ -449,7 +449,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                     ),
                                   ),
                                   Text(
-                                    "-N${service.reactiveTotalDiscountForInvoice.value}",
+                                    "${service.reactiveTotalDiscountForInvoice.value}%",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,

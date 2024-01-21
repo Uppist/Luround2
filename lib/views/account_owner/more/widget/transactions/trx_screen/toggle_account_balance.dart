@@ -25,9 +25,9 @@ Future<void> toggleAccountBalance({
     useSafeArea: true,
     backgroundColor: AppColor.bgColor,
     //barrierColor: Theme.of(context).colorScheme.background,
-    shape: const RoundedRectangleBorder(
+    shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(
-        top: Radius.circular(15)
+        top: Radius.circular(15.r)
       )
     ),
     context: context, 
@@ -35,7 +35,7 @@ Future<void> toggleAccountBalance({
       return Wrap(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             decoration: BoxDecoration(
               //image: DecorationImage(image: AssetImage(''),),
               color: AppColor.bgColor,
@@ -65,7 +65,7 @@ Future<void> toggleAccountBalance({
                     ],
                   ),
                 ),
-                SizedBox(height: 30.h,),
+                SizedBox(height: 10.h,),
                 //2
                 /*InkWell(
                   onTap: onAmountPaidBalance,

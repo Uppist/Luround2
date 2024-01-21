@@ -143,20 +143,18 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [                      
-                            Obx(
-                              () {
-                                return Text(
-                                  controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet", //wallet
-                                  style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                      color: AppColor.whiteTextColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w500
-                                    )
-                                  )
-                                );
-                              }
-                            ),                                        
+                          
+                            Text(
+                              "Total amount received", //?  "Total amount received" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet", //wallet
+                              style: GoogleFonts.inter(
+                                textStyle: TextStyle(
+                                  color: AppColor.whiteTextColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              )
+                            ),
+                                                                   
                             Icon(
                               CupertinoIcons.chevron_up_chevron_down,
                               color: AppColor.bgColor,
@@ -172,17 +170,14 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Obx(
-                      () {
-                        return Text(
-                          controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 19.sp,
-                            fontWeight: FontWeight.bold
-                          ),
-                        );
-                      }
+                    Text(
+                      "N${double.parse("${service.totalAmountReceived}")}",
+                      //controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 19.sp,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
                     /*InkWell(
                       onTap: () {

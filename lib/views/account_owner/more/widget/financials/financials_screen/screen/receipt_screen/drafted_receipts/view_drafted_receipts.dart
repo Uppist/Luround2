@@ -451,7 +451,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['discount']}',
+                                              '${item['discount']}%',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -534,7 +534,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                "Discount",
+                                "Discount:",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 14.sp,
@@ -542,7 +542,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                discount,
+                                "$discount%",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

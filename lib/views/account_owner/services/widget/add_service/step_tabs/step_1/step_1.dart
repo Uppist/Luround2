@@ -229,7 +229,7 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ],
         ),
-        SizedBox(height: 80.h,),
+        SizedBox(height: 150.h,),
         RebrandedReusableButton(
           textColor: controller.ispriceButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.ispriceButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 

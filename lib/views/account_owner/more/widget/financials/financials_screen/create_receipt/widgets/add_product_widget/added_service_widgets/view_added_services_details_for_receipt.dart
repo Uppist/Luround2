@@ -69,11 +69,11 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                             finService.editProductForReceiptCreation(
                               context: context, 
                               service_id: "(not needed)", 
-                              discount: discount, 
-                              rate: rate, 
-                              total: discounted_total, 
-                              duration: duration, 
-                              appointmentType: appointment_type, 
+                              discount: finService.discountForReceipt.text.isEmpty ? discount : finService.discountForReceipt.text, 
+                              rate: finService.rateForReceipt.text.isEmpty ? rate : finService.rateForReceipt.text, 
+                              total: discounted_total.isEmpty ? total : discounted_total, 
+                              duration: finService.durationForReceipt.text.isEmpty ? duration : finService.durationForReceipt.text, 
+                              appointmentType: finService.selectedMeetingTypeForReceipt.text.isEmpty ? appointment_type : finService.selectedMeetingTypeForReceipt.text, 
                               index: index
                             ).whenComplete(() {
                               //finService.subtotalForReceipt.clear();

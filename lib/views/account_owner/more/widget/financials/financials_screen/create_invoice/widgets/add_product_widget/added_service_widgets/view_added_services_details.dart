@@ -74,13 +74,13 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                             finService.editProductForInvoiceCreation(
                               context: context, 
                               service_name: service_name, 
-                              service_description: service_description, 
+                              service_description: finService.serviceDescriptionForInvoice.text.isEmpty ? service_description : finService.serviceDescriptionForInvoice.text, 
                               service_id: service_id, 
-                              discount: discount.toString(), 
-                              rate: rate, 
-                              total: total, 
-                              duration: duration, 
-                              appointmentType: appointmentType, 
+                              discount: finService.discountForInvoice.text.isEmpty ? discount : finService.discountForInvoice.text, 
+                              rate: finService.rateForInvoice.text.isEmpty ? rate : finService.rateForInvoice.text, 
+                              total: discounted_total.isEmpty ? total : discounted_total, 
+                              duration: finService.durationForInvoice.text.isEmpty ? duration : finService.durationForInvoice.text, 
+                              appointmentType: finService.selectedMeetingTypeForInvoice.text.isEmpty ? appointmentType : finService.selectedMeetingTypeForInvoice.text, 
                               index: index, 
                               phone_number: client_phone_number
                             ).whenComplete(() {
@@ -282,7 +282,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                             hintText: 'Enter service discount',
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            initialValue: discount.toString(),
+                            initialValue: discount,
                           ),
                         ),
                         SizedBox(width: 10.w,),
@@ -333,7 +333,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                                 )
                               ),
                               TextSpan(
-                                text: "N$discounted_total",
+                                text: "N$total",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

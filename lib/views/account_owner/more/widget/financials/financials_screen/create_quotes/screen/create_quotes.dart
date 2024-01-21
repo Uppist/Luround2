@@ -390,7 +390,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                     ));
                                   },
                                   productName:item['service_name'],
-                                  price: item['total'],
+                                  price: item['total'].toString(),
                                   duration: item['duration'],
                                 );
                               }
@@ -456,7 +456,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         ),
                                       ),
                                       Text(
-                                        "-N${service.reactiveTotalDiscountForQuote.value}",
+                                        "${service.reactiveTotalDiscountForQuote.value}%",
                                         style: GoogleFonts.inter(
                                           color: AppColor.darkGreyColor,
                                           fontSize: 14.sp,

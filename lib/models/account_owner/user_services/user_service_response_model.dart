@@ -39,8 +39,8 @@ class UserServiceModel {
     description = json['description'] ?? "service_description";
     links = json['links'] ?? [];
     available_time = json['available_time'] ?? ["time"];
-    service_charge_in_person = json['service_charge_in_person'] ?? "service_charge_in_person";
-    service_charge_virtual = json['service_charge_virtual'] ?? "service_charge_virtual";
+    service_charge_in_person = json['service_charge_in_person'] ?? "0";
+    service_charge_virtual = json['service_charge_virtual'] ?? "0";
     duration = json['duration'] ?? "duration";
     time = json['time'] ?? "time";
     available_days = json['available_days'] ?? "available_days";
@@ -59,8 +59,8 @@ class UserServiceModel {
     _data['links'] = links;
     _data['available_time'] = available_time;
     _data['phone_number'] = "phone number";
-    _data["rate"] = service_charge_virtual;
-    _data["total"] = service_charge_virtual;
+    _data["rate"] = service_charge_virtual!;
+    _data["total"] = service_charge_virtual!;
     _data["discount"] = "0";
     _data["appointment_type"] = "Virtual";
     _data["meeting_type"] = "Virtual";

@@ -448,7 +448,7 @@ class ViewDueInvoiceScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['discount']}',
+                                              '${item['discount']}%',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -539,7 +539,7 @@ class ViewDueInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$discount',
+                                '$discount%',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

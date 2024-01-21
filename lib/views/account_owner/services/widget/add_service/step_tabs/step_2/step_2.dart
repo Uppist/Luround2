@@ -101,7 +101,7 @@ class _Step2PageState extends State<Step2Page> {
           //schedule radio section
           ScheduleRadioWidget(),
           
-          SizedBox(height: 290.h,),
+          SizedBox(height: 280.h,),
 
           Obx(
             () {

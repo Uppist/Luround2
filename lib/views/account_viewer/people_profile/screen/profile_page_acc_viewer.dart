@@ -82,7 +82,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                 }
                 if (snapshot.hasError) {
                   print(snapshot.error);
-                  return ProfileEmptyState(
+                  return ProfileEmptyState2(
                     onPressed: () {
                       showMySnackBar(
                         context: context, 
@@ -96,7 +96,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                   print("sn-trace: ${snapshot.stackTrace}");
                   print("sn-data: ${snapshot.data}");
                   //return Expanded(child: Loader2());
-                  return ProfileEmptyState(
+                  return ProfileEmptyState2(
                     onPressed: () {
                       showMySnackBar(
                         context: context, 
@@ -204,7 +204,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               Container(
                                 alignment: Alignment.center,
                                 height: 40.h,
-                                width: 60.w,
+                                width: 50.w,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(5.r),
                                   color: AppColor.greyColor,
@@ -212,12 +212,6 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                     image: NetworkImage(data.logo_url),
                                     fit: BoxFit.cover
                                   )
-                                ),
-                              ),
-                              CircleAvatar(
-                                radius: 15.r,
-                                backgroundImage: NetworkImage(
-                                  data.logo_url
                                 ),
                               ),
                               SizedBox(width: 10.w,),
@@ -396,7 +390,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                   );
                 }
 
-                return ProfileEmptyState(
+                return ProfileEmptyState2(
                   onPressed: () {
                     showMySnackBar(
                       context: context, 

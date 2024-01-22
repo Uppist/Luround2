@@ -17,6 +17,7 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
 import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
+import 'package:url_strategy/url_strategy.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,7 +59,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
 
 void main() async{
-  
+  setPathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -127,7 +128,7 @@ class _MainAppState extends State<MainApp> {
         },*/
 
 
-        /*initialRoute: ProfileRoute,
+        initialRoute: ProfileRoute,
 
         defaultTransition: Transition.fade,
         
@@ -140,15 +141,6 @@ class _MainAppState extends State<MainApp> {
           GetPage(
             name: ProfileRoute,
             page: () {
-      
-              /*final Map<String, dynamic>? arguments = Get.arguments as Map<String, dynamic>?;
-              Uri uri = Uri(query: arguments as String);
-              var queryParameters = uri.queryParameters;
-              var userName = queryParameters["user"];*/
-              
-              // Access the 'user' parameter
-              //String userName = arguments?['user'] ?? '';
-      
               return SplashScreenXtra2();
             },
           ),
@@ -168,9 +160,9 @@ class _MainAppState extends State<MainApp> {
               );
             },
           ),*/
-        ],*/
+        ],
 
-        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

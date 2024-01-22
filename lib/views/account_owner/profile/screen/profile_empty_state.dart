@@ -108,3 +108,106 @@ class ProfileEmptyState extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+class ProfileEmptyState2 extends StatelessWidget {
+  const ProfileEmptyState2({super.key, required this.onPressed,});
+  final VoidCallback onPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            color: AppColor.greyColor,
+            width: double.infinity,
+            height: 7.h,
+          ),
+          SizedBox(height: 110.h,),
+          SvgPicture.asset('assets/svg/profile_empty.svg'),
+          SizedBox(height: 30.h,),
+          Text(
+            'No profile detail available',
+            style: GoogleFonts.inter(
+              textStyle: TextStyle(
+                color: AppColor.blackColor,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w600
+              )
+            )
+          ),
+          SizedBox(height: 15.h,),
+          RichText(
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text:'Click on the',
+                  style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    )
+                  )
+                ),
+                TextSpan(
+                  text:' "Refresh" ',
+                  style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                      color: AppColor.blackColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    )
+                  )
+                ),
+                TextSpan(
+                  text:'button to check \n             your connection status',
+                  style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    )
+                  )
+                ),
+              ]
+            )
+          ),
+          SizedBox(height: 70.h,),
+          //ADD SECTION BUTTON
+          InkWell(
+            onTap: onPressed,
+            child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              alignment: Alignment.center,
+              height: 50.h,
+              width: 350.w,
+              decoration: BoxDecoration(
+                color: AppColor. mainColor,
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(
+                  color: AppColor.mainColor
+                )
+              ),
+              child: Text(
+                'Refesh',
+                style: GoogleFonts.inter(
+                  textStyle: TextStyle(
+                    color: AppColor.bgColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500
+                  )
+                )
+              ),
+            )
+          )
+        ],
+      ),
+    );
+  }
+}

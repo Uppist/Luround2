@@ -10,6 +10,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_viewer/services/get_user_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
@@ -51,7 +52,7 @@ class AccViewerServicesPage extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Image.asset('assets/images/latest_logo.png'),
+                      Image.asset('assets/images/luround_logo.png'),
                     ]
                   ),
                   SizedBox(height: 30.h,),
@@ -82,11 +83,28 @@ class AccViewerServicesPage extends StatelessWidget {
                 }
                 if (snapshot.hasError) {
                   debugPrint("${snapshot.error}");
+                  return ServiceEmptyState2(
+                    onPressed: () {
+                      showMySnackBar(
+                        context: context, 
+                        message: "uh-oh! something went wrong", 
+                        backgroundColor: AppColor.redColor
+                      );
+                    }
+                  );
                 }
                 if (!snapshot.hasData || snapshot.data!.isEmpty) {
                   print("sn-trace: ${snapshot.stackTrace}");
                   print("sn-data: ${snapshot.data}");
-                  return Expanded(child: Loader2());
+                  return ServiceEmptyState2(
+                    onPressed: () {
+                      showMySnackBar(
+                        context: context, 
+                        message: "uh-oh! no available data to be fetched", 
+                        backgroundColor: AppColor.redColor
+                      );
+                    }
+                  );
                 } 
                      
                 //[Do this if anything sups]//
@@ -316,16 +334,15 @@ class AccViewerServicesPage extends StatelessWidget {
                     ),
                   );
                 }
-            
-                return Center(
-                  child: Text(
-                    "connection timed out",
-                    style: GoogleFonts.inter(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.normal
-                    ) 
-                  )
+
+                return ServiceEmptyState2(
+                  onPressed: () {
+                    showMySnackBar(
+                      context: context, 
+                      message: "connection timed out. please check for internet connectivity", 
+                      backgroundColor: AppColor.redColor
+                    );
+                  }
                 );
 
               }

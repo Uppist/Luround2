@@ -115,6 +115,7 @@ class FinancialsService extends getx.GetxController {
     reactiveSubtotalForQuote.value = subtotalPrice.toString();
     reactiveTotalDiscountForQuote.value = totalDiscount.toString();
     reactiveTotalVATForQuote.value = totalVat.toString();
+    update();
   }
 
 

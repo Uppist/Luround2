@@ -124,7 +124,8 @@ class _MainAppState extends State<MainApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Luround',
-        unknownRoute: GetPage(
+        
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -168,9 +169,9 @@ class _MainAppState extends State<MainApp> {
               );
             },
           ),*/
-        ],
+        ],*/
 
-        //home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

@@ -96,7 +96,7 @@ class DueInvoiceDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Sheldon Cooper",
+                send_to_name,
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,
@@ -104,7 +104,7 @@ class DueInvoiceDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                "28 Oct 2023",
+                due_date,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -128,7 +128,7 @@ class DueInvoiceDisplay extends StatelessWidget {
                 ],
               ),*/
               Text(
-                "N82,000",
+                "N$total",
                 style: GoogleFonts.inter(
                   color: AppColor.blackColor,
                   fontSize: 16.sp,

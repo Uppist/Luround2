@@ -452,7 +452,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Total",
+                                    "Grand Total",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,

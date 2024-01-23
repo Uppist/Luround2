@@ -14,6 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
+import 'package:luround/views/account_viewer/404page/unknown_route.dart';
 import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
 import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
@@ -60,7 +61,7 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
 void main() async{
   
-  setPathUrlStrategy();
+  //setPathUrlStrategy();
 
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
@@ -123,7 +124,12 @@ class _MainAppState extends State<MainApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Luround',
-        //unknownRoute: GetPage(name: '/unknown', page: () => 404Page()),
+        unknownRoute: GetPage(
+          name: '/', 
+          page: () => UnknownPage(
+            onPressed: () {}     
+          )
+        ),
         /*routes: {
           '/': (context) => HomeScreen(),
           '/destination': (context) => DestinationScreen(argument: ''),

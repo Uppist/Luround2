@@ -488,7 +488,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    "Total",
+                                    "Grand Total",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,

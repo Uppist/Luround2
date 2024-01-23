@@ -426,7 +426,7 @@ class SettingsService extends getx.GetxController {
   Future<List<SavedBanks>> getUserSavedAccounts() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks",);
+      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks?userId=$userId",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

@@ -364,7 +364,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                     //To show the items that were added (Use Future builder to show the items addedd)
                     Obx(
                       () {
-                        return service.selectedInvoicebslist.isNotEmpty ? ListView.builder(
+                        return //service.selectedInvoicebslist.isNotEmpty ? 
+                        ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
@@ -394,7 +395,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                               duration: item['duration'],
                             );
                           }
-                        ) : SizedBox();
+                        ); //: SizedBox();
                       }
                     ),
 
@@ -583,14 +584,19 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                             sendInvoiceBottomSheet(
                               context: context,
                               onShare: () {
-                                service.createNewInvoiceAndSaveToDB(
+                                service.createNewInvoiceAndSendToClient(
                                   context: context, 
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 
                                   client_phone_number: controller.invoiceClientPhoneNumberController.text, 
                                   note: controller.invoiceNoteController.text,
                                   invoice_date: controller.updatedInvoiceDate(initialDate: "(non)"), 
-                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)")
+                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  vat: service.reactiveTotalVATForInvoice.value,
+                                  sub_total: service.reactiveSubtotalForInvoice.value,
+                                  discount: service.reactiveTotalDiscountForInvoice.value,
+                                  total: service.reactiveTotalForInvoice.value,
+                                  booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
                                     finPdfService.shareInvoicePDF(
                                     context: context,
@@ -598,7 +604,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                     receiver_email: controller.invoiceClientEmailController.text,
                                     receiver_name: controller.invoiceClientNameController.text,
                                     receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
-                                    invoice_status: "SENT VIA PDF",
+                                    invoice_status: "SENT",
                                     due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
                                     subtotal: service.reactiveSubtotalForInvoice.value,
                                     discount: service.reactiveTotalDiscountForInvoice.value,
@@ -624,8 +630,19 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   client_phone_number: controller.invoiceClientPhoneNumberController.text, 
                                   note: controller.invoiceNoteController.text,
                                   invoice_date: controller.updatedInvoiceDate(initialDate: "(non)"), 
-                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)")
-                                ).whenComplete(() => Get.back());
+                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  vat: service.reactiveTotalVATForInvoice.value,
+                                  sub_total: service.reactiveSubtotalForInvoice.value,
+                                  discount: service.reactiveTotalDiscountForInvoice.value,
+                                  total: service.reactiveTotalForInvoice.value,
+                                  booking_detail: service.selectedInvoicebslist
+                                ).whenComplete(() {
+                                  controller.invoiceClientEmailController.clear();
+                                  controller.invoiceClientNameController.clear();
+                                  controller.invoiceClientPhoneNumberController.clear();
+                                  controller.invoiceNoteController.clear();
+                                  Get.back();
+                                });
                               },
                               onDownload: () {
                                 finPdfService.downloadInvoicePDFToDevice(
@@ -634,12 +651,12 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   receiver_email: controller.invoiceClientEmailController.text,
                                   receiver_name: controller.invoiceClientNameController.text,
                                   receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
-                                  invoice_status: "SENT VIA PDF",
+                                  note: controller.invoiceNoteController.text,
+                                  invoice_status: "SENT",
                                   due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
                                   subtotal: service.reactiveSubtotalForInvoice.value,
                                   discount: service.reactiveTotalDiscountForInvoice.value,
                                   vat: service.reactiveTotalVATForInvoice.value,
-                                  note: controller.invoiceNoteController.text,
                                   grand_total: service.reactiveTotalForInvoice.value,
                                   serviceList: service.selectedInvoicebslist,
                                 ).whenComplete(() {

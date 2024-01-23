@@ -86,7 +86,7 @@ class _SentReceiptsPageState extends State<SentReceiptsPage>{
       ),  
       
       //FAB (floating action bubble / speed dial)
-      floatingActionButton: Obx(
+      /*floatingActionButton: Obx(
         () {
           return SpeedDial(
             //extendedPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -140,7 +140,8 @@ class _SentReceiptsPageState extends State<SentReceiptsPage>{
             ],
           );
         }
-      ),
+      ),*/
+
     );
   }
 }

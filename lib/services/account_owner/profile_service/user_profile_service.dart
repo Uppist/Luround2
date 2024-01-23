@@ -154,6 +154,7 @@ class AccOwnerProfileService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         //decode the response body here
         UserModel userModel = UserModel.fromJson(jsonDecode(res.body));
         await LocalStorage.saveUserID(userModel.id);

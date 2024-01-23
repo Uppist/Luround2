@@ -23,6 +23,7 @@ class UserModel {
   late final String occupation;
   late final String about;
   late final String phone_number;
+  late final String address;
   late final String luround_url;
   late final String company;
   late final String logo_url;
@@ -38,6 +39,7 @@ class UserModel {
     occupation = json['occupation'] ?? "occ";
     about = json['about'] ?? "about";
     phone_number = json['phone_number'] ?? "phone_number";
+    address = json['address'] ?? "address";
     luround_url = json["luround_url"] ?? "url";
     logo_url = json["logo_url"] ?? "logo_url";
     company = json["company"] ?? "company";
@@ -54,7 +56,8 @@ class UserModel {
     _data['accountCreatedFrom'] = accountCreatedFrom;
     _data['occupation'] = occupation;
     _data['about'] = about;
-    //_data['phone_number'] = phone_number;
+    _data['phone_number'] = phone_number;
+    _data['address'] = address;
     _data["luround_url"] = luround_url;
     _data["logo_url"] = logo_url;
     _data["company"] = company;

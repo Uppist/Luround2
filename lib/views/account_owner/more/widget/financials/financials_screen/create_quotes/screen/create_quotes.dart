@@ -366,37 +366,42 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                         //To show the items that were added (Use Future builder to show the items addedd)
                         Obx(
                           () {
-                            return service.selectedQuotebslist.isNotEmpty ?
-                            ListView.builder(
+                            return ListView.builder(
                               scrollDirection: Axis.vertical,
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               padding: EdgeInsets.symmetric(horizontal: 20.w),
                               itemCount: service.selectedQuotebslist.length,
-                              itemBuilder: (BuildContext context, int index) {
+                              itemBuilder: (context, index) {
                                 final item = service.selectedQuotebslist[index];
                                 return AddedServicesTile(
                                   onTap: (){
                                     Get.to(() => ViewAddedServiceDetails(
-                                      discounted_total: item["discounted_total"] ?? item['total'],
+                                      service_name: item['service_name'],
+                                      //service_id: item['serviceID'],
+                                      service_description: item['description'],
+                                      discounted_total: item["discounted_total"].toString() ?? item['total'].toString(),
                                       meeting_type: item['appointment_type'],
                                       index: index,
-                                      service_name: item['service_name'],
                                       rate: item['rate'],
+                                      total: item['total'], //total
                                       discount: item['discount'],
-                                      total: item['total'],
-                                      service_description: item['description'],
                                       duration: item['duration'],
                                     ));
                                   },
-                                  productName:item['service_name'],
+                                  productName: item['service_name'],
                                   price: item['total'].toString(),
                                   duration: item['duration'],
                                 );
                               }
-                            ) : SizedBox();
+                            );
                           }
+                              
                         ),
+                          
+                            
+                        
+                      
           
                         SizedBox(height: 20.h,),
                         Container(
@@ -601,7 +606,12 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
                                       quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
-                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)")
+                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      vat: service.reactiveTotalVATForQuote.value,
+                                      sub_total: service.reactiveSubtotalForQuote.value,
+                                      discount: service.reactiveTotalDiscountForQuote.value,
+                                      total: service.reactiveTotalForQoute.value,
+                                      product_detail: service.selectedQuotebslist,
                                     ).whenComplete(() {
                                       finPdfService.shareQuotePDF(
                                         context: context,
@@ -609,7 +619,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                         receiver_email: controller.quoteClientEmailController.text,
                                         receiver_name: controller.quoteClientNameController.text,
                                         receiver_phone_number: controller.quoteClientPhoneNumberController.text,
-                                        quote_status: "SENT VIA PDF",
+                                        quote_status: "SENT",
                                         due_date: controller.updatedDueDate(initialDate: "(non)"),
                                         subtotal: service.reactiveSubtotalForQuote.value,
                                         discount: service.reactiveTotalDiscountForQuote.value,
@@ -634,8 +644,19 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
                                       quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
-                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)")
-                                    ).whenComplete(() => Get.back());
+                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      vat: service.reactiveTotalVATForQuote.value,
+                                      sub_total: service.reactiveSubtotalForQuote.value,
+                                      discount: service.reactiveTotalDiscountForQuote.value,
+                                      total: service.reactiveTotalForQoute.value,
+                                      product_detail: service.selectedQuotebslist,
+                                    ).whenComplete(() {
+                                      controller.quoteClientEmailController.clear();
+                                      controller.quoteClientNameController.clear();
+                                      controller.quoteClientPhoneNumberController.clear();
+                                      controller.quoteNoteController.clear();
+                                      Get.back();
+                                    });
                                   },
                                   onDownload: () {
                                     finPdfService.downloadQuotePDFToDevice(
@@ -644,7 +665,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       receiver_email: controller.quoteClientEmailController.text,
                                       receiver_name: controller.quoteClientNameController.text,
                                       receiver_phone_number: controller.quoteClientPhoneNumberController.text,
-                                      quote_status: "SENT VIA PDF",
+                                      quote_status: "SENT",
                                       due_date: controller.updatedDueDate(initialDate: "(non)"),
                                       subtotal: service.reactiveSubtotalForQuote.value,
                                       discount: service.reactiveTotalDiscountForQuote.value,
@@ -681,7 +702,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
           
               ]
             )
-          )
+          ),
         
       
     );

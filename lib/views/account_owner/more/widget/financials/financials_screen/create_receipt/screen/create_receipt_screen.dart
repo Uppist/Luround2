@@ -645,7 +645,13 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   client_phone_number: controller.receiptClientPhoneNumberController.text, 
                                   note: controller.receiptNoteController.text,
                                   receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
-                                  mode_of_payment: controller.selectedModeOfPayment.value
+                                  mode_of_payment: controller.selectedModeOfPayment.value,
+                                  
+                                  vat: service.reactiveTotalVATForReceipt.value,
+                                  sub_total: service.reactiveSubtotalForReceipt.value,
+                                  discount: service.reactiveTotalDiscountForReceipt.value,
+                                  total: service.reactiveTotalForReceipt.value,
+                                  service_detail: service.selectedReceiptbslist,
                                 ).whenComplete(() {
                                     finPdfService.shareReceiptPDF(
                                     context: context,
@@ -653,7 +659,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     receiver_email: controller.receiptClientEmailController.text,
                                     receiver_name: controller.receiptClientNameController.text,
                                     receiver_phone_number: controller.receiptClientPhoneNumberController.text,
-                                    receipt_status: "SENT VIA PDF",
+                                    receipt_status: "SENT",
                                     due_date: controller.updatedReceiptDate(initialDate: "(non)"),
                                     subtotal: service.reactiveSubtotalForReceipt.value,
                                     discount: service.reactiveTotalDiscountForReceipt.value,
@@ -678,8 +684,20 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   client_phone_number: controller.receiptClientPhoneNumberController.text, 
                                   note: controller.receiptNoteController.text,
                                   receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
-                                  mode_of_payment: controller.selectedModeOfPayment.value
-                                ); //.whenComplete(() => Get.back());
+                                  mode_of_payment: controller.selectedModeOfPayment.value,
+
+                                  vat: service.reactiveTotalVATForReceipt.value,
+                                  sub_total: service.reactiveSubtotalForReceipt.value,
+                                  discount: service.reactiveTotalDiscountForReceipt.value,
+                                  total: service.reactiveTotalForReceipt.value,
+                                  service_detail: service.selectedReceiptbslist,
+                                ).whenComplete(() {
+                                    controller.receiptClientEmailController.clear();
+                                    controller.receiptClientNameController.clear();
+                                    controller.receiptClientPhoneNumberController.clear();
+                                    controller.receiptNoteController.clear();
+                                    Get.back();
+                                  });
                               },
                               onDownload: () {
                                 finPdfService.downloadReceiptPDFToDevice(
@@ -688,7 +706,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   receiver_email: controller.receiptClientEmailController.text,
                                   receiver_name: controller.receiptClientNameController.text,
                                   receiver_phone_number: controller.receiptClientPhoneNumberController.text,
-                                  receipt_status: "SENT VIA PDF",
+                                  receipt_status: "SENT",
                                   due_date: controller.updatedReceiptDate(initialDate: "(non)"),
                                   subtotal: service.reactiveSubtotalForReceipt.value,
                                   discount: service.reactiveTotalDiscountForReceipt.value,
@@ -696,7 +714,13 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   note: controller.receiptNoteController.text,
                                   grand_total: service.reactiveTotalForReceipt.value,
                                   serviceList: service.selectedReceiptbslist,
-                                ).whenComplete(() => Get.back());
+                                ).whenComplete(() {
+                                    controller.receiptClientEmailController.clear();
+                                    controller.receiptClientNameController.clear();
+                                    controller.receiptClientPhoneNumberController.clear();
+                                    controller.receiptNoteController.clear();
+                                    Get.back();
+                                  });
                               },
                             );
                           }

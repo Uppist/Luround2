@@ -27,7 +27,7 @@ class _ReceiptScreenTabState extends State<ReceiptScreenTab> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 1, vsync: this);
   }
 
   @override
@@ -109,7 +109,7 @@ class _ReceiptScreenTabState extends State<ReceiptScreenTab> with SingleTickerPr
                           isScrollable: false,
                           tabs: const [
                             Tab(text: 'Sent',),
-                            Tab(text: 'Drafts',),
+                            //Tab(text: 'Drafts',),
                           ],
                         ),
                       ],
@@ -124,7 +124,7 @@ class _ReceiptScreenTabState extends State<ReceiptScreenTab> with SingleTickerPr
                     physics: const BouncingScrollPhysics(),
                     children: [
                       SentReceiptsPage(),
-                      DraftedReceiptsPage()
+                      //DraftedReceiptsPage()
                     ]
                   ),
                 ),

@@ -78,7 +78,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                               service_id: service_id, 
                               discount: finService.discountForInvoice.text.isEmpty ? discount : finService.discountForInvoice.text, 
                               rate: finService.rateForInvoice.text.isEmpty ? rate : finService.rateForInvoice.text, 
-                              total: discounted_total.isEmpty ? total : discounted_total, 
+                              total: discounted_total.isEmpty || discounted_total == null ? total : discounted_total, 
                               duration: finService.durationForInvoice.text.isEmpty ? duration : finService.durationForInvoice.text, 
                               appointmentType: finService.selectedMeetingTypeForInvoice.text.isEmpty ? appointmentType : finService.selectedMeetingTypeForInvoice.text, 
                               index: index, 

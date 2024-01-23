@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -48,7 +47,7 @@ class DraftedQuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewDraftedQuoteScreen(
-                quote_id: quote_date, 
+                quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number:phone_number,
@@ -77,24 +76,40 @@ class DraftedQuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               int randNum = Random().nextInt(2000000);
-              finPdfService.shareQuotePDF(
+              service.createNewQuoteAndSendToClient(
                 context: context, 
-                quoteNumber: randNum, 
-                receiver_name: send_to_name, 
-                receiver_email: send_to_email, 
-                receiver_phone_number: phone_number, 
-                quote_status: status,
-                due_date: due_date, 
-                grand_total: total, 
-                serviceList: product_details, 
-                subtotal: sub_total, 
-                discount: discount, 
-                vat: vat, 
-                note: note
-              );
+                client_name: send_to_name, 
+                client_email: send_to_email, 
+                client_phone_number: phone_number, 
+                note: note,
+                quote_date: quote_date, 
+                quote_due_date: due_date,
+                vat: vat,
+                sub_total: sub_total,
+                discount: discount,
+                total: total,
+                product_detail: product_details,
+              ).whenComplete(() {
+                finPdfService.shareQuotePDF(
+                  context: context, 
+                  quoteNumber: randNum, 
+                  receiver_name: send_to_name, 
+                  receiver_email: send_to_email, 
+                  receiver_phone_number: phone_number, 
+                  quote_status: status,
+                  due_date: due_date, 
+                  grand_total: total, 
+                  serviceList: product_details, 
+                  subtotal: sub_total, 
+                  discount: discount, 
+                  vat: vat, 
+                  note: note
+                );
+              });
+            
             },
             child: Text(
-              "Resend",
+              "Send",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
@@ -130,19 +145,19 @@ class DraftedQuoteDropDown extends StatelessWidget {
               ),
             )
           ),
-          PopupMenuItem(
+          /*PopupMenuItem(
             onTap: () {
               print('not yet available');
             },
             child: Text(
-              "Convert to invoice",
+              "Generate Invoice",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )
-          ),
+          ),*/
           PopupMenuItem(
             onTap: () {
               deleteQuoteBottomSheet(

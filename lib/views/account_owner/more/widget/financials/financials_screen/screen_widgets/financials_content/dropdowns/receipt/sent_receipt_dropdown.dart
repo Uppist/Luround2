@@ -90,7 +90,7 @@ class SentReceiptDropDown extends StatelessWidget {
               ),
             )
           ),*/
-          PopupMenuItem(
+          /*PopupMenuItem(
             onTap: () {
               finPdfService.shareReceiptPDF(
                 context: context, 
@@ -116,7 +116,7 @@ class SentReceiptDropDown extends StatelessWidget {
                 color: AppColor.blackColor
               ),
             )
-          ),
+          ),*/
           PopupMenuItem(
             onTap: () {
               finPdfService.downloadReceiptPDFToDevice(

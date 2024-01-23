@@ -38,6 +38,7 @@ class RequestedQuoteDropDown extends StatelessWidget {
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
+  final int randNum = Random().nextInt(100000);
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +55,7 @@ class RequestedQuoteDropDown extends StatelessWidget {
                 offer: offer,
                 service_name: service_name,
                 uploaded_file: uploade_file,
-                quote_id: quote_date, 
+                quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number:phone_number,

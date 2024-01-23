@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,7 @@ class QuotesList extends StatelessWidget {
   QuotesList({super.key,});
 
   var service = Get.put(QuotesService());
+  int randNum = Random().nextInt(200000);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class QuotesList extends StatelessWidget {
               if(service.filteredSentQuotesList.isNotEmpty) {
                 return QuotesDisplay(
                   onPressed: (){},
-                  quote_id: item.quote_date, 
+                  quote_id: randNum.toString(), 
                   send_to_name: item.send_to_name,
                   send_to_email: item.send_to_email,
                   phone_number:item.phone_number,

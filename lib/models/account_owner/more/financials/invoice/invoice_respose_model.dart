@@ -39,10 +39,10 @@ class InvoiceResponse{
       send_to_email: json['send_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "nan",
       due_date: json['due_date'] ?? "nan",
-      sub_total: json['sub_total'] ?? 0,
-      discount: json['discount'] ?? 0,
+      sub_total: json['sub_total'] ?? "",
+      discount: json['discount'] ?? "",
       vat: json['vat'] ?? "nan",
-      total: json['total'] ?? 0,
+      total: json['total'] ?? "",
       note: json['note'] ?? "nan", 
       booking_detail: json['booking_detail'] ?? [],
     );

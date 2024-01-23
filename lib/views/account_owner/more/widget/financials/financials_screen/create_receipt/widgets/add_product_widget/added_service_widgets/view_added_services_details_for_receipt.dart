@@ -71,7 +71,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                               service_id: "(not needed)", 
                               discount: finService.discountForReceipt.text.isEmpty ? discount : finService.discountForReceipt.text, 
                               rate: finService.rateForReceipt.text.isEmpty ? rate : finService.rateForReceipt.text, 
-                              total: discounted_total.isEmpty ? total : discounted_total, 
+                              total:  discounted_total.isEmpty || discounted_total == null ? total : discounted_total, 
                               duration: finService.durationForReceipt.text.isEmpty ? duration : finService.durationForReceipt.text, 
                               appointmentType: finService.selectedMeetingTypeForReceipt.text.isEmpty ? appointment_type : finService.selectedMeetingTypeForReceipt.text, 
                               index: index

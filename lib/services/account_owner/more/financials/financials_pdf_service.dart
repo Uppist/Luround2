@@ -94,7 +94,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         "Sent from:",
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,
+                          color: PdfColors.grey,
                           fontSize: 14.sp,
                           fontWeight: pw.FontWeight.bold
                         ),
@@ -103,7 +103,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         userName,
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,
+                          color: PdfColors.grey,
                           fontSize: 13.sp,
                           //fontWeight: pw.FontWeight.w500
                         ),
@@ -112,7 +112,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         userEmail,
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,  //.withOpacity(0.6),
+                          color: PdfColors.grey,  //.withOpacity(0.6),
                           fontSize: 12.sp,
                           //fontWeight: FontWeight.w400
                         ),
@@ -135,7 +135,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Sent to:",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -144,7 +144,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_name,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 13.sp,
                             //fontWeight: pw.FontWeight.w500
                           ),
@@ -153,7 +153,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_email,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 12.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -162,7 +162,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_phone_number,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 12.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -185,7 +185,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Quote Details",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -197,7 +197,7 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Text(
                               "Status:",
                               style: pw.TextStyle(
-                                color: PdfColors.grey500,  //.withOpacity(0.6),
+                                color: PdfColors.grey,  //.withOpacity(0.6),
                                 fontSize: 12.sp,
                                 //fontWeight: FontWeight.w500
                               ),
@@ -228,7 +228,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 "Quote number:",
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor.withOpacity(0.6),
+                                  color: PdfColors.grey, //AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
@@ -236,7 +236,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 '#$quoteNumber',
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor,
+                                  color: PdfColors.grey, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 )
@@ -251,7 +251,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 "Valid till:",
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor.withOpacity(0.6),
+                                  color: PdfColors.grey, //AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
@@ -259,30 +259,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 due_date,
                                 style: pw.TextStyle(
-                                  color: PdfColors.green500, //AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  //fontWeight: FontWeight.w500
-                                )
-                              ),
-                              
-                            ],
-                          ),
-                          pw.SizedBox(height: 20.h,),
-                          pw.Row(
-                            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                            children: [
-                              pw.Text(
-                                "Grand total:",
-                                style: pw.TextStyle(
-                                  color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
-                                  fontSize: 12.sp,
-                                  //fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              pw.Text(
-                                'N$grand_total',
-                                style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor,
+                                  color: PdfColors.green, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 )
@@ -311,7 +288,7 @@ class FinancialsPdfService extends getx.GetxController {
                           pw.Text(
                             "Products/Services",
                             style: pw.TextStyle(
-                              color: PdfColors.grey500,
+                              color: PdfColors.grey,
                               fontSize: 14.sp,
                               fontWeight: pw.FontWeight.bold
                             ),
@@ -336,14 +313,14 @@ class FinancialsPdfService extends getx.GetxController {
                                 pw.Text(
                                   item['service_name'] ?? "non",
                                   style: pw.TextStyle(
-                                    color: PdfColors.grey500,
+                                    color: PdfColors.grey,
                                     fontSize: 13.sp,
                                     fontWeight: pw.FontWeight.bold
                                   ),
                                 ),
                                 pw.SizedBox(height: 10.h,),
                                 pw.Divider(
-                                  color: PdfColors.grey500,  //.withOpacity(0.6), 
+                                  color: PdfColors.grey,  //.withOpacity(0.6), 
                                   thickness: 0.5,
                                 ),
                                 pw.SizedBox(height: 10.h,),
@@ -354,7 +331,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Meeting Type:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                         fontSize: 12.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
@@ -362,7 +339,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       item["meeting_type"],
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500,
+                                        color: PdfColors.grey,
                                         fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       )
@@ -377,14 +354,14 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Rate:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                         fontSize: 12.sp,
                                       ),
                                     ),
                                     pw.Text(
                                       'N${item['rate']}',
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500,
+                                        color: PdfColors.grey,
                                         fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       )
@@ -399,7 +376,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Duration:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                           fontSize: 12.sp,
                                           //fontWeight: FontWeight.w500
                                         ),
@@ -407,7 +384,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       pw.Text(
                                         item['duration'],
                                         style: pw.TextStyle(
-                                          color: PdfColors.grey500,
+                                          color: PdfColors.grey,
                                           fontSize: 14.sp,
                                           //fontWeight: FontWeight.w500
                                         )
@@ -422,7 +399,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       pw.Text(
                                         "Discount:",
                                         style: pw.TextStyle(
-                                          color: PdfColors.grey500, //.withOpacity(0.6),
+                                          color: PdfColors.grey, //.withOpacity(0.6),
                                           fontSize: 12.sp,
                                           //fontWeight: FontWeight.w500
                                         ),
@@ -430,7 +407,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           '${item['discount']}%',
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500,
+                                            color: PdfColors.grey,
                                             fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           )
@@ -445,7 +422,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           "Total:",
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500, //.withOpacity(0.6),
+                                            color: PdfColors.grey, //.withOpacity(0.6),
                                             fontSize: 12.sp,
                                             //fontWeight: FontWeight.w500
                                           ),
@@ -453,13 +430,16 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           'N${item['total']}',
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500,
+                                            color: PdfColors.grey,
                                             fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           )
                                         ),
                                       ],
                                     ),
+
+                                    pw.SizedBox(height: 10.h,),
+                                    
 
                                   ],
                                 );
@@ -487,7 +467,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Subtotal",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,  //.withOpacity(0.6),
+                            color: PdfColors.grey,  //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -510,7 +490,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Discount",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -519,7 +499,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$discount',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -536,7 +516,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "VAT",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -544,7 +524,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$vat',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -560,7 +540,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Total",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -568,12 +548,36 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$grand_total',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
                         ),
                               
+                      ],
+                    ),
+
+                    pw.SizedBox(height: 20.h,),
+
+                    pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Text(
+                          "Grand total:",
+                          style: pw.TextStyle(
+                            color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
+                            fontSize: 12.sp,
+                            //fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        pw.Text(
+                          'N$grand_total',
+                          style: pw.TextStyle(
+                            color: PdfColors.grey, //AppColor.darkGreyColor,
+                            fontSize: 14.sp,
+                            //fontWeight: FontWeight.w500
+                          )
+                        ),    
                       ],
                     ),
 
@@ -598,7 +602,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Note",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -618,7 +622,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           note,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -774,9 +778,10 @@ class FinancialsPdfService extends getx.GetxController {
     }
   }
 
+  
 
 
-
+  
 
   //WRITE THE INVOICE PDF
   Future writeInvoicePdf({
@@ -806,7 +811,7 @@ class FinancialsPdfService extends getx.GetxController {
             children: [
               pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
+                children: [ 
                   pw.PdfLogo(
                     color: PdfColors.red,
                     fit: pw.BoxFit.contain
@@ -837,7 +842,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         "Bill from:",
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,
+                          color: PdfColors.grey,
                           fontSize: 14.sp,
                           fontWeight: pw.FontWeight.bold
                         ),
@@ -846,7 +851,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         userName,
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,
+                          color: PdfColors.grey,
                           fontSize: 13.sp,
                           //fontWeight: pw.FontWeight.w500
                         ),
@@ -855,7 +860,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         userEmail,
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,  //.withOpacity(0.6),
+                          color: PdfColors.grey,  //.withOpacity(0.6),
                           fontSize: 12.sp,
                           //fontWeight: FontWeight.w400
                         ),
@@ -878,7 +883,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Bill to:",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -887,7 +892,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_name,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 13.sp,
                             //fontWeight: pw.FontWeight.w500
                           ),
@@ -896,7 +901,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_email,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 12.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -905,7 +910,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_phone_number,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 12.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -928,7 +933,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Invoice Details",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -940,7 +945,7 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Text(
                               "Status:",
                               style: pw.TextStyle(
-                                color: PdfColors.grey500,  //.withOpacity(0.6),
+                                color: PdfColors.grey,  //.withOpacity(0.6),
                                 fontSize: 12.sp,
                                 //fontWeight: FontWeight.w500
                               ),
@@ -979,7 +984,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 '#$invoiceNumber',
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor,
+                                  color: PdfColors.grey, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 )
@@ -994,7 +999,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 "Valid till:",
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor.withOpacity(0.6),
+                                  color: PdfColors.grey, //AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
@@ -1002,30 +1007,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 due_date,
                                 style: pw.TextStyle(
-                                  color: PdfColors.green500, //AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  //fontWeight: FontWeight.w500
-                                )
-                              ),
-                              
-                            ],
-                          ),
-                          pw.SizedBox(height: 20.h,),
-                          pw.Row(
-                            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                            children: [
-                              pw.Text(
-                                "Grand total:",
-                                style: pw.TextStyle(
-                                  color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
-                                  fontSize: 12.sp,
-                                  //fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              pw.Text(
-                                'N$grand_total',
-                                style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor,
+                                  color: PdfColors.green, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 )
@@ -1054,7 +1036,7 @@ class FinancialsPdfService extends getx.GetxController {
                           pw.Text(
                             "Products/Services",
                             style: pw.TextStyle(
-                              color: PdfColors.grey500,
+                              color: PdfColors.grey,
                               fontSize: 14.sp,
                               fontWeight: pw.FontWeight.bold
                             ),
@@ -1079,14 +1061,14 @@ class FinancialsPdfService extends getx.GetxController {
                                 pw.Text(
                                   item["service_name"] ?? "non",
                                   style: pw.TextStyle(
-                                    color: PdfColors.grey500,
+                                    color: PdfColors.grey,
                                     fontSize: 13.sp,
                                     fontWeight: pw.FontWeight.bold
                                   ),
                                 ),
                                 pw.SizedBox(height: 10.h,),
                                 pw.Divider(
-                                  color: PdfColors.grey500,  //.withOpacity(0.6), 
+                                  color: PdfColors.grey,  //.withOpacity(0.6), 
                                   thickness: 0.5,
                                 ),
                                 pw.SizedBox(height: 10.h,),
@@ -1097,15 +1079,15 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Meeting Type:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                         fontSize: 12.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
                                     ),
                                     pw.Text(
-                                      item["appointment_type"],
+                                      item["appointment_type"] ?? item["meeting_type"],
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500,
+                                        color: PdfColors.grey,
                                         fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       )
@@ -1127,7 +1109,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       'N${item["rate"]}',
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500,
+                                        color: PdfColors.grey,
                                         fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       )
@@ -1142,7 +1124,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Duration:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                           fontSize: 12.sp,
                                           //fontWeight: FontWeight.w500
                                         ),
@@ -1150,7 +1132,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       pw.Text(
                                         item["duration"],
                                         style: pw.TextStyle(
-                                          color: PdfColors.grey500,
+                                          color: PdfColors.grey,
                                           fontSize: 14.sp,
                                           //fontWeight: FontWeight.w500
                                         )
@@ -1165,7 +1147,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       pw.Text(
                                         "Discount:",
                                         style: pw.TextStyle(
-                                          color: PdfColors.grey500, //.withOpacity(0.6),
+                                          color: PdfColors.grey, //.withOpacity(0.6),
                                           fontSize: 12.sp,
                                           //fontWeight: FontWeight.w500
                                         ),
@@ -1173,7 +1155,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           '${item['discount']}%',
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500,
+                                            color: PdfColors.grey,
                                             fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           )
@@ -1188,7 +1170,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           "Total:",
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500, //.withOpacity(0.6),
+                                            color: PdfColors.grey, //.withOpacity(0.6),
                                             fontSize: 12.sp,
                                             //fontWeight: FontWeight.w500
                                           ),
@@ -1196,7 +1178,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           'N${item["total"]}',
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500,
+                                            color: PdfColors.grey,
                                             fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           )
@@ -1230,7 +1212,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Subtotal",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,  //.withOpacity(0.6),
+                            color: PdfColors.grey,  //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -1238,7 +1220,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$subtotal',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -1253,7 +1235,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Discount",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -1262,7 +1244,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$discount',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -1279,7 +1261,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "VAT",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -1287,7 +1269,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$vat',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -1303,7 +1285,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Total",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -1311,12 +1293,36 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$grand_total',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
                         ),
                               
+                      ],
+                    ),
+
+                    pw.SizedBox(height: 20.h,),
+
+                    pw.Row(
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Text(
+                          "Grand total:",
+                          style: pw.TextStyle(
+                            color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
+                            fontSize: 12.sp,
+                            //fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        pw.Text(
+                          'N$grand_total',
+                          style: pw.TextStyle(
+                            color: PdfColors.grey500, //AppColor.darkGreyColor,
+                            fontSize: 14.sp,
+                            //fontWeight: FontWeight.w500
+                          )
+                        ),    
                       ],
                     ),
 
@@ -1341,7 +1347,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Note",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -1361,7 +1367,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           note,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -1577,7 +1583,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         "Sent from:",
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,
+                          color: PdfColors.grey,
                           fontSize: 14.sp,
                           fontWeight: pw.FontWeight.bold
                         ),
@@ -1586,7 +1592,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         userName,
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,
+                          color: PdfColors.grey,
                           fontSize: 13.sp,
                           //fontWeight: pw.FontWeight.w500
                         ),
@@ -1595,7 +1601,7 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.Text(
                         userEmail,
                         style: pw.TextStyle(
-                          color: PdfColors.grey500,  //.withOpacity(0.6),
+                          color: PdfColors.grey,  //.withOpacity(0.6),
                           fontSize: 12.sp,
                           //fontWeight: FontWeight.w400
                         ),
@@ -1618,7 +1624,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Sent to:",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -1627,7 +1633,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_name,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 13.sp,
                             //fontWeight: pw.FontWeight.w500
                           ),
@@ -1636,7 +1642,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_email,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 12.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -1645,7 +1651,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           receiver_phone_number,
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 12.sp,
                             //fontWeight: FontWeight.w400
                           ),
@@ -1668,7 +1674,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Receipt Details",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),
@@ -1680,7 +1686,7 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Text(
                               "Status:",
                               style: pw.TextStyle(
-                                color: PdfColors.grey500,  //.withOpacity(0.6),
+                                color: PdfColors.grey,  //.withOpacity(0.6),
                                 fontSize: 12.sp,
                                 //fontWeight: FontWeight.w500
                               ),
@@ -1690,7 +1696,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 //width: 60.w,
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
-                                  color: PdfColors.blueGrey500, //AppColor.navyBlue,
+                                  color: PdfColors.blueGrey, //AppColor.navyBlue,
                                   borderRadius: pw.BorderRadius.circular(7.r)
                                 ),
                                 child: pw.Text(
@@ -1711,7 +1717,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 "Receipt number:",
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor.withOpacity(0.6),
+                                  color: PdfColors.grey, //AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
@@ -1719,7 +1725,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 '#$receiptNumber',
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor,
+                                  color: PdfColors.grey, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 )
@@ -1734,7 +1740,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 "Valid till:",
                                 style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor.withOpacity(0.6),
+                                  color: PdfColors.grey, //AppColor.darkGreyColor.withOpacity(0.6),
                                   fontSize: 12.sp,
                                   //fontWeight: FontWeight.w500
                                 ),
@@ -1742,7 +1748,7 @@ class FinancialsPdfService extends getx.GetxController {
                               pw.Text(
                                 due_date,
                                 style: pw.TextStyle(
-                                  color: PdfColors.green500, //AppColor.darkGreyColor,
+                                  color: PdfColors.green, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   //fontWeight: FontWeight.w500
                                 )
@@ -1750,29 +1756,7 @@ class FinancialsPdfService extends getx.GetxController {
                               
                             ],
                           ),
-                          pw.SizedBox(height: 20.h,),
-                          pw.Row(
-                            mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                            children: [
-                              pw.Text(
-                                "Grand total:",
-                                style: pw.TextStyle(
-                                  color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
-                                  fontSize: 12.sp,
-                                  //fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              pw.Text(
-                                'N$grand_total',
-                                style: pw.TextStyle(
-                                  color: PdfColors.grey500, //AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  //fontWeight: FontWeight.w500
-                                )
-                              ),
-                              
-                            ],
-                          ),
+                        
 
                         ],
                       ),
@@ -1794,7 +1778,7 @@ class FinancialsPdfService extends getx.GetxController {
                           pw.Text(
                             "Products/Services",
                             style: pw.TextStyle(
-                              color: PdfColors.grey500,
+                              color: PdfColors.grey,
                               fontSize: 14.sp,
                               fontWeight: pw.FontWeight.bold
                             ),
@@ -1819,14 +1803,14 @@ class FinancialsPdfService extends getx.GetxController {
                                 pw.Text(
                                   item["service_name"] ?? "non",
                                   style: pw.TextStyle(
-                                    color: PdfColors.grey500,
+                                    color: PdfColors.grey,
                                     fontSize: 13.sp,
                                     fontWeight: pw.FontWeight.bold
                                   ),
                                 ),
                                 pw.SizedBox(height: 10.h,),
                                 pw.Divider(
-                                  color: PdfColors.grey500,  //.withOpacity(0.6), 
+                                  color: PdfColors.grey,  //.withOpacity(0.6), 
                                   thickness: 0.5,
                                 ),
                                 pw.SizedBox(height: 10.h,),
@@ -1837,7 +1821,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Meeting Type:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                         fontSize: 12.sp,
                                         //fontWeight: FontWeight.w500
                                       ),
@@ -1845,7 +1829,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       item["appointment_type"],
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500,
+                                        color: PdfColors.grey,
                                         fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       )
@@ -1860,14 +1844,14 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Rate:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                         fontSize: 12.sp,
                                       ),
                                     ),
                                     pw.Text(
                                       'N${item["rate"]}',
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500,
+                                        color: PdfColors.grey,
                                         fontSize: 14.sp,
                                         //fontWeight: FontWeight.w500
                                       )
@@ -1882,7 +1866,7 @@ class FinancialsPdfService extends getx.GetxController {
                                     pw.Text(
                                       "Duration:",
                                       style: pw.TextStyle(
-                                        color: PdfColors.grey500, //.withOpacity(0.6),
+                                        color: PdfColors.grey, //.withOpacity(0.6),
                                           fontSize: 12.sp,
                                           //fontWeight: FontWeight.w500
                                         ),
@@ -1890,7 +1874,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       pw.Text(
                                         item["duration"],
                                         style: pw.TextStyle(
-                                          color: PdfColors.grey500,
+                                          color: PdfColors.grey,
                                           fontSize: 14.sp,
                                           //fontWeight: FontWeight.w500
                                         )
@@ -1905,7 +1889,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       pw.Text(
                                         "Discount:",
                                         style: pw.TextStyle(
-                                          color: PdfColors.grey500, //.withOpacity(0.6),
+                                          color: PdfColors.grey, //.withOpacity(0.6),
                                           fontSize: 12.sp,
                                           //fontWeight: FontWeight.w500
                                         ),
@@ -1913,7 +1897,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           '${item["discount"]}%',
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500,
+                                            color: PdfColors.grey,
                                             fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           )
@@ -1928,7 +1912,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           "Total:",
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500, //.withOpacity(0.6),
+                                            color: PdfColors.grey, //.withOpacity(0.6),
                                             fontSize: 12.sp,
                                             //fontWeight: FontWeight.w500
                                           ),
@@ -1936,7 +1920,7 @@ class FinancialsPdfService extends getx.GetxController {
                                         pw.Text(
                                           'N${item["total"]}',
                                           style: pw.TextStyle(
-                                            color: PdfColors.grey500,
+                                            color: PdfColors.grey,
                                             fontSize: 14.sp,
                                             //fontWeight: FontWeight.w500
                                           )
@@ -1970,7 +1954,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Subtotal",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,  //.withOpacity(0.6),
+                            color: PdfColors.grey,  //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -1978,7 +1962,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$subtotal',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -1993,7 +1977,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Discount",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -2002,7 +1986,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$discount',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -2019,7 +2003,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "VAT",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -2027,7 +2011,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$vat',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
@@ -2043,7 +2027,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Total",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500, //.withOpacity(0.6),
+                            color: PdfColors.grey, //.withOpacity(0.6),
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           ),
@@ -2051,12 +2035,36 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           'N$grand_total',
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             //fontWeight: FontWeight.w500
                           )
                         ),
                               
+                      ],
+                    ),
+
+                    pw.SizedBox(height: 20.h,),
+                    
+                    pw.Row(     
+                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                      children: [
+                        pw.Text(
+                          "Grand total:",
+                          style: pw.TextStyle(
+                            color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
+                            fontSize: 12.sp,
+                            //fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        pw.Text(
+                          'N$grand_total',
+                          style: pw.TextStyle(
+                            color: PdfColors.grey, //AppColor.darkGreyColor,
+                            fontSize: 14.sp,
+                            //fontWeight: FontWeight.w500
+                          )
+                        ),  
                       ],
                     ),
 
@@ -2081,7 +2089,7 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Note",
                           style: pw.TextStyle(
-                            color: PdfColors.grey500,
+                            color: PdfColors.grey,
                             fontSize: 14.sp,
                             fontWeight: pw.FontWeight.bold
                           ),

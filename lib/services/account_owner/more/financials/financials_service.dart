@@ -107,7 +107,7 @@ class FinancialsService extends getx.GetxController {
     for (var product in selectedQuotebslist) {
       subtotalPrice += double.parse(product['rate'].toString());
       totalDiscount += double.parse(product['discount']);
-      totalVat += double.parse(product['total'].toString()) * 0.075;
+      totalVat += double.parse(product['discounted_total'] ?? product['total'].toString()) * 0.075;
       totalPrice += double.parse(product['discounted_total'] ?? product['total']);
     }
     ///////////////////
@@ -195,7 +195,7 @@ class FinancialsService extends getx.GetxController {
 
     isLoading.value = true;
     //Find the index of the item you want to modify
-    if (index != -1) {
+    if(index >= 0 && index < selectedQuotebslist.length) {
 
       isLoading.value = false;
 
@@ -278,7 +278,12 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String quote_date,
-    required String quote_due_date
+    required String quote_due_date,
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> product_detail
     }) async {
 
     isLoading.value = true;
@@ -291,11 +296,11 @@ class FinancialsService extends getx.GetxController {
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "due_date": quote_due_date,
-      "vat": reactiveTotalVATForQuote.value,
-      "sub_total": reactiveSubtotalForQuote.value,
-      "discount": "${reactiveTotalDiscountForQuote.value} ",
-      "total": reactiveTotalForQoute.value,
-      "product_detail": selectedQuotebslist,
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "product_detail": product_detail,
     };
 
     try {
@@ -304,9 +309,6 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("quote created and saved successfully to database");
-        finController.quoteClientNameController.clear();
-        finController.quoteClientEmailController.clear();
-        finController.quoteClientPhoneNumberController.clear();
 
         //success snackbar
         showMySnackBar(
@@ -346,7 +348,12 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String quote_date,
-    required String quote_due_date
+    required String quote_due_date,
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> product_detail
     }) async {
 
     isLoading.value = true;
@@ -358,13 +365,12 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-
       "due_date": quote_due_date,
-      "vat": reactiveTotalVATForQuote.value,
-      "sub_total": reactiveSubtotalForQuote.value,
-      "discount": "${reactiveTotalDiscountForQuote.value} ",
-      "total": reactiveTotalForQoute.value,
-      "product_detail": selectedQuotebslist
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "product_detail": product_detail,
     };
 
     try {
@@ -373,9 +379,6 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("quote created and saved successfully to database");
-        finController.quoteClientNameController.clear();
-        finController.quoteClientEmailController.clear();
-        finController.quoteClientPhoneNumberController.clear();
 
         //success snackbar
         showMySnackBar(
@@ -608,7 +611,7 @@ class FinancialsService extends getx.GetxController {
 
     isLoading.value = true;
     //Find the index of the item you want to modify
-    if (index != -1) {
+    if (index >=0 && index < selectedInvoicebslist.length) {
 
       isLoading.value = false;
 
@@ -619,7 +622,7 @@ class FinancialsService extends getx.GetxController {
       selectedInvoicebslist[index]["total"] = total;
       selectedInvoicebslist[index]["appointment_type"] = appointmentType;
       selectedInvoicebslist[index]["rate"] = rate;
-      selectedInvoicebslist[index]["serviceID"] = service_id;
+      selectedInvoicebslist[index]["service_id"] = service_id;  //serviceID
       //invoice gets converted to bookings according to somto
       //these below corresponds to bookings
       selectedInvoicebslist[index]["message"] = "(non)";
@@ -651,7 +654,12 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String invoice_date,
-    required String due_date
+    required String due_date,
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> booking_detail
     }) async {
 
     isLoading.value = true;
@@ -663,11 +671,12 @@ class FinancialsService extends getx.GetxController {
       "note": note,
       "notes": note,
       "due_date": due_date,
-      "vat": reactiveTotalVATForInvoice.value,
-      "sub_total": reactiveSubtotalForInvoice.value,
-      "discount": "${reactiveTotalDiscountForInvoice.value}",
-      "total": reactiveTotalForInvoice.value,
-      "booking_detail": selectedInvoicebslist
+
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "booking_detail": booking_detail,
     };
 
     try {
@@ -677,9 +686,6 @@ class FinancialsService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
-        finController.invoiceClientNameController.clear();
-        finController.invoiceClientEmailController.clear();
-        finController.invoiceClientPhoneNumberController.clear();
         //success snackbar
         showMySnackBar(
           context: context,
@@ -716,7 +722,12 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String invoice_date,
-    required String due_date
+    required String due_date,
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> booking_detail
     }) async {
 
     isLoading.value = true;
@@ -728,11 +739,12 @@ class FinancialsService extends getx.GetxController {
       "note": note,
       "notes": note,
       "due_date": due_date,
-      "vat": reactiveTotalVATForInvoice.value,
-      "sub_total": reactiveSubtotalForInvoice.value,
-      "discount": "${reactiveTotalDiscountForInvoice.value}",
-      "total": reactiveTotalForInvoice.value,
-      "booking_detail": selectedInvoicebslist
+
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "booking_detail": booking_detail,
     };
 
     try {
@@ -742,9 +754,6 @@ class FinancialsService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
-        finController.invoiceClientNameController.clear();
-        finController.invoiceClientEmailController.clear();
-        finController.invoiceClientPhoneNumberController.clear();
         //success snackbar
         showMySnackBar(
           context: context,
@@ -981,6 +990,7 @@ class FinancialsService extends getx.GetxController {
       selectedReceiptbslist[index]["discount"] = discount;
       selectedReceiptbslist[index]["total"] = total;
       selectedReceiptbslist[index]["appointment_type"] = appointmentType;
+      selectedReceiptbslist[index]["meeting_type"] = appointmentType;
       selectedReceiptbslist[index]["rate"] = rate;
       
     
@@ -1007,7 +1017,13 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String receipt_date,
-    required String mode_of_payment
+    required String mode_of_payment,
+
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> service_detail,
     }) async {
 
     isLoading.value = true;
@@ -1021,11 +1037,13 @@ class FinancialsService extends getx.GetxController {
       "payment_status": "SENT",
       "mode_of_payment": mode_of_payment,
       "note": note,
-      "vat": reactiveTotalVATForReceipt.value,
-      "sub_total": reactiveSubtotalForReceipt.value,
-      "discount": "${reactiveTotalDiscountForReceipt.value}",
-      "total": reactiveTotalForReceipt.value,
-      "service_detail": selectedReceiptbslist
+      
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "service_detail": service_detail,
+
     };
 
     try {
@@ -1034,10 +1052,7 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("receipt created and saved successfully to database");
-        finController.receiptClientNameController.clear();
-        finController.receiptClientEmailController.clear();
-        finController.receiptClientPhoneNumberController.clear();
-        //success snackbar
+  
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
@@ -1074,7 +1089,12 @@ class FinancialsService extends getx.GetxController {
     required String client_phone_number,
     required String note,
     required String receipt_date,
-    required String mode_of_payment
+    required String mode_of_payment,
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> service_detail,
     }) async {
 
     isLoading.value = true;
@@ -1088,11 +1108,13 @@ class FinancialsService extends getx.GetxController {
       "payment_status": "DRAFT",
       "mode_of_payment": mode_of_payment,
       "note": note,
-      "vat": reactiveTotalVATForReceipt.value,
-      "sub_total": reactiveSubtotalForReceipt.value,
-      "discount": "${reactiveTotalDiscountForReceipt.value}",
-      "total": reactiveTotalForReceipt.value,
-      "service_detail": selectedReceiptbslist
+
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "service_detail": service_detail,
+
     };
 
     try {
@@ -1100,10 +1122,8 @@ class FinancialsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("receipt created and saved successfully to database");
-        finController.receiptClientNameController.clear();
-        finController.receiptClientEmailController.clear();
-        finController.receiptClientPhoneNumberController.clear();
         //success snackbar
         showMySnackBar(
           context: context,
@@ -1152,7 +1172,7 @@ class FinancialsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        //debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("receipt deleted by id successfully from database");
 
         //success snackbar

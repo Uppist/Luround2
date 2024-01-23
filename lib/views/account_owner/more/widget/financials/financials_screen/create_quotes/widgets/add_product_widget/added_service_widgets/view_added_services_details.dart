@@ -80,7 +80,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   index: widget.index,
                                   service_name: widget.service_name,
                                   discount: finService.discountForQuote.value.isEmpty ? "0" : finService.discountForQuote.value,
-                                  total: widget.discounted_total.isEmpty ? widget.total : widget.discounted_total,
+                                  total:  widget.discounted_total.isEmpty || widget.discounted_total == null ? widget.total : widget.discounted_total,
                                   context: context, 
                                   rate: finService.rateForQuote.value.isEmpty ? widget.rate : finService.rateForQuote.value,
                                   service_description: finService.serviceDescriptionForQuote.value.isNotEmpty ? finService.serviceDescriptionForQuote.value : widget.service_description, 
@@ -351,7 +351,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                     )
                                   ),
                                   TextSpan(
-                                    text: "N${widget.discounted_total ?? widget.total}",
+                                    text: "N${widget.total}",
                                     //text: finService.subTotalForQuote.value.isNotEmpty ? "N${finService.subTotalForQuote.value}" : "N${widget.total}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,

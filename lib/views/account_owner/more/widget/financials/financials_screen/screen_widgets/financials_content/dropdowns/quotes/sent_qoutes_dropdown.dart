@@ -8,6 +8,7 @@ import 'package:luround/services/account_owner/more/financials/financials_pdf_se
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/view_sent_quote_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/convert_to_invoice_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/delete_quote/delete_quote.dart';
 
 
@@ -35,6 +36,8 @@ class QuoteDropDown extends StatelessWidget {
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
+
+  final int randNum = Random().nextInt(100000);
   
   @override
   Widget build(BuildContext context) {
@@ -48,7 +51,7 @@ class QuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewSentQuoteScreen(
-                quote_id: quote_date, 
+                quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number:phone_number,
@@ -132,10 +135,27 @@ class QuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              print('not yet available');
+              Get.to(() => ConvertQuoteToInvoiceScreen(
+                quote_id: quote_date, 
+                send_to_name: send_to_name,
+                send_to_email: send_to_email,
+                phone_number:phone_number,
+                due_date: due_date,
+                qoute_date: quote_date,
+                //quote_date: quote_date,
+                sub_total: sub_total,
+                discount: discount,
+                vat: vat,
+                total: total,
+                appointment_type: appointment_type,
+                status: status,
+                note: note,
+                service_provider: service_provider,
+                product_details: product_details
+              ));
             },
             child: Text(
-              "Convert to invoice",
+              "Generate Invoice",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,

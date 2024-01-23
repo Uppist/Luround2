@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/paid_invoices/view_paid_invoice_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/convert_to_receipt.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/delete_invoice/delete_invoice.dart';
-
-
 
 
 
@@ -34,6 +34,8 @@ class InvoicePaidDropDown extends StatelessWidget {
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
+  var userName = LocalStorage.getUsername();
+  var userEmail = LocalStorage.getUseremail();
 
   @override
   Widget build(BuildContext context) {
@@ -71,19 +73,35 @@ class InvoicePaidDropDown extends StatelessWidget {
               ),
             )
           ),
-          /*PopupMenuItem(
+          PopupMenuItem(
             onTap: () {
-              print('gggggffff');
+              Get.to(() => ConvertInvoiceToReceiptScreen(
+                invoice_id: invoice_id,
+                send_to_name: send_to_name,
+                send_to_email: send_to_email,
+                phone_number: phone_number,
+                invoice_date: due_date,
+                //due_date: due_date,
+                sub_total: sub_total,
+                discount: discount,
+                vat: vat,
+                total: total,
+                note: note,
+                status: status,
+                booking_details: booking_detail,
+                service_provider_name: userName,
+                service_provider_email: userEmail,
+              ));
             },
             child: Text(
-              "Edit",
+              "Generate Receipt",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,
                 color: AppColor.blackColor
               ),
             )
-          ),*/
+          ),
           PopupMenuItem(
             onTap: () {
               int randNum = Random().nextInt(2000000);

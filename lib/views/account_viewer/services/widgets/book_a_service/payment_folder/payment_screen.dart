@@ -166,15 +166,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 );
                               }
                               return BlackCardAccViewer(
-                                accountName: 'unavailable',
-                                accountNumber: 'unavailable',
-                                bank: 'unavailable',
+                                accountName: 'loading...',
+                                accountNumber: 'loading...',
+                                bank: 'loading...',
                               );
                             }
                           ) : BlackCardAccViewer(
-                            accountName: 'unavailable',
-                            accountNumber: 'unavailable',
-                            bank: 'unavailable',
+                            accountName: 'loading...',
+                            accountNumber: 'loading...',
+                            bank: 'loading...',
                           );
                         }
                       ),
@@ -195,11 +195,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           UploadedReceiptWidget(
                             onDelete: () {
                               controller.isFileSelectedForBooking.value = false;
-                              controller.selectedFileForBooking = null;
-                              controller.isReceitUploaded.value = false;
+                              controller.imageFromGallery.value = null;
                             },
-                            file: controller.selectedFileForBooking!,
-                            text: controller.isReceitUploaded.value ? "file uploaded" : "file selected",
+                            file: controller.imageFromGallery.value,
+                            text: "file uploaded",
                           )
                           :UploadReceiptWidget(
                             onPressed: () {
@@ -215,10 +214,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       Obx(    //isFileSelectedForBooking
                         () {
                           return service.isLoading.value ? Loader() : RebrandedReusableButton(
-                            textColor: controller.isReceitUploaded.value ? AppColor.bgColor : AppColor.darkGreyColor,
-                            color: controller.isReceitUploaded.value ? AppColor.mainColor : AppColor.lightPurple, 
-                            text: controller.isReceitUploaded.value ? "I've made payment" : "Pay N${widget.amount}", 
-                            onPressed: controller.isReceitUploaded.value  
+                            textColor: controller.isFileSelectedForBooking.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                            color: controller.isFileSelectedForBooking.value ? AppColor.mainColor : AppColor.lightPurple, 
+                            text: controller.isFileSelectedForBooking.value ? "I've made payment" : "Pay N${widget.amount}", 
+                            onPressed: controller.isFileSelectedForBooking.value  
                             ? () async{
                               await service.bookUserService(
                                 context: context, 
@@ -237,8 +236,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 :"The location for this service is set to be physical."
                               ).whenComplete(() {
                                 controller.isFileSelectedForBooking.value = false;
-                                controller.selectedFileForBooking = null;
-                                controller.isReceitUploaded.value = false;
+                                controller.imageFromGallery.value = null;
                               });
                             }
                             : () {

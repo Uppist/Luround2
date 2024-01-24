@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:image_picker/image_picker.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 
@@ -20,8 +21,6 @@ class AccViewerServicesController extends getx.GetxController {
 
 
   ///*to confirm if payment has been made by the client  for booking///
-  //UPLOAD FILE TO SHOW CLIENT HAS PAID FOR A SERVICE (PDF, DOCX, e.t.c)
-  File? selectedFileForBooking;
   //cloudinary config
   /// This three params can be obtained directly from your Cloudinary account Dashboard.
   /// The .signedConfig(...) factory constructor is recommended only for server side apps, where [apiKey] and 
@@ -32,7 +31,6 @@ class AccViewerServicesController extends getx.GetxController {
     cloudName: "dxyzeiigv",
   );
   
-  var isReceitUploaded = false.obs;
   //upload image to cloudinary
   Future<void> uploadReceiptToCloudinary({
     required BuildContext context,
@@ -56,9 +54,7 @@ class AccViewerServicesController extends getx.GetxController {
         context: context,
         backgroundColor: AppColor.darkGreen,
         message: "payment receipt uploaded successfully"
-      ).whenComplete(() {
-        isReceitUploaded.value = true;
-      });
+      );
     }
     else {
       showMySnackBar(
@@ -70,19 +66,31 @@ class AccViewerServicesController extends getx.GetxController {
   }
   //file picker to pick user docs/pdf
   var isFileSelectedForBooking = false.obs;
+  getx.Rx<File?> imageFromGallery = getx.Rx<File?>(null);
+  //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'jpeg', 'png','pdf', 'doc'],
-    );
-
-    if (result != null) {
-      selectedFileForBooking = File(result.files.single.path!);
-      debugPrint("pdf path: ${selectedFileForBooking!.path}");
-      isFileSelectedForBooking.value = true;
-      uploadReceiptToCloudinary(context: context, file: selectedFileForBooking!);
+    try {
+      //var profileController = Provider.of<ProfileController>(context, listen: false);
+      final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        imageFromGallery.value = File(pickedImage.path);
+        await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
+        isFileSelectedForBooking.value = true;
+        update();
+      }
+    }
+    catch (e) {
+      debugPrint("Error Picking Image From Gallery: $e");
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "no photo was selected"
+      );
     }
   }
+
+
   
 
 

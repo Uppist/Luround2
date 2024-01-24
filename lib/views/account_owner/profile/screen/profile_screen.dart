@@ -401,7 +401,7 @@ class _ProfilePageState extends State<ProfilePage> {
               children: [
                 TextButton(
                   onPressed: () {
-                    userProfileService.launchUrlLink(link: data.luround_url);
+                    //userProfileService.launchUrlLink(link: data.luround_url);
                   },
                   child: Text(
                     data.luround_url, //data.displayName["company"]

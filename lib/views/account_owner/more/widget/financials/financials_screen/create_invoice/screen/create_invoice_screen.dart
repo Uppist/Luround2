@@ -644,8 +644,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   total: service.reactiveTotalForInvoice.value,
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
-                                  //controller.invoiceClientEmailController.clear();
-                                  //controller.invoiceClientNameController.clear();
+                                  controller.invoiceClientEmailController.clear();
+                                  controller.invoiceClientNameController.clear();
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
                                   Get.back();

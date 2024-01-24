@@ -4,6 +4,8 @@ class ReceiptResponse{
   final String service_provider_name;
   final String service_provider_email;
   final String service_provider_userId;
+  final String service_provider_phone_number;
+  final String service_provider_address;
   final String send_to_name;
   final String send_to_email;
   final String phone_number;
@@ -34,6 +36,8 @@ class ReceiptResponse{
     required this.mode_of_payment, 
     required this.receipt_date, 
     required this.service_detail,
+    required this.service_provider_phone_number, 
+    required this.service_provider_address,
   });
 
   factory ReceiptResponse.fromJson(Map<String, dynamic> json) {
@@ -41,10 +45,12 @@ class ReceiptResponse{
       service_provider_userId: json['service_provider_userId'] ?? "nan",
       service_provider_name: json['service_provider_name'] ?? "nan",
       service_provider_email: json['service_provider_email'] ?? "nan",
+      service_provider_phone_number: json['service_provider_phone_number'] ?? "nan",
+      service_provider_address: json['service_provider_address'] ?? "nan",
       receipt_id: json['_id'] ?? "nan",
       receipt_date: json['receipt_date'] ?? "nan",
-      send_to_name: json['send_to'] ?? "nan",
-      send_to_email: json['send_to_email'] ?? "nan",
+      send_to_name: json['send_to_name'] ?? "nan",
+      send_to_email: json['sent_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "nan",
       sub_total: json['sub_total'] ?? "nan",
       discount: json['discount'] ?? "nan",
@@ -53,7 +59,7 @@ class ReceiptResponse{
       mode_of_payment: json['mode_of_payment'] ?? "nan",
       payment_status: json["payment_status"] ?? 'nan',
       note: json['note'] ?? "nan", 
-      service_detail: json['service_detail'] ?? [],
+      service_detail: json['product_detail'] ?? [],
     );
   }
 }

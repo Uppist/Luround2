@@ -43,6 +43,7 @@ class AccOwnerBookingService extends getx.GetxController {
       print("when query is empty: $filteredList");
     } 
     else {
+
       filteredList.clear(); // Clear the previous filtered list
 
       // Use addAll to add the filtered items to the list
@@ -179,7 +180,7 @@ class AccOwnerBookingService extends getx.GetxController {
         print("dataList: $dataList");
         
         //return data list
-        return finalResult;
+        return dataList;
         
 
       } else {

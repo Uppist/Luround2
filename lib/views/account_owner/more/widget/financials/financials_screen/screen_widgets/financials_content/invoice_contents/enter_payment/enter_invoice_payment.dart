@@ -243,7 +243,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                               else {
                                 showMySnackBar(
                                   context: context, 
-                                  message: "enter amount paid", 
+                                  message: "enter amount paid by recepient", 
                                   backgroundColor: AppColor.redColor
                                 );
                               }

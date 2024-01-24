@@ -212,8 +212,9 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                               ),
                               Container(
                                 alignment: Alignment.center,
-                                width: 65.w,
-                                height: 30.h,
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                //width: 60.w,
+                                height: 40.h,
                                 decoration: BoxDecoration(
                                   color: AppColor.bgColor,
                                   borderRadius: BorderRadius.circular(7.r),

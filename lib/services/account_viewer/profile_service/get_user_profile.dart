@@ -109,7 +109,7 @@ class AccViewerProfileService extends getx.GetxController {
     //var uri = Uri.https('luround.onrender.com','api/v1/profile/get-user-profile-link?url=${fullURL}');
     //print("url: $uri");
     try {   // await http.get(uri);
-      http.Response res = await baseService.httpGet(endPoint: "profile/get-user-profile-link?url=luround.com/profile/$userName",);
+      http.Response res = await baseService.httpGet(endPoint: "profile/get-user-profile-link?url=luround.com/#/profile/$userName",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

@@ -308,6 +308,7 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "status": "SAVED",
       "appointment_type": "already in the product detail list",
+      "note": note,
       "quote_date": quote_date,
       "send_to_name": client_name,
       "send_to_email": client_email,
@@ -383,6 +384,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "due_date": quote_due_date,
+      "note": note,
       "vat": vat,
       "sub_total": sub_total,
       "discount": discount,
@@ -693,18 +695,16 @@ class FinancialsService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "send_to": client_name,
+      "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "note": note,
-      "notes": note,
       "due_date": due_date,
-
       "vat": vat,
       "sub_total": sub_total,
       "discount": discount,
       "total": total,
-      "booking_detail": booking_detail,
+      "product_detail": booking_detail,
     };
 
     try {
@@ -763,18 +763,16 @@ class FinancialsService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "send_to": client_name,
+      "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "note": note,
-      "notes": note,
       "due_date": due_date,
-
       "vat": vat,
       "sub_total": sub_total,
       "discount": discount,
       "total": total,
-      "booking_detail": booking_detail,
+      "product_detail": booking_detail,
     };
 
     try {
@@ -1084,7 +1082,7 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "receipt_date": receipt_date,
       ////////////////
-      "send_to": client_name,
+      "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "payment_status": "SENT",
@@ -1095,7 +1093,7 @@ class FinancialsService extends getx.GetxController {
       "sub_total": sub_total,
       "discount": discount,
       "total": total,
-      "service_detail": service_detail,
+      "product_detail": service_detail,
 
     };
 
@@ -1155,18 +1153,17 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "receipt_date": receipt_date,
       ////////////////
-      "send_to": client_name,
+      "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
       "payment_status": "DRAFT",
       "mode_of_payment": mode_of_payment,
       "note": note,
-
       "vat": vat,
       "sub_total": sub_total,
       "discount": discount,
       "total": total,
-      "service_detail": service_detail,
+      "product_detail": service_detail,
 
     };
 

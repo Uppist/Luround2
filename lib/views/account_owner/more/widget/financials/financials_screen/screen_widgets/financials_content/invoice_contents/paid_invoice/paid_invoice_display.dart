@@ -73,7 +73,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
               ),
               InvoicePaidDropDown(
                 invoice_id: randomNum.toString(),
-                send_to_name: send_to_email,
+                send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number: phone_number,
                 due_date: due_date,

@@ -47,7 +47,7 @@ class _BookingsPageState extends State<BookingsPage> {
     service.getUserBookings().then((List<DetailsModel> list) {
       service.filteredList.clear();
       service.filteredList.addAll(list);  //service.dataList
-      print("initState: ${service.filteredList}");
+      print("filtered booking list: ${service.filteredList}");
     });
 
   }
@@ -175,7 +175,7 @@ class _BookingsPageState extends State<BookingsPage> {
                   scrollDirection: Axis.vertical,
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                  itemCount: service.filteredList.length, //data.length,
+                  itemCount: 2,//service.filteredList.length, //data.length,
                   separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                   itemBuilder: (context, index) {
       
@@ -189,7 +189,7 @@ class _BookingsPageState extends State<BookingsPage> {
                     }
 
                     if(service.filteredList.isNotEmpty){
-                      //if(controller.selectedIndex == index) {
+                      if(controller.selectedIndex == index) {
                         return Container(
                           alignment: Alignment.center,
                           //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -278,11 +278,12 @@ class _BookingsPageState extends State<BookingsPage> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             CircleAvatar(
-                                              backgroundColor: AppColor.mainColor,
+                                              backgroundColor: AppColor.greyColor,
                                               //backgroundImage: ,
                                               radius: 30.r,  //25,
                                               child: Text(
-                                                service.filteredList[index].bookingUserInfo.displayName.toUpperCase().substring(0, 1),
+                                                "",
+                                                //service.filteredList[index].bookingUserInfo.displayName.substring(0, 10), //.toUpperCase().substring(0, 1),
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.bgColor,
                                                   fontSize: 16.sp,
@@ -348,6 +349,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   color: AppColor.darkGreyColor,
                                                   fontSize: 12.sp,
                                                   fontWeight: FontWeight.w500,
+                                                  fontStyle: FontStyle.italic,
                                                   decoration: TextDecoration.underline,
                                                   decorationColor: AppColor.darkGreyColor
                                                 )
@@ -419,7 +421,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         Text(
                                           "West African Standard Time",
                                           style: GoogleFonts.inter(
-                                            color: AppColor.greyColor,
+                                            color: AppColor.darkGreyColor.withOpacity(0.4),
                                             fontSize: 12.sp,
                                             fontWeight: FontWeight.w500
                                           ),
@@ -494,7 +496,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.serviceFee,
+                                          "N${service.filteredList[index].serviceDetails.serviceFee}",
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -552,9 +554,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          "${convertServerTimeToDate(service.filteredList[index].serviceDetails.createdAt)}",
+                                          convertServerTimeToDate(service.filteredList[index].serviceDetails.createdAt),
                                           style: GoogleFonts.inter(
-                                            color: AppColor.greyColor,
+                                            color: AppColor.darkGreyColor.withOpacity(0.5),
                                             fontSize: 14.sp,
                                             fontWeight: FontWeight.w400
                                           ),
@@ -565,7 +567,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                     ),
                                   ),
                                   ////////////////////
-                                  Divider(color: AppColor.darkGreyColor, thickness: 0.8,),
+                                  Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
 
                                   //see more text button
                                   Center(
@@ -598,8 +600,8 @@ class _BookingsPageState extends State<BookingsPage> {
                             ],
                           ),
                         );
-                      //}
-                      /*else {
+                      }
+                      else {
 
                         //show the half view here
                         return Container(
@@ -690,11 +692,12 @@ class _BookingsPageState extends State<BookingsPage> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             CircleAvatar(
-                                              backgroundColor: AppColor.mainColor,
+                                              backgroundColor: AppColor.greyColor,
                                               //backgroundImage: ,
                                               radius: 30.r,  //25,
                                               child: Text(
-                                                service.filteredList[index].bookingUserInfo.displayName.toUpperCase().substring(0, 1),
+                                                "",
+                                                //service.filteredList[index].bookingUserInfo.displayName.toUpperCase().substring(0, 1),
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.bgColor,
                                                   fontSize: 16.sp,
@@ -755,11 +758,11 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 fontWeight: FontWeight.w500
                                               ),
                                             ),
-                                            /*SizedBox(width: 10.w,),
+                                            SizedBox(width: 10.w,),
                                             /////////////
                                             service.filteredList[index].bookingUserInfo.userId.contains(userId) ?
                                             SvgPicture.asset("assets/svg/sent_blue.svg")
-                                            :SvgPicture.asset("assets/svg/received_yellow.svg"),*/
+                                            :SvgPicture.asset("assets/svg/received_yellow.svg")
                                             /////////////////
                                           ],
                                         ),
@@ -820,6 +823,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             style: GoogleFonts.inter(
                                               color: AppColor.darkGreyColor,
                                               fontSize: 12.sp,
+                                              fontStyle: FontStyle.italic,
                                               fontWeight: FontWeight.w500,
                                               decoration: TextDecoration.underline,
                                               decorationColor: AppColor.darkGreyColor
@@ -834,7 +838,8 @@ class _BookingsPageState extends State<BookingsPage> {
                               ),
                               ////////////////////
                                  
-                              Divider(color: AppColor.darkGreyColor, thickness: 0.8,),
+
+                              Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
 
                               //see more text button
                               Center(
@@ -867,7 +872,7 @@ class _BookingsPageState extends State<BookingsPage> {
                           )
                         );
 
-                      }*/
+                      }
 
                     }
 

@@ -73,7 +73,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
               ),
               InvoiceUnpaidDropDown(
                 invoice_id: invoice_id,
-                send_to_name: send_to_email,
+                send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number: phone_number,
                 due_date: due_date,

@@ -55,7 +55,7 @@ class _BodyWidgetState extends State<BodyWidget> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? const Loader2() : Container(
+        return service.isLoading.value ? Expanded(child: Loader2()) : Container(
           //height: 200.h,
           width: double.infinity,
           color: AppColor.bgColor,

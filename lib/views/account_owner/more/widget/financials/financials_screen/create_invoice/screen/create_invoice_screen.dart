@@ -378,7 +378,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                 Get.to(() => ViewAddedServiceDetailsForInvoice(
                                   client_phone_number: item['phone_number'],
                                   service_name: item['service_name'],
-                                  service_id: item['serviceID'],
+                                  service_id: item['service_id'],
                                   service_description: item['description'],
                                   discounted_total: item["discounted_total"].toString() ?? item['total'].toString(),
                                   meeting_type: item['appointment_type'],

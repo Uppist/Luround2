@@ -73,7 +73,7 @@ class DueInvoiceDisplay extends StatelessWidget {
                 ),
               ),
               InvoiceDueDropDown(
-                invoice_id: invoice_id,
+                invoice_id: randNum.toString(),
                 send_to_name: send_to_email,
                 send_to_email: send_to_email,
                 phone_number: phone_number,

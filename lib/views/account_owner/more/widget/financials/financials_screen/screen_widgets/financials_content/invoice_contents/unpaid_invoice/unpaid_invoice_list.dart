@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,6 +20,7 @@ class UnpaidInvoiceList extends StatelessWidget {
   UnpaidInvoiceList({super.key});
 
   var service = Get.put(InvoicesService());
+  int randNum = Random().nextInt(200000);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class UnpaidInvoiceList extends StatelessWidget {
               if(service.filteredUnpaidInvoiceList.isNotEmpty) {
                  return UnpaidInvoiceDisplay(
                   onPressed: (){},
-                  invoice_id: item.invoice_id,
+                  invoice_id: randNum.toString(),
                   send_to_name: item.send_to_name,
                   send_to_email: item.send_to_email,
                   phone_number: item.phone_number,

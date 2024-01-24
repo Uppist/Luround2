@@ -13,7 +13,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 // ignore: must_be_immutable
-class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
+class ViewAddedServiceDetailsForInvoice extends StatefulWidget {
   ViewAddedServiceDetailsForInvoice({super.key, required this.service_id, required this.service_name, required this.service_description, required this.meeting_type, required this.rate, required this.total, required this.discount, required this.duration, required this.index, required this.discounted_total, required this.appointmentType, required this.client_phone_number});
   final String service_id;
   final String service_name;
@@ -28,6 +28,11 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
   final String appointmentType;
   final String client_phone_number;
 
+  @override
+  State<ViewAddedServiceDetailsForInvoice> createState() => _ViewAddedServiceDetailsForInvoiceState();
+}
+
+class _ViewAddedServiceDetailsForInvoiceState extends State<ViewAddedServiceDetailsForInvoice> {
   //var controller = Get.put(FinancialsController());
   var finService = Get.put(FinancialsService());
 
@@ -73,16 +78,17 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                           onTap: () {
                             finService.editProductForInvoiceCreation(
                               context: context, 
-                              service_name: service_name, 
-                              service_description: finService.serviceDescriptionForInvoice.text.isEmpty ? service_description : finService.serviceDescriptionForInvoice.text, 
-                              service_id: service_id, 
-                              discount: finService.discountForInvoice.text.isEmpty ? discount : finService.discountForInvoice.text, 
-                              rate: finService.rateForInvoice.text.isEmpty ? rate : finService.rateForInvoice.text, 
-                              total: discounted_total.isEmpty || discounted_total == null ? total : discounted_total, 
-                              duration: finService.durationForInvoice.text.isEmpty ? duration : finService.durationForInvoice.text, 
-                              appointmentType: finService.selectedMeetingTypeForInvoice.text.isEmpty ? appointmentType : finService.selectedMeetingTypeForInvoice.text, 
-                              index: index, 
-                              phone_number: client_phone_number
+                              service_name: widget.service_name, 
+                              service_description: finService.serviceDescriptionForInvoice.text.isEmpty ? widget.service_description : finService.serviceDescriptionForInvoice.text, 
+                              service_id: widget.service_id, 
+                              discount: finService.discountForInvoice.text.isEmpty ? widget.discount : finService.discountForInvoice.text, 
+                              vat: (double.parse(finService.rateForInvoice.text.isEmpty ? widget.rate : finService.rateForInvoice.text) * 0.075).toString(),
+                              rate: finService.rateForInvoice.text.isEmpty ? widget.rate : finService.rateForInvoice.text, 
+                              total: finService.subtotalForInvoice.text.isNotEmpty ? finService.subtotalForInvoice.text : widget.total,
+                              duration: finService.durationForInvoice.text.isEmpty ? widget.duration : finService.durationForInvoice.text, 
+                              appointmentType: finService.selectedMeetingTypeForInvoice.text.isEmpty ? widget.appointmentType : finService.selectedMeetingTypeForInvoice.text, 
+                              index: widget.index, 
+                              phone_number: widget.client_phone_number
                             ).whenComplete(() {
                               //finService.subtotalForInvoice.clear();
                               finService.showEverythingForInvoiceList();
@@ -134,7 +140,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          service_name,
+                          widget.service_name,
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -142,7 +148,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "N$total",
+                          "N${widget.total}",
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -171,7 +177,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter service name',
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      initialValue: service_name,
+                      initialValue: widget.service_name,
                     ),
                     SizedBox(height: 30.h,),
                     //2
@@ -191,7 +197,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter service description',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: service_description,
+                      initialValue: widget.service_description,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -212,7 +218,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter meeting type',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: appointmentType,
+                      initialValue: widget.appointmentType,
                     ),
                     SizedBox(height: 30.h,),
                     
@@ -234,7 +240,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter service fee',
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      initialValue: rate,
+                      initialValue: widget.rate,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -256,7 +262,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                       hintText: 'Enter service duration',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: duration,
+                      initialValue: widget.duration,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -276,13 +282,22 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         Expanded(
                           child: DiscountTextFieldForInvoice(
                             onChanged: (p0) {
-                              finService.discountForInvoice.text = p0;
-                              print(finService.discountForInvoice.text);
+                          
+                              // Check if the entered text is a valid integer
+                              if (p0.isNotEmpty && double.tryParse(p0) != null) {
+                                setState(() {
+                                  // If it's an integer, append ".0" to the text
+                                  if (!p0.contains('.')) {
+                                    finService.discountForInvoice.text  = '$p0.0';
+                                    print(finService.discountForInvoice.text);
+                                  }
+                                });
+                              }
                             },
                             hintText: 'Enter service discount',
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            initialValue: discount,
+                            initialValue: widget.discount,
                           ),
                         ),
                         SizedBox(width: 10.w,),
@@ -290,10 +305,10 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.calculateDiscountForInvoice(
-                              initialDiscountValue: discount.toString(),
-                              index: index, 
+                              initialDiscountValue: widget.discount.toString(),
+                              index: widget.index, 
                               context: context,
-                              initialRateValue: rate
+                              initialRateValue: widget.rate
                             );
                           },
                           child: Container(
@@ -333,7 +348,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                                 )
                               ),
                               TextSpan(
-                                text: "N$total",
+                                text: "N${widget.total}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -347,7 +362,7 @@ class ViewAddedServiceDetailsForInvoice extends StatelessWidget {
                         //delete button
                         InkWell(
                           onTap: () {
-                            finService.deleteSelectedProductForInvoice(index)
+                            finService.deleteSelectedProductForInvoice(widget.index)
                             .whenComplete(() {
                               finService.showEverythingForInvoiceList();
                               Get.back();

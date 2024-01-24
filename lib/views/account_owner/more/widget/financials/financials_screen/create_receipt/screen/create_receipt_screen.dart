@@ -344,7 +344,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             return AddedServicesTile(
                               onTap: (){
                                 Get.to(() => ViewAddedServiceDetailsForReceipt(
-                                  discounted_total: item['discounted_total'] ?? item['total'],
+                                  discounted_total: item['discounted_total'] ?? item['total'].toString(),
                                   appointment_type: item['appointment_type'],
                                   service_name: item['service_name'],
                                   total: item['total'],

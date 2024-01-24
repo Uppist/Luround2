@@ -101,7 +101,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
                 offer: offer,
                 uploade_file: uploaded_file,
                 service_name: service_name,
-                quote_id: quote_date, 
+                quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number:phone_number,

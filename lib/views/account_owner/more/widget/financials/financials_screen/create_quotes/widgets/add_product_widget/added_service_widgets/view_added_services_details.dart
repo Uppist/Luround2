@@ -76,19 +76,22 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                             //Save button
                             InkWell(
                               onTap: () {
+                                //double vatCalc = double.parse(finService.rateForQuote.value.isEmpty ? widget.rate : finService.rateForQuote.value) * 0.075;
                                 finService.editProductForCreatingQuote(
+                                  vat: (double.parse(finService.rateForQuote.value.isEmpty ? widget.rate : finService.rateForQuote.value) * 0.075).toString(),
                                   index: widget.index,
                                   service_name: widget.service_name,
-                                  discount: finService.discountForQuote.value.isEmpty ? "0" : finService.discountForQuote.value,
-                                  total:  widget.discounted_total.isEmpty || widget.discounted_total == null ? widget.total : widget.discounted_total,
+                                  discount: finService.discountForQuote.value.isEmpty ? "0.0" : finService.discountForQuote.value,
+                                  total: finService.subTotalForQuote.value.isNotEmpty ? finService.subTotalForQuote.value : widget.total,
                                   context: context, 
                                   rate: finService.rateForQuote.value.isEmpty ? widget.rate : finService.rateForQuote.value,
                                   service_description: finService.serviceDescriptionForQuote.value.isNotEmpty ? finService.serviceDescriptionForQuote.value : widget.service_description, 
                                   duration: finService.durationForQuote.value.isEmpty ? widget.duration : finService.durationForQuote.value, 
                                   meetingType: finService.selectedMeetingTypeForQuote.value.isEmpty ? widget.meeting_type : finService.selectedMeetingTypeForQuote.value
                                 ).whenComplete(() {
-                                  //finService.subTotalForQuote.value = "";
+                                  ///finService.subTotalForQuote.value = "";
                                   finService.showEverythingForQuoteList();
+                                  ///finService.
                                   print(finService.selectedQuotebslist);
                                 });
                               },
@@ -288,16 +291,23 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                             Expanded(
                               child: DiscountTextField(
                                 onChanged: (p0) {
-                                  setState(() {
-                                    finService.discountForQuote.value = p0;
-                                    print(finService.discountForQuote.value);
-                                  });
+
+                                  // Check if the entered text is a valid integer
+                                  if (p0.isNotEmpty && double.tryParse(p0) != null) {
+                                    setState(() {
+                                      // If it's an integer, append ".0" to the text
+                                      if (!p0.contains('.')) {
+                                        finService.discountForQuote.value  = '$p0.0';
+                                        print(finService.discountForQuote.value);
+                                      }
+                                    });
+                                  }
                                   
                                 },
                                 hintText: 'Enter service discount',
                                 keyboardType: TextInputType.number,
                                 textInputAction: TextInputAction.done,
-                                initialValue: "",
+                                initialValue: "0.0",
                               ),
                             ),
                             SizedBox(width: 10.w,),
@@ -305,7 +315,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                             InkWell(
                               onTap: () {
                                 finService.calculateDiscount(
-                                  initialDiscountValue: '0',
+                                  initialDiscountValue: '0.0',
                                   index: widget.index, 
                                   context: context,
                                   initialRateValue: widget.rate

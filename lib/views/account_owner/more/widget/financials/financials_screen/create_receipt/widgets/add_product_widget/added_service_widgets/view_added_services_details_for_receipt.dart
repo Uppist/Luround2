@@ -12,7 +12,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
+class ViewAddedServiceDetailsForReceipt extends StatefulWidget {
   ViewAddedServiceDetailsForReceipt({super.key, required this.appointment_type, required this.service_name, required this.total, required this.discount, required this.rate, required this.duration, required this.index, required this.discounted_total});
   final String appointment_type;
   final String service_name;
@@ -23,6 +23,11 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
   final String duration;
   final int index;
 
+  @override
+  State<ViewAddedServiceDetailsForReceipt> createState() => _ViewAddedServiceDetailsForReceiptState();
+}
+
+class _ViewAddedServiceDetailsForReceiptState extends State<ViewAddedServiceDetailsForReceipt> {
   //var controller = Get.put(FinancialsController());
   var finService = Get.put(FinancialsService());
 
@@ -67,14 +72,16 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.editProductForReceiptCreation(
+                              description: finService.serviceDescriptionForReceipt.text.isNotEmpty ? finService.serviceDescriptionForReceipt.text : "(non)",
+                              vat: (double.parse(finService.rateForReceipt.text.isEmpty ? widget.rate : finService.rateForReceipt.text) * 0.075).toString(),
                               context: context, 
                               service_id: "(not needed)", 
-                              discount: finService.discountForReceipt.text.isEmpty ? discount : finService.discountForReceipt.text, 
-                              rate: finService.rateForReceipt.text.isEmpty ? rate : finService.rateForReceipt.text, 
-                              total:  discounted_total.isEmpty || discounted_total == null ? total : discounted_total, 
-                              duration: finService.durationForReceipt.text.isEmpty ? duration : finService.durationForReceipt.text, 
-                              appointmentType: finService.selectedMeetingTypeForReceipt.text.isEmpty ? appointment_type : finService.selectedMeetingTypeForReceipt.text, 
-                              index: index
+                              discount: finService.discountForReceipt.text.isEmpty ? widget.discount : finService.discountForReceipt.text, 
+                              rate: finService.rateForReceipt.text.isEmpty ? widget.rate : finService.rateForReceipt.text, 
+                              total:  finService.subtotalForReceipt.text.isNotEmpty ? finService.subtotalForReceipt.text : widget.total, 
+                              duration: finService.durationForReceipt.text.isEmpty ? widget.duration : finService.durationForReceipt.text, 
+                              appointmentType: finService.selectedMeetingTypeForReceipt.text.isEmpty ? widget.appointment_type : finService.selectedMeetingTypeForReceipt.text, 
+                              index: widget.index
                             ).whenComplete(() {
                               //finService.subtotalForReceipt.clear();
                               finService.showEverythingForReceiptList();
@@ -126,7 +133,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          service_name,
+                          widget.service_name,
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -134,7 +141,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "N$total",
+                          "N${widget.total}",
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -163,7 +170,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                       hintText: 'Enter service name',
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
-                      initialValue: service_name,
+                      initialValue: widget.service_name,
                     ),
                     SizedBox(height: 30.h,),
                     //2
@@ -205,7 +212,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                       hintText: 'Enter meeting type',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: appointment_type,
+                      initialValue: widget.appointment_type,
                     ),
                     SizedBox(height: 30.h,),
                     
@@ -227,7 +234,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                       hintText: 'Enter service fee',
                       keyboardType: TextInputType.number,
                       textInputAction: TextInputAction.next,
-                      initialValue: rate,
+                      initialValue: widget.rate,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -249,7 +256,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                       hintText: 'Enter service duration',
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      initialValue: duration,
+                      initialValue: widget.duration,
                     ),
                     SizedBox(height: 30.h,),
 
@@ -269,13 +276,21 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         Expanded(
                           child: DiscountTextFieldForReceipt(
                             onChanged: (p0) {
-                              finService.discountForReceipt.text = p0;
-                              print(finService.discountForReceipt.text);
+                              // Check if the entered text is a valid integer
+                              if (p0.isNotEmpty && double.tryParse(p0) != null) {
+                                setState(() {
+                                  // If it's an integer, append ".0" to the text
+                                  if (!p0.contains('.')) {
+                                    finService.discountForReceipt.text  = '$p0.0';
+                                    print(finService.discountForReceipt.text);
+                                  }
+                                });
+                              }
                             },
                             hintText: 'Enter service discount',
                             keyboardType: TextInputType.number,
                             textInputAction: TextInputAction.done,
-                            initialValue: discount,
+                            initialValue: widget.discount,
                           ),
                         ),
                         SizedBox(width: 10.w,),
@@ -283,10 +298,10 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             finService.calculateDiscountForReceipt(
-                              initialDiscountValue: discount,
-                              index: index, 
+                              initialDiscountValue: widget.discount,
+                              index: widget.index, 
                               context: context,
-                              initialRateValue: rate
+                              initialRateValue: widget.rate
                             );
                           },
                           child: Container(
@@ -326,7 +341,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                                 )
                               ),
                               TextSpan(
-                                text: "N$discounted_total",
+                                text: "N${widget.discounted_total}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -340,7 +355,7 @@ class ViewAddedServiceDetailsForReceipt extends StatelessWidget {
                         //delete button
                         InkWell(
                           onTap: () {
-                            finService.deleteSelectedProductForReceipt(index)
+                            finService.deleteSelectedProductForReceipt(widget.index)
                             .whenComplete(() {
                               finService.showEverythingForReceiptList();
                               Get.back();

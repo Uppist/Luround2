@@ -122,15 +122,21 @@ class _BodyWidgetState extends State<BodyWidget> {
                             /////
                             setState(() {
                               if(value != null) {
+
                                 if (value) {
                                   // Add to the selected items list
-                                  service.selectedReceiptbslist.add(item);
-                                  service.showEverythingForReceiptList();
+                                  service.addServiceR(item)
+                                  .whenComplete(() {
+                                    service.showEverythingForReceiptList();
+                                  });
                                 } 
                                 else {
                                   // Remove from the selected items list
-                                  service.selectedReceiptbslist.remove(item);
-                                  service.showEverythingForReceiptList();
+                                  // Add to the selected items list
+                                  service.removeServiceR(item)
+                                  .whenComplete(() {
+                                    service.showEverythingForReceiptList();
+                                  });
                                 }
                               }
                               // Print the modified list

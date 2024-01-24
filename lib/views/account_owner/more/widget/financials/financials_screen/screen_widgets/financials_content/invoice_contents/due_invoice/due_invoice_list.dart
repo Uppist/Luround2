@@ -19,8 +19,7 @@ class DueInvoiceList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
+    return Obx(      () {
         return service.isLoading.value ? Expanded(child: Loader()) : service.filteredUnpaidInvoiceList.isNotEmpty ? Expanded(
           child: ListView.separated(
             shrinkWrap: true,

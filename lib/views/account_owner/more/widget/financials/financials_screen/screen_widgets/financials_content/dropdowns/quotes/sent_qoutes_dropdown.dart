@@ -79,7 +79,7 @@ class QuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(2000000);
+              int randNum = Random().nextInt(20000);
               finPdfService.shareQuotePDF(
                 context: context, 
                 quoteNumber: randNum, 
@@ -107,7 +107,7 @@ class QuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(2000000);
+              int randNum = Random().nextInt(200000);
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
                 quoteNumber: randNum, 

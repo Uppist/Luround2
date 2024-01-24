@@ -76,7 +76,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
                 ),
               ),
               DraftedReceiptDropDown(
-                receipt_id: receipt_id,
+                receipt_id: randNum.toString(),
                 send_to: send_to,
                 sent_to_email: sent_to_email,
                 phone_number: phone_number,

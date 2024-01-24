@@ -207,7 +207,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 //width: 60.w,
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
-                                  color: PdfColors.blueGrey500, //AppColor.navyBlue,
+                                  color: PdfColors.black, //AppColor.navyBlue,
                                   borderRadius: pw.BorderRadius.circular(7.r)
                                 ),
                                 child: pw.Text(
@@ -767,6 +767,12 @@ class FinancialsPdfService extends getx.GetxController {
           print("doc path on device: ${documentPath.value}");
           print("pdf doc path on device: $fullDocPath");
         }); 
+
+        //use share_plus to prompt sharing the XFile
+        final result = await Share.shareXFiles([XFile(fullDocPath)], text: 'Quote PDF');
+        if (result.status == ShareResultStatus.success) {
+          print('Thank you for sharing this pdf!');
+        }
 
       }
       else {
@@ -1512,6 +1518,12 @@ class FinancialsPdfService extends getx.GetxController {
           print("pdf doc path on device: $fullDocPath");
         }); 
 
+        //use share_plus to prompt sharing the XFile
+        final result = await Share.shareXFiles([XFile(fullDocPath)], text: 'Invoice PDF');
+        if (result.status == ShareResultStatus.success) {
+          print('Thank you for sharing this pdf!');
+        }
+
       }
       else {
         throw const FileSystemException("file is empty or null");
@@ -2021,30 +2033,6 @@ class FinancialsPdfService extends getx.GetxController {
 
                     pw.SizedBox(height: 20.h,),
                           
-                    pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.Text(
-                          "Total",
-                          style: pw.TextStyle(
-                            color: PdfColors.grey, //.withOpacity(0.6),
-                            fontSize: 14.sp,
-                            //fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        pw.Text(
-                          'N$grand_total',
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 14.sp,
-                            //fontWeight: FontWeight.w500
-                          )
-                        ),
-                              
-                      ],
-                    ),
-
-                    pw.SizedBox(height: 20.h,),
                     
                     pw.Row(     
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -2254,6 +2242,12 @@ class FinancialsPdfService extends getx.GetxController {
           print("doc path on device: ${docPath5.value}");
           print("pdf doc path on device: $fullDocPath");
         }); 
+
+        //use share_plus to prompt sharing the XFile
+        final result = await Share.shareXFiles([XFile(fullDocPath)], text: 'Receipt PDF');
+        if (result.status == ShareResultStatus.success) {
+          print('Thank you for sharing this pdf!');
+        }
 
       }
       else {

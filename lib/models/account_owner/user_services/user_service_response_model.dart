@@ -52,16 +52,15 @@ class UserServiceModel {
   //to Map
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['serviceID'] = serviceId;
+    _data['service_id'] = serviceId;
     _data['email'] = email;
     _data['service_name'] = service_name;
     _data['description'] = description;
     _data['links'] = links;
     _data['available_time'] = available_time;
-    _data['phone_number'] = "phone number";
     _data["rate"] = service_charge_virtual!;
     _data["total"] = service_charge_virtual!;
-    _data["discount"] = "0";
+    _data["discount"] = "0.0";
     _data["appointment_type"] = "Virtual";
     _data["meeting_type"] = "Virtual";
     _data["vat"] = "0";

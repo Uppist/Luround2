@@ -95,7 +95,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               QuoteDropDown(
-                quote_id: quote_date, 
+                quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number:phone_number,

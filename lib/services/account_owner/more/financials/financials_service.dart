@@ -34,16 +34,12 @@ class FinancialsService extends getx.GetxController {
 
   //API LIST//
   var dataList = <UserServiceModel>[].obs;
-  
-
-
 
 
   //FOR QUOTES//
   var quotebslist = <Map<String, dynamic>>[].obs;
   var filteredQoutebslist = <Map<String, dynamic>>[].obs;
   var selectedQuotebslist = <Map<String, dynamic>>[].obs;
-
 
   //////////////////////////////////////////////////////////////////////////////////
   ///[TO LAZY LOAD THE USER LIST OF SERVICES IN THE FUTURE BUILDER FOR QUOTES]///
@@ -98,6 +94,7 @@ class FinancialsService extends getx.GetxController {
   var reactiveSubtotalForQuote = "".obs;
   var reactiveTotalDiscountForQuote = "".obs;
   var reactiveTotalVATForQuote = "".obs;
+
   void showEverythingForQuoteList() {
     double subtotalPrice = 0.0;
     double totalPrice = 0.0;
@@ -107,8 +104,8 @@ class FinancialsService extends getx.GetxController {
     for (var product in selectedQuotebslist) {
       subtotalPrice += double.parse(product['rate'].toString());
       totalDiscount += double.parse(product['discount']);
-      totalVat += double.parse(product['discounted_total'] ?? product['total'].toString()) * 0.075;
-      totalPrice += double.parse(product['discounted_total'] ?? product['total']);
+      totalVat += double.parse(product['vat'].toString()); //* 0.075;
+      totalPrice += double.parse(product['total']);
     }
     ///////////////////
     reactiveTotalForQoute.value = (totalPrice + totalVat).toString();
@@ -145,13 +142,25 @@ class FinancialsService extends getx.GetxController {
   getx.RxString convertedToLocalCurrencyDiscountForQuote = "".obs; //valid
   getx.RxString subTotalForQuote = "".obs; //valid
 
+  // Add an item to the list
+  Future<void> addServiceQ(Map<String, dynamic> item) async {
+    selectedQuotebslist.add(item);
+    update();
+  }
+
+  // Remove an item from the list
+  Future<void> removeServiceQ(Map<String, dynamic> item) async{
+    selectedQuotebslist.remove(item);
+    update();
+  }
+
 
 
   Future<void> calculateDiscount({required int index, required BuildContext context, required String initialRateValue, required String initialDiscountValue}) async {
 
     // Convert parameters from string to double data type
-    double discountValue = double.tryParse(discountForQuote.value.isEmpty ? initialDiscountValue : discountForQuote.value) ?? 0;
-    double rateValue = double.tryParse(rateForQuote.value.isEmpty ? initialRateValue : rateForQuote.value) ?? 0;
+    double discountValue = double.tryParse(discountForQuote.value.isEmpty ? initialDiscountValue : discountForQuote.value) ?? 0.0;
+    double rateValue = double.tryParse(rateForQuote.value.isEmpty ? initialRateValue : rateForQuote.value) ?? 0.0;
 
     // Calculate the discount
     double calculatedDiscount = (discountValue / 100) * rateValue;
@@ -160,13 +169,13 @@ class FinancialsService extends getx.GetxController {
     double newSubtotal = rateValue - calculatedDiscount;
     debugPrint("Calculated Discount: $calculatedDiscount");
     debugPrint("New Subtotal: $newSubtotal");
-  
+    
+    //
     convertedToLocalCurrencyDiscountForQuote.value = calculatedDiscount.toString();
     subTotalForQuote.value = newSubtotal.toString();
 
     //updated from here
-    final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
-    selectedQuotebslist[index].addEntries(indexed_subtotal.entries);
+    selectedQuotebslist[index]["total"] = newSubtotal.toString();
     print("updated list with total updated: $selectedQuotebslist");
   
     //success snackbar
@@ -189,6 +198,7 @@ class FinancialsService extends getx.GetxController {
     required String rate,
     required String duration,
     required String meetingType,
+    required String vat,
     required int index,
     required String total, 
   }) async{
@@ -207,6 +217,13 @@ class FinancialsService extends getx.GetxController {
       selectedQuotebslist[index]["meeting_type"] = meetingType;
       selectedQuotebslist[index]["appointment_type"] = meetingType;
       selectedQuotebslist[index]["rate"] = rate;
+      selectedQuotebslist[index]["vat"] = vat;
+      //
+      selectedQuotebslist[index]["serviceID"] = "non";
+      selectedQuotebslist[index]["location"] = "location depends on this :$meetingType";
+      selectedQuotebslist[index]["message"] = "non";
+      selectedQuotebslist[index]["phone_number"] = "non";
+
 
       //success snackbar
       showMySnackBar(
@@ -518,9 +535,9 @@ class FinancialsService extends getx.GetxController {
 
     for (var product in selectedInvoicebslist) {
       subtotalPrice += double.parse(product['rate'].toString());
-      totalPrice += double.parse(product['discounted_total'] ?? product['total']);
+      totalPrice += double.parse(product['total']);
       totalDiscount += double.parse(product['discount']);
-      totalVat += double.parse(product['total']) * 0.075;
+      totalVat += double.parse(product['vat']);
     }
     ///////////////////
     reactiveTotalForInvoice.value = (totalPrice + totalVat).toString();
@@ -555,9 +572,19 @@ class FinancialsService extends getx.GetxController {
   TextEditingController selectedMeetingTypeForInvoice = TextEditingController(); //valid
   TextEditingController discountForInvoice = TextEditingController(); //valid
   TextEditingController convertedToLocalCurrencyDiscountForInvoice = TextEditingController(); //valid
-  TextEditingController subtotalForInvoice = TextEditingController(); //valid
-  
+  TextEditingController subtotalForInvoice = TextEditingController(); //valid  
 
+  // Add an item to the list
+  Future<void> addServiceI(Map<String, dynamic> item) async {
+    selectedInvoicebslist.add(item);
+    update();
+  }
+
+  // Remove an item from the list
+  Future<void> removeServiceI(Map<String, dynamic> item) async{
+    selectedInvoicebslist.remove(item);
+    update();
+  }
 
   Future<void> calculateDiscountForInvoice({required int index, required BuildContext context, required String initialRateValue, required String initialDiscountValue}) async{
     // Convert parameters from string to double data type
@@ -577,9 +604,8 @@ class FinancialsService extends getx.GetxController {
     subtotalForInvoice.text = newSubtotal.toString();
     
     //updated from here
-    final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
-    selectedInvoicebslist[index].addEntries(indexed_subtotal.entries);
-    print("updated list with total updated: $selectedInvoicebslist");
+    //updated from here
+    selectedInvoicebslist[index]["total"] = newSubtotal.toString();
   
     //success snackbar
     showMySnackBar(
@@ -602,6 +628,7 @@ class FinancialsService extends getx.GetxController {
     required String total, 
     required String duration,
     required String appointmentType,
+    required String vat,
     required int index,
 
     //invoice gets converted to bookings according to somto
@@ -622,7 +649,8 @@ class FinancialsService extends getx.GetxController {
       selectedInvoicebslist[index]["total"] = total;
       selectedInvoicebslist[index]["appointment_type"] = appointmentType;
       selectedInvoicebslist[index]["rate"] = rate;
-      selectedInvoicebslist[index]["service_id"] = service_id;  //serviceID
+      selectedInvoicebslist[index]["serviceID"] = service_id;  //serviceID
+      selectedInvoicebslist[index]['vat'] = vat;
       //invoice gets converted to bookings according to somto
       //these below corresponds to bookings
       selectedInvoicebslist[index]["message"] = "(non)";
@@ -691,7 +719,8 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "invoice created and saved successfully"
-        ).whenComplete(() => getx.Get.back());
+        );  
+        //.whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;
@@ -703,7 +732,8 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to save invoice ${res.body}"
-        ).whenComplete(() => getx.Get.back());
+        );
+        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -759,7 +789,8 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "invoice created and saved successfully"
-        ).whenComplete(() => getx.Get.back());
+        );
+        //.whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;
@@ -771,7 +802,8 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to save invoice ${res.body}"
-        ).whenComplete(() => getx.Get.back());
+        );
+        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -898,9 +930,9 @@ class FinancialsService extends getx.GetxController {
 
     for (var product in selectedReceiptbslist) {
       subtotalPrice += double.parse(product['rate'].toString());
-      totalPrice += double.parse(product['discounted_total'] ?? product['total']);
+      totalPrice += double.parse(product['total']);
       totalDiscount += double.parse(product['discount']);
-      totalVat += double.parse(product['total']) * 0.075;
+      totalVat += double.parse(product['vat']);
     }
     ///////////////////
     reactiveTotalForReceipt.value = (totalPrice + totalVat).toString();
@@ -933,6 +965,18 @@ class FinancialsService extends getx.GetxController {
   TextEditingController discountForReceipt = TextEditingController(); //valid
   TextEditingController convertedToLocalCurrencyDiscountForReceipt = TextEditingController(); //valid
   TextEditingController subtotalForReceipt = TextEditingController(); //valid
+
+  //Add an item to the list
+  Future<void> addServiceR(Map<String, dynamic> item) async {
+    selectedReceiptbslist.add(item);
+    update();
+  }
+
+  // Remove an item from the list
+  Future<void> removeServiceR(Map<String, dynamic> item) async{
+    selectedReceiptbslist.remove(item);
+    update();
+  }
   
 
 
@@ -954,8 +998,7 @@ class FinancialsService extends getx.GetxController {
     subtotalForReceipt.text = newSubtotal.toString();
     
     //updated from here
-    final indexed_subtotal = <String, dynamic>{"discounted_total": newSubtotal.toString(),};
-    selectedReceiptbslist[index].addEntries(indexed_subtotal.entries);
+    selectedReceiptbslist[index]['total']  = newSubtotal.toString();
     print("updated list with total updated: $selectedReceiptbslist");
   
     //success snackbar
@@ -967,6 +1010,7 @@ class FinancialsService extends getx.GetxController {
     //
   }
 
+
   //4
   Future<void> editProductForReceiptCreation({
     required BuildContext context,
@@ -975,8 +1019,10 @@ class FinancialsService extends getx.GetxController {
     required String rate,
     required String total, 
     required String duration,
+    required String description,
     required String appointmentType,
     required int index,
+    required String vat
   }) async{
 
     isLoading.value = true;
@@ -987,11 +1033,18 @@ class FinancialsService extends getx.GetxController {
 
       // Modify the values of the found item in the originally selected list
       selectedReceiptbslist[index]["duration"] = duration;
+      selectedReceiptbslist[index]["description"] = description;
       selectedReceiptbslist[index]["discount"] = discount;
       selectedReceiptbslist[index]["total"] = total;
       selectedReceiptbslist[index]["appointment_type"] = appointmentType;
       selectedReceiptbslist[index]["meeting_type"] = appointmentType;
       selectedReceiptbslist[index]["rate"] = rate;
+      selectedReceiptbslist[index]['vat'] = vat;
+
+      selectedReceiptbslist[index]["serviceID"] = "non";
+      selectedReceiptbslist[index]["location"] = "location depends on this :$appointmentType";
+      selectedReceiptbslist[index]["message"] = "non";
+      selectedReceiptbslist[index]["phone_number"] = "non";
       
     
       //success snackbar

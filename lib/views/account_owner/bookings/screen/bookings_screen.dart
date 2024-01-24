@@ -189,7 +189,7 @@ class _BookingsPageState extends State<BookingsPage> {
                     }
 
                     if(service.filteredList.isNotEmpty){
-                      if(controller.selectedIndex == index) {
+                      //if(controller.selectedIndex == index) {
                         return Container(
                           alignment: Alignment.center,
                           //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -598,8 +598,8 @@ class _BookingsPageState extends State<BookingsPage> {
                             ],
                           ),
                         );
-                      }
-                      else {
+                      //}
+                      /*else {
 
                         //show the half view here
                         return Container(
@@ -867,7 +867,8 @@ class _BookingsPageState extends State<BookingsPage> {
                           )
                         );
 
-                      }
+                      }*/
+
                     }
 
                     return BookingScreenEmptyState(

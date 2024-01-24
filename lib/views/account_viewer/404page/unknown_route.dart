@@ -45,7 +45,7 @@ class UnknownPage extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text:"Append /profile/'username' to the domain",
+                  text:"      Append /profile/'username' to the domain",
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,

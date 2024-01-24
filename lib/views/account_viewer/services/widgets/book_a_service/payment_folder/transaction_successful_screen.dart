@@ -128,6 +128,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                           //signMeUpBottomSheet(context: context);
                           //.then((value) => Get.offAll(() => MainPageAccViewer()));
                           Get.offAll(() => MainPageAccViewer());
+                          //Get.offAllNamed("/profile/");
                         }
                       ),
                     ),

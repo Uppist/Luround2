@@ -34,6 +34,7 @@ class InvoicePaymentService extends getx.GetxController {
     required BuildContext context,
     required String amount_paid,
     required String mode_of_payment,
+    required String invoice_id,
     }) async {
 
     isLoading.value = true;
@@ -44,7 +45,7 @@ class InvoicePaymentService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "invoice/add-invoice-payment-detail", body: body);
+      http.Response res = await baseService.httpPut(endPoint: "invoice/add-invoice-payment-detail?invoiceId=$invoice_id", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

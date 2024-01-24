@@ -196,7 +196,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                           ),*/
                           ClientEmailTextFieldForInvoice(
                             onChanged: (val) {
-                              controller.invoiceClientNameController.text = val;
+                              setState(() {
+                                controller.invoiceClientNameController.text = val;
+                              });
                             },
                             hintText: "Receiver's name",
                             keyboardType: TextInputType.name,
@@ -217,7 +219,10 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                           SizedBox(height: 10.h,),
                           ClientEmailTextFieldForInvoice(
                             onChanged: (val) {
-                              controller.invoiceClientEmailController.text = val;
+                              setState(() {
+                                controller.invoiceClientEmailController.text = val;
+                              });
+                        
                             },
                             hintText: "Receiver's email address",
                             keyboardType: TextInputType.emailAddress,
@@ -238,7 +243,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                           SizedBox(height: 10.h,),
                           ClientEmailTextFieldForInvoice(
                             onChanged: (val) {
-                              controller.invoiceClientPhoneNumberController.text = val;
+                              setState(() {
+                                controller.invoiceClientPhoneNumberController.text = val;
+                              });
                             },
                             hintText: "Receiver's mobile number",
                             keyboardType: TextInputType.phone,
@@ -637,8 +644,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   total: service.reactiveTotalForInvoice.value,
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
-                                  controller.invoiceClientEmailController.clear();
-                                  controller.invoiceClientNameController.clear();
+                                  //controller.invoiceClientEmailController.clear();
+                                  //controller.invoiceClientNameController.clear();
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
                                   Get.back();

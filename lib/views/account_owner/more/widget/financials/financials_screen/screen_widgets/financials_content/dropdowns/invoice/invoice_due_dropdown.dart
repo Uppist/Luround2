@@ -71,7 +71,7 @@ class InvoiceDueDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              enterInvoicePaymentBottomSheet(context: context);
+              enterInvoicePaymentBottomSheet(context: context, invoice_id: invoice_id);
             },
             child: Text(
               "Enter Payment",

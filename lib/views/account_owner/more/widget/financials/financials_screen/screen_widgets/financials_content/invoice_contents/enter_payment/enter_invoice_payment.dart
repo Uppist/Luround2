@@ -16,6 +16,7 @@ import 'package:luround/utils/components/utils_textfield.dart';
 
 Future<void> enterInvoicePaymentBottomSheet({
   required BuildContext context, 
+  required String invoice_id
 }) async{
   showModalBottomSheet(
     isScrollControlled: true,
@@ -32,7 +33,9 @@ Future<void> enterInvoicePaymentBottomSheet({
     ),
     context: context,
     builder: (context) {
-      return BodyWidget();
+      return BodyWidget(
+        invoice_id: invoice_id,
+      );
     }
   );
 }
@@ -40,7 +43,8 @@ Future<void> enterInvoicePaymentBottomSheet({
 
 
 class BodyWidget extends StatefulWidget {
-  BodyWidget({super.key});
+  BodyWidget({super.key, required this.invoice_id});
+  final String invoice_id;
 
 
   @override
@@ -55,7 +59,7 @@ class _BodyWidgetState extends State<BodyWidget> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.isLoading.value ? Expanded(child: Loader2()) : Container(
+        return service.isLoading.value ? Loader() : Container(
           //height: 200.h,
           width: double.infinity,
           color: AppColor.bgColor,
@@ -230,6 +234,7 @@ class _BodyWidgetState extends State<BodyWidget> {
 
                               if(service.amountTextController.text.isNotEmpty) {
                                 service.markInvoiceAsPaid(
+                                  invoice_id: widget.invoice_id,
                                   context: context, 
                                   amount_paid: service.amountTextController.text, 
                                   mode_of_payment: service.payment_method.value

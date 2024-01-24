@@ -118,16 +118,19 @@ class InvoicesService extends getx.GetxController {
   bool isDueInThreeDays(String dueDate) {
     // Convert the due date string to a DateTime object
     DateTime dueDateTime = DateTime.parse(dueDate);
+    DateTime today = DateTime.now();
+   
+    //dueDateTime.isAfter(today);
 
     // Calculate today's date
-    DateTime today = DateTime.now();
+    //DateTime today = DateTime.now();
 
     // Calculate the date 3 days before the due date
-    DateTime threeDaysBeforeDueDate = dueDateTime.subtract(Duration(days: 3));
+    //DateTime threeDaysBeforeDueDate = dueDateTime.subtract(Duration(days: 3));
 
     // Check if today's date is 3 days before the due date
-    print(today.isBefore(threeDaysBeforeDueDate));
-    return today.isBefore(threeDaysBeforeDueDate);
+    //print(today.isBefore(threeDaysBeforeDueDate));
+    return dueDateTime.isAfter(today);
   }
 
 

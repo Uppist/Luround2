@@ -95,7 +95,9 @@ class DraftedQuotesDisplay extends StatelessWidget {
               ),
               //drop down 
               DraftedQuoteDropDown(
-                quote_id: quote_id, 
+                quote_id: quote_id,
+                service_provider_address: service_provider['address'], 
+                service_provider_phone_number: service_provider['phone_number'],
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number:phone_number,

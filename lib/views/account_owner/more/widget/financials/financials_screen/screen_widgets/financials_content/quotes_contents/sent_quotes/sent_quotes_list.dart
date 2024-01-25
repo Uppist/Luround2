@@ -48,6 +48,8 @@ class QuotesList extends StatelessWidget {
                 return QuotesDisplay(
                   onPressed: (){},
                   quote_id: item.quote_id, //randNum.toString(), 
+                  service_provider_address: item.service_provider['address'],
+                  service_provider_phone_number: item.service_provider['phone_number'],
                   send_to_name: item.send_to_name,
                   send_to_email: item.send_to_email,
                   phone_number:item.phone_number,

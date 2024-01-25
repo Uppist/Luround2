@@ -17,7 +17,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewDueInvoiceScreen extends StatelessWidget {
-  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail});
+  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -30,6 +30,8 @@ class ViewDueInvoiceScreen extends StatelessWidget {
   final String total;
   final String note;
   final String status;
+  final String service_provider_phone_number;
+  final String service_provider_address;
   final List<dynamic> booking_detail;
 
   var controller = Get.put(DueInvoiceController());
@@ -121,6 +123,24 @@ class ViewDueInvoiceScreen extends StatelessWidget {
                           SizedBox(height: 10.h,),
                           Text(
                             userEmail,
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          Text(
+                            service_provider_phone_number,
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          Text(
+                            service_provider_address,
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,

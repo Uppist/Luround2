@@ -59,9 +59,10 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
 void main() async{
   
-  //setPathUrlStrategy();
 
   WidgetsFlutterBinding.ensureInitialized();
+  setPathUrlStrategy();
+  
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
       systemNavigationBarColor: AppColor.bgColor,

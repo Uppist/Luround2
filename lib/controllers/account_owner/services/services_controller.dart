@@ -328,9 +328,8 @@ class ServicesController extends getx.GetxController {
   //parseTimeString
   DateTime parseTimeString(String timeString) {
     // Parse time string into DateTime
-    DateTime now = DateTime.now();
-    String formattedTime = "${now.year}-${now.month}-${now.day} $timeString";
-    return DateTime.parse(formattedTime);
+    final DateFormat format = DateFormat('h:mm a');
+    return format.parse(timeString);
   }
   
   //formatTimeString

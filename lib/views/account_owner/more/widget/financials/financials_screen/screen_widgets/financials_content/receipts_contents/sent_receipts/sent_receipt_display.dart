@@ -14,7 +14,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class SentReceiptDisplay extends StatelessWidget {
-  const SentReceiptDisplay({super.key, required this.onPressed, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail});
+  const SentReceiptDisplay({super.key, required this.onPressed, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_address, required this.service_provider_phone_number});
   final VoidCallback onPressed;
   final String receipt_id;
   final String send_to;
@@ -22,6 +22,8 @@ class SentReceiptDisplay extends StatelessWidget {
   final String service_provider_name;
   final String service_provider_email;
   final String service_provider_userId;
+  final String service_provider_address;
+  final String service_provider_phone_number;
   final String phone_number;
   final String payment_status;
   final String discount;
@@ -75,7 +77,7 @@ class SentReceiptDisplay extends StatelessWidget {
                 ),
               ),
               SentReceiptDropDown(
-                receipt_id: randNum.toString(),
+                receipt_id: receipt_id,//randNum.toString(),
                 send_to: send_to,
                 sent_to_email: sent_to_email,
                 phone_number: phone_number,
@@ -90,6 +92,8 @@ class SentReceiptDisplay extends StatelessWidget {
                 service_provider_name: service_provider_name,
                 service_provider_email: service_provider_email,
                 service_provider_userId: service_provider_userId,
+                service_provider_address: service_provider_address,
+                service_provider_phone_number: service_provider_phone_number,
                 service_detail: service_detail,
               )
             ],

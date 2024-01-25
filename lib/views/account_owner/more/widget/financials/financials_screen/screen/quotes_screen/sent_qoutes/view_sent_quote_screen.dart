@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,6 +35,7 @@ class ViewSentQuoteScreen extends StatelessWidget {
 
 
   var controller = Get.put(SentQuotesController());
+  int randNum = Random().nextInt(20000);
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +121,24 @@ class ViewSentQuoteScreen extends StatelessWidget {
                           SizedBox(height: 10.h,),
                           Text(
                             service_provider['email'],
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          Text(
+                            service_provider['phone_number'],
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor.withOpacity(0.6),
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          SizedBox(height: 10.h,),
+                          Text(
+                            service_provider['address'],
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -240,7 +261,7 @@ class ViewSentQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#$quote_id',
+                                '#$randNum',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

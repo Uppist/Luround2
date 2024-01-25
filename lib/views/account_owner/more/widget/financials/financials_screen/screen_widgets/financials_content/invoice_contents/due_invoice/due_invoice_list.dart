@@ -37,6 +37,8 @@ class DueInvoiceList extends StatelessWidget {
               if(isDueInThreeDays) {
                 return DueInvoiceDisplay (
                   onPressed: (){},
+                  service_provider_address: item.service_provider['address'],
+                  service_provider_phone_number: item.service_provider['phone_number'],
                   invoice_id: item.invoice_id,
                   send_to_name: item.send_to_name,
                   send_to_email: item.send_to_email,

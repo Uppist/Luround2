@@ -363,7 +363,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       color: AppColor.greyColor,
                       image: DecorationImage(
                         image: NetworkImage(data.logo_url),
-                        fit: BoxFit.cover
+                        fit: BoxFit.contain
                       )
                     ),
                   ),

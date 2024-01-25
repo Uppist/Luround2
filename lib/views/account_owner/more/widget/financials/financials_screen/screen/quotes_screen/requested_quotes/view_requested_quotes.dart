@@ -36,6 +36,8 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
 
   var controller = Get.put(RequestedQuotesController());
 
+  //int randNum = Random().nextInt(20000);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

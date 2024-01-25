@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class InvoiceDueDropDown extends StatelessWidget {
-  InvoiceDueDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail});
+  InvoiceDueDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number});
   final String invoice_id;
   final String send_to_name;
   final String send_to_email;
@@ -28,6 +28,8 @@ class InvoiceDueDropDown extends StatelessWidget {
   final String total;
   final String note;
   final String status;
+  final String service_provider_address;
+  final String service_provider_phone_number;
   final List<dynamic> booking_detail;
 
   var service = Get.put(FinancialsService());
@@ -46,6 +48,8 @@ class InvoiceDueDropDown extends StatelessWidget {
             onTap: () {
               Get.to(() => ViewDueInvoiceScreen(
                 onPressed: () {},
+                service_provider_address: service_provider_address,
+                service_provider_phone_number: service_provider_phone_number,
                 invoice_id: invoice_id,
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,

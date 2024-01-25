@@ -45,6 +45,8 @@ class SentReceiptList extends StatelessWidget {
               if(service.filteredSentReceiptList.isNotEmpty) {
                 return SentReceiptDisplay(
                   onPressed: (){},
+                  service_provider_address: item.service_provider_address,
+                  service_provider_phone_number: item.service_provider_phone_number,
                   receipt_id: item.receipt_id,
                   send_to: item.send_to_name,
                   sent_to_email: item.send_to_email,

@@ -33,10 +33,14 @@ class QuotesDisplay extends StatelessWidget {
     required this.note, 
     required this.service_provider,  
     required this.product_details,
-    required this.quote_id,
+    required this.quote_id, 
+    required this.service_provider_address, 
+    required this.service_provider_phone_number,
     
   });
   final VoidCallback onPressed;
+  final String service_provider_address;
+  final String service_provider_phone_number;
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -109,7 +113,9 @@ class QuotesDisplay extends StatelessWidget {
                 status: status,
                 note: note,
                 service_provider: service_provider,
-                product_details: product_details
+                product_details: product_details, 
+                service_provider_address: service_provider_address,
+                service_provider_phone_number: service_provider_phone_number,
               )
             ],
           ),

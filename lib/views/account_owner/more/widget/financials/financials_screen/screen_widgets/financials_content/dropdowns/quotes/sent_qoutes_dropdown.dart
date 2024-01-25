@@ -17,7 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class QuoteDropDown extends StatelessWidget {
-  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details});
+  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -31,6 +31,8 @@ class QuoteDropDown extends StatelessWidget {
   final String appointment_type;
   final String status;
   final String note;
+  final String service_provider_address;
+  final String service_provider_phone_number;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
 

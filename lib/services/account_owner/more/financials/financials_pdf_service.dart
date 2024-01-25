@@ -38,6 +38,8 @@ class FinancialsPdfService extends getx.GetxController {
   //WRITE THE QUOTE PDF
   Future writeQuotePdf({
     required int quoteNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -111,6 +113,24 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.SizedBox(height: 10.h,),
                       pw.Text(
                         userEmail,
+                        style: pw.TextStyle(
+                          color: PdfColors.grey,  //.withOpacity(0.6),
+                          fontSize: 12.sp,
+                          //fontWeight: FontWeight.w400
+                        ),
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        sender_phone_number,
+                        style: pw.TextStyle(
+                          color: PdfColors.grey,
+                          fontSize: 13.sp,
+                          //fontWeight: pw.FontWeight.w500
+                        ),
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        sender_address,
                         style: pw.TextStyle(
                           color: PdfColors.grey,  //.withOpacity(0.6),
                           fontSize: 12.sp,
@@ -625,6 +645,8 @@ class FinancialsPdfService extends getx.GetxController {
   Future shareQuotePDF({
     required BuildContext context,
     required int quoteNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -640,6 +662,8 @@ class FinancialsPdfService extends getx.GetxController {
     try {
       writeQuotePdf(
         quoteNumber: quoteNumber,
+        sender_address: sender_address,
+        sender_phone_number: sender_phone_number,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
         receiver_phone_number: receiver_phone_number,
@@ -696,6 +720,8 @@ class FinancialsPdfService extends getx.GetxController {
   Future downloadQuotePDFToDevice({
     required BuildContext context,
     required int quoteNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -712,6 +738,8 @@ class FinancialsPdfService extends getx.GetxController {
 
       writeQuotePdf(
         quoteNumber: quoteNumber,
+        sender_address: sender_address,
+        sender_phone_number: sender_phone_number,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
         receiver_phone_number: receiver_phone_number,
@@ -767,6 +795,8 @@ class FinancialsPdfService extends getx.GetxController {
   //WRITE THE INVOICE PDF
   Future writeInvoicePdf({
     required int invoiceNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -840,6 +870,24 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.SizedBox(height: 10.h,),
                       pw.Text(
                         userEmail,
+                        style: pw.TextStyle(
+                          color: PdfColors.grey,  //.withOpacity(0.6),
+                          fontSize: 12.sp,
+                          //fontWeight: FontWeight.w400
+                        ),
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        sender_phone_number,
+                        style: pw.TextStyle(
+                          color: PdfColors.grey,
+                          fontSize: 13.sp,
+                          //fontWeight: pw.FontWeight.w500
+                        ),
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        sender_address,
                         style: pw.TextStyle(
                           color: PdfColors.grey,  //.withOpacity(0.6),
                           fontSize: 12.sp,
@@ -1351,6 +1399,8 @@ class FinancialsPdfService extends getx.GetxController {
   Future shareInvoicePDF({
     required BuildContext context,
     required int invoiceNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -1365,6 +1415,8 @@ class FinancialsPdfService extends getx.GetxController {
   }) async{
     try {
       writeInvoicePdf(
+        sender_phone_number: sender_phone_number,
+        sender_address: sender_address,
         invoiceNumber: invoiceNumber,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
@@ -1421,6 +1473,8 @@ class FinancialsPdfService extends getx.GetxController {
   Future downloadInvoicePDFToDevice({
     required BuildContext context,
     required int invoiceNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -1436,6 +1490,8 @@ class FinancialsPdfService extends getx.GetxController {
     try {
 
       writeInvoicePdf(
+        sender_address: sender_address,
+        sender_phone_number: sender_phone_number,
         invoiceNumber: invoiceNumber,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
@@ -1489,6 +1545,8 @@ class FinancialsPdfService extends getx.GetxController {
   //WRITE THE RECEIPT PDF
   Future writeReceiptPdf({
     required int receiptNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -1562,6 +1620,24 @@ class FinancialsPdfService extends getx.GetxController {
                       pw.SizedBox(height: 10.h,),
                       pw.Text(
                         userEmail,
+                        style: pw.TextStyle(
+                          color: PdfColors.grey,  //.withOpacity(0.6),
+                          fontSize: 12.sp,
+                          //fontWeight: FontWeight.w400
+                        ),
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        sender_phone_number,
+                        style: pw.TextStyle(
+                          color: PdfColors.grey,
+                          fontSize: 13.sp,
+                          //fontWeight: pw.FontWeight.w500
+                        ),
+                      ),
+                      pw.SizedBox(height: 10.h,),
+                      pw.Text(
+                        sender_address,
                         style: pw.TextStyle(
                           color: PdfColors.grey,  //.withOpacity(0.6),
                           fontSize: 12.sp,
@@ -2075,6 +2151,8 @@ class FinancialsPdfService extends getx.GetxController {
   Future shareReceiptPDF({
     required BuildContext context,
     required int receiptNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -2090,6 +2168,8 @@ class FinancialsPdfService extends getx.GetxController {
     try {
       
       writeReceiptPdf(
+        sender_address: sender_address,
+        sender_phone_number: sender_phone_number,
         receiptNumber: receiptNumber,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
@@ -2146,6 +2226,8 @@ class FinancialsPdfService extends getx.GetxController {
   Future downloadReceiptPDFToDevice({
     required BuildContext context,
     required int receiptNumber,
+    required String sender_phone_number,
+    required String sender_address,
     required String receiver_name,
     required String receiver_email,
     required String receiver_phone_number,
@@ -2161,6 +2243,8 @@ class FinancialsPdfService extends getx.GetxController {
     try {
 
       writeReceiptPdf(
+        sender_address: sender_address,
+        sender_phone_number: sender_phone_number,
         receiptNumber: receiptNumber,
         receiver_name: receiver_name,
         receiver_email: receiver_email,

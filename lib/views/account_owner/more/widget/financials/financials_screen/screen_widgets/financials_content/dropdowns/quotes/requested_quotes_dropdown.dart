@@ -88,6 +88,8 @@ class RequestedQuoteDropDown extends StatelessWidget {
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
                 quoteNumber: randNum, 
+                sender_address: service_provider['address'],
+                sender_phone_number: service_provider['phone_number'],
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
                 receiver_phone_number: phone_number, 

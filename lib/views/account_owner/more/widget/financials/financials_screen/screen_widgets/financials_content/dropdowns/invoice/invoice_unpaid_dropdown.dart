@@ -91,6 +91,8 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
             onTap: () {
               int randNum = Random().nextInt(2000000);
               finPdfService.shareInvoicePDF(
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 context: context, 
                 invoiceNumber: randNum, 
                 receiver_name: send_to_name, 
@@ -119,6 +121,8 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
             onTap: () {
               int randNum = Random().nextInt(2000000);
               finPdfService.downloadInvoicePDFToDevice(
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 context: context, 
                 invoiceNumber: randNum, 
                 receiver_name: send_to_name, 

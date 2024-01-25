@@ -656,6 +656,8 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     finPdfService.shareReceiptPDF(
                                     context: context,
                                     receiptNumber: widget.receiptNumber,
+                                    sender_address: "",
+                                    sender_phone_number: '',
                                     receiver_email: controller.receiptClientEmailController.text,
                                     receiver_name: controller.receiptClientNameController.text,
                                     receiver_phone_number: controller.receiptClientPhoneNumberController.text,
@@ -703,6 +705,8 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 finPdfService.downloadReceiptPDFToDevice(
                                   context: context,
                                   receiptNumber: widget.receiptNumber,
+                                  sender_address: "",
+                                  sender_phone_number: '',
                                   receiver_email: controller.receiptClientEmailController.text,
                                   receiver_name: controller.receiptClientNameController.text,
                                   receiver_phone_number: controller.receiptClientPhoneNumberController.text,

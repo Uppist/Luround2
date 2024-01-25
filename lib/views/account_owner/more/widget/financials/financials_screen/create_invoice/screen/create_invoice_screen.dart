@@ -607,6 +607,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                 ).whenComplete(() {
                                     finPdfService.shareInvoicePDF(
                                     context: context,
+                                    sender_address: "",
+                                    sender_phone_number: '',
                                     invoiceNumber: widget.invoiceNumber,
                                     receiver_email: controller.invoiceClientEmailController.text,
                                     receiver_name: controller.invoiceClientNameController.text,
@@ -653,6 +655,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                               },
                               onDownload: () {
                                 finPdfService.downloadInvoicePDFToDevice(
+                                  sender_address: "",
+                                  sender_phone_number: '',
                                   context: context, 
                                   invoiceNumber: widget.invoiceNumber,
                                   receiver_email: controller.invoiceClientEmailController.text,

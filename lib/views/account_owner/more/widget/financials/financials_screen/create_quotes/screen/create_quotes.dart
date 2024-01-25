@@ -614,6 +614,8 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       product_detail: service.selectedQuotebslist,
                                     ).whenComplete(() {
                                       finPdfService.shareQuotePDF(
+                                        sender_address: "",
+                                        sender_phone_number: '',
                                         context: context,
                                         quoteNumber: widget.quoteNumber,
                                         receiver_email: controller.quoteClientEmailController.text,
@@ -661,6 +663,8 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   onDownload: () {
                                     finPdfService.downloadQuotePDFToDevice(
                                       context: context, 
+                                      sender_address: "",
+                                      sender_phone_number: '',
                                       quoteNumber: widget.quoteNumber,
                                       receiver_email: controller.quoteClientEmailController.text,
                                       receiver_name: controller.quoteClientNameController.text,

@@ -94,6 +94,8 @@ class DraftedQuoteDropDown extends StatelessWidget {
               ).whenComplete(() {
                 finPdfService.shareQuotePDF(
                   context: context, 
+                  sender_address: service_provider_address,
+                  sender_phone_number: service_provider_phone_number,
                   quoteNumber: randNum, 
                   receiver_name: send_to_name, 
                   receiver_email: send_to_email, 
@@ -125,6 +127,8 @@ class DraftedQuoteDropDown extends StatelessWidget {
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
                 quoteNumber: randNum, 
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
                 receiver_phone_number: phone_number, 

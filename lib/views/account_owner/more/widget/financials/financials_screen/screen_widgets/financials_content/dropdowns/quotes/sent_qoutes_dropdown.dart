@@ -85,6 +85,8 @@ class QuoteDropDown extends StatelessWidget {
               finPdfService.shareQuotePDF(
                 context: context, 
                 quoteNumber: randNum, 
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
                 receiver_phone_number: phone_number, 
@@ -112,6 +114,8 @@ class QuoteDropDown extends StatelessWidget {
               int randNum = Random().nextInt(200000);
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 quoteNumber: randNum, 
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
@@ -141,6 +145,8 @@ class QuoteDropDown extends StatelessWidget {
                 quote_id: quote_date, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
+                service_provider_address: service_provider_address,
+                service_provider_phone_number: service_provider_phone_number,
                 phone_number:phone_number,
                 due_date: due_date,
                 qoute_date: quote_date,

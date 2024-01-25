@@ -125,6 +125,8 @@ class SentReceiptDropDown extends StatelessWidget {
             onTap: () {
               finPdfService.downloadReceiptPDFToDevice(
                 context: context, 
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 receiptNumber: randNum, 
                 receiver_name: send_to, 
                 receiver_email: sent_to_email, 

@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ConvertQuoteToInvoiceScreen extends StatelessWidget {
-  ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date});
+  ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date, required this.service_provider_phone_number, required this.service_provider_address});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -32,6 +32,8 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
   final String appointment_type;
   final String status;
   final String note;
+  final String service_provider_phone_number;
+  final String service_provider_address;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
 
@@ -125,6 +127,24 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         SizedBox(height: 10.h,),
                         Text(
                           service_provider['email'],
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor.withOpacity(0.6),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        SizedBox(height: 10.h,),
+                        Text(
+                          service_provider_phone_number,
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor.withOpacity(0.6),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(height: 10.h,),
+                        Text(
+                          service_provider_address,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -691,6 +711,8 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                             booking_detail: product_details
                           ).whenComplete(() {
                             finPdfService.shareInvoicePDF(
+                              sender_address: service_provider_address,
+                              sender_phone_number: service_provider_phone_number,
                               context: context,
                               invoiceNumber: randNum,
                               receiver_email: send_to_email,
@@ -731,6 +753,8 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         onDownload: () {
                           finPdfService.downloadInvoicePDFToDevice(
                             context: context,
+                            sender_address: service_provider_address,
+                            sender_phone_number: service_provider_phone_number,
                             invoiceNumber: randNum,
                             receiver_email: send_to_email,
                             receiver_name: send_to_name,

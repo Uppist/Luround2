@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ConvertInvoiceToReceiptScreen extends StatelessWidget {
-  ConvertInvoiceToReceiptScreen({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.sub_total, required this.discount, required this.vat, required this.total, required this.status, required this.note,required this.booking_details, required this.invoice_date, required this.service_provider_name, required this.service_provider_email,});
+  ConvertInvoiceToReceiptScreen({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.sub_total, required this.discount, required this.vat, required this.total, required this.status, required this.note,required this.booking_details, required this.invoice_date, required this.service_provider_name, required this.service_provider_email, required this.service_provider_phone_number, required this.service_provider_address,});
   final String invoice_id;
   final String send_to_name;
   final String send_to_email;
@@ -34,6 +34,8 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
   final String note;
   final String service_provider_name;
   final String service_provider_email;
+  final String service_provider_phone_number;
+  final String service_provider_address;
   final List<dynamic> booking_details;
 
 
@@ -126,6 +128,24 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                         SizedBox(height: 10.h,),
                         Text(
                           service_provider_email,
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor.withOpacity(0.6),
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+                        SizedBox(height: 10.h,),
+                        Text(
+                          service_provider_phone_number,
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor,
+                            fontSize: 13.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(height: 10.h,),
+                        Text(
+                          service_provider_address,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -693,6 +713,8 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                             service_detail: booking_details
                           ).whenComplete(() {
                             finPdfService.shareReceiptPDF(
+                              sender_address: service_provider_address,
+                              sender_phone_number: service_provider_phone_number,
                               context: context,
                               receiptNumber: randNum,
                               receiver_email: send_to_email,
@@ -732,6 +754,8 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                         },
                         onDownload: () {
                           finPdfService.downloadReceiptPDFToDevice(
+                            sender_address: service_provider_address,
+                            sender_phone_number: service_provider_phone_number,
                             context: context,
                             receiptNumber: randNum,
                             receiver_email: send_to_email,

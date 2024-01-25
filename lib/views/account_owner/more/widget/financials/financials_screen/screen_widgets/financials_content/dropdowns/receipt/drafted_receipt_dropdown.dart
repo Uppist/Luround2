@@ -96,6 +96,8 @@ class DraftedReceiptDropDown extends StatelessWidget {
             onTap: () {
               finPdfService.shareReceiptPDF(
                 context: context, 
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 receiptNumber: randNum, 
                 receiver_name: send_to, 
                 receiver_email: sent_to_email, 
@@ -122,6 +124,8 @@ class DraftedReceiptDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               finPdfService.downloadReceiptPDFToDevice(
+                sender_address: service_provider_address,
+                sender_phone_number: service_provider_phone_number,
                 context: context, 
                 receiptNumber: randNum, 
                 receiver_name: send_to, 

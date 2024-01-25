@@ -558,7 +558,7 @@ class FinancialsPdfService extends getx.GetxController {
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: [
                         pw.Text(
-                          "Grand total:",
+                          "Grand Total:",
                           style: pw.TextStyle(
                             color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -1312,7 +1312,7 @@ class FinancialsPdfService extends getx.GetxController {
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: [
                         pw.Text(
-                          "Grand total:",
+                          "Grand Total:",
                           style: pw.TextStyle(
                             color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -2064,7 +2064,7 @@ class FinancialsPdfService extends getx.GetxController {
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                       children: [
                         pw.Text(
-                          "Grand total:",
+                          "Grand Total:",
                           style: pw.TextStyle(
                             color: PdfColors.green400, //AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,

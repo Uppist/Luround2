@@ -16,6 +16,7 @@ import 'package:luround/views/account_viewer/404page/unknown_route.dart';
 import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
 import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
+import 'package:luround/web_routes/routes.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
@@ -124,7 +125,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        /*unknownRoute: GetPage(
+        unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -141,9 +142,17 @@ class _MainAppState extends State<MainApp> {
         defaultTransition: Transition.fade,
         
         onGenerateRoute: (settings) {
+          if(settings.name ==  ProfileRoute) {
+            return GetPageRoute(
+              settings: settings,
+              page: () => SplashScreenXtra2(),
+            );
+          }
           return GetPageRoute(
             settings: settings,
-            page: () => SplashScreenXtra2(),
+            page: () => UnknownPage(
+              onPressed: () {}     
+            )
           );
         },
 
@@ -156,9 +165,9 @@ class _MainAppState extends State<MainApp> {
             },
           ),
 
-        ],*/
+        ],
 
-        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

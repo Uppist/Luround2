@@ -165,7 +165,8 @@ class ServicesController extends getx.GetxController {
   //(save to db) the two of them
   final startTimeValue = "".obs; 
   final stopTimeValue = "".obs;
-
+  
+  //available time list
   List<String> availableTime = [];
   void addStartTime() {
     if (!availableTime.contains(startTimeValue.value)) {
@@ -261,88 +262,86 @@ class ServicesController extends getx.GetxController {
   final isCheckBoxActive = false.obs;
   
 
-
-
-
-  
-  
-  /*String getStartTime ({required String initialTime}) {
-    if(startTimeValue.isNotEmpty) { 
-      debugPrint("t1: $startTimeValue");
-      return startTimeValue.value;
+  ///////////////////////////////////////////////////////////////////
+  //trying to calculate the time-frame string
+  List<String> timeFrameList = [];
+  void addFirstTime() {
+    if (!timeFrameList.contains(startTimeValue.value)) {
+      //add all start time to the list
+      timeFrameList.add(startTimeValue.value,);
+      print("timeframe list: $timeFrameList");
+    } else {
+      print("${startTimeValue.value} is already in the list");
     }
-    return initialTime;
   }
 
-  String getStopTime ({required String initialTime}) {
-    if(stopTimeValue.isNotEmpty) { 
-      print("t2: $stopTimeValue");
-      return stopTimeValue.value;
+  void addLastTime() {
+    if (!timeFrameList.contains(stopTimeValue.value)) {
+      //add all start time to the list
+      timeFrameList.add(stopTimeValue.value,);
+      print("timeframe list: $timeFrameList");
+    } else {
+      print("${stopTimeValue.value} is already in the list");
     }
-    return initialTime;
+  }
+
+  void removeTime({required int index}) {
+    if (index >= 0 && index < timeFrameList.length) {
+      //add all start time to the list
+      timeFrameList.removeAt(index);
+      print("timeframe list: $timeFrameList");
+      print("Item ${timeFrameList[index]} removed at index $index");
+    } 
+    else {
+      print("Invalid index: $index");
+    }
+  }
+
+  //get the earliest time in the list
+  String findEarliestTime() {
+    DateTime earliestTime = DateTime(2100); // A future date to compare against
+
+    for (String timeString in timeFrameList) {
+      DateTime time = parseTimeString(timeString);
+      if (time.isBefore(earliestTime)) {
+        earliestTime = time;
+      }
+    }
+    print("Earliest Time: $earliestTime");
+    return formatTimeString(earliestTime);
   }
   
-  //get the start time coming from the server
-  String splitTimeRangeT1 ({required String timeRange}) {
+  //get the latest time in the list
+  String findLatestTime() {
+    DateTime latestTime = DateTime(0); // A past date to compare against
 
-    // Split the string based on the hyphen
-    List<String> timeStrings = timeRange.split('-');
-
-    // Trim any leading or trailing whitespace
-    String startTime = timeStrings[0].trim();
-
-    print("Start Time: $startTime");
-    return startTime;
+    for (String timeString in timeFrameList) {
+      DateTime time = parseTimeString(timeString);
+      if (time.isAfter(latestTime)) {
+        latestTime = time;
+      }
+    }
+    print("Latest Time: $latestTime");
+    return formatTimeString(latestTime);
   }
   
-  
-  //get the stop time coming from the server
-  String splitTimeRangeT2 ({required String timeRange}) {
-    // Split the string based on the hyphen
-    List<String> timeStrings = timeRange.split('-');
-
-    // Trim any leading or trailing whitespace
-    String endTime = timeStrings[1].trim();
-
-    print("End Time: $endTime");
-    return endTime;
-  }*/
-
-
-  
-  //t1
-  /*Future<void> openFlutterTimePickerForStartTime({required BuildContext context, required int index}) async{
-    var time = await showTimePicker(
-      context: context, 
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input
-    );
-
-    if (time != null) {
-      startTimeValue.value = time.format(context);
-      daysOfTheWeekCheckBox[index].addAll({
-        "from" : startTimeValue.value,
-      });
-    }
-    update();
+  //parseTimeString
+  DateTime parseTimeString(String timeString) {
+    // Parse time string into DateTime
+    DateTime now = DateTime.now();
+    String formattedTime = "${now.year}-${now.month}-${now.day} $timeString";
+    return DateTime.parse(formattedTime);
   }
   
-  //t2
-  Future<void> openFlutterTimePickerForStopTime({required BuildContext context, required int index}) async{
-    var time = await showTimePicker(
-      context: context, 
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input
-    );
+  //formatTimeString
+  String formatTimeString(DateTime time) {
+    // Format DateTime into string
+    return "${time.hour}:${time.minute < 10 ? '0${time.minute}' : time.minute}${time.hour < 12 ? 'AM' : 'PM'}";
+  }
 
-    if (time != null) {
-      stopTimeValue.value = time.format(context);
-      daysOfTheWeekCheckBox[index].addAll({
-        "to" : stopTimeValue.value,
-      });
-    }
-    update();
-  }*/
+  
+  
+  
 
   /////////////////////////////////////////////////////
 
@@ -627,82 +626,68 @@ class ServicesController extends getx.GetxController {
   final stopTimeValueEdit = "".obs;
 
 
-  /*String getStartTime ({required String initialTime}) {
-    if(startTimeValueEdit.isNotEmpty) { 
-      debugPrint("t1: $startTimeValueEdit");
-      return startTimeValueEdit.value;
-    }
-    return initialTime;
-  }
-
-  String getStopTime ({required String initialTime}) {
-    if(stopTimeValueEdit.isNotEmpty) { 
-      print("t2: $stopTimeValueEdit");
-      return stopTimeValueEdit.value;
-    }
-    return initialTime;
-  }
-  
-  //get the start time coming from the server
-  String splitTimeRangeT1 ({required String timeRange}) {
-
-    // Split the string based on the hyphen
-    List<String> timeStrings = timeRange.split('-');
-
-    // Trim any leading or trailing whitespace
-    String startTime = timeStrings[0].trim();
-
-    print("Start Time: $startTime");
-    return startTime;
-  }
-  
-  
-  //get the stop time coming from the server
-  String splitTimeRangeT2 ({required String timeRange}) {
-    // Split the string based on the hyphen
-    List<String> timeStrings = timeRange.split('-');
-
-    // Trim any leading or trailing whitespace
-    String endTime = timeStrings[1].trim();
-
-    print("End Time: $endTime");
-    return endTime;
-  }*/
-
-
-  
-  //t1
-  /*Future<void> openFlutterTimePickerForStartTimeEdit({required BuildContext context, required int index}) async{
-    var time = await showTimePicker(
-      context: context, 
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input
-    );
-
-    if (time != null) {
-      startTimeValueEdit.value = time.format(context);
-      daysOfTheWeekCheckBoxEdit[index].addAll({
-      "from" : startTimeValueEdit.value,
-    });
+  //trying to calculate the time-frame string
+  List<String> timeFrameListEdit = [];
+  void addFirstTimeEdit() {
+    if (!timeFrameListEdit.contains(startTimeValueEdit.value)) {
+      //add all start time to the list
+      timeFrameListEdit.add(startTimeValueEdit.value,);
+      print("timeframe list: $timeFrameListEdit");
+    } else {
+      print("${startTimeValueEdit.value} is already in the list");
     }
   }
-  
-  //t2
-  Future<void> openFlutterTimePickerForStopTimeEdit({required BuildContext context, required int index}) async{
-    var time = await showTimePicker(
-      context: context, 
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input
-    );
 
-    if (time != null) {
-      stopTimeValueEdit.value = time.format(context);
-      daysOfTheWeekCheckBoxEdit[index].addAll({
-      "to" : stopTimeValueEdit.value,
-    });
+  void addLastTimeEdit() {
+    if (!timeFrameListEdit.contains(stopTimeValueEdit.value)) {
+      //add all start time to the list
+      timeFrameListEdit.add(stopTimeValueEdit.value,);
+      print("timeframe list: $timeFrameListEdit");
+    } else {
+      print("${stopTimeValueEdit.value} is already in the list");
     }
-  }*/
+  }
 
+  void removeTimeEdit({required int index}) {
+    if (index >= 0 && index < timeFrameListEdit.length) {
+      //add all start time to the list
+      timeFrameListEdit.removeAt(index);
+      print("timeframe list: $timeFrameListEdit");
+      print("Item ${timeFrameListEdit[index]} removed at index $index");
+    } 
+    else {
+      print("Invalid index: $index");
+    }
+  }
+
+  //get the earliest time in the list
+  String findEarliestTimeEdit() {
+    DateTime earliestTime = DateTime(2100); // A future date to compare against
+
+    for (String timeString in timeFrameListEdit) {
+      DateTime time = parseTimeString(timeString);
+      if (time.isBefore(earliestTime)) {
+        earliestTime = time;
+      }
+    }
+    print("Earliest Time: $earliestTime");
+    return formatTimeString(earliestTime);
+  }
+  
+  //get the latest time in the list
+  String findLatestTimeEdit() {
+    DateTime latestTime = DateTime(0); // A past date to compare against
+
+    for (String timeString in timeFrameListEdit) {
+      DateTime time = parseTimeString(timeString);
+      if (time.isAfter(latestTime)) {
+        latestTime = time;
+      }
+    }
+    print("Latest Time: $latestTime");
+    return formatTimeString(latestTime);
+  }
+  
   /////////////////////////////////////////////////////
 
 

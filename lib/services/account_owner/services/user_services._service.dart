@@ -115,14 +115,14 @@ class AccOwnerServicePageService extends getx.GetxController {
     required BuildContext context,
     required String service_name,
     required String description,
-    required List<dynamic> links,
     required String service_charge_in_person,
     required String service_charge_virtual,
     required String duration,
     required String time,
     required String available_days,
     //required String service_type,
-    required List<dynamic> available_time,
+    required List<dynamic> links,
+    required List<dynamic> available_time_list,
     required String date
     
     }) async {
@@ -141,7 +141,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       'available_days': available_days,
       //"service_type": service_type,
       "date": date,
-      "available_time": available_time,
+      "available_time": available_time_list,
     };
 
     try {
@@ -149,6 +149,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("user service created succesfully");
         //success snackbar
         showMySnackBar(

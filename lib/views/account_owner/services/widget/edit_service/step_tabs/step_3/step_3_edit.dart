@@ -169,7 +169,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
                   service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
                   duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
-                  time: mainController.startTimeValueEdit.isEmpty ? widget.time : "${mainController.startTimeValueEdit} - ${mainController.stopTimeValueEdit}",
+                  time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
                   date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
                   available_days: mainController.availableDaysEdit(), 
                   available_time: mainController.availableTimeEdit,

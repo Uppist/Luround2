@@ -55,7 +55,7 @@ class RequestedQuotesList extends StatelessWidget {
                   offer: item.offer,
                   service_name: item.service_name,
                   uploaded_file: item.uploaded_file,
-                  quote_id: randNum.toString(), 
+                  quote_id: item.quote_id, 
                   send_to_name: item.send_to_name,
                   send_to_email: item.send_to_email,
                   phone_number:item.phone_number,

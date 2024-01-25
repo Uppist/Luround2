@@ -137,7 +137,7 @@ class _Step3PageState extends State<Step3Page> {
               //widget.onNext
               () {
                 servicesService.createUserService(
-                  available_time: mainController.availableTimeEdit,
+                  available_time_list: mainController.availableTime,
                   context: context,
                   //service_type: "Virtual", //In-Person
                   service_name: mainController.serviceNameController.text, 
@@ -146,7 +146,7 @@ class _Step3PageState extends State<Step3Page> {
                   service_charge_in_person: mainController.inPersonController.text, 
                   service_charge_virtual: mainController.virtualController.text, 
                   duration: mainController.formatDuration(), 
-                  time: "${mainController.startTimeValue.value} - ${mainController.stopTimeValue.value}",
+                  time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
                   date: mainController.selectDurationRadio,             
                   available_days: mainController.availableDays(),
                 ).whenComplete(() {

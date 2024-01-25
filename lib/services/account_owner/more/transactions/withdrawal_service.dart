@@ -530,13 +530,13 @@ class WithdrawalService extends getx.GetxController {
     }
   }
 
-  getx.RxInt totalAmountReceived =  getx.RxInt(0);
+  getx.RxDouble totalAmountReceived =  getx.RxDouble(0.0);
   var isTotalAmountReceivedCalculated = false.obs;
   Future<void> calculateTotalAmountReceived() async{
     if (!isTotalAmountReceivedCalculated.value) {
       for (var user in filteredTrxList) {
         if (user.transaction_status == "SENT") {
-          totalAmountReceived.value += int.parse(user.amount);
+          totalAmountReceived.value += double.parse(user.amount);
         }
       }
       print("amount received: ${totalAmountReceived.value}");

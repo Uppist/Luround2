@@ -27,8 +27,8 @@ class FinancialsService extends getx.GetxController {
   var userId = LocalStorage.getUserID();
   var user_email = LocalStorage.getUseremail();
   var user_name = LocalStorage.getUsername();
-
-
+ 
+  
 
 
 

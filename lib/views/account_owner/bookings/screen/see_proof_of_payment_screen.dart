@@ -18,7 +18,10 @@ class SeePaymentProofPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       body: SafeArea(
-        child: Image.network(payment_proof)
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+          child: Image.network(payment_proof)
+        )
       ),
       //FAB (floating action bubble / speed dial)
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

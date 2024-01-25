@@ -83,7 +83,12 @@ class _ViewAddedServiceDetailsForReceiptState extends State<ViewAddedServiceDeta
                               appointmentType: finService.selectedMeetingTypeForReceipt.text.isEmpty ? widget.appointment_type : finService.selectedMeetingTypeForReceipt.text, 
                               index: widget.index
                             ).whenComplete(() {
-                              //finService.subtotalForReceipt.clear();
+                              finService.calculateDiscountForReceipt(
+                                index: widget.index, 
+                                context: context, 
+                                initialRateValue: widget.rate, 
+                                initialDiscountValue: widget.discount,
+                              );
                               finService.showEverythingForReceiptList();
                               print(finService.selectedReceiptbslist);
                             });

@@ -94,7 +94,7 @@ class InvoicePaidDropDown extends StatelessWidget {
               ));
             },
             child: Text(
-              "Generate Receipt",
+              "Convert To Receipt",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,

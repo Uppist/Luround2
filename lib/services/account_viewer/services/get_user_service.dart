@@ -170,6 +170,7 @@ class AccViewerService extends getx.GetxController {
     required String phone_number,
     required String appointment_type,
     required String date,
+    required String file,
     required String time,
     required String duration,
     required String message,
@@ -180,7 +181,7 @@ class AccViewerService extends getx.GetxController {
     var body = {
       "email": email,
       "displayName": name,
-      //the above was added by me
+      "payment_proof": file,
       "phone_number": phone_number,
       "appointment_type": appointment_type,
       "date": date,

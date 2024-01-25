@@ -91,6 +91,12 @@ class _ViewAddedServiceDetailsForInvoiceState extends State<ViewAddedServiceDeta
                               phone_number: widget.client_phone_number
                             ).whenComplete(() {
                               //finService.subtotalForInvoice.clear();
+                              finService.calculateDiscountForInvoice(
+                                index: widget.index,
+                                initialDiscountValue: widget.discount,
+                                initialRateValue: widget.rate,
+                                context: context
+                              );
                               finService.showEverythingForInvoiceList();
                               print(finService.selectedInvoicebslist);
                             });

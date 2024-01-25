@@ -198,7 +198,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               controller.imageFromGallery.value = null;
                             },
                             file: controller.imageFromGallery.value,
-                            text: "file uploaded",
+                            text: "file selected",
                           )
                           :UploadReceiptWidget(
                             onPressed: () {
@@ -231,6 +231,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                 time: widget.time, //controller.getTime()
                                 duration: widget.duration, 
                                 message: controller.messageBAController.text, 
+                                file: controller.paymentProofUrl.value,
                                 location: controller.step1Appointment == 'Virtual' 
                                 ?"The location for this service is set to be virtual." 
                                 :"The location for this service is set to be physical."

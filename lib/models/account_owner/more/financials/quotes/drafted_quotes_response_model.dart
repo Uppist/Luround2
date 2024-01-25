@@ -35,7 +35,6 @@ class DraftedQuotesResponse{
     required this.service_provider,  
     required this.product_details,
     required this.quote_id,
-    
   });
 
   factory DraftedQuotesResponse.fromJson(Map<String, dynamic> json) {

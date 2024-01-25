@@ -35,7 +35,7 @@ class InvoiceResponse{
       service_provider: json['service_provider'] ?? {},
       status: json['payment_status'] ?? "nan",
       invoice_id: json['_id'],
-      send_to_name: json['send_to'] ?? "nan",
+      send_to_name: json['send_to_name'] ?? "what's happening?",
       send_to_email: json['sent_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "(empty)",
       due_date: json['due_date'] ?? "nan",

@@ -16,7 +16,7 @@
 
 
     <application
-        android:label="luround"
+        android:label="Luround"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

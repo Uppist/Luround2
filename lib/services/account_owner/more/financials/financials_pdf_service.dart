@@ -533,31 +533,6 @@ class FinancialsPdfService extends getx.GetxController {
                     ),
 
                     pw.SizedBox(height: 20.h,),
-                          
-                    pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.Text(
-                          "Total",
-                          style: pw.TextStyle(
-                            color: PdfColors.grey, //.withOpacity(0.6),
-                            fontSize: 14.sp,
-                            //fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        pw.Text(
-                          'N$grand_total',
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 14.sp,
-                            //fontWeight: FontWeight.w500
-                          )
-                        ),
-                              
-                      ],
-                    ),
-
-                    pw.SizedBox(height: 20.h,),
 
                     pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -571,7 +546,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$grand_total',
+                          'N${double.parse(grand_total) + double.parse(vat)}',
                           style: pw.TextStyle(
                             color: PdfColors.grey, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -1284,31 +1259,6 @@ class FinancialsPdfService extends getx.GetxController {
                     ),
 
                     pw.SizedBox(height: 20.h,),
-                          
-                    pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.Text(
-                          "Total",
-                          style: pw.TextStyle(
-                            color: PdfColors.grey, //.withOpacity(0.6),
-                            fontSize: 14.sp,
-                            //fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        pw.Text(
-                          'N$grand_total',
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 14.sp,
-                            //fontWeight: FontWeight.w500
-                          )
-                        ),
-                              
-                      ],
-                    ),
-
-                    pw.SizedBox(height: 20.h,),
 
                     pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -1322,7 +1272,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$grand_total',
+                          'N${double.parse(grand_total) + double.parse(vat)}',
                           style: pw.TextStyle(
                             color: PdfColors.grey500, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -2046,7 +1996,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$grand_total',
+                          'N${double.parse(grand_total) + double.parse(vat)}',
                           style: pw.TextStyle(
                             color: PdfColors.grey, //AppColor.darkGreyColor,
                             fontSize: 14.sp,

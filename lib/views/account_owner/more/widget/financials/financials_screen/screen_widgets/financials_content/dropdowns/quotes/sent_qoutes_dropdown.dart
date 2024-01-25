@@ -155,7 +155,7 @@ class QuoteDropDown extends StatelessWidget {
               ));
             },
             child: Text(
-              "Generate Invoice",
+              "Convert To Invoice",
               style: GoogleFonts.inter(
                 fontWeight: FontWeight.w400,
                 fontSize: 16.sp,

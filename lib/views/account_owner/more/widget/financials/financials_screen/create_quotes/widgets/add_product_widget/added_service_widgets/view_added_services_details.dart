@@ -89,7 +89,12 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   duration: finService.durationForQuote.value.isEmpty ? widget.duration : finService.durationForQuote.value, 
                                   meetingType: finService.selectedMeetingTypeForQuote.value.isEmpty ? widget.meeting_type : finService.selectedMeetingTypeForQuote.value
                                 ).whenComplete(() {
-                                  ///finService.subTotalForQuote.value = "";
+                                  finService.calculateDiscount(
+                                    index: widget.index,
+                                    initialDiscountValue: "0.0",
+                                    initialRateValue: widget.rate,
+                                    context: context
+                                  );
                                   finService.showEverythingForQuoteList();
                                   ///finService.
                                   print(finService.selectedQuotebslist);

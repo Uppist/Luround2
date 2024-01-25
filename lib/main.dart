@@ -125,7 +125,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        unknownRoute: GetPage(
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -141,9 +141,12 @@ class _MainAppState extends State<MainApp> {
 
         defaultTransition: Transition.fade,
         
-        /*onGenerateRoute: (settings) {
-          return generateRoute(settings);
-        },*/
+        onGenerateRoute: (settings) {
+          return GetPageRoute(
+            settings: settings,
+            page: () => SplashScreenXtra2(),
+          );
+        },
 
         getPages: [
           
@@ -153,26 +156,10 @@ class _MainAppState extends State<MainApp> {
               return SplashScreenXtra2();
             },
           ),
-          
-          /*GetPage(
-            name: ServicesRoute,
-            page: () {
-              ///var routingData = settings.name!.getRoutingData; // Get the routing Data
-              /*final Map<String, dynamic>? arguments = Get.arguments as Map<String, dynamic>?;
-              // Access the 'user' parameter
-              String userName = arguments?['user'] ?? 'kds-osx';*/
 
-              return RequestQuoteScreen(
-                service_name: "",
-                service_id: "",
-                service_provider_email: '',
-                service_provider_name: '',
-              );
-            },
-          ),*/
-        ],
+        ],*/
 
-        //home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: [
           Locale('en'),
         ]

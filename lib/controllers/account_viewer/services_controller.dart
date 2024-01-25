@@ -31,6 +31,8 @@ class AccViewerServicesController extends getx.GetxController {
     cloudName: "dxyzeiigv",
   );
   
+  //store the cloudinary url here
+  var paymentProofUrl = "".obs;
   //upload image to cloudinary
   Future<void> uploadReceiptToCloudinary({
     required BuildContext context,
@@ -50,6 +52,7 @@ class AccViewerServicesController extends getx.GetxController {
   
     if(response.isSuccessful) {
       debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
+      paymentProofUrl.value = response.secureUrl!;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
@@ -64,18 +67,19 @@ class AccViewerServicesController extends getx.GetxController {
       );
     }
   }
+  
   //file picker to pick user docs/pdf
   var isFileSelectedForBooking = false.obs;
   getx.Rx<File?> imageFromGallery = getx.Rx<File?>(null);
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
     try {
-      //var profileController = Provider.of<ProfileController>(context, listen: false);
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
-        await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
         isFileSelectedForBooking.value = true;
+        //ignore: use_build_context_synchronously
+        await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
         update();
       }
     }
@@ -85,7 +89,7 @@ class AccViewerServicesController extends getx.GetxController {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "no photo was selected"
+        message: "Error picking image: $e"
       );
     }
   }

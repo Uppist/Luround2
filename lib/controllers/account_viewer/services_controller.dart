@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+
+//import 'package:image_picker_web/image_picker_web.dart';
+
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-import 'dart:html' as html;
 
 
 
@@ -77,8 +78,8 @@ class AccViewerServicesController extends getx.GetxController {
   //File? imageFromGallery;
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
-    try {
-      final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
+    /*try {
+      final pickedImage = await ImagePickerWeb.getImageAsBytes(); 
       if (pickedImage != null) {
         imageFromGallery.value = pickedImage;
         //ignore: use_build_context_synchronously
@@ -95,7 +96,7 @@ class AccViewerServicesController extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Error picking image: $e"
       );
-    }
+    }*/
   }
 
 
@@ -109,7 +110,7 @@ class AccViewerServicesController extends getx.GetxController {
   getx.Rx<Uint8List?> selectedFileForRequestingQuote = getx.Rx<Uint8List?>(null);
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> selectFile(BuildContext context) async {
-    try {
+    /*try {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         selectedFileForRequestingQuote.value = pickedImage;
@@ -127,7 +128,7 @@ class AccViewerServicesController extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Error picking image: $e"
       );
-    }
+    }*/
   }
 
 

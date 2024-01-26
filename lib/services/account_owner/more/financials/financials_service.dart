@@ -309,6 +309,7 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "status": "SAVED",
       "appointment_type": "already in the product detail list",
+      "tracking_id": tracking_id,
       "note": note,
       "quote_date": quote_date,
       "send_to_name": client_name,
@@ -380,6 +381,7 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "status": "SENT",
       "appointment_type": "already in the product detail list",
+      "tracking_id": tracking_id,
       "quote_date": quote_date,
       "send_to_name": client_name,
       "send_to_email": client_email,
@@ -699,6 +701,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
+      "tracking_id": tracking_id,
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -767,6 +770,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
+      "tracking_id": tracking_id,
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -1082,6 +1086,7 @@ class FinancialsService extends getx.GetxController {
 
     var body = {
       "receipt_date": receipt_date,
+      "tracking_id": tracking_id,
       ////////////////
       "send_to_name": client_name,
       "send_to_email": client_email,
@@ -1153,6 +1158,7 @@ class FinancialsService extends getx.GetxController {
 
     var body = {
       "receipt_date": receipt_date,
+      "tracking_id": tracking_id,
       ////////////////
       "send_to_name": client_name,
       "send_to_email": client_email,

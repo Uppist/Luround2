@@ -81,9 +81,9 @@ class AccViewerServicesController extends getx.GetxController {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         imageFromGallery.value = pickedImage;
-        isFileSelectedForBooking.value = true;
         //ignore: use_build_context_synchronously
         await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
+        isFileSelectedForBooking.value = true;
         update();
       }
     }
@@ -113,9 +113,9 @@ class AccViewerServicesController extends getx.GetxController {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         selectedFileForRequestingQuote.value = pickedImage;
-        isFileSelected.value = true;
         //ignore: use_build_context_synchronously
         await uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote.value);
+        isFileSelected.value = true;
         update();
       }
     }

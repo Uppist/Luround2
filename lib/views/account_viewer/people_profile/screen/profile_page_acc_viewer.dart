@@ -171,7 +171,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                     //color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
                                     image: DecorationImage(
                                       image: NetworkImage(data.photoUrl),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
-                                      fit: BoxFit.cover
+                                      fit: BoxFit.contain
                                     )
                                   ),
                                 ),

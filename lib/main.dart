@@ -62,7 +62,8 @@ void main() async{
   
 
   WidgetsFlutterBinding.ensureInitialized();
-  //setPathUrlStrategy();
+  //keep beneath this widgetbinding widget
+  setPathUrlStrategy();
   
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -141,7 +142,7 @@ class _MainAppState extends State<MainApp> {
 
         defaultTransition: Transition.fade,
         
-        onGenerateRoute: (settings) {
+        /*onGenerateRoute: (settings) {
           if(settings.name ==  ProfileRoute) {
             return GetPageRoute(
               settings: settings,
@@ -154,7 +155,7 @@ class _MainAppState extends State<MainApp> {
               onPressed: () {}     
             )
           );
-        },
+        },*/
 
         getPages: [
           

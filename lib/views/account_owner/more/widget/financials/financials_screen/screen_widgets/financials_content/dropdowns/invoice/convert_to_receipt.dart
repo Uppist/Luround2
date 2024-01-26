@@ -42,7 +42,6 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
-  int randNum = Random().nextInt(2000000);
   var isServiceTapped = false.obs;
   var isNoteTapped = false.obs;
 
@@ -269,7 +268,7 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '#$randNum',
+                              tracking_id,
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,

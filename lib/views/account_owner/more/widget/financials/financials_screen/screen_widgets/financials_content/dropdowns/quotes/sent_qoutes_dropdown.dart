@@ -8,7 +8,7 @@ import 'package:luround/services/account_owner/more/financials/financials_pdf_se
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/view_sent_quote_screen.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/convert_to_invoice_screen.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/convert_to_invoice/convert_to_invoice_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/delete_quote/delete_quote.dart';
 
 

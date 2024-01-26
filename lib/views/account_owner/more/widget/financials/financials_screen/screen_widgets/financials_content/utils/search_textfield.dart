@@ -34,10 +34,10 @@ class _SearchTextFieldState extends State<FinancialsSearchTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50.h,
-      child: Focus(
-        onFocusChange: widget.onFocusChanged,
+    return Focus(
+      onFocusChange: widget.onFocusChanged,
+      child: SizedBox(
+        height: 50.h,
         child: TextFormField(
           onFieldSubmitted: widget.onFieldSubmitted,
           //onChanged: widget.onChanged,
@@ -50,7 +50,7 @@ class _SearchTextFieldState extends State<FinancialsSearchTextField> {
           enableSuggestions: true,
           enableInteractiveSelection: true,
           cursorColor: AppColor.textGreyColor,
-          style: GoogleFonts.poppins(color: AppColor.textGreyColor),
+          style: GoogleFonts.inter(color: AppColor.textGreyColor),
           textCapitalization: TextCapitalization.sentences,
           textInputAction: widget.textInputAction,          
           scrollPhysics: const BouncingScrollPhysics(),
@@ -68,7 +68,7 @@ class _SearchTextFieldState extends State<FinancialsSearchTextField> {
               borderRadius: BorderRadius.circular(12.r)
             ),     
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14.sp),              
+            hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),

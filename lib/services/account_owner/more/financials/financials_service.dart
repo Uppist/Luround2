@@ -1274,6 +1274,38 @@ class FinancialsService extends getx.GetxController {
 
 
 
+  //CONVERT QUOTE TO INVOICE STUFFS
+  final TextEditingController ctvdueDateController  = TextEditingController();
+  final TextEditingController ctvdiscountController  = TextEditingController();
+  //reactives (clear them after use so other indices in the list can use them)
+  var reactiveCTVVAT = "".obs;
+  var reactiveCTVGrandTotal = "".obs;
+  //calculate the discount and return new values
+  Future<void> calculateCTVDiscount({required BuildContext context, required String initialSubTotal, required String initialDiscountValue}) async {
+    // Convert parameters from string to double data type
+    double discountValue = double.tryParse(ctvdiscountController.text.isNotEmpty ? ctvdiscountController.text : initialDiscountValue) ?? 0.0;
+    //double vatValue = double.tryParse(initialVAT) ?? 0.0;
+    double subtotalValue = double.tryParse(initialSubTotal) ?? 0.0;
+
+    // Calculate the discount
+    double calculatedDiscount = (discountValue / 100) * subtotalValue;
+
+    // Calculate the new total after the discount has been subtracted from it
+    double grandTotal = subtotalValue - calculatedDiscount;
+    reactiveCTVGrandTotal.value = grandTotal.toString();
+    reactiveCTVVAT.value = (0.075 * grandTotal).toString();
+    debugPrint("Calculated Discount: $calculatedDiscount");
+    debugPrint("New CTV Grand Total: ${reactiveCTVGrandTotal.value}");
+    debugPrint("New CTV VAT: ${reactiveCTVVAT.value}");
+  
+    //success snackbar
+    showMySnackBar(
+      context: context,
+      backgroundColor: AppColor.darkGreen,
+      message: "your discounted total is N${reactiveCTVGrandTotal.value}"
+    );
+    //
+  }
 
 
 
@@ -1281,6 +1313,18 @@ class FinancialsService extends getx.GetxController {
 
 
 
+
+
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    ctvdiscountController.dispose();
+    ctvdueDateController.dispose();
+    super.dispose();
+  }
 
 
   @override

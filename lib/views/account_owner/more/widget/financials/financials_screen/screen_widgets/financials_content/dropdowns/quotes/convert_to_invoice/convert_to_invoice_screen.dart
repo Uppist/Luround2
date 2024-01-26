@@ -9,6 +9,7 @@ import 'package:luround/services/account_owner/more/financials/financials_servic
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/convert_to_invoice/ctv_textfield.dart';
 
 
 
@@ -17,7 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class ConvertQuoteToInvoiceScreen extends StatelessWidget {
+class ConvertQuoteToInvoiceScreen extends StatefulWidget {
   ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id});
   final String quote_id;
   final String send_to_name;
@@ -38,11 +39,17 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
   final List<dynamic> product_details;
   final String tracking_id;
 
+  @override
+  State<ConvertQuoteToInvoiceScreen> createState() => _ConvertQuoteToInvoiceScreenState();
+}
 
+class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScreen> {
   var service = Get.put(FinancialsService());
+
   var finPdfService = Get.put(FinancialsPdfService());
-  int randNum = Random().nextInt(2000000);
+
   var isServiceTapped = false.obs;
+
   var isNoteTapped = false.obs;
 
   @override
@@ -118,7 +125,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          service_provider['name'],
+                          widget.service_provider['name'],
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor,
                             fontSize: 13.sp,
@@ -127,7 +134,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          service_provider['email'],
+                          widget.service_provider['email'],
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -136,7 +143,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          service_provider_phone_number,
+                          widget.service_provider_phone_number,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -145,7 +152,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          service_provider_address,
+                          widget.service_provider_address,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -176,7 +183,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          send_to_name,
+                          widget.send_to_name,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor,
                             fontSize: 13.sp,
@@ -185,7 +192,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          send_to_email,
+                          widget.send_to_email,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -194,7 +201,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 10.h,),
                         Text(
-                          phone_number,
+                          widget.phone_number,
                           style: GoogleFonts.inter(
                             color: AppColor.darkGreyColor.withOpacity(0.6),
                             fontSize: 12.sp,
@@ -245,7 +252,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(7.r)
                               ),
                               child: Text(
-                                status,
+                                widget.status,
                                 style: GoogleFonts.inter(
                                   color: AppColor.bgColor,
                                   fontSize: 10.sp,
@@ -268,7 +275,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              '#$randNum',
+                              widget.tracking_id,
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
@@ -282,22 +289,34 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              "Valid till:",
-                              style: GoogleFonts.inter(
-                                color: AppColor.darkGreyColor.withOpacity(0.6),
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500
+                            Expanded(
+                              child: Text(
+                                "Valid till:",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
                               ),
                             ),
-                            Text(
+                            CTVDueDateTextField(
+                              initialValue: widget.due_date,
+                              onFieldSubmitted: (val) {
+                                service.ctvdueDateController.text = val;
+                                print("ctv due date: ${service.ctvdueDateController.text}");
+                              },
+                              hintText: "Enter due date",
+                              keyboardType: TextInputType.datetime,
+                              textInputAction: TextInputAction.next,
+                            )
+                            /*Text(
                               due_date,
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
-                            ),
+                            ),*/
                             
                           ],
                         ),
@@ -314,7 +333,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'N$total',
+                              'N${widget.total}',
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
@@ -372,9 +391,9 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                                 physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
                                 separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                itemCount: product_details.length,
+                                itemCount: widget.product_details.length,
                                 itemBuilder: (context, index) {
-                                  final item = product_details[index];
+                                  final item = widget.product_details[index];
                                   return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
@@ -540,7 +559,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                               ),
                             ),
                             Text(
-                              'N$sub_total',
+                              'N${widget.sub_total}',
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
@@ -562,14 +581,40 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500
                               ),
                             ),
-                            Text(
+                            CTVDueDateTextField(
+                              initialValue: widget.discount,
+                              onFieldSubmitted: (val) {
+                                // Check if the entered text is a valid integer
+                                if (val.isNotEmpty && double.tryParse(val) != null) {
+                                  setState(() {
+                                    // If it's an integer, append ".0" to the text
+                                    if (!val.contains('.')) {
+                                      service.ctvdiscountController.text = "$val.0";
+                                      print("ctv discount: ${service.ctvdiscountController.text}");
+                                    }
+                                  });
+                                }
+
+                                //calculate all the values below (vat, and Grand Total)
+                                service.calculateCTVDiscount(
+                                  context: context,
+                                  initialDiscountValue: widget.discount,
+                                  initialSubTotal: widget.sub_total
+                                );
+
+                              },
+                              hintText: "Enter due date",
+                              keyboardType: TextInputType.number,
+                              textInputAction: TextInputAction.done,
+                            )
+                            /*Text(
                               "$discount%",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500
                               )
-                            ),
+                            ),*/
                             
                           ],
                         ),
@@ -585,13 +630,19 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500
                               ),
                             ),
-                            Text(
-                              'N$vat',
-                              style: GoogleFonts.inter(
-                                color: AppColor.darkGreyColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500
-                              )
+
+                            Obx(
+                              () {
+                                return Text(
+                                  service.reactiveCTVVAT.isNotEmpty ? "N${service.reactiveCTVVAT.value}" :'N${widget.vat}',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                );
+                                
+                              }
                             ),
                             
                           ],
@@ -608,13 +659,18 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w500
                               ),
                             ),
-                            Text(
-                              'N$total',
-                              style: GoogleFonts.inter(
-                                color: AppColor.darkGreyColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w500
-                              )
+                            Obx(
+                              () {
+                                return Text(
+                                  service.reactiveCTVGrandTotal.isNotEmpty ? "N${service.reactiveCTVGrandTotal.value}" : 'N${widget.total}',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                );
+                                
+                              }
                             ),
                             
                           ],
@@ -671,7 +727,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                                 children: [
                                   SizedBox(height: 10.h,),
                                   Text(
-                                    note,
+                                    widget.note,
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -698,36 +754,40 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                           onShare: () {
                           service.createNewInvoiceAndSendToClient(
                             context: context, 
-                            client_name: send_to_name, 
-                            client_email: send_to_email,
-                            client_phone_number: phone_number,
-                            note: note,
-                            invoice_date: qoute_date, 
-                            due_date: due_date,
+                            client_name: widget.send_to_name, 
+                            client_email: widget.send_to_email,
+                            client_phone_number: widget.phone_number,
+                            note: widget.note,
+                            invoice_date: widget.qoute_date, 
+                            due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
 
-                            vat: vat,
-                            sub_total: sub_total,
-                            discount: discount,
-                            total: total,
-                            booking_detail: product_details
+                            vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
+                            sub_total: widget.sub_total,
+                            discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
+                            total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
+                            booking_detail: widget.product_details
                           ).whenComplete(() {
                             finPdfService.shareInvoicePDF(
-                              sender_address: service_provider_address,
-                              sender_phone_number: service_provider_phone_number,
+                              sender_address: widget.service_provider_address,
+                              sender_phone_number: widget.service_provider_phone_number,
                               context: context,
-                              tracking_id: tracking_id,
-                              receiver_email: send_to_email,
-                              receiver_name: send_to_name,
-                              receiver_phone_number: phone_number,
+                              tracking_id: widget.tracking_id,
+                              receiver_email: widget.send_to_email,
+                              receiver_name: widget.send_to_name,
+                              receiver_phone_number: widget.phone_number,
                               invoice_status: "UNPAID",
-                              due_date: due_date,
-                              subtotal: sub_total,
-                              discount: discount,
-                              vat: vat,
-                              note: note,
-                              grand_total: total,
-                              serviceList: product_details,
-                            ).whenComplete(() {   
+                              due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
+                              subtotal: widget.sub_total,
+                              discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
+                              vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
+                              note: widget.note,
+                              grand_total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
+                              serviceList: widget.product_details,
+                            ).whenComplete(() { 
+                              setState(() {
+                                service.reactiveCTVVAT.value = "";
+                                service.reactiveCTVGrandTotal.value = "";
+                              });  
                               Get.back();
                             });
                           });                       
@@ -735,40 +795,48 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                         onSave: () {
                           service.createNewInvoiceAndSaveToDB(
                             context: context, 
-                            client_name: send_to_name, 
-                            client_email: send_to_email,
-                            client_phone_number: phone_number,
-                            note: note,
-                            invoice_date: qoute_date, 
-                            due_date: due_date,
+                            client_name: widget.send_to_name, 
+                            client_email: widget.send_to_email,
+                            client_phone_number: widget.phone_number,
+                            note: widget.note,
+                            invoice_date: widget.qoute_date, 
+                            due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
 
-                            vat: vat,
-                            sub_total: sub_total,
-                            discount: discount,
-                            total: total,
-                            booking_detail: product_details
+                            vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
+                            sub_total: widget.sub_total,
+                            discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
+                            total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
+                            booking_detail: widget.product_details
                           ).whenComplete(() { 
+                            setState(() {
+                              service.reactiveCTVVAT.value = "";
+                              service.reactiveCTVGrandTotal.value = "";
+                            });
                             Get.back();
                           });
                         },
                         onDownload: () {
                           finPdfService.downloadInvoicePDFToDevice(
                             context: context,
-                            sender_address: service_provider_address,
-                            sender_phone_number: service_provider_phone_number,
-                            tracking_id: tracking_id,
-                            receiver_email: send_to_email,
-                            receiver_name: send_to_name,
-                            receiver_phone_number: phone_number,
+                            sender_address: widget.service_provider_address,
+                            sender_phone_number: widget.service_provider_phone_number,
+                            tracking_id: widget.tracking_id,
+                            receiver_email: widget.send_to_email,
+                            receiver_name: widget.send_to_name,
+                            receiver_phone_number: widget.phone_number,
                             invoice_status: "UNPAID",
-                            due_date: due_date,
-                            subtotal: sub_total,
-                            discount: discount,
-                            vat: vat,
-                            note: note,
-                            grand_total: total,
-                            serviceList: product_details,
+                            due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
+                            subtotal: widget.sub_total,
+                            discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
+                            vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
+                            note: widget.note,
+                            grand_total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
+                            serviceList: widget.product_details,
                           ).whenComplete(() {
+                            setState(() {
+                              service.reactiveCTVVAT.value = "";
+                              service.reactiveCTVGrandTotal.value = "";
+                            });
                             Get.back();
                           });
                         },

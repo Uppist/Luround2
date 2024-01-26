@@ -16,7 +16,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewSentQuoteScreen extends StatelessWidget {
-  ViewSentQuoteScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details});
+  ViewSentQuoteScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.tracking_id});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -32,10 +32,10 @@ class ViewSentQuoteScreen extends StatelessWidget {
   final String note;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
 
 
   var controller = Get.put(SentQuotesController());
-  int randNum = Random().nextInt(20000);
 
   @override
   Widget build(BuildContext context) {
@@ -261,7 +261,7 @@ class ViewSentQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#$randNum',
+                                tracking_id,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

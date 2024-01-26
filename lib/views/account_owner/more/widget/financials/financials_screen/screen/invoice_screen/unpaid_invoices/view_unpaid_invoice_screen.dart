@@ -16,7 +16,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewUnpaidInvoiceScreen extends StatelessWidget {
-  ViewUnpaidInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address});
+  ViewUnpaidInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -32,11 +32,13 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
   final String note;
   final String status;
   final List<dynamic> booking_detail;
+  final String tracking_id;
+
 
   var controller = Get.put(UnpaidInvoiceController());
   var userName = LocalStorage.getUsername();
   var userEmail = LocalStorage.getUseremail();
-  int randNum = Random().nextInt(2000000);
+
 
   @override
   Widget build(BuildContext context) {
@@ -264,7 +266,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#$randNum',
+                                tracking_id,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

@@ -40,8 +40,6 @@ class QuoteDropDown extends StatelessWidget {
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
-
-  final int randNum = Random().nextInt(100000);
   
   @override
   Widget build(BuildContext context) {
@@ -56,9 +54,10 @@ class QuoteDropDown extends StatelessWidget {
             onTap: () {
               Get.to(() => ViewSentQuoteScreen(
                 quote_id: quote_id, 
+                tracking_id: tracking_id,
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
-                phone_number:phone_number,
+                phone_number: phone_number,
                 due_date: due_date,
                 quote_date: quote_date,
                 sub_total: sub_total,
@@ -83,7 +82,6 @@ class QuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(20000);
               finPdfService.shareQuotePDF(
                 context: context, 
                 tracking_id: tracking_id,

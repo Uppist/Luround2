@@ -51,6 +51,7 @@ class DraftedQuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewDraftedQuoteScreen(
+                tracking_id: tracking_id,
                 quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,

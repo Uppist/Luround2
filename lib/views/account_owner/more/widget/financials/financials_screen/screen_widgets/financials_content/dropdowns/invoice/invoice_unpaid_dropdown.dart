@@ -50,6 +50,7 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
             onTap: () {
               Get.to(() => ViewUnpaidInvoiceScreen(
                 onPressed: () {},
+                tracking_id: tracking_id,
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
                 invoice_id: invoice_id,

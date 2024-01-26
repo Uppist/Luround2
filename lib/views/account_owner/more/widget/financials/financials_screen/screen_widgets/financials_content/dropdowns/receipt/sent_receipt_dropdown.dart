@@ -53,6 +53,7 @@ class SentReceiptDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewSentReceiptScreen(
+                tracking_id: tracking_id,
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
                 receipt_id: receipt_id,

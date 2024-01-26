@@ -17,7 +17,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewSentReceiptScreen extends StatelessWidget {
-  ViewSentReceiptScreen({super.key, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_phone_number, required this.service_provider_address});
+  ViewSentReceiptScreen({super.key, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id});
   final String receipt_id;
   final String send_to;
   final String sent_to_email;
@@ -36,11 +36,13 @@ class ViewSentReceiptScreen extends StatelessWidget {
   final String mode_of_payment;
   final String receipt_date;
   final List<dynamic> service_detail;
+  final String tracking_id;
+
 
   var controller = Get.put(SentReceiptController());
   var userName = LocalStorage.getUsername();
   var userEmail = LocalStorage.getUseremail();
-  int randNum = Random().nextInt(2000000);
+  
 
   @override
   Widget build(BuildContext context) {
@@ -267,7 +269,7 @@ class ViewSentReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '#$randNum',
+                                tracking_id,
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

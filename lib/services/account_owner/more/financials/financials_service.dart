@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
@@ -27,8 +28,8 @@ class FinancialsService extends getx.GetxController {
   var userId = LocalStorage.getUserID();
   var user_email = LocalStorage.getUseremail();
   var user_name = LocalStorage.getUsername();
- 
-  
+  //tracking id for the POST requests
+  String tracking_id = Random().nextInt(20000).toString();
 
 
 

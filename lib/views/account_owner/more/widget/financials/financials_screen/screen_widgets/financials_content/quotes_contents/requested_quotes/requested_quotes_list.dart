@@ -54,7 +54,7 @@ class RequestedQuotesList extends StatelessWidget {
                   onPressed: (){},
                   offer: item.offer,
                   created_at: item.created_at,
-                  tracking_id: item.tracking_id,
+                  tracking_id: item.tracking_id.toString(),
                   service_name: item.service_name,
                   uploaded_file: item.uploaded_file,
                   quote_id: item.quote_id, 

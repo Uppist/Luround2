@@ -43,7 +43,7 @@ class DraftedReceiptList extends StatelessWidget {
                 return DraftedReceiptDisplay(
                   onPressed: (){},
                   created_at: item.created_at,
-                  tracking_id: item.tracking_id,
+                  tracking_id: item.tracking_id.toString(),
                   service_provider_address: item.service_provider_address,
                   service_provider_phone_number: item.service_provider_phone_number,
                   receipt_id: item.receipt_id,

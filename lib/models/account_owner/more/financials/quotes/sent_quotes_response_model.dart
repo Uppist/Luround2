@@ -5,7 +5,7 @@
 class SentQuotesResponse{
   final String quote_id;
   final String send_to_name;
-  final String tracking_id;
+  final int tracking_id;
   final int created_at;
   final String send_to_email;
   final String phone_number;
@@ -44,7 +44,7 @@ class SentQuotesResponse{
 
   factory SentQuotesResponse.fromJson(Map<String, dynamic> json) {
     return SentQuotesResponse(
-      tracking_id: json['tracking_id'] ?? "nan", 
+      tracking_id: json['quote_id'] ?? 0, 
       created_at: json['created_at'] ?? 0,
       quote_id: json['_id'] ?? "nan", 
       send_to_name: json['send_to_name'] ?? "nan",

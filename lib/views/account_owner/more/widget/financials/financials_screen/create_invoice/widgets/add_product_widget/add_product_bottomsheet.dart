@@ -129,6 +129,8 @@ class _BodyWidgetState extends State<BodyWidget> {
 
                                 if (value) {
                                   // Add to the selected items list
+                                  item['vat'] = (double.parse(item['rate']) * 0.075).toString();
+                                  print("vat here: ${item['vat']}");
                                   service.addServiceI(item)
                                   .whenComplete(() {
                                     service.showEverythingForInvoiceList();

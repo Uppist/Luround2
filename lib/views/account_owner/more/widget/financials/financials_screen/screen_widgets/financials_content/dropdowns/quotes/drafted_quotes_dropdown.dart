@@ -80,7 +80,7 @@ class DraftedQuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(2000000);
+
               service.createNewQuoteAndSendToClient(
                 context: context, 
                 client_name: send_to_name, 
@@ -126,7 +126,7 @@ class DraftedQuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(2000000);
+        
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
                 tracking_id: tracking_id,

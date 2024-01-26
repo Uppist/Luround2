@@ -29,8 +29,6 @@ class FinancialsPdfService extends getx.GetxController {
   var userName = LocalStorage.getUsername();
   var userEmail = LocalStorage.getUseremail();
 
-  //INSTANCE OF RANDOM INT(for generating random integers for naming the pdf) 
-  Random random = Random();
   
   //CREATE THE PDF DOCUMENT INSTANCE
   final pdf = pw.Document();
@@ -225,6 +223,7 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Container(
                               alignment: pw.Alignment.center,
                                 //width: 60.w,
+                                padding: pw.EdgeInsets.symmetric(horizontal: 20.w,),
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
                                   color: PdfColors.black, //AppColor.navyBlue,
@@ -982,6 +981,7 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Container(
                               alignment: pw.Alignment.center,
                                 //width: 60.w,
+                                padding: pw.EdgeInsets.symmetric(horizontal: 20.w,),
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
                                   color: PdfColors.blueGrey500, //AppColor.navyBlue,
@@ -1732,6 +1732,7 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Container(
                               alignment: pw.Alignment.center,
                                 //width: 60.w,
+                                padding: pw.EdgeInsets.symmetric(horizontal: 20.w,),
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
                                   color: PdfColors.blueGrey, //AppColor.navyBlue,

@@ -18,7 +18,7 @@ class DraftedQuotesResponse{
   final String note;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
-  final String tracking_id;
+  final int tracking_id;
   final int created_at;
   
   DraftedQuotesResponse({
@@ -43,7 +43,7 @@ class DraftedQuotesResponse{
 
   factory DraftedQuotesResponse.fromJson(Map<String, dynamic> json) {
     return DraftedQuotesResponse(
-      tracking_id: json['tracking_id'] ?? "nan", 
+      tracking_id: json['quote_id'] ?? 0, 
       created_at: json['created_at'] ?? 0,
       quote_id: json['_id'] ?? "nan", 
       send_to_name: json['send_to_name'] ?? "nan",

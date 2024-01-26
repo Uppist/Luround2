@@ -113,6 +113,7 @@ class FinancialsService extends getx.GetxController {
     reactiveSubtotalForQuote.value = subtotalPrice.toString();
     reactiveTotalDiscountForQuote.value = totalDiscount.toString();
     reactiveTotalVATForQuote.value = totalVat.toString();
+    print("grand total: ${reactiveTotalForQoute.value}");
     update();
   }
 
@@ -309,7 +310,7 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "status": "SAVED",
       "appointment_type": "already in the product detail list",
-      "tracking_id": "#$tracking_id",
+      //"tracking_id": "#$tracking_id",
       "note": note,
       "quote_date": quote_date,
       "send_to_name": client_name,
@@ -381,7 +382,7 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "status": "SENT",
       "appointment_type": "already in the product detail list",
-      "tracking_id": "#$tracking_id",
+      //"tracking_id": "#$tracking_id",
       "quote_date": quote_date,
       "send_to_name": client_name,
       "send_to_email": client_email,
@@ -542,13 +543,15 @@ class FinancialsService extends getx.GetxController {
       subtotalPrice += double.parse(product['rate'].toString());
       totalPrice += double.parse(product['total']);
       totalDiscount += double.parse(product['discount']);
-      totalVat += double.parse(product['vat']);
+      totalVat += (double.parse(product['vat']));
+      //totalVat += (double.parse(product['vat']) + (totalPrice * 0.075));
     }
     ///////////////////
     reactiveTotalForInvoice.value = (totalPrice + totalVat).toString();
     reactiveSubtotalForInvoice.value = subtotalPrice.toString();
     reactiveTotalDiscountForInvoice.value = totalDiscount.toString();
     reactiveTotalVATForInvoice.value = totalVat.toString();
+    print("grand total: ${reactiveTotalForInvoice.value}");
   }
 
 
@@ -578,6 +581,11 @@ class FinancialsService extends getx.GetxController {
   TextEditingController discountForInvoice = TextEditingController(); //valid
   TextEditingController convertedToLocalCurrencyDiscountForInvoice = TextEditingController(); //valid
   TextEditingController subtotalForInvoice = TextEditingController(); //valid  
+  
+  /*void addVat({required String rate,}) {
+    String vat = (double.parse(rate) * 0.075).toString();
+    print(vat);
+  }*/
 
   // Add an item to the list
   Future<void> addServiceI(Map<String, dynamic> item) async {
@@ -621,6 +629,7 @@ class FinancialsService extends getx.GetxController {
     ///
     update();
   }
+
 
   //4
   Future<void> editProductForInvoiceCreation({
@@ -701,7 +710,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "tracking_id": "#$tracking_id",
+      //"tracking_id": "#$tracking_id",
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -770,7 +779,7 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      "tracking_id": "#$tracking_id",
+      //"tracking_id": "#$tracking_id",
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -942,6 +951,7 @@ class FinancialsService extends getx.GetxController {
     reactiveSubtotalForReceipt.value = subtotalPrice.toString();
     reactiveTotalDiscountForReceipt.value = totalDiscount.toString();
     reactiveTotalVATForReceipt.value = totalVat.toString();
+    print("grand total: ${reactiveTotalForReceipt.value}");
   }
 
 
@@ -1086,7 +1096,7 @@ class FinancialsService extends getx.GetxController {
 
     var body = {
       "receipt_date": receipt_date,
-      "tracking_id": "#$tracking_id",
+      //"tracking_id": "#$tracking_id",
       ////////////////
       "send_to_name": client_name,
       "send_to_email": client_email,
@@ -1158,7 +1168,7 @@ class FinancialsService extends getx.GetxController {
 
     var body = {
       "receipt_date": receipt_date,
-      "tracking_id": "#$tracking_id",
+      //"tracking_id": "#$tracking_id",
       ////////////////
       "send_to_name": client_name,
       "send_to_email": client_email,

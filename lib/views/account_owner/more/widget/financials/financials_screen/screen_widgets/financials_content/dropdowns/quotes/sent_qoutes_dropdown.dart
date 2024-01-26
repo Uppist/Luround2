@@ -111,7 +111,6 @@ class QuoteDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(200000);
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
                 sender_address: service_provider_address,

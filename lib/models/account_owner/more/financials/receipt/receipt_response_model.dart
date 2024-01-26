@@ -18,7 +18,7 @@ class ReceiptResponse{
   final String total;
   final String note;
   final List<dynamic> service_detail;
-  final String tracking_id;
+  final int tracking_id;
   final int created_at;
   
   ReceiptResponse({
@@ -46,7 +46,7 @@ class ReceiptResponse{
 
   factory ReceiptResponse.fromJson(Map<String, dynamic> json) {
     return ReceiptResponse( 
-      tracking_id: json['tracking_id'] ?? "nan", 
+      tracking_id: json['receipt_id'] ?? "nan", 
       created_at: json['created_at'] ?? 0,
       service_provider_userId: json['service_provider_userId'] ?? "nan",
       service_provider_name: json['service_provider_name'] ?? "nan",

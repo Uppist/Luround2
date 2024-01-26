@@ -47,7 +47,7 @@ class QuotesList extends StatelessWidget {
                 return QuotesDisplay(
                   onPressed: (){},
                   created_at: item.created_at,
-                  tracking_id: item.tracking_id,
+                  tracking_id: item.tracking_id.toString(),
                   quote_id: item.quote_id, //randNum.toString(), 
                   service_provider_address: item.service_provider['address'],
                   service_provider_phone_number: item.service_provider['phone_number'],

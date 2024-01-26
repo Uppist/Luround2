@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/cupertino.dart';
@@ -66,7 +67,7 @@ class UploadReceiptWidget extends StatelessWidget {
 class UploadedReceiptWidget extends StatelessWidget {
   UploadedReceiptWidget({super.key, required this.onDelete, required this.file, required this.text});
   final VoidCallback onDelete;
-  final File? file;
+  final Uint8List? file;
   final String text;
 
   @override

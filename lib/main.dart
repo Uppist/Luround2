@@ -62,7 +62,7 @@ void main() async{
   
 
   WidgetsFlutterBinding.ensureInitialized();
-  setPathUrlStrategy();
+  //setPathUrlStrategy();
   
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

@@ -218,7 +218,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                 UploadedFileWidget(
                                   onDelete: () {
                                     //setState(() {
-                                      controller.selectedFileForRequestingQuote = null;
+                                      controller.selectedFileForRequestingQuote.value = null;
                                       controller.isFileUploaded.value  = false;
                                     //});
                                     },
@@ -280,7 +280,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                       controller.serviceNameController.clear();
                                       controller.messageController.clear();
                                       controller.offerController.clear();
-                                      controller.selectedFileForRequestingQuote = null;
+                                      controller.selectedFileForRequestingQuote.value = null;
                                       controller.isFileUploaded.value  = false;
                                       Get.back();
                                     });

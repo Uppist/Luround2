@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 import 'package:cloudinary/cloudinary.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:file_picker/file_picker.dart';
@@ -7,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 import 'package:image_picker/image_picker.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-
+import 'dart:html' as html;
 
 
 
@@ -36,11 +38,12 @@ class AccViewerServicesController extends getx.GetxController {
   //upload image to cloudinary
   Future<void> uploadReceiptToCloudinary({
     required BuildContext context,
-    required File? file
+    required Uint8List? file
   }) async{
     final int randomNum = Random().nextInt(2000000);
     final response = await cloudinary.upload(
-      file: file!.path,
+      //file: file!.path,
+      fileBytes: file,
       //uploadPreset: "somePreset",
       resourceType: CloudinaryResourceType.image,
       folder: "luround_client_trx_receipts",
@@ -70,13 +73,14 @@ class AccViewerServicesController extends getx.GetxController {
   
   //file picker to pick user docs/pdf
   var isFileSelectedForBooking = false.obs;
-  getx.Rx<File?> imageFromGallery = getx.Rx<File?>(null);
+  getx.Rx<Uint8List?> imageFromGallery = getx.Rx<Uint8List?>(null);
+  //File? imageFromGallery;
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
     try {
-      final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
-        imageFromGallery.value = File(pickedImage.path);
+        imageFromGallery.value = pickedImage;
         isFileSelectedForBooking.value = true;
         //ignore: use_build_context_synchronously
         await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
@@ -100,33 +104,45 @@ class AccViewerServicesController extends getx.GetxController {
 
   //UPLOAD FILE WHEN REQUESTING FOR QUOTE (PDF, DOCX, e.t.c)
   //file picker to pick user docs/pdf
-  File? selectedFileForRequestingQuote;
+  //File? selectedFileForRequestingQuote;
   var isFileSelected = false.obs;
+  getx.Rx<Uint8List?> selectedFileForRequestingQuote = getx.Rx<Uint8List?>(null);
+  //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> selectFile(BuildContext context) async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'jpeg', 'png','pdf', 'doc'],
-    );
-
-    if (result != null) {
-      isFileSelected.value = true;
-      selectedFileForRequestingQuote = File(result.files.single.path!);
-      debugPrint("pdf path: ${selectedFileForRequestingQuote!.path}");
-      uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote);
+    try {
+      final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
+      if (pickedImage != null) {
+        selectedFileForRequestingQuote.value = pickedImage;
+        isFileSelected.value = true;
+        //ignore: use_build_context_synchronously
+        await uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote.value);
+        update();
+      }
+    }
+    catch (e) {
+      debugPrint("Error Picking Image From Gallery: $e");
+      //success snackbar
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "Error picking image: $e"
+      );
     }
   }
+
 
   getx.RxString fileUrl = "".obs;
   var isFileUploaded = false.obs;
   //upload request quote file to cloudinary
   Future<void> uploadRequestedQuoteFileToCloudinary({
     required BuildContext context,
-    required File? file
+    required Uint8List? file
   }) async{
 
     final int randomNum = Random().nextInt(2000000);
     final response = await cloudinary.upload(
-      file: file!.path,
+      //file: file!.path,
+      fileBytes: file,
       //uploadPreset: "somePreset",
       resourceType: CloudinaryResourceType.image,
       folder: "luround_quote_requests",

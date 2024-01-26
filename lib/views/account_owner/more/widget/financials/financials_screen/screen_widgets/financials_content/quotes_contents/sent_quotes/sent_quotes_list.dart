@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -47,6 +46,8 @@ class QuotesList extends StatelessWidget {
               if(service.filteredSentQuotesList.isNotEmpty) {
                 return QuotesDisplay(
                   onPressed: (){},
+                  created_at: item.created_at,
+                  tracking_id: item.tracking_id,
                   quote_id: item.quote_id, //randNum.toString(), 
                   service_provider_address: item.service_provider['address'],
                   service_provider_phone_number: item.service_provider['phone_number'],

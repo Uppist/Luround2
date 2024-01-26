@@ -13,6 +13,8 @@ class InvoiceResponse{
   final String note;
   final String status;
   final List<dynamic> booking_detail;
+  final String tracking_id;
+  final int created_at;
   
   InvoiceResponse({
     required this.service_provider,
@@ -28,10 +30,14 @@ class InvoiceResponse{
     required this.note,  
     required this.status,
     required this.booking_detail,  
+    required this.tracking_id, 
+    required this.created_at,
   });
 
   factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
     return InvoiceResponse( 
+      tracking_id: json['tracking_id'] ?? "nan", 
+      created_at: json['created_at'] ?? 0,
       service_provider: json['service_provider'] ?? {},
       status: json['payment_status'] ?? "nan",
       invoice_id: json['_id'],

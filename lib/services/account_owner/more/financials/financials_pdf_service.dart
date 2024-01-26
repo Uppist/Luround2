@@ -37,7 +37,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   //WRITE THE QUOTE PDF
   Future writeQuotePdf({
-    required int quoteNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -254,7 +254,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 ),
                               ),
                               pw.Text(
-                                '#$quoteNumber',
+                                tracking_id,
                                 style: pw.TextStyle(
                                   color: PdfColors.grey, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -566,7 +566,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N${double.parse(grand_total) + double.parse(vat)}',
+                          'N$grand_total',
                           style: pw.TextStyle(
                             color: PdfColors.grey, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -644,7 +644,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   Future shareQuotePDF({
     required BuildContext context,
-    required int quoteNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -661,7 +661,7 @@ class FinancialsPdfService extends getx.GetxController {
   }) async{
     try {
       writeQuotePdf(
-        quoteNumber: quoteNumber,
+        tracking_id: tracking_id,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
         receiver_name: receiver_name,
@@ -719,7 +719,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   Future downloadQuotePDFToDevice({
     required BuildContext context,
-    required int quoteNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -737,7 +737,7 @@ class FinancialsPdfService extends getx.GetxController {
     try {
 
       writeQuotePdf(
-        quoteNumber: quoteNumber,
+        tracking_id: tracking_id,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
         receiver_name: receiver_name,
@@ -794,7 +794,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   //WRITE THE INVOICE PDF
   Future writeInvoicePdf({
-    required int invoiceNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -1011,7 +1011,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 ),
                               ),
                               pw.Text(
-                                '#$invoiceNumber',
+                                tracking_id,
                                 style: pw.TextStyle(
                                   color: PdfColors.grey, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -1320,7 +1320,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N${double.parse(grand_total) + double.parse(vat)}',
+                          'N$grand_total',
                           style: pw.TextStyle(
                             color: PdfColors.grey500, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -1398,7 +1398,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   Future shareInvoicePDF({
     required BuildContext context,
-    required int invoiceNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -1417,7 +1417,7 @@ class FinancialsPdfService extends getx.GetxController {
       writeInvoicePdf(
         sender_phone_number: sender_phone_number,
         sender_address: sender_address,
-        invoiceNumber: invoiceNumber,
+        tracking_id: tracking_id,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
         receiver_phone_number: receiver_phone_number,
@@ -1472,7 +1472,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   Future downloadInvoicePDFToDevice({
     required BuildContext context,
-    required int invoiceNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -1492,7 +1492,7 @@ class FinancialsPdfService extends getx.GetxController {
       writeInvoicePdf(
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
-        invoiceNumber: invoiceNumber,
+        tracking_id: tracking_id,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
         receiver_phone_number: receiver_phone_number,
@@ -1544,7 +1544,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   //WRITE THE RECEIPT PDF
   Future writeReceiptPdf({
-    required int receiptNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -1761,7 +1761,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 ),
                               ),
                               pw.Text(
-                                '#$receiptNumber',
+                                tracking_id,
                                 style: pw.TextStyle(
                                   color: PdfColors.grey, //AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -2072,7 +2072,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N${double.parse(grand_total) + double.parse(vat)}',
+                          'N$grand_total',
                           style: pw.TextStyle(
                             color: PdfColors.grey, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -2150,7 +2150,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   Future shareReceiptPDF({
     required BuildContext context,
-    required int receiptNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -2170,7 +2170,7 @@ class FinancialsPdfService extends getx.GetxController {
       writeReceiptPdf(
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
-        receiptNumber: receiptNumber,
+        tracking_id: tracking_id,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
         receiver_phone_number: receiver_phone_number,
@@ -2225,7 +2225,7 @@ class FinancialsPdfService extends getx.GetxController {
 
   Future downloadReceiptPDFToDevice({
     required BuildContext context,
-    required int receiptNumber,
+    required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
     required String receiver_name,
@@ -2245,7 +2245,7 @@ class FinancialsPdfService extends getx.GetxController {
       writeReceiptPdf(
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
-        receiptNumber: receiptNumber,
+        tracking_id: tracking_id,
         receiver_name: receiver_name,
         receiver_email: receiver_email,
         receiver_phone_number: receiver_phone_number,

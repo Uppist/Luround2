@@ -18,8 +18,9 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ConvertInvoiceToReceiptScreen extends StatelessWidget {
-  ConvertInvoiceToReceiptScreen({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.sub_total, required this.discount, required this.vat, required this.total, required this.status, required this.note,required this.booking_details, required this.invoice_date, required this.service_provider_name, required this.service_provider_email, required this.service_provider_phone_number, required this.service_provider_address,});
+  ConvertInvoiceToReceiptScreen({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.sub_total, required this.discount, required this.vat, required this.total, required this.status, required this.note,required this.booking_details, required this.invoice_date, required this.service_provider_name, required this.service_provider_email, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id,});
   final String invoice_id;
+  final String tracking_id;
   final String send_to_name;
   final String send_to_email;
   final String phone_number;
@@ -716,7 +717,7 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                               sender_address: service_provider_address,
                               sender_phone_number: service_provider_phone_number,
                               context: context,
-                              receiptNumber: randNum,
+                              tracking_id: tracking_id,
                               receiver_email: send_to_email,
                               receiver_name: send_to_name,
                               receiver_phone_number: phone_number,
@@ -757,7 +758,7 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                             sender_address: service_provider_address,
                             sender_phone_number: service_provider_phone_number,
                             context: context,
-                            receiptNumber: randNum,
+                            tracking_id: tracking_id,
                             receiver_email: send_to_email,
                             receiver_name: send_to_name,
                             receiver_phone_number: phone_number,

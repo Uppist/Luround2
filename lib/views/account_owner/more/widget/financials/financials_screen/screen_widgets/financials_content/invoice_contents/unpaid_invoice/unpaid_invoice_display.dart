@@ -1,11 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/invoice_unpaid_dropdown.dart';
 
 
@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class UnpaidInvoiceDisplay extends StatelessWidget {
-  const UnpaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number});
+  const UnpaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -31,10 +31,12 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
   final String service_provider_address;
   final String service_provider_phone_number;
   final List<dynamic> booking_detail;
+  final String tracking_id;
+  final int created_at;
+
 
   @override
   Widget build(BuildContext context) {
-    final randNum = Random().nextInt(2000000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -66,7 +68,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$randNum",
+                tracking_id,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -74,6 +76,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
                 ),
               ),
               InvoiceUnpaidDropDown(
+                tracking_id: tracking_id,
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
                 invoice_id: invoice_id,
@@ -119,7 +122,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
           SizedBox(height: 20.h,),
           //3
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //trx type and status svg pictures
               /*Row(
@@ -130,6 +133,14 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
                   SvgPicture.asset("assets/financials/paid.svg"),
                 ],
               ),*/
+              Text(
+                convertServerTimeToDate(created_at),
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
               Text(
                 "N$total",
                 style: GoogleFonts.inter(

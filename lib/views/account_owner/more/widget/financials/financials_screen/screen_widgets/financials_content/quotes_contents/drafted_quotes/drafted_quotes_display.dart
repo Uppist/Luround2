@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/drafted_quotes_dropdown.dart';
 
 
@@ -32,7 +33,7 @@ class DraftedQuotesDisplay extends StatelessWidget {
     required this.note, 
     required this.service_provider,  
     required this.product_details,
-    required this.quote_id,
+    required this.quote_id, required this.tracking_id, required this.created_at,
     
   });
   final VoidCallback onPressed;
@@ -51,10 +52,12 @@ class DraftedQuotesDisplay extends StatelessWidget {
   final String note;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
+  final int created_at;
+
 
   @override
   Widget build(BuildContext context) {
-    final randNum = Random().nextInt(2000000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -86,7 +89,7 @@ class DraftedQuotesDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$randNum",
+                tracking_id,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -95,6 +98,7 @@ class DraftedQuotesDisplay extends StatelessWidget {
               ),
               //drop down 
               DraftedQuoteDropDown(
+                tracking_id: tracking_id,
                 quote_id: quote_id,
                 service_provider_address: service_provider['address'], 
                 service_provider_phone_number: service_provider['phone_number'],
@@ -143,7 +147,7 @@ class DraftedQuotesDisplay extends StatelessWidget {
           SizedBox(height: 20.h,),
           //3
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //trx type and status svg pictures
               /*Row(
@@ -154,6 +158,14 @@ class DraftedQuotesDisplay extends StatelessWidget {
                   SvgPicture.asset("assets/financials/paid.svg"),
                 ],
               ),*/
+              Text(
+                convertServerTimeToDate(created_at),
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
               Text(
                 "N$total",
                 style: GoogleFonts.inter(

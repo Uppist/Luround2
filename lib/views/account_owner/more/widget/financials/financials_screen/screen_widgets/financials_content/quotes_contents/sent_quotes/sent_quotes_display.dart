@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/sent_qoutes_dropdown.dart';
 
 
@@ -35,7 +36,7 @@ class QuotesDisplay extends StatelessWidget {
     required this.product_details,
     required this.quote_id, 
     required this.service_provider_address, 
-    required this.service_provider_phone_number,
+    required this.service_provider_phone_number, required this.tracking_id, required this.created_at,
     
   });
   final VoidCallback onPressed;
@@ -56,10 +57,13 @@ class QuotesDisplay extends StatelessWidget {
   final String note;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
+  final int created_at;
+
+
 
   @override
   Widget build(BuildContext context) {
-    final randNum = Random().nextInt(2000000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -91,7 +95,7 @@ class QuotesDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$randNum",
+                tracking_id,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -99,6 +103,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               QuoteDropDown(
+                tracking_id: tracking_id,
                 quote_id: quote_id, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
@@ -147,7 +152,7 @@ class QuotesDisplay extends StatelessWidget {
           SizedBox(height: 20.h,),
           //3
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //trx type and status svg pictures
               /*Row(
@@ -158,6 +163,14 @@ class QuotesDisplay extends StatelessWidget {
                   SvgPicture.asset("assets/financials/paid.svg"),
                 ],
               ),*/
+              Text(
+                convertServerTimeToDate(created_at),
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
               Text(
                 "N$total",
                 style: GoogleFonts.inter(

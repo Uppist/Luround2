@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/receipt/drafted_receipt_dropdown.dart';
 
 
@@ -15,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DraftedReceiptDisplay extends StatelessWidget {
-  const DraftedReceiptDisplay({super.key, required this.onPressed, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_address, required this.service_provider_phone_number});
+  const DraftedReceiptDisplay({super.key, required this.onPressed, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at});
   final VoidCallback onPressed;
   final String receipt_id;
   final String send_to;
@@ -34,11 +35,13 @@ class DraftedReceiptDisplay extends StatelessWidget {
   final String note;
   final String mode_of_payment;
   final String receipt_date;
+  final String tracking_id;
   final List<dynamic> service_detail;
+  final int created_at;
 
   @override
   Widget build(BuildContext context) {
-    final int randNum = Random().nextInt(2000000);
+    
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -70,7 +73,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$randNum",
+                tracking_id,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -78,6 +81,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
                 ),
               ),
               DraftedReceiptDropDown(
+                tracking_id: tracking_id,
                 receipt_id: receipt_id, //randNum.toString(),
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
@@ -127,7 +131,7 @@ class DraftedReceiptDisplay extends StatelessWidget {
           SizedBox(height: 20.h,),
           //3
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //trx type and status svg pictures
               /*Row(
@@ -138,6 +142,14 @@ class DraftedReceiptDisplay extends StatelessWidget {
                   SvgPicture.asset("assets/financials/paid.svg"),
                 ],
               ),*/
+              Text(
+                convertServerTimeToDate(created_at),
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
               Text(
                 "N$total",
                 style: GoogleFonts.inter(

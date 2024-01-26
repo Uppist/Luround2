@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/invoice/invoice_paid_dropdown.dart';
 
 
@@ -15,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class PaidInvoiceDisplay extends StatelessWidget {
-  const PaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.booking_detail, required this.status, required this.service_provider_address, required this.service_provider_phone_number});
+  const PaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.booking_detail, required this.status, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -31,10 +32,14 @@ class PaidInvoiceDisplay extends StatelessWidget {
   final String service_provider_address;
   final String service_provider_phone_number;
   final List<dynamic> booking_detail;
+  final String tracking_id;
+  final int created_at;
+
+
+
 
   @override
   Widget build(BuildContext context) {
-    int randomNum = Random().nextInt(200000);
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -66,7 +71,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$randomNum",
+                tracking_id,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -77,6 +82,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
                 invoice_id: invoice_id, //randomNum.toString(),
+                tracking_id: tracking_id,
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
                 phone_number: phone_number,
@@ -119,7 +125,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
           SizedBox(height: 20.h,),
           //3
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               //trx type and status svg pictures
               /*Row(
@@ -130,6 +136,14 @@ class PaidInvoiceDisplay extends StatelessWidget {
                   SvgPicture.asset("assets/financials/paid.svg"),
                 ],
               ),*/
+              Text(
+                convertServerTimeToDate(created_at),
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
               Text(
                 "N$total",
                 style: GoogleFonts.inter(

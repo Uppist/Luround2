@@ -21,6 +21,8 @@ class ReceivedQuotesResponse{
   final String uploaded_file;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
+  final int created_at;
   
   ReceivedQuotesResponse({
     required this.send_to_name, 
@@ -41,11 +43,15 @@ class ReceivedQuotesResponse{
     required this.offer,
     required this.service_name,
     required this.uploaded_file,
+    required this.tracking_id, 
+    required this.created_at, 
     
   });
 
   factory ReceivedQuotesResponse.fromJson(Map<String, dynamic> json) {
     return ReceivedQuotesResponse(
+      tracking_id: json['tracking_id'] ?? "nan", 
+      created_at: json['created_at'] ?? 0,
       quote_id: json['_id'] ?? "nan", 
       send_to_name: json['full_name'] ?? "nan",
       send_to_email: json['user_email'] ?? "nan",

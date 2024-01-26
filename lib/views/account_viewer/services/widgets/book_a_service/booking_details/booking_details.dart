@@ -121,7 +121,7 @@ class BookingDetails extends StatelessWidget {
           
                         CustomTextRow(
                           leftText: "Time",
-                          rightText: controller.selectedTime.isNotEmpty ? controller.selectedTime.value : time
+                          rightText: controller.selectedAvailableTime.isNotEmpty ? controller.selectedAvailableTime.value : time
                         ),
                         Divider(color: AppColor.textGreyColor, thickness: 0.2),
                         SizedBox(height: 10.h,),
@@ -194,7 +194,7 @@ class BookingDetails extends StatelessWidget {
                               date: date,
                               serviceId: serviceId,
                               service_name: service_name,
-                              time: time,
+                              time: controller.selectedAvailableTime.isNotEmpty ? controller.selectedAvailableTime.value : time,
                               duration: duration,
                               amount: controller.isVirtual.value 
                               ? service_charge_virtual

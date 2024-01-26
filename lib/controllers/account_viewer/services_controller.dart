@@ -1,14 +1,10 @@
-import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:cloudinary/cloudinary.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
-import 'package:image_picker/image_picker.dart';
-
 //import 'package:image_picker_web/image_picker_web.dart';
 
 import 'package:luround/utils/colors/app_theme.dart';

@@ -5,6 +5,8 @@
 class SentQuotesResponse{
   final String quote_id;
   final String send_to_name;
+  final String tracking_id;
+  final int created_at;
   final String send_to_email;
   final String phone_number;
   final String due_date;
@@ -35,11 +37,15 @@ class SentQuotesResponse{
     required this.service_provider,  
     required this.product_details,
     required this.quote_id,
+    required this.tracking_id, 
+    required this.created_at, 
     
   });
 
   factory SentQuotesResponse.fromJson(Map<String, dynamic> json) {
     return SentQuotesResponse(
+      tracking_id: json['tracking_id'] ?? "nan", 
+      created_at: json['created_at'] ?? 0,
       quote_id: json['_id'] ?? "nan", 
       send_to_name: json['send_to_name'] ?? "nan",
       send_to_email: json['send_to_email'] ?? "nan",
@@ -51,7 +57,7 @@ class SentQuotesResponse{
       vat: json['vat'] ?? "nan",
       total: json['total'] ?? "nan",
       appointment_type: json['appointment_type'] ?? "nan",
-      status: json['status'] ?? "nan",
+      status: json['status'] ?? "nan", 
       note: json['note'] ?? "nan",
       service_provider: json['service_provider'] ?? {},
       product_details: json['product_details'] ?? []

@@ -46,6 +46,8 @@ class UnpaidInvoiceList extends StatelessWidget {
               if(service.filteredUnpaidInvoiceList.isNotEmpty) {
                  return UnpaidInvoiceDisplay(
                   onPressed: (){},
+                  tracking_id: item.tracking_id,
+                  created_at: item.created_at,
                   invoice_id: item.invoice_id, //randNum.toString(),
                   service_provider_address: item.service_provider['address'],
                   service_provider_phone_number: item.service_provider['phone_number'],

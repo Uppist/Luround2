@@ -1,11 +1,11 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/requested_quotes_dropdown.dart';
 
 
@@ -32,7 +32,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
     required this.note, 
     required this.service_provider,  
     required this.product_details,
-    required this.quote_id, required this.offer, required this.service_name, required this.uploaded_file,
+    required this.quote_id, required this.offer, required this.service_name, required this.uploaded_file, required this.tracking_id, required this.created_at,
     
   });
   final VoidCallback onPressed;
@@ -54,11 +54,13 @@ class RequestedQuotesDisplay extends StatelessWidget {
   final String uploaded_file;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
+  final int created_at;
 
 
   @override
   Widget build(BuildContext context) {
-    final randNum = Random().nextInt(2000000);
+
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
@@ -90,7 +92,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "#$randNum",
+                tracking_id,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -98,6 +100,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
                 ),
               ),
               RequestedQuoteDropDown(
+                tracking_id: tracking_id,
                 offer: offer,
                 uploade_file: uploaded_file,
                 service_name: service_name,
@@ -144,7 +147,20 @@ class RequestedQuotesDisplay extends StatelessWidget {
               ),
             ],
           ),
-          //SizedBox(height: 20.h,),
+          SizedBox(height: 10.h,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                convertServerTimeToDate(created_at),
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor.withOpacity(0.5),
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            ],
+          )
           
         ],
       ),

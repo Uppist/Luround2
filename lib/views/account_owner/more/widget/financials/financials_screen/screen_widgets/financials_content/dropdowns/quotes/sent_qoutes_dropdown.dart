@@ -17,7 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class QuoteDropDown extends StatelessWidget {
-  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number});
+  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -35,6 +35,8 @@ class QuoteDropDown extends StatelessWidget {
   final String service_provider_phone_number;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
+
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
@@ -84,7 +86,7 @@ class QuoteDropDown extends StatelessWidget {
               int randNum = Random().nextInt(20000);
               finPdfService.shareQuotePDF(
                 context: context, 
-                quoteNumber: randNum, 
+                tracking_id: tracking_id,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
                 receiver_name: send_to_name, 
@@ -116,7 +118,7 @@ class QuoteDropDown extends StatelessWidget {
                 context: context, 
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
-                quoteNumber: randNum, 
+                tracking_id: tracking_id,
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
                 receiver_phone_number: phone_number, 
@@ -142,6 +144,7 @@ class QuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ConvertQuoteToInvoiceScreen(
+                tracking_id: tracking_id,
                 quote_id: quote_date, 
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,

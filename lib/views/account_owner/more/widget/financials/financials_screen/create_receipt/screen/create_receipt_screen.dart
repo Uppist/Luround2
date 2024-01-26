@@ -655,7 +655,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 ).whenComplete(() {
                                     finPdfService.shareReceiptPDF(
                                     context: context,
-                                    receiptNumber: widget.receiptNumber,
+                                    tracking_id: widget.receiptNumber.toString(),
                                     sender_address: "",
                                     sender_phone_number: '',
                                     receiver_email: controller.receiptClientEmailController.text,
@@ -704,7 +704,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               onDownload: () {
                                 finPdfService.downloadReceiptPDFToDevice(
                                   context: context,
-                                  receiptNumber: widget.receiptNumber,
+                                  tracking_id: widget.receiptNumber.toString(),
                                   sender_address: "",
                                   sender_phone_number: '',
                                   receiver_email: controller.receiptClientEmailController.text,

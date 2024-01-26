@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ConvertQuoteToInvoiceScreen extends StatelessWidget {
-  ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date, required this.service_provider_phone_number, required this.service_provider_address});
+  ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -36,6 +36,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
   final String service_provider_address;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
 
 
   var service = Get.put(FinancialsService());
@@ -714,7 +715,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                               sender_address: service_provider_address,
                               sender_phone_number: service_provider_phone_number,
                               context: context,
-                              invoiceNumber: randNum,
+                              tracking_id: tracking_id,
                               receiver_email: send_to_email,
                               receiver_name: send_to_name,
                               receiver_phone_number: phone_number,
@@ -755,7 +756,7 @@ class ConvertQuoteToInvoiceScreen extends StatelessWidget {
                             context: context,
                             sender_address: service_provider_address,
                             sender_phone_number: service_provider_phone_number,
-                            invoiceNumber: randNum,
+                            tracking_id: tracking_id,
                             receiver_email: send_to_email,
                             receiver_name: send_to_name,
                             receiver_phone_number: phone_number,

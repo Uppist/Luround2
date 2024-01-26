@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class InvoicePaidDropDown extends StatelessWidget {
-  InvoicePaidDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number});
+  InvoicePaidDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id});
   final String invoice_id;
   final String send_to_name;
   final String send_to_email;
@@ -33,6 +33,7 @@ class InvoicePaidDropDown extends StatelessWidget {
   final String service_provider_address;
   final String service_provider_phone_number;
   final List<dynamic> booking_detail;
+  final String tracking_id;
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
@@ -80,6 +81,7 @@ class InvoicePaidDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ConvertInvoiceToReceiptScreen(
+                tracking_id: tracking_id,
                 invoice_id: invoice_id,
                 send_to_name: send_to_name,
                 send_to_email: send_to_email,
@@ -115,7 +117,7 @@ class InvoicePaidDropDown extends StatelessWidget {
                 context: context, 
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
-                invoiceNumber: randNum, 
+                tracking_id: tracking_id,
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
                 receiver_phone_number: phone_number, 
@@ -145,7 +147,7 @@ class InvoicePaidDropDown extends StatelessWidget {
                 context: context, 
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
-                invoiceNumber: randNum, 
+                tracking_id: tracking_id,
                 receiver_name: send_to_name, 
                 receiver_email: send_to_email, 
                 receiver_phone_number: phone_number, 

@@ -137,7 +137,6 @@ class _MainAppState extends State<MainApp> {
           '/destination': (context) => DestinationScreen(argument: ''),
         },*/
 
-
         initialRoute: ProfileRoute,
 
         defaultTransition: Transition.fade,

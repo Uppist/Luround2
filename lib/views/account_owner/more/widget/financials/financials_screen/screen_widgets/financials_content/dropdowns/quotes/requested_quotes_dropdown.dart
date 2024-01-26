@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class RequestedQuoteDropDown extends StatelessWidget {
-  RequestedQuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.offer, required this.uploade_file, required this.service_name});
+  RequestedQuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.offer, required this.uploade_file, required this.service_name, required this.tracking_id});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -35,6 +35,7 @@ class RequestedQuoteDropDown extends StatelessWidget {
   final String service_name;
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
+  final String tracking_id;
 
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
@@ -87,7 +88,7 @@ class RequestedQuoteDropDown extends StatelessWidget {
               int randNum = Random().nextInt(2000000);
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
-                quoteNumber: randNum, 
+                tracking_id: tracking_id,
                 sender_address: service_provider['address'],
                 sender_phone_number: service_provider['phone_number'],
                 receiver_name: send_to_name, 

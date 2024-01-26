@@ -53,8 +53,8 @@ class TrxDisplay extends StatelessWidget {
         //2
         Text(
           transaction_status == "SENT"
-          ?"$transaction_ref | Received from $affliate_user via LuroundPay"
-          :"$transaction_ref | Sent to $affliate_user via LuroundPay",
+          ?"$transaction_ref | Received from $affliate_user"  //via LuroundPay
+          :"$transaction_ref | Sent to $affliate_user",
           style: GoogleFonts.inter(
             color: AppColor.darkGreyColor,
             fontSize: 14.sp,

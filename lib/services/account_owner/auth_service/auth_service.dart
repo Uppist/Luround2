@@ -38,7 +38,22 @@ class AuthService extends getx.GetxController {
   var baseService = getx.Get.put(BaseService());
   var FCMToken = LocalStorage.getFCMToken();
   var isLoading = false.obs;
+  
+  //to check if the token is expired
+  bool isTokenExpired(int serverTimestamp) {
+    // Convert the server timestamp to a DateTime object
+    DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(serverTimestamp * 1000);
 
+    // Get today's date
+    DateTime currentDate = DateTime.now();
+
+    // Check if the token expiration date is equal to today's date
+    bool isExpired = tokenExpDate.year == currentDate.year &&
+    tokenExpDate.month == currentDate.month &&
+    tokenExpDate.day == currentDate.day;
+    print("is token expired ${isExpired}");
+    return isExpired;
+  }
 
   //to register user locally
   Future<dynamic> registerUser({
@@ -84,6 +99,8 @@ class AuthService extends getx.GetxController {
           String userId = decodedToken['sub'];
           String email = decodedToken['email'];
           String displayName = decodedToken['displayName'];
+          int expDate = decodedToken['exp'];
+          await LocalStorage.saveTokenExpDate(expDate);
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
@@ -194,6 +211,8 @@ class AuthService extends getx.GetxController {
           String userId = decodedToken['sub'];
           String email = decodedToken['email'];
           String displayName = decodedToken['displayName'];
+          int expDate = decodedToken['exp'];
+          await LocalStorage.saveTokenExpDate(expDate);
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
@@ -426,6 +445,8 @@ class AuthService extends getx.GetxController {
           String userId = decodedToken['sub'];
           String email = decodedToken['email'];
           String displayName = decodedToken['displayName'];
+          int expDate = decodedToken['exp'];
+          await LocalStorage.saveTokenExpDate(expDate);
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);

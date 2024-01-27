@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
+import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -109,6 +110,10 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
+  int tokenExpDate = LocalStorage.getTokenExpDate();
+  var authService = Get.put(AuthService());
+
+
 
 
   @override
@@ -152,8 +157,10 @@ class _MainAppState extends State<MainApp> {
 
         ],*/
 
-        home: token == null ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
-        supportedLocales: [
+        //token == null
+
+        home: authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        supportedLocales: const [
           Locale('en'),
         ]
       ),

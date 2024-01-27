@@ -113,6 +113,41 @@ class InvoicesService extends getx.GetxController {
   /////[GET LOGGED-IN USER'S LIST OF UNPAID INVOICES]//////
   var unpaidInvoiceList = <InvoiceResponse>[].obs;
   var filteredUnpaidInvoiceList = <InvoiceResponse>[].obs;
+  var filteredDueInvoiceList = <InvoiceResponse>[].obs;
+  
+  //check if an invoice is due
+  Future<bool> hasDueItems() async{
+    // Get today's date
+    DateTime currentDate = DateTime.now();
+    // Create a new list to store due items(done above)
+
+    // Iterate through the invoiceList
+    for (var invoice in filteredUnpaidInvoiceList) {
+      // Extract the due date string from the map
+      String dueDateString = invoice.due_date;
+
+      // Convert the due date string to a DateTime object
+      DateTime dueDate = DateTime.parse(dueDateString);
+
+      // Calculate the difference in days between the due date and today
+      int daysDifference = dueDate.difference(currentDate).inDays;
+
+      // Check if the item is due within three days
+      if (daysDifference <= 3 && daysDifference >= 0) {
+        // Add the due item to the new list
+        filteredDueInvoiceList.add(invoice);
+        print("due invoice list: $filteredDueInvoiceList");
+      }
+    }
+
+    // Check if there are any due items
+    if (filteredDueInvoiceList.isNotEmpty) {
+      // You can use the 'dueItems' list if needed
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   //check if today's date is 3 days before the unpaid invoice
   bool isDueInThreeDays(String dueDate) {
@@ -217,7 +252,6 @@ class InvoicesService extends getx.GetxController {
 
   /////[GET LOGGED-IN USER'S LIST OF DUE INVOICES]//////
   var dueInvoiceList = <InvoiceResponse>[].obs;
-  var filteredDueInvoiceList = <InvoiceResponse>[].obs;
 
   Future<void> filterDueInvoice(String query) async {
     if (query.isEmpty) {
@@ -308,6 +342,13 @@ class InvoicesService extends getx.GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    hasDueItems().then(
+      (value) {
+        print("Due Invoices boolean value: $value");
+        print("Due Invoices List Loaded into the Widget Tree: ${filteredDueInvoiceList}");
+      }
+    );
+
     loadPaidInvoicesData().then(
       (value) => print("Paid Invoices Loaded into the Widget Tree: $value")
     );

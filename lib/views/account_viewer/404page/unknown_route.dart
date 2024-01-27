@@ -27,7 +27,7 @@ class UnknownPage extends StatelessWidget {
             width: double.infinity,
             height: 7.h,
           ),
-          SizedBox(height: 110.h,),
+          SizedBox(height: 130.h,),
           SvgPicture.asset('assets/svg/profile_empty.svg'),
           SizedBox(height: 30.h,),
           Text(
@@ -40,42 +40,44 @@ class UnknownPage extends StatelessWidget {
               )
             )
           ),
-          SizedBox(height: 15.h,),
-          RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text:"      Append /profile/'username' to the domain",
-                  style: GoogleFonts.inter(
-                    textStyle: TextStyle(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500
+          SizedBox(height: 20.h,),
+          Center(
+            child: RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:"      Append /#/profile/'your_username' to the domain",
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500
+                      )
                     )
-                  )
-                ),
-                TextSpan(
-                  text:' to "Redirect" ',
-                  style: GoogleFonts.inter(
-                    textStyle: TextStyle(
-                      color: AppColor.blackColor,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500
+                  ),
+                  TextSpan(
+                    text:' to "Redirect" ',
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.blackColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500
+                      )
                     )
-                  )
-                ),
-                TextSpan(
-                  text:'back to your\n          luround profile',
-                  style: GoogleFonts.inter(
-                    textStyle: TextStyle(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500
+                  ),
+                  TextSpan(
+                    text:'back to your\n          luround profile',
+                    style: GoogleFonts.inter(
+                      textStyle: TextStyle(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500
+                      )
                     )
-                  )
-                ),
-              ]
-            )
+                  ),
+                ]
+              )
+            ),
           ),
           SizedBox(height: 70.h,),
           //ADD SECTION BUTTON

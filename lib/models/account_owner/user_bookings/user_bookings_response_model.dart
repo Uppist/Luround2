@@ -49,7 +49,7 @@ class DetailsModel {
       bookingUserInfo:
           BookingUserInfo.fromJson(json['booking_user_info'] ?? {}),
       serviceDetails: ServiceDetails.fromJson(json['service_details'] ?? {}),
-      booked_status: json["booked_status"] ?? "",
+      booked_status: json["booked_status"] ?? 'non',
       payment_reference_id: json['payment_reference_id'] ?? "non",
       proof_of_payment: json['payment_proof'] ?? "no proof",
     );
@@ -69,9 +69,9 @@ class ServiceProviderInfo {
 
   factory ServiceProviderInfo.fromJson(Map<String, dynamic> json) {
     return ServiceProviderInfo(
-      userId: json['userId'] ?? '',
-      email: json['email'] ?? '',
-      displayName: json['displayName'] ?? '',
+      userId: json['userId'] ?? 'non',
+      email: json['email'] ?? 'non',
+      displayName: json['displayName'] ?? 'non',
     );
   }
 }
@@ -91,10 +91,10 @@ class BookingUserInfo {
 
   factory BookingUserInfo.fromJson(Map<String, dynamic> json) {
     return BookingUserInfo(
-      userId: json['userId'] ?? '',
-      email: json['email'] ?? '',
-      displayName: json['displayName'] ?? '',
-      phoneNumber: json['phone_number'] ?? '',
+      userId: json['userId'] ?? 'no id',
+      email: json['email'] ?? 'no email',
+      displayName: json['displayName'] ?? 'No name',
+      phoneNumber: json['phone_number'] ?? 'non',
     );
   }
 }

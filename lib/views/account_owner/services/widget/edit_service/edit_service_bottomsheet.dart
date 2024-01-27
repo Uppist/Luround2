@@ -102,7 +102,7 @@ Future<void> editServiceDialogueBox({
                 //2            
                 InkWell(
                   onTap: () {
-                    shareProfileLink(link: service_link);
+                    //shareServiceLink(link: service_link);
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

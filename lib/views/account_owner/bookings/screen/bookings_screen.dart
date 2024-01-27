@@ -285,10 +285,10 @@ class _BookingsPageState extends State<BookingsPage> {
                                               radius: 30.r,  //25,
                                               child: Text(
                                                 //"",
-                                                item.bookingUserInfo.displayName.substring(0, 1), //.toUpperCase().substring(0, 1),
+                                                item.bookingUserInfo.displayName.toUpperCase().substring(0, 1), //.toUpperCase().substring(0, 1),
                                                 style: GoogleFonts.inter(
-                                                  color: AppColor.bgColor,
-                                                  fontSize: 16.sp,
+                                                  color: AppColor.darkGreyColor,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600
                                                 ),
                                               ),
@@ -550,8 +550,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                           "This Booking was made on",
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
+                                            //fontStyle: FontStyle.italic,
                                             fontSize: 14.sp,
-                                            fontWeight: FontWeight.w500
+                                            fontWeight: FontWeight.w400
                                           ),
                                         ),
                                         SizedBox(height: 10.h),
@@ -560,7 +561,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor.withOpacity(0.5),
                                             fontSize: 14.sp,
-                                            fontWeight: FontWeight.w400
+                                            fontWeight: FontWeight.normal
                                           ),
                                         )
                                         ///////////////////////////////////////    
@@ -698,11 +699,10 @@ class _BookingsPageState extends State<BookingsPage> {
                                               //backgroundImage: ,
                                               radius: 30.r,  //25,
                                               child: Text(
-                                                // "",
                                                 item.bookingUserInfo.displayName.toUpperCase().substring(0, 1),
                                                 style: GoogleFonts.inter(
-                                                  color: AppColor.bgColor,
-                                                  fontSize: 16.sp,
+                                                  color: AppColor.darkGreyColor,
+                                                  fontSize: 14.sp,
                                                   fontWeight: FontWeight.w600
                                                 ),
                                               ),

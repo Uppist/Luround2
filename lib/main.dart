@@ -110,7 +110,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
-  int tokenExpDate = LocalStorage.getTokenExpDate();
+  int tokenExpDate = LocalStorage.getTokenExpDate() ?? 0;
   var authService = Get.put(AuthService());
 
 
@@ -157,7 +157,7 @@ class _MainAppState extends State<MainApp> {
 
         ],*/
 
-        //token == null
+        //token == null  //authService.isTokenExpired(tokenExpDate)
 
         home: authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: const [

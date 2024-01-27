@@ -27,14 +27,19 @@ class DueInvoiceList extends StatelessWidget {
             scrollDirection: Axis.vertical,
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             separatorBuilder: (context, index) => SizedBox(height: 20.h),
-            itemCount: service.filteredUnpaidInvoiceList.length,
+            itemCount: service.filteredDueInvoiceList.length,
             //padding: EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (context, index) {
-              final item = service.filteredUnpaidInvoiceList[index];
+              final item = service.filteredDueInvoiceList[index];
+              //bool isDueInThreeDays = service.isDueInThreeDays(item.due_date);
 
-              bool isDueInThreeDays = service.isDueInThreeDays(item.due_date);
-
-              if(isDueInThreeDays) {
+              if(service.filteredDueInvoiceList.isEmpty) {
+                return FinancialsEmptyState(
+                  titleText: 'No invoice yet',
+                  subtitleText: 'an invoice',
+                );
+              }
+              if(service.filteredDueInvoiceList.isNotEmpty) {
                 return DueInvoiceDisplay (
                   onPressed: (){},
                   tracking_id: item.tracking_id.toString(),
@@ -51,16 +56,15 @@ class DueInvoiceList extends StatelessWidget {
                   vat: item.vat,
                   total: item.total,
                   note: item.note,
-                  status: isDueInThreeDays ? "DUE" : item.status,
+                  status: service.filteredDueInvoiceList.isNotEmpty ? "DUE" : item.status,
                   booking_detail: item.booking_detail,
                 );
               }
-              else {
-                return FinancialsEmptyState(
-                  titleText: 'No invoice yet',
-                  subtitleText: 'an invoice',
-                );
-              }
+
+              return FinancialsEmptyState(
+                titleText: 'No invoice yet',
+                subtitleText: 'an invoice',
+              );
             
             }
           ),

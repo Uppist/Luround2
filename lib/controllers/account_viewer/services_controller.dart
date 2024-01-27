@@ -6,10 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 //import 'package:image_picker_web/image_picker_web.dart';
-
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-
 
 
 
@@ -72,7 +70,7 @@ class AccViewerServicesController extends getx.GetxController {
   //file picker to pick user docs/pdf
   var isFileSelectedForBooking = false.obs;
   getx.Rx<Uint8List?> imageFromGallery = getx.Rx<Uint8List?>(null);
-  //File? imageFromGallery;
+
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
     
@@ -104,9 +102,9 @@ class AccViewerServicesController extends getx.GetxController {
 
   //UPLOAD FILE WHEN REQUESTING FOR QUOTE (PDF, DOCX, e.t.c)
   //file picker to pick user docs/pdf
-  //File? selectedFileForRequestingQuote;
   var isFileSelected = false.obs;
   getx.Rx<Uint8List?> selectedFileForRequestingQuote = getx.Rx<Uint8List?>(null);
+  
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> selectFile(BuildContext context) async {
     /*try {

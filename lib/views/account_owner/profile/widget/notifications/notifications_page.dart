@@ -15,8 +15,6 @@ import 'notifications_empty_state.dart';
 
 
 
-
-
 class NotificationsPage extends StatelessWidget {
   NotificationsPage({super.key});
 
@@ -42,164 +40,128 @@ class NotificationsPage extends StatelessWidget {
         title: CustomAppBarTitle(text: 'Notifications',),
       ),
       body: FutureBuilder(
-              future: userProfileService.getUserNotifications(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Loader();
-                }
-                if (snapshot.hasError) {
-                  print(snapshot.error);
-                  return NotificationEmptyState(
-                    onPressed: () {
-                      userProfileService.getUserNotifications();
-                    }
-                  );
-                }
-                if (!snapshot.hasData) {
-                  print("sn-trace: ${snapshot.stackTrace}");
-                  print("sn-data: ${snapshot.data}");
-                  return NotificationEmptyState(
-                    onPressed: () {
-                      userProfileService.getUserNotifications();
-                    }
-                  );
-                }
+        future: userProfileService.getUserNotifications(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Loader();
+          }
+          if (snapshot.hasError) {
+            print(snapshot.error);
+            return NotificationEmptyState(
+              onPressed: () {
+                userProfileService.getUserNotifications();
+              }
+            );
+          }
+          if (!snapshot.hasData) {
+            print("sn-trace: ${snapshot.stackTrace}");
+            print("sn-error: ${snapshot.error}");
+
+            return NotificationEmptyState(
+              onPressed: () {
+                userProfileService.getUserNotifications();
+              }
+            );
+          }
        
-                if (snapshot.hasData) {
-                  var data = snapshot.data!;
-                  return ListView.separated(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  itemCount: data.length,
-                  separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
-                  itemBuilder: (context, index) {
-                  
-                    final item = data[index];
-                  
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 10.h),
+          if (snapshot.hasData) {
+            var data = snapshot.data!;
+
+            return ListView.separated(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              itemCount: data.length,
+              separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
+              itemBuilder: (context, index) { 
+                final item = data[index];
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 10.h),
                                 
-                        /*Container(
-                          color: AppColor.greyColor,
-                          width: double.infinity,
-                          height: 7,
-                        ),*/
+                    /*Container(
+                      color: AppColor.greyColor,
+                      width: double.infinity,
+                      height: 7,
+                    ),*/
                     
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: AppColor.bgColor,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              CircleAvatar(
-                                backgroundColor: AppColor.mainColor,
-                                radius: 30.r,
-                                child: Text(
-                                  item['title'].toString().toUpperCase().substring(0, 1),
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.bgColor,
-                                    fontSize: 16.sp,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: AppColor.bgColor,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CircleAvatar(
+                            backgroundColor: AppColor.mainColor,
+                            radius: 30.r,
+                            child: Text(
+                              item['title'].toString().toUpperCase().substring(0, 1),
+                              style: GoogleFonts.inter(
+                                color: AppColor.bgColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w600
                               ),
-                              SizedBox(width: 15.w),
-                              /*RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: "Yester Moron ",  //recepient name
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16
-                                      )
-                                    ),
-                                    TextSpan(
-                                      text: "booked a ",  
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        //fontWeight: FontWeight.w500,
-                                        fontSize: 16
-                                      )
-                                    ),
-                                    TextSpan(
-                                      text: "Personal Training ",  //notification type
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.blackColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16
-                                      )
-                                    ),
-                                    TextSpan(
-                                      text: " \nsession.",  
-                                      style: GoogleFonts.poppins(
-                                        color: AppColor.darkGreyColor,
-                                        //fontWeight: FontWeight.w500,
-                                        fontSize: 16
-                                      )
-                                    ),
-                                  ]
-                                )                     
-                              )*/
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      item['title'],  //recepient name
-                                      style: GoogleFonts.inter(
-                                        textStyle: TextStyle(
-                                          overflow: TextOverflow.visible,
-                                          color: AppColor.blackColor,
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14.sp,
-                                        )
-                                      )
-                                    ),
-                                    SizedBox(height: 5.h,),
-                                    Text(
-                                      item['body'],
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.darkGreyColor,
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 14.sp
-                                      )
-                                    ),
-                                    SizedBox(height: 5.h,),
-                                    Text(
-                                      convertServerTimeToDate(item['created_at'] ?? 0) ,
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.darkGreyColor.withOpacity(0.5),
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 13.sp
-                                      )
-                                    ),
-                                  ],
+                            ),
+                          ),
+
+                          SizedBox(width: 15.w),
+                          
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  item['title'],  //recepient name
+                                  style: GoogleFonts.inter(
+                                    textStyle: TextStyle(
+                                      overflow: TextOverflow.visible,
+                                      color: AppColor.blackColor,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14.sp,
+                                    )
+                                  )
                                 ),
-                              )
-                            ]
+                                SizedBox(height: 5.h,),
+                                Text(
+                                  item['body'],
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 14.sp
+                                  )
+                                ),
+                                SizedBox(height: 5.h,),
+                                Text(
+                                  convertServerTimeToDate(item['created_at'] ?? 0) ,
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor.withOpacity(0.5),
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 13.sp
+                                  )
+                                ),
+                              ],
+                            ),
                           )
-                        ),
-                      ],
-                    );
-                  }
-                                    );
-                }
-                return NotificationEmptyState(
-                  onPressed: () {
-                    userProfileService.getUserNotifications();
-                  }
+                        ]
+                      )
+                    ),
+                  ],
                 );
               }
-            )
+              );
+            }
+            return NotificationEmptyState(
+              onPressed: () {
+              userProfileService.getUserNotifications();
+            }
+          );
+        }
+      )
     );
   }
 }

@@ -7,7 +7,6 @@ import 'package:luround/utils/components/converters.dart';
 
 
 
-
 class TrxDisplay extends StatelessWidget {
   const TrxDisplay({super.key, required this.service_id, required this.service_name, required this.amount, required this.affliate_user, required this.transaction_status, required this.transaction_ref, required this.transaction_date, required this.transaction_time});
   final String service_id;
@@ -40,7 +39,7 @@ class TrxDisplay extends StatelessWidget {
             Text(
               "N$amount",
               style: GoogleFonts.inter(
-                color: transaction_status == "SENT"
+                color: transaction_status == "RECEIVED"
                 ?AppColor.darkGreen
                 :AppColor.redColor,
                 fontSize: 16.sp,
@@ -52,9 +51,9 @@ class TrxDisplay extends StatelessWidget {
         SizedBox(height: 20.h,),
         //2
         Text(
-          transaction_status == "SENT"
-          ?"$transaction_ref | Received from $affliate_user"  //via LuroundPay
-          :"$transaction_ref | Sent to $affliate_user",
+          transaction_status == "RECEIVED"
+          ? "$transaction_ref | Received from $affliate_user"//via LuroundPay
+          : "$transaction_ref | Sent to $affliate_user" ,
           style: GoogleFonts.inter(
             color: AppColor.darkGreyColor,
             fontSize: 14.sp,

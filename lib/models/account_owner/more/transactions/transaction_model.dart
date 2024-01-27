@@ -24,7 +24,7 @@ class UserTransactionsModel {
     service_id = json['service_id'] ?? "service_id";
     service_name = json['service_name'] ?? "service_name";
     amount = json['amount'] ?? "amount";
-    affliate_user = json['affliate_user'] ?? "affliate_user";
+    affliate_user = json['affliate_user'] ?? "you";
     transaction_status = json['transaction_status'] ?? "transaction_status";
     transaction_ref = json['transaction_ref'] ?? "transaction_ref";
     transaction_date = json['transaction_date'] ?? 0;

@@ -516,13 +516,13 @@ class WithdrawalService extends getx.GetxController {
   var trxList = <UserTransactionsModel>[].obs;
   var filteredTrxList = <UserTransactionsModel>[].obs;
   
-  getx.RxInt totalAmountPaid = getx.RxInt(0);
+  getx.RxDouble totalAmountPaid = getx.RxDouble(0);
   var isTotalAmountPaidCalculated = false.obs;
   Future<void> calculateTotalAmountPaid() async {
     if (!isTotalAmountPaidCalculated.value) {
       for (var user in filteredTrxList) {
-        if (user.transaction_status == "RECEIVED") {
-          totalAmountPaid.value += int.parse(user.amount);
+        if (user.transaction_status == "SENT") {
+          totalAmountPaid.value += double.parse(user.amount);
         }
       }
       print("Amount paid: ${totalAmountPaid.value}");
@@ -535,7 +535,7 @@ class WithdrawalService extends getx.GetxController {
   Future<void> calculateTotalAmountReceived() async{
     if (!isTotalAmountReceivedCalculated.value) {
       for (var user in filteredTrxList) {
-        if (user.transaction_status == "SENT") {
+        if (user.transaction_status == "RECEIVED") {
           totalAmountReceived.value += double.parse(user.amount);
         }
       }

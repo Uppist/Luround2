@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/services_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
@@ -136,39 +137,48 @@ class _Step3PageState extends State<Step3Page> {
               onPressed: mainController.isCheckBoxActive.value ? 
               //widget.onNext
               () {
-                servicesService.createUserService(
-                  available_time_list: mainController.availableTime,
-                  context: context,
-                  //service_type: "Virtual", //In-Person
-                  service_name: mainController.serviceNameController.text, 
-                  description: mainController.descriptionController.text, 
-                  links: [mainController.addLinksController.text], 
-                  service_charge_in_person: mainController.inPersonController.text, 
-                  service_charge_virtual: mainController.virtualController.text, 
-                  duration: mainController.formatDuration(), 
-                  time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                  date: mainController.selectDurationRadio,             
-                  available_days: mainController.availableDays(),
-                ).whenComplete(() {
-                  //1
-                  setState(() {
-                    mainController.curentStep = mainController.curentStep - 2;
+
+                mainController.getTimeIntervals(
+                  earliestTime: mainController.findEarliestTime(),
+                  latestTime: mainController.findLatestTime(),
+                  interval: mainController.duration.value
+                )
+                .whenComplete(() {
+                  servicesService.createUserService(
+                    available_time_list: mainController.availableTime,
+                    context: context,
+                    //service_type: "Virtual", //In-Person
+                    service_name: mainController.serviceNameController.text, 
+                    description: mainController.descriptionController.text, 
+                    links: [mainController.addLinksController.text], 
+                    service_charge_in_person: mainController.inPersonController.text, 
+                    service_charge_virtual: mainController.virtualController.text, 
+                    duration: mainController.formatDuration(), 
+                    time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
+                    date: mainController.selectDurationRadio,             
+                    available_days: mainController.availableDays(),
+                  ).whenComplete(() {
+                    //1
+                    setState(() {
+                      mainController.curentStep = mainController.curentStep - 2;
+                    });
+                    //2
+                    mainController.serviceNameController.clear();
+                    mainController.descriptionController.clear();
+                    mainController.addLinksController.clear();
+                    mainController.inPersonController.clear();
+                    mainController.virtualController.clear();
+                    //3
+                    Get.offUntil(
+                      GetPageRoute(
+                        curve: Curves.bounceIn,
+                        page: () => MainPage(),
+                      ), 
+                      (route) => true
+                    );
                   });
-                  //2
-                  mainController.serviceNameController.clear();
-                  mainController.descriptionController.clear();
-                  mainController.addLinksController.clear();
-                  mainController.inPersonController.clear();
-                  mainController.virtualController.clear();
-                  //3
-                  Get.offUntil(
-                    GetPageRoute(
-                      curve: Curves.bounceIn,
-                      page: () => MainPage(),
-                    ), 
-                    (route) => true
-                  );
                 });
+                
               }
               : () {
                 print('nothing');

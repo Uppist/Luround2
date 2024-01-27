@@ -175,10 +175,12 @@ class _BookingsPageState extends State<BookingsPage> {
                   scrollDirection: Axis.vertical,
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                  itemCount: 2,//service.filteredList.length, //data.length,
+                  itemCount: service.filteredList.length,
                   separatorBuilder: (context, index) => SizedBox(height: 25.h,),
                   itemBuilder: (context, index) {
-      
+
+                    final item = service.filteredList[index];
+                     
                     if(service.filteredList.isEmpty) {
                       print("data list is empty fam");
                       return BookingScreenEmptyState(
@@ -214,10 +216,10 @@ class _BookingsPageState extends State<BookingsPage> {
                                   children: [
                                     //more vert icon
                                     Row(
-                                          mainAxisAlignment: service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                          mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                                           children: [
                                             //confirm bookings button
-                                            service.filteredList[index].booked_status == "PENDING CONFIRMATION" ?
+                                            item.booked_status == "PENDING CONFIRMATION" ?
                                             InkWell(
                                               onTap: () {
                                                 service.confirmBooking(
@@ -249,18 +251,18 @@ class _BookingsPageState extends State<BookingsPage> {
                                             IconButton(
                                               onPressed: () {
                                                 bookingsListDialogueBox(
-                                                  serviceDate: service.filteredList[index].serviceDetails.date,
-                                                  serviceTime: service.filteredList[index].serviceDetails.time,
-                                                  serviceDuration: service.filteredList[index].serviceDetails.duration,
-                                                  bookingId: service.filteredList[index].id,
+                                                  serviceDate: item.serviceDetails.date,
+                                                  serviceTime: item.serviceDetails.time,
+                                                  serviceDuration: item.serviceDetails.duration,
+                                                  bookingId: item.id,
                                                   onDelete: () {
                                                     service.deleteBooking(
                                                       context: context, 
-                                                      bookingId: service.filteredList[index].id
+                                                      bookingId: item.id
                                                     ).whenComplete(() => Get.back());
                                                   },
                                                   context: context, 
-                                                  serviceName: service.filteredList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
+                                                  serviceName: item.serviceDetails.serviceName  //.serviceDetails.serviceName,
                                                 );
                                               }, 
                                               icon: Icon(
@@ -282,8 +284,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                               //backgroundImage: ,
                                               radius: 30.r,  //25,
                                               child: Text(
-                                                "",
-                                                //service.filteredList[index].bookingUserInfo.displayName.substring(0, 10), //.toUpperCase().substring(0, 1),
+                                                //"",
+                                                item.bookingUserInfo.displayName.substring(0, 1), //.toUpperCase().substring(0, 1),
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.bgColor,
                                                   fontSize: 16.sp,
@@ -297,7 +299,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    service.filteredList[index].bookingUserInfo.displayName,
+                                                    item.bookingUserInfo.displayName,
                                                     style: GoogleFonts.inter(
                                                       color: AppColor.darkGreyColor,
                                                       fontSize: 14.sp,
@@ -306,7 +308,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   ),
                                                   SizedBox(height: 2.h,),
                                                   Text(
-                                                    service.filteredList[index].serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
+                                                    item.serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
                                                     //"booked you",//index.isEven ? "booked you" : "you booked",
                                                     style: GoogleFonts.inter(
                                                       color: AppColor.textGreyColor,
@@ -319,9 +321,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                             ),
 
                                             Text(
-                                              service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
+                                              item.booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
                                               style: GoogleFonts.inter(
-                                                color: service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
+                                                color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -340,7 +342,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             InkWell(
                                               onTap: () {
                                                 Get.to(() => SeePaymentProofPage(
-                                                  payment_proof: service.filteredList[index].proof_of_payment,
+                                                  payment_proof: item.proof_of_payment,
                                                 ));
                                               },
                                               child: Text(
@@ -362,7 +364,7 @@ class _BookingsPageState extends State<BookingsPage> {
 
                                         //service name
                                         Text(
-                                          service.filteredList[index].serviceDetails.serviceName,
+                                          item.serviceDetails.serviceName,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 16.sp,
@@ -391,7 +393,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.date,
+                                          item.serviceDetails.date,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -410,7 +412,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.time,
+                                          item.serviceDetails.time,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -438,7 +440,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.duration,
+                                          item.serviceDetails.duration,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -457,7 +459,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.appointmentType,
+                                          item.serviceDetails.appointmentType,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -476,7 +478,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.location,
+                                          item.serviceDetails.location,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -496,7 +498,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          "N${service.filteredList[index].serviceDetails.serviceFee}",
+                                          "N${item.serviceDetails.serviceFee}",
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -516,7 +518,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].bookingUserInfo.email,
+                                          item.bookingUserInfo.email,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
@@ -535,7 +537,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          service.filteredList[index].serviceDetails.message,
+                                          item.serviceDetails.message,
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor,
                                             fontSize: 14.sp,
@@ -554,7 +556,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         ),
                                         SizedBox(height: 10.h),
                                         Text(
-                                          convertServerTimeToDate(service.filteredList[index].serviceDetails.createdAt),
+                                          convertServerTimeToDate(item.serviceDetails.createdAt),
                                           style: GoogleFonts.inter(
                                             color: AppColor.darkGreyColor.withOpacity(0.5),
                                             fontSize: 14.sp,
@@ -628,15 +630,15 @@ class _BookingsPageState extends State<BookingsPage> {
                                   children: [
                                     //more vert icon
                                     Row(
-                                      mainAxisAlignment: service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                      mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                                       children: [
                                         //confirm bookings button
-                                        service.filteredList[index].booked_status == "PENDING CONFIRMATION" ?
+                                        item.booked_status == "PENDING CONFIRMATION" ?
                                         InkWell(
                                           onTap: () {
                                             service.confirmBooking(
                                               context: context, 
-                                              bookingId: service.filteredList[index].id
+                                              bookingId: item.id
                                             );
                                           },
                                           child: Container(
@@ -663,18 +665,18 @@ class _BookingsPageState extends State<BookingsPage> {
                                         IconButton(
                                           onPressed: () {
                                             bookingsListDialogueBox(
-                                              serviceDate: service.filteredList[index].serviceDetails.date,
-                                              serviceTime: service.filteredList[index].serviceDetails.time,
-                                              serviceDuration: service.filteredList[index].serviceDetails.duration,
-                                              bookingId: service.filteredList[index].id,
+                                              serviceDate: item.serviceDetails.date,
+                                              serviceTime: item.serviceDetails.time,
+                                              serviceDuration: item.serviceDetails.duration,
+                                              bookingId: item.id,
                                               onDelete: () {
                                                 service.deleteBooking(
                                                   context: context, 
-                                                  bookingId: service.filteredList[index].id
+                                                  bookingId: item.id
                                                 ).whenComplete(() => Get.back());
                                               },
                                               context: context, 
-                                              serviceName: service.filteredList[index].serviceDetails.serviceName  //.serviceDetails.serviceName,
+                                              serviceName: item.serviceDetails.serviceName  //.serviceDetails.serviceName,
                                             );
                                           }, 
                                           icon: Icon(
@@ -696,8 +698,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                               //backgroundImage: ,
                                               radius: 30.r,  //25,
                                               child: Text(
-                                                "",
-                                                //service.filteredList[index].bookingUserInfo.displayName.toUpperCase().substring(0, 1),
+                                                // "",
+                                                item.bookingUserInfo.displayName.toUpperCase().substring(0, 1),
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.bgColor,
                                                   fontSize: 16.sp,
@@ -711,7 +713,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    service.filteredList[index].bookingUserInfo.displayName,
+                                                    item.bookingUserInfo.displayName,
                                                     style: GoogleFonts.inter(
                                                       color: AppColor.darkGreyColor,
                                                       fontSize: 14.sp,
@@ -720,7 +722,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   ),
                                                   SizedBox(height: 2.h,),
                                                   Text(
-                                                    service.filteredList[index].serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
+                                                    item.serviceProviderInfo.userId.contains(userId) ? "you booked" : "booked you",
                                                     //"booked you",//index.isEven ? "booked you" : "you booked",
                                                     style: GoogleFonts.inter(
                                                       color: AppColor.textGreyColor,
@@ -733,9 +735,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                             ),
 
                                             Text(
-                                              service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
+                                              item.booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
                                               style: GoogleFonts.inter(
-                                                color: service.filteredList[index].booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
+                                                color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -751,7 +753,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           mainAxisAlignment: MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              service.filteredList[index].serviceDetails.date,
+                                              item.serviceDetails.date,
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -760,7 +762,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             ),
                                             SizedBox(width: 10.w,),
                                             /////////////
-                                            service.filteredList[index].bookingUserInfo.userId.contains(userId) ?
+                                            item.bookingUserInfo.userId.contains(userId) ?
                                             SvgPicture.asset("assets/svg/sent_blue.svg")
                                             :SvgPicture.asset("assets/svg/received_yellow.svg")
                                             /////////////////
@@ -769,7 +771,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         SizedBox(height: 30.h,),
                                         //service name
                                         Text(
-                                          service.filteredList[index].serviceDetails.serviceName,
+                                          item.serviceDetails.serviceName,
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 16.sp,
@@ -782,7 +784,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              service.filteredList[index].serviceDetails.time,
+                                              item.serviceDetails.time,
                                               style: GoogleFonts.inter(
                                                 color: AppColor.blackColor,
                                                 fontSize: 14.sp,
@@ -795,7 +797,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 SvgPicture.asset("assets/svg/time_icon.svg"),
                                                 SizedBox(width: 10.w,),
                                                 Text(
-                                                  service.filteredList[index].serviceDetails.duration,
+                                                  item.serviceDetails.duration,
                                                   style: GoogleFonts.inter(
                                                     color: AppColor.textGreyColor,
                                                     fontSize: 12.sp,
@@ -815,7 +817,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         InkWell(
                                           onTap: () {
                                             Get.to(() => SeePaymentProofPage(
-                                              payment_proof: service.filteredList[index].proof_of_payment,
+                                              payment_proof: item.proof_of_payment,
                                             ));
                                           },
                                           child: Text(

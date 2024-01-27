@@ -23,7 +23,6 @@ import 'package:http/http.dart' as http;
 
 
 
-
 class AccViewerService extends getx.GetxController {
 
   var controller = getx.Get.put(AccViewerServicesController());

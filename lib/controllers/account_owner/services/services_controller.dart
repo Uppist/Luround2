@@ -168,7 +168,7 @@ class ServicesController extends getx.GetxController {
   
   //available time list
   List<String> availableTime = [];
-  void addStartTime() {
+  /*void addStartTime() {
     if (!availableTime.contains(startTimeValue.value)) {
       //add all start time to the list
       availableTime.add(startTimeValue.value,);
@@ -188,6 +188,29 @@ class ServicesController extends getx.GetxController {
     else {
       print("Invalid index: $index");
     }
+  }*/
+
+  Future<void> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async{
+    final DateFormat format = DateFormat('h:mm a');
+    DateTime earliest = format.parse(earliestTime);
+    DateTime latest = format.parse(latestTime);
+
+    //List<String> intervals = [];
+
+    // Add the first time interval (earliest time)
+    availableTime.clear();
+    availableTime.add(earliestTime);
+
+    // Calculate intervals until the latest time
+    DateTime current = earliest.add(interval);
+    while (current.isBefore(latest)) {
+      availableTime.add(format.format(current));
+      current = current.add(interval);
+    }
+
+    // Add the latest time
+    availableTime.add(latestTime);
+    print("available_ time_edit: $availableTime");
   }
 
 
@@ -529,7 +552,8 @@ class ServicesController extends getx.GetxController {
   ////**[STEP 3]***////////
   List<String> selectedDaysEdit = [];
   List<String> availableTimeEdit = [];
-  void addStartTimeEdit() {
+
+  /*void addStartTimeEdit() {
     if (!availableTimeEdit.contains(startTimeValueEdit.value)) {
       //add all start time to the list
       availableTimeEdit.add(startTimeValueEdit.value);
@@ -547,7 +571,7 @@ class ServicesController extends getx.GetxController {
     else {
       print("Invalid index: $index");
     }
-  }
+  }*/
 
   void addItemEdit({required String item}) {
     if (!selectedDaysEdit.contains(item)) {
@@ -686,6 +710,29 @@ class ServicesController extends getx.GetxController {
     print("Latest Time: $latestTime");
     return formatTimeString(latestTime);
   }
+  
+  //get time intervals
+  Future<void> getTimeIntervalsEdit({required String earliestTime, required String latestTime, required Duration interval}) async{
+    final DateFormat format = DateFormat('h:mm a');
+    DateTime earliest = format.parse(earliestTime);
+    DateTime latest = format.parse(latestTime);
+
+    // Add the first time interval (earliest time)
+    availableTimeEdit.clear();
+    availableTimeEdit.add(earliestTime);
+
+    // Calculate intervals until the latest time
+    DateTime current = earliest.add(interval);
+    while (current.isBefore(latest)) {
+      availableTimeEdit.add(format.format(current));
+      current = current.add(interval);
+    }
+
+    // Add the latest time
+    availableTimeEdit.add(latestTime);
+    print("available_ time_edit: $availableTimeEdit");
+  }
+
   
   /////////////////////////////////////////////////////
 

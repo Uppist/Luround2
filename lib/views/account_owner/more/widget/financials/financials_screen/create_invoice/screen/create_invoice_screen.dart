@@ -605,29 +605,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   total: service.reactiveTotalForInvoice.value,
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
-                                    finPdfService.shareInvoicePDF(
-                                    context: context,
-                                    sender_address: "",
-                                    sender_phone_number: '',
-                                    tracking_id: widget.invoiceNumber.toString(),
-                                    receiver_email: controller.invoiceClientEmailController.text,
-                                    receiver_name: controller.invoiceClientNameController.text,
-                                    receiver_phone_number: controller.invoiceClientPhoneNumberController.text,
-                                    invoice_status: "SENT",
-                                    due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
-                                    subtotal: service.reactiveSubtotalForInvoice.value,
-                                    discount: service.reactiveTotalDiscountForInvoice.value,
-                                    vat: service.reactiveTotalVATForInvoice.value,
-                                    note: controller.invoiceNoteController.text,
-                                    grand_total: service.reactiveTotalForInvoice.value,
-                                    serviceList: service.selectedInvoicebslist
-                                  ).whenComplete(() {
-                                    controller.invoiceClientEmailController.clear();
-                                    controller.invoiceClientNameController.clear();
-                                    controller.invoiceClientPhoneNumberController.clear();
-                                    controller.invoiceNoteController.clear();
-                                    Get.back();
-                                  });
+                                    print("sent");
                                 });
 
                               },

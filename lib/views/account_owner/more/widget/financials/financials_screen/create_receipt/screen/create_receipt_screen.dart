@@ -653,29 +653,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   total: service.reactiveTotalForReceipt.value,
                                   service_detail: service.selectedReceiptbslist,
                                 ).whenComplete(() {
-                                    finPdfService.shareReceiptPDF(
-                                    context: context,
-                                    tracking_id: widget.receiptNumber.toString(),
-                                    sender_address: "",
-                                    sender_phone_number: '',
-                                    receiver_email: controller.receiptClientEmailController.text,
-                                    receiver_name: controller.receiptClientNameController.text,
-                                    receiver_phone_number: controller.receiptClientPhoneNumberController.text,
-                                    receipt_status: "SENT",
-                                    due_date: controller.updatedReceiptDate(initialDate: "(non)"),
-                                    subtotal: service.reactiveSubtotalForReceipt.value,
-                                    discount: service.reactiveTotalDiscountForReceipt.value,
-                                    vat: service.reactiveTotalVATForReceipt.value,
-                                    note: controller.receiptNoteController.text,
-                                    grand_total: service.reactiveTotalForReceipt.value,
-                                    serviceList: service.selectedReceiptbslist,
-                                  ).whenComplete(() {
-                                    controller.receiptClientEmailController.clear();
-                                    controller.receiptClientNameController.clear();
-                                    controller.receiptClientPhoneNumberController.clear();
-                                    controller.receiptNoteController.clear();
-                                    Get.back();
-                                  });
+                                  print("sent");
                                 });
                               },
                               onSave: () {

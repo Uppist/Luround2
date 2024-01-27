@@ -68,12 +68,14 @@ class AccViewerServicesController extends getx.GetxController {
     }
   }
   
+  
   //file picker to pick user docs/pdf
   var isFileSelectedForBooking = false.obs;
   getx.Rx<Uint8List?> imageFromGallery = getx.Rx<Uint8List?>(null);
   //File? imageFromGallery;
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
+    
     /*try {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); 
       if (pickedImage != null) {
@@ -93,6 +95,7 @@ class AccViewerServicesController extends getx.GetxController {
         message: "Error picking image: $e"
       );
     }*/
+
   }
 
 

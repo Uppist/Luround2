@@ -8,6 +8,7 @@ import 'package:luround/models/account_owner/user_services/user_service_response
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 
@@ -24,6 +25,8 @@ class FinancialsService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var finController = getx.Get.put(FinancialsController());
+  var finPdfService = getx.Get.put(FinancialsPdfService());
+  var controller = getx.Get.put(FinancialsController());
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var user_email = LocalStorage.getUseremail();
@@ -402,14 +405,42 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("quote created and saved successfully to database");
-
-        //success snackbar
-        showMySnackBar(
+        //decode the response body here
+        final dynamic response = jsonDecode(res.body);
+        int quote_id = response['quote_id'];
+        String address = response['service_provider_address'];
+        String phone_number = response['service_provider_phone_number'];
+        // ignore: use_build_context_synchronously
+        finPdfService.shareQuotePDF(
+          sender_address: address,
+          sender_phone_number: phone_number,
           context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "quote created and saved successfully"
-        );
-        //.whenComplete(() => getx.Get.back());
+          tracking_id: quote_id.toString(),
+          receiver_email: client_email,
+          receiver_name: client_name,
+          receiver_phone_number: client_phone_number,
+          quote_status: "SENT",
+          due_date: quote_due_date,
+          subtotal: sub_total,
+          discount: discount,
+          vat: vat,
+          note: note,
+          grand_total: total,
+          serviceList: product_detail,
+        ).whenComplete(() {
+          controller.quoteClientEmailController.clear();
+          controller.quoteClientNameController.clear();
+          controller.quoteClientPhoneNumberController.clear();
+          controller.quoteNoteController.clear();
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "quote created and saved successfully"
+          ).whenComplete(() => getx.Get.back());
+  
+        });
+
       } 
       else {
         isLoading.value = false;
@@ -422,7 +453,6 @@ class FinancialsService extends getx.GetxController {
           backgroundColor: AppColor.redColor,
           message: "failed to save quote ${res.body}"
         );
-        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -796,14 +826,43 @@ class FinancialsService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
-        //success snackbar
-        showMySnackBar(
+
+        //decode the response body here
+        final dynamic response = jsonDecode(res.body);
+        int invoice_id = response['invoice_id'];
+        String address = response['service_provider_address'];
+        String phone_number = response['service_provider_phone_number'];
+        // ignore: use_build_context_synchronously
+        finPdfService.shareInvoicePDF(
+          sender_address: address,
+          sender_phone_number: phone_number,
           context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "invoice created and saved successfully"
-        );
-        //.whenComplete(() => getx.Get.back());
-      } 
+          tracking_id: invoice_id.toString(),
+          receiver_email: client_email,
+          receiver_name: client_name,
+          receiver_phone_number: client_phone_number,
+          invoice_status: "SENT",
+          due_date: due_date,
+          subtotal: sub_total,
+          discount: discount,
+          vat: vat,
+          note: note,
+          grand_total: total,
+          serviceList: booking_detail,
+        ).whenComplete(() {
+          controller.invoiceClientEmailController.clear();
+          controller.invoiceClientNameController.clear();
+          controller.invoiceClientPhoneNumberController.clear();
+          controller.invoiceNoteController.clear();
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "invoice created and saved successfully"
+          ).whenComplete(() => getx.Get.back());
+    
+        });
+      }
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
@@ -1119,12 +1178,43 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("receipt created and saved successfully to database");
-  
-        showMySnackBar(
+
+
+        //decode the response body here
+        final dynamic response = jsonDecode(res.body);
+        int receipt_id = response['receipt_id'];
+        String address = response['service_provider_address'];
+        String phone_number = response['service_provider_phone_number'];
+        // ignore: use_build_context_synchronously
+        finPdfService.shareReceiptPDF(
+          sender_address: address,
+          sender_phone_number: phone_number,
           context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "receipt created and saved successfully"
-        ).whenComplete(() => getx.Get.back());
+          tracking_id: receipt_id.toString(),
+          receiver_email: client_email,
+          receiver_name: client_name,
+          receiver_phone_number: client_phone_number,
+          receipt_status: "SENT",
+          due_date: receipt_date,
+          subtotal: sub_total,
+          discount: discount,
+          vat: vat,
+          note: note,
+          grand_total: total,
+          serviceList: service_detail,
+        ).whenComplete(() {
+          controller.receiptClientEmailController.clear();
+          controller.receiptClientNameController.clear();
+          controller.receiptClientPhoneNumberController.clear();
+          controller.receiptNoteController.clear();
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "receipt created and saved successfully",
+          ).whenComplete(() => getx.Get.back());
+
+        });
       } 
       else {
         isLoading.value = false;

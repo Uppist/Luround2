@@ -613,29 +613,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       total: service.reactiveTotalForQoute.value,
                                       product_detail: service.selectedQuotebslist,
                                     ).whenComplete(() {
-                                      finPdfService.shareQuotePDF(
-                                        sender_address: "",
-                                        sender_phone_number: '',
-                                        context: context,
-                                        tracking_id: widget.quoteNumber.toString(),
-                                        receiver_email: controller.quoteClientEmailController.text,
-                                        receiver_name: controller.quoteClientNameController.text,
-                                        receiver_phone_number: controller.quoteClientPhoneNumberController.text,
-                                        quote_status: "SENT",
-                                        due_date: controller.updatedDueDate(initialDate: "(non)"),
-                                        subtotal: service.reactiveSubtotalForQuote.value,
-                                        discount: service.reactiveTotalDiscountForQuote.value,
-                                        vat: service.reactiveTotalVATForQuote.value,
-                                        note: controller.quoteNoteController.text,
-                                        grand_total: service.reactiveTotalForQoute.value,
-                                        serviceList: service.selectedQuotebslist,
-                                      ).whenComplete(() {
-                                        controller.quoteClientEmailController.clear();
-                                        controller.quoteClientNameController.clear();
-                                        controller.quoteClientPhoneNumberController.clear();
-                                        controller.quoteNoteController.clear();
-                                        Get.back();
-                                      });
+                                      print("sent");
                                     });                       
                                   },
                                   onSave: () {

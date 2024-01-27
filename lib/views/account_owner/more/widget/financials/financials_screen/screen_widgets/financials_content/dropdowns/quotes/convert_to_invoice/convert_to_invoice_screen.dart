@@ -767,29 +767,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
                             booking_detail: widget.product_details
                           ).whenComplete(() {
-                            finPdfService.shareInvoicePDF(
-                              sender_address: widget.service_provider_address,
-                              sender_phone_number: widget.service_provider_phone_number,
-                              context: context,
-                              tracking_id: widget.tracking_id,
-                              receiver_email: widget.send_to_email,
-                              receiver_name: widget.send_to_name,
-                              receiver_phone_number: widget.phone_number,
-                              invoice_status: "UNPAID",
-                              due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
-                              subtotal: widget.sub_total,
-                              discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
-                              vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
-                              note: widget.note,
-                              grand_total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
-                              serviceList: widget.product_details,
-                            ).whenComplete(() { 
-                              setState(() {
-                                service.reactiveCTVVAT.value = "";
-                                service.reactiveCTVGrandTotal.value = "";
-                              });  
-                              Get.back();
-                            });
+                            print("sent");
                           });                       
                         },
                         onSave: () {

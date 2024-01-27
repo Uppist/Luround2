@@ -712,25 +712,7 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                             total: total,
                             service_detail: booking_details
                           ).whenComplete(() {
-                            finPdfService.shareReceiptPDF(
-                              sender_address: service_provider_address,
-                              sender_phone_number: service_provider_phone_number,
-                              context: context,
-                              tracking_id: tracking_id,
-                              receiver_email: send_to_email,
-                              receiver_name: send_to_name,
-                              receiver_phone_number: phone_number,
-                              receipt_status: "PAID",
-                              due_date: invoice_date,
-                              subtotal: sub_total,
-                              discount: discount,
-                              vat: vat,
-                              note: note,
-                              grand_total: total,
-                              serviceList: booking_details,
-                            ).whenComplete(() {   
-                              Get.back();
-                            });
+                            print("sent");
                           });                       
                         },
                         onSave: () {
@@ -741,7 +723,6 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                             client_phone_number: phone_number,
                             note: note,
                             receipt_date: invoice_date,
-
                             vat: vat,
                             sub_total: sub_total,
                             discount: discount,

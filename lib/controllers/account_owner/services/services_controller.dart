@@ -192,8 +192,8 @@ class ServicesController extends getx.GetxController {
 
   Future<void> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async{
     final DateFormat format = DateFormat('h:mm a');
-    DateTime earliest = format.parse(earliestTime);
-    DateTime latest = format.parse(latestTime);
+    DateTime earliest = parseTimeString(earliestTime);
+    DateTime latest = parseTimeString(latestTime);
 
     //List<String> intervals = [];
 
@@ -210,7 +210,7 @@ class ServicesController extends getx.GetxController {
 
     // Add the latest time
     availableTime.add(latestTime);
-    print("available_ time_edit: $availableTime");
+    print("available_ time_: $availableTime");
   }
 
 
@@ -355,10 +355,11 @@ class ServicesController extends getx.GetxController {
     return format.parse(timeString);
   }
   
+  
   //formatTimeString
   String formatTimeString(DateTime time) {
     // Format DateTime into string
-    return "${time.hour}:${time.minute < 10 ? '0${time.minute}' : time.minute}${time.hour < 12 ? 'AM' : 'PM'}";
+    return "${time.hour}:${time.minute < 10 ? '0${time.minute}' : time.minute}${time.hour < 12 ? ' AM' : ' PM'}";
   }
 
   
@@ -714,8 +715,8 @@ class ServicesController extends getx.GetxController {
   //get time intervals
   Future<void> getTimeIntervalsEdit({required String earliestTime, required String latestTime, required Duration interval}) async{
     final DateFormat format = DateFormat('h:mm a');
-    DateTime earliest = format.parse(earliestTime);
-    DateTime latest = format.parse(latestTime);
+    DateTime earliest = parseTimeString(earliestTime);
+    DateTime latest = parseTimeString(latestTime);
 
     // Add the first time interval (earliest time)
     availableTimeEdit.clear();

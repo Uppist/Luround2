@@ -99,7 +99,6 @@ void main() async{
 
 
 
-
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
@@ -121,7 +120,7 @@ class _MainAppState extends State<MainApp> {
     
     // Access the parameter using Get.parameters['userName']
     String userName = Get.parameters['user'] ?? 'DefaultUserName';
-
+ 
     return ScreenUtilInit(
       designSize: const Size(414, 896),
       builder: (_, child) {
@@ -155,7 +154,7 @@ class _MainAppState extends State<MainApp> {
             },
           ),
 
-        ],*/
+        ]*/
 
         //token == null  //authService.isTokenExpired(tokenExpDate)
 

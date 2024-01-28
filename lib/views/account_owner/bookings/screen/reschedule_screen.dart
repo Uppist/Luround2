@@ -45,9 +45,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: Obx(
-        () {
-          return service.isLoading.value ? Loader() : SafeArea(
+      body: SafeArea(
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Column(
@@ -373,19 +371,24 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                           ],
                         ),
                         SizedBox(height: 110.h,),
-                        RebrandedReusableButton(
-                          textColor: AppColor.bgColor,
-                          color: AppColor.mainColor, 
-                          text: "Reschedule", 
-                          onPressed: () {
-                            service.rescheduleBooking(
-                              context: context, 
-                              bookingId: widget.bookingId, 
-                              date: controller.updatedDate(initialDate: widget.service_date), 
-                              time: "${controller.getStartTime(initialTime: controller.splitTimeRangeT1(timeRange: widget.service_time))} - ${controller.getStopTime(initialTime: controller.splitTimeRangeT2(timeRange: widget.service_time))}"
-                            );
-                            //rescheduleDialogueBox(context: context);
-                          },
+                        Obx(
+                          () {
+                            return service.isLoading.value ? Loader()
+                              :RebrandedReusableButton(
+                                textColor: AppColor.bgColor,
+                                color: AppColor.mainColor, 
+                                text: "Reschedule", 
+                                onPressed: () {
+                                  service.rescheduleBooking(
+                                    context: context, 
+                                    bookingId: widget.bookingId, 
+                                    date: controller.updatedDate(initialDate: widget.service_date), 
+                                    time: "${controller.getStartTime(initialTime: controller.splitTimeRangeT1(timeRange: widget.service_time))} - ${controller.getStopTime(initialTime: controller.splitTimeRangeT2(timeRange: widget.service_time))}"
+                                  );
+                                  //rescheduleDialogueBox(context: context);
+                                },
+                              );
+                          }
                         ),
                         SizedBox(height: 20.h,),
                       ],
@@ -395,9 +398,9 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                 ]
               )
             )
-          );
-        }
-      )
+          )
+      
+    
     );
   }
 }

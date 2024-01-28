@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dioG;
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:get/get.dart' as getX;
@@ -17,6 +18,75 @@ class BaseService extends getX.GetxController {
   //General Base URL
   String baseUrl = "https://luround.onrender.com/api/v1/";
   String baseUrlForGoogle = "https://luround.onrender.com/";
+  //var token = LocalStorage.getToken();
+
+
+  //DIO (DELETE REQUEST)
+  Future<dynamic> deleteRequestWithDio({required String endPoint}) async {
+    try {
+      var token = await LocalStorage.getToken();
+      // Create Dio instance
+      dioG.Dio dio = dioG.Dio();
+
+      // Optionally, you can configure additional options like headers, etc.
+      dio.options.headers = token != null ? 
+      {
+        'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      } 
+      : null;
+
+      // Perform the DELETE request
+      dioG.Response response = await dio.delete("$baseUrl$endPoint");
+
+      // Handle the response as needed
+      print('DELETE Request Status Code: ${response.statusCode}');
+      print('DELETE Request Response Data: ${response.data}');
+      return response;
+    } catch (e) {
+      // Handle errors
+      print('Error during DELETE request: $e');
+      Exception('Error during DELETE request: $e');
+    }
+  }
+  
+  //POST REQUEST WITH Dio
+  Future<dynamic> putRequestWithDio({ 
+    required String endPoint, 
+    required dynamic data
+  }) async {
+    try {
+      var token = await LocalStorage.getToken();
+      // Create Dio instance
+      dioG.Dio dio = dioG.Dio();
+
+      // Optionally, you can configure additional options like headers, etc.
+      dio.options.headers = token != null ? 
+      {
+        'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      } 
+      : null;
+
+      // Perform the POST request
+      dioG.Response response = await dio.put(
+        "$baseUrl$endPoint",
+        data: data,
+      );
+      // Handle the response as needed
+      print('POST Request Status Code: ${response.statusCode}');
+      print('POST Request Response Data: ${response.data}');
+      return response;
+    } catch (e) {
+      // Handle errors
+      print('Error during POST request: $e');
+    }
+  }
+
   
   ///HTTP/// 
   //function that sends a GET request for Google Auth (on a soft)

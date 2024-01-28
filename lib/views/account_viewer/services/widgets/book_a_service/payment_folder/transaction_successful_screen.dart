@@ -67,7 +67,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                     ),
                     SizedBox(height: 50.h,),
                     Text(
-                      "Transaction Successful",
+                      "Booking Made",
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 20.sp,
@@ -81,14 +81,14 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                         text: TextSpan(
                           children: [
                             TextSpan(
-                              text :'         You have successfully booked',
+                              text :"      You'll receive a confirmation email when your booking has been confirmed by service provider",
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.w500,
                                 color: AppColor.darkGreyColor
                               )
                             ),
-                            TextSpan(
+                            /*TextSpan(
                               text :" ${widget.servie_provider_name}",
                               style: GoogleFonts.inter(
                                 fontSize: 16.sp,
@@ -111,7 +111,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                                 fontWeight: FontWeight.w600,
                                 color: AppColor.darkGreyColor
                               )
-                            ),
+                            ),*/
                           ]
                         )
                       ),

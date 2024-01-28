@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/services/widget/edit_service/step_ta
 
 
 
-class EditServiceScreen extends GetView<ServicesController> {
+class EditServiceScreen extends StatefulWidget {
   EditServiceScreen({
     super.key, 
     required this.serviceId,
@@ -42,7 +42,12 @@ class EditServiceScreen extends GetView<ServicesController> {
   final String date;
   final String available_days;
 
-  //final ServicesController serviceController = ServicesController();
+  @override
+  State<EditServiceScreen> createState() => _EditServiceScreenState();
+}
+
+class _EditServiceScreenState extends State<EditServiceScreen> {
+  final ServicesController controller = ServicesController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,113 +69,117 @@ class EditServiceScreen extends GetView<ServicesController> {
       ),
       body: Obx(
         () {
-          return SafeArea(
-            child: Stepper(
-              physics: BouncingScrollPhysics(),
-              elevation: 0,
-              currentStep: controller.curentStepEdit.value,
-              /*onStepContinue: () {
-                if(controller.curentStep < 2) {
-                  setState(() {
-                    controller.curentStep = controller.curentStep + 1;
-                  });
-                }
-              },
-              onStepCancel: () {
-                if(controller.curentStep <= 2) {
-                  setState(() {
-                    controller.curentStep = controller.curentStep - 1;
-                  });
-                }
-              },*/
-              onStepTapped: (int value) {              
-                controller.curentStepEdit.value = value;
+          return Stepper(
+            physics: BouncingScrollPhysics(),
+            elevation: 0,
+            currentStep: controller.curentStepEdit.value,
+            /*onStepContinue: () {
+              if(controller.curentStep < 2) {
+                setState(() {
+                  controller.curentStep = controller.curentStep + 1;
+                });
+              }
+            },
+            onStepCancel: () {
+              if(controller.curentStep <= 2) {
+                setState(() {
+                  controller.curentStep = controller.curentStep - 1;
+                });
+              }
+            },*/
+            onStepTapped: (int value) {
+              if(controller.curentStepEdit.value > 0) {
+                setState(() {
+                  //controller.curentStep = value;
+                  controller.curentStepEdit.value = controller.curentStepEdit.value - 1;
+                });
                 print(value);
-              },
-              controlsBuilder: (context, details) {
-                return SizedBox();
-              },
-              stepIconBuilder: (stepIndex, stepState) {
-                return Container(
-                  alignment: Alignment.center,
-                  //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(40.r)),
-                    //this maths logic i did here is the GOAT
-                    color: controller.curentStepEdit.value >= stepIndex ? AppColor.mainColor : AppColor.textGreyColor.withOpacity(0.1),
-                  ),
-                  child: controller.curentStepEdit.value >= stepIndex ?
-                    /*controller.curentStep == 0 ?*/ 
-                    Text(
-                      "${stepIndex + 1}",
-                      style: GoogleFonts.inter(
-                        fontSize: 13.sp,
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.bgColor
-                      )
-                    ) 
-                    /*:Icon(CupertinoIcons.check_mark, color: AppColor.bgColor, size: 15,)*/
-                  :Text(
+              }
+            },
+        
+            controlsBuilder: (context, details) {
+              return SizedBox();
+            },
+            stepIconBuilder: (stepIndex, stepState) {
+              return Container(
+                alignment: Alignment.center,
+                //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(40.r)),
+                  //this maths logic i did here is the GOAT
+                  color: controller.curentStepEdit.value >= stepIndex ? AppColor.mainColor : AppColor.textGreyColor.withOpacity(0.1),
+                ),
+                child: controller.curentStepEdit.value >= stepIndex ?
+                  /*controller.curentStep == 0 ?*/ 
+                  Text(
                     "${stepIndex + 1}",
                     style: GoogleFonts.inter(
                       fontSize: 13.sp,
                       fontWeight: FontWeight.w500,
                       color: AppColor.bgColor
                     )
-                  )
-            
-                );
-              },
-              type: StepperType.horizontal,
-              steps: [
-                Step(
-                  title: Text(""), 
-                  content: Step1PageEdit(
-                    serviceId: serviceId,
-                    service_name: service_name,
-                    description: description,
-                    links: links,
-                    service_charge_in_person: service_charge_in_person,
-                    service_charge_virtual: service_charge_virtual,
-                    onNext: () {
-                      if(controller.curentStepEdit.value < 2) {                  
-                        controller.curentStepEdit.value = controller.curentStepEdit.value + 1;                 
-                        print("current step: ${controller.curentStepEdit.value}");
-                      }
-                    },
-                  ),
-                  isActive: controller.curentStepEdit.value >= 0,
-                ),
-                Step(
-                  title: Text(""), 
-                  isActive: controller.curentStepEdit.value >= 1,
-                  content: Step2PageEdit(
-                    onNext: () {
-                      if(controller.curentStepEdit.value < 2) {             
-                        controller.curentStepEdit.value = controller.curentStepEdit.value + 1;
-                        print("current step: ${controller.curentStepEdit.value}");
-                      }
-                    },
-                  )
-                ),
-                Step(
-                  title: Text(""), 
-                  isActive: controller.curentStepEdit.value >= 2,
-                  content: Step3PageEdit(
-                    serviceId: serviceId,
-                    service_name: service_name,
-                    description: description,
-                    links: links,
-                    service_charge_in_person: service_charge_in_person,
-                    service_charge_virtual: service_charge_virtual,
-                    duration: duration,
-                    time: time,
-                    date: date,
-                    available_days: available_days,
+                  ) 
+                  /*:Icon(CupertinoIcons.check_mark, color: AppColor.bgColor, size: 15,)*/
+                :Text(
+                  "${stepIndex + 1}",
+                  style: GoogleFonts.inter(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.w500,
+                    color: AppColor.bgColor
                   )
                 )
-              ]
-            ),
+          
+              );
+            },
+            type: StepperType.horizontal,
+            steps: [
+              Step(
+                title: Text(""), 
+                content: Step1PageEdit(
+                  serviceId: widget.serviceId,
+                  service_name: widget.service_name,
+                  description: widget.description,
+                  links: widget.links,
+                  service_charge_in_person: widget.service_charge_in_person,
+                  service_charge_virtual: widget.service_charge_virtual,
+                  onNext: () {
+                    if(controller.curentStepEdit.value < 2) {                  
+                      controller.curentStepEdit.value = controller.curentStepEdit.value + 1;                 
+                      print("current step: ${controller.curentStepEdit.value}");
+                    }
+                  },
+                ),
+                isActive: controller.curentStepEdit.value >= 0,
+              ),
+              Step(
+                title: Text(""), 
+                isActive: controller.curentStepEdit.value >= 1,
+                content: Step2PageEdit(
+                  onNext: () {
+                    if(controller.curentStepEdit.value < 2) {             
+                      controller.curentStepEdit.value = controller.curentStepEdit.value + 1;
+                      print("current step: ${controller.curentStepEdit.value}");
+                    }
+                  },
+                )
+              ),
+              Step(
+                title: Text(""), 
+                isActive: controller.curentStepEdit.value >= 2,
+                content: Step3PageEdit(
+                  serviceId: widget.serviceId,
+                  service_name: widget.service_name,
+                  description: widget.description,
+                  links: widget.links,
+                  service_charge_in_person: widget.service_charge_in_person,
+                  service_charge_virtual: widget.service_charge_virtual,
+                  duration: widget.duration,
+                  time: widget.time,
+                  date: widget.date,
+                  available_days: widget.available_days,
+                )
+              )
+            ]
           );
         }
       )

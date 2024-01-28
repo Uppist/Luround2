@@ -516,7 +516,7 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
 
                         pw.Text(
-                          'N$discount',
+                          '$discount%',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -984,7 +984,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 padding: pw.EdgeInsets.symmetric(horizontal: 20.w,),
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
-                                  color: PdfColors.blueGrey500, //AppColor.navyBlue,
+                                  color: PdfColors.black, //AppColor.navyBlue,
                                   borderRadius: pw.BorderRadius.circular(7.r)
                                 ),
                                 child: pw.Text(
@@ -1271,7 +1271,7 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
 
                         pw.Text(
-                          'N$discount',
+                          '$discount%',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -1735,7 +1735,7 @@ class FinancialsPdfService extends getx.GetxController {
                                 padding: pw.EdgeInsets.symmetric(horizontal: 20.w,),
                                 height: 40.h,
                                 decoration: pw.BoxDecoration(
-                                  color: PdfColors.blueGrey, //AppColor.navyBlue,
+                                  color: PdfColors.black, //AppColor.navyBlue,
                                   borderRadius: pw.BorderRadius.circular(7.r)
                                 ),
                                 child: pw.Text(
@@ -2023,7 +2023,7 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
 
                         pw.Text(
-                          'N$discount',
+                          '$discount%',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,

@@ -11,7 +11,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
-
+import 'package:dio/dio.dart' as dio;
 
 
 

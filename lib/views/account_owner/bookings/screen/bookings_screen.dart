@@ -378,7 +378,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                           style: GoogleFonts.inter(
                                             color: AppColor.blackColor,
                                             fontSize: 14.sp,
-                                            fontWeight: FontWeight.w500
+                                            fontWeight: FontWeight.w500,
+                                            decoration: TextDecoration.underline,
+                                            decorationColor: AppColor.blackColor
                                           ),
                                         ),
 

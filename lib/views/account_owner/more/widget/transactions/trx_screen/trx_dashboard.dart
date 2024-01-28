@@ -29,6 +29,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
 
   var controller = Get.put(TransactionsController());
   var service = Get.put(WithdrawalService());
+  bool isTapped = false;
 
   void initState(){
     super.initState();
@@ -101,7 +102,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                   children: [
                     InkWell(
                       onTap: () {
-                        toggleAccountBalance(
+                        /*toggleAccountBalance(
                           context: context,
                           onAmountPaidBalance: () {
 
@@ -124,7 +125,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                             /*controller.filterMoneyTypeList('Wallet')
                             .whenComplete(() => Get.back());*/
                           }
-                        );
+                        );*/
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -168,21 +169,44 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 ),
                 SizedBox(height: 60.h,),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Obx(
-                      () {
-                        return Text(
-                          "N${double.parse("${service.totalAmountReceived}")}",
-                          //controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 19.sp,
-                            fontWeight: FontWeight.bold
-                          ),
-                        );
-                      }
+                    Text(
+                      isTapped ? "N${double.parse("${service.totalAmountReceived}")}" : "****",
+                      //controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 19.sp,
+                        fontWeight: FontWeight.bold
+                      ),
                     ),
+
+                    InkWell(
+                      onTap: () {
+
+                        setState(() {
+                          isTapped = !isTapped;
+                        });
+                        
+                        if(isTapped) {
+                          controller.filterMoneyTypeList('Total amount received')
+                            .whenComplete(() {
+                            service.isTotalAmountReceivedCalculated.value
+                            ? print("already calculated")
+                            : service.calculateTotalAmountReceived(); //.whenComplete(() => Get.back());
+                          });
+                        }
+                        
+                      },
+                      child: isTapped ? Icon(
+                        Icons.visibility_outlined,
+                        color: AppColor.whiteTextColor,
+                      ) : Icon(
+                        Icons.visibility_off_outlined,
+                        color: AppColor.whiteTextColor,
+                      ),
+                    )
+
                     /*InkWell(
                       onTap: () {
                         //TODO: Boolean check//

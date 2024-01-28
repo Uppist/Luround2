@@ -8,6 +8,7 @@ import 'package:luround/models/account_owner/user_services/user_service_response
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dio;
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
@@ -253,14 +254,14 @@ class FinancialsService extends getx.GetxController {
 
     isLoading.value = true;
 
-    var body = {};
+    //var body = {};
 
     try {
-      http.Response res = await baseService.httpDelete(endPoint: "quotes/delete-quote?quote_id=$quote_id", body: body);
+      dio.Response res = await baseService.deleteRequestWithDio(endPoint: "quotes/delete-quote?quote_id=$quote_id",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         debugPrint("quote deleted by id successfully from database");
 
         //success snackbar
@@ -272,14 +273,13 @@ class FinancialsService extends getx.GetxController {
       } 
       else {
         isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete quote ${res.body}"
+          message: "failed to delete quote ${res.data}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -895,11 +895,11 @@ class FinancialsService extends getx.GetxController {
     var body = {};
 
     try {
-      http.Response res = await baseService.httpDelete(endPoint: "invoice/delete-invoice?invoice_id=$invoice_id", body: body);
+      dio.Response res = await baseService.deleteRequestWithDio(endPoint: "invoice/delete-invoice?invoice_id=$invoice_id",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         debugPrint("invoice deleted by id successfully from database");
 
         //success snackbar
@@ -911,14 +911,13 @@ class FinancialsService extends getx.GetxController {
       } 
       else {
         isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete invoice ${res.body}"
+          message: "failed to delete invoice ${res.data}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -1325,11 +1324,11 @@ class FinancialsService extends getx.GetxController {
     var body = {};
 
     try {
-      http.Response res = await baseService.httpDelete(endPoint: "receipt/delete-receipt?receiptId=$receipt_id", body: body);
+      dio.Response res = await baseService.deleteRequestWithDio(endPoint: "receipt/delete-receipt?receiptId=$receipt_id");
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         debugPrint("receipt deleted by id successfully from database");
 
         //success snackbar
@@ -1341,14 +1340,13 @@ class FinancialsService extends getx.GetxController {
       } 
       else {
         isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete receipt ${res.body}"
+          message: "failed to delete receipt ${res.data}"
         ).whenComplete(() => getx.Get.back());
       }
     } 

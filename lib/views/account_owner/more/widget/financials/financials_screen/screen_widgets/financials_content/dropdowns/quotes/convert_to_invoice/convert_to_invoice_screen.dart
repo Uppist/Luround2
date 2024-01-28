@@ -325,7 +325,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Grand total:",
+                              "Quote Grand Total:",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor.withOpacity(0.6),
                                 fontSize: 12.sp,
@@ -551,7 +551,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Subtotal",
+                              "Invoice Subtotal",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor.withOpacity(0.6),
                                 fontSize: 14.sp,
@@ -603,7 +603,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                                 );
 
                               },
-                              hintText: "Enter due date",
+                              hintText: "Enter Discount",
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
                             )
@@ -652,7 +652,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Total",
+                              "Invoice Grand Total",
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor.withOpacity(0.6),
                                 fontSize: 14.sp,

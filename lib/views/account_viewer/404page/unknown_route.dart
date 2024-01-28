@@ -27,7 +27,7 @@ class UnknownPage extends StatelessWidget {
             width: double.infinity,
             height: 7.h,
           ),
-          SizedBox(height: 130.h,),
+          SizedBox(height: 150.h,),
           SvgPicture.asset('assets/svg/profile_empty.svg'),
           SizedBox(height: 30.h,),
           Text(
@@ -41,7 +41,8 @@ class UnknownPage extends StatelessWidget {
             )
           ),
           SizedBox(height: 20.h,),
-          Center(
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             child: RichText(
               text: TextSpan(
                 children: [
@@ -66,7 +67,7 @@ class UnknownPage extends StatelessWidget {
                     )
                   ),
                   TextSpan(
-                    text:'back to your\n          luround profile',
+                    text:'back to your\n          profile',
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,

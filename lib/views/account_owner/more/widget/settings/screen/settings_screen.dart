@@ -59,13 +59,13 @@ class SettingsScreen extends StatelessWidget {
                     Get.to(() => ChangePasswordScreen());
                   },
                 ),
-                SizedBox(height: 20.h,),
+                /*SizedBox(height: 20.h,),
                 SettingsSelector(
                   text: "Withdrawal PIN management",
                   onFlip: () {
                     Get.to(() => PinManagementOptions());
                   },
-                ),
+                ),*/
                 SizedBox(height: 20.h,),
                 SettingsSelector(
                   text: "Your bank account details",
@@ -84,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
                 SettingsSelector(
                   text: "Customize your URL",
                   onFlip: () {
-                    Get.to(() => CustomizeYourURLPage());
+                    //Get.to(() => CustomizeYourURLPage());
                   },
                 ),
                 SizedBox(height: 20.h,),

@@ -140,7 +140,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               Text(
-                quote_date,
+                due_date,
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,

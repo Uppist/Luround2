@@ -4,6 +4,7 @@ import 'package:get/get.dart' as getx;
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dio;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 
@@ -45,11 +46,11 @@ class InvoicePaymentService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPut(endPoint: "invoice/add-invoice-payment-detail?invoiceId=$invoice_id", body: body);
+      dio.Response res = await baseService.putRequestWithDio(endPoint: "invoice/add-invoice-payment-detail?invoiceId=$invoice_id", data: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         debugPrint("invoice marked as paid successfully");
         amountTextController.clear();
 
@@ -62,15 +63,14 @@ class InvoicePaymentService extends getx.GetxController {
       } 
       else {
         isLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.data}');
         amountTextController.clear();
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to mark invoice as 'paid': ${res.body}"
+          message: "failed to mark invoice as 'paid': ${res.data}"
         ).whenComplete(() => getx.Get.back());
       }
     } 

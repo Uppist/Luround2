@@ -11,8 +11,9 @@ import 'package:luround/utils/components/converters.dart';
 import 'dart:math';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
-import "package:pdf/pdf.dart";
+//import 'package:syncfusion_flutter_pdf/pdf.dart';
 import "package:pdf/widgets.dart" as pw;
+import "package:pdf/pdf.dart";
 import 'package:share_plus/share_plus.dart';
 
 
@@ -31,10 +32,15 @@ class FinancialsPdfService extends getx.GetxController {
 
   
   //CREATE THE PDF DOCUMENT INSTANCE
-  final pdf = pw.Document();
+  final pdfQ = pw.Document(
+    pageMode: PdfPageMode.outlines
+  );
+  final pdfI = pw.Document();
+  final pdfR = pw.Document();
 
   //WRITE THE QUOTE PDF
   Future writeQuotePdf({
+    //required BuildContext context,
     required String tracking_id,
     required String sender_phone_number,
     required String sender_address,
@@ -48,17 +54,19 @@ class FinancialsPdfService extends getx.GetxController {
     required String subtotal,
     required String discount,
     required String vat,
-    required String note
-    //more to be added
+    required String note,
     }) async{
-    pdf.addPage(
-      pw.Page(
+
+    pdfQ.addPage(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),
         build: (pw.Context context) {
-
-          return pw.Column(
+        
+          
+          return [
+            pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
             children: [
               pw.Row(
@@ -629,7 +637,9 @@ class FinancialsPdfService extends getx.GetxController {
               )
 
             ]
-          );
+          )
+          
+          ];
 
         }
       )
@@ -682,7 +692,7 @@ class FinancialsPdfService extends getx.GetxController {
       file.value = File(fullDocPath);
       debugPrint("file: ${file.value}");
       if (file != null) {
-        final Uint8List bytes = await pdf.save();
+        final Uint8List bytes = await pdfQ.save();
         file.value!.writeAsBytes(bytes, flush: true);
         showMySnackBar(
           context: context,
@@ -758,7 +768,7 @@ class FinancialsPdfService extends getx.GetxController {
       file2.value = File(fullDocPath);
       debugPrint("file: ${file2.value}");
       if (file2 != null) {
-        final Uint8List bytes = await pdf.save();
+        final Uint8List bytes = await pdfQ.save();
         file2.value!.writeAsBytes(bytes, flush: true);
         showMySnackBar(
           context: context,
@@ -809,14 +819,16 @@ class FinancialsPdfService extends getx.GetxController {
     required String note
     //more to be added
     }) async{
-    pdf.addPage(
-      pw.Page(
+
+    pdfI.addPage(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),
         build: (pw.Context context) {
 
-          return pw.Column(
+          return [
+            pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
             children: [
               pw.Row(
@@ -1383,9 +1395,11 @@ class FinancialsPdfService extends getx.GetxController {
                 )
               )
 
+            
             ]
-          );
-
+          )
+          ];
+    
         }
       )
     );
@@ -1437,7 +1451,7 @@ class FinancialsPdfService extends getx.GetxController {
       file3.value = File(fullDocPath);
       debugPrint("file: ${file3.value}");
       if (file3 != null) {
-        final Uint8List bytes = await pdf.save();
+        final Uint8List bytes = await pdfI.save();
         file3.value!.writeAsBytes(bytes, flush: true);
         showMySnackBar(
           context: context,
@@ -1512,7 +1526,7 @@ class FinancialsPdfService extends getx.GetxController {
       file4.value = File(fullDocPath);
       debugPrint("file: ${file4.value}");
       if (file4 != null) {
-        final Uint8List bytes = await pdf.save();
+        final Uint8List bytes = await pdfI.save();
         file4.value!.writeAsBytes(bytes, flush: true);
         showMySnackBar(
           context: context,
@@ -1560,14 +1574,15 @@ class FinancialsPdfService extends getx.GetxController {
     required String note
     //more to be added
     }) async{
-    pdf.addPage(
-      pw.Page(
+    pdfR.addPage(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),
         build: (pw.Context context) {
 
-          return pw.Column(
+          return [
+            pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
             children: [
               pw.Row(
@@ -2137,7 +2152,8 @@ class FinancialsPdfService extends getx.GetxController {
               )
 
             ]
-          );
+          )
+          ];
 
         }
       )
@@ -2191,7 +2207,7 @@ class FinancialsPdfService extends getx.GetxController {
       file6.value = File(fullDocPath);
       debugPrint("file: ${file6.value}");
       if (file6 != null) {
-        final Uint8List bytes = await pdf.save();
+        final Uint8List bytes = await pdfR.save();
         file6.value!.writeAsBytes(bytes, flush: true);
         showMySnackBar(
           context: context,
@@ -2266,7 +2282,7 @@ class FinancialsPdfService extends getx.GetxController {
       file5.value = File(fullDocPath);
       debugPrint("file: ${file5.value}");
       if (file5 != null) {
-        final Uint8List bytes = await pdf.save();
+        final Uint8List bytes = await pdfR.save();
         file5.value!.writeAsBytes(bytes, flush: true);
         showMySnackBar(
           context: context,

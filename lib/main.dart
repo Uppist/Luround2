@@ -156,8 +156,6 @@ class _MainAppState extends State<MainApp> {
           ),
         ],*/
 
-        //token == null  //authService.isTokenExpired(tokenExpDate)
-
         home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
         supportedLocales: const [
           Locale('en'),

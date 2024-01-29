@@ -107,6 +107,7 @@ class AccViewerServicesController extends getx.GetxController {
   
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> selectFile(BuildContext context) async {
+    
     /*try {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
@@ -115,7 +116,7 @@ class AccViewerServicesController extends getx.GetxController {
         await uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote.value);
         isFileSelected.value = true;
         update();
-      }
+      }*
     }
     catch (e) {
       debugPrint("Error Picking Image From Gallery: $e");

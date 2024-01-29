@@ -78,7 +78,7 @@ class LoginWithGoogleWidget extends StatelessWidget {
                 Image.asset("assets/images/g_icon.png"),
                 SizedBox(width: 15.w,),
                 Text(
-                  "Login with Google",
+                  "Log in with Google",
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.darkGreyColor,

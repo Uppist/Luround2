@@ -229,7 +229,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "welcome back",
+          message: "login in successful",
         );
       } 
       else {
@@ -461,7 +461,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "welcome onboard"
+          message: "log in successful"
         );
 
       } 

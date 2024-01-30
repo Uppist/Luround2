@@ -140,6 +140,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                     TextButton(
                                       onPressed: () {
                                         Get.to(() => AccViewerReviewsPage(
+                                          userId: data.id,
                                           userName: data.displayName,
                                           photoUrl: data.photoUrl,
                                         ));

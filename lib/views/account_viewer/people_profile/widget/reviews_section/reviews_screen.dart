@@ -24,9 +24,10 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class AccViewerReviewsPage extends StatelessWidget {
-  AccViewerReviewsPage({super.key, required this.userName, required this.photoUrl});
+  AccViewerReviewsPage({super.key, required this.userName, required this.photoUrl, required this.userId});
   final String userName;
   final String photoUrl;
+  final String userId;
 
   var controller = Get.put(ProfilePageAccViewerController());
   var service = Get.put(AccViewerService());
@@ -87,6 +88,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Get.to(() => WriteReviewsPage(
+                              userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,
                             ));

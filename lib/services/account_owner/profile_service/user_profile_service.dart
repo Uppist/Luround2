@@ -751,7 +751,7 @@ class AccOwnerProfileService extends getx.GetxController {
   Future<List<ReviewResponse>> getUserReviews() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "reviews/service-reviews?serviceId=6572c7f714b0a81bd0de3c88",);
+      http.Response res = await baseService.httpGet(endPoint: "reviews/user-reviews?userId=$userId",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

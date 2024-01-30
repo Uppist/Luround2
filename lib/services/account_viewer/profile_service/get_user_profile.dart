@@ -179,6 +179,7 @@ class AccViewerProfileService extends getx.GetxController {
 
   ////[TO MAKE AN EXTERNAL USER WRITE REVIEW]//////// remove service
   Future<void> addReview({
+    required String userId,
     required BuildContext context,
     required double rating,
     required String comment,
@@ -192,7 +193,7 @@ class AccViewerProfileService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "reviews/add-review?serviceId=6572c7f714b0a81bd0de3c88", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "reviews/add-review?userId=$userId", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

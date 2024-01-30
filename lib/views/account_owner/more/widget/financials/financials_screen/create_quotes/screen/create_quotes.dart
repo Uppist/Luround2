@@ -377,6 +377,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 return AddedServicesTile(
                                   onTap: (){
                                     Get.to(() => ViewAddedServiceDetails(
+                                      service_id: item['service_id'],
                                       service_name: item['service_name'],
                                       //service_id: item['serviceID'],
                                       service_description: item['description'],

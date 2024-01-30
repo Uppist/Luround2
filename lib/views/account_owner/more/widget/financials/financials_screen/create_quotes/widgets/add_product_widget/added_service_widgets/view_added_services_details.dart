@@ -14,8 +14,9 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ViewAddedServiceDetails extends StatefulWidget {
-  ViewAddedServiceDetails({super.key, required this.duration, required this.service_description, required this.index, required this.service_name, required this.discount, required this.total, required this.meeting_type, required this.rate, required this.discounted_total,});
+  ViewAddedServiceDetails({super.key, required this.duration, required this.service_description, required this.index, required this.service_name, required this.discount, required this.total, required this.meeting_type, required this.rate, required this.discounted_total, required this.service_id,});
   final String service_name;
+  final String service_id;
   final String service_description;
   final String meeting_type;
   final String rate;
@@ -78,6 +79,9 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                               onTap: () {
                                 //double vatCalc = double.parse(finService.rateForQuote.value.isEmpty ? widget.rate : finService.rateForQuote.value) * 0.075;
                                 finService.editProductForCreatingQuote(
+                                  service_id: widget.service_id,
+                                  booking_user_email: controller.quoteClientEmailController.text,
+                                  booking_user_name: controller.quoteClientNameController.text,
                                   vat: (double.parse(finService.rateForQuote.value.isEmpty ? widget.rate : finService.rateForQuote.value) * 0.075).toString(),
                                   index: widget.index,
                                   service_name: widget.service_name,

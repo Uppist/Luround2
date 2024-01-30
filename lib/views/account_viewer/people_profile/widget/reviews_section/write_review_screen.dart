@@ -20,9 +20,10 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class WriteReviewsPage extends StatefulWidget {
-  WriteReviewsPage({super.key, required this.photoUrl, required this.userName});
+  WriteReviewsPage({super.key, required this.photoUrl, required this.userName, required this.userId});
   final String photoUrl;
   final String userName;
+  final String userId;
 
   @override
   State<WriteReviewsPage> createState() => _WriteReviewsPageState();
@@ -55,6 +56,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
           InkWell(
             onTap: () {
               service.addReview(
+                userId: widget.userId,
                 context: context, 
                 rating: controller.rating.value, 
                 comment: controller.reviewController.value.text

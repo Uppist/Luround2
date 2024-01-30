@@ -199,8 +199,11 @@ class FinancialsService extends getx.GetxController {
   Future<void> editProductForCreatingQuote({
     required BuildContext context,
     required String service_name,
+    required String service_id,
     required String discount,
     required String service_description,
+    required String booking_user_email,
+    required String booking_user_name,
     required String rate,
     required String duration,
     required String meetingType,
@@ -229,6 +232,10 @@ class FinancialsService extends getx.GetxController {
       selectedQuotebslist[index]["location"] = "location depends on this :$meetingType";
       selectedQuotebslist[index]["message"] = "non";
       selectedQuotebslist[index]["phone_number"] = "non";
+      selectedInvoicebslist[index]["service_id"] = service_id;
+      selectedInvoicebslist[index]["service_name"] = service_name;
+      selectedInvoicebslist[index]["booking_user_email"] = booking_user_email;  //serviceID
+      selectedInvoicebslist[index]['booking_user_name'] = booking_user_name;
 
 
       //success snackbar
@@ -695,13 +702,14 @@ class FinancialsService extends getx.GetxController {
       selectedInvoicebslist[index]["total"] = total;
       selectedInvoicebslist[index]["appointment_type"] = appointmentType;
       selectedInvoicebslist[index]["rate"] = rate;
-      selectedInvoicebslist[index]["serviceID"] = service_id;  //serviceID
+      selectedInvoicebslist[index]["service_id"] = service_id;  //serviceID
       selectedInvoicebslist[index]['vat'] = vat;
       //invoice gets converted to bookings according to somto
       //these below corresponds to bookings
       selectedInvoicebslist[index]["message"] = "(non)";
-      selectedInvoicebslist[index]["location"] = "location depends on this :$appointmentType";
+      selectedInvoicebslist[index]["location"] = "location depends on => $appointmentType";
       selectedInvoicebslist[index]["phone_number"] = phone_number;
+      selectedInvoicebslist[index]["service_name"] = service_name;
       selectedInvoicebslist[index]["booking_user_email"] = booking_user_email;  //serviceID
       selectedInvoicebslist[index]['booking_user_name'] = booking_user_name;
       

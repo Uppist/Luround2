@@ -120,7 +120,7 @@ class ViewSentQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            service_provider['email'],
+                            service_provider['email'] ?? "non",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,
@@ -129,7 +129,7 @@ class ViewSentQuoteScreen extends StatelessWidget {
                           ),
                           SizedBox(height: 10.h,),
                           Text(
-                            service_provider['phone_number'],
+                            service_provider['phone_number'] ?? "non",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor.withOpacity(0.6),
                               fontSize: 12.sp,

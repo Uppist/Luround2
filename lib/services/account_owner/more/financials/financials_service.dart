@@ -415,8 +415,8 @@ class FinancialsService extends getx.GetxController {
         //decode the response body here
         final dynamic response = jsonDecode(res.body);
         int quote_id = response['quote_id'];
-        String address = response['service_provider_address'];
-        String phone_number = response['service_provider_phone_number'];
+        String address = response['service_provider_address'] ?? "non";
+        String phone_number = response['service_provider_phone_number'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareQuotePDF(
           sender_address: address,
@@ -683,7 +683,6 @@ class FinancialsService extends getx.GetxController {
     required int index,
     required String booking_user_email,
     required String booking_user_name,
-
     //invoice gets converted to bookings according to somto
     //these below corresponds to bookings
     required String phone_number,  //put client phone number
@@ -712,8 +711,6 @@ class FinancialsService extends getx.GetxController {
       selectedInvoicebslist[index]["service_name"] = service_name;
       selectedInvoicebslist[index]["booking_user_email"] = booking_user_email;  //serviceID
       selectedInvoicebslist[index]['booking_user_name'] = booking_user_name;
-      
-
 
       //success snackbar
       showMySnackBar(
@@ -842,8 +839,8 @@ class FinancialsService extends getx.GetxController {
         //decode the response body here
         final dynamic response = jsonDecode(res.body);
         int invoice_id = response['invoice_id'];
-        String address = response['service_provider_address'];
-        String phone_number = response['service_provider_phone_number'];
+        String address = response['service_provider_address'] ?? "non";
+        String phone_number = response['service_provider_phone_number'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
           sender_address: address,
@@ -1194,8 +1191,8 @@ class FinancialsService extends getx.GetxController {
         //decode the response body here
         final dynamic response = jsonDecode(res.body);
         int receipt_id = response['receipt_id'];
-        String address = response['service_provider_address'];
-        String phone_number = response['service_provider_phone_number'];
+        String address = response['service_provider_address'] ?? "non";
+        String phone_number = response['service_provider_phone_number'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareReceiptPDF(
           sender_address: address,

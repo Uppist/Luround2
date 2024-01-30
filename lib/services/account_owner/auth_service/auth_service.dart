@@ -104,7 +104,9 @@ class AuthService extends getx.GetxController {
           await LocalStorage.saveUserID(userId);
           await LocalStorage.saveEmail(email);
           await LocalStorage.saveUsername(displayName);
-          await generateQrLink(urlSlug: email);
+
+          //await generateQrLink(urlSlug: email);
+
           //isLoading.value = false;
           getx.Get.offAll(() => MainPage());
           showMySnackBar(
@@ -221,7 +223,7 @@ class AuthService extends getx.GetxController {
           print("Failed to decode JWT token.");
         }
         //
-        await generateQrLink(urlSlug: email);
+        //await generateQrLink(urlSlug: email);
         //
         isLoading.value = false;
         getx.Get.offAll(() => MainPage());
@@ -455,7 +457,7 @@ class AuthService extends getx.GetxController {
           print("Failed to decode JWT token.");
         }
         //generate grlink
-        await generateQrLink(urlSlug: email);
+        //await generateQrLink(urlSlug: email);
         //move with agility to the next page
         getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
         showMySnackBar(

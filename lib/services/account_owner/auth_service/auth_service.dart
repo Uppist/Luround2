@@ -229,7 +229,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "login in successful",
+          message: "login successful",
         );
       } 
       else {

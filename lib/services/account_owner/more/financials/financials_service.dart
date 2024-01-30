@@ -674,6 +674,8 @@ class FinancialsService extends getx.GetxController {
     required String appointmentType,
     required String vat,
     required int index,
+    required String booking_user_email,
+    required String booking_user_name,
 
     //invoice gets converted to bookings according to somto
     //these below corresponds to bookings
@@ -700,6 +702,8 @@ class FinancialsService extends getx.GetxController {
       selectedInvoicebslist[index]["message"] = "(non)";
       selectedInvoicebslist[index]["location"] = "location depends on this :$appointmentType";
       selectedInvoicebslist[index]["phone_number"] = phone_number;
+      selectedInvoicebslist[index]["booking_user_email"] = booking_user_email;  //serviceID
+      selectedInvoicebslist[index]['booking_user_name'] = booking_user_name;
       
 
 
@@ -1365,6 +1369,8 @@ class FinancialsService extends getx.GetxController {
   //CONVERT QUOTE TO INVOICE STUFFS
   final TextEditingController ctvdueDateController  = TextEditingController();
   final TextEditingController ctvdiscountController  = TextEditingController();
+  final TextEditingController ctvnoteController  = TextEditingController();
+
   //reactives (clear them after use so other indices in the list can use them)
   var reactiveCTVVAT = "".obs;
   var reactiveCTVGrandTotal = "".obs;
@@ -1380,8 +1386,9 @@ class FinancialsService extends getx.GetxController {
 
     // Calculate the new total after the discount has been subtracted from it
     double grandTotal = subtotalValue - calculatedDiscount;
-    reactiveCTVGrandTotal.value = grandTotal.toString();
-    reactiveCTVVAT.value = (0.075 * grandTotal).toString();
+    double grandVat = 0.075 * grandTotal;
+    reactiveCTVGrandTotal.value = (grandTotal + grandVat).toString();
+    reactiveCTVVAT.value = grandVat.toString();
     debugPrint("Calculated Discount: $calculatedDiscount");
     debugPrint("New CTV Grand Total: ${reactiveCTVGrandTotal.value}");
     debugPrint("New CTV VAT: ${reactiveCTVVAT.value}");

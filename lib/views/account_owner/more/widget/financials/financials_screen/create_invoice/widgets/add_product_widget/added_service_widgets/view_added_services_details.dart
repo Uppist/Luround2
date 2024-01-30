@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
@@ -33,7 +34,7 @@ class ViewAddedServiceDetailsForInvoice extends StatefulWidget {
 }
 
 class _ViewAddedServiceDetailsForInvoiceState extends State<ViewAddedServiceDetailsForInvoice> {
-  //var controller = Get.put(FinancialsController());
+  var controller = Get.put(FinancialsController());
   var finService = Get.put(FinancialsService());
 
   @override
@@ -77,6 +78,8 @@ class _ViewAddedServiceDetailsForInvoiceState extends State<ViewAddedServiceDeta
                         InkWell(
                           onTap: () {
                             finService.editProductForInvoiceCreation(
+                              booking_user_name: controller.invoiceClientNameController.text.isNotEmpty ? controller.invoiceClientNameController.text : "no entry", 
+                              booking_user_email: controller.invoiceClientEmailController.text.isNotEmpty ? controller.invoiceClientEmailController.text : "no entry",
                               context: context, 
                               service_name: widget.service_name, 
                               service_description: finService.serviceDescriptionForInvoice.text.isEmpty ? widget.service_description : finService.serviceDescriptionForInvoice.text, 

@@ -8,7 +8,9 @@ import 'package:luround/services/account_owner/more/financials/financials_pdf_se
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/textfield_tool.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/convert_to_invoice/ctv_textfield.dart';
 
 
@@ -725,14 +727,18 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                               ?Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: 10.h,),
-                                  Text(
-                                    widget.note,
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.darkGreyColor,
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w400
-                                    ),
+                                  SizedBox(height: 20.h,),
+                                  UtilsTextField2(
+                                    initialValue: widget.note,
+                                    onChanged: (val) {
+                                      setState(() {
+                                        service.ctvnoteController.text = val;
+                                        debugPrint(service.ctvnoteController.text);
+                                      });
+                                    },                    
+                                    hintText: "Write a short note for the recipient.",
+                                    keyboardType: TextInputType.text,
+                                    textInputAction: TextInputAction.done,
                                   ),
                                 ],
                               )
@@ -757,7 +763,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
                             client_phone_number: widget.phone_number,
-                            note: widget.note,
+                            note: service.ctvnoteController.text.isNotEmpty ? service.ctvnoteController.text : widget.note,
                             invoice_date: widget.qoute_date, 
                             due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
 
@@ -776,7 +782,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
                             client_phone_number: widget.phone_number,
-                            note: widget.note,
+                            note: service.ctvnoteController.text.isNotEmpty ? service.ctvnoteController.text : widget.note,
                             invoice_date: widget.qoute_date, 
                             due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
 
@@ -807,7 +813,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             subtotal: widget.sub_total,
                             discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
                             vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
-                            note: widget.note,
+                            note: service.ctvnoteController.text.isNotEmpty ? service.ctvnoteController.text : widget.note,
                             grand_total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
                             serviceList: widget.product_details,
                           ).whenComplete(() {

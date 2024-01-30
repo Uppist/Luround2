@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
@@ -57,6 +58,8 @@ class FinancialsPdfService extends getx.GetxController {
     required String note,
     }) async{
 
+    final Uint8List logoImage = (await rootBundle.load('assets/images/luround_logo.png')).buffer.asUint8List();
+
     pdfQ.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
@@ -64,7 +67,6 @@ class FinancialsPdfService extends getx.GetxController {
         margin: pw.EdgeInsets.all(32.sp),
         build: (pw.Context context) {
         
-          
           return [
             pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
@@ -77,6 +79,12 @@ class FinancialsPdfService extends getx.GetxController {
                     fit: pw.BoxFit.contain
                   ),
                   //pw.FlutterLogo(),
+                  /*pw.Container(
+                      child: pw.Image(PdfImage.file(
+                      pdf.document,
+                      bytes: logoImage,
+                    )),
+                  ),*/
 
                   pw.Text(
                     "Quote",

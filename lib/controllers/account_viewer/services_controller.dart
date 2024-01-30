@@ -116,7 +116,7 @@ class AccViewerServicesController extends getx.GetxController {
         await uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote.value);
         isFileSelected.value = true;
         update();
-      }*
+      }
     }
     catch (e) {
       debugPrint("Error Picking Image From Gallery: $e");
@@ -128,6 +128,7 @@ class AccViewerServicesController extends getx.GetxController {
       );
     }*/
   }
+
 
 
   getx.RxString fileUrl = "".obs;

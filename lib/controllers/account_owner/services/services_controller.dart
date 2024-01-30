@@ -190,7 +190,7 @@ class ServicesController extends getx.GetxController {
     }
   }*/
 
-  Future<void> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async{
+  Future<List<String>> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async{
     final DateFormat format = DateFormat('h:mm a');
     DateTime earliest = parseTimeString(earliestTime);
     DateTime latest = parseTimeString(latestTime);
@@ -202,15 +202,17 @@ class ServicesController extends getx.GetxController {
     availableTime.add(earliestTime);
 
     // Calculate intervals until the latest time
-    DateTime current = earliest.add(interval);
-    while (current.isBefore(latest)) {
-      availableTime.add(format.format(current));
-      current = current.add(interval);
+    // Include the latest time in the intervals list
+    while (earliest.add(interval).isBefore(latest)) {
+      earliest = earliest.add(interval);
+      availableTime.add(format.format(earliest));
     }
+    print("available_ time_: $availableTime");
+    return availableTime;
+
 
     // Add the latest time
-    availableTime.add(latestTime);
-    print("available_ time_: $availableTime");
+    //availableTime.add(latestTime);
   }
 
 

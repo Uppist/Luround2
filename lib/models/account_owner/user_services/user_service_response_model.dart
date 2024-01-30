@@ -73,8 +73,8 @@ class UserServiceModel {
     //added
     _data["message"] = "no message";
     _data["location"] = "no location";
-    _data["booking_user_email"] = "client email";
-    _data["booking_user_name"] = "client name";
+    _data["email"] = "client email";
+    _data["displayName"] = "client name";
     _data['phone_number'] = "no phone number";
     return _data;
   }

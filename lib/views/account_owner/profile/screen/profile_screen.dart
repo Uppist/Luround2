@@ -560,7 +560,25 @@ class _ProfilePageState extends State<ProfilePage> {
               color: AppColor.greyColor
             ),
             width: double.infinity,
-            child: QrImageView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "coming soon",
+                  style: GoogleFonts.inter(
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.normal,
+                    color: AppColor.redColor
+                  ),
+                ),
+                SizedBox(height: 5.h,),
+                Image.asset(
+                  "assets/images/qrcode.png",
+                  fit: BoxFit.contain,
+                ),
+              ],
+            )
+            /*QrImageView(
               data: data.luround_url,
               version: QrVersions.auto,
               size: 170.w,
@@ -574,7 +592,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 );
               },
-            ),
+            ),*/
           );
         }
         return Center(

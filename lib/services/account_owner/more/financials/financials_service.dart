@@ -234,8 +234,8 @@ class FinancialsService extends getx.GetxController {
       selectedQuotebslist[index]["phone_number"] = "non";
       selectedInvoicebslist[index]["service_id"] = service_id;
       selectedInvoicebslist[index]["service_name"] = service_name;
-      selectedInvoicebslist[index]["booking_user_email"] = booking_user_email;  //serviceID
-      selectedInvoicebslist[index]['booking_user_name'] = booking_user_name;
+      selectedInvoicebslist[index]["email"] = booking_user_email;  //serviceID
+      selectedInvoicebslist[index]['displayName'] = booking_user_name;
 
 
       //success snackbar
@@ -709,8 +709,8 @@ class FinancialsService extends getx.GetxController {
       selectedInvoicebslist[index]["location"] = "location depends on => $appointmentType";
       selectedInvoicebslist[index]["phone_number"] = phone_number;
       selectedInvoicebslist[index]["service_name"] = service_name;
-      selectedInvoicebslist[index]["booking_user_email"] = booking_user_email;  //serviceID
-      selectedInvoicebslist[index]['booking_user_name'] = booking_user_name;
+      selectedInvoicebslist[index]["email"] = booking_user_email;  //serviceID
+      selectedInvoicebslist[index]['displayName'] = booking_user_name;
 
       //success snackbar
       showMySnackBar(

@@ -27,7 +27,7 @@ class UnknownPage extends StatelessWidget {
             width: double.infinity,
             height: 7.h,
           ),
-          SizedBox(height: 150.h,),
+          SizedBox(height: 160.h,),
           SvgPicture.asset('assets/svg/profile_empty.svg'),
           SizedBox(height: 30.h,),
           Text(
@@ -40,34 +40,14 @@ class UnknownPage extends StatelessWidget {
               )
             )
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(height: 30.h,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.w),
+            padding: EdgeInsets.symmetric(horizontal: 60.w),
             child: RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"      Append /#/profile/'your_username' to the domain",
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500
-                      )
-                    )
-                  ),
-                  TextSpan(
-                    text:' to "Redirect" ',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500
-                      )
-                    )
-                  ),
-                  TextSpan(
-                    text:'back to your profile',
+                    text:"      This is an unknown route",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,
@@ -132,11 +112,11 @@ class NoLaptopView extends StatelessWidget {
             width: double.infinity,
             height: 7.h,
           ),
-          SizedBox(height: 150.h,),
+          SizedBox(height: 160.h,),
           SvgPicture.asset('assets/svg/profile_empty.svg'),
           SizedBox(height: 30.h,),
           Text(
-            'Tablet/Desktop view not available',
+            'Desktop/Tablet view not available',
             style: GoogleFonts.inter(
               textStyle: TextStyle(
                 color: AppColor.blackColor,
@@ -145,34 +125,14 @@ class NoLaptopView extends StatelessWidget {
               )
             )
           ),
-          SizedBox(height: 20.h,),
+          SizedBox(height: 30.h,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 40.w),
+            padding: EdgeInsets.symmetric(horizontal: 60.w),
             child: RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"      we currently do not have",
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500
-                      )
-                    )
-                  ),
-                  TextSpan(
-                    text:' "Tablet/Desktop" ',
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w500
-                      )
-                    )
-                  ),
-                  TextSpan(
-                    text:'view enabled at the moment. please endeavour to view with mobile',
+                    text:"      please endeavour to view with mobile",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,

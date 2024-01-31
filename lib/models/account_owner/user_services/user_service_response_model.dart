@@ -75,7 +75,7 @@ class UserServiceModel {
     _data["email"] = "client email";
     _data["displayName"] = "client name";
     _data['date'] = date;
-    _data['phone_number'] = "no phone number";
+    _data['phone_number'] = "";
     return _data;
   }
   

@@ -168,7 +168,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(20.r),
             ),
             onPressed: () {
-              shareProfileLink(link: data.luround_url);
+              shareProfileLink(link: editedUrl);
             },
             label: Text(
               'Share Profile',

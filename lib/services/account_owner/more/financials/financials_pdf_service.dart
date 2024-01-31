@@ -57,8 +57,11 @@ class FinancialsPdfService extends getx.GetxController {
     required String vat,
     required String note,
     }) async{
-
-    final Uint8List logoImage = (await rootBundle.load('assets/images/luround_logo.png')).buffer.asUint8List();
+    
+    //image
+    ByteData _bytes = await rootBundle.load('assets/images/luround_logo.png');
+    Uint8List logobytes = _bytes.buffer.asUint8List();
+    //final Uint8List logoImage = (await rootBundle.load('assets/images/luround_logo.png')).buffer.asUint8List();
 
     pdfQ.addPage(
       pw.MultiPage(
@@ -79,13 +82,6 @@ class FinancialsPdfService extends getx.GetxController {
                     fit: pw.BoxFit.contain
                   ),
                   //pw.FlutterLogo(),
-                  /*pw.Container(
-                      child: pw.Image(PdfImage.file(
-                      pdf.document,
-                      bytes: logoImage,
-                    )),
-                  ),*/
-
                   pw.Text(
                     "Quote",
                     style: pw.TextStyle(

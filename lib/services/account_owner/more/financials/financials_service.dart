@@ -476,7 +476,7 @@ class FinancialsService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?email=$user_email",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

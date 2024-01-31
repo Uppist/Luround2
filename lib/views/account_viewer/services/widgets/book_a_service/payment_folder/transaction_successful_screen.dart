@@ -38,78 +38,106 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: 30.h),
+              //SizedBox(height: 20.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
                 height: 7.h,
               ),
-              //SizedBox(height: 20,),
-
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(height: 200.h,),
-                    //
-                    //Lottie.asset("assets/lottie/my_g.json"),
-                    SvgPicture.asset(
-                      "assets/svg/check_ss.svg",
-                      height: 110.h,
-                      width: 110.w,
-                    ),
-                    SizedBox(height: 50.h,),
-                    Text(
-                      "Booking Made",
-                      style: GoogleFonts.inter(
-                        color: AppColor.darkGreyColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    SizedBox(height: 20.h,),
-                    
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 40.w,),
-                      child: Text(
-                        "You'll receive a confirmation email when your booking has been \nconfirmed by service provider",
-                        style: GoogleFonts.inter(
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.darkGreyColor
-                        )
-                      ),
-                    ),
-                        
-
-                    SizedBox(height: 60.h,),
-                    //okay button
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 60.w),
-                      child: RebrandedReusableButton(
-                        textColor: AppColor.bgColor,
-                        color: AppColor.mainColor, 
-                        text: "Okay", 
-                        onPressed: () {
-                          //signMeUpBottomSheet(context: context);
-                          //.then((value) => Get.offAll(() => MainPageAccViewer()));
-                          Get.offAll(() => MainPageAccViewer());
-                          //Get.offAllNamed("/profile/");
-                        }
-                      ),
-                    ),
-                    SizedBox(height: 200.h,),
-
-                  ],
+              SizedBox(height: 60.h,),
+              Icon(
+                CupertinoIcons.check_mark_circled,
+                color: Colors.blue,
+                size: 200.r,
+              ),
+              /*SvgPicture.asset(
+                "assets/svg/check_ss.svg",
+                height: 110.h,
+                width: 110.w,
+              ),*/
+              SizedBox(height: 60.h,),
+              Text(
+                "Booking Made",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600
                 ),
               ),
+              SizedBox(height: 30.h,),
+
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:"You'll receive a confirmation email",
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.darkGreyColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      )
+                    ),
+                    TextSpan(
+                      text:' when your booking has been ',
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      )
+                    ),
+                    TextSpan(
+                      text:'confirmed by service provider',
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.darkGreyColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      )
+                    ),
+                  ]
+                )
+              ),
+
+              SizedBox(height: 60.h,),
+              InkWell(
+                onTap: () {
+                  Get.offAll(() => MainPageAccViewer());
+                },
+                child: Container(
+                //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                alignment: Alignment.center,
+                height: 50.h,
+                width: 200.w,
+                decoration: BoxDecoration(
+                  color: AppColor.mainColor,
+                  borderRadius: BorderRadius.circular(10.r),
+                  border: Border.all(
+                    color: AppColor.mainColor
+                  )
+                ),
+                child: Text(
+                  "Okay",
+                  style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                      color: AppColor.bgColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    )
+                  )
+                ),
+              )
+            )
     
             ]
           )

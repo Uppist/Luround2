@@ -42,12 +42,12 @@ class UnknownPage extends StatelessWidget {
           ),
           SizedBox(height: 30.h,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 60.w),
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             child: RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"      This is an unknown route",
+                    text:"  This is an unknown route",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,
@@ -127,12 +127,12 @@ class NoLaptopView extends StatelessWidget {
           ),
           SizedBox(height: 30.h,),
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 60.w),
+            padding: EdgeInsets.symmetric(horizontal: 40.w),
             child: RichText(
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text:"      please endeavour to view with mobile",
+                    text:"  please endeavour to view with mobile",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,

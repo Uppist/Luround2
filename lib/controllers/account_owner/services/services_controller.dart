@@ -202,14 +202,14 @@ class ServicesController extends getx.GetxController {
     availableTime.add(earliestTime);
 
     // Calculate intervals until the latest time
-    // Include the latest time in the intervals list
-    while (earliest.add(interval).isBefore(latest)) {
+    // Include the latest time in the intervals list and makes sure it does not loop into the next day
+    while (earliest.add(interval).isBefore(latest) || earliest.add(interval) == latest) {
       earliest = earliest.add(interval);
       availableTime.add(format.format(earliest));
     }
+
     print("available_ time_: $availableTime");
     return availableTime;
-
 
     // Add the latest time
     //availableTime.add(latestTime);

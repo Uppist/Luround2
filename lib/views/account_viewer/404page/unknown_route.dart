@@ -67,7 +67,7 @@ class UnknownPage extends StatelessWidget {
                     )
                   ),
                   TextSpan(
-                    text:'back to your\n          profile',
+                    text:'back to your profile',
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.darkGreyColor,

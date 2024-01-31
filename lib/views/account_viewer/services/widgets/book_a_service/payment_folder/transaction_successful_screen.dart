@@ -53,7 +53,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
               //SizedBox(height: 20,),
 
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                padding: EdgeInsets.symmetric(horizontal: 40.w, vertical: 20.h),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -62,8 +62,8 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                     //Lottie.asset("assets/lottie/my_g.json"),
                     SvgPicture.asset(
                       "assets/svg/check_ss.svg",
-                      height: 140.h,
-                      width: 140.w,
+                      height: 110.h,
+                      width: 110.w,
                     ),
                     SizedBox(height: 50.h,),
                     Text(
@@ -75,47 +75,20 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                       ),
                     ),
                     SizedBox(height: 20.h,),
+                    
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w,),
-                      child: RichText(
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text :"      You'll receive a confirmation email when your booking has been confirmed by service provider",
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.darkGreyColor
-                              )
-                            ),
-                            /*TextSpan(
-                              text :" ${widget.servie_provider_name}",
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.darkGreyColor
-                              )
-                            ),
-                            TextSpan(
-                              text :' for',
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500,
-                                color: AppColor.darkGreyColor
-                              )
-                            ),
-                            TextSpan(
-                              text :' ${widget.service_name}.',
-                              style: GoogleFonts.inter(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600,
-                                color: AppColor.darkGreyColor
-                              )
-                            ),*/
-                          ]
+                      padding: EdgeInsets.symmetric(horizontal: 40.w,),
+                      child: Text(
+                        "You'll receive a confirmation email when your booking has been \nconfirmed by service provider",
+                        style: GoogleFonts.inter(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColor.darkGreyColor
                         )
                       ),
                     ),
+                        
+
                     SizedBox(height: 60.h,),
                     //okay button
                     Padding(

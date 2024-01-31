@@ -68,13 +68,13 @@ class UserServiceModel {
     _data['time'] = time;
     _data['available_days'] = available_days;
     _data['service_provider_details'] = service_provider_details;
-    _data['date'] = date;
     _data['service_link'] = service_link;
     //added
     _data["message"] = "no message";
     _data["location"] = "no location";
     _data["email"] = "client email";
     _data["displayName"] = "client name";
+    _data['date'] = date;
     _data['phone_number'] = "no phone number";
     return _data;
   }

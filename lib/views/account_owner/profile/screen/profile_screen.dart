@@ -54,6 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
 
   final String userEmail = LocalStorage.getUseremail();
+  String editedUrl = "";
 
   Future<void> _refresh() async {
     // Simulate a refresh by waiting for a short duration
@@ -346,6 +347,16 @@ class _ProfilePageState extends State<ProfilePage> {
               }
             );
           }
+
+          // Check if the URL already contains a fragment identifier (#)
+          if (!data.luround_url.contains('#')) {
+            // If not, add #/
+            //setState(() {
+              editedUrl = data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'); 
+            //});
+          }
+
+          print("edited luround url: ${data.luround_url}");
         
           return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -396,36 +407,38 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextButton(
-                  onPressed: () {
-                    //userProfileService.launchUrlLink(link: data.luround_url);
-                  },
-                  child: Text(
-                    data.luround_url, //data.displayName["company"]
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blueColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      )
-                    )
-                  )
-                ),
-                SizedBox(width: 4.w,),
-                InkWell(
-                  onTap: () {
-                    copyToClipboard(
-                      text: data.luround_url,
-                      context: context,
-                      snackMessage: "link copied to clipboard"
-                    );
-                  },
-                  child: SvgPicture.asset('assets/svg/copy_link.svg')
-                ),
-              ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 40.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Text(
+                      editedUrl,
+                      //data.luround_url,
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.blueColor,
+                          fontSize: 12.sp,
+                          fontWeight: FontWeight.w400
+                        )
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                     ),
+                  ),
+                  SizedBox(width: 4.w,),
+                  InkWell(
+                    onTap: () {
+                      copyToClipboard(
+                        text: editedUrl,
+                        context: context,
+                        snackMessage: "link copied to clipboard"
+                      );
+                    },
+                    child: SvgPicture.asset('assets/svg/copy_link.svg')
+                  ),
+                ],
+              ),
             ),
 
             SizedBox(height: 30.h),
@@ -561,7 +574,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             width: double.infinity,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   "coming soon",

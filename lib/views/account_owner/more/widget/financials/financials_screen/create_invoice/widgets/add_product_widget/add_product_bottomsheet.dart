@@ -126,10 +126,12 @@ class _BodyWidgetState extends State<BodyWidget> {
                             /////
                             setState(() {
                               if(value != null) {
-
                                 if (value) {
                                   // Add to the selected items list
                                   item['vat'] = (double.parse(item['rate']) * 0.075).toString();
+                                  item['displayName'] = controller.invoiceClientNameController.text;
+                                  item['email'] = controller.invoiceClientEmailController.text;
+                                  item['date'] = controller.updatedDueDateForInvoice(initialDate: "(non)");
                                   print("vat here: ${item['vat']}");
                                   service.addServiceI(item)
                                   .whenComplete(() {

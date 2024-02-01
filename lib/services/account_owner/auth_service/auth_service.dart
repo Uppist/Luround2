@@ -412,7 +412,7 @@ class AuthService extends getx.GetxController {
     
       //make your POST request
       var res = await dio.post(
-        "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/google/signIn", 
+        "https://luround-api-7ad1326c3c1f.herokuapp.com/google/signIn", 
         /* other parameters */
         data: body,
         options: options,

@@ -39,8 +39,9 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         physics: BouncingScrollPhysics(),
-        child: Center(
+        child: Container(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -50,10 +51,10 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 width: double.infinity,
                 height: 7.h,
               ),
-              SizedBox(height: 60.h,),
+              SizedBox(height: 100.h,),
               Icon(
                 CupertinoIcons.check_mark_circled,
-                color: Colors.blue,
+                color: AppColor.mainColor,
                 size: 200.r,
               ),
               /*SvgPicture.asset(
@@ -76,7 +77,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text:"You'll receive a confirmation email",
+                      text:"   You'll receive a confirmation email",
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.darkGreyColor,
@@ -109,7 +110,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 )
               ),
 
-              SizedBox(height: 60.h,),
+              SizedBox(height: 80.h,),
               InkWell(
                 onTap: () {
                   Get.offAll(() => MainPageAccViewer());

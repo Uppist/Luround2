@@ -152,8 +152,7 @@ class _MainAppState extends State<MainApp> {
           GetPage(
             name: ProfileRoute,
             page: () {
-              return SplashScreenXtra2();
-            },
+              return SplashScreenXtra2();            },
           ),
         ],*/
 

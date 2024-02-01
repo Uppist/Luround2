@@ -102,6 +102,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                   finService.showEverythingForQuoteList();
                                   ///finService.
                                   print(finService.selectedQuotebslist);
+                                  //Get.back();
                                 });
                               },
                               child: Container(

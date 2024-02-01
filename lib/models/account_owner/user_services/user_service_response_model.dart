@@ -53,6 +53,7 @@ class UserServiceModel {
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
     _data['service_id'] = serviceId;
+    //_data['serviceID'] = serviceId;
     _data['email'] = email;
     _data['service_name'] = service_name;
     _data['description'] = description;
@@ -72,7 +73,7 @@ class UserServiceModel {
     //added
     _data["message"] = "no message";
     _data["location"] = "no location";
-    _data["email"] = "client email";
+    //_data["email"] = "client email";
     _data["displayName"] = "client name";
     _data['date'] = date;
     _data['phone_number'] = "";

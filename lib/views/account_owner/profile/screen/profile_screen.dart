@@ -407,6 +407,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
             ),
+            SizedBox(height: 10.h,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 40.w),
               child: Row(

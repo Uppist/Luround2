@@ -228,14 +228,13 @@ class FinancialsService extends getx.GetxController {
       selectedQuotebslist[index]["rate"] = rate;
       selectedQuotebslist[index]["vat"] = vat;
       //
-      selectedQuotebslist[index]["serviceID"] = "non";
-      selectedQuotebslist[index]["location"] = "location depends on this :$meetingType";
+      selectedQuotebslist[index]["service_id"] = service_id;
+      selectedQuotebslist[index]["location"] = "location depends on this: $meetingType";
       selectedQuotebslist[index]["message"] = "non";
       selectedQuotebslist[index]["phone_number"] = "non";
-      selectedInvoicebslist[index]["service_id"] = service_id;
-      selectedInvoicebslist[index]["service_name"] = service_name;
-      selectedInvoicebslist[index]["email"] = booking_user_email;  //serviceID
-      selectedInvoicebslist[index]['displayName'] = booking_user_name;
+      selectedQuotebslist[index]["service_name"] = service_name;
+      selectedQuotebslist[index]["email"] = booking_user_email;  //serviceID
+      selectedQuotebslist[index]['displayName'] = booking_user_name;
 
 
       //success snackbar

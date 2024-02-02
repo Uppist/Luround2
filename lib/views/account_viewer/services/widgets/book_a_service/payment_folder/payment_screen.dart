@@ -198,13 +198,21 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               controller.imageFromGallery.value = null;
                             },
                             file: controller.imageFromGallery.value,
-                            text: "file selected",
+                            text: "file uploaded",
                           )
                           :UploadReceiptWidget(
                             onPressed: () {
                               controller.pickFileForPayment(context);
                             },
                           );
+                        }
+                      ),
+                      SizedBox(height: 10.h),
+                      
+                      Obx(
+                        () {
+
+                          return controller.isLoading.value ? Loader2() : SizedBox();
                         }
                       ),
           

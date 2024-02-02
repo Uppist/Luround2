@@ -14,7 +14,8 @@ import 'package:luround/utils/components/my_snackbar.dart';
 
 
 class AccViewerServicesController extends getx.GetxController {
-
+  
+  var isLoading = false.obs;
 
   ///*to confirm if payment has been made by the client  for booking///
   //cloudinary config
@@ -50,6 +51,7 @@ class AccViewerServicesController extends getx.GetxController {
     if(response.isSuccessful) {
       debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
       paymentProofUrl.value = response.secureUrl!;
+      isLoading.value = false;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
@@ -57,6 +59,7 @@ class AccViewerServicesController extends getx.GetxController {
       );
     }
     else {
+      isLoading.value = false;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
@@ -78,12 +81,14 @@ class AccViewerServicesController extends getx.GetxController {
       if (pickedImage != null) {
         imageFromGallery.value = pickedImage;
         //ignore: use_build_context_synchronously
+        isLoading.value = true;
         await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
         isFileSelectedForBooking.value = true;
         update();
       }
     }
     catch (e) {
+      isLoading.value = false;
       debugPrint("Error Picking Image From Gallery: $e");
       //success snackbar
       showMySnackBar(
@@ -112,6 +117,7 @@ class AccViewerServicesController extends getx.GetxController {
       if (pickedImage != null) {
         selectedFileForRequestingQuote.value = pickedImage;
         //ignore: use_build_context_synchronously
+        isLoading.value = true;
         await uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote.value);
         isFileSelected.value = true;
         update();
@@ -119,6 +125,7 @@ class AccViewerServicesController extends getx.GetxController {
     }
     catch (e) {
       debugPrint("Error Picking Image From Gallery: $e");
+      isLoading.value = false;
       //success snackbar
       showMySnackBar(
         context: context,
@@ -126,6 +133,7 @@ class AccViewerServicesController extends getx.GetxController {
         message: "Error picking image: $e"
       );
     }*/
+
   }
 
 
@@ -155,19 +163,21 @@ class AccViewerServicesController extends getx.GetxController {
       fileUrl.value = response.secureUrl!;
       debugPrint('cloudinary_trx_url_saved: ${response.secureUrl}');
       debugPrint('cloudinary_trx_url_file_url: ${fileUrl.value}');
+      isLoading.value = false;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
-        message: "quote file uploaded to cloudinary"
+        message: "file uploaded successfully"
       ).whenComplete(() {
         isFileUploaded.value = true;
       });
     }
     else {
+      isLoading.value = false;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "failed to upload quote file to cloudinary"
+        message: "failed to upload file"
       );
     }
   }

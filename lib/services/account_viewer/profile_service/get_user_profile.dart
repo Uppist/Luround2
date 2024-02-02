@@ -25,8 +25,8 @@ class AccViewerProfileService extends getx.GetxController {
   var baseService = getx.Get.put(BaseService());
   
   final isLoading = false.obs;
-  var userId = LocalStorage.getUserID();
-  var userEmail = LocalStorage.getUseremail();
+  //var userId = LocalStorage.getUserID();
+  //var userEmail = LocalStorage.getUseremail();
 
 
 
@@ -147,13 +147,16 @@ class AccViewerProfileService extends getx.GetxController {
 
 
   /////[GET LOGGED-IN USER'S REVIEW'S LIST]//////  remove service id
-  Future<List<ReviewResponse>> getUserReviews() async {
+  Future<List<ReviewResponse>> getUserReviews({
+    required String userID
+  }) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "reviews/service-reviews?serviceId=6572c7f714b0a81bd0de3c88",);
+      http.Response res = await baseService.httpGet(endPoint: "reviews/user-reviews?userId=$userID",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
         debugPrint("user reviews gotten successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
@@ -164,7 +167,7 @@ class AccViewerProfileService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load user reviews');
       }
     } 
@@ -197,12 +200,13 @@ class AccViewerProfileService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("user about updated successfully");
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "updated successfully"
+          message: "review sent successfully"
         ).whenComplete(() => getx.Get.back());
       } 
       else {
@@ -214,14 +218,14 @@ class AccViewerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update"
+          message: "failed to send review: ${res.statusCode} || ${res.body}"
         );
       }
     } 
     catch (e) {
       isLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong");
     }
   }
 

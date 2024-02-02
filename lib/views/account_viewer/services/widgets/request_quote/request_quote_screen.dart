@@ -230,7 +230,16 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                 );
                               }
                           ),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 10.h,),
+                          
+                          Obx(
+                            () {
+                          
+                              return controller.isLoading.value ? Loader2() : SizedBox();
+                            }
+                          ),
+                      
+                          SizedBox(height: 30.h,),
                           Text(
                             "Note (optional)",
                             style: GoogleFonts.inter(

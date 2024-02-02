@@ -12,7 +12,6 @@ import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
-import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 
@@ -51,17 +50,65 @@ class AccViewerReviewsPage extends StatelessWidget {
         title: CustomAppBarTitle(text: 'Reviews',),
       ),
       body: FutureBuilder<List<ReviewResponse>>(
-        future: service.getUserReviews(),
+        future: service.getUserReviews(userID: userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Loader();
           }
           if (snapshot.hasError) {
             print(snapshot.error);
-            return ReviewEmptyState(
+            /*return ReviewEmptyState(
               onPressed: () {
                 service.getUserReviews();
               },
+            );*/
+            return SafeArea(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(height: 10.h),
+                    Container(
+                      color: AppColor.greyColor,
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                      height: 60.h,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Get.to(() => WriteReviewsPage(
+                                userId: userId,
+                                photoUrl: photoUrl,
+                                userName: userName,
+                              ));
+                            }, 
+                            child: Text(
+                             'Write a review',
+                              style: GoogleFonts.inter(
+                                textStyle: TextStyle(
+                                  color: AppColor.mainColor,
+                                  decoration: TextDecoration.underline,
+                                  decorationColor: AppColor.mainColor,
+                                  fontSize: 14.sp, //14
+                                  fontWeight: FontWeight.w500
+                                )
+                              )
+                            )
+                          ),
+                        ],
+                      ),
+                    ),
+                    ReviewEmptyState(
+                      onPressed: () {
+                        service.getUserReviews(userID: userId);
+                      },
+                    )
+                  ]
+                )
+              )
             );
           }
           if (!snapshot.hasData) {
@@ -112,7 +159,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                     ),
                     ReviewEmptyState(
                       onPressed: () {
-                        service.getUserReviews();
+                        service.getUserReviews(userID: userId);
                       },
                     )
                   ]

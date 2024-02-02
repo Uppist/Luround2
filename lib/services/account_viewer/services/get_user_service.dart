@@ -29,7 +29,7 @@ class AccViewerService extends getx.GetxController {
   var withdrawalService = getx.Get.put(WithdrawalService());
   var baseService = getx.Get.put(BaseService());
   final isLoading = false.obs;
-  var userId = LocalStorage.getUserID();
+  //var userId = LocalStorage.getUserID();
   //var userEmail = LocalStorage.getUseremail();
 
 
@@ -256,15 +256,17 @@ class AccViewerService extends getx.GetxController {
     return totalRating.toString();
   }
 
-
   /////[GET LOGGED-IN USER'S REVIEW'S LIST]//////  remove service id
-  Future<List<ReviewResponse>> getUserReviews() async {
+  Future<List<ReviewResponse>> getUserReviews({
+    required String userID
+  }) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "reviews/user-reviews?userId=${userId}",);
+      http.Response res = await baseService.httpGet(endPoint: "reviews/user-reviews?userId=$userID",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
         debugPrint("user reviews gotten successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
@@ -275,7 +277,7 @@ class AccViewerService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load user reviews');
       }
     } 

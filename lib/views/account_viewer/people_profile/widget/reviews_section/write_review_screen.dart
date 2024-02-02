@@ -8,6 +8,7 @@ import 'package:luround/controllers/account_viewer/profile_page_controller__acc_
 import 'package:luround/services/account_viewer/profile_service/get_user_profile.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_textfield.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
@@ -41,11 +42,11 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
-        leading: IconButton(
-          onPressed: () {
+        leading: InkWell(
+          onTap: () {
             Get.back();
           },
-          icon: Icon(
+          child: Icon(
             Icons.arrow_back_rounded,
             color: AppColor.blackColor,
           )
@@ -55,12 +56,21 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
           //button
           InkWell(
             onTap: () {
-              service.addReview(
-                userId: widget.userId,
-                context: context, 
-                rating: controller.rating.value, 
-                comment: controller.reviewController.value.text
-              ).whenComplete(() => controller.reviewController.value.clear());
+              if(controller.reviewController.value.text.isNotEmpty) {
+                service.addReview(
+                  userId: widget.userId,
+                  context: context, 
+                  rating: controller.rating.value, 
+                  comment: controller.reviewController.value.text
+                ).whenComplete(() => controller.reviewController.value.clear());
+              }
+              else{
+                showMySnackBar(
+                  context: context, 
+                  message: "write a review", 
+                  backgroundColor: AppColor.redColor
+                );
+              }
 
             },
             child: Container(

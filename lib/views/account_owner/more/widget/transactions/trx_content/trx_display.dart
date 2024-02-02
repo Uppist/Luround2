@@ -37,7 +37,7 @@ class TrxDisplay extends StatelessWidget {
               ),
             ),
             Text(
-              "N$amount",
+              "N${double.parse(amount)}",
               style: GoogleFonts.inter(
                 color: transaction_status == "RECEIVED"
                 ?AppColor.darkGreen

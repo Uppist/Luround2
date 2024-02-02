@@ -546,14 +546,26 @@ class SettingsService extends getx.GetxController {
   ///[DELETE BANK DETAILS]//
   Future<void> deleteBankDetails({
     required BuildContext context,
-    required String id,
+    required String account_name,
+    required String account_number,
+    required String bank_name,
+    required String bank_code,
+    required String country,
     }) async {
 
     isLoading.value = true;
 
+    var body = {
+      "account_name" : account_name,
+      "account_number": account_number,
+      "bank_name": bank_name,
+      "bank_code": bank_code,
+      "country": country,
+    };
+
 
     try {
-      dio.Response res = await baseService.deleteRequestWithDio(endPoint: "wallet/delete-bank-details?id=$id",);
+      dio.Response res = await baseService.deleteRequestWithBodyDio(endPoint: "wallet/delete-bank-detail", data: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

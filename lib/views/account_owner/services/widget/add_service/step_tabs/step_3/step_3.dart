@@ -36,9 +36,7 @@ class _Step3PageState extends State<Step3Page> {
   var servicesService = Get.put(AccOwnerServicePageService());
 
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return servicesService.isLoading.value ? Loader() : Column(
+    return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -130,66 +128,67 @@ class _Step3PageState extends State<Step3Page> {
               }, 
             ),
             SizedBox(height: 90.h),
-            RebrandedReusableButton(
-              textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
-              color: mainController.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
-              text: "Done", 
-              onPressed: mainController.isCheckBoxActive.value ? 
-              //widget.onNext
-              () {
-
-                mainController.getTimeIntervals(
-                  earliestTime: mainController.findEarliestTime(),
-                  latestTime: mainController.findLatestTime(),
-                  interval: mainController.duration.value
-                )
-                .whenComplete(() {
-
-                  /*servicesService.createUserService(
-                    available_time_list: mainController.availableTime,
-                    context: context,
-                    //service_type: "Virtual", //In-Person
-                    service_name: mainController.serviceNameController.text, 
-                    description: mainController.descriptionController.text, 
-                    links: [mainController.addLinksController.text], 
-                    service_charge_in_person: mainController.inPersonController.text, 
-                    service_charge_virtual: mainController.virtualController.text, 
-                    duration: mainController.formatDuration(), 
-                    time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                    date: mainController.selectDurationRadio,             
-                    available_days: mainController.availableDays(),
-                  ).whenComplete(() {
-                    //1
-                    setState(() {
-                      mainController.curentStep = mainController.curentStep - 2;
-                    });
-                    //2
-                    mainController.serviceNameController.clear();
-                    mainController.descriptionController.clear();
-                    mainController.addLinksController.clear();
-                    mainController.inPersonController.clear();
-                    mainController.virtualController.clear();
-                    //3
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => MainPage(),
-                      ), 
-                      (route) => true
-                    );
-                  });*/
-                  
-                });
+            
+                RebrandedReusableButton(
+                  textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                  color: mainController.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
+                  text: "Done", 
+                  onPressed: mainController.isCheckBoxActive.value ? 
+                  //widget.onNext
+                  () {
                 
-              }
-              : () {
-                print('nothing');
-              },
+                    mainController.getTimeIntervals(
+                      earliestTime: mainController.findEarliestTime(),
+                      latestTime: mainController.findLatestTime(),
+                      interval: mainController.duration.value
+                    )
+                    .whenComplete(() {
+                
+                      servicesService.createUserService(
+                        available_time_list: mainController.availableTime,
+                        context: context,
+                        //service_type: "Virtual", //In-Person
+                        service_name: mainController.serviceNameController.text, 
+                        description: mainController.descriptionController.text, 
+                        links: [mainController.addLinksController.text], 
+                        service_charge_in_person: mainController.inPersonController.text, 
+                        service_charge_virtual: mainController.virtualController.text, 
+                        duration: mainController.formatDuration(), 
+                        time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
+                        date: mainController.selectDurationRadio,             
+                        available_days: mainController.availableDays(),
+                      ).whenComplete(() {
+                        //1
+                        setState(() {
+                          mainController.curentStep = mainController.curentStep - 2;
+                        });
+                        //2
+                        mainController.serviceNameController.clear();
+                        mainController.descriptionController.clear();
+                        mainController.addLinksController.clear();
+                        mainController.inPersonController.clear();
+                        mainController.virtualController.clear();
+                        //3
+                        Get.offUntil(
+                          GetPageRoute(
+                            curve: Curves.bounceIn,
+                            page: () => MainPage(),
+                          ), 
+                          (route) => true
+                        );
+                      });
+                      
+                    });
+                    
+                  }
+                  : () {
+                    print('nothing');
+                  },
+            
             ),
             SizedBox(height: 5.h),
           ]
         );
-      }
-    );
+    
   }
 }

@@ -390,15 +390,16 @@ class AccOwnerProfileService extends getx.GetxController {
     if(response.isSuccessful) {
       await LocalStorage.saveCompanyLogoUrl(response.secureUrl!);
       print('cloudinary_logo_url_saved: ${response.secureUrl}');
+      isLoading.value = false;
       //success snackbar
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.darkGreen,
         message: "company logo uploaded successfully"
       );
-      //await updateCompanyLogo(photoUrl: response.secureUrl);
     }
     else {
+      isLoading.value = false;
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
@@ -410,19 +411,21 @@ class AccOwnerProfileService extends getx.GetxController {
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickCompanyLogoFromGallery({required BuildContext context}) async {
     try {
-      //var profileController = Provider.of<ProfileController>(context, listen: false);
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         logoFromGallery.value = File(pickedImage.path);
         isLogoSelected.value = true;
+        isLoading.value = true;
         await uploadCompanyLogoToCloudinary(context: context);
         //update();
       }
       else {
+        isLoading.value = false;
         throw Exception("no image/logo was picked");
       }
     }
     catch (e) {
+      isLoading.value = false;
       debugPrint("Error Picking Logo From Gallery: $e");
       //success snackbar
       /*showMySnackBar(

@@ -122,6 +122,8 @@ class BookingsController extends getx.GetxController {
     }
   }
 
+
+  //calculates the duration
   String calculateDuration({required String startTime, required String endTime}) {
     // Create DateFormat with the expected time format
     final DateFormat format = DateFormat('hh:mm a');
@@ -133,10 +135,41 @@ class BookingsController extends getx.GetxController {
     // Calculate the duration
     Duration duration = end.difference(start);
 
-    // Format the duration as a string (HH:mm format)
-    String durationString = '${duration.inHours}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}';
-    print(durationString);
-    return durationString;
+    // Check if the duration is in hours, minutes, or minutes only
+    if (duration.inHours > 0) {
+      // Duration is in hours and possibly minutes
+      int hours = duration.inHours;
+      int minutes = duration.inMinutes % 60;
+
+      if (minutes > 0) {
+        // Duration is in hours and minutes
+        String durationString = '$hours hr: ${minutes.toString().padLeft(2, '0')} mins';
+        print(durationString);
+        update();
+        return durationString;
+      } 
+      else {
+        // Duration is in hours only
+        String durationString = '$hours hr';
+        print(durationString);
+        update();
+        return durationString;
+      }
+    } 
+    else if (duration.inMinutes > 0) {
+      // Duration is in minutes only
+      int minutes = duration.inMinutes;
+      String durationString = '$minutes mins';
+      print(durationString);
+      update();
+      return durationString;
+    } 
+    else {
+      // Duration is zero
+      print('0 mins');
+      update();
+      return '0 mins';
+    }
   }
 
   /////////////////////////////////////////////////////

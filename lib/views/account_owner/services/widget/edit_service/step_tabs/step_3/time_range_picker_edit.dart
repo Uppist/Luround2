@@ -91,7 +91,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
             child: Container(
               alignment: Alignment.center,
               height: 40.h,
-              width: 95.w,
+              width: 100.w,
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
@@ -145,7 +145,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
             child: Container(
               alignment: Alignment.center,
               height: 40.h,
-              width: 95.w,
+              width: 100.w,
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,

@@ -89,7 +89,14 @@ class _ShowBanksState extends State<ShowBanks> {
                             direction: DismissDirection.endToStart,
                             key: UniqueKey(),
                             onDismissed: (direction) {
-                              service.deleteBankDetails(context: context, id: item.id);
+                              service.deleteBankDetails(
+                                context: context, 
+                                account_name: item.account_name,
+                                account_number: item.account_number,
+                                bank_name: item.bank_name,
+                                bank_code: item.bank_code,
+                                country: item.country
+                              );
                             },
                             background: Row(
                               mainAxisAlignment: MainAxisAlignment.end,

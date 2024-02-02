@@ -48,7 +48,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
       // Use addAll to add the filtered items to the list
       filteredList.addAll(dataList
-        .where((user) => user.serviceDetails.serviceName.toLowerCase().contains(query)) // == query
+        .where((user) => user.bookingUserInfo.displayName.toLowerCase().contains(query)) // == query
         .toList());
 
       /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)
@@ -66,7 +66,7 @@ class AccOwnerBookingService extends getx.GetxController {
     // Use the search query to filter the items
     filteredList.addAll(
       dataList.where((item) {
-        return item.serviceProviderInfo.userId.toLowerCase() == userId; //== userId;
+        return item.bookingUserInfo.userId.toLowerCase() == userId;
       }),
     );  
     print("Sent List: $filteredList");
@@ -79,7 +79,7 @@ class AccOwnerBookingService extends getx.GetxController {
     // Use the search query to filter the items
     filteredList.addAll(
       dataList.where((item) {
-        return item.serviceProviderInfo.userId.toLowerCase() != userId;
+        return item.bookingUserInfo.userId.toLowerCase() != userId;
       }),
     );
     print("Received List: $filteredList");
@@ -311,7 +311,7 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "booking resheduled successfully"
+          message: "booking rescheduled successfully"
         ).whenComplete(() => getx.Get.back());
       } 
       else {
@@ -330,7 +330,7 @@ class AccOwnerBookingService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong: $e");
     }
   }
   

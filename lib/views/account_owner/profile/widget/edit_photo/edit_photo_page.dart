@@ -252,6 +252,11 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     profileService.pickCompanyLogoFromGallery(context: context);
                                   },
                                 ),
+
+                                /*SizedBox(height: 20.h,),
+                                profileService.isLoading.value
+                                ? Loader2() : SizedBox(),*/
+
                                 ////////////////                  
                                 SizedBox(height: 60.h,), //80.h
                               

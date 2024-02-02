@@ -58,9 +58,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
 
 
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return servicesService.isLoading.value ? Loader() : Column(
+    return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
@@ -152,55 +150,55 @@ class _Step3PageEditState extends State<Step3PageEdit> {
             ),
             SizedBox(height: 90.h),
             RebrandedReusableButton(
-              textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
-              color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
-              text: "Done", 
-              onPressed: mainController.isCheckBoxActiveEdit.value ? 
-              //widget.onNext
-              () {
-
-                mainController.getTimeIntervalsEdit(
-                  earliestTime: mainController.findEarliestTimeEdit(),
-                  latestTime: mainController.findLatestTimeEdit(),
-                  interval: mainController.durationEdit.value
-                ).whenComplete(() {
-                  servicesService.updateUserService(
-                    context: context,
-                    //service_type: "Virtual", //In-Person
-                    serviceId: widget.serviceId,
-                    service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
-                    description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
-                    links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
-                    service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
-                    service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
-                    duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
-                    time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
-                    date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
-                    available_days: mainController.availableDaysEdit(), 
-                    available_time: mainController.availableTimeEdit,
-                  ).whenComplete(() {
-                    setState(() {
-                      mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;
+                  textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                  color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
+                  text: "Done", 
+                  onPressed: mainController.isCheckBoxActiveEdit.value ? 
+                  //widget.onNext
+                  () {
+                
+                    mainController.getTimeIntervalsEdit(
+                      earliestTime: mainController.findEarliestTimeEdit(),
+                      latestTime: mainController.findLatestTimeEdit(),
+                      interval: mainController.durationEdit.value
+                    ).whenComplete(() {
+                      servicesService.updateUserService(
+                        context: context,
+                        //service_type: "Virtual", //In-Person
+                        serviceId: widget.serviceId,
+                        service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
+                        description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
+                        links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
+                        service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
+                        service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
+                        duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
+                        time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
+                        date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
+                        available_days: mainController.availableDaysEdit(), 
+                        available_time: mainController.availableTimeEdit,
+                      ).whenComplete(() {
+                        setState(() {
+                          mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;
+                        });
+                        Get.offUntil(
+                          GetPageRoute(
+                            curve: Curves.bounceIn,
+                            page: () => MainPage(),
+                          ), 
+                          (route) => true
+                        );
+                      });
                     });
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => MainPage(),
-                      ), 
-                      (route) => true
-                    );
-                  });
-                });
-
-              }
-              : () {
-                print('nothing');
-              },
-            ),
+                
+                  }
+                  : () {
+                    print('nothing');
+                  },
+              ),
             SizedBox(height: 5.h),
           ]
         );
-      }
-    );
+    
+  
   }
 }

@@ -391,7 +391,10 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     date: controller.updatedDate(initialDate: widget.service_date), 
                                     //time: "${controller.getStartTime(initialTime: controller.splitTimeRangeT1(timeRange: widget.service_time))} - ${controller.getStopTime(initialTime: controller.splitTimeRangeT2(timeRange: widget.service_time))}"
                                     time: "${controller.getStartTime(initialTime: "t1")} - ${controller.getStopTime(initialTime: "t2")}",
-                                    duration: ""
+                                    duration: controller.calculateDuration(
+                                      startTime: controller.getStartTime(initialTime: "t1"), 
+                                      endTime: controller.getStopTime(initialTime: "t2"),
+                                    )
                                   );
                                   //rescheduleDialogueBox(context: context);
                                 },

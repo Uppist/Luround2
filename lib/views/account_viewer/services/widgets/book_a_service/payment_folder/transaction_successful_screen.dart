@@ -51,11 +51,11 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 width: double.infinity,
                 height: 7.h,
               ),
-              SizedBox(height: 100.h,),
+              SizedBox(height: 150.h,),
               Icon(
                 CupertinoIcons.check_mark_circled,
                 color: AppColor.mainColor,
-                size: 200.r,
+                size: 150.r,
               ),
               /*SvgPicture.asset(
                 "assets/svg/check_ss.svg",
@@ -119,7 +119,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
                 //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                 alignment: Alignment.center,
                 height: 50.h,
-                width: 200.w,
+                width: 250.w,
                 decoration: BoxDecoration(
                   color: AppColor.mainColor,
                   borderRadius: BorderRadius.circular(10.r),

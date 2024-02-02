@@ -51,6 +51,37 @@ class BaseService extends getX.GetxController {
       Exception('Error during DELETE request: $e');
     }
   }
+
+   //DIO (DELETE REQUEST) WITH BODY
+  Future<dynamic> deleteRequestWithBodyDio({required String endPoint, required dynamic data}) async {
+    try {
+      var token = await LocalStorage.getToken();
+      // Create Dio instance
+      dioG.Dio dio = dioG.Dio();
+
+      // Optionally, you can configure additional options like headers, etc.
+      dio.options.headers = token != null ? 
+      {
+        'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      } 
+      : null;
+
+      // Perform the DELETE request
+      dioG.Response response = await dio.delete("$baseUrl$endPoint", data: data);
+
+      // Handle the response as needed
+      print('DELETE Request Status Code: ${response.statusCode}');
+      print('DELETE Request Response Data: ${response.data}');
+      return response;
+    } catch (e) {
+      // Handle errors
+      print('Error during DELETE request: $e');
+      Exception('Error during DELETE request: $e');
+    }
+  }
   
   //POST REQUEST WITH Dio
   Future<dynamic> putRequestWithDio({ 

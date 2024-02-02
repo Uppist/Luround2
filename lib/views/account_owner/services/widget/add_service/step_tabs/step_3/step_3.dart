@@ -144,7 +144,8 @@ class _Step3PageState extends State<Step3Page> {
                   interval: mainController.duration.value
                 )
                 .whenComplete(() {
-                  servicesService.createUserService(
+
+                  /*servicesService.createUserService(
                     available_time_list: mainController.availableTime,
                     context: context,
                     //service_type: "Virtual", //In-Person
@@ -176,7 +177,8 @@ class _Step3PageState extends State<Step3Page> {
                       ), 
                       (route) => true
                     );
-                  });
+                  });*/
+                  
                 });
                 
               }

@@ -69,7 +69,7 @@ class BookingsController extends getx.GetxController {
   }
   
   //get the start time coming from the server
-  String splitTimeRangeT1 ({required String timeRange}) {
+  /*String splitTimeRangeT1 ({required String timeRange}) {
 
     // Split the string based on the hyphen
     List<String> timeStrings = timeRange.split('-');
@@ -92,7 +92,7 @@ class BookingsController extends getx.GetxController {
 
     print("End Time: $endTime");
     return endTime;
-  }
+  }*/
 
 
   
@@ -120,6 +120,23 @@ class BookingsController extends getx.GetxController {
     if (time != null) {
       stopTimeValue.value = time.format(context);
     }
+  }
+
+  String calculateDuration({required String startTime, required String endTime}) {
+    // Create DateFormat with the expected time format
+    final DateFormat format = DateFormat('hh:mm a');
+
+    // Parse the time strings into DateTime objects
+    DateTime start = format.parse(startTime);
+    DateTime end = format.parse(endTime);
+
+    // Calculate the duration
+    Duration duration = end.difference(start);
+
+    // Format the duration as a string (HH:mm format)
+    String durationString = '${duration.inHours}:${(duration.inMinutes % 60).toString().padLeft(2, '0')}';
+    print(durationString);
+    return durationString;
   }
 
   /////////////////////////////////////////////////////

@@ -290,13 +290,15 @@ class AccOwnerBookingService extends getx.GetxController {
     required String bookingId, //important
     required String date,
     required String time,
+    required String duration,
   }) async {
     
     isLoading.value = true;
 
     var body = {
       "date": date,
-      "time": time
+      "time": time,
+      "duration": duration
     };
 
     try {

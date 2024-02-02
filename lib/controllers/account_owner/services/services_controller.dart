@@ -201,12 +201,19 @@ class ServicesController extends getx.GetxController {
     availableTime.clear();
     availableTime.add(earliestTime);
 
+    
     // Calculate intervals until the latest time
-    // Include the latest time in the intervals list and makes sure it does not loop into the next day
-    while (earliest.add(interval).isBefore(latest) || earliest.add(interval) == latest) {
+    // Include the latest time in the intervals list and make sure it does not loop into the next day
+    while (earliest.add(interval).isBefore(latest) || earliest.add(interval) == latest) {  //|| earliest == latest)
+      // Check if the current calculated time is equal to or before the latest time
       earliest = earliest.add(interval);
-      availableTime.add(format.format(earliest));
+      if (earliest.isBefore(latest) || earliest == latest) { 
+        //earliest = earliest.add(interval);
+        availableTime.add(format.format(earliest));
+      }
     }
+
+    availableTime.add(latestTime);
 
     print("available_ time_: $availableTime");
     return availableTime;
@@ -725,10 +732,13 @@ class ServicesController extends getx.GetxController {
     availableTimeEdit.add(earliestTime);
 
     // Calculate intervals until the latest time
-    DateTime current = earliest.add(interval);
-    while (current.isBefore(latest)) {
-      availableTimeEdit.add(format.format(current));
-      current = current.add(interval);
+    // Include the latest time in the intervals list and make sure it does not loop into the next day
+    // Include the latest time in the intervals list and make sure it does not loop into the next day
+    while (earliest.add(interval).isBefore(latest) || earliest.add(interval) == latest) {  //|| earliest == latest)
+      // Check if the current calculated time is equal to or before the latest time
+      if (earliest.add(interval).isBefore(latest) || earliest.add(interval) == latest) { 
+        availableTimeEdit.add(format.format(earliest));
+      }
     }
 
     // Add the latest time

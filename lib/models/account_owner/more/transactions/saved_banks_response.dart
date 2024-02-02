@@ -7,6 +7,7 @@ class SavedBanks {
     required this.bank_name,
     required this.bank_code,
     required this.country,
+    required this.id
   });
 
   late final String account_name;
@@ -14,9 +15,11 @@ class SavedBanks {
   late final String bank_name;
   late final String bank_code;
   late final String country;
+  late final String id;
 
   
   SavedBanks .fromJson(Map<String, dynamic> json,){
+    id = json['_id'] ?? '_id';
     account_name = json['account_name'] ?? "acc_name";
     account_number = json['account_number'] ?? "acc_number";
     bank_name = json['bank_name'] ?? 'bank_name';

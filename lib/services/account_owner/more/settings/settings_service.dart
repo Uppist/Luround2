@@ -8,6 +8,7 @@ import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dio;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/otp_confirmation_screen.dart';
@@ -512,6 +513,7 @@ class SettingsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("user bank details created successfully");
         //success snackbar
         showMySnackBar(
@@ -536,9 +538,57 @@ class SettingsService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong: $e");
     }
   }
+
+  
+  ///[DELETE BANK DETAILS]//
+  Future<void> deleteBankDetails({
+    required BuildContext context,
+    required String id,
+    }) async {
+
+    isLoading.value = true;
+
+
+    try {
+      dio.Response res = await baseService.deleteRequestWithDio(endPoint: "wallet/delete-bank-details?id=$id",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.data}');
+        debugPrint("user bank details created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "bank detail deleted successfully"
+        );
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.statusMessage}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.data}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete bank detail"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("$e");
+    }
+  }
+
+
+
+
  
   //TextControllers for inputing bank details
   //final enterBankController = TextEditingController();

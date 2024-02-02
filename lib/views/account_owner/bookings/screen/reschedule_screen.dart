@@ -339,7 +339,13 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                               () {
                                 return InkWell(
                                   onTap: () {
-                                    controller.openFlutterTimePickerForStopTime(context: context);
+                                    controller.openFlutterTimePickerForStopTime(context: context)
+                                    .whenComplete(() {
+                                      controller.calculateDuration(
+                                        startTime: controller.getStartTime(initialTime: "t1"), 
+                                        endTime: controller.getStopTime(initialTime: "t2"),
+                                      );
+                                    });
                                   },
                                   child: Container(
                                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
@@ -383,7 +389,9 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     context: context, 
                                     bookingId: widget.bookingId, 
                                     date: controller.updatedDate(initialDate: widget.service_date), 
-                                    time: "${controller.getStartTime(initialTime: controller.splitTimeRangeT1(timeRange: widget.service_time))} - ${controller.getStopTime(initialTime: controller.splitTimeRangeT2(timeRange: widget.service_time))}"
+                                    //time: "${controller.getStartTime(initialTime: controller.splitTimeRangeT1(timeRange: widget.service_time))} - ${controller.getStopTime(initialTime: controller.splitTimeRangeT2(timeRange: widget.service_time))}"
+                                    time: "${controller.getStartTime(initialTime: "t1")} - ${controller.getStopTime(initialTime: "t2")}",
+                                    duration: ""
                                   );
                                   //rescheduleDialogueBox(context: context);
                                 },

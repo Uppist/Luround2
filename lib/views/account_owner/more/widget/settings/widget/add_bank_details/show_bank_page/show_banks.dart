@@ -88,7 +88,9 @@ class _ShowBanksState extends State<ShowBanks> {
                           return Dismissible(
                             direction: DismissDirection.endToStart,
                             key: UniqueKey(),
-                            onDismissed: (direction) {},
+                            onDismissed: (direction) {
+                              service.deleteBankDetails(context: context, id: item.id);
+                            },
                             background: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [

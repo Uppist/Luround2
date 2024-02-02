@@ -138,7 +138,7 @@ class _BookingsPageState extends State<BookingsPage> {
               children: [
                 FilterContainer(
                   onTaped: () {
-                    filterDialogueBox(
+                    /*filterDialogueBox(
                       context: context,
                       onSentFilter: () {
                         service.filterBySent()
@@ -160,7 +160,7 @@ class _BookingsPageState extends State<BookingsPage> {
                         service.fiterByCancelled()
                         .whenComplete(() => Get.back());
                       },
-                    );
+                    );*/
                   },
                 ),
               ],

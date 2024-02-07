@@ -115,7 +115,7 @@ class _BookingsPageState extends State<BookingsPage> {
                     });
                   },
                   hintText: "Search",
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.done,  //.search,
                   textController: controller.searchController,
                   onTap: () {

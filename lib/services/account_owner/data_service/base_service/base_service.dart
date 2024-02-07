@@ -9,16 +9,18 @@ import 'package:get/get.dart' as getX;
 
 
 
-var ddd = "https://meet.google.com/mpp-zgii-akd";
 
 
 
 class BaseService extends getX.GetxController {
   
+  
+  //var token = LocalStorage.getToken();
+
   //General Base URL
   String baseUrl = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
   String baseUrlForGoogle = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
-  //var token = LocalStorage.getToken();
+
 
 
   //DIO (DELETE REQUEST)

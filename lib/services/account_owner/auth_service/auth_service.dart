@@ -121,6 +121,10 @@ class AuthService extends getx.GetxController {
             context: context,
             backgroundColor: AppColor.darkGreen,
             message: "account created successfully"
+          ).whenComplete(() => sendPushNotification(
+              noti_title: "Account created successfuly", 
+              noti_body: "Hey $displayName, welcome to luround."
+            )
           );
         } 
         else {

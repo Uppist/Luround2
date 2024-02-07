@@ -4,6 +4,7 @@ import 'package:luround/controllers/account_owner/services/services_controller.d
 import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';
+import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'dart:io';
@@ -23,6 +24,7 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 class AccOwnerBookingService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
+  var authService = getx.Get.put(AuthService());
   var controller = getx.Get.put(ServicesController());
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
@@ -217,7 +219,13 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking successfully confirmed"
-        );
+        ).whenComplete(() {
+          //send push notification and store in db
+          authService.sendPushNotification(
+            noti_title: "Booking confirmed", 
+            noti_body: "your booking with the id: $bookingId \n has been confirmed successfully"
+          );
+        });
         
 
       } else {

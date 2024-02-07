@@ -109,6 +109,41 @@ class BaseService extends getX.GetxController {
         data: data,
       );
       // Handle the response as needed
+      print('PUT Request Status Code: ${response.statusCode}');
+      print('PUT Request Response Data: ${response.data}');
+      return response;
+    } catch (e) {
+      // Handle errors
+      print('Error during PUT request: $e');
+    }
+  }
+
+  //POST REQUEST WITH Dio
+  Future<dynamic> postRequestWithDio({ 
+    required String endPoint, 
+    required dynamic data
+  }) async {
+    try {
+      var token = await LocalStorage.getToken();
+      // Create Dio instance
+      dioG.Dio dio = dioG.Dio();
+
+      // Optionally, you can configure additional options like headers, etc.
+      dio.options.headers = token != null ? 
+      {
+        'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      } 
+      : null;
+
+      // Perform the POST request
+      dioG.Response response = await dio.post(
+        "$baseUrl$endPoint",
+        data: data,
+      );
+      // Handle the response as needed
       print('POST Request Status Code: ${response.statusCode}');
       print('POST Request Response Data: ${response.data}');
       return response;

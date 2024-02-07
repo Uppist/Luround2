@@ -167,7 +167,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create service"
+          message: "failed to create service: ${res.statusCode} || ${res.body}"
         );
       }
     } 
@@ -235,7 +235,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update service"
+          message: "failed to update service: ${res.statusCode} || ${res.body} "
         );
       }
     } 
@@ -291,7 +291,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete service"
+          message: "failed to delete service: ${res.statusCode} || ${res.body}"
         );
       }
     } 

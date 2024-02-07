@@ -34,8 +34,6 @@ dependencies:
   dotted_border: ^2.1.0
   lottie: ^2.7.0
   loading_animation_widget: ^1.2.0+4  #for nice loadimg animation
-  #popover: ^0.2.8+2
-  #floating_action_bubble: ^1.1.4
   flutter_speed_dial: ^7.0.0
   animated_splash_screen: ^1.3.0
   smooth_page_indicator: ^1.0.0+2

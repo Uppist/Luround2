@@ -41,7 +41,11 @@ class _AmountTextFieldEditState extends State<AmountTextFieldEdit> {
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,
-        style: GoogleFonts.inter(color: AppColor.blackColor),
+        style: GoogleFonts.inter(
+          color: AppColor.blackColor,
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400
+        ),
         textCapitalization: TextCapitalization.sentences,
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),
@@ -59,11 +63,14 @@ class _AmountTextFieldEditState extends State<AmountTextFieldEdit> {
           hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          prefixIcon: Icon(
-            CupertinoIcons.money_dollar_circle,
-            color: AppColor.mainColor, 
-            //size: 20,
-          )
+          prefixIcon: Text(
+            "N",
+            style: GoogleFonts.inter(
+              color: AppColor.blackColor,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold
+            ),
+          ),
         ),
       ),
     );

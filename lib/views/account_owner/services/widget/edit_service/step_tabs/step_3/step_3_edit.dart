@@ -57,148 +57,146 @@ class _Step3PageEditState extends State<Step3PageEdit> {
   var servicesService = Get.put(AccOwnerServicePageService());
 
 
+  @override
   Widget build(BuildContext context) {
     return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Day and Time availability*",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 30.h),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Icon(
+              Icons.circle_rounded,
+              color: AppColor.mainColor,
+            ),
+            SizedBox(width: 10.w,),
             Text(
-              "Day and Time availability*",
+              "West Africa Standard Time",
               style: GoogleFonts.inter(
-                color: AppColor.blackColor,
+                color: AppColor.mainColor,
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
-            SizedBox(height: 30.h),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.circle_rounded,
-                  color: AppColor.mainColor,
-                ),
-                SizedBox(width: 10.w,),
-                Text(
-                  "West Africa Standard Time",
-                  style: GoogleFonts.inter(
-                    color: AppColor.mainColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 30.h),
-            ListView.separated(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
-              itemCount: mainController.daysOfTheWeekCheckBoxEdit.length,
-              itemBuilder: (context, index) {
-                return Builder(
-                  builder: (context) {
-                    return CheckboxListTile.adaptive(
-                      checkColor: AppColor.bgColor,
-                      checkboxShape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4.r)
-                      ),
-                      enableFeedback: true,
-                      activeColor: AppColor.mainColor,
-                      controlAffinity: ListTileControlAffinity.leading,
-                      value: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"],
-                      contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-                      onChanged: (value) {    
-                        setState(() {
-                          mainController.isCheckBoxActiveEdit.value = true;
-                          mainController.toggleCheckboxEdit(index, value);
-                          print("selectedDaysEdit: ${mainController.selectedDaysEdit}");
-                        
-                        }); 
-
-                      },
-                      tileColor: AppColor.bgColor,
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        //crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            mainController.daysOfTheWeekCheckBoxEdit[index]["day"],
-                            style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] = !mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"];
-                              //to activate the done button
-                              mainController.isCheckBoxActiveEdit.value = true;                  
-                            },
-                            child: SvgPicture.asset("assets/svg/add_icon.svg"),
-                          )
-                        ],
-                      ),
-                      subtitle: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] 
-                      ?EditTimeRangeSelector(index: index)           
-                      : SizedBox(),
-                    );
-                  }
-                );
-              }, 
-            ),
-            SizedBox(height: 90.h),
-            RebrandedReusableButton(
-                  textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
-                  color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
-                  text: "Done", 
-                  onPressed: mainController.isCheckBoxActiveEdit.value ? 
-                  //widget.onNext
-                  () {
-                
-                    mainController.getTimeIntervalsEdit(
-                      earliestTime: mainController.findEarliestTimeEdit(),
-                      latestTime: mainController.findLatestTimeEdit(),
-                      interval: mainController.durationEdit.value
-                    ).whenComplete(() {
-                      servicesService.updateUserService(
-                        context: context,
-                        //service_type: "Virtual", //In-Person
-                        serviceId: widget.serviceId,
-                        service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
-                        description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
-                        links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
-                        service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
-                        service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
-                        duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
-                        time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
-                        date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
-                        available_days: mainController.availableDaysEdit(), 
-                        available_time: mainController.availableTimeEdit,
-                      ).whenComplete(() {
-                        setState(() {
-                          mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;
-                        });
-                        Get.offUntil(
-                          GetPageRoute(
-                            curve: Curves.bounceIn,
-                            page: () => MainPage(),
-                          ), 
-                          (route) => true
-                        );
-                      });
-                    });
-                
-                  }
-                  : () {
-                    print('nothing');
-                  },
+          ],
+        ),
+        SizedBox(height: 30.h),
+        ListView.separated(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          physics: NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
+          itemCount: mainController.daysOfTheWeekCheckBoxEdit.length,
+          itemBuilder: (context, index) {
+            return CheckboxListTile.adaptive(
+              checkColor: AppColor.bgColor,
+              checkboxShape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.r)
               ),
-            SizedBox(height: 5.h),
-          ]
-        );
-    
-  
+              enableFeedback: true,
+              activeColor: AppColor.mainColor,
+              controlAffinity: ListTileControlAffinity.leading,
+              value: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"],
+              contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
+              onChanged: (value) {    
+                setState(() {
+                  mainController.isCheckBoxActiveEdit.value = true;
+                  mainController.toggleCheckboxEdit(index, value);
+                  print("selectedDaysEdit: ${mainController.selectedDaysEdit}");     
+                }); 
+
+              },
+              tileColor: AppColor.bgColor,
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    mainController.daysOfTheWeekCheckBoxEdit[index]["day"],
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] = !mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"];
+                      //to activate the done button
+                      mainController.isCheckBoxActiveEdit.value = true;                  
+                    },
+                    child: SvgPicture.asset("assets/svg/add_icon.svg"),
+                  )
+                ],
+              ),
+              subtitle: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] 
+              ?EditTimeRangeSelector(index: index)           
+              :SizedBox(),
+            );                
+          }
+        ),
+        SizedBox(height: 90.h,),   
+        Obx(
+          () {
+            return servicesService.isServiceEDLoading.value ? Loader() : RebrandedReusableButton(
+              textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
+              color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
+              text: "Done", 
+              onPressed: mainController.isCheckBoxActiveEdit.value ? 
+              //widget.onNext
+              () {
+                    
+                mainController.getTimeIntervalsEdit(
+                  earliestTime: mainController.findEarliestTimeEdit(),
+                  latestTime: mainController.findLatestTimeEdit(),
+                  interval: mainController.durationEdit.value
+                ).whenComplete(() {
+                  servicesService.updateUserService(
+                    context: context,
+                    //service_type: "Virtual", //In-Person
+                    serviceId: widget.serviceId,
+                    service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
+                    description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
+                    links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
+                    service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
+                    service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
+                    duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
+                    time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
+                    date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
+                    available_days: mainController.availableDaysEdit(), 
+                    available_time: mainController.availableTimeEdit,
+                  ).whenComplete(() {
+                    setState(() {
+                      mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;
+                    });
+                    Get.offUntil(
+                      GetPageRoute(
+                        curve: Curves.bounceIn,
+                        page: () => MainPage(),
+                      ), 
+                      (route) => true
+                    );
+                  });
+                });
+                    
+              }
+              :() {
+                print('nothing');
+              },
+            );
+          }
+        ),
+        SizedBox(height: 5.h),
+      ]
+    );
   }
 }

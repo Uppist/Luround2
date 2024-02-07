@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart' as dio;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:luround/models/account_owner/auth/create_account_response.dart';
 import 'package:luround/models/account_owner/auth/google_signin_response_model.dart';
@@ -35,10 +36,17 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 class AuthService extends getx.GetxController {
 
 
+
   var baseService = getx.Get.put(BaseService());
   var FCMToken = LocalStorage.getFCMToken();
+  var userId = LocalStorage.getUserID();
   var isLoading = false.obs;
   
+
+
+
+
+
   //to check if the token is expired
   bool isTokenExpired(int serverTimestamp) {
     // Convert the server timestamp to a DateTime object
@@ -173,6 +181,37 @@ class AuthService extends getx.GetxController {
     catch (e) {
       debugPrint("$e");
       throw const HttpException("Something went wrong");
+    }
+  }
+
+  //to send push notification to user for some specific endpoints
+  Future<void> sendPushNotification({
+    required String noti_title,
+    required String noti_body,
+  }) async {
+
+    var body = { 
+      "user_nToken": FCMToken,
+      "notification_userId": userId,
+      "title": noti_title,
+      "body": noti_body
+    };
+
+    try {
+      dio.Response res = await baseService.postRequestWithDio(endPoint: "notifications/send-notification", data: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.data}');
+      } 
+      else {
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response reason ==> ${res.statusMessage}');
+        debugPrint('this is response body ==>${res.data}');
+      }
+    } 
+    catch (e) {
+      debugPrint("$e");
+      throw Exception("Something went wrong: $e");
     }
   }
 

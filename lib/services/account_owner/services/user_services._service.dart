@@ -18,11 +18,16 @@ import 'package:dio/dio.dart' as dio;
 
 
 
+
+
 class AccOwnerServicePageService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var controller = getx.Get.put(ServicesController());
-  final isLoading = false.obs;
+  
+  var isLoading = false.obs;
+  var isServiceCRLoading = false.obs;
+  var isServiceEDLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
 
@@ -73,7 +78,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("error: $e");
     
     }
   }
@@ -127,7 +132,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     
     }) async {
 
-    isLoading.value = true;
+    isServiceCRLoading.value = true;
 
     var body = {
       "email": email,
@@ -147,7 +152,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
+        isServiceCRLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("user service created succesfully");
@@ -155,11 +160,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "Your service has been created"
+          message: "Your service has been created successfully"
         );
       } 
       else {
-        isLoading.value = false;
+        isServiceCRLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
@@ -172,9 +177,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
     } 
     catch (e) {
-      isLoading.value = false;
+      isServiceCRLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong: $e");
     }
   }
   
@@ -196,7 +201,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     
     }) async {
 
-    isLoading.value = true;
+    isServiceEDLoading.value = true;
 
     var body = {
       "email": email,
@@ -216,18 +221,18 @@ class AccOwnerServicePageService extends getx.GetxController {
     try {
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
+        isServiceEDLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user service updated by id succesfully");
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "service updated"
+          message: "service updated successfully"
         );
       } 
       else {
-        isLoading.value = false;
+        isServiceEDLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
@@ -240,9 +245,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
     } 
     catch (e) {
-      isLoading.value = false;
+      isServiceEDLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong $e");
     }
   }
   

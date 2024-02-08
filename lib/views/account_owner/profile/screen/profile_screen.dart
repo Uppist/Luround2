@@ -168,8 +168,8 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(20.r),
             ),
             onPressed: () {
-              shareProfileLink(link: data.luround_url);
-              //shareProfileLink(link: editedUrl);
+              //shareProfileLink(link: data.luround_url);
+              shareProfileLink(link: editedUrl);
             },
             label: Text(
               'Share Profile',
@@ -416,8 +416,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Expanded(
                     child: Text(
-                      //editedUrl,
-                      data.luround_url,
+                      editedUrl,
+                      //data.luround_url,
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blueColor,
@@ -432,9 +432,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       copyToClipboard(
-                        text: data.luround_url, //editedUrl,
+                        text:  editedUrl,  //data.luround_url,
                         context: context,
-                        snackMessage: "link copied to clipboard"
+                        snackMessage: "profile link copied to clipboard"
                       );
                     },
                     child: SvgPicture.asset('assets/svg/copy_link.svg')
@@ -596,7 +596,7 @@ class _ProfilePageState extends State<ProfilePage> {
             )*/
 
             QrImageView(
-              data: data.luround_url,
+              data: editedUrl, //data.luround_url,
               version: QrVersions.auto,
               size: 170.w,
               errorStateBuilder: (context, error) {

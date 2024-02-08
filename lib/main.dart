@@ -23,7 +23,7 @@ import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
+//import 'package:flutter_web_plugins/url_strategy.dart';
 
 
 
@@ -64,7 +64,7 @@ void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
   //keep beneath this widgetbinding widget
-  usePathUrlStrategy();
+  //usePathUrlStrategy();
   
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -130,7 +130,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        unknownRoute: GetPage(
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -153,9 +153,9 @@ class _MainAppState extends State<MainApp> {
             page: () {
               return SplashScreenXtra2();},
           ),
-        ],
+        ],*/
 
-        //home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       ),
     );
   }

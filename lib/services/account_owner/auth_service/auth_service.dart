@@ -81,7 +81,7 @@ class AuthService extends getx.GetxController {
       "password": password,
       "photoUrl": "my_photo",
       "accountCreatedFrom": "LOCAL",
-      "user_nToken": FCMToken,
+      "user_nToken": FCMToken ?? "no token",
     };
 
     try {
@@ -195,7 +195,7 @@ class AuthService extends getx.GetxController {
   }) async {
 
     var body = { 
-      "user_nToken": FCMToken,
+      "user_nToken": FCMToken ?? "no token",
       "notification_userId": userId,
       "title": noti_title,
       "body": noti_body
@@ -231,7 +231,7 @@ class AuthService extends getx.GetxController {
     var body = {
       "email": email,
       "password": password,
-      "user_nToken": FCMToken,
+      "user_nToken": FCMToken ?? "no token",
     };
 
     try {
@@ -355,7 +355,7 @@ class AuthService extends getx.GetxController {
           email: googleUser.email, 
           firstName:getFirstName(fullName: googleUser.displayName!), 
           lastName: getLastName(fullName: googleUser.displayName!), 
-          photoUrl: "my_photo", 
+          photoUrl: googleUser.photoUrl ?? "my_photo", 
           google_user_id: googleUser.id
         );
 
@@ -406,13 +406,13 @@ class AuthService extends getx.GetxController {
         );
       }
     }
-    catch (e) {
-      print("Error during Google Sign-In: $e");
+    catch (e, stackTrace) {
+      print("Error during Google Sign-In: $e => $stackTrace");
       // Handle errors gracefully
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "Error during Google Sign-In: $e"
+        message: "Error during Google Sign-In: $e => $stackTrace"
       );
     }
   }
@@ -439,7 +439,7 @@ class AuthService extends getx.GetxController {
         "lastName": lastName,
         "photoUrl": photoUrl,
         "google_user_id": google_user_id,
-        "user_nToken": FCMToken,
+        "user_nToken": FCMToken ?? "no token",
       };
 
       //define or state your headers

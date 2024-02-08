@@ -17,6 +17,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 
+
 class MainPageController extends getx.GetxController {
 
   Future initFLNP({required FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin}) async{
@@ -71,7 +72,6 @@ class MainPageController extends getx.GetxController {
     await fln.show(0, title, body, notification);
   }
 
-  var FCMToken = LocalStorage.getFCMToken();
 
   Future<void> initFCM({
     required Future<void> Function(RemoteMessage) backgroundHandler
@@ -103,6 +103,7 @@ class MainPageController extends getx.GetxController {
     String? token = await messaging.getToken();
     await LocalStorage.saveFCMToken(token!);
     debugPrint('My Device FCMToken: $token'); //save to firebase
+    debugPrint("local storage fcmtoken${LocalStorage.getFCMToken()}");
 
     //grant permission for Android (Android is always automatic)
     NotificationSettings settings = await messaging.requestPermission(

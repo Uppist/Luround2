@@ -19,12 +19,11 @@ import 'package:luround/views/account_viewer/services/screen/services_screen.dar
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/web_routes/routes.dart';
-import 'package:url_strategy/url_strategy.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
-
+import 'package:flutter_web_plugins/url_strategy.dart';
 
 
 
@@ -65,7 +64,7 @@ void main() async{
 
   WidgetsFlutterBinding.ensureInitialized();
   //keep beneath this widgetbinding widget
-  //setPathUrlStrategy();
+  usePathUrlStrategy();
   
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
@@ -157,9 +156,9 @@ class _MainAppState extends State<MainApp> {
         ],*/
 
         home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
-        supportedLocales: const [
+        /*supportedLocales: const [
           Locale('en'),
-        ]
+        ]*/
       ),
     );
   }

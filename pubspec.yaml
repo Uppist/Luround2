@@ -42,6 +42,7 @@ dependencies:
   #contrycode_picker,
   country_code_picker: ^3.0.0
   country_picker: ^2.0.22
+  currency_picker: ^2.0.20
 
   #for launching urls
   url_launcher: ^6.1.14
@@ -51,9 +52,8 @@ dependencies:
 
   #date and time packages (very awesome packages)
   calendar_date_picker2: ^0.5.3
-  time_range_picker: ^2.2.0
   duration_picker: ^1.1.1
-  from_to_time_picker: ^1.1.1
+  #from_to_time_picker: ^1.1.1
   date_time_format: ^2.0.1 #for converting date/time
 
   #for network calls and jwt decoder

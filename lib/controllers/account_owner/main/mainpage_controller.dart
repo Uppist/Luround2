@@ -102,7 +102,7 @@ class MainPageController extends getx.GetxController {
     //Get Unique FCM DEVICE TOKEN
     String? token = await messaging.getToken();
     await LocalStorage.saveFCMToken(token!);
-    debugPrint('My Device FCMToken: $token'); //save to firebase
+    debugPrint("My Device FCMToken: $token"); //save to firebase
     debugPrint("local storage fcmtoken${LocalStorage.getFCMToken()}");
 
     //grant permission for Android (Android is always automatic)

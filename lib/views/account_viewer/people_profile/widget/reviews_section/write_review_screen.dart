@@ -137,8 +137,8 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                             getFirstLetter(widget.userName),
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600
                             ),
                           ),
                         ),
@@ -209,11 +209,13 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                           glowRadius: 1,
                           glowColor: AppColor.yellowStar,
                           itemCount: 5,
+                          itemSize: 35.r,
                           unratedColor: AppColor.textGreyColor.withOpacity(0.2),
                           itemPadding: EdgeInsets.symmetric(horizontal: 20.w),
                           itemBuilder: (context, _) => Icon(
                             CupertinoIcons.star_fill,
                             color: AppColor.yellowStar,
+                            //size: 24.r,
                           ),
                           onRatingUpdate: (rating) {
                             controller.rating.value = rating;

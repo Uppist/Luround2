@@ -63,51 +63,48 @@ class AccViewerReviewsPage extends StatelessWidget {
               },
             );*/
             return SafeArea(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 10.h),
-                    Container(
-                      color: AppColor.greyColor,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                      height: 60.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Get.to(() => WriteReviewsPage(
-                                userId: userId,
-                                photoUrl: photoUrl,
-                                userName: userName,
-                              ));
-                            }, 
-                            child: Text(
-                             'Write a review',
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.mainColor,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: AppColor.mainColor,
-                                  fontSize: 14.sp, //14
-                                  fontWeight: FontWeight.w500
-                                )
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 10.h),
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    height: 60.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => WriteReviewsPage(
+                              userId: userId,
+                              photoUrl: photoUrl,
+                              userName: userName,
+                            ));
+                          }, 
+                          child: Text(
+                           'Write a review',
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.mainColor,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColor.mainColor,
+                                fontSize: 14.sp, //14
+                                fontWeight: FontWeight.w500
                               )
                             )
-                          ),
-                        ],
-                      ),
+                          )
+                        ),
+                      ],
                     ),
-                    ReviewEmptyState(
-                      onPressed: () {
-                        service.getUserReviews(userID: userId);
-                      },
-                    )
-                  ]
-                )
+                  ),
+                  ReviewEmptyState(
+                    onPressed: () {
+                      service.getUserReviews(userID: userId);
+                    },
+                  )
+                ]
               )
             );
           }
@@ -119,51 +116,48 @@ class AccViewerReviewsPage extends StatelessWidget {
               },
             );*/
             return SafeArea(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(height: 10.h),
-                    Container(
-                      color: AppColor.greyColor,
-                      width: double.infinity,
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                      height: 60.h,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              Get.to(() => WriteReviewsPage(
-                                userId: userId,
-                                photoUrl: photoUrl,
-                                userName: userName,
-                              ));
-                            }, 
-                            child: Text(
-                             'Write a review',
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.mainColor,
-                                  decoration: TextDecoration.underline,
-                                  decorationColor: AppColor.mainColor,
-                                  fontSize: 14.sp, //14
-                                  fontWeight: FontWeight.w500
-                                )
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 10.h),
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    height: 60.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Get.to(() => WriteReviewsPage(
+                              userId: userId,
+                              photoUrl: photoUrl,
+                              userName: userName,
+                            ));
+                          }, 
+                          child: Text(
+                           'Write a review',
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.mainColor,
+                                decoration: TextDecoration.underline,
+                                decorationColor: AppColor.mainColor,
+                                fontSize: 14.sp, //14
+                                fontWeight: FontWeight.w500
                               )
                             )
-                          ),
-                        ],
-                      ),
+                          )
+                        ),
+                      ],
                     ),
-                    ReviewEmptyState(
-                      onPressed: () {
-                        service.getUserReviews(userID: userId);
-                      },
-                    )
-                  ]
-                )
+                  ),
+                  ReviewEmptyState(
+                    onPressed: () {
+                      service.getUserReviews(userID: userId);
+                    },
+                  )
+                ]
               )
             );
           }

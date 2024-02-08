@@ -3,8 +3,8 @@ import 'package:get_storage/get_storage.dart';
 
 
 
-class LocalStorage {
 
+class LocalStorage {
 
   /// use this to [saveTokenExpDate] to local storage
   static saveTokenExpDate(int expDate) {
@@ -28,17 +28,17 @@ class LocalStorage {
   }
 
 
-  /// use this to [saveToken] to local storage
+  /// use this to [saveLogo] to local storage
   static saveCompanyLogoUrl(String value) {
     return GetStorage().write("logoURL", value);
   }
 
-  /// use this to [getToken] from local storage
+  /// use this to [getLogo] from local storage
   static getCompanyLogoUrl() {
     return GetStorage().read("logoURL");
   }
 
-  /// use this to [deleteToken] from local storage
+  /// use this to [deleteLogo] from local storage
   static deleteCompanyLogoUrl() {
     return GetStorage().remove("logoURL");
   }

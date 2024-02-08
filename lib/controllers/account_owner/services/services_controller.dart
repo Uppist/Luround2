@@ -1,4 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:currency_picker/currency_picker.dart';
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -381,6 +382,51 @@ class ServicesController extends getx.GetxController {
     String period = time.hour < 12 ? ' AM' : ' PM';
 
     return "${hour}:${time.minute < 10 ? '0${time.minute}' : time.minute}$period";
+  }
+
+
+  //show currency picker when adding/creating a service
+  var addServiceCurrency = "".obs;
+  Future<void> showNiceCurrencyPickerAdd({required BuildContext context}) async{
+    showCurrencyPicker(
+      physics: BouncingScrollPhysics(),
+      context: context,
+      theme: CurrencyPickerThemeData(
+        backgroundColor: AppColor.bgColor,
+        flagSize: 25,
+        titleTextStyle: GoogleFonts.inter(
+          color: AppColor.blackColor,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500
+        ),
+        currencySignTextStyle: GoogleFonts.inter(
+          color: AppColor.blackColor,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500
+        ),
+        subtitleTextStyle: GoogleFonts.inter(
+          color: AppColor.darkGreyColor.withOpacity(0.5),
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400
+        ),
+        //bottomSheetHeight: MediaQuery.of(context).size.height / 2,
+        //Optional. Styles the search field.
+        inputDecoration: InputDecoration(
+          labelText: 'Search',
+          hintText: 'Start typing to search',
+          prefixIcon: Icon(CupertinoIcons.search),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColor.mainColor //.withOpacity(0.2),
+            ),
+          ),
+        ),
+      ),
+      onSelect: (Currency currency) {
+        addServiceCurrency.value = currency.symbol;
+        print('Select currency: ${addServiceCurrency.value}');
+      },
+   );
   }
 
   
@@ -767,6 +813,51 @@ class ServicesController extends getx.GetxController {
     print("available_ time_edit: $availableTimeEdit");
   }
 
+
+  //show currency picker when adding/creating a service
+  var editServiceCurrency = "".obs;
+  Future<void> showNiceCurrencyPickerEdit({required BuildContext context}) async{
+    showCurrencyPicker(
+      physics: BouncingScrollPhysics(),
+      context: context,
+      theme: CurrencyPickerThemeData(
+        backgroundColor: AppColor.bgColor,
+        flagSize: 25,
+        titleTextStyle: GoogleFonts.inter(
+          color: AppColor.blackColor,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500
+        ),
+        currencySignTextStyle: GoogleFonts.inter(
+          color: AppColor.blackColor,
+          fontSize: 16.sp,
+          fontWeight: FontWeight.w500
+        ),
+        subtitleTextStyle: GoogleFonts.inter(
+          color: AppColor.darkGreyColor.withOpacity(0.5),
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400
+        ),
+        //bottomSheetHeight: MediaQuery.of(context).size.height / 2,
+        //Optional. Styles the search field.
+        inputDecoration: InputDecoration(
+          labelText: 'Search',
+          hintText: 'Start typing to search',
+          prefixIcon: Icon(CupertinoIcons.search),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: AppColor.mainColor //.withOpacity(0.2),
+            ),
+          ),
+        ),
+      ),
+      onSelect: (Currency currency) {
+        editServiceCurrency.value = currency.symbol;
+        print('Select currency: ${editServiceCurrency.value}');
+      },
+   );
+  }
+
   
   /////////////////////////////////////////////////////
 
@@ -784,9 +875,9 @@ class ServicesController extends getx.GetxController {
   void onInit() {
     // TODO: implement onInit
     //
-    serviceNameControllerEdit.addListener(() {
+    /*serviceNameControllerEdit.addListener(() {
       ispriceButtonEnabledEdit.value = serviceNameControllerEdit.text.isNotEmpty;  
-    });
+    });*/
     //[ADD OTHER LISTENERS]
     super.onInit();
   }

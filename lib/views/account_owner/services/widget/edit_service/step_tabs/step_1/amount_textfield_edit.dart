@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/services/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -26,6 +28,8 @@ class AmountTextFieldEdit extends StatefulWidget {
 }
 
 class _AmountTextFieldEditState extends State<AmountTextFieldEdit> {
+
+  var serviceController = Get.put(ServicesController());
 
   @override
   Widget build(BuildContext context) {
@@ -63,12 +67,13 @@ class _AmountTextFieldEditState extends State<AmountTextFieldEdit> {
           hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          prefixIcon: Text(
-            "N",
-            style: GoogleFonts.inter(
+          prefixIcon: InkWell(
+            onTap: () {
+              serviceController.showNiceCurrencyPickerEdit(context: context);
+            },
+            child: Icon(
+              CupertinoIcons.add_circled,
               color: AppColor.blackColor,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold
             ),
           ),
         ),

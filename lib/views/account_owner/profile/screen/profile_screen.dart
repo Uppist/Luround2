@@ -168,7 +168,8 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(20.r),
             ),
             onPressed: () {
-              shareProfileLink(link: editedUrl);
+              shareProfileLink(link: data.luround_url);
+              //shareProfileLink(link: editedUrl);
             },
             label: Text(
               'Share Profile',
@@ -415,8 +416,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Expanded(
                     child: Text(
-                      editedUrl,
-                      //data.luround_url,
+                      //editedUrl,
+                      data.luround_url,
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blueColor,
@@ -431,7 +432,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       copyToClipboard(
-                        text: editedUrl,
+                        text: data.luround_url, //editedUrl,
                         context: context,
                         snackMessage: "link copied to clipboard"
                       );
@@ -574,7 +575,8 @@ class _ProfilePageState extends State<ProfilePage> {
               color: AppColor.greyColor
             ),
             width: double.infinity,
-            child: Column(
+            child: 
+            /*Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
@@ -585,14 +587,15 @@ class _ProfilePageState extends State<ProfilePage> {
                     color: AppColor.redColor
                   ),
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(height: 3.h,),
                 Image.asset(
                   "assets/images/qrcode.png",
                   fit: BoxFit.contain,
                 ),
               ],
-            )
-            /*QrImageView(
+            )*/
+
+            QrImageView(
               data: data.luround_url,
               version: QrVersions.auto,
               size: 170.w,
@@ -606,7 +609,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 );
               },
-            ),*/
+            ),
+
           );
         }
         return Center(

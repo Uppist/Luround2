@@ -261,20 +261,20 @@ class AccOwnerBookingService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
-        debugPrint("booking cancel");
+        debugPrint("booking cancelled nicely");
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking successfully cancelled"
         ).whenComplete(() {
-          //show meeting cancelled dialog
-          meetingCancelledBookingDialogueBox(context: context);
           //send push notification and store in db
           authService.sendPushNotification(
             noti_title: "Booking cancelled", 
-            noti_body: "your booking with the id: $bookingId \n was cancelled successfully"
+            noti_body: "your booking with the id: $bookingId \n has been cancelled successfully"
           );
+          //show meeting cancelled dialog
+          meetingCancelledBookingDialogueBox(context: context);
         });
         
 

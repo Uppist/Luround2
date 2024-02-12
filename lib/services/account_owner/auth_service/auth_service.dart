@@ -355,7 +355,7 @@ class AuthService extends getx.GetxController {
           email: googleUser.email, 
           firstName:getFirstName(fullName: googleUser.displayName!), 
           lastName: getLastName(fullName: googleUser.displayName!), 
-          photoUrl: googleUser.photoUrl ?? "my_photo", 
+          photoUrl: "my_photo", 
           google_user_id: googleUser.id
         );
 

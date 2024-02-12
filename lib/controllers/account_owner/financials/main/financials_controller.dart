@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
+import 'package:luround/models/account_owner/more/transactions/bank_response.dart';
 //import 'dart:convert';
 //import 'dart:io';
 //import 'package:http/http.dart' as http;
@@ -166,7 +167,6 @@ class FinancialsController extends getx.GetxController {
 
   //for Speed dial floating action button (QUOTES)
   final isInvoiceOpened = false.obs;
-
 
 
 

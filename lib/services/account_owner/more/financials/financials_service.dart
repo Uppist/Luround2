@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/models/account_owner/more/transactions/bank_response.dart';
+import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -563,6 +565,13 @@ class FinancialsService extends getx.GetxController {
   
 
   ///[CREATE INVOICE SCREEN]
+  //PAYMENT METHOD FOR INVOICE
+  var selectedAccName = ''.obs;
+  var selectedAccNumber = ''.obs;
+  var selectedBank = ''.obs;    jkjkjl
+ 
+  
+  
 
   ///////////////////h
   var reactiveTotalForInvoice = "".obs;
@@ -1407,8 +1416,75 @@ class FinancialsService extends getx.GetxController {
   }
 
 
+  ///////NEEDED//////////
+  //
+  // Sample list of users, each represented as a map
+  var savedAccounts = <SavedBanks>[].obs;
+  var filteredSavedAccounts = <SavedBanks>[].obs;
+  //GET REQUEST TO FETCH USER'S BANK DETAILS
+  Future<List<SavedBanks>> getUserSavedAccounts() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "wallet/get-saved-banks?userId=$userId",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        //debugPrint('this is response body ==>${res.body}');
+        debugPrint("user saved accounts fetched successfully!!");
+        //decode the response body here
+        // Check if the response body is not null
+        if (res.body != null) {
+          final List<dynamic> response = jsonDecode(res.body);
+          final List<SavedBanks> finalResult = response.map((e) => SavedBanks.fromJson(e)).toList();
 
+          savedAccounts.clear();
+          savedAccounts.addAll(finalResult);
+          debugPrint("$savedAccounts");
 
+          // Return saved bank account list
+          return savedAccounts;
+        } else {
+          throw Exception('Response body is null');
+        }
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        throw Exception('Failed to fetch user saved banks');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
+  ///[TO LAZY LOAD THE USER LIST OF SAVED BANKS IN THE FUTURE BUILDER FOR WITHDRAWAL SCREEN]///
+  Future<List<SavedBanks>> loadSavedBanksData() async {
+    try {
+      isLoading.value = true;
+      final List<SavedBanks> banks = await getUserSavedAccounts();
+      banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
+
+      isLoading.value = false;
+      filteredSavedAccounts.value = List.from(banks);  //addAll(service.savedAccounts);
+      print("loaded: ${filteredSavedAccounts}");
+      return filteredSavedAccounts;
+  
+    } 
+    catch (error, stackTrace) {
+      isLoading.value = false;
+      print("Error loading data: $error");
+      //print("Error loading data: $error");
+      throw Exception("$error => $stackTrace");
+      // Handle error as needed, e.g., show an error message to the user
+    }
+  }
 
 
 
@@ -1429,7 +1505,8 @@ class FinancialsService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
-
+    //load user saved banks into the widget tree
+    loadSavedBanksData();
     ///just trying to test this on init func////
     getUserServices().then((List<UserServiceModel> list) {
       print("list of user services: $list");

@@ -17,6 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/invocie_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/add_product_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/view_added_services_details.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/payment_method.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/textfield_tool_for_invoice.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
@@ -287,6 +288,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                           ),                  
                           
                           SizedBox(height: 30.h,),
+                          
                           Text(
                             "Due Date",
                             style: GoogleFonts.inter(
@@ -573,7 +575,38 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                         ]
                       )
                     ),
+                    SizedBox(height: 20.h,),  
+
+                    //style
+                    Container(
+                      height: 7.h,
+                      width: double.infinity,
+                      color: AppColor.greyColor,
+                    ),
                     SizedBox(height: 20.h,),
+                    //Bank Payment Widget
+                    //4 write notes section
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Payment",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 20.h,),
+                          //List of banks
+                          PaymentMethodForInvoice()
+                        ]
+                      )
+                    ),
+
+                    
                     //style
                     Container(
                       height: 7.h,

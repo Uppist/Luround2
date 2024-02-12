@@ -54,7 +54,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
 
   final String userEmail = LocalStorage.getUseremail();
-  String editedUrl = "";
+  //String editedUrl = "";
 
   Future<void> _refresh() async {
     // Simulate a refresh by waiting for a short duration
@@ -168,8 +168,8 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(20.r),
             ),
             onPressed: () {
-              //shareProfileLink(link: data.luround_url);
-              shareProfileLink(link: editedUrl);
+              shareProfileLink(link: data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'));
+              //shareProfileLink(link: editedUrl);
             },
             label: Text(
               'Share Profile',
@@ -348,16 +348,6 @@ class _ProfilePageState extends State<ProfilePage> {
               }
             );
           }
-
-          // Check if the URL already contains a fragment identifier (#)
-          if (!data.luround_url.contains('#')) {
-            // If not, add #/
-            //setState(() {
-              editedUrl = data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'); 
-            //});
-          }
-
-          print("edited luround url: ${data.luround_url}");
         
           return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -416,8 +406,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   Expanded(
                     child: Text(
-                      editedUrl,
-                      //data.luround_url,
+                      data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
                       style: GoogleFonts.inter(
                         textStyle: TextStyle(
                           color: AppColor.blueColor,
@@ -432,7 +421,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   InkWell(
                     onTap: () {
                       copyToClipboard(
-                        text:  editedUrl,  //data.luround_url,
+                        text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
                         context: context,
                         snackMessage: "profile link copied to clipboard"
                       );
@@ -596,7 +585,7 @@ class _ProfilePageState extends State<ProfilePage> {
             )*/
 
             QrImageView(
-              data: editedUrl, //data.luround_url,
+              data: data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'), //editedUrl,
               version: QrVersions.auto,
               size: 170.w,
               errorStateBuilder: (context, error) {

@@ -69,7 +69,7 @@ class _PaymentMethodForInvoiceState extends State<PaymentMethodForInvoice> {
               },
               secondary: SvgPicture.asset("assets/svg/bank.svg"),
             );
-          },
+          }, 
         ) : Text(
           "Upload bank details to proceed",
           style: GoogleFonts.inter(

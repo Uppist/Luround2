@@ -23,11 +23,13 @@ import 'radio_section.dart';
 
 
 class RequestQuoteScreen extends StatefulWidget {
-  RequestQuoteScreen({super.key, required this.service_name, required this.service_provider_name, required this.service_provider_email, required this.service_id});
+  RequestQuoteScreen({super.key, required this.service_name, required this.service_provider_name, required this.service_provider_email, required this.service_id, required this.service_charge_virtual, required this.service_charge_inperson});
   final String service_name;
   final String service_id;
   final String service_provider_name;
   final String service_provider_email;
+  final String service_charge_virtual;
+  final String service_charge_inperson;
 
   @override
   State<RequestQuoteScreen> createState() => _RequestQuoteScreenState();
@@ -181,7 +183,10 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           ),
                           SizedBox(height: 20.h,),
                           //appoint radio widget
-                          AppointmentType(),
+                          AppointmentType(
+                            service_charge_inperson: widget.service_charge_inperson,
+                            service_charge_virtual: widget.service_charge_virtual,
+                          ),
                           SizedBox(height: 30.h),
                           Text(
                             "Your budget/offer",

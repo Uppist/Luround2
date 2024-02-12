@@ -283,6 +283,8 @@ class AccViewerServicesPage extends StatelessWidget {
                                     TextButton(
                                       onPressed: () {
                                         Get.to(() => RequestQuoteScreen(
+                                          service_charge_inperson: data[index].service_charge_in_person!,
+                                          service_charge_virtual: data[index].service_charge_virtual!,
                                           service_name: data[index].service_name,
                                           service_provider_email: data[index].service_provider_details['email'],
                                           service_provider_name: data[index].service_provider_details['displayName'], 

@@ -19,9 +19,11 @@ import 'package:luround/views/account_viewer/services/widgets/request_quote/reus
 
 
 class Step1Screen extends StatefulWidget {
-  Step1Screen({super.key, required this.onSubmit, required this.service_name});
+  Step1Screen({super.key, required this.onSubmit, required this.service_name, required this.service_charge_virtual, required this.service_charge_inperson});
   final VoidCallback onSubmit;
   final String service_name;
+  final String service_charge_virtual;
+  final String service_charge_inperson;
 
   @override
   State<Step1Screen> createState() => _Step1ScreenState();
@@ -141,7 +143,10 @@ class _Step1ScreenState extends State<Step1Screen> {
           ),
           SizedBox(height: 20.h,),
           //appoint radio widget
-          AppointmentTypeBA(),
+          AppointmentTypeBA(
+            service_charge_inperson: widget.service_charge_inperson,
+            service_charge_virtual: widget.service_charge_virtual,
+          ),
           SizedBox(height: 20.h,),
           Text(
             "Note (optional)",

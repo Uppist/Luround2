@@ -127,6 +127,8 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             title: Text(""), 
             content: Step1Screen(
               service_name: widget.service_name,
+              service_charge_inperson: widget.service_charge_in_person,
+              service_charge_virtual: widget.service_charge_virtual,
               onSubmit: () {
                 if(controller.curentStep < 2) {
                   setState(() {

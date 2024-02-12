@@ -17,7 +17,7 @@ import 'package:luround/views/account_viewer/people_profile/screen/profile_page_
 import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
-import 'package:luround/web_routes/routes.dart';
+import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';

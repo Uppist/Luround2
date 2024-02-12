@@ -12,7 +12,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class AppointmentTypeBA extends StatefulWidget {
-  AppointmentTypeBA({super.key,});
+  AppointmentTypeBA({super.key, required this.service_charge_virtual, required this.service_charge_inperson,});
+  final String service_charge_virtual;
+  final String service_charge_inperson;
 
   @override
   State<AppointmentTypeBA> createState() => _AppointmentTypeBAState();
@@ -43,17 +45,32 @@ class _AppointmentTypeBAState extends State<AppointmentTypeBA> {
               },
             ),
             SizedBox(width: 10.w,),
-            Text(
-              "In-Person",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "In-Person",
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  Text(
+                    "N${widget.service_charge_inperson}",
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
-        SizedBox(height: 5.h,),
+        SizedBox(height: 10.h,),
         //2
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -72,12 +89,27 @@ class _AppointmentTypeBAState extends State<AppointmentTypeBA> {
               },
             ),
             SizedBox(width: 10.w,),
-            Text(
-              "Virtual",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500
+            Expanded(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Virtual",
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  Text(
+                    "N${widget.service_charge_virtual}",
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

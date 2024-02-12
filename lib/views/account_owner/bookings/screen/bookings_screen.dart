@@ -257,6 +257,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                             IconButton(
                                               onPressed: () {
                                                 bookingsListDialogueBox(
+                                                  service: service,
                                                   serviceDate: item.serviceDetails.date,
                                                   serviceTime: item.serviceDetails.time,
                                                   serviceDuration: item.serviceDetails.duration,
@@ -674,6 +675,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                         IconButton(
                                           onPressed: () {
                                             bookingsListDialogueBox(
+                                              service: service,
                                               serviceDate: item.serviceDetails.date,
                                               serviceTime: item.serviceDetails.time,
                                               serviceDuration: item.serviceDetails.duration,

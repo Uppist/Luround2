@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/bookings/screen/reschedule_screen.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/cancel_booking_bottomsheet.dart';
@@ -23,7 +24,8 @@ Future<void> bookingsListDialogueBox({
   required String serviceDate,
   required String serviceTime,
   required String serviceDuration,
-  required String bookingId
+  required String bookingId,
+  required AccOwnerBookingService service
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -87,7 +89,12 @@ Future<void> bookingsListDialogueBox({
                 //2
                 InkWell(
                   onTap: () {
-                    cancelBookingDialogueBox(context: context, serviceName: serviceName,);
+                    cancelBookingDialogueBox(
+                      service: service,
+                      context: context, 
+                      serviceName: serviceName,
+                      bookingId: bookingId
+                    );
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

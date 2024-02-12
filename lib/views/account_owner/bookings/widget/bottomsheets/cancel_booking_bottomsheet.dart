@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting_cancelled_dialog.dart';
 
@@ -15,7 +16,7 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting
 
 
 ///Alert Dialog
-Future<void> cancelBookingDialogueBox({required BuildContext context, required String serviceName}) async{
+Future<void> cancelBookingDialogueBox({required String bookingId, required BuildContext context, required String serviceName, required AccOwnerBookingService service}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -68,7 +69,10 @@ Future<void> cancelBookingDialogueBox({required BuildContext context, required S
                 SizedBox(height: 40.h,),
                 InkWell(
                   onTap: () {
-                    meetingCancelledBookingDialogueBox(context: context);
+                    service.cancelBooking(
+                      context: context,
+                      bookingId: bookingId
+                    );
                   },
                   child: Container(
                     //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

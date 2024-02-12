@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/services/services_controller.dart';
 import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
-import 'package:luround/models/account_owner/user_profile/user_model.dart';
-import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -13,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting_cancelled_dialog.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -240,6 +239,57 @@ class AccOwnerBookingService extends getx.GetxController {
           message: "failed to confirm booking"
         );
         throw Exception('failed to confirm booking');
+      }
+    }   
+    catch (e) {
+      isLoading.value = false;
+      throw Exception("$e");
+    }
+  }
+
+  //cancell booking
+  Future<dynamic> cancelBooking({
+    required BuildContext context,
+    required String bookingId
+  }) async {
+    try {
+
+      isLoading.value = true;
+      http.Response res = await baseService.httpGet(endPoint: "booking/cancel-booking?bookingId=$bookingId");
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("booking cancel");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "booking successfully cancelled"
+        ).whenComplete(() {
+          //show meeting cancelled dialog
+          meetingCancelledBookingDialogueBox(context: context);
+          //send push notification and store in db
+          authService.sendPushNotification(
+            noti_title: "Booking cancelled", 
+            noti_body: "your booking with the id: $bookingId \n was cancelled successfully"
+          );
+        });
+        
+
+      } else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to cancel booking: ${res.statusCode} | ${res.body}"
+        );
+        throw Exception('failed to cancel booking: ${res.statusCode} | ${res.body}');
       }
     }   
     catch (e) {

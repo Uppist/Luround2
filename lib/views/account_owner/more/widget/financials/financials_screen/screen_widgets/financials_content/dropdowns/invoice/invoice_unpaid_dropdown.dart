@@ -17,7 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class InvoiceUnpaidDropDown extends StatelessWidget {
-  InvoiceUnpaidDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id});
+  InvoiceUnpaidDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_name, required this.account_name, required this.account_number});
   final String invoice_id;
   final String send_to_name;
   final String send_to_email;
@@ -33,6 +33,11 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
   final String service_provider_phone_number;
   final List<dynamic> booking_detail;
   final String tracking_id;
+  //service provider bank details here
+  final String bank_name;
+  final String account_name;
+  final String account_number;
+
   
   var service = Get.put(FinancialsService());
    var finPdfService = Get.put(FinancialsPdfService());
@@ -91,8 +96,11 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              int randNum = Random().nextInt(2000000);
+              
               finPdfService.shareInvoicePDF(
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
                 context: context, 
@@ -123,6 +131,9 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
             onTap: () {
               int randNum = Random().nextInt(2000000);
               finPdfService.downloadInvoicePDFToDevice(
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
                 context: context, 

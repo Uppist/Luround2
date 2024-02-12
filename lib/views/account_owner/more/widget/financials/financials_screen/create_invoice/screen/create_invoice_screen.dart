@@ -584,8 +584,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                       color: AppColor.greyColor,
                     ),
                     SizedBox(height: 20.h,),
-                    //Bank Payment Widget
-                    //4 write notes section
+                    //5 Bank Payment Widget
+                    //
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                       child: Column(
@@ -607,6 +607,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                     ),
 
                     
+                    SizedBox(height: 20.h,),
                     //style
                     Container(
                       height: 7.h,
@@ -626,6 +627,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                               onShare: () {
                                 service.createNewInvoiceAndSendToClient(
                                   context: context, 
+                                  bank_name: service.selectedBankForInvoice.value,
+                                  account_name: service.selectedAccNameForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 
                                   client_phone_number: controller.invoiceClientPhoneNumberController.text, 
@@ -645,6 +649,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                               onSave: () {
                                 service.createNewInvoiceAndSaveToDB(
                                   context: context, 
+                                  bank_name: service.selectedBankForInvoice.value,
+                                  account_name: service.selectedAccNameForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 
                                   client_phone_number: controller.invoiceClientPhoneNumberController.text, 
@@ -668,6 +675,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                 finPdfService.downloadInvoicePDFToDevice(
                                   sender_address: "",
                                   sender_phone_number: '',
+                                  bank_name: service.selectedBankForInvoice.value,
+                                  account_name: service.selectedAccNameForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,
                                   context: context, 
                                   tracking_id: widget.invoiceNumber.toString(),
                                   receiver_email: controller.invoiceClientEmailController.text,

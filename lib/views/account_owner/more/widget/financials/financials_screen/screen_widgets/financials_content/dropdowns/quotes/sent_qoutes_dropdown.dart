@@ -17,7 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class QuoteDropDown extends StatelessWidget {
-  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id});
+  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_name, required this.account_name, required this.account_number});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -36,6 +36,10 @@ class QuoteDropDown extends StatelessWidget {
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
   final String tracking_id;
+  //service provider bank details here
+  final String bank_name;
+  final String account_name;
+  final String account_number;
 
 
   var service = Get.put(FinancialsService());
@@ -84,6 +88,9 @@ class QuoteDropDown extends StatelessWidget {
             onTap: () {
               finPdfService.shareQuotePDF(
                 context: context, 
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 tracking_id: tracking_id,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
@@ -113,6 +120,9 @@ class QuoteDropDown extends StatelessWidget {
             onTap: () {
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
                 tracking_id: tracking_id,
@@ -141,6 +151,9 @@ class QuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ConvertQuoteToInvoiceScreen(
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 tracking_id: tracking_id,
                 quote_id: quote_date, 
                 send_to_name: send_to_name,

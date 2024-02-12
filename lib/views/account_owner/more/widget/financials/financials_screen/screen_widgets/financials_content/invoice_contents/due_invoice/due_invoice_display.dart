@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DueInvoiceDisplay extends StatelessWidget {
-  const DueInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at});
+  const DueInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.bank_name, required this.account_name, required this.account_number});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -33,6 +33,10 @@ class DueInvoiceDisplay extends StatelessWidget {
   final List<dynamic> booking_detail;
   final String tracking_id;
   final int created_at;
+  //service provider bank details here
+  final String bank_name;
+  final String account_name;
+  final String account_number;
 
 
   @override
@@ -77,6 +81,9 @@ class DueInvoiceDisplay extends StatelessWidget {
                 ),
               ),
               InvoiceDueDropDown(
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 invoice_id: invoice_id,
                 tracking_id: tracking_id,
                 service_provider_address: service_provider_address,

@@ -56,6 +56,11 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
+
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
     }) async{
     
     //image
@@ -638,13 +643,55 @@ class FinancialsPdfService extends getx.GetxController {
 
                   ]
                 )
+              ),
+
+              pw.SizedBox(height: 20.h),
+
+              //BANK DETAILS CONTAINER///////////////////
+              pw.Container(
+                //alignment: Alignment.center,
+                padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                width: double.infinity,
+                color: PdfColors.white,
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      "Bank details",
+                      style: pw.TextStyle(
+                      color: PdfColors.grey,
+                        fontSize: 14.sp,
+                        fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+                    pw.SizedBox(height: 20.h),
+                    pw.Text(
+                      account_name,
+                      style: pw.TextStyle(
+                        color: PdfColors.black,
+                        fontSize: 14.sp,
+                        //fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+                    pw.SizedBox(height: 6.h,),
+                    pw.Text(
+                      "$bank_name | $account_number",
+                      style: pw.TextStyle(
+                        color: PdfColors.grey,
+                        fontSize: 13.sp,
+                        //fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+
+                  ]
+                )
               )
+              ///////////////////////////////////////////////
 
             ]
-          )
+            )
           
           ];
-
         }
       )
     );
@@ -670,10 +717,17 @@ class FinancialsPdfService extends getx.GetxController {
     required String subtotal,
     required String discount,
     required String vat,
-    required String note
+    required String note,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
   }) async{
     try {
       writeQuotePdf(
+        bank_name: bank_name,
+        account_name: account_name,
+        account_number: account_number,
         tracking_id: tracking_id,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
@@ -745,11 +799,18 @@ class FinancialsPdfService extends getx.GetxController {
     required String subtotal,
     required String discount,
     required String vat,
-    required String note
+    required String note,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
   }) async{
     try {
 
       writeQuotePdf(
+        bank_name: bank_name,
+        account_name: account_name,
+        account_number: account_number,
         tracking_id: tracking_id,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
@@ -820,8 +881,12 @@ class FinancialsPdfService extends getx.GetxController {
     required String subtotal,
     required String discount,
     required String vat,
-    required String note
+    required String note,
     //more to be added
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
     }) async{
 
     pdfI.addPage(
@@ -1397,7 +1462,50 @@ class FinancialsPdfService extends getx.GetxController {
 
                   ]
                 )
+              ),
+
+              pw.SizedBox(height: 20.h),
+
+              //BANK DETAILS CONTAINER///////////////////
+              pw.Container(
+                //alignment: Alignment.center,
+                padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                width: double.infinity,
+                color: PdfColors.white,
+                child: pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      "Bank details",
+                      style: pw.TextStyle(
+                      color: PdfColors.grey,
+                        fontSize: 14.sp,
+                        fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+                    pw.SizedBox(height: 20.h),
+                    pw.Text(
+                      account_name,
+                      style: pw.TextStyle(
+                        color: PdfColors.black,
+                        fontSize: 14.sp,
+                        //fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+                    pw.SizedBox(height: 6.h,),
+                    pw.Text(
+                      "$bank_name | $account_number",
+                      style: pw.TextStyle(
+                        color: PdfColors.grey,
+                        fontSize: 13.sp,
+                        //fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+
+                  ]
+                )
               )
+              ///////////////////////////////////////////////
 
             
             ]
@@ -1429,10 +1537,17 @@ class FinancialsPdfService extends getx.GetxController {
     required String subtotal,
     required String discount,
     required String vat,
-    required String note
+    required String note,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
   }) async{
     try {
       writeInvoicePdf(
+        bank_name: bank_name,
+        account_name: account_name,
+        account_number: account_number,
         sender_phone_number: sender_phone_number,
         sender_address: sender_address,
         tracking_id: tracking_id,
@@ -1503,11 +1618,18 @@ class FinancialsPdfService extends getx.GetxController {
     required String subtotal,
     required String discount,
     required String vat,
-    required String note
+    required String note,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
   }) async{
     try {
 
       writeInvoicePdf(
+        bank_name: bank_name,
+        account_name: account_name,
+        account_number: account_number,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
         tracking_id: tracking_id,

@@ -92,7 +92,11 @@ class FinancialsService extends getx.GetxController {
   }
   
 
-  ///[CREATE QUOTES SCREEN] ////THIS
+  ///[CREATE QUOTES SCREEN]
+  //PAYMENT METHOD FOR QUOTE
+  var selectedAccNameForQuote = ''.obs;
+  var selectedAccNumberForQuote = ''.obs;
+  var selectedBankForQuote = ''.obs;  
   
 
 
@@ -313,7 +317,11 @@ class FinancialsService extends getx.GetxController {
     required String sub_total,
     required String discount,
     required String total,
-    required List<dynamic> product_detail
+    required List<dynamic> product_detail,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
     }) async {
 
     isLoading.value = true;
@@ -333,6 +341,10 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": product_detail,
+      //service provider bank details
+      "bank_name": bank_name,
+      "account_name": account_name,
+      "account_number": account_number,
     };
 
     try {
@@ -385,7 +397,11 @@ class FinancialsService extends getx.GetxController {
     required String sub_total,
     required String discount,
     required String total,
-    required List<dynamic> product_detail
+    required List<dynamic> product_detail,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
     }) async {
 
     isLoading.value = true;
@@ -405,6 +421,10 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": product_detail,
+      //service provider bank details
+      "bank_name": bank_name,
+      "account_name": account_name,
+      "account_number": account_number,
     };
 
     try {
@@ -420,6 +440,9 @@ class FinancialsService extends getx.GetxController {
         String phone_number = response['service_provider_phone_number'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareQuotePDF(
+          bank_name: bank_name,
+          account_name: account_name,
+          account_number: account_number,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -566,9 +589,9 @@ class FinancialsService extends getx.GetxController {
 
   ///[CREATE INVOICE SCREEN]
   //PAYMENT METHOD FOR INVOICE
-  var selectedAccName = ''.obs;
-  var selectedAccNumber = ''.obs;
-  var selectedBank = ''.obs;    jkjkjl
+  var selectedAccNameForInvoice = ''.obs;
+  var selectedAccNumberForInvoice = ''.obs;
+  var selectedBankForInvoice = ''.obs;   
  
   
   
@@ -748,7 +771,11 @@ class FinancialsService extends getx.GetxController {
     required String sub_total,
     required String discount,
     required String total,
-    required List<dynamic> booking_detail
+    required List<dynamic> booking_detail,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
     }) async {
 
     isLoading.value = true;
@@ -765,6 +792,10 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": booking_detail,
+      //service provider bank details
+      "bank_name": bank_name,
+      "account_name": account_name,
+      "account_number": account_number,
     };
 
     try {
@@ -817,7 +848,11 @@ class FinancialsService extends getx.GetxController {
     required String sub_total,
     required String discount,
     required String total,
-    required List<dynamic> booking_detail
+    required List<dynamic> booking_detail,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
     }) async {
 
     isLoading.value = true;
@@ -834,6 +869,10 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": booking_detail,
+      //service provider bank details
+      "bank_name": bank_name,
+      "account_name": account_name,
+      "account_number": account_number,
     };
 
     try {
@@ -851,6 +890,9 @@ class FinancialsService extends getx.GetxController {
         String phone_number = response['service_provider_phone_number'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
+          bank_name: bank_name,
+          account_name: account_name,
+          account_number: account_number,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -1003,6 +1045,11 @@ class FinancialsService extends getx.GetxController {
 
 
   ///[CREATE RECEIPT SCREEN]
+  //PAYMENT METHOD FOR RECEIPT
+  var selectedAccNameForReceipt = ''.obs;
+  var selectedAccNumberForReceipt = ''.obs;
+  var selectedBankForReceipt = ''.obs;
+  ///
   ///////////////////
   var reactiveTotalForReceipt = "".obs;
   var reactiveSubtotalForReceipt = "".obs;

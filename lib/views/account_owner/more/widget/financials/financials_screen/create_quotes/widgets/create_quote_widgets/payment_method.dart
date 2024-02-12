@@ -12,12 +12,12 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class PaymentMethodForInvoice extends StatefulWidget {
+class PaymentMethodForQuote extends StatefulWidget {
   @override
-  _PaymentMethodForInvoiceState createState() => _PaymentMethodForInvoiceState();
+  _PaymentMethodForForQuoteState createState() => _PaymentMethodForForQuoteState();
 }
 
-class _PaymentMethodForInvoiceState extends State<PaymentMethodForInvoice> {
+class _PaymentMethodForForQuoteState extends State<PaymentMethodForQuote> {
 
   var service = Get.put(FinancialsService());
 
@@ -57,15 +57,15 @@ class _PaymentMethodForInvoiceState extends State<PaymentMethodForInvoice> {
                 ),
               ),
               value: item.account_name,
-              groupValue: service.selectedAccNameForInvoice.value,
+              groupValue: service.selectedAccNameForQuote.value,
               controlAffinity: ListTileControlAffinity.trailing,
               onChanged: (value) {
                 setState(() {
-                  service.selectedAccNameForInvoice.value = value!;
-                  service.selectedAccNumberForInvoice.value = item.account_number;
-                  service.selectedBankForInvoice.value = item.bank_name;
+                  service.selectedAccNameForQuote.value = value!;
+                  service.selectedAccNumberForQuote.value = item.account_number;
+                  service.selectedBankForQuote.value = item.bank_name;
                 });
-                print("${service.selectedAccNameForInvoice.value} - ${service.selectedAccNumberForInvoice.value} - ${service.selectedBankForInvoice.value}");
+                print("${service.selectedAccNameForQuote.value} - ${service.selectedAccNumberForQuote.value} - ${service.selectedBankForQuote.value}");
               },
               secondary: SvgPicture.asset("assets/svg/bank.svg"),
             );

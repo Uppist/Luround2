@@ -18,6 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/due_date_selector.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/payment_method.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/send_quote_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/textfield_tool.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/quote_date_selector.dart';
@@ -582,6 +583,38 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             ]
                           )
                         ),
+
+                        SizedBox(height: 20.h,),  
+
+                        //style
+                        Container(
+                          height: 7.h,
+                          width: double.infinity,
+                          color: AppColor.greyColor,
+                        ),
+                        SizedBox(height: 20.h,),
+                        //5 Bank Payment Widget
+                        //
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Payment",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.blackColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              SizedBox(height: 20.h,),
+                              //List of banks
+                              PaymentMethodForQuote()
+                            ]
+                          )
+                        ),
+
                         SizedBox(height: 20.h,),
                         //style
                         Container(
@@ -602,6 +635,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   onShare: () {
                                     service.createNewQuoteAndSendToClient(
                                       context: context, 
+                                      bank_name: service.selectedBankForQuote.value,
+                                      account_name: service.selectedAccNameForQuote.value,
+                                      account_number: service.selectedAccNumberForQuote.value,
                                       client_name: controller.quoteClientNameController.text, 
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
@@ -620,6 +656,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   onSave: () {
                                     service.createNewQuoteAndSendToDB(
                                       context: context, 
+                                      bank_name: service.selectedBankForQuote.value,
+                                      account_name: service.selectedAccNameForQuote.value,
+                                      account_number: service.selectedAccNumberForQuote.value,
                                       client_name: controller.quoteClientNameController.text, 
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
@@ -644,6 +683,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       context: context, 
                                       sender_address: "",
                                       sender_phone_number: '',
+                                      bank_name: service.selectedBankForQuote.value,
+                                      account_name: service.selectedAccNameForQuote.value,
+                                      account_number: service.selectedAccNumberForQuote.value,
                                       tracking_id: widget.quoteNumber.toString(),
                                       receiver_email: controller.quoteClientEmailController.text,
                                       receiver_name: controller.quoteClientNameController.text,

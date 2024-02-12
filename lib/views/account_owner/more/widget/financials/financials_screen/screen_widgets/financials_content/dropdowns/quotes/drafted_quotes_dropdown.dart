@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DraftedQuoteDropDown extends StatelessWidget {
-  DraftedQuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id});
+  DraftedQuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_name, required this.account_name, required this.account_number});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -34,6 +34,10 @@ class DraftedQuoteDropDown extends StatelessWidget {
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
   final String tracking_id;
+  //service provider bank details here
+  final String bank_name;
+  final String account_name;
+  final String account_number;
 
 
   var service = Get.put(FinancialsService());
@@ -83,6 +87,9 @@ class DraftedQuoteDropDown extends StatelessWidget {
 
               service.createNewQuoteAndSendToClient(
                 context: context, 
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 client_name: send_to_name, 
                 client_email: send_to_email, 
                 client_phone_number: phone_number, 
@@ -97,6 +104,9 @@ class DraftedQuoteDropDown extends StatelessWidget {
               ).whenComplete(() {
                 finPdfService.shareQuotePDF(
                   context: context, 
+                  bank_name: bank_name,
+                  account_name: account_name,
+                  account_number: account_number,
                   sender_address: service_provider_address,
                   sender_phone_number: service_provider_phone_number,
                   tracking_id: tracking_id,
@@ -129,6 +139,9 @@ class DraftedQuoteDropDown extends StatelessWidget {
         
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 tracking_id: tracking_id,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,

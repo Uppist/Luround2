@@ -15,6 +15,10 @@ class InvoiceResponse{
   final List<dynamic> booking_detail;
   final int tracking_id;
   final int created_at;
+  //service provider bank details here
+  final String bank_name;
+  final String account_name;
+  final String account_number;
   
   InvoiceResponse({
     required this.service_provider,
@@ -32,6 +36,10 @@ class InvoiceResponse{
     required this.booking_detail,  
     required this.tracking_id, 
     required this.created_at,
+    //
+    required this.bank_name, 
+    required this.account_name, 
+    required this.account_number,
   });
 
   factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
@@ -51,6 +59,10 @@ class InvoiceResponse{
       total: json['total'] ?? "",
       note: json['note'] ?? "nan", 
       booking_detail: json['product_detail'] ?? [],
+      //
+      bank_name: json['bank_name'] ?? "nan",
+      account_name: json['account_name'] ?? "nan",
+      account_number: json['account_number'] ?? "nan"
     );
   }
 }

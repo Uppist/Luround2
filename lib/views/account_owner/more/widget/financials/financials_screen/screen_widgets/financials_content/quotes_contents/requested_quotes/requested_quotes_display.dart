@@ -32,7 +32,15 @@ class RequestedQuotesDisplay extends StatelessWidget {
     required this.note, 
     required this.service_provider,  
     required this.product_details,
-    required this.quote_id, required this.offer, required this.service_name, required this.uploaded_file, required this.tracking_id, required this.created_at,
+    required this.quote_id, 
+    required this.offer, 
+    required this.service_name, 
+    required this.uploaded_file, 
+    required this.tracking_id, 
+    required this.created_at, 
+    required this.bank_name, 
+    required this.account_name, 
+    required this.account_number,
     
   });
   final VoidCallback onPressed;
@@ -56,6 +64,9 @@ class RequestedQuotesDisplay extends StatelessWidget {
   final List<dynamic> product_details;
   final String tracking_id;
   final int created_at;
+  final String bank_name;
+  final String account_name;
+  final String account_number;
 
 
   @override
@@ -100,6 +111,9 @@ class RequestedQuotesDisplay extends StatelessWidget {
                 ),
               ),
               RequestedQuoteDropDown(
+                bank_name: bank_name,
+                account_name: account_name,
+                account_number: account_number,
                 tracking_id: tracking_id,
                 offer: offer,
                 uploade_file: uploaded_file,

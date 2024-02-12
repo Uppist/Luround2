@@ -20,6 +20,10 @@ class DraftedQuotesResponse{
   final List<dynamic> product_details;
   final int tracking_id;
   final int created_at;
+  //service provider bank details here
+  final String bank_name;
+  final String account_name;
+  final String account_number;
   
   DraftedQuotesResponse({
     required this.send_to_name, 
@@ -39,6 +43,10 @@ class DraftedQuotesResponse{
     required this.quote_id,
     required this.tracking_id, 
     required this.created_at, 
+    //
+    required this.bank_name, 
+    required this.account_name, 
+    required this.account_number,
   });
 
   factory DraftedQuotesResponse.fromJson(Map<String, dynamic> json) {
@@ -59,7 +67,11 @@ class DraftedQuotesResponse{
       status: json['status'] ?? "nan",
       note: json['note'] ?? "nan",
       service_provider: json['service_provider'] ?? {},
-      product_details: json['product_details'] ?? []
+      product_details: json['product_details'] ?? [],
+      //
+      bank_name: json['bank_name'] ?? "nan",
+      account_name: json['account_name'] ?? "nan",
+      account_number: json['account_number'] ?? "nan"
     );
   }
 }

@@ -52,6 +52,9 @@ class RequestedQuotesList extends StatelessWidget {
               if(service.filteredReceivedQuotesList.isNotEmpty) {
                 return RequestedQuotesDisplay(
                   onPressed: (){},
+                  bank_name: "",
+                  account_name: "",
+                  account_number: "",
                   offer: item.offer,
                   created_at: item.created_at,
                   tracking_id: item.tracking_id.toString(),

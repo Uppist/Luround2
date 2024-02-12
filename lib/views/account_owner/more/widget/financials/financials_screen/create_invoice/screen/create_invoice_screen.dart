@@ -621,7 +621,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                         color: AppColor.mainColor,
                         text: 'Send Invoice',
                         onPressed: () {
-                          if(controller.invoiceClientNameController.text.isNotEmpty && controller.invoiceClientEmailController.text.isNotEmpty && controller.invoiceClientPhoneNumberController.text.isNotEmpty) {
+                          if(service.selectedBankForInvoice.value.isNotEmpty && controller.invoiceClientNameController.text.isNotEmpty && controller.invoiceClientEmailController.text.isNotEmpty && controller.invoiceClientPhoneNumberController.text.isNotEmpty) {
                             sendInvoiceBottomSheet(
                               context: context,
                               onShare: () {

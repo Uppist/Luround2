@@ -71,11 +71,11 @@ class _PaymentMethodForInvoiceState extends State<PaymentMethodForInvoice> {
             );
           },
         ) : Text(
-          "You haven't uploaded your bank details",
+          "Upload bank details to proceed",
           style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
+            color: AppColor.darkGreyColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w400
           ),
         );
       }

@@ -29,9 +29,9 @@ class TransactionsController extends getx.GetxController {
   //filter transactions list
   final List<String> items = [
     'All time    ', 
-    'Today    ', 
-    'Yesterday    ', 
-    'This week    ', 
+    //'Today    ', 
+    //'Yesterday    ', 
+    //'This week    ', 
     'Last 7 days    ', 
     "Last 30 days    ", //4
     "This month    "

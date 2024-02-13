@@ -52,26 +52,30 @@ class InvoicePaymentService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.data}');
         debugPrint("invoice marked as paid successfully");
-        amountTextController.clear();
 
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "invoice has been marked as 'paid'"
-        ).whenComplete(() => getx.Get.back());
+        ).whenComplete(() {
+          amountTextController.clear();
+          getx.Get.back();
+        });
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.data}');
-        amountTextController.clear();
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to mark invoice as 'paid': ${res.data}"
-        ).whenComplete(() => getx.Get.back());
+        ).whenComplete(() {
+          amountTextController.clear();
+          getx.Get.back();
+        });
       }
     } 
     catch (e) {

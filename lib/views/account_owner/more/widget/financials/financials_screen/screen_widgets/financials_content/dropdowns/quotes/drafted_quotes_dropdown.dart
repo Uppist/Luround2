@@ -99,28 +99,7 @@ class DraftedQuoteDropDown extends StatelessWidget {
                 discount: discount,
                 total: total,
                 product_detail: product_details,
-              ).whenComplete(() {
-                finPdfService.shareQuotePDF(
-                  context: context, 
-                  bank_name: bank_details['bank'],
-                  account_name: bank_details['account_name'],
-                  account_number: bank_details['account_number'],
-                  sender_address: service_provider_address,
-                  sender_phone_number: service_provider_phone_number,
-                  tracking_id: tracking_id,
-                  receiver_name: send_to_name, 
-                  receiver_email: send_to_email, 
-                  receiver_phone_number: phone_number, 
-                  quote_status: status,
-                  due_date: due_date, 
-                  grand_total: total, 
-                  serviceList: product_details, 
-                  subtotal: sub_total, 
-                  discount: discount, 
-                  vat: vat, 
-                  note: note
-                );
-              });
+              );
             
             },
             child: Text(

@@ -36,8 +36,12 @@ class FinancialsPdfService extends getx.GetxController {
   final pdfQ = pw.Document(
     pageMode: PdfPageMode.outlines
   );
-  final pdfI = pw.Document();
-  final pdfR = pw.Document();
+  final pdfI = pw.Document(
+    pageMode: PdfPageMode.outlines
+  );
+  final pdfR = pw.Document(
+    pageMode: PdfPageMode.outlines
+  );
 
   //WRITE THE QUOTE PDF
   Future writeQuotePdf({
@@ -105,7 +109,8 @@ class FinancialsPdfService extends getx.GetxController {
                 children: [
 
                   //SENT FROM
-                  pw.Container(
+                pw.Expanded( 
+                  child: pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     width: double.infinity,
@@ -160,10 +165,12 @@ class FinancialsPdfService extends getx.GetxController {
                           ],
                       ),
                     ),
+                  ),
 
                     //PAYMENT
                     //BANK DETAILS CONTAINER///////////////////
-                    pw.Container(
+                  pw.Expanded( 
+                    child: pw.Container(
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       width: double.infinity,
@@ -200,10 +207,12 @@ class FinancialsPdfService extends getx.GetxController {
                         ]
                       )
                     )
+                  ),
                     ///////////////////////////////////////////////
-
+                  
                   ]
                 ),
+              
 
                 pw.SizedBox(height: 20.h,),
 
@@ -933,7 +942,8 @@ class FinancialsPdfService extends getx.GetxController {
                 children: [
 
                   //SENT FROM
-                  pw.Container(
+                pw.Expanded( 
+                  child: pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     width: double.infinity,
@@ -988,10 +998,12 @@ class FinancialsPdfService extends getx.GetxController {
                         ],
                      ),
                     ),
+                  ),
 
                     //PAYMENT
                     //BANK DETAILS CONTAINER///////////////////
-                    pw.Container(
+                  pw.Expanded( 
+                    child: pw.Container(
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       width: double.infinity,
@@ -1028,6 +1040,7 @@ class FinancialsPdfService extends getx.GetxController {
                         ]
                       )
                     )
+                  ),
                     ///////////////////////////////////////////////
 
                   ]

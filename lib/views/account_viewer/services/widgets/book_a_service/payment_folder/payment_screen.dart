@@ -12,6 +12,7 @@ import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/black_card_for_accviewer.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/green_card_for_accviewer.dart';
+import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/loading_black_card.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/upload_receipt_widget.dart';
 
 
@@ -165,17 +166,9 @@ class _PaymentScreenState extends State<PaymentScreen> {
                                   ],
                                 );
                               }
-                              return BlackCardAccViewer(
-                                accountName: 'loading...',
-                                accountNumber: 'loading...',
-                                bank: 'loading...',
-                              );
+                              return LoadingBlackCardAccViewer();
                             }
-                          ) : BlackCardAccViewer(
-                            accountName: 'loading...',
-                            accountNumber: 'loading...',
-                            bank: 'loading...',
-                          );
+                          ) : LoadingBlackCardAccViewer();
                         }
                       ),
                       //////////

@@ -122,21 +122,19 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //Image
-                        widget.photoUrl != 'my_photo'
-                        ?CircleAvatar(
-                          backgroundColor: AppColor.mainColor,
-                          backgroundImage: NetworkImage(
-                            widget.photoUrl
-                          ),
+                        widget.photoUrl != "my_photo" ?
+                        CircleAvatar(
+                          backgroundColor: AppColor.greyColor,
                           radius: 30.r,
+                          child: Image.network(widget.photoUrl)   
                         )
                         :CircleAvatar(
-                          backgroundColor: AppColor.mainColor,
+                          backgroundColor: AppColor.greyColor,
                           radius: 30.r,
                           child: Text(
                             getFirstLetter(widget.userName),
                             style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
+                              color: AppColor.blackColor,
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w600
                             ),
@@ -209,7 +207,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                           glowRadius: 1,
                           glowColor: AppColor.yellowStar,
                           itemCount: 5,
-                          itemSize: 35.r,
+                          itemSize: 38.r,
                           unratedColor: AppColor.textGreyColor.withOpacity(0.2),
                           itemPadding: EdgeInsets.symmetric(horizontal: 20.w),
                           itemBuilder: (context, _) => Icon(

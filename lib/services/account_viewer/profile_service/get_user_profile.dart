@@ -191,6 +191,7 @@ class AccViewerProfileService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
+      //"user_name": user_name,
       "rating": rating,
       "comment": comment
     };

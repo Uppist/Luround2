@@ -288,21 +288,21 @@ class AccViewerReviewsPage extends StatelessWidget {
                             ////Image
                             data[index].userPhoto != 'url'
                             ?CircleAvatar(
-                              backgroundColor: AppColor.mainColor,
+                              backgroundColor: AppColor.greyColor,
                               backgroundImage: NetworkImage(
                                 data[index].userPhoto
                               ),
                               radius: 30.r,
                             )
                             :CircleAvatar(
-                              backgroundColor: AppColor.mainColor,
+                              backgroundColor: AppColor.greyColor,
                               radius: 30.r,
                               child: Text(
-                                getFirstLetter(data[index].userName),
+                                getFirstLetter(data[index].userName ?? "Non"),
                                 style: GoogleFonts.inter(
-                                  color: AppColor.bgColor,
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold
+                                  color: AppColor.blackColor,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600
                                 ),
                               ),
                             ),
@@ -336,7 +336,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                                           color: AppColor.yellowStar,
                                         ),
                                         itemCount: 5,
-                                        itemSize: 20.0, //30
+                                        itemSize: 20.0.r, //30
                                         direction: Axis.horizontal,
                                       ),
                                       //SizedBox(width: 40,),

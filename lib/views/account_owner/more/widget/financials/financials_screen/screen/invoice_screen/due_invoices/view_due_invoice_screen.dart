@@ -3,11 +3,13 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/invoice/due/due_invoice_controller.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/copy_to_clipboard.dart';
 
 
 
@@ -17,7 +19,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ViewDueInvoiceScreen extends StatelessWidget {
-  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id});
+  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id, required this.bank_details});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -34,6 +36,7 @@ class ViewDueInvoiceScreen extends StatelessWidget {
   final String service_provider_address;
   final List<dynamic> booking_detail;
   final String tracking_id;
+  final Map<String, dynamic> bank_details;
 
   
 
@@ -686,6 +689,76 @@ class ViewDueInvoiceScreen extends StatelessWidget {
                         );
                       }
                     ),
+
+                    SizedBox(height: 20.h),
+                    //PAYMENT CONTAINER//////////////////
+                    Container(
+                      //alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      width: double.infinity,
+                      color: AppColor.bgColor,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Payment",
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w600
+                            )
+                          ),
+                          SizedBox(height: 10.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset("assets/svg/bank.svg"),
+                              SizedBox(width: 20.w,),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      bank_details['account_name'],
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.blackColor,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.h,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "${bank_details['bank']} | ${bank_details['account_number']}",
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.darkGreyColor,
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w400
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            copyToClipboard(
+                                              text: bank_details['account_number'], 
+                                              snackMessage: "account number copied to clipboard", 
+                                              context: context
+                                            );
+                                          },
+                                          child: SvgPicture.asset("assets/svg/copy_link.svg"),
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ]
+                      )
+                    )
+                    /////////////////////////////////////////////
                               
 
                   ],

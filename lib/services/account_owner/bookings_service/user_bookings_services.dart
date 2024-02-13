@@ -247,7 +247,7 @@ class AccOwnerBookingService extends getx.GetxController {
     }
   }
 
-  //cancell booking
+  //cancel booking
   Future<dynamic> cancelBooking({
     required BuildContext context,
     required String bookingId

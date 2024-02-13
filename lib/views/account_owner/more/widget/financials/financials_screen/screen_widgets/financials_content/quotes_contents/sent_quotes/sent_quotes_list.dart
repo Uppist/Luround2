@@ -46,9 +46,7 @@ class QuotesList extends StatelessWidget {
               if(service.filteredSentQuotesList.isNotEmpty) {
                 return QuotesDisplay(
                   onPressed: (){},
-                  bank_name: item.bank_name,
-                  account_name: item.account_name,
-                  account_number: item.account_number,
+                  bank_details: item.bank_details,
                   created_at: item.created_at,
                   tracking_id: item.tracking_id.toString(),
                   quote_id: item.quote_id, //randNum.toString(), 

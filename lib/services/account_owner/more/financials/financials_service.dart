@@ -342,7 +342,7 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": product_detail,
       //service provider bank details
-      "bank_name": bank_name,
+      "bank": bank_name,
       "account_name": account_name,
       "account_number": account_number,
     };
@@ -422,7 +422,7 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": product_detail,
       //service provider bank details
-      "bank_name": bank_name,
+      "bank": bank_name,
       "account_name": account_name,
       "account_number": account_number,
     };
@@ -793,7 +793,7 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": booking_detail,
       //service provider bank details
-      "bank_name": bank_name,
+      "bank": bank_name,
       "account_name": account_name,
       "account_number": account_number,
     };
@@ -870,7 +870,7 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": booking_detail,
       //service provider bank details
-      "bank_name": bank_name,
+      "bank": bank_name,
       "account_name": account_name,
       "account_number": account_number,
     };

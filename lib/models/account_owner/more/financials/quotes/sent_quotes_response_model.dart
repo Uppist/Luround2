@@ -21,9 +21,7 @@ class SentQuotesResponse{
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
   //service provider bank details here
-  final String bank_name;
-  final String account_name;
-  final String account_number;
+  final Map<String, dynamic> bank_details;
   
   SentQuotesResponse({
     required this.send_to_name, 
@@ -44,10 +42,7 @@ class SentQuotesResponse{
     required this.tracking_id, 
     required this.created_at, 
     //
-    required this.bank_name, 
-    required this.account_name, 
-    required this.account_number,
-    
+    required this.bank_details, 
   });
 
   factory SentQuotesResponse.fromJson(Map<String, dynamic> json) {
@@ -70,9 +65,7 @@ class SentQuotesResponse{
       service_provider: json['service_provider'] ?? {},
       product_details: json['product_details'] ?? [],
       //
-      bank_name: json['bank_name'] ?? "nan",
-      account_name: json['account_name'] ?? "nan",
-      account_number: json['account_number'] ?? "nan"
+      bank_details: json['bank_details'] ?? {},
     );
   }
 }

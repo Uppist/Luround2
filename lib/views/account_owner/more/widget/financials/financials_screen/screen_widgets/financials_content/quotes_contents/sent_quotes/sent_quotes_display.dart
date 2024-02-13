@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +38,7 @@ class QuotesDisplay extends StatelessWidget {
     required this.service_provider_phone_number, 
     required this.tracking_id, 
     required this.created_at, 
-    required this.bank_name, 
-    required this.account_name, 
-    required this.account_number,
-    
+    required this.bank_details,
   });
   final VoidCallback onPressed;
   final String service_provider_address;
@@ -64,9 +60,7 @@ class QuotesDisplay extends StatelessWidget {
   final List<dynamic> product_details;
   final String tracking_id;
   final int created_at;
-  final String bank_name;
-  final String account_name;
-  final String account_number;
+  final Map<String, dynamic> bank_details;
 
 
 
@@ -111,9 +105,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               QuoteDropDown(
-                bank_name: bank_name,
-                account_name: account_name,
-                account_number: account_number,
+                bank_details: bank_details,
                 tracking_id: tracking_id,
                 quote_id: quote_id, 
                 send_to_name: send_to_name,

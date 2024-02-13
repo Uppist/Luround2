@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class PaidInvoiceDisplay extends StatelessWidget {
-  const PaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.booking_detail, required this.status, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.bank_name, required this.account_name, required this.account_number});
+  const PaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.booking_detail, required this.status, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.bank_details});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -35,9 +35,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
   final String tracking_id;
   final int created_at;
   //service provider bank details here
-  final String bank_name;
-  final String account_name;
-  final String account_number;
+  final Map<String, dynamic> bank_details;
 
 
 
@@ -83,9 +81,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
                 ),
               ),
               InvoicePaidDropDown(
-                bank_name: bank_name,
-                account_name: account_name,
-                account_number: account_number,
+                bank_details: bank_details,
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
                 invoice_id: invoice_id, //randomNum.toString(),

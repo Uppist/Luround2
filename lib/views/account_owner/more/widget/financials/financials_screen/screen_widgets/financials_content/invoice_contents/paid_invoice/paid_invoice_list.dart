@@ -42,9 +42,7 @@ class PaidInvoiceList extends StatelessWidget {
               if(service.filteredPaidInvoiceList.isNotEmpty) {
                 return PaidInvoiceDisplay (
                   onPressed: (){},
-                  bank_name: item.bank_name,
-                  account_name: item.account_name,
-                  account_number: item.account_number,
+                  bank_details: item.bank_details,
                   tracking_id: item.tracking_id.toString(),
                   created_at: item.created_at,
                   service_provider_address: item.service_provider['address'] ?? "non",

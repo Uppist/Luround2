@@ -2,11 +2,13 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
@@ -21,7 +23,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class ConvertQuoteToInvoiceScreen extends StatefulWidget {
-  ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id, required this.bank_name, required this.account_name, required this.account_number});
+  const ConvertQuoteToInvoiceScreen({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.qoute_date, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id, required this.bank_details});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -41,9 +43,8 @@ class ConvertQuoteToInvoiceScreen extends StatefulWidget {
   final List<dynamic> product_details;
   final String tracking_id;
   //service provider bank details here
-  final String bank_name;
-  final String account_name;
-  final String account_number;
+  final Map<String, dynamic> bank_details;
+
 
   @override
   State<ConvertQuoteToInvoiceScreen> createState() => _ConvertQuoteToInvoiceScreenState();
@@ -754,6 +755,76 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                     }
                   ),
 
+                  SizedBox(height: 20.h),
+                  //PAYMENT CONTAINER//////////////////
+                  Container(
+                    //alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    width: double.infinity,
+                    color: AppColor.bgColor,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Payment",
+                          style: GoogleFonts.inter(
+                            color: AppColor.darkGreyColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600
+                          )
+                        ),
+                        SizedBox(height: 10.h,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SvgPicture.asset("assets/svg/bank.svg"),
+                            SizedBox(width: 20.w,),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    widget.bank_details['account_name'],
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.blackColor,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  SizedBox(height: 5.h,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "${widget.bank_details['bank']} | ${widget.bank_details['account_number']}",
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w400
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          copyToClipboard(
+                                            text: widget.bank_details['account_number'], 
+                                            snackMessage: "account number copied to clipboard", 
+                                            context: context
+                                          );
+                                        },
+                                        child: SvgPicture.asset("assets/svg/copy_link.svg"),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ]
+                    )
+                  ),
+                  /////////////////////////////////////////////
+
                   SizedBox(height: 30.h,),
                   ReusableButton(
                     color: AppColor.mainColor,
@@ -764,9 +835,9 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                           onShare: () {
                           service.createNewInvoiceAndSendToClient(
                             context: context, 
-                            bank_name: widget.bank_name,
-                            account_name: widget.account_name,
-                            account_number: widget.account_number,
+                            bank_name: widget.bank_details['bank'],
+                            account_name: widget.bank_details['account_name'],
+                            account_number: widget.bank_details['account_number'],
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
                             client_phone_number: widget.phone_number,
@@ -785,9 +856,9 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         },
                         onSave: () {
                           service.createNewInvoiceAndSaveToDB(
-                            bank_name: widget.bank_name,
-                            account_name: widget.account_name,
-                            account_number: widget.account_number,
+                            bank_name: widget.bank_details['bank'],
+                            account_name: widget.bank_details['account_name'],
+                            account_number: widget.bank_details['account_number'],
                             context: context, 
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
@@ -811,9 +882,9 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         },
                         onDownload: () {
                           finPdfService.downloadInvoicePDFToDevice(
-                            bank_name: widget.bank_name,
-                            account_name: widget.account_name,
-                            account_number: widget.account_number,
+                            bank_name: widget.bank_details['bank'],
+                            account_name: widget.bank_details['account_name'],
+                            account_number: widget.bank_details['account_number'],
                             context: context,
                             sender_address: widget.service_provider_address,
                             sender_phone_number: widget.service_provider_phone_number,

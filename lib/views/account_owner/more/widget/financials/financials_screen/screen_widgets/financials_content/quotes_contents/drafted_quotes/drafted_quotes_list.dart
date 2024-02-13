@@ -64,7 +64,6 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
               if(service.filteredDraftedQuotesList.isNotEmpty) {
                 return DraftedQuotesDisplay(
                   onPressed: (){},
-                  bank_details: item.bank_details,
                   tracking_id: item.tracking_id.toString(),
                   created_at: item.created_at,
                   quote_id: item.quote_id, 

@@ -34,7 +34,6 @@ class DraftedQuotesDisplay extends StatelessWidget {
     required this.quote_id, 
     required this.tracking_id, 
     required this.created_at, 
-    required this.bank_details,
   });
   final VoidCallback onPressed;
   final String quote_id;
@@ -54,7 +53,6 @@ class DraftedQuotesDisplay extends StatelessWidget {
   final List<dynamic> product_details;
   final String tracking_id;
   final int created_at;
-  final Map<String, dynamic> bank_details;
 
 
   @override
@@ -99,7 +97,7 @@ class DraftedQuotesDisplay extends StatelessWidget {
               ),
               //drop down 
               DraftedQuoteDropDown(
-                bank_details: bank_details,
+                bank_details: service_provider['bank_details'],
                 tracking_id: tracking_id,
                 quote_id: quote_id,
                 service_provider_address: service_provider['address'], 

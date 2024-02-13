@@ -38,7 +38,6 @@ class QuotesDisplay extends StatelessWidget {
     required this.service_provider_phone_number, 
     required this.tracking_id, 
     required this.created_at, 
-    required this.bank_details,
   });
   final VoidCallback onPressed;
   final String service_provider_address;
@@ -60,7 +59,6 @@ class QuotesDisplay extends StatelessWidget {
   final List<dynamic> product_details;
   final String tracking_id;
   final int created_at;
-  final Map<String, dynamic> bank_details;
 
 
 
@@ -105,7 +103,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               QuoteDropDown(
-                bank_details: bank_details,
+                bank_details: service_provider['bank_details'],
                 tracking_id: tracking_id,
                 quote_id: quote_id, 
                 send_to_name: send_to_name,

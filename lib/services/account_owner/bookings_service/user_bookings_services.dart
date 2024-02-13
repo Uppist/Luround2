@@ -141,7 +141,7 @@ class AccOwnerBookingService extends getx.GetxController {
     // Use the search query to filter the items
     filteredList.addAll(
       dataList.where((item) {
-        String booking_status = item.serviceDetails.bookedStatus.toLowerCase();
+        String booking_status = item.serviceDetails.bookedStatus;
         if (booking_status == "CANCELLED") {
           return true; // If found, include the item in the filtered list
         }
@@ -255,7 +255,7 @@ class AccOwnerBookingService extends getx.GetxController {
     try {
 
       isLoading.value = true;
-      http.Response res = await baseService.httpGet(endPoint: "booking/cancel-booking?bookingId=$bookingId");
+      http.Response res = await baseService.httpGet(endPoint: "booking/cancel?bookingId=$bookingId");
 
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;

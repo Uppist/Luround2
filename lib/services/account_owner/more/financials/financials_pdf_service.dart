@@ -99,61 +99,110 @@ class FinancialsPdfService extends getx.GetxController {
                 ]
               ),
 
-              //SENT FROM
-              pw.Container(
-                //alignment: Alignment.center,
-                padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                width: double.infinity,
-                color: PdfColors.white,
-                  child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text(
-                        "Sent from:",
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,
-                          fontSize: 14.sp,
-                          fontWeight: pw.FontWeight.bold
-                        ),
+              //PARALLEL
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+
+                  //SENT FROM
+                  pw.Container(
+                    //alignment: Alignment.center,
+                    padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    width: double.infinity,
+                    color: PdfColors.white,
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text(
+                              "Sent from:",
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 14.sp,
+                                fontWeight: pw.FontWeight.bold
+                              ),
+                            ),
+                            pw.SizedBox(height: 10.h,),
+                            pw.Text(
+                              userName,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 13.sp,
+                                //fontWeight: pw.FontWeight.w500
+                              ),
+                            ),
+                            pw.SizedBox(height: 10.h,),
+                            pw.Text(
+                              userEmail,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,  //.withOpacity(0.6),
+                                fontSize: 12.sp,
+                                //fontWeight: FontWeight.w400
+                              ),
+                            ),
+                            pw.SizedBox(height: 10.h,),
+                            pw.Text(
+                              sender_phone_number,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 13.sp,
+                                //fontWeight: pw.FontWeight.w500
+                              ),
+                            ),
+                            pw.SizedBox(height: 10.h,),
+                            pw.Text(
+                              sender_address,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,  //.withOpacity(0.6),
+                                fontSize: 12.sp,
+                                //fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ],
                       ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        userName,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,
-                          fontSize: 13.sp,
-                          //fontWeight: pw.FontWeight.w500
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        userEmail,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,  //.withOpacity(0.6),
-                          fontSize: 12.sp,
-                          //fontWeight: FontWeight.w400
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        sender_phone_number,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,
-                          fontSize: 13.sp,
-                          //fontWeight: pw.FontWeight.w500
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        sender_address,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,  //.withOpacity(0.6),
-                          fontSize: 12.sp,
-                          //fontWeight: FontWeight.w400
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+
+                    //PAYMENT
+                    //BANK DETAILS CONTAINER///////////////////
+                    pw.Container(
+                      //alignment: Alignment.center,
+                      padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      width: double.infinity,
+                      color: PdfColors.white,
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            "Bank details",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                          pw.SizedBox(height: 20.h),
+                          pw.Text(
+                            account_name,
+                            style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontSize: 14.sp,
+                              //fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                          pw.SizedBox(height: 6.h,),
+                          pw.Text(
+                            "$bank_name | $account_number",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 13.sp,
+                              //fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                        ]
+                      )
+                    )
+                    ///////////////////////////////////////////////
+
+                  ]
                 ),
 
                 pw.SizedBox(height: 20.h,),
@@ -645,49 +694,6 @@ class FinancialsPdfService extends getx.GetxController {
                 )
               ),
 
-              pw.SizedBox(height: 20.h),
-
-              //BANK DETAILS CONTAINER///////////////////
-              pw.Container(
-                //alignment: Alignment.center,
-                padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                width: double.infinity,
-                color: PdfColors.white,
-                child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      "Bank details",
-                      style: pw.TextStyle(
-                      color: PdfColors.grey,
-                        fontSize: 14.sp,
-                        fontWeight: pw.FontWeight.bold
-                      ),
-                    ),
-                    pw.SizedBox(height: 20.h),
-                    pw.Text(
-                      account_name,
-                      style: pw.TextStyle(
-                        color: PdfColors.black,
-                        fontSize: 14.sp,
-                        //fontWeight: pw.FontWeight.bold
-                      ),
-                    ),
-                    pw.SizedBox(height: 6.h,),
-                    pw.Text(
-                      "$bank_name | $account_number",
-                      style: pw.TextStyle(
-                        color: PdfColors.grey,
-                        fontSize: 13.sp,
-                        //fontWeight: pw.FontWeight.bold
-                      ),
-                    ),
-
-                  ]
-                )
-              )
-              ///////////////////////////////////////////////
-
             ]
             )
           
@@ -921,61 +927,110 @@ class FinancialsPdfService extends getx.GetxController {
                 ]
               ),
 
-              //SENT FROM
-              pw.Container(
-                //alignment: Alignment.center,
-                padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                width: double.infinity,
-                color: PdfColors.white,
-                  child: pw.Column(
-                    crossAxisAlignment: pw.CrossAxisAlignment.start,
-                    children: [
-                      pw.Text(
-                        "Bill from:",
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,
-                          fontSize: 14.sp,
-                          fontWeight: pw.FontWeight.bold
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        userName,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,
-                          fontSize: 13.sp,
-                          //fontWeight: pw.FontWeight.w500
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        userEmail,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,  //.withOpacity(0.6),
-                          fontSize: 12.sp,
-                          //fontWeight: FontWeight.w400
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        sender_phone_number,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,
-                          fontSize: 13.sp,
-                          //fontWeight: pw.FontWeight.w500
-                        ),
-                      ),
-                      pw.SizedBox(height: 10.h,),
-                      pw.Text(
-                        sender_address,
-                        style: pw.TextStyle(
-                          color: PdfColors.grey,  //.withOpacity(0.6),
-                          fontSize: 12.sp,
-                          //fontWeight: FontWeight.w400
-                        ),
-                      ),
-                    ],
-                  ),
+              //PARALLEL
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                children: [
+
+                  //SENT FROM
+                  pw.Container(
+                    //alignment: Alignment.center,
+                    padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    width: double.infinity,
+                    color: PdfColors.white,
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            "Bill from:",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                          pw.SizedBox(height: 10.h,),
+                          pw.Text(
+                            userName,
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 13.sp,
+                              //fontWeight: pw.FontWeight.w500
+                            ),
+                          ),
+                          pw.SizedBox(height: 10.h,),
+                          pw.Text(
+                            userEmail,
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,  //.withOpacity(0.6),
+                              fontSize: 12.sp,
+                              //fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          pw.SizedBox(height: 10.h,),
+                          pw.Text(
+                            sender_phone_number,
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 13.sp,
+                              //fontWeight: pw.FontWeight.w500
+                            ),
+                          ),
+                          pw.SizedBox(height: 10.h,),
+                          pw.Text(
+                            sender_address,
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,  //.withOpacity(0.6),
+                              fontSize: 12.sp,
+                              //fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                     ),
+                    ),
+
+                    //PAYMENT
+                    //BANK DETAILS CONTAINER///////////////////
+                    pw.Container(
+                      //alignment: Alignment.center,
+                      padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      width: double.infinity,
+                      color: PdfColors.white,
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            "Bank details",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                          pw.SizedBox(height: 20.h),
+                          pw.Text(
+                            account_name,
+                            style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontSize: 14.sp,
+                              //fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                          pw.SizedBox(height: 6.h,),
+                          pw.Text(
+                            "$bank_name | $account_number",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 13.sp,
+                              //fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                        ]
+                      )
+                    )
+                    ///////////////////////////////////////////////
+
+                  ]
                 ),
 
                 pw.SizedBox(height: 20.h,),
@@ -1462,52 +1517,7 @@ class FinancialsPdfService extends getx.GetxController {
 
                   ]
                 )
-              ),
-
-              pw.SizedBox(height: 20.h),
-
-              //BANK DETAILS CONTAINER///////////////////
-              pw.Container(
-                //alignment: Alignment.center,
-                padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                width: double.infinity,
-                color: PdfColors.white,
-                child: pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Text(
-                      "Bank details",
-                      style: pw.TextStyle(
-                      color: PdfColors.grey,
-                        fontSize: 14.sp,
-                        fontWeight: pw.FontWeight.bold
-                      ),
-                    ),
-                    pw.SizedBox(height: 20.h),
-                    pw.Text(
-                      account_name,
-                      style: pw.TextStyle(
-                        color: PdfColors.black,
-                        fontSize: 14.sp,
-                        //fontWeight: pw.FontWeight.bold
-                      ),
-                    ),
-                    pw.SizedBox(height: 6.h,),
-                    pw.Text(
-                      "$bank_name | $account_number",
-                      style: pw.TextStyle(
-                        color: PdfColors.grey,
-                        fontSize: 13.sp,
-                        //fontWeight: pw.FontWeight.bold
-                      ),
-                    ),
-
-                  ]
-                )
-              )
-              ///////////////////////////////////////////////
-
-            
+              ),  
             ]
           )
           ];

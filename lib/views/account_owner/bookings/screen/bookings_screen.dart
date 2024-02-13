@@ -328,9 +328,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                             ),
 
                                             Text(
-                                              item.booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
+                                              item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
                                               style: GoogleFonts.inter(
-                                                color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
+                                                color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),
@@ -745,9 +745,9 @@ class _BookingsPageState extends State<BookingsPage> {
                                             ),
 
                                             Text(
-                                              item.booked_status == "PENDING CONFIRMATION" ? "pending" : "confirmed",
+                                              item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
                                               style: GoogleFonts.inter(
-                                                color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : AppColor.darkGreen ,
+                                                color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
                                                 fontSize: 12.sp,
                                                 fontWeight: FontWeight.w500
                                               ),

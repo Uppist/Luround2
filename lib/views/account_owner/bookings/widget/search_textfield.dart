@@ -74,7 +74,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             suffixIcon: controller.isFieldTapped.value == true ?
             IconButton(
               onPressed:() {
-                controller.searchController.clear();
+                widget.textController.clear();
               },
               icon: Icon(
                 CupertinoIcons.xmark, 

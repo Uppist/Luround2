@@ -66,8 +66,8 @@ class NotificationsPage extends StatelessWidget {
        
           if (snapshot.hasData) {
             var data = snapshot.data!;
-
-            return ListView.separated(
+ 
+            return data.isNotEmpty ? ListView.separated(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
@@ -153,6 +153,10 @@ class NotificationsPage extends StatelessWidget {
                   ],
                 );
               }
+              ) : NotificationEmptyState(
+                onPressed: () {
+                  userProfileService.getUserNotifications();
+                }
               );
             }
             return NotificationEmptyState(

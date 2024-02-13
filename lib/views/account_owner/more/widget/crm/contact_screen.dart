@@ -97,7 +97,9 @@ class _ContactScreenState extends State<ContactScreen> {
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.done,
                 textController: service.searchContactController,
-                onTap: () {},
+                onTap: () {
+                  //service.searchContactController.clear();
+                },
               ),
 
               SizedBox(height: 30.h,),

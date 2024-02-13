@@ -499,7 +499,7 @@ class _ProfilePageState extends State<ProfilePage> {
             if (
               data.occupation.isEmpty ||
               data.about.isEmpty ||
-              data.certificates.isEmpty ||
+              //data.certificates.isEmpty ||
               data.media_links.isEmpty
             )
             Padding(

@@ -142,7 +142,7 @@ class AccOwnerBookingService extends getx.GetxController {
     filteredList.addAll(
       dataList.where((item) {
         String booking_status = item.serviceDetails.bookedStatus.toLowerCase();
-        if (booking_status == "cancelled") {
+        if (booking_status == "CANCELLED") {
           return true; // If found, include the item in the filtered list
         }
         return false; // If not found in any detail, exclude the item
@@ -236,7 +236,7 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to confirm booking"
+          message: "failed to confirm booking: ${res.statusCode} | ${res.body}"
         );
         throw Exception('failed to confirm booking');
       }
@@ -331,7 +331,7 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete booking"
+          message: "failed to delete booking: ${res.statusCode} | ${res.body}"
         );
       }
     } 
@@ -381,7 +381,7 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to reschedule booking"
+          message: "failed to reschedule booking: ${res.statusCode} | ${res.body}"
         ).whenComplete(() => getx.Get.back());
       }
     } 

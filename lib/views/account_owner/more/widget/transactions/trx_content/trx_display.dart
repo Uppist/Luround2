@@ -28,22 +28,27 @@ class TrxDisplay extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              service_name,
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.bold
+            Expanded(
+              child: Text(
+                service_name,
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
             ),
-            Text(
-              "N${double.parse(amount)}",
-              style: GoogleFonts.inter(
-                color: transaction_status == "RECEIVED"
-                ?AppColor.darkGreen
-                :AppColor.redColor,
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
+            Expanded(
+              child: Text(
+                "N${double.parse(amount)}",
+                style: GoogleFonts.inter(
+                  color: transaction_status == "RECEIVED"
+                  ?AppColor.darkGreen
+                  :AppColor.redColor,
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w500
+                ),
               ),
             ),
           ],

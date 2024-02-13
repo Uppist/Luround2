@@ -30,7 +30,7 @@ class FilterTrxButton extends StatelessWidget {
               height: 50.h,
               //width: 150,
               alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 20.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
                 borderRadius: BorderRadius.circular(5.r),

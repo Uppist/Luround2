@@ -48,8 +48,9 @@ class AccOwnerBookingService extends getx.GetxController {
       filteredList.clear(); // Clear the previous filtered list
 
       // Use addAll to add the filtered items to the list
-      filteredList.addAll(dataList
-        .where((user) => user.bookingUserInfo.displayName.toLowerCase().contains(query)) // == query
+      filteredList.addAll(
+        dataList
+        .where((user) => user.bookingUserInfo.displayName.contains(query)) // == query
         .toList());
 
       /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)

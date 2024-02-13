@@ -48,7 +48,7 @@ class InvoicePaymentService extends getx.GetxController {
     try {
       dio.Response res = await baseService.putRequestWithDio(endPoint: "invoice/add-invoice-payment-detail?invoiceId=$invoice_id", data: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
+        isLoading.value = false; 
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.data}');
         debugPrint("invoice marked as paid successfully");

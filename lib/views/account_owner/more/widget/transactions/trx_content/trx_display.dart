@@ -39,16 +39,15 @@ class TrxDisplay extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
             ),
-            Expanded(
-              child: Text(
-                "N${double.parse(amount)}",
-                style: GoogleFonts.inter(
-                  color: transaction_status == "RECEIVED"
-                  ?AppColor.darkGreen
-                  :AppColor.redColor,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w500
-                ),
+            SizedBox(width: 20.w,),
+            Text(
+              "N${double.parse(amount)}",
+              style: GoogleFonts.inter(
+                color: transaction_status == "RECEIVED"
+                ?AppColor.darkGreen
+                :AppColor.redColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500
               ),
             ),
           ],

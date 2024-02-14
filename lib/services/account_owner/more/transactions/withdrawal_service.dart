@@ -714,8 +714,9 @@ class WithdrawalService extends getx.GetxController {
       //transactions.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
 
       isLoading.value = false;
-      filteredTrxList.value = List.from(transactions);
-      print("initState: ${filteredTrxList}");
+      filteredTrxList.clear();
+      filteredTrxList.addAll(transactions);
+      print("on: ${filteredTrxList}");
       return filteredTrxList;
   
     } 

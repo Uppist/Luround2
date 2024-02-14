@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/bookings/bookings_controller.dart';
+import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -10,50 +13,91 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
 class FilterContainer extends StatelessWidget {
-  const FilterContainer({super.key, required this.onTaped});
-  final VoidCallback onTaped;
+  FilterContainer({super.key,});
+
+  var controller = Get.put(BookingsController());
+  var service = Get.put(AccOwnerBookingService());
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTaped,
-      child: Container(
-        height: 50.h,
-        width: 150.w,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-        decoration: BoxDecoration(
-          color: AppColor.greyColor,
-          border: Border.all(color: AppColor.textGreyColor.withOpacity(0.1)),
-          borderRadius: BorderRadius.circular(12.r)
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Obx(
+      () {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Row(
-              children: [
-                SvgPicture.asset("assets/svg/filter_icon.svg"),
-                SizedBox(width: 10.w),
-                Text(
-                  "Filter",
-                  style: GoogleFonts.poppins(
-                    color: AppColor.textGreyColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400
-                  ),
+            Container(
+              height: 50.h,
+              //width: 150,
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
+              decoration: BoxDecoration(
+                color: AppColor.bgColor,
+                borderRadius: BorderRadius.circular(5.r),
+                border: Border.all(
+                  color: AppColor.greyColor
+                )
+              ),
+              child: DropdownButton<String>(
+                style: GoogleFonts.inter(
+                  color: AppColor.textGreyColor,
+                  fontSize: 13.sp,
+                  fontWeight: FontWeight.w500
                 ),
-              ],
+                elevation: 3,
+                dropdownColor: AppColor.bgColor,
+                underline: SizedBox(),
+                borderRadius: BorderRadius.circular(5.r),
+                iconEnabledColor: AppColor.blackColor,
+                icon: Icon(CupertinoIcons.chevron_down),
+                iconSize: 20,
+                enableFeedback: true,
+                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                value: controller.selectedValue.value,
+                onChanged: (newValue) { 
+                  // When the user selects an option, update the selectedValue
+                  controller.filterList(newValue);
+                },
+                items: controller.items.map((item) {
+                  return DropdownMenuItem(
+                    onTap: () {
+                      debugPrint("drop down menu tapped!!");
+                      if(item == 'All time    ') {
+                        service.filterTrxByPastDate();
+                      }
+                      else if(item == 'Today    ') {
+                        service.filterListByToday();
+                      }
+                      else if(item == 'Yesterday    ') {
+                        service.filterListByYesterday();
+                      }
+                      else if (item == 'Last 7 days    ') {
+                        service.filterListByLastSevenDays();
+                      }
+                      else if(item == "Last 30 days    ") {
+                        service.filterListByLastThirtyDays();
+                      }
+                      else {
+                        //service.filterListByLastThirtyDays();
+                        print('done');
+                      }
+                    },                    
+                    value: item,
+                    child: Text(
+                      item,
+                      style: GoogleFonts.inter(
+                        color: AppColor.textGreyColor,
+                        fontSize: 14.sp,
+                        //fontWeight: FontWeight.w500
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
-            Icon(
-              CupertinoIcons.chevron_down,
-              color: AppColor.blackColor,
-              size: 20,
-            )
           ],
-        ),
-      )
+        );
+      }
     );
   }
 }

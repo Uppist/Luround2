@@ -173,7 +173,21 @@ class BookingsController extends getx.GetxController {
   /////////////////////////////////////////////////////
   
 
+  //filter bookings list
+  final List<String> items = [
+    'All time    ', 
+    'Today    ', 
+    'Yesterday    ', 
+    //'This week    ', 
+    'Last 7 days    ', 
+    "Last 30 days    ", //4
+    //"This month    "
+  ];
+  final selectedValue = 'All time    '.obs; //SAVED TO DB
 
+  void filterList(String? newValue) {
+    selectedValue.value = newValue!;
+  }
 
 
 

@@ -54,7 +54,7 @@ class FilterTrxButton extends StatelessWidget {
                 enableFeedback: true,
                 padding: EdgeInsets.symmetric(horizontal: 10.w),
                 value: controller.selectedValue.value,
-                onChanged: (newValue) {
+                onChanged: (newValue) { 
                   // When the user selects an option, update the selectedValue
                   controller.filterList(newValue);
                 },

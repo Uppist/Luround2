@@ -35,6 +35,134 @@ class AccOwnerBookingService extends getx.GetxController {
   var dataList = <DetailsModel>[].obs;
   var filteredList = <DetailsModel>[].obs;
 
+  //FILTER FUNCTIONALITIES////////
+  Future<void> filterTrxByPastDate() async{
+    // Clear the filteredList so new values can come i n 
+    filteredList.clear();
+
+    // Use the search query to filter the items
+    filteredList.addAll(
+      dataList.where((item) {
+        String server_date = convertServerTimeToDate(item.serviceDetails.createdAt);
+        DateTime convertedDate = convertStringToDateTime(server_date);
+        print('Converted Date: $convertedDate');
+        // Check if the date is in the past
+        if (isDateInPast(convertedDate)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );  
+    print("Past bookings List: $filteredList");
+  }
+
+  Future<void> filterListByToday() async{
+    DateTime today = DateTime.now();
+    DateTime todayAgo = today.subtract(Duration(days: 0));
+
+    // Clear the filteredList so new values can come i n 
+    filteredList.clear();
+
+    // Use the search query to filter the items
+    filteredList.addAll(
+  
+      dataList.where((item) {
+        String serverDate = convertServerTimeToDate(item.serviceDetails.createdAt);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(todayAgo)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("bookings List from today: $filteredList");
+  }
+
+  Future<void> filterListByYesterday() async{
+    DateTime today = DateTime.now();
+    DateTime yesterday = today.subtract(Duration(days: 1));
+
+    // Clear the filteredList so new values can come i n 
+    filteredList.clear();
+
+    // Use the search query to filter the items
+    filteredList.addAll(
+  
+      dataList.where((item) {
+        String serverDate = convertServerTimeToDate(item.serviceDetails.createdAt);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(yesterday)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("Bookings List from yesterday: $filteredList");
+  }
+
+
+  Future<void> filterListByLastSevenDays() async{
+    DateTime today = DateTime.now();
+    DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
+
+    // Clear the filteredList so new values can come i n 
+    filteredList.clear();
+
+    // Use the search query to filter the items
+    filteredList.addAll(
+      dataList.where((item) {
+        String serverDate = convertServerTimeToDate(item.serviceDetails.createdAt);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(sevenDaysAgo)) {
+          return true; // Include the item in the filtered list
+        }
+
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("bookings List from the last seven days: $filteredList");
+  }
+
+  Future<void> filterListByLastThirtyDays() async{
+    DateTime today = DateTime.now();
+    DateTime thirtyDaysAgo = today.subtract(Duration(days: 30));
+
+    // Clear the filteredList so new values can come i n 
+    filteredList.clear();
+
+    // Use the search query to filter the items
+    filteredList.addAll(
+      dataList.where((item) {
+        String serverDate = convertServerTimeToDate(item.serviceDetails.createdAt);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(thirtyDaysAgo)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("booking List from the last thirty days: $filteredList");
+  }
+  ////////////////////////////////////
+
+
+
+
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   //working well
   Future<void> filterBookings(String query) async {
@@ -62,7 +190,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
 
 
-  Future<void> filterBySent() async{
+  /*Future<void> filterBySent() async{
     // Clear the filteredList so new values can come i n 
     filteredList.clear();
     // Use the search query to filter the items
@@ -150,7 +278,7 @@ class AccOwnerBookingService extends getx.GetxController {
       }),
     );  
     print("Cancelled $filteredList");
-  }
+  }*/
 
   /////////////////////////////////////////////////////////////////////////////////
 

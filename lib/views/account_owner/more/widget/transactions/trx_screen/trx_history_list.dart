@@ -30,7 +30,7 @@ class _TrxHistoryListState extends State<TrxHistoryList> {
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return service.filteredTrxList.isNotEmpty ? ListView.separated(
+        return service.isLoading.value ? Loader() : service.filteredTrxList.isNotEmpty ? ListView.separated(
           shrinkWrap: true,
           physics: NeverScrollableScrollPhysics(),
           scrollDirection: Axis.vertical,
@@ -40,13 +40,13 @@ class _TrxHistoryListState extends State<TrxHistoryList> {
           itemBuilder: (context, index) {
             //final item = service.filteredTrxList[index];
             final item = service.filteredTrxList[index];
-            if(service.filteredTrxList.isEmpty) {
+            /*if(service.filteredTrxList.isEmpty) {
               return TrxEmptyState(
                 onRefresh: () {
                   service.loadTransactionData();
                 },
               );
-            }
+            }*/
             return TrxDisplay(
               service_id: item.service_id,
               service_name: item.service_name,

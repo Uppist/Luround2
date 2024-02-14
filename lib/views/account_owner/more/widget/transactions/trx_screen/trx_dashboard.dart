@@ -37,43 +37,6 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-
-    return FutureBuilder<WalletBalance>(
-      future: service.getUserWalletBalance(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Container(
-            alignment: Alignment.center,
-            height: 210.h,
-            width: double.infinity,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w,
-              vertical: 30.h, 
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.r),
-              color: AppColor.badGreen,
-              /*boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5) ,//withOpacity(0.2),
-                  spreadRadius: 0.5,
-                  blurRadius: 5.0,
-                )
-              ],*/
-            ),
-          );
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);
-        }
-        if (!snapshot.hasData) {
-          print("sn-trace: ${snapshot.stackTrace}");
-          print("sn-data: ${snapshot.data}");
-        }
-        if (snapshot.hasData) {
-
-          var data = snapshot.data!; 
           return Container(
             alignment: Alignment.center,
             //height: 300,
@@ -190,7 +153,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                         
                         if(isTapped) {
                           controller.filterMoneyTypeList('Total amount received')
-                            .whenComplete(() {
+                          .whenComplete(() {
                             service.isTotalAmountReceivedCalculated.value
                             ? print("already calculated")
                             : service.calculateTotalAmountReceived(); //.whenComplete(() => Get.back());
@@ -235,21 +198,6 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
               ]
             )
           );
-        }
-        return 
-        //Loader2();
-        Center(
-          child: Text(
-            "connection timed out",
-            style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.normal
-            )
-          )
-        );
-      }
-      
-    );
+        
   }
 }

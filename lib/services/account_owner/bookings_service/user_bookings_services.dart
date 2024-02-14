@@ -58,7 +58,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
   Future<void> filterListByToday() async{
     DateTime today = DateTime.now();
-    DateTime todayAgo = today.subtract(Duration(days: 0));
+    //DateTime todayAgo = today.subtract(Duration(days: 0));
 
     // Clear the filteredList so new values can come i n 
     filteredList.clear();
@@ -71,7 +71,7 @@ class AccOwnerBookingService extends getx.GetxController {
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is within the last seven days
-        if (convertedDate.isAfter(todayAgo)) {
+        if (convertedDate.isAfter(today)) {
           return true; // Include the item in the filtered list
         }
         return false; // If not found in any detail, exclude the item
@@ -330,7 +330,8 @@ class AccOwnerBookingService extends getx.GetxController {
   //confirm booking
   Future<dynamic> confirmBooking({
     required BuildContext context,
-    required String bookingId
+    required String bookingId,
+    required String client_name
   }) async {
     try {
 
@@ -342,6 +343,8 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         debugPrint("booking confirmed");
+        dynamic jsonData = json.decode(res.body);
+        //String service_name  jsonData['service_name'] ?? "non"
         //success snackbar
         showMySnackBar(
           context: context,
@@ -351,7 +354,7 @@ class AccOwnerBookingService extends getx.GetxController {
           //send push notification and store in db
           authService.sendPushNotification(
             noti_title: "Booking confirmed", 
-            noti_body: "your booking with the id: $bookingId \n has been confirmed successfully"
+            noti_body: "your booking for $client_name has been confirmed successfully"
           );
         });
         
@@ -379,7 +382,8 @@ class AccOwnerBookingService extends getx.GetxController {
   //cancel booking
   Future<dynamic> cancelBooking({
     required BuildContext context,
-    required String bookingId
+    required String bookingId,
+    required String client_name,
   }) async {
     try {
 
@@ -400,8 +404,9 @@ class AccOwnerBookingService extends getx.GetxController {
           //send push notification and store in db
           authService.sendPushNotification(
             noti_title: "Booking cancelled", 
-            noti_body: "your booking with the id: $bookingId \n has been cancelled successfully"
+            noti_body: "your booking for $client_name has been cancelled successfully"
           );
+          //.whenComplete(() => meetingCancelledBookingDialogueBox(context: context));
           //show meeting cancelled dialog
           meetingCancelledBookingDialogueBox(context: context);
         });

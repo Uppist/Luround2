@@ -16,7 +16,13 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting
 
 
 ///Alert Dialog
-Future<void> cancelBookingDialogueBox({required String bookingId, required BuildContext context, required String serviceName, required AccOwnerBookingService service}) async{
+Future<void> cancelBookingDialogueBox({
+  required String bookingId, 
+  required BuildContext context, 
+  required String serviceName,
+  required String client_name, 
+  required AccOwnerBookingService service
+}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -71,7 +77,8 @@ Future<void> cancelBookingDialogueBox({required String bookingId, required Build
                   onTap: () {
                     service.cancelBooking(
                       context: context,
-                      bookingId: bookingId
+                      bookingId: bookingId,
+                      client_name: client_name,
                     );
                   },
                   child: Container(

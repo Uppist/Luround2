@@ -25,6 +25,7 @@ Future<void> bookingsListDialogueBox({
   required String serviceTime,
   required String serviceDuration,
   required String bookingId,
+  required String client_name, 
   required AccOwnerBookingService service
 }) async {
   showModalBottomSheet(
@@ -93,7 +94,8 @@ Future<void> bookingsListDialogueBox({
                       service: service,
                       context: context, 
                       serviceName: serviceName,
-                      bookingId: bookingId
+                      bookingId: bookingId,
+                      client_name: client_name
                     );
                   },
                   child: Row(

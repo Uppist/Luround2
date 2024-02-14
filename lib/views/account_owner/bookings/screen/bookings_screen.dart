@@ -230,7 +230,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                               onTap: () {
                                                 service.confirmBooking(
                                                   context: context, 
-                                                  bookingId: service.filteredList[index].id
+                                                  bookingId: service.filteredList[index].id,
+                                                  client_name: item.bookingUserInfo.displayName,
                                                 );
                                               },
                                               child: Container(
@@ -269,7 +270,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                     ).whenComplete(() => Get.back());
                                                   },
                                                   context: context, 
-                                                  serviceName: item.serviceDetails.serviceName  //.serviceDetails.serviceName,
+                                                  serviceName: item.serviceDetails.serviceName,
+                                                  client_name: item.bookingUserInfo.displayName,
                                                 );
                                               }, 
                                               icon: Icon(
@@ -648,7 +650,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                           onTap: () {
                                             service.confirmBooking(
                                               context: context, 
-                                              bookingId: item.id
+                                              bookingId: item.id,
+                                              client_name: item.bookingUserInfo.displayName,
                                             );
                                           },
                                           child: Container(
@@ -687,7 +690,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 ).whenComplete(() => Get.back());
                                               },
                                               context: context, 
-                                              serviceName: item.serviceDetails.serviceName  //.serviceDetails.serviceName,
+                                              serviceName: item.serviceDetails.serviceName,
+                                              client_name: item.bookingUserInfo.displayName,
                                             );
                                           }, 
                                           icon: Icon(

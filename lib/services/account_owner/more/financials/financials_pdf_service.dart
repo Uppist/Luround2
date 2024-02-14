@@ -103,14 +103,11 @@ class FinancialsPdfService extends getx.GetxController {
                 ]
               ),
 
-              //PARALLEL
-              pw.Row(
-                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                children: [
+              pw.SizedBox(height: 20.h,),
 
-                  //SENT FROM
-                pw.Expanded( 
-                  child: pw.Container(
+              //PARALLEL
+              //SENT FROM
+                pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     width: double.infinity,
@@ -165,53 +162,6 @@ class FinancialsPdfService extends getx.GetxController {
                           ],
                       ),
                     ),
-                  ),
-
-                    //PAYMENT
-                    //BANK DETAILS CONTAINER///////////////////
-                  pw.Expanded( 
-                    child: pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          pw.Text(
-                            "Bank details",
-                            style: pw.TextStyle(
-                              color: PdfColors.grey,
-                              fontSize: 14.sp,
-                              fontWeight: pw.FontWeight.bold
-                            ),
-                          ),
-                          pw.SizedBox(height: 20.h),
-                          pw.Text(
-                            account_name,
-                            style: pw.TextStyle(
-                              color: PdfColors.black,
-                              fontSize: 14.sp,
-                              //fontWeight: pw.FontWeight.bold
-                            ),
-                          ),
-                          pw.SizedBox(height: 6.h,),
-                          pw.Text(
-                            "$bank_name | $account_number",
-                            style: pw.TextStyle(
-                              color: PdfColors.grey,
-                              fontSize: 13.sp,
-                              //fontWeight: pw.FontWeight.bold
-                            ),
-                          ),
-                        ]
-                      )
-                    )
-                  ),
-                    ///////////////////////////////////////////////
-                  
-                  ]
-                ),
               
 
                 pw.SizedBox(height: 20.h,),
@@ -1004,7 +954,7 @@ class FinancialsPdfService extends getx.GetxController {
                     //BANK DETAILS CONTAINER///////////////////
                   pw.Expanded( 
                     child: pw.Container(
-                      //alignment: Alignment.center,
+                      alignment: pw.Alignment.center,
                       padding: pw.EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       width: double.infinity,
                       color: PdfColors.white,
@@ -1039,8 +989,8 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ]
                       )
-                    )
-                  ),
+                    ),
+                  )
                     ///////////////////////////////////////////////
 
                   ]

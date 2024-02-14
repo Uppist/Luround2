@@ -568,7 +568,7 @@ class WithdrawalService extends getx.GetxController {
 
   Future<void> filterListByToday() async{
     DateTime today = DateTime.now();
-    DateTime todayAgo = today.subtract(Duration(days: 0));
+    //DateTime todayAgo = today.subtract(Duration(days: 0));
 
     // Clear the filteredList so new values can come i n 
     filteredTrxList.clear();
@@ -581,7 +581,7 @@ class WithdrawalService extends getx.GetxController {
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is within the last seven days
-        if (convertedDate.isAfter(todayAgo)) {
+        if (convertedDate.isAfter(today)) {
           return true; // Include the item in the filtered list
         }
         return false; // If not found in any detail, exclude the item

@@ -115,57 +115,34 @@ class InvoicesService extends getx.GetxController {
   var filteredUnpaidInvoiceList = <InvoiceResponse>[].obs;
   var filteredDueInvoiceList = <InvoiceResponse>[].obs;
   
-  //check if an invoice is due
-  Future<bool> hasDueItems() async{
-    // Get today's date
+
+  //check if today's date is 3 days before the unpaid invoice
+  bool isDueInThreeDays(InvoiceResponse invoice) {
+    // Get the current date
     DateTime currentDate = DateTime.now();
-    // Create a new list to store due items(done above)
 
-    // Iterate through the invoiceList
-    for (var invoice in filteredUnpaidInvoiceList) {
-      // Extract the due date string from the map
-      String dueDateString = invoice.due_date;
+    // Convert the the due date string to a DateTime object
+    DateTime dateTime = DateTime.parse(invoice.due_date);
 
-      // Convert the due date string to a DateTime object
-      DateTime dueDate = DateTime.parse(dueDateString);
+    // Calculate the difference in days
+    int differenceInDays = dateTime.difference(currentDate).inDays;
 
-      // Calculate the difference in days between the due date and today
-      int daysDifference = dueDate.difference(currentDate).inDays;
+    // Check if the difference is 3 or more days
+    return differenceInDays >= 3;
 
-      // Check if the item is due within three days
-      if (daysDifference <= 3 && daysDifference >= 0) {
-        // Add the due item to the new list
+  }
+  //check if an invoice is due
+  Future<void> hasDueItems() async{
+    // Loop through the user list and check if each object is due
+    for (InvoiceResponse invoice in filteredUnpaidInvoiceList) {
+      if (isDueInThreeDays(invoice)) {
+        filteredDueInvoiceList.clear();
         filteredDueInvoiceList.add(invoice);
-        print("due invoice list: $filteredDueInvoiceList");
       }
     }
 
-    // Check if there are any due items
-    if (filteredDueInvoiceList.isNotEmpty) {
-      // You can use the 'dueItems' list if needed
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  //check if today's date is 3 days before the unpaid invoice
-  bool isDueInThreeDays(String dueDate) {
-    // Convert the due date string to a DateTime object
-    DateTime dueDateTime = DateTime.parse(dueDate);
-    DateTime today = DateTime.now();
-   
-    //dueDateTime.isAfter(today);
-
-    // Calculate today's date
-    //DateTime today = DateTime.now();
-
-    // Calculate the date 3 days before the due date
-    //DateTime threeDaysBeforeDueDate = dueDateTime.subtract(Duration(days: 3));
-
-    // Check if today's date is 3 days before the due date
-    //print(today.isBefore(threeDaysBeforeDueDate));
-    return dueDateTime.isAfter(today);
+    // Print the due list
+    print("Due List: $filteredDueInvoiceList");
   }
 
 
@@ -342,13 +319,6 @@ class InvoicesService extends getx.GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    hasDueItems().then(
-      (value) {
-        print("Due Invoices boolean value: $value");
-        print("Due Invoices List Loaded into the Widget Tree: ${filteredDueInvoiceList}");
-      }
-    );
-
     loadPaidInvoicesData().then(
       (value) => print("Paid Invoices Loaded into the Widget Tree: $value")
     );
@@ -358,6 +328,11 @@ class InvoicesService extends getx.GetxController {
     /*loadDueInvoicesData().then(
       (value) => print("Due Invoices Loaded into the Widget Tree: $value")
     );*/
+    hasDueItems().then(
+      (value) {
+        print("Due Invoices List Loaded into the Widget Tree: ${filteredDueInvoiceList}");
+      }
+    );
     super.onInit();
   }
 

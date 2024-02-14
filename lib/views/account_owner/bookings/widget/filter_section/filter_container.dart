@@ -24,6 +24,7 @@ class FilterContainer extends StatelessWidget {
     return Obx(
       () {
         return Row(
+
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Container(
@@ -33,9 +34,9 @@ class FilterContainer extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 10.h),
               decoration: BoxDecoration(
                 color: AppColor.bgColor,
-                borderRadius: BorderRadius.circular(5.r),
+                borderRadius: BorderRadius.circular(10.r),
                 border: Border.all(
-                  color: AppColor.greyColor
+                  color: Colors.grey.withOpacity(0.3)
                 )
               ),
               child: DropdownButton<String>(

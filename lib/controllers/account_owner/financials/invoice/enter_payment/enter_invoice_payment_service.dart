@@ -46,11 +46,11 @@ class InvoicePaymentService extends getx.GetxController {
     };
 
     try {
-      dio.Response res = await baseService.putRequestWithDio(endPoint: "invoice/add-invoice-payment-detail?invoiceId=$invoice_id", data: body);
+      http.Response res = await baseService.httpPut(endPoint: "invoice/add-invoice-payment-detail?invoiceId=$invoice_id", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false; 
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.data}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice marked as paid successfully");
 
         //success snackbar
@@ -66,12 +66,12 @@ class InvoicePaymentService extends getx.GetxController {
       else {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.data}');
+        debugPrint('this is response body ==> ${res.body}');
         //failure snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to mark invoice as 'paid': ${res.data}"
+          message: "failed to mark invoice as 'paid': ${res.body}"
         ).whenComplete(() {
           amountTextController.clear();
           getx.Get.back();

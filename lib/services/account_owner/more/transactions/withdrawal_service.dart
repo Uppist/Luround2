@@ -543,7 +543,9 @@ class WithdrawalService extends getx.GetxController {
       isTotalAmountReceivedCalculated.value = true;
     }
   }
+  
 
+  //FILTER FUNCTIONALITIES////////
   Future<void> filterTrxByPastDate() async{
     // Clear the filteredList so new values can come i n 
     filteredTrxList.clear();
@@ -551,12 +553,9 @@ class WithdrawalService extends getx.GetxController {
     // Use the search query to filter the items
     filteredTrxList.addAll(
       trxList.where((item) {
-        // Customize this part based on your data structure
-        //for (var detail in item) {
         String server_date = convertServerTimeToDate(item.transaction_date);
         DateTime convertedDate = convertStringToDateTime(server_date);
         print('Converted Date: $convertedDate');
-        //checkDateDistance(convertedDate);
         // Check if the date is in the past
         if (isDateInPast(convertedDate)) {
           return true; // Include the item in the filtered list
@@ -566,6 +565,108 @@ class WithdrawalService extends getx.GetxController {
     );  
     print("Past trx List: $filteredTrxList");
   }
+
+  Future<void> filterListByToday() async{
+    DateTime today = DateTime.now();
+    DateTime todayAgo = today.subtract(Duration(days: 0));
+
+    // Clear the filteredList so new values can come i n 
+    filteredTrxList.clear();
+
+    // Use the search query to filter the items
+    filteredTrxList.addAll(
+  
+      trxList.where((item) {
+        String serverDate = convertServerTimeToDate(item.transaction_date);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(todayAgo)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("Trx List from today: $filteredTrxList");
+  }
+
+  Future<void> filterListByYesterday() async{
+    DateTime today = DateTime.now();
+    DateTime yesterday = today.subtract(Duration(days: 1));
+
+    // Clear the filteredList so new values can come i n 
+    filteredTrxList.clear();
+
+    // Use the search query to filter the items
+    filteredTrxList.addAll(
+  
+      trxList.where((item) {
+        String serverDate = convertServerTimeToDate(item.transaction_date);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(yesterday)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("Trx List from yesterday: $filteredTrxList");
+  }
+
+
+  Future<void> filterListByLastSevenDays() async{
+    DateTime today = DateTime.now();
+    DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
+
+    // Clear the filteredList so new values can come i n 
+    filteredTrxList.clear();
+
+    // Use the search query to filter the items
+    filteredTrxList.addAll(
+      trxList.where((item) {
+        String serverDate = convertServerTimeToDate(item.transaction_date);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(sevenDaysAgo)) {
+          return true; // Include the item in the filtered list
+        }
+
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("Trx List from the last seven days: $filteredTrxList");
+  }
+
+  Future<void> filterListByLastThirtyDays() async{
+    DateTime today = DateTime.now();
+    DateTime thirtyDaysAgo = today.subtract(Duration(days: 30));
+
+    // Clear the filteredList so new values can come i n 
+    filteredTrxList.clear();
+
+    // Use the search query to filter the items
+    filteredTrxList.addAll(
+      trxList.where((item) {
+        String serverDate = convertServerTimeToDate(item.transaction_date);
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(thirtyDaysAgo)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("Trx List from the last thirty days: $filteredTrxList");
+  }
+  ////////////////////////////////////
+
 
   Future<List<UserTransactionsModel>> getUserTransactions() async {
     isLoading.value = true;
@@ -760,6 +861,7 @@ class WithdrawalService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
+    loadTransactionData();
   }
 
   @override

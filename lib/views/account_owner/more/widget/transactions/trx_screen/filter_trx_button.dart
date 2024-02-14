@@ -62,7 +62,25 @@ class FilterTrxButton extends StatelessWidget {
                   return DropdownMenuItem(
                     onTap: () {
                       debugPrint("drop down menu tapped!!");
-                      service.filterTrxByPastDate();
+                      if(item == 'All time    ') {
+                        service.filterTrxByPastDate();
+                      }
+                      else if(item == 'Today    ') {
+                        service.filterListByToday();
+                      }
+                      else if(item == 'Yesterday    ') {
+                        service.filterListByYesterday();
+                      }
+                      else if (item == 'Last 7 days    ') {
+                        service.filterListByLastSevenDays();
+                      }
+                      else if(item == "Last 30 days    ") {
+                        service.filterListByLastThirtyDays();
+                      }
+                      else {
+                        //service.filterListByLastThirtyDays();
+                        print('done');
+                      }
                     },                    
                     value: item,
                     child: Text(

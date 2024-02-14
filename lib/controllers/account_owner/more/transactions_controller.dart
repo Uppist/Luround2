@@ -29,12 +29,12 @@ class TransactionsController extends getx.GetxController {
   //filter transactions list
   final List<String> items = [
     'All time    ', 
-    //'Today    ', 
-    //'Yesterday    ', 
+    'Today    ', 
+    'Yesterday    ', 
     //'This week    ', 
     'Last 7 days    ', 
     "Last 30 days    ", //4
-    "This month    "
+    //"This month    "
   ];
   final selectedValue = 'All time    '.obs; //SAVED TO DB
 

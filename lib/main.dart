@@ -94,56 +94,6 @@ class _MainAppState extends State<MainApp> {
   int tokenExpDate = LocalStorage.getTokenExpDate() ?? 0;
   var authService = Get.put(AuthService());
 
-  ///////////////
-  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Initialize Awesome Notifications
-    AwesomeNotifications().initialize(null, [
-      NotificationChannel(
-        channelKey: 'default_channel',
-        channelName: 'Default Channel',
-        channelDescription: 'Default Notification Channel',
-        defaultColor: Color(0xFF9D50DD),
-        ledColor: Colors.white,
-      ),
-    ]);
-
-    // Handle incoming FCM messages
-    /*_firebaseMessaging.configure(
-      onMessage: (Map<String, dynamic> message) async {
-        print('onMessage: $message');
-        _showAwesomeNotification(message);
-      },
-      onLaunch: (Map<String, dynamic> message) async {
-        print('onLaunch: $message');
-      },
-      onResume: (Map<String, dynamic> message) async {
-        print('onResume: $message');
-      },
-    );*/
-  }
-
-  Future<void> _showAwesomeNotification(Map<String, dynamic> message) async {
-    // Extract notification data
-    String title = message['notification']['title'] ?? 'Default Title';
-    String body = message['notification']['body'] ?? 'Default Body';
-
-    // Show Awesome Notification
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: DateTime.now().millisecondsSinceEpoch,
-        channelKey: 'default_channel',
-        title: title,
-        body: body,
-      ),
-    );
-  }
-  //////////////
-
 
   @override
   Widget build(BuildContext context) {

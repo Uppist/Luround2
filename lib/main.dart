@@ -44,7 +44,7 @@ void main() async{
   
 
   WidgetsFlutterBinding.ensureInitialized();
-  //keep beneath this widgetbinding widget
+  //keep beneath this widgetflutterbinding widget
   //usePathUrlStrategy();
   
   SystemChrome.setSystemUIOverlayStyle(

@@ -155,7 +155,8 @@ class MainPageController extends getx.GetxController {
       //RemoteNotification? notification = message.notification;
       //AndroidNotification? android = message.notification?.android;
       print('onMessage: $message');
-      _showAwesomeNotification(message.data);
+      //_showAwesomeNotification(message.data);
+      AwesomeNotifications().createNotificationFromJsonData(message.data);
     });
 
     //Enable foreground Notifications for iOS

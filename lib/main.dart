@@ -94,6 +94,13 @@ class _MainAppState extends State<MainApp> {
   int tokenExpDate = LocalStorage.getTokenExpDate() ?? 0;
   var authService = Get.put(AuthService());
 
+  @override
+  void initState() {
+    var token = LocalStorage.getToken();
+    print("token initialized and fetched: $token");
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {

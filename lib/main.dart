@@ -29,7 +29,7 @@ import 'firebase_options.dart';
 
 
 
-var controller = Get.put(MainPageController());
+//var controller = Get.put(MainPageController());
 
 
 //Top level non-anonymous function for FCM push notifications for background mode
@@ -66,12 +66,12 @@ void main() async{
   await GetStorage.init();
 
   //initialize firebase cloud messaging
-  controller.initFCM(backgroundHandler: backgroundHandler);
+  //controller.initFCM(backgroundHandler: backgroundHandler);
 
   //check for existing token from luround's backend server 
-  var token = LocalStorage.getToken();
+  var token = LocalStorage.getFCMToken();
   var userId = LocalStorage.getUserID();
-  print(token);
+  print("my_FCMtoken: $token");
   print("my_id: $userId");
 
   runApp(const MainApp());
@@ -81,8 +81,14 @@ void main() async{
 
 
 
+
+
 class MainApp extends StatefulWidget {
-  const MainApp({super.key});
+  const MainApp({
+    super.key,
+    //required this.backgroundHandler
+  });
+  //final Function backgroundHandler;
 
   @override
   State<MainApp> createState() => _MainAppState();
@@ -92,12 +98,13 @@ class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
   int tokenExpDate = LocalStorage.getTokenExpDate() ?? 0;
+  var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
 
   @override
   void initState() {
-    var token = LocalStorage.getToken();
-    print("token initialized and fetched: $token");
+    //initialize firebase cloud messaging
+    controller.initFCM(backgroundHandler: backgroundHandler);
     super.initState();
   }
 

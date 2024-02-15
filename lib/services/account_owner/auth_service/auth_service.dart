@@ -206,7 +206,7 @@ class AuthService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.data}');
-      } 
+      }
       else {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response reason ==> ${res.statusMessage}');

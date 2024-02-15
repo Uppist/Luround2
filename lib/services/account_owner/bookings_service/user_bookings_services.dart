@@ -70,8 +70,8 @@ class AccOwnerBookingService extends getx.GetxController {
         String serverDate = convertServerTimeToDate(item.serviceDetails.createdAt);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
-        // Check if the date is within the last seven days
-        if (convertedDate.isAfter(today)) {
+        // Check if the date is today
+        if (convertedDate.isAfter(today.subtract(Duration(days: 1)))) {
           return true; // Include the item in the filtered list
         }
         return false; // If not found in any detail, exclude the item
@@ -95,11 +95,8 @@ class AccOwnerBookingService extends getx.GetxController {
         String serverDate = convertServerTimeToDate(item.serviceDetails.createdAt);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
-        // Check if the date is within the last seven days
-        if (convertedDate.isAfter(yesterday)) {
-          return true; // Include the item in the filtered list
-        }
-        return false; // If not found in any detail, exclude the item
+        // Check if the date is exactly equal to yesterday
+        return convertedDate.isAtSameMomentAs(yesterday);
       }),
     );
 

@@ -120,7 +120,7 @@ class MainPageController extends getx.GetxController {
     String? token = await messaging.getToken();
     await LocalStorage.saveFCMToken(token!);
     debugPrint("My Device FCMToken: $token"); //save to firebase
-    debugPrint("local storage fcmtoken${LocalStorage.getFCMToken()}");
+    debugPrint("local storage fcmtoken: ${LocalStorage.getFCMToken()}");
 
     //grant permission for Android/iOS (Android is always automatic)
     NotificationSettings settings = await messaging.requestPermission(

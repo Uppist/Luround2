@@ -31,7 +31,8 @@ import 'firebase_options.dart';
 
 //Top level non-anonymous function for FCM push notifications for background mode
 Future<void> backgroundHandler(RemoteMessage message) async {
-  debugPrint('Handling a background message ${message.messageId}');
+  debugPrint('Handling a background message ${message.data}');
+  AwesomeNotifications().createNotificationFromJsonData(message.data);
 }
 
 

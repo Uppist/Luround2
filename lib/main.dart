@@ -29,14 +29,10 @@ import 'firebase_options.dart';
 
 
 
-//var controller = Get.put(MainPageController());
-
-
 //Top level non-anonymous function for FCM push notifications for background mode
 Future<void> backgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message ${message.messageId}');
 }
-
 
 
 

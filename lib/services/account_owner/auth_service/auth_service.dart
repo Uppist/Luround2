@@ -195,7 +195,7 @@ class AuthService extends getx.GetxController {
   }) async {
 
     var body = { 
-      "user_nToken": FCMToken ?? "no token",
+      "user_nToken": FCMToken,
       "notification_userId": userId,
       "title": noti_title,
       "body": noti_body

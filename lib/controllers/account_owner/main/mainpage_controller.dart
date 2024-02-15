@@ -148,9 +148,8 @@ class MainPageController extends getx.GetxController {
       debugPrint('Got a message whilst in the foreground!');
       //you can save to db
       debugPrint('Message data: ${message.data}');
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-
+      //RemoteNotification? notification = message.notification;
+      //AndroidNotification? android = message.notification?.android;
       print('onMessage: $message');
       _showAwesomeNotification(message.data);
     });

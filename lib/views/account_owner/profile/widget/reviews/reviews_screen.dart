@@ -164,18 +164,18 @@ class ReviewsPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CircleAvatar(
-                              backgroundColor: AppColor.mainColor,
-                              radius: 25.r,
+                              backgroundColor: AppColor.greyColor,
+                              radius: 30.r,
                               child: Text(
                                 getFirstLetter(data[index].userName),
                                 style: GoogleFonts.inter(
-                                  color: AppColor.bgColor,
-                                  fontSize: 21.sp,
-                                  fontWeight: FontWeight.bold
+                                  color: AppColor.blackColor,
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w600
                                 ),
                               ),
                             ),
-                            SizedBox(width: 10.w),
+                            SizedBox(width: 15.w),
                             Expanded(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,7 +190,7 @@ class ReviewsPage extends StatelessWidget {
                                       )
                                     )
                                   ),
-                                  SizedBox(height: 20.sp,),
+                                  SizedBox(height: 10.sp,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -214,8 +214,8 @@ class ReviewsPage extends StatelessWidget {
                                         style: GoogleFonts.inter(
                                           textStyle: TextStyle(
                                             color: AppColor.textGreyColor,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500
+                                            fontSize: 13.sp,
+                                            fontWeight: FontWeight.w400
                                           )
                                         ),
                                       ),

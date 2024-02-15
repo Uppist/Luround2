@@ -64,20 +64,23 @@ class FilterContainer extends StatelessWidget {
                     onTap: () {
                       
                       debugPrint("drop down menu tapped!!");
-                      if(controller.selectedValue.value == 'All time    ') {
+                      if(item == 'All time    ') {
                         service.filterTrxByPastDate();
                       }
-                      if(controller.selectedValue.value == 'Today    ') {
+                      else if(item == 'Today    ') {
                         service.filterListByToday();
                       }
-                      if(controller.selectedValue.value == 'Yesterday    ') {
+                      else if(item == 'Yesterday    ') {
                         service.filterListByYesterday();
                       }
-                      if (controller.selectedValue.value == 'Last 7 days    ') {
+                      else if (item == 'Last 7 days    ') {
                         service.filterListByLastSevenDays();
                       }
-                      if(controller.selectedValue.value == "Last 30 days    ") {
+                      else if(item == "Last 30 days    ") {
                         service.filterListByLastThirtyDays();
+                      }
+                      else{
+                        print("nothing else");
                       }
   
                     },                    

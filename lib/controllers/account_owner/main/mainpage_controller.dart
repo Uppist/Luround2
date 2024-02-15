@@ -97,7 +97,7 @@ class MainPageController extends getx.GetxController {
     required Future<void> Function(RemoteMessage) backgroundHandler
   }) async {
 
-    //INITIALIZE AWESOME NOTIFICATIONS PLUGIN
+    //INITIALIZE AWESOME NOTIFICATIONS PLUGIN FIRST
     //Initialize Awesome Notifications
     AwesomeNotifications().initialize(null,[
       NotificationChannel(
@@ -106,6 +106,10 @@ class MainPageController extends getx.GetxController {
         channelDescription: 'Default Notification Channel',
         defaultColor: AppColor.mainColor,
         ledColor: Colors.white,
+        enableLights: true,
+        enableVibration: true,
+        playSound: true,
+        importance: NotificationImportance.High
       ),
     ]);
   

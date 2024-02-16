@@ -69,12 +69,11 @@ dependencies:
   cached_network_image: ^3.3.0
   cloudinary: ^1.2.0
   image_picker: ^1.0.7
-  #image_picker_web: ^3.1.1
+  image_picker_web: ^3.1.1
 
 
   #for generating qr codes icons
   qr_flutter: ^4.1.0
-  #pretty_qr_code: ^3.0.0
 
   #rating_bar indicator
   flutter_rating_bar: ^4.0.1

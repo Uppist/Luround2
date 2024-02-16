@@ -60,7 +60,7 @@ void main() async{
   );
 
   //initialize get_storage
-  await GetStorage.init();
+  await GetStorage.init() ;
 
   //initialize firebase cloud messaging
   //controller.initFCM(backgroundHandler: backgroundHandler);
@@ -72,6 +72,7 @@ void main() async{
   print("my_id: $userId");
 
   runApp(const MainApp());
+
 }
 
 

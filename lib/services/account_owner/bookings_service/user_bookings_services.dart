@@ -96,9 +96,13 @@ class AccOwnerBookingService extends getx.GetxController {
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is exactly equal to yesterday
-        return convertedDate.isAtSameMomentAs(yesterday);
-      }),
-    );
+        // return convertedDate.isAtSameMomentAs(yesterday);
+        // Check if the date is within yesterday
+        return convertedDate.year == yesterday.year &&
+          convertedDate.month == yesterday.month &&
+          convertedDate.day == yesterday.day;
+        }),
+      );
 
     print("Bookings List from yesterday: $filteredList");
   }
@@ -350,7 +354,7 @@ class AccOwnerBookingService extends getx.GetxController {
         ).whenComplete(() {
           //send push notification and store in db
           authService.sendPushNotification(
-            noti_title: "Booking confirmed", 
+            noti_title: "Booking Confirmed", 
             noti_body: "your booking for $client_name has been confirmed successfully"
           );
         });
@@ -400,7 +404,7 @@ class AccOwnerBookingService extends getx.GetxController {
         ).whenComplete(() {
           //send push notification and store in db
           authService.sendPushNotification(
-            noti_title: "Booking cancelled", 
+            noti_title: "Booking Cancelled", 
             noti_body: "your booking for $client_name has been cancelled successfully"
           );
           //.whenComplete(() => meetingCancelledBookingDialogueBox(context: context));

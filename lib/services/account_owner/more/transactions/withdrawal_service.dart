@@ -606,7 +606,10 @@ class WithdrawalService extends getx.GetxController {
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is exactly equal to yesterday
-        return convertedDate.isAtSameMomentAs(yesterday);
+        //return convertedDate.isAtSameMomentAs(yesterday);
+        return convertedDate.year == yesterday.year &&
+          convertedDate.month == yesterday.month &&
+          convertedDate.day == yesterday.day;
       }),
     );
 

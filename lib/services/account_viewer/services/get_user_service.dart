@@ -394,7 +394,7 @@ class AccViewerService extends getx.GetxController {
           fcm_token: response.user_nToken,
           userID: response.userId,
           noti_title: "New Quote Alert", 
-          noti_body: "you have just received a quote from $client_name"
+          noti_body: "you received a quote from $client_name"
         );
 
         //success snackbar

@@ -9,13 +9,13 @@ class RequestQuoteResponseModel {
   late final String user_nToken;
   
   RequestQuoteResponseModel.fromJson(Map<String, dynamic> json,){
-    userId = json['_id'] ?? "id";
+    userId = json['userId'] ?? "id";
     user_nToken = json['user_nToken'] ?? "id";
   }
 
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['_id'] = userId;
+    _data['userId'] = userId;
     _data['user_nToken'] = user_nToken;
     return _data;
   }

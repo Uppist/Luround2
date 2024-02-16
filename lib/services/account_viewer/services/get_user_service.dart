@@ -5,6 +5,8 @@ import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/models/account_viewer/booking/bookimg_response.dart';
 import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';
+import 'package:luround/models/account_viewer/request_quote/request_quote_response.dart';
+import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
@@ -28,6 +30,7 @@ class AccViewerService extends getx.GetxController {
   var controller = getx.Get.put(AccViewerServicesController());
   var withdrawalService = getx.Get.put(WithdrawalService());
   var baseService = getx.Get.put(BaseService());
+  var authService = getx.Get.put(AuthService());
   final isLoading = false.obs;
   //var userId = LocalStorage.getUserID();
   //var userEmail = LocalStorage.getUseremail();
@@ -197,9 +200,18 @@ class AccViewerService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("luround user got booked succesfully");
-        BookServiceResponseMdel response = BookServiceResponseMdel.fromJson(jsonDecode(res.body));
+        BookServiceResponseModel response = BookServiceResponseModel.fromJson(jsonDecode(res.body));
         /////////////
         print("bookings response here: $response");
+        
+        //send push notification to the service_proider
+        authService.sendPushNotification(
+          fcm_token: response.user_nToken,
+          userID: response.userId,
+          noti_title: "New Booking Alert", 
+          noti_body: "you have just been booked by $name"
+        );
+
 
         showMySnackBar(
           context: context,
@@ -371,7 +383,20 @@ class AccViewerService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint("client requested quote successfully");
+        debugPrint("this is response body ==> ${res.body}");
+
+        RequestQuoteResponseModel response = RequestQuoteResponseModel.fromJson(jsonDecode(res.body));
+        /////////////
+        print("bookings response here: $response");
+        
+        //send push notification to the service_proider
+        authService.sendPushNotification(
+          fcm_token: response.user_nToken,
+          userID: response.userId,
+          noti_title: "New Quote Alert", 
+          noti_body: "you have just received a quote from $client_name"
+        );
+
         //success snackbar
         showMySnackBar(
           context: context,

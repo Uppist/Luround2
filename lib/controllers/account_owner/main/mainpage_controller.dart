@@ -14,7 +14,7 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen.dart';
 import 'package:luround/views/account_owner/services/screen/service_screen.dart';
 import '../../../views/account_owner/profile/screen/profile_screen.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 
 
@@ -74,43 +74,67 @@ class MainPageController extends getx.GetxController {
   ///////////////////////////////////////////////
 
 
+  void displayNotification(RemoteMessage message) async {
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  //CREATE AWESOME NOTIFICATIONS  (YAYYYYY!!!...)
-  Future<void> _showAwesomeNotification(Map<String, dynamic> data) async {
-    // Extract notification data
-    String title = data['title'] ?? 'Default Title';
-    String body = data['body'] ?? 'Default Body';
-
-    // Show Awesome Notification
-    await AwesomeNotifications().createNotification(
-      content: NotificationContent(
-        id: DateTime.now().millisecondsSinceEpoch,
-        channelKey: 'default_channel',
-        title: title,
-        body: body,
-      ),
+    // Instantiate setting for (Android/iOS)
+    final AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('ic_launcher.png');
+    final DarwinInitializationSettings iosInitializationSetting = DarwinInitializationSettings();
+  
+    //join "Android/iOS" instantiation together
+    final InitializationSettings initializationSettings =
+      InitializationSettings(
+        android: initializationSettingsAndroid,
+        iOS: iosInitializationSetting
+      );
+    
+    // Initialize the plugin  (Android/iOS)
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
     );
-  }
+
+    // Create the notification details for android
+    final AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails(
+        'default_channel',
+        'Default Channel',
+        //'Default Notification Channel',
+        color: AppColor.mainColor,
+        ledColor: Colors.white,
+        enableLights: true,
+        enableVibration: true,
+        playSound: true,
+        importance: Importance.max,
+        priority: Priority.high,
+        showWhen: false,
+      );
+
+      // Create the notification details for iOS
+      final DarwinNotificationDetails iOSPlatformChannelSpecifics =
+        DarwinNotificationDetails(
+          presentSound: true,
+          presentAlert: true
+        );
+  
+      //join both notification details together
+      final NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+        iOS: iOSPlatformChannelSpecifics,
+      );
+
+      // Display the notification
+      await flutterLocalNotificationsPlugin.show(
+        0, // Notification ID
+        message.notification!.title, // Notification title
+        message.notification!.body, // Notification body
+        platformChannelSpecifics,
+      );
+    }
 
   Future<void> initFCM({
     required Future<void> Function(RemoteMessage) backgroundHandler
   }) async {
 
-    //INITIALIZE AWESOME NOTIFICATIONS PLUGIN FIRST
-    //Initialize Awesome Notifications
-    AwesomeNotifications().initialize(null,[
-      NotificationChannel(
-        channelKey: 'default_channel',
-        channelName: 'Default Channel',
-        channelDescription: 'Default Notification Channel',
-        defaultColor: AppColor.mainColor,
-        ledColor: Colors.white,
-        enableLights: true,
-        enableVibration: true,
-        playSound: true,
-        importance: NotificationImportance.High
-      ),
-    ]);
   
     //FCM Instance
     FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -151,11 +175,8 @@ class MainPageController extends getx.GetxController {
       debugPrint('Got a message whilst in the foreground!');
       //you can save to db
       debugPrint('Message data: ${message.data}');
-      //RemoteNotification? notification = message.notification;
-      //AndroidNotification? android = message.notification?.android;
-      print('onMessage: $message');
-      _showAwesomeNotification(message.data);
-      //AwesomeNotifications().createNotificationFromJsonData(message.data);
+      //display notification
+      displayNotification(message);
     });
 
     //Enable foreground Notifications for iOS

@@ -28,12 +28,12 @@ import 'firebase_options.dart';
 
 
 
+
+
 //Top level non-anonymous function for FCM push notifications for background mode
 Future<void> backgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message ${message.data}');
-  AwesomeNotifications().createNotificationFromJsonData(message.data);
 }
-
 
 
 void main() async{
@@ -61,14 +61,10 @@ void main() async{
   //initialize get_storage
   await GetStorage.init() ;
 
-  //initialize firebase cloud messaging
-  //controller.initFCM(backgroundHandler: backgroundHandler);
 
-  //check for existing token from luround's backend server 
+  //check for existing fcmtoken
   var token = LocalStorage.getFCMToken();
-  var userId = LocalStorage.getUserID();
   print("my_FCMtoken: $token");
-  print("my_id: $userId");
 
   runApp(const MainApp());
 
@@ -83,9 +79,7 @@ void main() async{
 class MainApp extends StatefulWidget {
   const MainApp({
     super.key,
-    //required this.backgroundHandler
   });
-  //final Function backgroundHandler;
 
   @override
   State<MainApp> createState() => _MainAppState();

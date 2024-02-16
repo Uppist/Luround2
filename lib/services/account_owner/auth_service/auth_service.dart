@@ -43,18 +43,20 @@ class AuthService extends getx.GetxController {
   
 
   /*Stream<dynamic> connectToWebSocket() async* {
+    final wsUrl = Uri.parse('ws://example.com');
     final WebSocketChannel channel = WebSocketChannel.connect(
-      Uri.parse('wss://example.com/socket'), // Replace with your WebSocket server URL
+      // Replace with your WebSocket server URL
+      wsUrl
     );
     
-    //to add data to the web socket
+    //to add data to the web socket (OPTION (POST & PUT))
     /*await channel.ready;
     channel.stream.listen((message) {
-      channel.sink.add('received!');
+      channel.sink.add('received!'); //data
       channel.sink.close(status.goingAway);
     });*/
     
-    //to retrieve data from the websocket
+    //to retrieve data from the websocket (OPTION (GET))
     yield* channel.stream;
 
     await channel.sink.close(); // Close the WebSocket when the stream is done.
@@ -137,7 +139,9 @@ class AuthService extends getx.GetxController {
             message: "account created successfully"
           ).whenComplete(() => sendPushNotification(
               noti_title: "Account created successfuly", 
-              noti_body: "Hey $displayName, welcome to luround."
+              noti_body: "Hey $displayName, welcome to luround.",
+              fcm_token: FCMToken,
+              userID: userId
             )
           );
         } 
@@ -206,11 +210,13 @@ class AuthService extends getx.GetxController {
   Future<void> sendPushNotification({
     required String noti_title,
     required String noti_body,
+    required String fcm_token,
+    required String userID,
   }) async {
 
     var body = { 
-      "user_nToken": FCMToken,
-      "notification_userId": userId,
+      "user_nToken": fcm_token,
+      "notification_userId": userID,
       "title": noti_title,
       "body": noti_body
     };

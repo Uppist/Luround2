@@ -27,6 +27,7 @@ class AccOwnerBookingService extends getx.GetxController {
   var controller = getx.Get.put(ServicesController());
   final isLoading = false.obs;
   var userId = LocalStorage.getUserID();
+  var fcm_token = LocalStorage.getFCMToken();
   var email = LocalStorage.getUseremail();
 
 
@@ -354,8 +355,10 @@ class AccOwnerBookingService extends getx.GetxController {
         ).whenComplete(() {
           //send push notification and store in db
           authService.sendPushNotification(
+            fcm_token: fcm_token,
+            userID: userId,
             noti_title: "Booking Confirmed", 
-            noti_body: "your booking for $client_name has been confirmed successfully"
+            noti_body: "your schedule with $client_name has been confirmed successfully"
           );
         });
         
@@ -404,8 +407,10 @@ class AccOwnerBookingService extends getx.GetxController {
         ).whenComplete(() {
           //send push notification and store in db
           authService.sendPushNotification(
+            fcm_token: fcm_token,
+            userID: userId,
             noti_title: "Booking Cancelled", 
-            noti_body: "your booking for $client_name has been cancelled successfully"
+            noti_body: "your schedule with $client_name has been cancelled successfully"
           );
           //.whenComplete(() => meetingCancelledBookingDialogueBox(context: context));
           //show meeting cancelled dialog

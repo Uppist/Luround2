@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart' as diomygee;
@@ -31,8 +32,6 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
-
-
 class AuthService extends getx.GetxController {
 
 
@@ -43,8 +42,23 @@ class AuthService extends getx.GetxController {
   var isLoading = false.obs;
   
 
+  /*Stream<dynamic> connectToWebSocket() async* {
+    final WebSocketChannel channel = WebSocketChannel.connect(
+      Uri.parse('wss://example.com/socket'), // Replace with your WebSocket server URL
+    );
+    
+    //to add data to the web socket
+    /*await channel.ready;
+    channel.stream.listen((message) {
+      channel.sink.add('received!');
+      channel.sink.close(status.goingAway);
+    });*/
+    
+    //to retrieve data from the websocket
+    yield* channel.stream;
 
-
+    await channel.sink.close(); // Close the WebSocket when the stream is done.
+  }*/
 
 
   //to check if the token is expired
@@ -439,7 +453,7 @@ class AuthService extends getx.GetxController {
         "lastName": lastName,
         "photoUrl": photoUrl,
         "google_user_id": google_user_id,
-        "user_nToken": FCMToken ?? "no token",
+        "user_nToken": FCMToken
       };
 
       //define or state your headers

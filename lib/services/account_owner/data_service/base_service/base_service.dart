@@ -155,7 +155,42 @@ class BaseService extends getX.GetxController {
     }
   }
 
+  //GET REQUEST WITH Dio
+  Future<dioG.Response> getRequestWithDio({ 
+    required String endPoint, 
+  }) async{
+    try {
+      var token = LocalStorage.getToken();
+      // Create Dio instance
+      dioG.Dio dio = dioG.Dio();
+
+      // Optionally, you can configure additional options like headers, etc.
+      dio.options.headers = token != null ? 
+      {
+        'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Connection": "keep-alive",
+      } 
+      : null;
+
+      // Perform the Get request
+      dioG.Response response = await dio.get(
+        "$baseUrl$endPoint",
+        //data: data,
+      );
+      // Handle the response as needed
+      print('GET Request Status Code: ${response.statusCode}');
+      print('GET Request Response Data: ${response.data}');
+      return response;
+    } catch (e) {
+      // Handle errors
+      throw Exception('Error during GET request: $e');
+    }
+  }
+
   
+
   ///HTTP/// 
   //function that sends a GET request for Google Auth (on a soft)
   Future<dynamic> httpGooglePost({required String endPoint, required dynamic body}) async {

@@ -410,7 +410,7 @@ class AccOwnerBookingService extends getx.GetxController {
             fcm_token: fcm_token,
             userID: userId,
             noti_title: "Booking Cancelled", 
-            noti_body: "your schedule with $client_name has been cancelled successfully"
+            noti_body: "your schedule with $client_name has been cancelled"
           );
           //.whenComplete(() => meetingCancelledBookingDialogueBox(context: context));
           //show meeting cancelled dialog
@@ -418,7 +418,8 @@ class AccOwnerBookingService extends getx.GetxController {
         });
         
 
-      } else {
+      } 
+      else {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');

@@ -50,6 +50,7 @@ class MainPageController extends getx.GetxController {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': 'key=$serverKey',
+          'Accept': '/',
         },
         body: jsonEncode(payload),
       );
@@ -78,8 +79,10 @@ class MainPageController extends getx.GetxController {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     // Instantiate setting for (Android/iOS)
-    final AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('ic_launcher.png');
-    final DarwinInitializationSettings iosInitializationSetting = DarwinInitializationSettings();
+    final AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher'); //'app_icon'
+    final DarwinInitializationSettings iosInitializationSetting = const DarwinInitializationSettings(
+      requestAlertPermission: true, requestBadgePermission: true, requestSoundPermission: true
+    );
   
     //join "Android/iOS" instantiation together
     final InitializationSettings initializationSettings =
@@ -98,7 +101,7 @@ class MainPageController extends getx.GetxController {
       AndroidNotificationDetails(
         'default_channel',
         'Default Channel',
-        //'Default Notification Channel',
+        channelDescription: 'Default Notification Channel',
         color: AppColor.mainColor,
         ledColor: Colors.white,
         enableLights: true,
@@ -124,9 +127,9 @@ class MainPageController extends getx.GetxController {
 
       // Display the notification
       await flutterLocalNotificationsPlugin.show(
-        0, // Notification ID
-        message.notification!.title, // Notification title
-        message.notification!.body, // Notification body
+        message.data.hashCode, 
+        message.data['title'], 
+        message.data['body'], 
         platformChannelSpecifics,
       );
     }

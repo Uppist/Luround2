@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
@@ -27,12 +28,11 @@ import 'firebase_options.dart';
 
 
 
-
-
-
+var controller = Get.put(MainPageController());
 //Top level non-anonymous function for FCM push notifications for background mode
 Future<void> backgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message ${message.data}');
+  controller.displayNotification(message);
 }
 
 
@@ -60,7 +60,6 @@ void main() async{
 
   //initialize get_storage
   await GetStorage.init() ;
-
 
   //check for existing fcmtoken
   var token = LocalStorage.getFCMToken();
@@ -95,7 +94,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     //initialize firebase cloud messaging
-    //controller.initFCM(backgroundHandler: backgroundHandler);
+    controller.initFCM(backgroundHandler: backgroundHandler);
     super.initState();
   }
 
@@ -115,7 +114,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        unknownRoute: GetPage(
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -138,9 +137,9 @@ class _MainAppState extends State<MainApp> {
             page: () {
               return SplashScreenXtra2();},
           ),
-        ],
+        ],*/
 
-        //home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       ),
     );
   }

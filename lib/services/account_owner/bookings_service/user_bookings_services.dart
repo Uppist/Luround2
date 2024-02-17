@@ -345,7 +345,7 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         debugPrint("booking confirmed");
-        dynamic jsonData = json.decode(res.body);
+        //dynamic jsonData = json.decode(res.body);
         //String service_name  jsonData['service_name'] ?? "non"
         //success snackbar
         showMySnackBar(
@@ -361,9 +361,9 @@ class AccOwnerBookingService extends getx.GetxController {
             noti_body: "your schedule with $client_name has been confirmed successfully"
           );
         });
-        
 
-      } else {
+      } 
+      else {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');

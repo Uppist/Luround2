@@ -79,7 +79,8 @@ class AdditionalInfoSection extends StatelessWidget {
                               fontSize: 16.sp,
                               fontWeight: FontWeight.w500
                             )
-                          )
+                          ),
+                          overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: 5.h,),
                         //Subtitle text

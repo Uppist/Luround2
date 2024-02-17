@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:awesome_notifications/awesome_notifications.dart';
+//import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,19 +79,21 @@ class MainPageController extends getx.GetxController {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     // Instantiate setting for (Android/iOS)
-    final AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher'); //'app_icon'
-    final DarwinInitializationSettings iosInitializationSetting = const DarwinInitializationSettings(
-      requestAlertPermission: true, requestBadgePermission: true, requestSoundPermission: true
+    const AndroidInitializationSettings initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher'); //'app_icon'
+    const DarwinInitializationSettings iosInitializationSetting = DarwinInitializationSettings(
+      requestAlertPermission: true, 
+      requestBadgePermission: true, 
+      requestSoundPermission: true
     );
   
     //join "Android/iOS" instantiation together
-    final InitializationSettings initializationSettings =
+    const InitializationSettings initializationSettings =
       InitializationSettings(
         android: initializationSettingsAndroid,
         iOS: iosInitializationSetting
       );
     
-    // Initialize the plugin  (Android/iOS)
+    //Initialize the plugin  (Android/iOS)
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
     );
@@ -110,10 +112,12 @@ class MainPageController extends getx.GetxController {
         importance: Importance.max,
         priority: Priority.high,
         showWhen: false,
+        ledOnMs: 1000, // Specify LED on duration in milliseconds
+        ledOffMs: 500, 
       );
 
       // Create the notification details for iOS
-      final DarwinNotificationDetails iOSPlatformChannelSpecifics =
+      const DarwinNotificationDetails iOSPlatformChannelSpecifics =
         DarwinNotificationDetails(
           presentSound: true,
           presentAlert: true

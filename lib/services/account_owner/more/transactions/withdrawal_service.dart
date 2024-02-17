@@ -712,11 +712,14 @@ class WithdrawalService extends getx.GetxController {
       isLoading.value = true;
       final List<UserTransactionsModel> transactions = await getUserTransactions();
       //transactions.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+      // Sort transactions by creation date in descending order
+      transactions.sort((a, b) => b.transaction_date.compareTo(a.transaction_date));
+
 
       isLoading.value = false;
       filteredTrxList.clear();
       filteredTrxList.addAll(transactions);
-      print("on: ${filteredTrxList}");
+      print("trasaction list: ${filteredTrxList}");
       return filteredTrxList;
   
     } 

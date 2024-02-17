@@ -48,8 +48,10 @@ class _BookingsPageState extends State<BookingsPage> {
       
       //sort the resulting list by name
       final List<DetailsModel> sortedList = list;
-      sortedList.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
+      //sortedList.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
       
+      sortedList.sort((a, b) => a.serviceDetails.createdAt.compareTo(b.serviceDetails.createdAt));
+
       service.filteredList.clear();
       service.filteredList.addAll(sortedList);  //service.dataList
       print("filtered booking list: ${service.filteredList}");

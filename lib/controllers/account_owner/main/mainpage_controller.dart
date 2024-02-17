@@ -125,13 +125,21 @@ class MainPageController extends getx.GetxController {
         iOS: iOSPlatformChannelSpecifics,
       );
 
-      // Display the notification
-      await flutterLocalNotificationsPlugin.show(
-        message.data.hashCode, 
-        message.data['title'], 
-        message.data['body'], 
-        platformChannelSpecifics,
-      );
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? android = message.notification?.android;
+      
+      if(notification != null && android != null) {
+
+        // Display the notification
+        await flutterLocalNotificationsPlugin.show(
+          notification.hashCode, 
+          notification.title, 
+          notification.body, 
+          platformChannelSpecifics,
+        );
+
+      }
+
     }
 
   Future<void> initFCM({

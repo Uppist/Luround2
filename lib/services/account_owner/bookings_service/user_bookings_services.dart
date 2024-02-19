@@ -347,20 +347,19 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint("booking confirmed");
         //dynamic jsonData = json.decode(res.body);
         //String service_name  jsonData['service_name'] ?? "non"
+        //send push notification and store in db
+        authService.sendPushNotification(
+          fcm_token: fcm_token,
+          userID: userId,
+          noti_title: "Booking Confirmed", 
+          noti_body: "your schedule with $client_name has been confirmed successfully"
+        );
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking successfully confirmed"
-        ).whenComplete(() {
-          //send push notification and store in db
-          authService.sendPushNotification(
-            fcm_token: fcm_token,
-            userID: userId,
-            noti_title: "Booking Confirmed", 
-            noti_body: "your schedule with $client_name has been confirmed successfully"
-          );
-        });
+        );
 
       } 
       else {
@@ -399,20 +398,19 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         debugPrint("booking cancelled nicely");
+        //send push notification and store in db
+        authService.sendPushNotification(
+          fcm_token: fcm_token,
+          userID: userId,
+          noti_title: "Booking Cancelled", 
+          noti_body: "your schedule with $client_name has been cancelled"
+        );
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking successfully cancelled"
         ).whenComplete(() {
-          //send push notification and store in db
-          authService.sendPushNotification(
-            fcm_token: fcm_token,
-            userID: userId,
-            noti_title: "Booking Cancelled", 
-            noti_body: "your schedule with $client_name has been cancelled"
-          );
-          //.whenComplete(() => meetingCancelledBookingDialogueBox(context: context));
           //show meeting cancelled dialog
           meetingCancelledBookingDialogueBox(context: context);
         });

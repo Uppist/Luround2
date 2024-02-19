@@ -455,7 +455,7 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user booking deleted succesfully");
          //success snackbar
-        showMySnackBar(
+        await showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking deleted successfully"

@@ -97,8 +97,8 @@ class ServicesPage extends StatelessWidget {
               
               
             //Futurebuilder will start from here (will wrap this listview)
-            FutureBuilder<List<UserServiceModel>>(
-              future: userService.getUserServices(),
+            StreamBuilder<List<UserServiceModel>>(
+              stream: userService.getUserServices(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());

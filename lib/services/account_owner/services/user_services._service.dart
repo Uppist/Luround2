@@ -12,7 +12,7 @@ import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:dio/dio.dart' as dio;
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
@@ -54,7 +54,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   
 
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<List<UserServiceModel>> getUserServices() async {
+  /*Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
@@ -81,7 +81,54 @@ class AccOwnerServicePageService extends getx.GetxController {
       throw Exception("error: $e");
     
     }
+  }*/
+
+  
+  IO.Socket? socket;
+  Stream<List<UserServiceModel>> getUserServices() async* {
+    try {
+      List<UserServiceModel>  servicesList = [];
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': true,
+        'transports': ['websocket'],
+      });
+      socket!.connect();
+
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-bookings" event after connecting
+        socket!.emit('subscribe', 'user-services');
+      });
+
+      socket!.on('user-services', (data) {
+        // Handle data received for "user-bookings" event
+        print('Received user-services event: $data');
+        // Extract the "details" list from the first map
+        List<dynamic> response = data;
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        servicesList.clear();
+        servicesList.addAll(finalResult);
+        print("user services list: $servicesList");
+      });
+
+
+
+      socket!.onDisconnect((_) => print('Connection Disconnection'));
+      socket!.onConnectError((err) => print(err));
+      socket!.onError((err) => print(err));
+
+      yield servicesList;
+    }
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
+    }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
+
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
   Future<UserServiceModel> getSingleService({

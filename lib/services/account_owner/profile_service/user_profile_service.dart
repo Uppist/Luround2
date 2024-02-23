@@ -26,11 +26,12 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
-
-
-
 class AccOwnerProfileService extends getx.GetxController {
 
+  
+  //General Base URL
+  String baseUrl = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
+  String baseUrlForGoogle = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
 
   var baseService = getx.Get.put(BaseService());
   var controller = getx.Get.put(ProfilePageController());
@@ -69,7 +70,7 @@ class AccOwnerProfileService extends getx.GetxController {
       dioCall.Dio dio = dioCall.Dio();
 
       // Define the endpoint URL
-      String endpointUrl = 'https://luround.onrender.com/api/v1/profile/certificates/get';
+      String endpointUrl = '${baseService.baseUrl}profile/certificates/get';
 
       // Define headers
       Map<String, dynamic> headers = {
@@ -533,7 +534,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "updated successfully"
+          message: "media data updated successfully"
         );
       } 
       else {
@@ -545,7 +546,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update"
+          message: "failed to update media data"
         );
       }
     } 
@@ -844,8 +845,7 @@ class AccOwnerProfileService extends getx.GetxController {
         debugPrint("user notifications fetched successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
-        //final List<ReviewResponse> result = response.map((e) => ReviewResponse.fromJson(e)).toList();
-        //debugPrint("result: $result");
+
         //clear the list
         fetchNoticationList.clear();
         //add items to the list
@@ -880,11 +880,17 @@ class AccOwnerProfileService extends getx.GetxController {
 
 
 
+
   @override
   void onInit() {
     getUserProfileDetails(email: userEmail);
     super.onInit();
   }
 
+  
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
 }

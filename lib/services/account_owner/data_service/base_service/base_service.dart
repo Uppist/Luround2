@@ -14,10 +14,9 @@ import 'package:get/get.dart' as getX;
 
 class BaseService extends getX.GetxController {
   
-  
-  //var token = LocalStorage.getToken();
 
   //General Base URL
+  String socketUrl = "ws://luround-api-7ad1326c3c1f.herokuapp.com/";
   String baseUrl = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
   String baseUrlForGoogle = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
 

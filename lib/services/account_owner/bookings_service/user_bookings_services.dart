@@ -13,6 +13,7 @@ import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting_cancelled_dialog.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
@@ -284,7 +285,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
   /////////////////////////////////////////////////////////////////////////////////
 
-  Future<List<DetailsModel>> getUserBookings() async {
+  /*Future<List<DetailsModel>> getUserBookings() async {
     try {
 
       isLoading.value = true;
@@ -327,7 +328,57 @@ class AccOwnerBookingService extends getx.GetxController {
       isLoading.value = false;
       throw Exception("$e");
     }
+  }*/
+
+
+  IO.Socket? socket;
+  Stream<List<DetailsModel>> getUserBookings() async* {
+    try {
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': true,
+        'transports': ['websocket'],
+      });
+      socket!.connect();
+
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-bookings" event after connecting
+        socket!.emit('subscribe', 'user-bookings');
+      });
+
+      socket!.on('user-bookings', (data) {
+        // Handle data received for "user-bookings" event
+        print('Received user-bookings event: $data');
+        // Extract the "details" list from the first map
+        List<dynamic> result = data[0]['details'];
+        List<dynamic> result2 = data[1]['details'];
+
+        result.addAll(result2);
+        var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
+        dataList.clear();
+        dataList.addAll(finalResult);
+        print("dataList: $dataList");
+      });
+
+
+
+      socket!.onDisconnect((_) => print('Connection Disconnection'));
+      socket!.onConnectError((err) => print(err));
+      socket!.onError((err) => print(err));
+
+      yield dataList;
+    }
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
+    }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
+
+
   
   //confirm booking
   Future<dynamic> confirmBooking({
@@ -509,7 +560,10 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking rescheduled successfully"
-        ).whenComplete(() => getx.Get.back());
+        ).whenComplete(() {
+          //getUserBookings();
+          getx.Get.back();
+        });
       } 
       else {
         isLoading.value = false;
@@ -521,7 +575,9 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to reschedule booking: ${res.statusCode} | ${res.body}"
-        ).whenComplete(() => getx.Get.back());
+      ).whenComplete(() {
+        getx.Get.back();
+      });
       }
     } 
     catch (e) {
@@ -536,9 +592,10 @@ class AccOwnerBookingService extends getx.GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getUserBookings().then(
+    /*getUserBookings();
+    .then(
       (value) => debugPrint("bookings inserted into the widget tree: $value")
-    );
+    );*/
   }
 
 }

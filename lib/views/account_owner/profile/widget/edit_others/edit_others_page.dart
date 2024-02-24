@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/country_code_widget.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/custom_tap_icon.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/phone_number_textfield.dart';
@@ -51,7 +52,8 @@ class _EditOthersPageState extends State<EditOthersPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            //Get.back();
+            Get.offAll(() => MainPage());
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -79,7 +81,8 @@ class _EditOthersPageState extends State<EditOthersPage> {
                 controller.viewItems.clear();
                 print("textfield_list: ${controller.viewTextfields}");
                 print("controller_list_length: ${controller.viewItems.length}");
-                Get.back();
+                //Get.back();
+                Get.offAll(() => MainPage());
               });
 
             },

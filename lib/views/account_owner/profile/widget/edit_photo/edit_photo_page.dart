@@ -8,6 +8,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/textfields/other_textfields.dart';
@@ -54,7 +55,8 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            //Get.back();
+            Get.offAll(() => MainPage());
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -274,7 +276,8 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       company: controller.companyNameController.text.isEmpty ? widget.company : controller.companyNameController.text
                                     ).whenComplete(() {
                                       profileService.isImageSelected.value = false;
-                                      Get.back(canPop: true);
+                                      Get.offAll(() => MainPage());
+                                      //Get.back(canPop: true);
                                     });
           
                                   },

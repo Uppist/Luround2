@@ -9,6 +9,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/components/certificate_textfield.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/edit_cert_details/delete_certificate.dart';
@@ -53,7 +54,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            //Get.back();
+            Get.offAll(() => MainPage());
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -326,7 +328,8 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         profileController.controllers.clear();
                         print("textfield_list: ${profileController.textFields}");
                         print("controller_list_length: ${profileController.controllers.length}");
-                        Get.back();
+                        //Get.back();
+                        Get.offAll(() => MainPage());
                       });
                     },
                   ),

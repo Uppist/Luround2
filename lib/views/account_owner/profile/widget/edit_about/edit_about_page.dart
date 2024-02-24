@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -42,7 +43,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            //Get.back();
+            Get.offAll(() => MainPage());
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -124,7 +126,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                                 context: context,
                                 about: controller.aboutController.text.isEmpty ? widget.about : controller.aboutController.text
                               )
-                              .whenComplete(() => Get.back());
+                              .whenComplete(() => Get.offAll(() => MainPage()));
                             },
                           ),
                           SizedBox(height: 20.h,),

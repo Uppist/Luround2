@@ -121,7 +121,8 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-
+  
+  //valid
   Widget _buildShareProfileButton() {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),
@@ -196,7 +197,8 @@ class _ProfilePageState extends State<ProfilePage> {
       },
     );
   }
-
+  
+  //valid
   Widget _buildEditProfileButton() {
     return FutureBuilder<UserModel>(
       future: userProfileService.getUserProfileDetails(email: userEmail),
@@ -238,6 +240,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  ////////////////////////////////////////////////////
   //[MAIN CONTENT HERE]//
   Widget _buildContent() {
     return FutureBuilder<UserModel>(
@@ -257,80 +260,7 @@ class _ProfilePageState extends State<ProfilePage> {
          
         if (snapshot.hasData) {
           var data = snapshot.data!;
-        
-          return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildQrCode(data),
-            SizedBox(height: 20.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  //SEE ALL REVIEWS
-                  TextButton(
-                    onPressed: () {
-                      Get.to(() => ReviewsPage());
-                    }, 
-                    child: Text(
-                      'See all reviews',
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.darkGreyColor,
-                          decoration: TextDecoration.underline,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w500
-                        )
-                      )
-                    )
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10.h,),
-            _buildOwnerImage(data),
-            SizedBox(height: 30.h),
-            _buildUserName(data),
-            SizedBox(height: 20.h),
-            _buildProfileContent(data),              
-            SizedBox(height: 30.h),
-            ////////////////////////////////////////////////////////////////////////
-            ],     
-          );
-        }
-        return Center(
-          child: Text(
-            "connection timed out",
-            style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.normal
-            )
-          )
-        );
-      }
-    );
-  }
-
-  Widget _buildProfileContent(UserModel data) {
-    return FutureBuilder(
-      future: userProfileService.getUserProfileDetails(email: userEmail),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loader();
-  
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);
-        }
-        if (!snapshot.hasData) {
-          print("uh--oh! nothing dey;");
-        }
-        if (snapshot.hasData) {
-
-          var data = snapshot.data!;
-
+          //&& data.company.isEmpty && data.logo_url.isEmpty
           if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty) {
             return ProfileEmptyState(
               onPressed: () {
@@ -350,313 +280,280 @@ class _ProfilePageState extends State<ProfilePage> {
           }
         
           return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 40.w,
+                  vertical: 20.h
+                ),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColor.greyColor
+                ),
+                width: double.infinity,
+                child: QrImageView(
+                  data: data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'), //editedUrl,
+                  version: QrVersions.auto,
+                  size: 170.w,
+                  errorStateBuilder: (context, error) {
+                    return Text(
+                      "Uh oh! Something went wrong!",
+                      style: GoogleFonts.inter(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.normal,
+                        color: AppColor.darkGreyColor
+                      ),
+                    );
+                  },
+                ),
+              ),
+
+              SizedBox(height: 20.h),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    //SEE ALL REVIEWS
+                    TextButton(
+                      onPressed: () {
+                        Get.to(() => ReviewsPage());
+                      }, 
+                      child: Text(
+                        'See all reviews',
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.darkGreyColor,
+                            decoration: TextDecoration.underline,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        )
+                      )
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10.h,),
+              InkWell(
+                onTap: () {
+                  userProfileService.pickImageFromGallery(context: context);
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: Container(
                     alignment: Alignment.center,
-                    height: 40.h,
-                    width: 60.w,
+                    height: 300.h,
+                    width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.r),
-                      color: AppColor.greyColor,
-                      image: DecorationImage(
-                        image: NetworkImage(data.logo_url),
+                      color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
+                      image:  data.photoUrl == "my_photo" ?
+                      DecorationImage(
+                        image: AssetImage('assets/images/profile_null.png'),
                         fit: BoxFit.contain
+                      )
+                      :DecorationImage(
+                        image: NetworkImage(data.photoUrl),
+                        fit: BoxFit.cover
                       )
                     ),
                   ),
-                  SizedBox(width: 10.w,),
-                  Text(
-                    data.company,
-                    style: GoogleFonts.inter(
-                      textStyle: TextStyle(
-                        color: AppColor.blackColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(height: 30.h),
+              Center(
+                child: Text(
+                  data.displayName,
+                  style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                      color: AppColor.blackColor,
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w600
+                    )
+                  )
+                ),
+              ),
+
+              SizedBox(height: 20.h),
+
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          height: 40.h,
+                          width: 60.w,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.r),
+                            color: AppColor.greyColor,
+                            image: DecorationImage(
+                              image: NetworkImage(data.logo_url),
+                              fit: BoxFit.contain
+                            )
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          data.company,
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 15.h,),
+
+                  Center(
+                    child: Text(
+                      data.occupation,
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.blackColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 15.h,),
-
-            Center(
-              child: Text(
-                data.occupation,
-                style: GoogleFonts.inter(
-                  textStyle: TextStyle(
-                    color: AppColor.blackColor,
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
+                  SizedBox(height: 10.h,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
+                            style: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.blueColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400
+                              )
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                        SizedBox(width: 4.w,),
+                        InkWell(
+                          onTap: () {
+                            copyToClipboard(
+                              text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
+                              context: context,
+                              snackMessage: "profile link copied to clipboard"
+                            );
+                          },
+                          child: SvgPicture.asset('assets/svg/copy_link.svg')
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(height: 10.h,),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Text(
-                      data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.blueColor,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w400
-                        )
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                     ),
+                  SizedBox(height: 30.h),
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    height: 7.h,
                   ),
-                  SizedBox(width: 4.w,),
-                  InkWell(
-                    onTap: () {
-                      copyToClipboard(
-                        text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
-                        context: context,
-                        snackMessage: "profile link copied to clipboard"
-                      );
-                    },
-                    child: SvgPicture.asset('assets/svg/copy_link.svg')
+                  SizedBox(height: 30.h),
+                  data.about.isEmpty ? SizedBox() :
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: AboutSection(
+                      onPressed: () {
+                        Get.to(() => EditAboutPage(
+                          about: data.about,
+                        ));
+                      },
+                      text: data.about
+                    ),
                   ),
-                ],
-              ),
-            ),
-
-            SizedBox(height: 30.h),
-            Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),
-            SizedBox(height: 30.h),
-                   
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: AboutSection(
-                onPressed: () {
-                  Get.to(() => EditAboutPage(
-                    about: data.about,
-                  ));
-                },
-                text: data.about
-              ),
-            ),
-            SizedBox(height: 30.h),
-            /*Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),
-            SizedBox(height: 30.h),                          
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: EducationAndCertificationSection(
-                itemCount: data.certificates.length,
-                eduAndCertList: data.certificates,
-                onPressedEdit: () {
-                  Get.to(() => EditEducationPage());
-                },     
-              ),
-            ),
-            SizedBox(height: 30.h),*/
-            Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),
-            SizedBox(height: 30.h),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: OtherDetailsSection(
-                media_links: data.media_links,
-                onPressedEdit: () {
-                  Get.to(() => EditOthersPage());
-                },
-                profileController: controller,
-                profileService: userProfileService,
-              ),
-            ),
-            SizedBox(height: 30.h),
-            Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),
-            //SizedBox(height: 30.h),
-            SizedBox(height: 50.h),
-
-            ///////[RUN CHECK]///////////////
-            if (
-              data.occupation.isEmpty ||
-              data.about.isEmpty ||
-              //data.certificates.isEmpty ||
-              data.media_links.isEmpty
-            )
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: AddSectionButton(
-                onPressed: () {
-                  Get.to(
-                    () => AddSectionPage(
-                      logo_url: data.logo_url,
-                      aboutUser: data.about,
-                      displayName: data.displayName,
-                      company: data.company,
-                      occupation: data.occupation,
-                      photoUrl: data.photoUrl,
-                    )
-                  );
-                },
-              ),
-            ),
-          ],
-          );
-        }
-        return Center(
-          child: Text(
-            "connection timed out",
-            style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.normal
-            )
-          )
-        );
-      }
-    );
-  }
-
-  // ... (other existing methods)
-  Widget _buildQrCode(UserModel data) {
-    return FutureBuilder<UserModel>(
-      future: userProfileService.getUserProfileDetails(email: userEmail),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox();
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);                         
-        }
-        if(!snapshot.hasData) {
-          print("no data in db");
-        }
-
-        if (snapshot.hasData) {
-          var data = snapshot.data!;
-                      
-          return Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: 40.w,
-              vertical: 20.h
-            ),
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColor.greyColor
-            ),
-            width: double.infinity,
-            child: 
-            /*Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  "coming soon",
-                  style: GoogleFonts.inter(
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.normal,
-                    color: AppColor.redColor
+                  SizedBox(height: 30.h),
+                  /*Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    height: 7.h,
                   ),
-                ),
-                SizedBox(height: 3.h,),
-                Image.asset(
-                  "assets/images/qrcode.png",
-                  fit: BoxFit.contain,
-                ),
-              ],
-            )*/
-
-            QrImageView(
-              data: data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'), //editedUrl,
-              version: QrVersions.auto,
-              size: 170.w,
-              errorStateBuilder: (context, error) {
-                return Text(
-                  "Uh oh! Something went wrong!",
-                  style: GoogleFonts.inter(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.normal,
-                    color: AppColor.darkGreyColor
+                  SizedBox(height: 30.h),   
+                  data.certificates.isEmpty ? SizedBox() :                       
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: EducationAndCertificationSection(
+                      itemCount: data.certificates.length,
+                      eduAndCertList: data.certificates,
+                      onPressedEdit: () {
+                        Get.to(() => EditEducationPage());
+                      },     
+                    ),
                   ),
-                );
-              },
-            ),
+                  SizedBox(height: 30.h),*/
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    height: 7.h,
+                  ),
+                  SizedBox(height: 30.h),
+                  data.media_links.isEmpty ? SizedBox() :
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: OtherDetailsSection(
+                      media_links: data.media_links,
+                      onPressedEdit: () {
+                        Get.to(() => EditOthersPage());
+                      },
+                      profileController: controller,
+                      profileService: userProfileService,
+                    ),
+                  ),
+                  SizedBox(height: 30.h),
+                  Container(
+                    color: AppColor.greyColor,
+                    width: double.infinity,
+                    height: 7.h,
+                  ),
+                  //SizedBox(height: 30.h),
+                  SizedBox(height: 50.h),
 
-          );
-        }
-        return Center(
-          child: Text(
-            "connection timed out",
-            style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.normal
-            )
-          )
-        );
-      }
-    );
-  }
-
-  Widget _buildOwnerImage(UserModel data) {
-    return FutureBuilder<UserModel>(
-      future: userProfileService.getUserProfileDetails(email: userEmail),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox();
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);                         
-        }
-        if(!snapshot.hasData) {
-          print("no data in db (photo)");
-        }
-
-        if (snapshot.hasData) {
-          var data = snapshot.data!;
-        
-          return InkWell(
-            onTap: () {
-              userProfileService.pickImageFromGallery(context: context);
-            },
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Container(
-                alignment: Alignment.center,
-                height: 300.h,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
-                  image:  data.photoUrl == "my_photo" ?
-                  DecorationImage(
-                    image: AssetImage('assets/images/profile_null.png'),
-                    fit: BoxFit.contain
+                  ///////[RUN CHECK]///////////////
+                  if (
+                    data.about.isEmpty ||
+                    //data.certificates.isEmpty ||
+                    data.media_links.isEmpty
                   )
-                  :DecorationImage(
-                    image: NetworkImage(data.photoUrl),
-                    fit: BoxFit.cover
-                  )
-                ),
-              ),
-            ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: AddSectionButton(
+                      onPressed: () {
+                        Get.to(
+                          () => AddSectionPage(
+                            logo_url: data.logo_url,
+                            aboutUser: data.about,
+                            displayName: data.displayName,
+                            company: data.company,
+                            occupation: data.occupation,
+                            photoUrl: data.photoUrl,
+                          )
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),  
+
+
+              SizedBox(height: 30.h),
+              ////////////////////////////////////////////////////////////////////////
+            ],     
           );
         }
         return Center(
@@ -672,59 +569,6 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     );
   }
+  ////////////////
 
-  Widget _buildUserName(UserModel data) {
-    return FutureBuilder<UserModel>(
-      future: userProfileService.getUserProfileDetails(email: userEmail),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox();
-        }
-        if (snapshot.hasError) {
-          print(snapshot.error);
-          return Center(
-            child: Text(
-              '${snapshot.error}',
-              style: GoogleFonts.inter(
-                color: AppColor.textGreyColor,
-                fontSize: 14.sp,
-                fontWeight: FontWeight.normal
-              )
-            )
-          );
-        }
-        if (!snapshot.hasData) {
-          print("sn-trace: ${snapshot.stackTrace}");
-          print("sn-data: ${snapshot.data}");
-        }
-        
-        if (snapshot.hasData) {
-          var data = snapshot.data!;
-
-          return Center(
-            child: Text(
-              data.displayName,
-              style: GoogleFonts.inter(
-                textStyle: TextStyle(
-                  color: AppColor.blackColor,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600
-                )
-              )
-            ),
-          );
-        }
-        return Center(
-          child: Text(
-            "connection timed out",
-            style: GoogleFonts.inter(
-              color: AppColor.darkGreyColor,
-              fontSize: 13.sp,
-              fontWeight: FontWeight.normal
-            )
-          )
-        );
-      }
-    );
-  }
 }

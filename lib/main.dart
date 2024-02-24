@@ -139,7 +139,7 @@ class _MainAppState extends State<MainApp> {
           ),
         ],*/
 
-        home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreen1() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       ),
     );
   }

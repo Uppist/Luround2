@@ -381,6 +381,103 @@ class _EditOthersPageState extends State<EditOthersPage> {
                             )
                           ],
                         ),
+                        SizedBox(height: 60.h,),
+                        //3
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            CustomTapIcon(
+                              svgAssetName: "assets/svg/twitter_icon.svg",
+                              iconTitle: 'Twitter',
+                              onTap: () {
+                                setState(() {
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/twitter_icon.svg",
+                                  name: "Twitter",
+                                );
+                                
+                                //to just update widget
+                                controller.addItem(
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/twitter_icon.svg",
+                                    fieldName: "Twitter",
+                                    hintText: "Paste url to your twitter profile",
+                                    keyboardType: TextInputType.url,
+                                    textController: viewModel.linkController,
+                                    controller: controller,
+                                    key: ValueKey("twitter"),
+                                  ),
+                                  viewModel
+                                );
+                                });
+                                print(controller.viewTextfields);
+                                print(controller.viewItems);
+                              },
+                            ),
+                            //SizedBox(width: 60,),
+                            CustomTapIcon(
+                              svgAssetName: "assets/svg/instagram_icon.svg",
+                              iconTitle: 'Instagram',
+                              onTap: () {
+
+                                setState(() {
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/instagram_icon.svg",
+                                  name: "Instagram",
+                                );
+                                //to be sent to db
+                                //to just update widget
+                                controller.addItem(
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/instagram_icon.svg",
+                                    fieldName: "Instagrm",
+                                    hintText: "Paste url to your instagram profile",
+                                    keyboardType: TextInputType.url,
+                                    textController: viewModel.linkController,
+                                    controller: controller,
+                                    key: ValueKey("instagram"),
+                                  ),
+                                  viewModel
+                                );
+                                });
+
+                                print(controller.viewTextfields);
+                                print(controller.viewItems);
+                              
+                              },
+                            ),
+                            //SizedBox(width: 50,),
+                            CustomTapIcon(
+                              svgAssetName: "assets/svg/facebook_icon.svg", //"assets/svg/facebook_icon.svg",
+                              iconTitle: 'Facebook',
+                              onTap: () {
+                                setState(() {
+                                ViewModel viewModel = ViewModel(
+                                  icon: "assets/svg/facebook_icon.svg",
+                                  name: "Facebook",
+                                );
+                                //to just update widget
+                                controller.addItem(
+                                  BuildTextFieldWidget(
+                                    icon: "assets/svg/facebook_icon.svg",
+                                    fieldName: "Facebook",
+                                    hintText: "Paste url to your facebook profile",
+                                    keyboardType: TextInputType.url,
+                                    textController: viewModel.linkController,
+                                    controller: controller,
+                                    key: ValueKey("facebook"),
+                                  ),
+                                  viewModel
+                                );
+                                });
+                                print(controller.viewTextfields);
+                                print(controller.viewItems);
+                              
+                              },
+                            )
+                          ],
+                        ),
                         ///////////////////////////////////////////////////////
                         ///[ADD MORE ICONS IF YOU WISH]///
 

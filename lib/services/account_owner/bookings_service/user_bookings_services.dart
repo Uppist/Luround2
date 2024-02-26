@@ -30,6 +30,7 @@ class AccOwnerBookingService extends getx.GetxController {
   var userId = LocalStorage.getUserID();
   var fcm_token = LocalStorage.getFCMToken();
   var email = LocalStorage.getUseremail();
+  var token = LocalStorage.getToken();
 
 
 
@@ -337,6 +338,7 @@ class AccOwnerBookingService extends getx.GetxController {
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
         'autoConnect': true,
         'transports': ['websocket'],
+        'query': {'token': 'Bearer $token'}, // Include Bearer token in the query
       });
       socket!.connect();
 

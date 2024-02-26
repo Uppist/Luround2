@@ -30,7 +30,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   var isServiceEDLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
-
+  var token = LocalStorage.getToken();
 
   //functions for url_launcher (to launch user socials link)
   Future<void> launchUrlLink({required String link}) async{
@@ -91,6 +91,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
         'autoConnect': true,
         'transports': ['websocket'],
+        'query': {'token': 'Bearer $token'}, // Include Bearer token in the query
       });
       socket!.connect();
 

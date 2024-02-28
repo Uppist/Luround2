@@ -113,19 +113,16 @@ class _BookingsPageState extends State<BookingsPage> {
                 SearchTextField(
                   onFocusChanged: (val) {},
                   onFieldSubmitted: (val) {
-                    setState(() {
-                      controller.isFieldTapped.value = false;
-                      service.filterBookings(val);
-                    });
+                    service.filterBookings(val);
                   },
                   hintText: "Search",
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.done,  //.search,
                   textController: controller.searchController,
                   onTap: () {
-                    setState(() {
+                    /*setState(() {
                       controller.isFieldTapped.value = true;
-                    });
+                    });*/
                   },
                 ),
               ],

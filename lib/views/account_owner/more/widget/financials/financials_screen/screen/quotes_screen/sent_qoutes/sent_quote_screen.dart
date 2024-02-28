@@ -68,9 +68,9 @@ class _SentQuotesPageState extends State<SentQuotesPage>{
                     onTap: () {},
                     onFieldSubmitted: (p0) {
 
-                      setState(() {
+                      //setState(() {
                         service.filterSentQuotes(p0);
-                      });
+                      //});
                 
                     },
                     hintText: "Search",

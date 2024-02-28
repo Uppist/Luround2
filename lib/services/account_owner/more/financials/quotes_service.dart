@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/more/financials/quotes/drafted_quotes_response_model.dart';
@@ -8,8 +9,7 @@ import 'package:luround/models/account_owner/more/financials/quotes/sent_quotes_
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
-//import 'package:luround/utils/colors/app_theme.dart';
-//import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
@@ -26,6 +26,7 @@ class QuotesService extends getx.GetxController {
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
+  var token = LocalStorage.getToken();
 
 
   /////[GET LOGGED-IN USER'S LIST OF SENT QUOTES]//////
@@ -51,67 +52,49 @@ class QuotesService extends getx.GetxController {
   }
   
 
-  //get sent quotes
-  final StreamController<List<SentQuotesResponse>> streamController = StreamController<List<SentQuotesResponse>>();
-  Future<List<SentQuotesResponse>> getUserSentQuotes() async {
-    isLoading.value = true;
+  IO.Socket? socket;
+  Stream<List<SentQuotesResponse>>  getUserSentQuotes() async* {
     try {
-      http.Response res = await baseService.httpGet(endPoint: "quotes/sent-quotes",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user sent quotes list fetched successfully!!");
 
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<SentQuotesResponse> finalResult = response.map((e) => SentQuotesResponse.fromJson(e)).toList();
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
 
-          sentQuotesList.clear();
-          sentQuotesList.addAll(finalResult);  //finalResult
-          debugPrint("sent quotes list: $sentQuotesList");
-          streamController.add(sentQuotesList); // Simulating a stream with a single event
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-bookings" event after connecting
+        socket!.emit('user-sent-quotes');
+      });
 
-          //Return the list of sent quotes
-          return sentQuotesList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user sent quotes');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
+      socket!.on('user-sent-quotes', (data) {
+        // Extract the "details" list from the first map
+        //print("qqqq $data");
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => SentQuotesResponse.fromJson(e)).toList();
+        sentQuotesList.clear();
+        sentQuotesList.addAll(finalResult);  //finalResult
+        print("user sent quotess list: $sentQuotesList");
+      });
+
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield sentQuotesList;
     }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF SENT QUOTES IN THE FUTURE BUILDER FOR SENT QUOTES]///
-  Future<List<SentQuotesResponse>> loadSentQuotesData() async {
-    try {
-      isLoading.value = true;
-      final List<SentQuotesResponse> quotes = await getUserSentQuotes();
-      quotes.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-      filteredSentQuotesList.value = List.from(quotes); 
-      print("initState: ${filteredSentQuotesList}");
-      return filteredSentQuotesList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
     }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
 
 
@@ -139,64 +122,45 @@ class QuotesService extends getx.GetxController {
     }
   }
 
-  Future<List<ReceivedQuotesResponse>> getUserReceivedQuotes() async {
-    isLoading.value = true;
+  Stream<List<ReceivedQuotesResponse>>  getUserReceivedQuotes() async* {
     try {
-      http.Response res = await baseService.httpGet(endPoint: "quotes/received-quotes",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user received quotes list fetched successfully!!");
 
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<ReceivedQuotesResponse> finalResult = response.map((e) => ReceivedQuotesResponse.fromJson(e)).toList();
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
 
-          receivedQuotesList.clear();
-          receivedQuotesList.addAll(finalResult);  //finalResult
-          debugPrint("received quotes list: $receivedQuotesList");
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-bookings" event after connecting
+        socket!.emit('user-received-quotes');
+      });
 
-          //Return the list of received quotes
-          return receivedQuotesList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user received quotes');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
+      socket!.on('user-received-quotes', (data) {
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => ReceivedQuotesResponse.fromJson(e)).toList();
+        receivedQuotesList.clear();
+        receivedQuotesList.addAll(finalResult); 
+        debugPrint("received quotes list: $receivedQuotesList");
+      });
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield receivedQuotesList;
     }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF RECEIVED QUOTES IN THE FUTURE BUILDER FOR RECEIVED QUOTES]///
-  Future<List<ReceivedQuotesResponse>> loadReceivedQuotesData() async {
-    try {
-      isLoading.value = true;
-      final List<ReceivedQuotesResponse> quotes = await getUserReceivedQuotes();
-      quotes.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-      filteredReceivedQuotesList.value = List.from(quotes); 
-      print("initState: ${filteredReceivedQuotesList}");
-      return filteredReceivedQuotesList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
     }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
 
 
@@ -222,76 +186,49 @@ class QuotesService extends getx.GetxController {
       print("when query is not empty: $filteredDraftedQuotesList");
     }
   }
-
-  Future<List<DraftedQuotesResponse>> getUserDraftedQuotes() async {
-    isLoading.value = true;
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "quotes/saved-quotes",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user drafted quotes list fetched successfully!!");
-
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<DraftedQuotesResponse> finalResult = response.map((e) => DraftedQuotesResponse.fromJson(e)).toList();
-
-          draftedQuotesList.clear();
-          draftedQuotesList.addAll(finalResult);  //finalResult
-          debugPrint("drafted quotes list: $draftedQuotesList");
-
-          //Return the list of received quotes
-          return draftedQuotesList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user drafted quotes');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
-    }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF DRAFTED QUOTES IN THE FUTURE BUILDER FOR DRAFTED QUOTES]///
-  Future<List<DraftedQuotesResponse>> loadDraftedQuotesData() async {
-    try {
-      isLoading.value = true;
-      final List<DraftedQuotesResponse> quotes = await getUserDraftedQuotes();
-      quotes.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-
-      filteredDraftedQuotesList.value = List.from(quotes); 
-      print("initState: ${filteredDraftedQuotesList}");
-      return filteredDraftedQuotesList;
   
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
+  
+  Stream<List<DraftedQuotesResponse>>  getUserDraftedQuotes() async* {
+    try {
+
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
+
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-saved-quotes" event after connecting
+        socket!.emit('user-saved-quotes');
+      });
+
+      socket!.on('user-saved-quotes', (data) {
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => DraftedQuotesResponse.fromJson(e)).toList();
+        draftedQuotesList.clear();
+        draftedQuotesList.addAll(finalResult);  //finalResult
+        debugPrint("drafted quotes list: $draftedQuotesList");
+
+      });
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield draftedQuotesList;
     }
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
+    }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -300,24 +237,12 @@ class QuotesService extends getx.GetxController {
 
   @override
    void dispose() {
-    streamController.close();
     super.dispose();
   }
 
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    loadSentQuotesData().then(
-      (value) => print("Sent Quotes Loaded into the Widget Tree: $value")
-    );
-    loadReceivedQuotesData().then(
-      (value) => print("Received Quotes Loaded into the Widget Tree: $value")
-    );
-    loadDraftedQuotesData().then(
-      (value) => print("Drafted Quotes Loaded into the Widget Tree: $value")
-    );
-
     super.onInit();
   }
 

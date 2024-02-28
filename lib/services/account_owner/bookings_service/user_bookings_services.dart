@@ -182,7 +182,7 @@ class AccOwnerBookingService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredList.addAll(
         dataList
-        .where((user) => user.bookingUserInfo.displayName.contains(query)) // == query
+        .where((user) => user.bookingUserInfo.displayName.contains(query)) // == query //.contains(query)
         .toList());
 
       /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)
@@ -336,21 +336,23 @@ class AccOwnerBookingService extends getx.GetxController {
   Stream<List<DetailsModel>> getUserBookings() async* {
     try {
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
-        'autoConnect': true,
+        'autoConnect': false,
         'transports': ['websocket'],
-        'query': {'token': 'Bearer $token'}, // Include Bearer token in the query
+        //'query': {"query": '?qq==ee'}, // Include Bearer token in the query
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
       });
+
       socket!.connect();
 
-      socket!.onConnect((_) {
-        print('Connection established');
+      socket!.onConnect((ye) {
+        print('Connection established: $ye');
         // Subscribe to the "user-bookings" event after connecting
-        socket!.emit('subscribe', 'user-bookings');
+        socket!.emit('user-bookings');
       });
 
       socket!.on('user-bookings', (data) {
         // Handle data received for "user-bookings" event
-        print('Received user-bookings event: $data');
+        //print('Received user-bookings event: $data');
         // Extract the "details" list from the first map
         List<dynamic> result = data[0]['details'];
         List<dynamic> result2 = data[1]['details'];
@@ -364,8 +366,8 @@ class AccOwnerBookingService extends getx.GetxController {
 
 
 
-      socket!.onDisconnect((_) => print('Connection Disconnection'));
-      socket!.onConnectError((err) => print(err));
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print("connection error: $err"));
       socket!.onError((err) => print(err));
 
       yield dataList;
@@ -577,9 +579,9 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to reschedule booking: ${res.statusCode} | ${res.body}"
-      ).whenComplete(() {
-        getx.Get.back();
-      });
+        ).whenComplete(() {
+          getx.Get.back();
+        });
       }
     } 
     catch (e) {
@@ -594,7 +596,7 @@ class AccOwnerBookingService extends getx.GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    /*getUserBookings();
+    /*getUserBookings()
     .then(
       (value) => debugPrint("bookings inserted into the widget tree: $value")
     );*/

@@ -19,9 +19,10 @@ class DueInvoiceList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(      () {
-        return service.isLoading.value ? Expanded(child: Loader()) : service.filteredDueInvoiceList.isNotEmpty ? Expanded(
-          child: ListView.separated(
+    return Obx(      
+      () {
+        return service.filteredDueInvoiceList.isNotEmpty ? Expanded(
+          child: ListView.separated( 
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.vertical,
@@ -30,49 +31,36 @@ class DueInvoiceList extends StatelessWidget {
             itemCount: service.filteredDueInvoiceList.length,
             //padding: EdgeInsets.symmetric(vertical: 10),
             itemBuilder: (context, index) {
+            
               final item = service.filteredDueInvoiceList[index];
-              //bool isDueInThreeDays = service.isDueInThreeDays(item.due_date);
-
-              if(service.filteredDueInvoiceList.isEmpty) {
-                return FinancialsEmptyState(
-                  titleText: 'No invoice yet',
-                  subtitleText: 'an invoice',
-                );
-              }
-              if(service.filteredDueInvoiceList.isNotEmpty) {
-                return DueInvoiceDisplay (
-                  onPressed: (){},
-                  service_provider: item.service_provider,
-                  tracking_id: item.tracking_id.toString(),
-                  created_at: item.created_at,
-                  service_provider_address: item.service_provider['address'] ?? "non",
-                  service_provider_phone_number: item.service_provider['phone_number'] ?? "non",
-                  invoice_id: item.invoice_id,
-                  send_to_name: item.send_to_name,
-                  send_to_email: item.send_to_email,
-                  phone_number: item.phone_number,
-                  due_date: item.due_date,
-                  sub_total: item.sub_total,
-                  discount: item.discount,
-                  vat: item.vat,
-                  total: item.total,
-                  note: item.note,
-                  status: service.filteredDueInvoiceList.isNotEmpty ? "DUE" : item.status,
-                  booking_detail: item.booking_detail,
-                );
-              }
-
-              return FinancialsEmptyState(
-                titleText: 'No invoice yet',
-                subtitleText: 'an invoice',
+              
+              return DueInvoiceDisplay (
+                onPressed: (){},
+                service_provider: item.service_provider,
+                tracking_id: item.tracking_id.toString(),
+                created_at: item.created_at,
+                service_provider_address: item.service_provider['address'] ?? "non",
+                service_provider_phone_number: item.service_provider['phone_number'] ?? "non",
+                invoice_id: item.invoice_id,
+                send_to_name: item.send_to_name,
+                send_to_email: item.send_to_email,
+                phone_number: item.phone_number,
+                due_date: item.due_date,
+                sub_total: item.sub_total,
+                discount: item.discount,
+                vat: item.vat,
+                total: item.total,
+                note: item.note,
+                status: service.filteredDueInvoiceList.isNotEmpty ? "DUE" : item.status,
+                booking_detail: item.booking_detail,
               );
             
             }
           ),
         ) : FinancialsEmptyState(
-            titleText: 'No invoice yet',
-            subtitleText: 'an invoice',
-          );
+          titleText: 'No invoice yet',
+          subtitleText: 'an invoice',
+        );
       }
     );
   }

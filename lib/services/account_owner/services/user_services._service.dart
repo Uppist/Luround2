@@ -89,23 +89,23 @@ class AccOwnerServicePageService extends getx.GetxController {
     try {
       List<UserServiceModel>  servicesList = [];
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
-        'autoConnect': true,
+        'autoConnect': false,
         'transports': ['websocket'],
-        'query': {'token': 'Bearer $token'}, // Include Bearer token in the query
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
       });
       socket!.connect();
 
       socket!.onConnect((_) {
         print('Connection established');
         // Subscribe to the "user-bookings" event after connecting
-        socket!.emit('subscribe', 'user-services');
+        socket!.emit('user-service');
       });
 
-      socket!.on('user-services', (data) {
+      socket!.on('user-service', (data) {
         // Handle data received for "user-bookings" event
-        print('Received user-services event: $data');
+        //print('Received user-services event: $data');
         // Extract the "details" list from the first map
-        List<dynamic> response = data;
+        List<dynamic> response = jsonDecode(data);
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         servicesList.clear();
         servicesList.addAll(finalResult);
@@ -114,9 +114,9 @@ class AccOwnerServicePageService extends getx.GetxController {
 
 
 
-      socket!.onDisconnect((_) => print('Connection Disconnection'));
-      socket!.onConnectError((err) => print(err));
-      socket!.onError((err) => print(err));
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
 
       yield servicesList;
     }

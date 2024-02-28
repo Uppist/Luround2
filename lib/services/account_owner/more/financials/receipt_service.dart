@@ -1,16 +1,12 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/more/financials/receipt/receipt_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
-//import 'package:luround/utils/colors/app_theme.dart';
-//import 'package:luround/utils/components/my_snackbar.dart';
-
-
-
-
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
@@ -23,6 +19,7 @@ class ReceiptsService extends getx.GetxController {
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
+  var token = LocalStorage.getToken();
 
 
   /////[GET LOGGED-IN USER'S LIST OF SENT RECEIPTS]//////
@@ -47,65 +44,49 @@ class ReceiptsService extends getx.GetxController {
     }
   }
 
-  Future<List<ReceiptResponse>> getUserSentReceipt() async {
-    isLoading.value = true;
+  IO.Socket? socket;
+  Stream<List<ReceiptResponse>> getUserSentReceipt() async* {
     try {
-      http.Response res = await baseService.httpGet(endPoint: "receipt/receipts",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user sent receipts list fetched successfully!!");
 
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<ReceiptResponse> finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
 
-          sentReceiptsList.clear();
-          sentReceiptsList.addAll(finalResult);  //finalResult
-          debugPrint("sent receipts list: $sentReceiptsList");
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-receipts" event after connecting
+        socket!.emit('user-receipts');
+      });
 
-          //Return the list of sent receipts
-          return sentReceiptsList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user sent receipt list');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
+      socket!.on('user-receipts', (data) {
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
+        sentReceiptsList.clear();
+        sentReceiptsList.addAll(finalResult);
+        debugPrint("sent receipts list: $sentReceiptsList");
+
+      });
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield sentReceiptsList;
     }
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
+    }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
 
-
-  ///[TO LAZY LOAD THE USER LIST OF SENT RECEIPTS IN THE FUTURE BUILDER FOR SENT RECEIPTS]///
-  Future<List<ReceiptResponse>> loadSentReceiptsData() async {
-    try {
-      isLoading.value = true;
-      final List<ReceiptResponse> receipts = await getUserSentReceipt();
-      receipts.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_email.toLowerCase()));
-
-      isLoading.value = false;
-      filteredSentReceiptList.value = List.from(receipts); 
-      print("initState: ${filteredSentReceiptList}");
-      return filteredSentReceiptList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
-    }
-  }
 
 
   
@@ -132,69 +113,47 @@ class ReceiptsService extends getx.GetxController {
     }
   }
 
-  Future<List<ReceiptResponse>> getUserDraftedReceipt() async {
-    isLoading.value = true;
+  Stream<List<ReceiptResponse>> getUserDraftedReceipt() async* {
     try {
-      http.Response res = await baseService.httpGet(endPoint: "receipt/saved-receipts",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user drafted receipt list fetched successfully!!");
 
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<ReceiptResponse> finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
 
-          draftedReceiptList.clear();
-          draftedReceiptList.addAll(finalResult);  //finalResult
-          debugPrint("darfted receipt list: $draftedReceiptList");
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-saved-receipts" event after connecting
+        socket!.emit('user-saved-receipts');
+      });
 
-          //Return the list of drafted receipts
-          return draftedReceiptList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user drafted receipts');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
+      socket!.on('user-saved-receipts', (data) {
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
+        draftedReceiptList.clear();
+        draftedReceiptList.addAll(finalResult);  //finalResult
+        debugPrint("darfted receipt list: $draftedReceiptList");
+
+      });
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield draftedReceiptList;;
     }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF DRAFTED RECEIPTS IN THE FUTURE BUILDER FOR DRAFTED RECEIPT]///
-  Future<List<ReceiptResponse>> loadDraftedReceiptsData() async {
-    try {
-      isLoading.value = true;
-      final List<ReceiptResponse> receipts = await getUserDraftedReceipt();
-      receipts.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-      filteredDraftedReceiptsList.value = List.from(receipts); 
-      print("initState: ${filteredDraftedReceiptsList}");
-      return filteredDraftedReceiptsList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
     }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
-
-
-
-
 
 
 
@@ -206,14 +165,6 @@ class ReceiptsService extends getx.GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    loadSentReceiptsData().then(
-      (value) => print("Sent Receipts Loaded into the Widget Tree: $value")
-    );
-    loadDraftedReceiptsData().then(
-      (value) => print("Drafted Receipts Loaded into the Widget Tree: $value")
-    );
-    
     super.onInit();
   }
 

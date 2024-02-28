@@ -1,12 +1,10 @@
-import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'package:http/http.dart' as http;
-//import 'package:luround/utils/colors/app_theme.dart';
-//import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
@@ -23,6 +21,7 @@ class InvoicesService extends getx.GetxController {
   var isLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
+  var token = LocalStorage.getToken();
 
 
   /////[GET LOGGED-IN USER'S LIST OF PAID INVOICES]//////
@@ -46,68 +45,50 @@ class InvoicesService extends getx.GetxController {
       print("when query is not empty: $filteredPaidInvoiceList");
     }
   }
-
-  Future<List<InvoiceResponse>> getUserPaidInvoice() async {
-    isLoading.value = true;
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "invoice/paid-invoices",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user paid invoice list fetched successfully!!");
-
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<InvoiceResponse> finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
-
-          paidInvoiceList.clear();
-          paidInvoiceList.addAll(finalResult);
-          debugPrint("paid invoice list: $paidInvoiceList");
-
-          //Return the list of sent quotes
-          return paidInvoiceList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user paid invoice list');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
-    }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF PAID INVOICES IN THE FUTURE BUILDER FOR PAID INVOICES]///
-  Future<List<InvoiceResponse>> loadPaidInvoicesData() async {
-    try {
-      isLoading.value = true;
-      final List<InvoiceResponse> invoices = await getUserPaidInvoice();
-      invoices.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-      filteredPaidInvoiceList.value = List.from(invoices); 
-      print("initState: ${filteredPaidInvoiceList}");
-      return filteredPaidInvoiceList;
   
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
+
+  IO.Socket? socket;
+  Stream<List<InvoiceResponse>>  getUserPaidInvoice() async* {
+    try {
+
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
+
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-paid-invoices" event after connecting
+        socket!.emit('user-paid-invoices');
+      });
+
+      socket!.on('user-paid-invoices', (data) {
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
+        paidInvoiceList.clear();
+        paidInvoiceList.addAll(finalResult);
+        debugPrint("paid invoice list: $paidInvoiceList");
+
+      });
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield paidInvoiceList;
     }
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
+    }
+
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
   }
-
-
   
 
   /////[GET LOGGED-IN USER'S LIST OF UNPAID INVOICES]//////
@@ -129,8 +110,8 @@ class InvoicesService extends getx.GetxController {
 
     // Check if the difference is 3 or more days
     return differenceInDays >= 3;
-
   }
+
   //check if an invoice is due
   Future<void> hasDueItems() async{
     // Loop through the user list and check if each object is due
@@ -143,6 +124,7 @@ class InvoicesService extends getx.GetxController {
 
     // Print the due list
     print("Due List: $filteredDueInvoiceList");
+    update();
   }
 
 
@@ -164,66 +146,47 @@ class InvoicesService extends getx.GetxController {
     }
   }
 
-  Future<List<InvoiceResponse>> getUserUnpaidInvoice() async {
-    isLoading.value = true;
+  Stream<List<InvoiceResponse>> getUserUnpaidInvoice() async* {
     try {
-      http.Response res = await baseService.httpGet(endPoint: "invoice/unpaid-invoices",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user unpaid invoice list fetched successfully!!");
 
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<InvoiceResponse> finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
+      socket = IO.io(baseService.socketUrl, <String, dynamic>{
+        'autoConnect': false,
+        'transports': ['websocket'],
+        "extraHeaders": {HttpHeaders.authorizationHeader: "Bearer $token"}
+      });
+      socket!.connect();
 
-          unpaidInvoiceList.clear();
-          unpaidInvoiceList.addAll(finalResult);  //finalResult
-          debugPrint("unpaid invoice list: $unpaidInvoiceList");
+      socket!.onConnect((_) {
+        print('Connection established');
+        // Subscribe to the "user-unpaid-invoices" event after connecting
+        socket!.emit('user-unpaid-invoices');
+      });
 
-          //Return the list of unpaid invoices
-          return unpaidInvoiceList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user unpaid invoices');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
+      socket!.on('user-unpaid-invoices', (data) {
+        List<dynamic> response = data; //json.decode(data);
+        var finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
+        unpaidInvoiceList.clear();
+        unpaidInvoiceList.addAll(finalResult);  //finalResult
+        debugPrint("unpaid invoice list: $unpaidInvoiceList");
+
+      });
+
+
+      socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
+      socket!.onConnectError((err) => print('Connection Error: $err'));
+      socket!.onError((err) => print("Error: $err"));
+
+      yield unpaidInvoiceList;
     }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF UNPAID INVOICES IN THE FUTURE BUILDER FOR UNPAID INVOICES]///
-  Future<List<InvoiceResponse>> loadUnpaidInvoicesData() async {
-    try {
-      isLoading.value = true;
-      final List<InvoiceResponse> invoices = await getUserUnpaidInvoice();
-      invoices.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-      filteredUnpaidInvoiceList.value = List.from(invoices); 
-      print("initState: ${filteredUnpaidInvoiceList}");
-      return filteredUnpaidInvoiceList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
+    on SocketException catch(e, stacktrace) {
+      throw SocketException("socket exception: $e => $stacktrace");
     }
-  }
 
+    on WebSocketException catch(e, stacktrace) {
+      throw SocketException("websocket exception: $e => $stacktrace");
+    }
+
+  }
 
 
 
@@ -242,74 +205,11 @@ class InvoicesService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredDueInvoiceList.addAll(
       dueInvoiceList.where((e) =>
-          e.send_to_name.toLowerCase().contains(query.toLowerCase()))
+        e.send_to_name.toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredDueInvoiceList");
     }
   }
-
-  Future<List<InvoiceResponse>> getUserDueInvoice() async {
-    isLoading.value = true;
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "invoice/due-invoices",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
-        debugPrint("user due invoice list fetched successfully!!");
-
-        //Decode the response body here
-        //Check if the response body is not null
-        if (res.body != null) {
-          final List<dynamic> response = jsonDecode(res.body);
-          final List<InvoiceResponse> finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
-
-          dueInvoiceList.clear();
-          dueInvoiceList.addAll(finalResult);  //finalResult
-          debugPrint("due invoice list: $dueInvoiceList");
-
-          //Return the list of due invoices
-          return dueInvoiceList;
-        } else {
-          throw Exception('Response body is null');
-        }
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to fetch user due invoices');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      throw Exception("$e");    
-    }
-  }
-
-
-  ///[TO LAZY LOAD THE USER LIST OF DUE INVOICES IN THE FUTURE BUILDER FOR due INVOICES]///
-  Future<List<InvoiceResponse>> loadDueInvoicesData() async {
-    try {
-      isLoading.value = true;
-      final List<InvoiceResponse> invoices = await getUserDueInvoice();
-      invoices.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-
-      isLoading.value = false;
-      filteredDueInvoiceList.value = List.from(invoices); 
-      print("initState: ${filteredDueInvoiceList}");
-      return filteredDueInvoiceList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      throw Exception("$error => $stackTrace");
-    }
-  }
-
-
-
 
 
 
@@ -318,16 +218,6 @@ class InvoicesService extends getx.GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    loadPaidInvoicesData().then(
-      (value) => print("Paid Invoices Loaded into the Widget Tree: $value")
-    );
-    loadUnpaidInvoicesData().then(
-      (value) => print("Unpaid Invoices Loaded into the Widget Tree: $value")
-    );
-    /*loadDueInvoicesData().then(
-      (value) => print("Due Invoices Loaded into the Widget Tree: $value")
-    );*/
     hasDueItems().then(
       (value) {
         print("Due Invoices List Loaded into the Widget Tree: ${filteredDueInvoiceList}");

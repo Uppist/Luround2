@@ -22,13 +22,6 @@ class _CountryCodeWidgetState extends State<CountryCodeWidget> {
   var controller = Get.put(AccViewerServicesController());
 
   
-  void _onCountryChange(CountryCode countryCode) {
-    //TODO : manipulate the selected country code here
-    debugPrint("New Country selected: $countryCode");
-    setState(() {
-      controller.code.value = countryCode.code.toString();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

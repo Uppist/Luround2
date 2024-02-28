@@ -364,11 +364,12 @@ class AccOwnerBookingService extends getx.GetxController {
         print("dataList: $dataList");
       });
 
-
-
       socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
       socket!.onConnectError((err) => print("connection error: $err"));
       socket!.onError((err) => print(err));
+
+      //dispose upon navigation
+      //socket!.dispose();
 
       yield dataList;
     }

@@ -116,6 +116,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       socket!.onDisconnect((e) => print('Connection Disconnected: $e'));
       socket!.onConnectError((err) => print('Connection Error: $err'));
       socket!.onError((err) => print("Error: $err"));
+      
+      //dispose upon navigation
+      socket!.dispose();
 
       yield servicesList;
     }

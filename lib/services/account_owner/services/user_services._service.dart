@@ -118,7 +118,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       socket!.onError((err) => print("Error: $err"));
       
       //dispose upon navigation
-      socket!.dispose();
+      //socket!.dispose();
 
       yield servicesList;
     }

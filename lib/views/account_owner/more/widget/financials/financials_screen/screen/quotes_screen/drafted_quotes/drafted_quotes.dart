@@ -59,9 +59,9 @@ class _DraftedQuotesPageState extends State<DraftedQuotesPage>{
                   child: QuotesSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterDraftedQuotes(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

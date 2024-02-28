@@ -54,7 +54,7 @@ class FinancialsEmptyState2 extends StatelessWidget {
             ),
           ),
 
-          SizedBox(height: 60.h,),
+          SizedBox(height: 45.h,), //60.h
   
           //Refresh BUTTON
           InkWell(
@@ -83,7 +83,7 @@ class FinancialsEmptyState2 extends StatelessWidget {
               ),
             )
           ),
-          SizedBox(height: 10.h,),
+          //SizedBox(height: 10.h,),
         ],
       ),
     );

@@ -67,9 +67,9 @@ class _RequestedQuotesPageState extends State<RequestedQuotesPage>{
                   child: QuotesSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterReceivedQuotes(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

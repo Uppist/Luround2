@@ -76,7 +76,7 @@ class FinancialsEmptyState extends StatelessWidget {
               ]
             ),
           ),
-          SizedBox(height: 60.h,),
+          SizedBox(height: 20.h,), //60.h
         ],
       ),
     );

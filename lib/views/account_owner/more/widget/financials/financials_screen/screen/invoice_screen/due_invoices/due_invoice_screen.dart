@@ -56,9 +56,9 @@ class _DueInvoicesPageState extends State<DueInvoicesPage>{
                   child: InvoicesSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterDueInvoice(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

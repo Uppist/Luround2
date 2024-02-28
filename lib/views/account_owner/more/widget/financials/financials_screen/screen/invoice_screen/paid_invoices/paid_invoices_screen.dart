@@ -57,9 +57,9 @@ class _PaidInvoicesPageState extends State<PaidInvoicesPage>{
                   child: InvoicesSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterPaidInvoice(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

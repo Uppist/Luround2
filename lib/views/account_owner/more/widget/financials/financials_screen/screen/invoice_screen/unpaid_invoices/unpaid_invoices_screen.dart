@@ -58,9 +58,9 @@ class _UnpaidInvoicesPageState extends State<UnpaidInvoicesPage>{
                   child: InvoicesSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterUnpaidInvoice(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

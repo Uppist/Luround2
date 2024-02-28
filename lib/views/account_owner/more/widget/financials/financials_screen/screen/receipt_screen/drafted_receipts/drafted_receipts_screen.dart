@@ -59,9 +59,9 @@ class _DraftedReceiptsPageState extends State<DraftedReceiptsPage>{
                   child: ReceiptSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterDraftedReceipt(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

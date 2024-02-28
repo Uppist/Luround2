@@ -58,9 +58,9 @@ class _SentReceiptsPageState extends State<SentReceiptsPage>{
                   child: ReceiptSearchTextField(
                     onTap: () {},
                     onFieldSubmitted: (p0) {
-                      setState(() {
+                      //setState(() {
                         service.filterSentReceipt(p0);
-                      });
+                      //});
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

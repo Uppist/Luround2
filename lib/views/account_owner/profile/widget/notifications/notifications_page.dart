@@ -66,19 +66,21 @@ class NotificationsPage extends StatelessWidget {
        
           if (snapshot.hasData) {
             var data = snapshot.data!;
+            List<dynamic> sortedList = [];
             //clear the list then add the stream snapshot to the fetchNotification list
-            //userProfileService.fetchNoticationList.clear();
-            //userProfileService.fetchNoticationList.addAll(data);
+            data.sort((a, b) => a['created_at'].compareTo(b['created_at']));
+            sortedList.clear();
+            sortedList.addAll(data);
  
-            return userProfileService.fetchNoticationList.isNotEmpty ? ListView.separated(
+            return sortedList.isNotEmpty ? ListView.separated(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
-              itemCount: userProfileService.fetchNoticationList.length,
+              itemCount: sortedList.length,
               separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
               itemBuilder: (context, index) { 
 
-                final item = data[index];
+                final item = sortedList[index];
                 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -98,14 +98,13 @@ class AccOwnerServicePageService extends getx.GetxController {
       socket!.onConnect((_) {
         print('Connection established');
         // Subscribe to the "user-bookings" event after connecting
-        socket!.emit('user-service');
+        socket!.emit('user-services');
       });
 
-      socket!.on('user-service', (data) {
-        // Handle data received for "user-bookings" event
-        //print('Received user-services event: $data');
-        // Extract the "details" list from the first map
-        List<dynamic> response = jsonDecode(data);
+      socket!.on('user-services', (data) {
+        print("list: $data");
+        //get the data
+        List<dynamic> response = data; //jsonDecode(data);
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         servicesList.clear();
         servicesList.addAll(finalResult);
@@ -157,7 +156,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       //debugPrint("Error net: $e");
-      throw HttpException("$e");
+      throw Exception("$e");
     
     }
   }
@@ -366,7 +365,7 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   @override
   void onInit() {
-    getUserServices();
+    //getUserServices();
     super.onInit();
   }
 

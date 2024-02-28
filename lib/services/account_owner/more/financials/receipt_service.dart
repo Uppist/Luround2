@@ -168,4 +168,11 @@ class ReceiptsService extends getx.GetxController {
     super.onInit();
   }
 
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    socket!.dispose();
+    super.dispose();
+  }
+
 }

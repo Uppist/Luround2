@@ -377,6 +377,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
+    socket!.dispose();
     super.dispose();
   }
 

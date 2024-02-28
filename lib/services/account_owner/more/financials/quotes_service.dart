@@ -236,7 +236,9 @@ class QuotesService extends getx.GetxController {
 
 
   @override
-   void dispose() {
+  void dispose() {
+    // TODO: implement dispose
+    socket!.dispose();
     super.dispose();
   }
 

@@ -597,10 +597,13 @@ class AccOwnerBookingService extends getx.GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    /*getUserBookings()
-    .then(
-      (value) => debugPrint("bookings inserted into the widget tree: $value")
-    );*/
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    socket!.dispose();
+    super.dispose();
   }
 
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/payment_screen/widget/monthly_sub.dart';
+import 'package:luround/views/account_owner/payment_screen/widget/yearly_sub.dart';
 
 
 
@@ -45,6 +47,71 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
               fontWeight: FontWeight.w600
             ),
           ),
+          SizedBox(height: 20.h),
+          Expanded(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 50.w),
+                  child: AnimatedContainer(
+                    padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: AppColor.bgColor,
+                      borderRadius: BorderRadius.circular(50.r),
+                      border: Border.all(color: AppColor.navyBlue)
+                    ),
+                    duration: const Duration(milliseconds: 100),
+                    child: Column(
+                      children: [
+                        //added
+                        TabBar(                    
+                          physics: const BouncingScrollPhysics(),
+                          indicatorColor: AppColor.navyBlue,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          //indicatorWeight: 0.1,
+                          labelStyle: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              color: AppColor.bgColor,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          unselectedLabelColor: AppColor.navyBlue,
+                          labelColor: AppColor.bgColor,
+                          //padding: EdgeInsets.symmetric(horizontal: 10),
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50.r),
+                            color: AppColor.navyBlue,
+                            shape: BoxShape.rectangle,
+                          ),
+                          controller: tabController,
+                          isScrollable: false,
+                          tabs: const [
+                            Tab(text: 'Monthly',),
+                            Tab(text: 'Yearly',),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+      
+                //tabbar content here //wrap with future builder
+                Expanded(
+                  child: TabBarView(
+                    controller: tabController,
+                    physics: const BouncingScrollPhysics(),
+                    children: [
+                      MonthlySubscriptionPage(),
+                      YearlySubscriptionPage()
+                    ]
+                  ),
+                ),
+              ]
+            )
+          )
+          //
         ],
       )
     );

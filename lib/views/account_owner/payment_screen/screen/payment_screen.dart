@@ -38,7 +38,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 40.h,),
+          SizedBox(height: 60.h,),
           Text(
             "Pricing Plan",
             style: GoogleFonts.inter(
@@ -52,9 +52,12 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
             child: Column(
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.w),
+                  padding: EdgeInsets.symmetric(horizontal: 70.w), //50.w
                   child: AnimatedContainer(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+                    //padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+                    padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+                    //width: 500.w,
+                    height: 70.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,
@@ -67,6 +70,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                         //added
                         TabBar(                    
                           physics: const BouncingScrollPhysics(),
+                          indicatorPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                           indicatorColor: AppColor.navyBlue,
                           indicatorSize: TabBarIndicatorSize.tab,
                           //indicatorWeight: 0.1,
@@ -77,7 +81,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          unselectedLabelColor: AppColor.navyBlue,
+                          unselectedLabelColor: AppColor.darkGreyColor,
                           labelColor: AppColor.bgColor,
                           //padding: EdgeInsets.symmetric(horizontal: 10),
                           indicator: BoxDecoration(
@@ -96,6 +100,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                     ),
                   ),
                 ),
+
+                SizedBox(height:20.h),
       
                 //tabbar content here //wrap with future builder
                 Expanded(
@@ -108,6 +114,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                     ]
                   ),
                 ),
+                SizedBox(height:20.h),
               ]
             )
           )

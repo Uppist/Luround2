@@ -234,8 +234,8 @@ class MainPageController extends getx.GetxController {
 
   //widget options
   final List<Widget> widgetOptions = <Widget>[
-    //SubscriptionScreen(),
-    ProfilePage(),
+    SubscriptionScreen(),
+    //ProfilePage(),
     ServicesPage(),
     BookingsPage(),
     MorePage(),

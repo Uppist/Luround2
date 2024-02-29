@@ -52,9 +52,9 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
   
-
+  
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  /*Future<List<UserServiceModel>> getUserServices() async {
+  Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
@@ -81,10 +81,10 @@ class AccOwnerServicePageService extends getx.GetxController {
       throw Exception("error: $e");
     
     }
-  }*/
+  }
 
-  //var servicesList = <UserServiceModel>[].obs;
-  IO.Socket? socket;
+  var filterServicesList = <UserServiceModel>[].obs;
+  /*IO.Socket? socket;
   Stream<List<UserServiceModel>> getUserServices() async* {
     try {
       List<UserServiceModel> servicesList = [];
@@ -102,7 +102,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       });
 
       socket!.on('user-services', (data) {
-        //print("list: $data");
+        print("list: $data");
         //get the data
         List<dynamic> response = data; //jsonDecode(data);
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
@@ -128,7 +128,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
@@ -374,7 +374,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
-    socket!.dispose();
+    //socket!.dispose();
     super.dispose();
   }
 

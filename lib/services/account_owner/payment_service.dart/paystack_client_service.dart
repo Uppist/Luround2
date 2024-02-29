@@ -25,7 +25,7 @@ class PaystackClientService extends getX.GetxController {
     try {
       
       int randNum = Random().nextInt(4000000);
-      double amount = (realAmount * 100) + (0.03 * (realAmount * 100));   //already added transaction charges
+      double amount = (realAmount * 100) + (0.02 * (realAmount * 100));   //already added transaction charges
 
       //Charge Call
       final charge = Charge()
@@ -43,18 +43,19 @@ class PaystackClientService extends getX.GetxController {
         context, 
         charge: charge,
         fullscreen: false,
-        logo: Icon(
+        logo: Image.asset('assets/images/luround_logo.png'),
+        /*Icon(
           Icons.rocket_launch_outlined, 
           color:AppColor.blackColor,
           size: 40.r,
-        ),
+        ),*/
         hideAmount: false,
         hideEmail: false
       );
       if(res.status) {
         //hasUserPayed = true;
         _message = "Successful! Ref: ${res.message}_${res.reference}";
-        //call somto rest-api to save the response
+        //call somto rest-api to save the success response
         //Get.to(() => TransactionSuccessfulPage());
         debugPrint("transaction successful: $_message");
       }

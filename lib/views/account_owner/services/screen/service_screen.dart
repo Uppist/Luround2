@@ -106,7 +106,7 @@ class ServicesPage extends StatelessWidget {
                 if (snapshot.hasError) {
                   debugPrint("${snapshot.error}");
                 }
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                if (!snapshot.hasData) {
                   print("sn-trace: ${snapshot.stackTrace}");
                   print("sn-data: ${snapshot.data}");
                   return Expanded(
@@ -123,7 +123,7 @@ class ServicesPage extends StatelessWidget {
                 //[Do this if anything sups]//
                 if (snapshot.hasData) {
               
-                  var data = snapshot.data!;
+                  final data = snapshot.data!;
               
                   return Expanded(
                     child: ListView.separated(

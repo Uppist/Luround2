@@ -83,11 +83,11 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }*/
 
-  var filteredServiceList = <UserServiceModel>[].obs;
+  var servicesList = <UserServiceModel>[].obs;
   IO.Socket? socket;
   Stream<List<UserServiceModel>> getUserServices() async* {
     try {
-      List<UserServiceModel>  servicesList = [];
+      
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
         'autoConnect': false,
         'transports': ['websocket'],
@@ -102,7 +102,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       });
 
       socket!.on('user-services', (data) {
-        print("list: $data");
+        //print("list: $data");
         //get the data
         List<dynamic> response = data; //jsonDecode(data);
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
@@ -117,9 +117,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       socket!.onConnectError((err) => print('Connection Error: $err'));
       socket!.onError((err) => print("Error: $err"));
       
-      //dispose upon navigation
-      //socket!.dispose();
-
+      //return the list
       yield servicesList;
     }
     on SocketException catch(e, stacktrace) {
@@ -368,7 +366,6 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   @override
   void onInit() {
-    //getUserServices();
     super.onInit();
   }
 

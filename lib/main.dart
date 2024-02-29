@@ -3,11 +3,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_paystack_client/flutter_paystack_client.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/payment_service.dart/paystack_constant.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
@@ -52,6 +54,9 @@ void main() async{
       systemNavigationBarIconBrightness: Brightness.dark,
     ),
   );
+
+  //initializing the Paystack API in my app  
+  await PaystackClient.initialize(publicKey);
   
   //initialize firebase
   await Firebase.initializeApp(

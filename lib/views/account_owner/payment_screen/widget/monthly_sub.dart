@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/payment_service.dart/paystack_client.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/payment_screen/widget/custom_row.dart';
 
 
 
 
 
 class MonthlySubscriptionPage extends StatelessWidget {
-  const MonthlySubscriptionPage({super.key});
+  MonthlySubscriptionPage({super.key});
+
+  var paystackService = Get.put(PaystackClientService());
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class MonthlySubscriptionPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 10.h),
+            SizedBox(height: 5.h),
             Center(
               child: Text(
                 "Standard Plan",
@@ -35,6 +41,75 @@ class MonthlySubscriptionPage extends StatelessWidget {
                   fontWeight: FontWeight.w500
                 ),
               ),
+            ),
+            SizedBox(height: 20.h),
+            Center(
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "N4,200",
+                      style: GoogleFonts.inter(
+                        color: AppColor.blackColor,
+                        fontSize: 36.sp,
+                        fontWeight: FontWeight.w700
+                      )
+                    ),
+                    TextSpan(
+                      text: "/month",
+                      style: GoogleFonts.inter(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500
+                      )
+                    )
+                  ]
+                )
+              ),
+            ),
+            SizedBox(height: 20.h),
+            Text(
+              "FULL ACCESS",
+              style: GoogleFonts.inter(
+                color: AppColor.blackColor,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600
+              ),
+            ),
+            SizedBox(height: 20.h),
+            PaymentRowText(
+              text: 'Customize your profile',
+            ),
+            SizedBox(height: 20.h,),
+            PaymentRowText(
+              text: 'Set up your service page',
+            ),
+            SizedBox(height: 20.h,),
+            PaymentRowText(
+              text: 'Track your bookings and transactions',
+            ),
+            SizedBox(height: 20.h,),
+            PaymentRowText(
+              text: 'Send quotes, invoice and receipts',
+            ),
+            SizedBox(height: 20.h,),
+            PaymentRowText(
+              text: 'Sync your calendar',
+            ),
+            SizedBox(height: 70.h,),
+            RebrandedReusableButton(
+              color: AppColor.navyBlue, 
+              text: "Choose Plan", 
+              onPressed: () {
+                //call paystack api
+                paystackService.payWithPaystack(
+                  context: context, 
+                  realAmount: 4200, 
+                  eventName: "Subscription", 
+                  companyEmail: "support@luround.com"
+                );
+              }, 
+              textColor: AppColor.bgColor,
             ),
           ],
         ),

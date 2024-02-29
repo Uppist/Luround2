@@ -602,7 +602,7 @@ class AccOwnerBookingService extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
-    socket!.dispose();
+    //socket!.dispose();
     super.dispose();
   }
 

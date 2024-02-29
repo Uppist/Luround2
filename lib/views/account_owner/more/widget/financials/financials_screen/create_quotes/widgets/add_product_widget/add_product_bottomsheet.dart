@@ -74,165 +74,166 @@ class _BodyWidgetState extends State<BodyWidget> {
       width: double.infinity,
       color: AppColor.bgColor,
       //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-      child: Wrap(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20.h,),      
-              //search textfield
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: SearchTextField(
-                  onFocusChanged: (val) {},
-                  onFieldSubmitted: (val) {
-                    setState(() {
-                      print(controller.searchProductsController.text);
-                      service.filterProducts(val);
-                    });
-                  },
-                  hintText: "Search",
-                  keyboardType: TextInputType.name,
-                  textInputAction: TextInputAction.done,  //.search,
-                  textController: controller.searchProductsController,
-                  onTap: () {},
-                )
-              ),
-
-              SizedBox(height: 20.h,),
-
-              Obx(
-                () {
-                  return service.filteredQoutebslist.isEmpty ? Loader2() : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                    shrinkWrap: true,
-                    itemCount: service.filteredQoutebslist.length, //data.length,
-                    itemBuilder: (context, index) {
-
-                      final item = service.filteredQoutebslist[index];              
-                      bool isChecked = service.selectedQuotebslist.contains(item);
-
-                      return ServicesTile(
-                        leading: Checkbox(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.r)
-                          ),
-                          activeColor: AppColor.mainColor,
-                          //service.selectedQuotebslist.contains(item), 
-                          value: isChecked,
-                          onChanged: (value) {
-                            /////
-                            setState(() {
-                              if(value != null) {
-                                if (value) {
-                                  // Add to the selected items list
-                                  item['vat'] = (double.parse(item['rate']) * 0.075).toString();
-                                  item['displayName'] = controller.quoteClientNameController.text;
-                                  item['email'] = controller.quoteClientEmailController.text;
-                                  item['date'] = controller.updatedDueDate(initialDate: "(non)");
-
-                                  service.addServiceQ(item)
-                                  .whenComplete(() {
-                                    service.showEverythingForQuoteList();
-                                  });
-                                } 
-                                else {
-                                  // Remove from the selected items list
-                                  // Add to the selected items list
-                                  service.removeServiceQ(item)
-                                  .whenComplete(() {
-                                    service.showEverythingForQuoteList();
-                                  });
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.h,),      
+                //search textfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  child: SearchTextField(
+                    onFocusChanged: (val) {},
+                    onFieldSubmitted: (val) {
+                      setState(() {
+                        print(controller.searchProductsController.text);
+                        service.filterProducts(val);
+                      });
+                    },
+                    hintText: "Search",
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,  //.search,
+                    textController: controller.searchProductsController,
+                    onTap: () {},
+                  )
+                ),
+        
+                SizedBox(height: 20.h,),
+        
+                Obx(
+                  () {
+                    return service.filteredQoutebslist.isEmpty ? Loader2() : ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics: BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                      shrinkWrap: true,
+                      itemCount: service.filteredQoutebslist.length, //data.length,
+                      itemBuilder: (context, index) {
+        
+                        final item = service.filteredQoutebslist[index];              
+                        bool isChecked = service.selectedQuotebslist.contains(item);
+        
+                        return ServicesTile(
+                          leading: Checkbox(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.r)
+                            ),
+                            activeColor: AppColor.mainColor,
+                            //service.selectedQuotebslist.contains(item), 
+                            value: isChecked,
+                            onChanged: (value) {
+                              /////
+                              setState(() {
+                                if(value != null) {
+                                  if (value) {
+                                    // Add to the selected items list
+                                    item['vat'] = (double.parse(item['rate']) * 0.075).toString();
+                                    item['displayName'] = controller.quoteClientNameController.text;
+                                    item['email'] = controller.quoteClientEmailController.text;
+                                    item['date'] = controller.updatedDueDate(initialDate: "(non)");
+        
+                                    service.addServiceQ(item)
+                                    .whenComplete(() {
+                                      service.showEverythingForQuoteList();
+                                    });
+                                  } 
+                                  else {
+                                    // Remove from the selected items list
+                                    // Add to the selected items list
+                                    service.removeServiceQ(item)
+                                    .whenComplete(() {
+                                      service.showEverythingForQuoteList();
+                                    });
+                                  }
                                 }
+                                // Print the modified list
+                                debugPrint("edited list: ${service.selectedQuotebslist}");
+                                debugPrint("ischecked: $isChecked");
                               }
-                              // Print the modified list
-                              debugPrint("edited list: ${service.selectedQuotebslist}");
-                              debugPrint("ischecked: $isChecked");
-                            }
-                          );                                                                        
-                        }           
-                      ),
-                      productName: item['service_name'],
+                            );                                                                        
+                          }           
+                        ),
+                        productName: item['service_name'],
+                      );
+                    }
                     );
                   }
-                  );
-                }
-              ),
-
-              //CANCEL AND APPLY BUTTON
-              Container(
-                height: 100.h,
-                alignment: Alignment.center,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.darkGreyColor,
-                    )
-                  ]
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20.w,), //vertical: 30.h
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: 100.w,
-                        alignment: Alignment.center,
-                        //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
-                        decoration: BoxDecoration(
-                          color: AppColor.bgColor,
-                          border: Border.all(color: AppColor.darkGreyColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(12.r)
-                        ),
-                        child: Text(
-                          "Cancel",
-                          style: GoogleFonts.inter(
-                            color: AppColor.darkGreyColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: 100.w,
-                        alignment: Alignment.center,
-                        //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
-                        decoration: BoxDecoration(
-                          color: AppColor.mainColor,
-                          //border: Border.all(color: AppColor.mainColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(12.r)
-                        ),
-                        child: Text(
-                          "Apply",
-                          style: GoogleFonts.inter(
+        
+                //CANCEL AND APPLY BUTTON
+                Container(
+                  height: 100.h,
+                  alignment: Alignment.center,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: AppColor.bgColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: AppColor.darkGreyColor,
+                      )
+                    ]
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w,), //vertical: 30.h
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 50.h,
+                          width: 100.w,
+                          alignment: Alignment.center,
+                          //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
+                          decoration: BoxDecoration(
                             color: AppColor.bgColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
-                          )
+                            border: Border.all(color: AppColor.darkGreyColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(12.r)
+                          ),
+                          child: Text(
+                            "Cancel",
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            )
+                          ),
                         ),
                       ),
-                    ),
-                  ]
-                ),
-              )
-                  
-            ]
-          )
-        ]
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Container(
+                          height: 50.h,
+                          width: 100.w,
+                          alignment: Alignment.center,
+                          //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
+                          decoration: BoxDecoration(
+                            color: AppColor.mainColor,
+                            //border: Border.all(color: AppColor.mainColor, width: 1.0),
+                            borderRadius: BorderRadius.circular(12.r)
+                          ),
+                          child: Text(
+                            "Apply",
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            )
+                          ),
+                        ),
+                      ),
+                    ]
+                  ),
+                )
+                    
+              ]
+          
+        
+        ),
       )
     );               
   }

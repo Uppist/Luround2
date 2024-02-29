@@ -71,50 +71,50 @@ class _BodyWidgetState extends State<BodyWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //height: 200.h,
+      //height: 700.h,
       width: double.infinity,
       color: AppColor.bgColor,
       //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-      child: Wrap(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20.h,),      
-              //search textfield
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                child: SearchTextField(
-                  onFocusChanged: (val) {},
-                  onFieldSubmitted: (val) {
-                    setState(() {
-                      print(controller.searchProductsControllerForInvoice.text);
-                      service.filterProductsForInvoice(val);
-                    });
-                  },
-                  hintText: "Search",
-                  keyboardType: TextInputType.name,
-                  textInputAction: TextInputAction.done,  //.search,
-                  textController: controller.searchProductsControllerForInvoice,
-                  onTap: () {},
-                )
-              ),
-
-              SizedBox(height: 20.h,),
-
-              Obx(
-                () {
-                  return service.filteredInvoicebslist.isEmpty ? Loader2() : ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                    shrinkWrap: true,
-                    itemCount: service.filteredInvoicebslist.length, //data.length,
-                    itemBuilder: (context, index) {
-
-                      final item = service.filteredInvoicebslist[index];              
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20.h,),      
+            //search textfield
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+              child: SearchTextField(
+                onFocusChanged: (val) {},
+                onFieldSubmitted: (val) {
+                  setState(() {
+                    print(controller.searchProductsControllerForInvoice.text);
+                    service.filterProductsForInvoice(val);
+                  });
+                },
+                hintText: "Search",
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.done,  //.search,
+                textController: controller.searchProductsControllerForInvoice,
+                onTap: () {},
+              )
+            ),
+        
+            SizedBox(height: 20.h,),
+        
+            Obx(
+              () {
+                return service.filteredInvoicebslist.isEmpty ? Loader2() : ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                  shrinkWrap: true,
+                  itemCount: service.filteredInvoicebslist.length, //data.length,
+                  itemBuilder: (context, index) {
+        
+                    final item = service.filteredInvoicebslist[index];              
                       bool isChecked = service.selectedInvoicebslist.contains(item);
-
+        
                       return ServicesTile(
                         leading: Checkbox(
                           shape: RoundedRectangleBorder(
@@ -157,83 +157,84 @@ class _BodyWidgetState extends State<BodyWidget> {
                       productName: item['service_name'],
                     );
                   }
-                  );
-                }
+                );
+              }
+            ),
+        
+            //CANCEL AND APPLY BUTTON
+            Container(
+              height: 100.h,
+              alignment: Alignment.center,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColor.bgColor,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColor.darkGreyColor,
+                  )
+                ]
               ),
-
-              //CANCEL AND APPLY BUTTON
-              Container(
-                height: 100.h,
-                alignment: Alignment.center,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: AppColor.bgColor,
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColor.darkGreyColor,
-                    )
-                  ]
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20.w,), //vertical: 30.h
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: 100.w,
-                        alignment: Alignment.center,
-                        //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
-                        decoration: BoxDecoration(
+              padding: EdgeInsets.symmetric(horizontal: 20.w,), //vertical: 30.h
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      height: 50.h,
+                      width: 100.w,
+                      alignment: Alignment.center,
+                      //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
+                      decoration: BoxDecoration(
+                        color: AppColor.bgColor,
+                        border: Border.all(color: AppColor.darkGreyColor, width: 1.0),
+                        borderRadius: BorderRadius.circular(12.r)
+                      ),
+                      child: Text(
+                        "Cancel",
+                        style: GoogleFonts.inter(
+                          color: AppColor.darkGreyColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Container(
+                      height: 50.h,
+                      width: 100.w,
+                      alignment: Alignment.center,
+                      //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
+                      decoration: BoxDecoration(
+                        color: AppColor.mainColor,
+                        //border: Border.all(color: AppColor.mainColor, width: 1.0),
+                        borderRadius: BorderRadius.circular(12.r)
+                      ),
+                      child: Text(
+                        "Apply",
+                        style: GoogleFonts.inter(
                           color: AppColor.bgColor,
-                          border: Border.all(color: AppColor.darkGreyColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(12.r)
-                        ),
-                        child: Text(
-                          "Cancel",
-                          style: GoogleFonts.inter(
-                            color: AppColor.darkGreyColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
+                        )
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Container(
-                        height: 50.h,
-                        width: 100.w,
-                        alignment: Alignment.center,
-                        //padding: EdgeInsets.symmetric(horizontal: 20.w, ),
-                        decoration: BoxDecoration(
-                          color: AppColor.mainColor,
-                          //border: Border.all(color: AppColor.mainColor, width: 1.0),
-                          borderRadius: BorderRadius.circular(12.r)
-                        ),
-                        child: Text(
-                          "Apply",
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
-                      ),
-                    ),
-                  ]
-                ),
-              )
-                  
-            ]
-          )
-        ]
+                  ),
+                ]
+              ),
+            ),
+                    
+          ]
+        ),
       )
+        
+    
     );               
   }
 }

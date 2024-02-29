@@ -20,7 +20,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-class SubscriptionScreen extends StatelessWidget {
+/*class SubscriptionScreen extends StatelessWidget {
 
   SubscriptionScreen({super.key});
    
@@ -205,4 +205,4 @@ class SubscriptionScreen extends StatelessWidget {
       )
     );
   }
-}
+}*/

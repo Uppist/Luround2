@@ -79,27 +79,27 @@ class YearlySubscriptionPage extends StatelessWidget {
                     fontWeight: FontWeight.w600
                   ),
                 ),
-                SizedBox(height: 20.h),
+                SizedBox(height: 25.h),
                 PaymentRowText(
                   text: 'Customize your profile',
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 25.h,),
                 PaymentRowText(
                   text: 'Set up your service page',
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 25.h,),
                 PaymentRowText(
                   text: 'Track your bookings and transactions',
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 25.h,),
                 PaymentRowText(
                   text: 'Send quotes, invoice and receipts',
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 25.h,),
                 PaymentRowText(
                   text: 'Sync your calendar',
                 ),
-                SizedBox(height: 70.h,),
+                SizedBox(height: 90.h,),
                 RebrandedReusableButton(
                   color: AppColor.navyBlue, 
                   text: "Choose Plan", 

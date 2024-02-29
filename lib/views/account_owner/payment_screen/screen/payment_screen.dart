@@ -114,7 +114,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                     ]
                   ),
                 ),
-                SizedBox(height:20.h),
+                SizedBox(height:40.h),
               ]
             )
           )

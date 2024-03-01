@@ -152,7 +152,7 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
                   print("current step: ${controller.curentStep}");
                 }*/
                 LuroundSnackBar.successSnackBar(
-                  message: "Date has been confirmed", 
+                  message: "date has been confirmed", 
                 );
               },
               onSubmit: () {

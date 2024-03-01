@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/certificate_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
-import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/components/certificate_textfield.dart';

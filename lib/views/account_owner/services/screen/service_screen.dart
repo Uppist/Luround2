@@ -32,13 +32,19 @@ class ServicesPage extends StatefulWidget {
 
 class _ServicesPageState extends State<ServicesPage> {
   var controller = Get.put(ServicesController());
-
+  var data = <UserServiceModel>[].obs;
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
+  // GlobalKey for RefreshIndicator
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refresh() async {
-    // Simulate a refresh by waiting for a short duration
     await Future.delayed(Duration(seconds: 1));
-    await userService.getUserServices();
+    // Fetch new data here
+    final List<UserServiceModel>  newData = await userService.getUserServices();
+    // Update the UI with the new data
+    data.clear();
+    data(newData);
+    print('updated service list: $data');
   }
 
   late Future<List<UserServiceModel>> userServiceFuture;
@@ -54,104 +60,105 @@ class _ServicesPageState extends State<ServicesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.greyColor, //controller.isServicePresent.value ? AppColor.bgColor : AppColor.greyColor,
-      body: RefreshIndicator.adaptive(
-        triggerMode: RefreshIndicatorTriggerMode.onEdge,
-        color: AppColor.mainColor,
-        backgroundColor: AppColor.bgColor,
-        onRefresh: _refresh,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            ///Header Section
-            Container(
-              color: AppColor.bgColor,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 20.h,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                   
-                      Text(
-                        "Services",
-                        style: GoogleFonts.inter(
-                          color: AppColor.blackColor,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w600
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () async{
-                          Get.to(() => AddServiceScreen());
-                        },
-                        child: SvgPicture.asset("assets/svg/add_service.svg"),
-                      ),
-                    ]
-                  ),
-        
-                  //SizedBox(height: 30.h,),
-                  /*Center(
-                    child: Text(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          ///Header Section
+          Container(
+            color: AppColor.bgColor,
+            alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 20.h,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                 
+                    Text(
                       "Services",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
-                        fontSize: 19.sp,
-                        fontWeight: FontWeight.w500
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w600
                       ),
                     ),
-                  ),*/
-                ],
-              ),
-            ),         
+                    InkWell(
+                      onTap: () async{
+                        Get.to(() => AddServiceScreen());
+                      },
+                      child: SvgPicture.asset("assets/svg/add_service.svg"),
+                    ),
+                  ]
+                ),
+      
+                //SizedBox(height: 30.h,),
+                /*Center(
+                  child: Text(
+                    "Services",
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 19.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ),*/
+              ],
+            ),
+          ),         
+          
             
-              
-            SizedBox(height: 20.h,),
-               
-              
-            //Futurebuilder will start from here (will wrap this listview)
-            FutureBuilder<List<UserServiceModel>>(
-              future: userServiceFuture,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Expanded(child: Loader());
-                }
-                if (snapshot.hasError) {
-                  debugPrint("${snapshot.error}");
-                }
-                if (!snapshot.hasData) {
-                  print("sn-trace: ${snapshot.stackTrace}");
-                  print("sn-data: ${snapshot.data}");
-                  return Expanded(
-                    child: SingleChildScrollView(
-                      child: ServiceEmptyState(
-                        onPressed: () {
-                          Get.to(() => AddServiceScreen());
-                        },
-                      ),
+          SizedBox(height: 20.h,),
+             
+            
+          //Futurebuilder will start from here (will wrap this listview)
+          FutureBuilder<List<UserServiceModel>>(
+            future: userServiceFuture,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Expanded(child: Loader());
+              }
+              if (snapshot.hasError) {
+                debugPrint("${snapshot.error}");
+              }
+              if (!snapshot.hasData) {
+                print("sn-trace: ${snapshot.stackTrace}");
+                print("sn-data: ${snapshot.data}");
+                return Expanded(
+                  child: SingleChildScrollView(
+                    child: ServiceEmptyState(
+                      onPressed: () {
+                        Get.to(() => AddServiceScreen());
+                      },
                     ),
-                  );
-                } 
-                   
-                //[Do this if anything sups]//
-                if (snapshot.hasData) {
-              
-                  final item = snapshot.data!;
-
-                  //sort the resulting list by name
-                  var data = <UserServiceModel>[].obs;
-                  //final List<UserServiceModel> sortedList = data;
-                  item.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-                  data.clear();
-                  data.addAll(item); 
-                  print("sorted data service list: $data");
-              
-                  return Expanded(
-                    child: Obx(
-                      () {
-                        return data.isNotEmpty ? ListView.separated(
+                  ),
+                );
+              } 
+                 
+              //[Do this if anything sups]//
+              if (snapshot.hasData) {
+            
+                final item = snapshot.data!;
+      
+                //sort the resulting list by name
+                //final List<UserServiceModel> sortedList = data;
+                item.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+                data.clear();
+                data.addAll(item); 
+                print("sorted data service list: $data");
+            
+                return Expanded(
+                  child: Obx(
+                    () {
+                      return data.isNotEmpty ? RefreshIndicator.adaptive(
+                        color: AppColor.greyColor,
+                        backgroundColor: AppColor.mainColor,
+                        key: _refreshKey,
+                        onRefresh: () {
+                          return _refresh();
+                        },
+                        child: ListView.separated(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           physics: const BouncingScrollPhysics(),
@@ -556,34 +563,34 @@ class _ServicesPageState extends State<ServicesPage> {
                             ),
                           );
                         }
-                        )
-
-                        : ServiceEmptyState(
-                            onPressed: () {
-                              Get.to(() => AddServiceScreen());
-                            },
-                          );
-                        }
-
-                    ),
-                  );
-                }
-                return Center(
-                  child: Text(
-                    "connection timed out",
-                    style: GoogleFonts.inter(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 13.sp,
-                      fontWeight: FontWeight.normal
-                    )
-                  )
+                        ),
+                      )
+      
+                      : ServiceEmptyState(
+                          onPressed: () {
+                            Get.to(() => AddServiceScreen());
+                          },
+                        );
+                      }
+      
+                  ),
                 );
               }
-            ),
-            SizedBox(height: 20.h,)           
-          
-          ]
-        ),
+              return Center(
+                child: Text(
+                  "connection timed out",
+                  style: GoogleFonts.inter(
+                    color: AppColor.darkGreyColor,
+                    fontSize: 13.sp,
+                    fontWeight: FontWeight.normal
+                  )
+                )
+              );
+            }
+          ),
+          SizedBox(height: 20.h,)           
+        
+        ]
       )
     );
   }

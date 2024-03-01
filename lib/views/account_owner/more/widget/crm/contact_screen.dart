@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/models/account_owner/more/crm/contact_response_model.dart';
 import 'package:luround/services/account_owner/more/crm/crm_service.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/crm/add_contact_screen.dart';
@@ -31,6 +32,18 @@ class ContactScreen extends StatefulWidget {
 class _ContactScreenState extends State<ContactScreen> {
 
   var service = Get.put(CRMService());
+
+  // GlobalKey for RefreshIndicator
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    // Fetch new data here
+    final List<ContactResponse>  newData = await service.getUserContacts();
+    // Update the UI with the new data
+    service.filteredContactList.clear();
+    service.filteredContactList.addAll(newData);
+    print('updated crm list: ${service.filteredContactList}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,8 +85,8 @@ class _ContactScreenState extends State<ContactScreen> {
         ],
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+        child: Padding(
+          //physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,145 +121,153 @@ class _ContactScreenState extends State<ContactScreen> {
               //listview.builder
               Obx(
                 () {
-                  return service.filteredContactList.isNotEmpty ? ListView.separated(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: service.filteredContactList.length,
-                    separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.5,),
-                    itemBuilder: (context, index) {
-                      final item = service.filteredContactList[index];
-                      if(service.filteredContactList.isEmpty) {
-                        return CRMEmptyState(
-                          onPressed: () {},
-                        );
-                      }
-                      return InkWell(
-                        onTap: () {
-                          setState(() {
-                            if (service.selectedIndex == index) {
-                              // Collapse the selected item.
-                              service.selectedIndex = -1;
-                            } 
-                            else {
-                              // Expand the selected item.
-                              service.selectedIndex = index; 
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 20.h),
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: AppColor.bgColor,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                //crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  CircleAvatar(
-                                    backgroundColor: AppColor.mainColor,
-                                    radius: 30.r,
-                                    child: Text(
-                                      item.client_name.substring(0, 1),
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.bgColor,
-                                        fontSize: 16.sp,
-                                        fontWeight: FontWeight.w600
+                  return service.filteredContactList.isNotEmpty ? RefreshIndicator.adaptive(
+                    color: AppColor.greyColor,
+                    backgroundColor: AppColor.mainColor,
+                    key: _refreshKey,
+                    onRefresh: () {
+                      return _refresh();
+                    },
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      physics: BouncingScrollPhysics(),//NeverScrollableScrollPhysics(),
+                      itemCount: service.filteredContactList.length,
+                      separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.5,),
+                      itemBuilder: (context, index) {
+                        final item = service.filteredContactList[index];
+                        if(service.filteredContactList.isEmpty) {
+                          return CRMEmptyState(
+                            onPressed: () {},
+                          );
+                        }
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (service.selectedIndex == index) {
+                                // Collapse the selected item.
+                                service.selectedIndex = -1;
+                              } 
+                              else {
+                                // Expand the selected item.
+                                service.selectedIndex = index; 
+                              }
+                            });
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 20.h),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  //crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: AppColor.mainColor,
+                                      radius: 30.r,
+                                      child: Text(
+                                        item.client_name.substring(0, 1),
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.bgColor,
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.w600
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(width: 16.w),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    SizedBox(width: 16.w),
+                                    Expanded(
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            item.client_name,  //recepient name
+                                            style: GoogleFonts.inter(
+                                              textStyle: TextStyle(
+                                                overflow: TextOverflow.ellipsis,
+                                                color: AppColor.blackColor,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 14.sp,
+                                              )
+                                            )
+                                          ),
+                                          service.selectedIndex == index ?
+                                          Icon(
+                                            CupertinoIcons.chevron_down,
+                                            color: AppColor.blackColor,
+                                          )
+                                          :Icon(
+                                            CupertinoIcons.chevron_forward,
+                                            color: AppColor.blackColor,
+                                          )                    
+                                        ],
+                                      ),
+                                    )
+                                  ]
+                                ),
+                                SizedBox(height: 20.h,),
+                                            
+                                //client email and mobile number column (expandable)
+                                service.selectedIndex == index ?
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    //row 1
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
+                                        Icon(
+                                          CupertinoIcons.mail,
+                                          color: AppColor.textGreyColor,
+                                        ),
+                                        SizedBox(width: 10.w,),
                                         Text(
-                                          item.client_name,  //recepient name
-                                          style: GoogleFonts.inter(
+                                            item.client_email,
+                                            style: GoogleFonts.inter(
                                             textStyle: TextStyle(
                                               overflow: TextOverflow.ellipsis,
-                                              color: AppColor.blackColor,
-                                              fontWeight: FontWeight.w500,
+                                              color: AppColor.textGreyColor,
+                                              fontWeight: FontWeight.w400,
                                               fontSize: 14.sp,
                                             )
                                           )
                                         ),
-                                        service.selectedIndex == index ?
-                                        Icon(
-                                          CupertinoIcons.chevron_down,
-                                          color: AppColor.blackColor,
-                                        )
-                                        :Icon(
-                                          CupertinoIcons.chevron_forward,
-                                          color: AppColor.blackColor,
-                                        )                    
                                       ],
                                     ),
-                                  )
-                                ]
-                              ),
-                              SizedBox(height: 20.h,),
-                                          
-                              //client email and mobile number column (expandable)
-                              service.selectedIndex == index ?
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  //row 1
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        CupertinoIcons.mail,
-                                        color: AppColor.textGreyColor,
-                                      ),
-                                      SizedBox(width: 10.w,),
-                                      Text(
-                                          item.client_email,
-                                          style: GoogleFonts.inter(
-                                          textStyle: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
-                                            color: AppColor.textGreyColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14.sp,
+                                    SizedBox(height: 10.h,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          CupertinoIcons.phone,
+                                          color: AppColor.textGreyColor,
+                                        ),
+                                        SizedBox(width: 10.w,),
+                                        Text(
+                                            item.client_phone_number,
+                                            style: GoogleFonts.inter(
+                                            textStyle: TextStyle(
+                                              overflow: TextOverflow.ellipsis,
+                                              color: AppColor.textGreyColor,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 14.sp,
+                                            )
                                           )
-                                        )
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 10.h,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        CupertinoIcons.phone,
-                                        color: AppColor.textGreyColor,
-                                      ),
-                                      SizedBox(width: 10.w,),
-                                      Text(
-                                          item.client_phone_number,
-                                          style: GoogleFonts.inter(
-                                          textStyle: TextStyle(
-                                            overflow: TextOverflow.ellipsis,
-                                            color: AppColor.textGreyColor,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 14.sp,
-                                          )
-                                        )
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ) : SizedBox(),
-                            ]
-                          )
-                        ),
-                      );
-                    }
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ) : SizedBox(),
+                              ]
+                            )
+                          ),
+                        );
+                      }
+                    ),
                   ): CRMEmptyState(
                     onPressed: () {},
                   );

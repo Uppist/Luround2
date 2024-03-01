@@ -54,12 +54,16 @@ class _ProfilePageState extends State<ProfilePage> {
   final AccOwnerProfileService userProfileService = Get.put(AccOwnerProfileService());
 
   final String userEmail = LocalStorage.getUseremail();
-  //String editedUrl = "";
-
-  Future<void> _refresh() async {
-    // Simulate a refresh by waiting for a short duration
+  
+  // GlobalKey for RefreshIndicator
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  Future<UserModel> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
-    await userProfileService.getUserProfileDetails(email: userEmail);
+    // Fetch new data here
+    final UserModel newData = await userProfileService.getUserProfileDetails(email: userEmail);
+    // Update the UI with the new data
+    print('updated profile data: $newData');
+    return newData;
   }
   
 
@@ -71,10 +75,12 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       body: RefreshIndicator.adaptive(
-        triggerMode: RefreshIndicatorTriggerMode.onEdge,
-        color: AppColor.mainColor,
-        backgroundColor: AppColor.bgColor,
-        onRefresh: _refresh,
+        color: AppColor.greyColor,
+        backgroundColor: AppColor.mainColor,
+        key: _refreshKey,
+        onRefresh: () {
+          return _refresh();
+        },
         child: SafeArea(
           child: Column(
             children: [

@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings/bookings_controller.dart';
 import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/reschedule_success.dart';

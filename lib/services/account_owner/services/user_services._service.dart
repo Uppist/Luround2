@@ -82,8 +82,8 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
-  /*var filterServicesList = <UserServiceModel>[].obs;
-  IO.Socket? socket;
+  //var data = <UserServiceModel>[].obs;
+  /*IO.Socket? socket;
   Stream<List<UserServiceModel>> getUserServices() async* {
     try {
       List<UserServiceModel> servicesList = [];

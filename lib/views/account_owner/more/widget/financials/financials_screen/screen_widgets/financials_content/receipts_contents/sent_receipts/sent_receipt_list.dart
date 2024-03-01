@@ -14,15 +14,27 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class SentReceiptList extends StatelessWidget {
+class SentReceiptList extends StatefulWidget {
   SentReceiptList({super.key});
 
+  @override
+  State<SentReceiptList> createState() => _SentReceiptListState();
+}
+
+class _SentReceiptListState extends State<SentReceiptList> {
   var service = Get.put(ReceiptsService());
+
+  late Future<List<ReceiptResponse>> sentReceiptFuture;
+  @override
+  void initState() {
+    super.initState();
+    sentReceiptFuture = service.getUserSentReceipt(); 
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<ReceiptResponse>>(
-      stream: service.getUserSentReceipt(),
+    return FutureBuilder<List<ReceiptResponse>>(
+      future: sentReceiptFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

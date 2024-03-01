@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
+import 'package:http/http.dart' as http;
 import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -47,7 +49,42 @@ class InvoicesService extends getx.GetxController {
   }
   
 
-  IO.Socket? socket;
+  /////[GET LIST OF PAID INVOICES]//////
+  Future<List<InvoiceResponse>>  getUserPaidInvoice() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "invoice/paid-invoices",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user paid invoices fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //debugPrint("$response");
+        var finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
+        paidInvoiceList.clear();
+        paidInvoiceList.addAll(finalResult);
+        debugPrint("paid invoice list: $paidInvoiceList");
+        return paidInvoiceList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user paid invoices');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+  
+
+  /*IO.Socket? socket;
   Stream<List<InvoiceResponse>>  getUserPaidInvoice() async* {
     try {
 
@@ -88,8 +125,10 @@ class InvoicesService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
   
+
+
 
   /////[GET LOGGED-IN USER'S LIST OF UNPAID INVOICES]//////
   var unpaidInvoiceList = <InvoiceResponse>[].obs;
@@ -146,7 +185,42 @@ class InvoicesService extends getx.GetxController {
     }
   }
 
-  Stream<List<InvoiceResponse>> getUserUnpaidInvoice() async* {
+  /////[GET LIST OF UNPAID INVOICES]//////
+  Future<List<InvoiceResponse>> getUserUnpaidInvoice() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "invoice/unpaid-invoices",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user unpaid invoices fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //debugPrint("$response");
+        var finalResult = response.map((e) => InvoiceResponse.fromJson(e)).toList();
+        unpaidInvoiceList.clear();
+        unpaidInvoiceList.addAll(finalResult);  //finalResult
+        debugPrint("unpaid invoice list: $unpaidInvoiceList");
+        return unpaidInvoiceList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user unpaid invoices');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+
+  /*Stream<List<InvoiceResponse>> getUserUnpaidInvoice() async* {
     try {
 
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
@@ -186,7 +260,7 @@ class InvoicesService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
 
@@ -204,9 +278,7 @@ class InvoicesService extends getx.GetxController {
       filteredDueInvoiceList.clear();
       // Use addAll to add the filtered items to the list
       filteredDueInvoiceList.addAll(
-      dueInvoiceList.where((e) =>
-        e.send_to_name.toLowerCase().contains(query.toLowerCase()))
-      .toList());
+      dueInvoiceList.where((e) => e.send_to_name.toLowerCase().contains(query.toLowerCase())).toList());
       print("when query is not empty: $filteredDueInvoiceList");
     }
   }

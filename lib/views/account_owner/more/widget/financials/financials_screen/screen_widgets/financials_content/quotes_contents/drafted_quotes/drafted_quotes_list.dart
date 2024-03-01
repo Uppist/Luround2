@@ -28,10 +28,18 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
 
   var service = Get.put(QuotesService());
 
+  late Future<List<DraftedQuotesResponse>> draftedQuoteFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    draftedQuoteFuture = service.getUserDraftedQuotes();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<DraftedQuotesResponse>>(
-      stream: service.getUserDraftedQuotes(),
+    return FutureBuilder<List<DraftedQuotesResponse>>(
+      future: draftedQuoteFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

@@ -14,15 +14,27 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class PaidInvoiceList extends StatelessWidget {
+class PaidInvoiceList extends StatefulWidget {
   PaidInvoiceList({super.key});
 
+  @override
+  State<PaidInvoiceList> createState() => _PaidInvoiceListState();
+}
+
+class _PaidInvoiceListState extends State<PaidInvoiceList> {
   var service = Get.put(InvoicesService());
+  late Future<List<InvoiceResponse>> paidInvoiceFuture;
+  @override
+  void initState() {
+    super.initState();
+    paidInvoiceFuture = service.getUserPaidInvoice();
+    
+  }
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<InvoiceResponse>>(
-      stream: service.getUserPaidInvoice(),
+    return FutureBuilder<List<InvoiceResponse>>(
+      future: service.getUserPaidInvoice(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

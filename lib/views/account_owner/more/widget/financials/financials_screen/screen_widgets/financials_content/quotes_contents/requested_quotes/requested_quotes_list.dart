@@ -15,16 +15,30 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class RequestedQuotesList extends StatelessWidget {
+class RequestedQuotesList extends StatefulWidget {
   RequestedQuotesList({super.key});
 
+  @override
+  State<RequestedQuotesList> createState() => _RequestedQuotesListState();
+}
+
+class _RequestedQuotesListState extends State<RequestedQuotesList> {
   var service = Get.put(QuotesService());
+
+  late Future<List<ReceivedQuotesResponse>> receivedQuoteFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    receivedQuoteFuture = service.getUserReceivedQuotes();
+  }
+
 
   @override
   Widget build(BuildContext context) {
 
-    return StreamBuilder<List<ReceivedQuotesResponse>>(
-      stream: service.getUserReceivedQuotes(),
+    return FutureBuilder<List<ReceivedQuotesResponse>>(
+      future: receivedQuoteFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

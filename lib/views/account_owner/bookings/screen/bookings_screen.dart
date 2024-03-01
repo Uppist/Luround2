@@ -40,23 +40,19 @@ class _BookingsPageState extends State<BookingsPage> {
   var controller = Get.put(BookingsController());
   var service = Get.put(AccOwnerBookingService());
   var userId = LocalStorage.getUserID();
+  late Future<List<DetailsModel>> userBookingFuture;
+   Future<void> _refresh() async {
+    // Simulate a refresh by waiting for a short duration
+    await Future.delayed(Duration(seconds: 1));
+    await service.getUserBookings();
+  }
 
 
   @override
   void initState() {
     super.initState();
-
-    /*service.getUserBookings().then((List<DetailsModel> list) {
-      //sort the resulting list by name
-      final List<DetailsModel> sortedList = list;
-      //sortedList.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
-      
-      sortedList.sort((a, b) => a.serviceDetails.createdAt.compareTo(b.serviceDetails.createdAt));
-
-      service.filteredList.clear();
-      service.filteredList.addAll(sortedList);  //service.dataList
-      print("filtered booking list: ${service.filteredList}");
-    });*/
+    _refresh();
+    userBookingFuture = service.getUserBookings();
 
   }
 
@@ -119,11 +115,7 @@ class _BookingsPageState extends State<BookingsPage> {
                   keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.done,  //.search,
                   textController: controller.searchController,
-                  onTap: () {
-                    /*setState(() {
-                      controller.isFieldTapped.value = true;
-                    });*/
-                  },
+                  onTap: () {},
                 ),
               ],
             ),
@@ -170,8 +162,8 @@ class _BookingsPageState extends State<BookingsPage> {
           //SizedBox(height: 10.h,),
 
 
-          StreamBuilder<List<DetailsModel>>(
-            stream: service.getUserBookings(),
+          FutureBuilder<List<DetailsModel>>(
+            future: userBookingFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Expanded(child: Loader(),);
@@ -193,731 +185,736 @@ class _BookingsPageState extends State<BookingsPage> {
                 //sort the resulting list by name
                 final List<DetailsModel> sortedList = data;
                 //sortedList.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
-      
                 sortedList.sort((a, b) => a.serviceDetails.createdAt.compareTo(b.serviceDetails.createdAt));
                 service.filteredList.clear();
                 service.filteredList.addAll(sortedList); 
-                print("sorted data booking list: $sortedList");
+                //print("sorted data booking list: $sortedList");
                 print("filtered booking list: ${service.filteredList}");
            
-                return Expanded(
-                  child: Obx(
-                    () {
-                      return service.filteredList.isNotEmpty ? ListView.separated(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
-                        itemCount: service.filteredList.length,
-                        separatorBuilder: (context, index) => SizedBox(height: 25.h,),
-                        itemBuilder: (context, index) { 
-                                
-                          //final item = data[index];
-                          final item = service.filteredList[index];
-                      
-                          if(service.filteredList.isNotEmpty){
-                            if(controller.selectedIndex == index) {
-                              return Container(
-                                alignment: Alignment.center,
-                                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                decoration: BoxDecoration(
-                                  color: AppColor.bgColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColor.textGreyColor.withOpacity(0.2),
-                                      blurRadius: 0.2,
-                                      //spreadRadius: 0.1,
-                                      blurStyle: BlurStyle.solid
-                                    )
-                                  ]
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          //more vert icon
-                                          Row(
-                                                mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
-                                                children: [
-                                                  //confirm bookings button
-                                                  item.booked_status == "PENDING CONFIRMATION" ?
-                                                  InkWell(
-                                                    onTap: () {
-                                                      service.confirmBooking(
-                                                        context: context, 
-                                                        bookingId: service.filteredList[index].id,
-                                                        client_name: item.bookingUserInfo.displayName,
-                                                      );
-                                                    },
-                                                    child: Container(
-                                                      height: 40.h,
-                                                      width: 80.w,
-                                                      alignment: Alignment.center,
-                                                      //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius: BorderRadius.circular(10.r),
-                                                        color: AppColor.mainColor,
-                                                      ),
-                                                      child: Text(
-                                                        "Confirm",
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.bgColor,
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w400
+                return RefreshIndicator.adaptive(
+                  triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                  color: AppColor.mainColor,
+                  backgroundColor: AppColor.bgColor,
+                  onRefresh: _refresh,
+                  child: Expanded(
+                    child: Obx(
+                      () {
+                        return service.filteredList.isNotEmpty ? ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          physics: BouncingScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
+                          itemCount: service.filteredList.length,
+                          separatorBuilder: (context, index) => SizedBox(height: 25.h,),
+                          itemBuilder: (context, index) { 
+                                  
+                            //final item = data[index];
+                            final item = service.filteredList[index];
+                        
+                            if(service.filteredList.isNotEmpty){
+                              if(controller.selectedIndex == index) {
+                                return Container(
+                                  alignment: Alignment.center,
+                                  //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.bgColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColor.textGreyColor.withOpacity(0.2),
+                                        blurRadius: 0.2,
+                                        //spreadRadius: 0.1,
+                                        blurStyle: BlurStyle.solid
+                                      )
+                                    ]
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            //more vert icon
+                                            Row(
+                                                  mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                                  children: [
+                                                    //confirm bookings button
+                                                    item.booked_status == "PENDING CONFIRMATION" ?
+                                                    InkWell(
+                                                      onTap: () {
+                                                        service.confirmBooking(
+                                                          context: context, 
+                                                          bookingId: service.filteredList[index].id,
+                                                          client_name: item.bookingUserInfo.displayName,
+                                                        );
+                                                      },
+                                                      child: Container(
+                                                        height: 40.h,
+                                                        width: 80.w,
+                                                        alignment: Alignment.center,
+                                                        //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                                        decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(10.r),
+                                                          color: AppColor.mainColor,
                                                         ),
-                                                      ),
-                                                    ),
-                                                  ) : SizedBox(),
-                              
-                                                  //more vert button
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      bookingsListDialogueBox(
-                                                        service: service,
-                                                        serviceDate: item.serviceDetails.date,
-                                                        serviceTime: item.serviceDetails.time,
-                                                        serviceDuration: item.serviceDetails.duration,
-                                                        bookingId: item.id,
-                                                        onDelete: () {
-                                                          service.deleteBooking(
-                                                            context: context, 
-                                                            bookingId: item.id
-                                                          ).whenComplete(() => Get.back());
-                                                        },
-                                                        context: context, 
-                                                        serviceName: item.serviceDetails.serviceName,
-                                                        client_name: item.bookingUserInfo.displayName,
-                                                      );
-                                                    }, 
-                                                    icon: Icon(
-                                                      Icons.more_vert_rounded,
-                                                      color: AppColor.blackColor,
-                                                    )
-                                                  )
-                                                ],
-                                              ),
-                              
-                                              SizedBox(height: 30.h,),
-                              
-                                              //beginning
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  CircleAvatar(
-                                                    backgroundColor: AppColor.greyColor,
-                                                    //backgroundImage: ,
-                                                    radius: 30.r,  //25,
-                                                    child: Text(
-                                                      //"",
-                                                      item.bookingUserInfo.displayName.toUpperCase().substring(0, 1), //.toUpperCase().substring(0, 1),
-                                                      style: GoogleFonts.inter(
-                                                        color: AppColor.darkGreyColor,
-                                                        fontSize: 14.sp,
-                                                        fontWeight: FontWeight.w600
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 10.w,),
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text(
-                                                          item.bookingUserInfo.displayName,
+                                                        child: Text(
+                                                          "Confirm",
                                                           style: GoogleFonts.inter(
-                                                            color: AppColor.darkGreyColor,
-                                                            fontSize: 14.sp,
-                                                            fontWeight: FontWeight.w600
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 2.h,),
-                                                        Text(
-                                                          item.serviceProviderInfo.userId.contains(userId) ? "booked you" : "you booked",
-                                                          //"booked you",//index.isEven ? "booked you" : "you booked",
-                                                          style: GoogleFonts.inter(
-                                                            color: AppColor.textGreyColor,
+                                                            color: AppColor.bgColor,
                                                             fontSize: 12.sp,
-                                                            fontWeight: FontWeight.w500
+                                                            fontWeight: FontWeight.w400
                                                           ),
-                                                        )
-                                                      ],
+                                                        ),
+                                                      ),
+                                                    ) : SizedBox(),
+                                
+                                                    //more vert button
+                                                    IconButton(
+                                                      onPressed: () {
+                                                        bookingsListDialogueBox(
+                                                          service: service,
+                                                          serviceDate: item.serviceDetails.date,
+                                                          serviceTime: item.serviceDetails.time,
+                                                          serviceDuration: item.serviceDetails.duration,
+                                                          bookingId: item.id,
+                                                          onDelete: () {
+                                                            service.deleteBooking(
+                                                              context: context, 
+                                                              bookingId: item.id
+                                                            ).whenComplete(() => Get.back());
+                                                          },
+                                                          context: context, 
+                                                          serviceName: item.serviceDetails.serviceName,
+                                                          client_name: item.bookingUserInfo.displayName,
+                                                        );
+                                                      }, 
+                                                      icon: Icon(
+                                                        Icons.more_vert_rounded,
+                                                        color: AppColor.blackColor,
+                                                      )
                                                     )
-                                                  ),
-                              
-                                                  Text(
-                                                    item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
-                                                    style: GoogleFonts.inter(
-                                                      color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
-                                                      fontSize: 12.sp,
-                                                      fontWeight: FontWeight.w500
+                                                  ],
+                                                ),
+                                
+                                                SizedBox(height: 30.h,),
+                                
+                                                //beginning
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      backgroundColor: AppColor.greyColor,
+                                                      //backgroundImage: ,
+                                                      radius: 30.r,  //25,
+                                                      child: Text(
+                                                        //"",
+                                                        item.bookingUserInfo.displayName.toUpperCase().substring(0, 1), //.toUpperCase().substring(0, 1),
+                                                        style: GoogleFonts.inter(
+                                                          color: AppColor.darkGreyColor,
+                                                          fontSize: 14.sp,
+                                                          fontWeight: FontWeight.w600
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                              
-                                                ],
-                                              ),
-                                              SizedBox(height: 10.h,),
-                                              Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
-                                              SizedBox(height: 10.h,),
-                              
-                                              //see proof of payment
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  InkWell(
-                                                    onTap: () {
-                                                      Get.to(() => SeePaymentProofPage(
-                                                        payment_proof: item.proof_of_payment,
-                                                      ));
-                                                    },
-                                                    child: Text(
-                                                      "see proof of payment",
-                                                      style: GoogleFonts.inter(
-                                                        color: AppColor.darkGreyColor,
-                                                        fontSize: 12.sp,
-                                                        fontWeight: FontWeight.w500,
-                                                        fontStyle: FontStyle.italic,
-                                                        decoration: TextDecoration.underline,
-                                                        decorationColor: AppColor.darkGreyColor
+                                                    SizedBox(width: 10.w,),
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            item.bookingUserInfo.displayName,
+                                                            style: GoogleFonts.inter(
+                                                              color: AppColor.darkGreyColor,
+                                                              fontSize: 14.sp,
+                                                              fontWeight: FontWeight.w600
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 2.h,),
+                                                          Text(
+                                                            item.serviceProviderInfo.userId.contains(userId) ? "booked you" : "you booked",
+                                                            //"booked you",//index.isEven ? "booked you" : "you booked",
+                                                            style: GoogleFonts.inter(
+                                                              color: AppColor.textGreyColor,
+                                                              fontSize: 12.sp,
+                                                              fontWeight: FontWeight.w500
+                                                            ),
+                                                          )
+                                                        ],
                                                       )
                                                     ),
+                                
+                                                    Text(
+                                                      item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
+                                                      style: GoogleFonts.inter(
+                                                        color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w500
+                                                      ),
+                                                    ),
+                                
+                                                  ],
+                                                ),
+                                                SizedBox(height: 10.h,),
+                                                Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
+                                                SizedBox(height: 10.h,),
+                                
+                                                //see proof of payment
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        Get.to(() => SeePaymentProofPage(
+                                                          payment_proof: item.proof_of_payment,
+                                                        ));
+                                                      },
+                                                      child: Text(
+                                                        "see proof of payment",
+                                                        style: GoogleFonts.inter(
+                                                          color: AppColor.darkGreyColor,
+                                                          fontSize: 12.sp,
+                                                          fontWeight: FontWeight.w500,
+                                                          fontStyle: FontStyle.italic,
+                                                          decoration: TextDecoration.underline,
+                                                          decorationColor: AppColor.darkGreyColor
+                                                        )
+                                                      ),
+                                                    ),
+                                                  ]
+                                                ),
+                                
+                                                SizedBox(height: 30.h,),
+                                
+                                                //service name
+                                                Text(
+                                                  item.serviceDetails.serviceName,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w600
                                                   ),
-                                                ]
-                                              ),
-                              
-                                              SizedBox(height: 30.h,),
-                              
-                                              //service name
-                                              Text(
-                                                item.serviceDetails.serviceName,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w600
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h,),
-                                              Text(
-                                                "Booking Details",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500,
-                                                  decoration: TextDecoration.underline,
-                                                  decorationColor: AppColor.blackColor
+                                
+                                                SizedBox(height: 30.h,),
+                                                Text(
+                                                  "Booking Details",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500,
+                                                    decoration: TextDecoration.underline,
+                                                    decorationColor: AppColor.blackColor
+                                                  ),
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Appointment Date",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Appointment Date",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.serviceDetails.date,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.serviceDetails.date,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Appointment Time",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Appointment Time",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.serviceDetails.time,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.serviceDetails.time,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 5.h),
-                                              Text(
-                                                "West African Standard Time",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor.withOpacity(0.4),
-                                                  fontSize: 12.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 5.h),
+                                                Text(
+                                                  "West African Standard Time",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor.withOpacity(0.4),
+                                                    fontSize: 12.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Duration",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Duration",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.serviceDetails.duration,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.serviceDetails.duration,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Appointment Type",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Appointment Type",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.serviceDetails.appointmentType,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.serviceDetails.appointmentType,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Location",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Location",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.serviceDetails.location,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.serviceDetails.location,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Amount Received",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Amount Received",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                "N${item.serviceDetails.serviceFee}",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  "N${item.serviceDetails.serviceFee}",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Sender's Email",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
+                                
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Sender's Email",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
                                                 ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.bookingUserInfo.email,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.bookingUserInfo.email,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  ),
                                                 ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "Note",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w500
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "Note",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w500
+                                                  )
+                                                ),
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  item.serviceDetails.message,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
+                                                ),
+                                
+                                                SizedBox(height: 30.h),
+                                                Text(
+                                                  "This Booking was made on",
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor,
+                                                    //fontStyle: FontStyle.italic,
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400
+                                                  ),
+                                                ),
+                                                SizedBox(height: 10.h),
+                                                Text(
+                                                  convertServerTimeToDate(item.serviceDetails.createdAt),
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.darkGreyColor.withOpacity(0.5),
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.normal
+                                                  ),
                                                 )
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                item.serviceDetails.message,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
-                                                ),
-                                              ),
-                              
-                                              SizedBox(height: 30.h),
-                                              Text(
-                                                "This Booking was made on",
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor,
-                                                  //fontStyle: FontStyle.italic,
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.w400
-                                                ),
-                                              ),
-                                              SizedBox(height: 10.h),
-                                              Text(
-                                                convertServerTimeToDate(item.serviceDetails.createdAt),
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.darkGreyColor.withOpacity(0.5),
-                                                  fontSize: 14.sp,
-                                                  fontWeight: FontWeight.normal
-                                                ),
-                                              )
-                                              ///////////////////////////////////////    
-                                            
-                                            ],
+                                                ///////////////////////////////////////    
+                                              
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        ////////////////////
-                                        Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
-                              
-                                        //see more text button
-                                        Center(
-                                          child: TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                if (controller.selectedIndex == index) {
-                                                  // Collapse the selected item.
-                                                  controller.selectedIndex = -1;
-                                                } 
-                                                else {
-                                                  // Expand the selected item.
-                                                  controller.selectedIndex = index; 
-                                                }
-                                              });
-                                            }, 
-                                            child: Text(
-                                              controller.selectedIndex == index   ? 'See Less' : 'See More',
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.mainColor,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w600
-                                                //decoration: TextDecoration.underline,
+                                          ////////////////////
+                                          Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
+                                
+                                          //see more text button
+                                          Center(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  if (controller.selectedIndex == index) {
+                                                    // Collapse the selected item.
+                                                    controller.selectedIndex = -1;
+                                                  } 
+                                                  else {
+                                                    // Expand the selected item.
+                                                    controller.selectedIndex = index; 
+                                                  }
+                                                });
+                                              }, 
+                                              child: Text(
+                                                controller.selectedIndex == index   ? 'See Less' : 'See More',
+                                                style: GoogleFonts.inter(
+                                                  color: AppColor.mainColor,
+                                                  fontSize: 14.sp,
+                                                  fontWeight: FontWeight.w600
+                                                  //decoration: TextDecoration.underline,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(height: 10.h,),
-                                        ////////////////////
-                                  ],
-                                ),
-                              );
-                            }
-                            else {
-                                
-                              return Container(
-                                alignment: Alignment.center,
-                                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                decoration: BoxDecoration(
-                                  color: AppColor.bgColor,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColor.textGreyColor.withOpacity(0.2),
-                                      blurRadius: 0.2,
-                                      //spreadRadius: 0.1,
-                                      blurStyle: BlurStyle.solid
-                                    )
-                                  ]
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          //more vert icon
-                                          Row(
-                                            mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
-                                            children: [
-                                              //confirm bookings button
-                                              item.booked_status == "PENDING CONFIRMATION" ?
-                                              InkWell(
-                                                onTap: () {
-                                                  service.confirmBooking(
-                                                    context: context, 
-                                                    bookingId: item.id,
-                                                    client_name: item.bookingUserInfo.displayName,
-                                                  );
-                                                },
-                                                child: Container(
-                                                  height: 40.h,
-                                                  width: 80.w,
-                                                  alignment: Alignment.center,
-                                                  //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(10.r),
-                                                    color: AppColor.mainColor,
-                                                  ),
-                                                  child: Text(
-                                                    "Confirm",
-                                                    style: GoogleFonts.inter(
-                                                      color: AppColor.bgColor,
-                                                      fontSize: 12.sp,
-                                                      fontWeight: FontWeight.w400
+                                          SizedBox(height: 10.h,),
+                                          ////////////////////
+                                    ],
+                                  ),
+                                );
+                              }
+                              else {
+                                  
+                                return Container(
+                                  alignment: Alignment.center,
+                                  //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                  decoration: BoxDecoration(
+                                    color: AppColor.bgColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: AppColor.textGreyColor.withOpacity(0.2),
+                                        blurRadius: 0.2,
+                                        //spreadRadius: 0.1,
+                                        blurStyle: BlurStyle.solid
+                                      )
+                                    ]
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            //more vert icon
+                                            Row(
+                                              mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                              children: [
+                                                //confirm bookings button
+                                                item.booked_status == "PENDING CONFIRMATION" ?
+                                                InkWell(
+                                                  onTap: () {
+                                                    service.confirmBooking(
+                                                      context: context, 
+                                                      bookingId: item.id,
+                                                      client_name: item.bookingUserInfo.displayName,
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    height: 40.h,
+                                                    width: 80.w,
+                                                    alignment: Alignment.center,
+                                                    //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(10.r),
+                                                      color: AppColor.mainColor,
+                                                    ),
+                                                    child: Text(
+                                                      "Confirm",
+                                                      style: GoogleFonts.inter(
+                                                        color: AppColor.bgColor,
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w400
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ) : SizedBox(),
-                              
-                                              //more vert button
-                                              IconButton(
-                                                onPressed: () {
-                                                  bookingsListDialogueBox(
-                                                    service: service,
-                                                    serviceDate: item.serviceDetails.date,
-                                                    serviceTime: item.serviceDetails.time,
-                                                    serviceDuration: item.serviceDetails.duration,
-                                                    bookingId: item.id,
-                                                    onDelete: () {
-                                                      service.deleteBooking(
-                                                        context: context, 
-                                                        bookingId: item.id
-                                                      ).whenComplete(() => Get.back());
-                                                    },
-                                                    context: context, 
-                                                    serviceName: item.serviceDetails.serviceName,
-                                                    client_name: item.bookingUserInfo.displayName,
-                                                  );
-                                                }, 
-                                                icon: Icon(
-                                                  Icons.more_vert_rounded,
-                                                  color: AppColor.blackColor,
+                                                ) : SizedBox(),
+                                
+                                                //more vert button
+                                                IconButton(
+                                                  onPressed: () {
+                                                    bookingsListDialogueBox(
+                                                      service: service,
+                                                      serviceDate: item.serviceDetails.date,
+                                                      serviceTime: item.serviceDetails.time,
+                                                      serviceDuration: item.serviceDetails.duration,
+                                                      bookingId: item.id,
+                                                      onDelete: () {
+                                                        service.deleteBooking(
+                                                          context: context, 
+                                                          bookingId: item.id
+                                                        ).whenComplete(() => Get.back());
+                                                      },
+                                                      context: context, 
+                                                      serviceName: item.serviceDetails.serviceName,
+                                                      client_name: item.bookingUserInfo.displayName,
+                                                    );
+                                                  }, 
+                                                  icon: Icon(
+                                                    Icons.more_vert_rounded,
+                                                    color: AppColor.blackColor,
+                                                  )
                                                 )
-                                              )
-                                            ],
-                                          ),
-                              
-                                          SizedBox(height: 30.h,),
-                              
-                                          //beginning
-                                          Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  CircleAvatar(
-                                                    backgroundColor: AppColor.greyColor,
-                                                    //backgroundImage: ,
-                                                    radius: 30.r,  //25,
-                                                    child: Text(
-                                                      item.bookingUserInfo.displayName.toUpperCase().substring(0, 1),
+                                              ],
+                                            ),
+                                
+                                            SizedBox(height: 30.h,),
+                                
+                                            //beginning
+                                            Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    CircleAvatar(
+                                                      backgroundColor: AppColor.greyColor,
+                                                      //backgroundImage: ,
+                                                      radius: 30.r,  //25,
+                                                      child: Text(
+                                                        item.bookingUserInfo.displayName.toUpperCase().substring(0, 1),
+                                                        style: GoogleFonts.inter(
+                                                          color: AppColor.darkGreyColor,
+                                                          fontSize: 14.sp,
+                                                          fontWeight: FontWeight.w600
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 10.w,),
+                                                    Expanded(
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text(
+                                                            item.bookingUserInfo.displayName,
+                                                            style: GoogleFonts.inter(
+                                                              color: AppColor.darkGreyColor,
+                                                              fontSize: 14.sp,
+                                                              fontWeight: FontWeight.w600
+                                                            ),
+                                                          ),
+                                                          SizedBox(height: 2.h,),
+                                                          Text(
+                                                            item.serviceProviderInfo.userId.contains(userId) ? "booked you" : "you booked",
+                                                            //"booked you",//index.isEven ? "booked you" : "you booked",
+                                                            style: GoogleFonts.inter(
+                                                              color: AppColor.textGreyColor,
+                                                              fontSize: 12.sp,
+                                                              fontWeight: FontWeight.w500
+                                                            ),
+                                                          )
+                                                        ],
+                                                      )
+                                                    ),
+                                
+                                                    Text(
+                                                      item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
+                                                      style: GoogleFonts.inter(
+                                                        color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
+                                                        fontSize: 12.sp,
+                                                        fontWeight: FontWeight.w500
+                                                      ),
+                                                    ),
+                                
+                                                  ],
+                                                ),
+                                                SizedBox(height: 10.h,),
+                                                Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
+                                                SizedBox(height: 10.h,),
+                                                //date of booking
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      item.serviceDetails.date,
                                                       style: GoogleFonts.inter(
                                                         color: AppColor.darkGreyColor,
                                                         fontSize: 14.sp,
-                                                        fontWeight: FontWeight.w600
+                                                        fontWeight: FontWeight.w500
                                                       ),
                                                     ),
+                                                    SizedBox(width: 10.w,),
+                                                    /////////////
+                                                    item.bookingUserInfo.userId.contains(userId) ?
+                                                    SvgPicture.asset("assets/svg/sent_blue.svg")
+                                                    :SvgPicture.asset("assets/svg/received_yellow.svg")
+                                                    /////////////////
+                                                  ],
+                                                ),
+                                                SizedBox(height: 30.h,),
+                                                //service name
+                                                Text(
+                                                  item.serviceDetails.serviceName,
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 16.sp,
+                                                    fontWeight: FontWeight.w600
                                                   ),
-                                                  SizedBox(width: 10.w,),
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                ),
+                                                SizedBox(height: 30.h,),
+                                                //service time and duration
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      item.serviceDetails.time,
+                                                      style: GoogleFonts.inter(
+                                                        color: AppColor.blackColor,
+                                                        fontSize: 14.sp,
+                                                        fontWeight: FontWeight.w400
+                                                      ),
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
+                                                        SvgPicture.asset("assets/svg/time_icon.svg"),
+                                                        SizedBox(width: 10.w,),
                                                         Text(
-                                                          item.bookingUserInfo.displayName,
-                                                          style: GoogleFonts.inter(
-                                                            color: AppColor.darkGreyColor,
-                                                            fontSize: 14.sp,
-                                                            fontWeight: FontWeight.w600
-                                                          ),
-                                                        ),
-                                                        SizedBox(height: 2.h,),
-                                                        Text(
-                                                          item.serviceProviderInfo.userId.contains(userId) ? "booked you" : "you booked",
-                                                          //"booked you",//index.isEven ? "booked you" : "you booked",
+                                                          item.serviceDetails.duration,
                                                           style: GoogleFonts.inter(
                                                             color: AppColor.textGreyColor,
                                                             fontSize: 12.sp,
-                                                            fontWeight: FontWeight.w500
+                                                            fontWeight: FontWeight.w400
                                                           ),
-                                                        )
+                                                        ),
                                                       ],
-                                                    )
-                                                  ),
-                              
-                                                  Text(
-                                                    item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
-                                                    style: GoogleFonts.inter(
-                                                      color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
-                                                      fontSize: 12.sp,
-                                                      fontWeight: FontWeight.w500
                                                     ),
-                                                  ),
-                              
-                                                ],
-                                              ),
-                                              SizedBox(height: 10.h,),
-                                              Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
-                                              SizedBox(height: 10.h,),
-                                              //date of booking
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    item.serviceDetails.date,
+                                                  ],
+                                                ),
+                                                SizedBox(height: 30.h,),
+                                
+                                            //see proof of payment
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                InkWell(
+                                                  onTap: () {
+                                                    Get.to(() => SeePaymentProofPage(
+                                                      payment_proof: item.proof_of_payment,
+                                                    ));
+                                                  },
+                                                  child: Text(
+                                                    "see proof of payment",
                                                     style: GoogleFonts.inter(
                                                       color: AppColor.darkGreyColor,
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w500
-                                                    ),
+                                                      fontSize: 12.sp,
+                                                      fontStyle: FontStyle.italic,
+                                                      fontWeight: FontWeight.w500,
+                                                      decoration: TextDecoration.underline,
+                                                      decorationColor: AppColor.darkGreyColor
+                                                    )
                                                   ),
-                                                  SizedBox(width: 10.w,),
-                                                  /////////////
-                                                  item.bookingUserInfo.userId.contains(userId) ?
-                                                  SvgPicture.asset("assets/svg/sent_blue.svg")
-                                                  :SvgPicture.asset("assets/svg/received_yellow.svg")
-                                                  /////////////////
-                                                ],
-                                              ),
-                                              SizedBox(height: 30.h,),
-                                              //service name
-                                              Text(
-                                                item.serviceDetails.serviceName,
-                                                style: GoogleFonts.inter(
-                                                  color: AppColor.blackColor,
-                                                  fontSize: 16.sp,
-                                                  fontWeight: FontWeight.w600
                                                 ),
-                                              ),
-                                              SizedBox(height: 30.h,),
-                                              //service time and duration
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Text(
-                                                    item.serviceDetails.time,
-                                                    style: GoogleFonts.inter(
-                                                      color: AppColor.blackColor,
-                                                      fontSize: 14.sp,
-                                                      fontWeight: FontWeight.w400
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.start,
-                                                    children: [
-                                                      SvgPicture.asset("assets/svg/time_icon.svg"),
-                                                      SizedBox(width: 10.w,),
-                                                      Text(
-                                                        item.serviceDetails.duration,
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.textGreyColor,
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w400
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(height: 30.h,),
-                              
-                                          //see proof of payment
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  Get.to(() => SeePaymentProofPage(
-                                                    payment_proof: item.proof_of_payment,
-                                                  ));
-                                                },
-                                                child: Text(
-                                                  "see proof of payment",
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 12.sp,
-                                                    fontStyle: FontStyle.italic,
-                                                    fontWeight: FontWeight.w500,
-                                                    decoration: TextDecoration.underline,
-                                                    decorationColor: AppColor.darkGreyColor
-                                                  )
-                                                ),
-                                              ),
-                                            ]
-                                          ),
-                              
-                                        ]
-                                      )
-                                    ),
-                                    ////////////////////
-                                       
-                              
-                                    Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
-                              
-                                    //see more text button
-                                    Center(
-                                      child: TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            if (controller.selectedIndex == index) {
-                                              // Collapse the selected item.
-                                              controller.selectedIndex = -1;
-                                            } 
-                                            else {
-                                              // Expand the selected item.
-                                              controller.selectedIndex = index; 
-                                            }
-                                          });
-                                        }, 
-                                        child: Text(
-                                          controller.selectedIndex == index   ? 'See Less' : 'See More',
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.mainColor,
-                                            fontSize: 14.sp,
-                                            fontWeight: FontWeight.w600
-                                            //decoration: TextDecoration.underline,
+                                              ]
+                                            ),
+                                
+                                          ]
+                                        )
+                                      ),
+                                      ////////////////////
+                                         
+                                
+                                      Divider(color: AppColor.darkGreyColor.withOpacity(0.5), thickness: 0.5,),
+                                
+                                      //see more text button
+                                      Center(
+                                        child: TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              if (controller.selectedIndex == index) {
+                                                // Collapse the selected item.
+                                                controller.selectedIndex = -1;
+                                              } 
+                                              else {
+                                                // Expand the selected item.
+                                                controller.selectedIndex = index; 
+                                              }
+                                            });
+                                          }, 
+                                          child: Text(
+                                            controller.selectedIndex == index   ? 'See Less' : 'See More',
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.mainColor,
+                                              fontSize: 14.sp,
+                                              fontWeight: FontWeight.w600
+                                              //decoration: TextDecoration.underline,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(height: 10.h,),
-                                  ]
-                                )
-                              );
-                                
+                                      SizedBox(height: 10.h,),
+                                    ]
+                                  )
+                                );
+                                  
+                              }
+                                  
                             }
-                                
+                                  
+                            return BookingScreenEmptyState(
+                              onPressed: () {
+                                service.getUserBookings();
+                              },
+                            );
                           }
-                                
-                          return BookingScreenEmptyState(
-                            onPressed: () {
-                              service.getUserBookings();
-                            },
-                          );
-                        }
-                      ) : BookingScreenEmptyState(onPressed: () {},);
-                    }
+                        ) : BookingScreenEmptyState(onPressed: () {},);
+                      }
+                    ),
                   ),
                 );
               }

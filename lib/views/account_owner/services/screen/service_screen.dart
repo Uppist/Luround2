@@ -23,16 +23,31 @@ import '../../../../services/account_owner/data_service/local_storage/local_stor
 
 
 
-class ServicesPage extends StatelessWidget {
+class ServicesPage extends StatefulWidget {
   ServicesPage({super.key});
 
+  @override
+  State<ServicesPage> createState() => _ServicesPageState();
+}
+
+class _ServicesPageState extends State<ServicesPage> {
   var controller = Get.put(ServicesController());
+
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
   Future<void> _refresh() async {
     // Simulate a refresh by waiting for a short duration
     await Future.delayed(Duration(seconds: 1));
     await userService.getUserServices();
+  }
+
+  late Future<List<UserServiceModel>> userServiceFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    _refresh();
+    userServiceFuture = userService.getUserServices();
   }
 
   @override
@@ -94,11 +109,11 @@ class ServicesPage extends StatelessWidget {
             
               
             SizedBox(height: 20.h,),
-              
+               
               
             //Futurebuilder will start from here (will wrap this listview)
             FutureBuilder<List<UserServiceModel>>(
-              future: userService.getUserServices(),
+              future: userServiceFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());
@@ -123,21 +138,20 @@ class ServicesPage extends StatelessWidget {
                 //[Do this if anything sups]//
                 if (snapshot.hasData) {
               
-                  final data = snapshot.data!;
+                  final item = snapshot.data!;
 
                   //sort the resulting list by name
-                  final List<UserServiceModel> sortedList = data;
-      
-                  sortedList.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-                  userService.filterServicesList.clear();
-                  userService.filterServicesList.addAll(sortedList); 
-                  print("sorted data service list: $sortedList");
-                  print("filtered services list: ${userService.filterServicesList}");
+                  var data = <UserServiceModel>[].obs;
+                  //final List<UserServiceModel> sortedList = data;
+                  item.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+                  data.clear();
+                  data.addAll(item); 
+                  print("sorted data service list: $data");
               
                   return Expanded(
                     child: Obx(
                       () {
-                        return userService.filterServicesList.isNotEmpty ? ListView.separated(
+                        return data.isNotEmpty ? ListView.separated(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           physics: const BouncingScrollPhysics(),

@@ -97,6 +97,9 @@ dependencies:
   #paystack payment
   flutter_paystack_client: ^0.1.1
 
+  #refresh functionality
+  smartrefresh: ^0.0.2
+
   
 
 dependency_overrides:

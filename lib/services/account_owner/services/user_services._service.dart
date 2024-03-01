@@ -52,7 +52,6 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
   
-  
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
   Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
@@ -83,8 +82,8 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
-  var filterServicesList = <UserServiceModel>[].obs;
-  /*IO.Socket? socket;
+  /*var filterServicesList = <UserServiceModel>[].obs;
+  IO.Socket? socket;
   Stream<List<UserServiceModel>> getUserServices() async* {
     try {
       List<UserServiceModel> servicesList = [];

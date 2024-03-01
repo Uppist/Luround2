@@ -50,9 +50,43 @@ class QuotesService extends getx.GetxController {
       print("when query is not empty: $filteredSentQuotesList");
     }
   }
+
+  /////[GET LIST OF SENT QUOTES]//////
+  Future<List<SentQuotesResponse>>  getUserSentQuotes() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "quotes/sent-quotes",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user sent quotes fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //debugPrint("$response");
+        var finalResult = response.map((e) => SentQuotesResponse.fromJson(e)).toList();
+        sentQuotesList.clear();
+        sentQuotesList.addAll(finalResult);  //finalResult
+        print("user sent quotess list: $sentQuotesList");
+        return sentQuotesList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user sent quotes');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
   
 
-  IO.Socket? socket;
+  /*IO.Socket? socket;
   Stream<List<SentQuotesResponse>>  getUserSentQuotes() async* {
     try {
 
@@ -95,7 +129,7 @@ class QuotesService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
 
@@ -122,7 +156,42 @@ class QuotesService extends getx.GetxController {
     }
   }
 
-  Stream<List<ReceivedQuotesResponse>>  getUserReceivedQuotes() async* {
+
+  /////[GET LIST OF RECEIVED QUOTES]//////
+  Future<List<ReceivedQuotesResponse>>  getUserReceivedQuotes() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "quotes/received-quotes",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user received quotes fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //debugPrint("$response");
+        var finalResult = response.map((e) => ReceivedQuotesResponse.fromJson(e)).toList();
+        receivedQuotesList.clear();
+        receivedQuotesList.addAll(finalResult); 
+        debugPrint("received quotes list: $receivedQuotesList");
+        return receivedQuotesList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user received quotes');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+  /*Stream<List<ReceivedQuotesResponse>>  getUserReceivedQuotes() async* {
     try {
 
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
@@ -161,7 +230,7 @@ class QuotesService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
 
@@ -186,9 +255,43 @@ class QuotesService extends getx.GetxController {
       print("when query is not empty: $filteredDraftedQuotesList");
     }
   }
+
+  /////[GET LIST OF DRAFTED QUOTES]//////
+  Future<List<DraftedQuotesResponse>>  getUserDraftedQuotes() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "quotes/saved-quotes",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user drafted quotes fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+      
+        var finalResult = response.map((e) => DraftedQuotesResponse.fromJson(e)).toList();
+        draftedQuotesList.clear();
+        draftedQuotesList.addAll(finalResult);  //finalResult
+        debugPrint("drafted quotes list: $draftedQuotesList");
+        return draftedQuotesList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user drafted quotes');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
   
   
-  Stream<List<DraftedQuotesResponse>>  getUserDraftedQuotes() async* {
+  /*Stream<List<DraftedQuotesResponse>>  getUserDraftedQuotes() async* {
     try {
 
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
@@ -228,7 +331,7 @@ class QuotesService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
 
@@ -237,8 +340,6 @@ class QuotesService extends getx.GetxController {
 
   @override
   void dispose() {
-    // TODO: implement dispose
-    //socket!.dispose();
     super.dispose();
   }
 

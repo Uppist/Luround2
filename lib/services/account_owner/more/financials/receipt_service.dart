@@ -44,7 +44,41 @@ class ReceiptsService extends getx.GetxController {
     }
   }
 
-  IO.Socket? socket;
+  /////[GET LIST OF SENT RECEIPTS]//////
+  Future<List<ReceiptResponse>>  getUserSentReceipt() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "receipt/receipts",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user sent receipts fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //debugPrint("$response");
+        var finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
+        sentReceiptsList.clear();
+        sentReceiptsList.addAll(finalResult);
+        debugPrint("sent receipts list: $sentReceiptsList");
+        return sentReceiptsList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user sent receipts');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+  /*IO.Socket? socket;
   Stream<List<ReceiptResponse>> getUserSentReceipt() async* {
     try {
 
@@ -85,7 +119,7 @@ class ReceiptsService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
 
@@ -113,7 +147,43 @@ class ReceiptsService extends getx.GetxController {
     }
   }
 
-  Stream<List<ReceiptResponse>> getUserDraftedReceipt() async* {
+  
+  /////[GET LIST OF Saved RECEIPTS]//////
+  Future<List<ReceiptResponse>> getUserDraftedReceipt() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "receipt/saved-receipts",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user saved receipts fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        //debugPrint("$response");
+        var finalResult = response.map((e) => ReceiptResponse.fromJson(e)).toList();
+        draftedReceiptList.clear();
+        draftedReceiptList.addAll(finalResult);  //finalResult
+        debugPrint("darfted receipt list: $draftedReceiptList");
+        return draftedReceiptList;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to fetch user saved receipts');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+
+  /*Stream<List<ReceiptResponse>> getUserDraftedReceipt() async* {
     try {
 
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
@@ -153,7 +223,7 @@ class ReceiptsService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
 

@@ -284,9 +284,10 @@ class AccOwnerBookingService extends getx.GetxController {
     print("Cancelled $filteredList");
   }*/
 
-  /////////////////////////////////////////////////////////////////////////////////
 
-  /*Future<List<DetailsModel>> getUserBookings() async {
+
+  /////////////////////////////////////////////////////////////////////////////////
+  Future<List<DetailsModel>> getUserBookings() async {
     try {
 
       isLoading.value = true;
@@ -329,10 +330,10 @@ class AccOwnerBookingService extends getx.GetxController {
       isLoading.value = false;
       throw Exception("$e");
     }
-  }*/
+  }
 
 
-  IO.Socket? socket;
+  /*IO.Socket? socket;
   Stream<List<DetailsModel>> getUserBookings() async* {
     try {
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
@@ -381,7 +382,7 @@ class AccOwnerBookingService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
   

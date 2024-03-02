@@ -39,12 +39,13 @@ class BookingsPage extends StatefulWidget {
 
 class _BookingsPageState extends State<BookingsPage> {
 
+
   var controller = Get.put(BookingsController());
   var service = Get.put(AccOwnerBookingService());
   var userId = LocalStorage.getUserID();
 
   // GlobalKey for RefreshIndicator
-  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  /*final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
@@ -53,15 +54,30 @@ class _BookingsPageState extends State<BookingsPage> {
     service.filteredList.clear();
     service.filteredList.addAll(newData);
     print('updated service list: ${service.filteredList}');
+  }*/
+
+
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  Future<void> _refreshSS() async {
+    await Future.delayed(Duration(seconds: 1));
+    // Fetch new data here
+    final List<DetailsModel>  newData = (service.getUserBookingsSocket()) as List<DetailsModel>;
+    // Update the UI with the new data
+    // Update the UI with the new data
+    service.filteredList.clear();
+    service.filteredList.addAll(newData);
+    print('updated service list: ${service.filteredList}');
   }
 
 
-  late Future<List<DetailsModel>> userBookingFuture;
+  //late Future<List<DetailsModel>> userBookingFuture;
+  late Stream<List<DetailsModel>> userBookingStream;
   @override
   void initState() {
     super.initState();
-    //_refresh();
-    userBookingFuture = service.getUserBookings();
+ 
+    //userBookingFuture = service.getUserBookings();
+    userBookingStream = service.getUserBookingsSocket();
 
   }
 
@@ -171,8 +187,8 @@ class _BookingsPageState extends State<BookingsPage> {
           //SizedBox(height: 10.h,),
 
 
-            FutureBuilder<List<DetailsModel>>(
-              future: userBookingFuture,
+            StreamBuilder<List<DetailsModel>>(
+              stream: userBookingStream,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader(),);
@@ -192,12 +208,12 @@ class _BookingsPageState extends State<BookingsPage> {
                 if (snapshot.hasData) {
                   var data = snapshot.data!;
                   //sort the resulting list by name
-                  final List<DetailsModel> sortedList = data;
+                  //final List<DetailsModel> sortedList = data;
                   //sortedList.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
-                  sortedList.sort((a, b) => a.serviceDetails.createdAt.compareTo(b.serviceDetails.createdAt));
+                  //sortedList.sort((a, b) => a.serviceDetails.createdAt.compareTo(b.serviceDetails.createdAt));
                   service.filteredList.clear();
-                  service.filteredList.addAll(sortedList); 
-                  print("sorted data booking list: $sortedList");
+                  service.filteredList.addAll(data); 
+                  print("sorted data booking list: $data");
                   print("filtered booking list: ${service.filteredList}");
              
                   return Expanded(
@@ -209,7 +225,7 @@ class _BookingsPageState extends State<BookingsPage> {
                           backgroundColor: AppColor.mainColor,
                           key: _refreshKey,
                           onRefresh: () {
-                            return _refresh();
+                            return _refreshSS();
                           },
                           child: ListView.separated(
                             shrinkWrap: true,

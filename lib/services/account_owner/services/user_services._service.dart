@@ -53,6 +53,7 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
+  var servicesList = <UserServiceModel>[].obs;
   Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
@@ -64,7 +65,12 @@ class AccOwnerServicePageService extends getx.GetxController {
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
-        return response.map((e) => UserServiceModel.fromJson(e)).toList();
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesList.clear();
+        servicesList.addAll(finalResult);
+        print("user services list: $servicesList");
+        return servicesList;
       }
       else {
         isLoading.value = false;
@@ -82,11 +88,11 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
-  //var data = <UserServiceModel>[].obs;
-  /*IO.Socket? socket;
-  Stream<List<UserServiceModel>> getUserServices() async* {
+
+  IO.Socket? socket;
+  Stream<List<UserServiceModel>> getUserServicesSocket() async* {
     try {
-      List<UserServiceModel> servicesList = [];
+      List<UserServiceModel> servicesListSS = [];
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
         'autoConnect': false,
         'transports': ['websocket'],
@@ -105,9 +111,10 @@ class AccOwnerServicePageService extends getx.GetxController {
         //get the data
         List<dynamic> response = data; //jsonDecode(data);
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        servicesList.clear();
-        servicesList.addAll(finalResult);
-        print("user services list: $servicesList");
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesListSS.clear();
+        servicesListSS.addAll(finalResult);
+        print("user socket services list: $servicesList");
       });
 
 
@@ -117,7 +124,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       socket!.onError((err) => print("Error: $err"));
       
       //return the list
-      yield servicesList;
+      yield servicesListSS;
     }
     on SocketException catch(e, stacktrace) {
       throw SocketException("socket exception: $e => $stacktrace");
@@ -127,7 +134,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }*/
+  }
 
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
@@ -366,6 +373,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
+    getUserServices();
   }
 
 
@@ -373,7 +381,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
-    //socket!.dispose();
+    socket!.dispose();
     super.dispose();
   }
 

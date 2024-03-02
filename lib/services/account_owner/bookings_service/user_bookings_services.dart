@@ -309,6 +309,7 @@ class AccOwnerBookingService extends getx.GetxController {
         print("new_arr[0]: $result");
 
         var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
         
         dataList.clear();
         dataList.addAll(finalResult);
@@ -333,9 +334,10 @@ class AccOwnerBookingService extends getx.GetxController {
   }
 
 
-  /*IO.Socket? socket;
-  Stream<List<DetailsModel>> getUserBookings() async* {
+  IO.Socket? socket;
+  Stream<List<DetailsModel>> getUserBookingsSocket() async* {
     try {
+      
       socket = IO.io(baseService.socketUrl, <String, dynamic>{
         'autoConnect': false,
         'transports': ['websocket'],
@@ -360,6 +362,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
         result.addAll(result2);
         var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
         dataList.clear();
         dataList.addAll(finalResult);
         print("dataList: $dataList");
@@ -382,7 +385,7 @@ class AccOwnerBookingService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }*/
+  }
 
 
   
@@ -598,12 +601,13 @@ class AccOwnerBookingService extends getx.GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getUserBookings();
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    //socket!.dispose();
+    socket!.dispose();
     super.dispose();
   }
 

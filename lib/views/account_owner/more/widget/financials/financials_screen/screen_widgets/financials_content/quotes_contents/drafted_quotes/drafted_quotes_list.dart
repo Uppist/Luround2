@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/more/financials/quotes/drafted_quotes_response_model.dart';
 import 'package:luround/services/account_owner/more/financials/quotes_service.dart';
+import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/empty_state/financials_empty_state.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/drafted_quotes/drafted_quotes_display.dart';
@@ -28,8 +29,19 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
 
   var service = Get.put(QuotesService());
 
-  late Future<List<DraftedQuotesResponse>> draftedQuoteFuture;
+  // GlobalKey for RefreshIndicator
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    // Fetch new data here
+    final List<DraftedQuotesResponse>  newData = await service.getUserDraftedQuotes();
+    // Update the UI with the new data
+    newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
+    service.filteredDraftedQuotesList.clear();
+    service.filteredDraftedQuotesList.addAll(newData); 
+  }
 
+  late Future<List<DraftedQuotesResponse>> draftedQuoteFuture;
   @override
   void initState() {
     super.initState();
@@ -72,42 +84,50 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
           return Obx(
             () {
               return  service.filteredDraftedQuotesList.isNotEmpty ? Expanded(
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                  separatorBuilder: (context, index) => SizedBox(height: 20.h),
-                  itemCount: service.filteredDraftedQuotesList.length,
-                  //padding: EdgeInsets.symmetric(vertical: 10),
-                  itemBuilder: (context, index) {
+                child: RefreshIndicator.adaptive(
+                  color: AppColor.greyColor,
+                  backgroundColor: AppColor.mainColor,
+                  key: _refreshKey,
+                  onRefresh: () {
+                    return _refresh();
+                  },
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    separatorBuilder: (context, index) => SizedBox(height: 20.h),
+                    itemCount: service.filteredDraftedQuotesList.length,
+                    //padding: EdgeInsets.symmetric(vertical: 10),
+                    itemBuilder: (context, index) {
+                    
+                      final item = service.filteredDraftedQuotesList[index];
+                          
+                    
+                      return DraftedQuotesDisplay(
+                        onPressed: (){},
+                        tracking_id: item.tracking_id.toString(),
+                        created_at: item.created_at,
+                        quote_id: item.quote_id, 
+                        send_to_name: item.send_to_name,
+                        send_to_email: item.send_to_email,
+                        phone_number:item.phone_number,
+                        due_date: item.due_date,
+                        quote_date: item.quote_date,
+                        sub_total: item.sub_total,
+                        discount: item.discount,
+                        vat: item.vat,
+                        total: item.total,
+                        appointment_type: item.appointment_type,
+                        status: item.status,
+                        note: item.note,
+                        service_provider: item.service_provider,
+                        product_details: item.product_details
+                      );
                   
-                    final item = service.filteredDraftedQuotesList[index];
-        
-                  
-                    return DraftedQuotesDisplay(
-                      onPressed: (){},
-                      tracking_id: item.tracking_id.toString(),
-                      created_at: item.created_at,
-                      quote_id: item.quote_id, 
-                      send_to_name: item.send_to_name,
-                      send_to_email: item.send_to_email,
-                      phone_number:item.phone_number,
-                      due_date: item.due_date,
-                      quote_date: item.quote_date,
-                      sub_total: item.sub_total,
-                      discount: item.discount,
-                      vat: item.vat,
-                      total: item.total,
-                      appointment_type: item.appointment_type,
-                      status: item.status,
-                      note: item.note,
-                      service_provider: item.service_provider,
-                      product_details: item.product_details
-                    );
-                
-  
-                  }
+                    
+                    }
+                  ),
                 ),
               ) : FinancialsEmptyState(
                 titleText: 'No drafts yet',

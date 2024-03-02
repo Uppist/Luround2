@@ -23,6 +23,7 @@ import '../../../../services/account_owner/data_service/local_storage/local_stor
 
 
 
+
 class ServicesPage extends StatefulWidget {
   ServicesPage({super.key});
 
@@ -31,12 +32,14 @@ class ServicesPage extends StatefulWidget {
 }
 
 class _ServicesPageState extends State<ServicesPage> {
+
   var controller = Get.put(ServicesController());
-  var data = <UserServiceModel>[].obs;
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
+  //var data = <UserServiceModel>[].obs;
+
   // GlobalKey for RefreshIndicator
-  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  /*final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
@@ -45,15 +48,29 @@ class _ServicesPageState extends State<ServicesPage> {
     data.clear();
     data(newData);
     print('updated service list: $data');
+  }*/
+  
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  Future<void> _refreshSS() async {
+    await Future.delayed(Duration(seconds: 1));
+    // Fetch new data here
+    final List<UserServiceModel>  newData = (userService.getUserServicesSocket()) as List<UserServiceModel>;
+    // Update the UI with the new data
+    userService.servicesList.clear();
+    userService.servicesList.addAll(newData);
+    print('updated service list: ${userService.servicesList}');
   }
 
-  late Future<List<UserServiceModel>> userServiceFuture;
 
+
+  late Stream<List<UserServiceModel>> userServiceStream;
+  //late Future<List<UserServiceModel>> userServiceFuture;
   @override
   void initState() {
     super.initState();
-    _refresh();
-    userServiceFuture = userService.getUserServices();
+    //_refresh();
+    //userServiceFuture = userService.getUserServices();
+    userServiceStream = userService.getUserServicesSocket();
   }
 
   @override
@@ -113,8 +130,8 @@ class _ServicesPageState extends State<ServicesPage> {
              
             
           //Futurebuilder will start from here (will wrap this listview)
-          FutureBuilder<List<UserServiceModel>>(
-            future: userServiceFuture,
+          StreamBuilder<List<UserServiceModel>>(
+            stream: userServiceStream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Expanded(child: Loader());
@@ -140,10 +157,9 @@ class _ServicesPageState extends State<ServicesPage> {
               if (snapshot.hasData) {
             
                 final item = snapshot.data!;
+                var data = userService.servicesList;
       
                 //sort the resulting list by name
-                //final List<UserServiceModel> sortedList = data;
-                item.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
                 data.clear();
                 data.addAll(item); 
                 print("sorted data service list: $data");
@@ -156,7 +172,7 @@ class _ServicesPageState extends State<ServicesPage> {
                         backgroundColor: AppColor.mainColor,
                         key: _refreshKey,
                         onRefresh: () {
-                          return _refresh();
+                          return _refreshSS();
                         },
                         child: ListView.separated(
                           shrinkWrap: true,

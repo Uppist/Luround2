@@ -36,21 +36,19 @@ class _ServicesPageState extends State<ServicesPage> {
   var controller = Get.put(ServicesController());
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
-  //var data = <UserServiceModel>[].obs;
-
   // GlobalKey for RefreshIndicator
-  /*final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
     final List<UserServiceModel>  newData = await userService.getUserServices();
     // Update the UI with the new data
-    data.clear();
-    data(newData);
-    print('updated service list: $data');
-  }*/
+    userService.servicesList.clear();
+    userService.servicesList.addAll(newData);
+    print('updated service list: ${userService.servicesList}');
+  }
   
-  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+  /*final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refreshSS() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
@@ -59,18 +57,17 @@ class _ServicesPageState extends State<ServicesPage> {
     userService.servicesList.clear();
     userService.servicesList.addAll(newData);
     print('updated service list: ${userService.servicesList}');
-  }
+  }*/
 
 
 
-  late Stream<List<UserServiceModel>> userServiceStream;
-  //late Future<List<UserServiceModel>> userServiceFuture;
+  //late Stream<List<UserServiceModel>> userServiceStream;
+  late Future<List<UserServiceModel>> userServiceFuture;
   @override
   void initState() {
     super.initState();
-    //_refresh();
-    //userServiceFuture = userService.getUserServices();
-    userServiceStream = userService.getUserServicesSocket();
+    userServiceFuture = userService.getUserServices();
+    //userServiceStream = userService.getUserServicesSocket();
   }
 
   @override
@@ -130,8 +127,8 @@ class _ServicesPageState extends State<ServicesPage> {
              
             
           //Futurebuilder will start from here (will wrap this listview)
-          StreamBuilder<List<UserServiceModel>>(
-            stream: userServiceStream,
+          FutureBuilder<List<UserServiceModel>>(
+            future: userServiceFuture,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Expanded(child: Loader());
@@ -172,7 +169,7 @@ class _ServicesPageState extends State<ServicesPage> {
                         backgroundColor: AppColor.mainColor,
                         key: _refreshKey,
                         onRefresh: () {
-                          return _refreshSS();
+                          return _refresh();
                         },
                         child: ListView.separated(
                           shrinkWrap: true,

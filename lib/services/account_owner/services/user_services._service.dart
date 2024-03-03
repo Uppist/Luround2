@@ -67,10 +67,10 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-        servicesList.clear();
-        servicesList.addAll(finalResult);
-        print("user services list: $servicesList");
-        return servicesList;
+        //servicesList.clear();
+        //servicesList.addAll(finalResult);
+        //print("user services list: $servicesList");
+        return finalResult;
       }
       else {
         isLoading.value = false;
@@ -89,7 +89,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
 
-  IO.Socket? socket;
+  /*IO.Socket? socket;
   Stream<List<UserServiceModel>> getUserServicesSocket() async* {
     try {
       List<UserServiceModel> servicesListSS = [];
@@ -134,7 +134,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
@@ -373,7 +373,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
-    getUserServices();
+    //getUserServices();
   }
 
 
@@ -381,7 +381,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void dispose() {
     // TODO: implement dispose
-    socket!.dispose();
+    //socket!.dispose();
     super.dispose();
   }
 

@@ -10,7 +10,6 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/otp_confirmation_screen.dart';
 
 
 
@@ -54,7 +53,7 @@ class CRMService extends getx.GetxController {
 
       // Use addAll to add the filtered items to the list
       filteredContactList.addAll(contactList
-        .where((user) => user.client_name.toLowerCase().contains(query)) // == query
+        .where((user) => user.client_name.contains(query)) // == query
         .toList());
 
       print("when query is not empty: $filteredContactList");

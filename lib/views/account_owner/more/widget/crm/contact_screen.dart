@@ -102,9 +102,7 @@ class _ContactScreenState extends State<ContactScreen> {
               SearchTextField(
                 onFocusChanged: (val) {},
                 onFieldSubmitted: (val) {
-                  setState(() {
-                    service.filterContacts(val);
-                  });
+                  service.filterContacts(val);
                 },
                 hintText: "Search",
                 keyboardType: TextInputType.name,

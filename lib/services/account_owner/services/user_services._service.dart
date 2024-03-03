@@ -69,7 +69,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
         //servicesList.clear();
         //servicesList.addAll(finalResult);
-        //print("user services list: $servicesList");
+        print("user services list: $servicesList");
         return finalResult;
       }
       else {
@@ -373,7 +373,12 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
-    //getUserServices();
+    getUserServices().then(
+      (value) {
+        servicesList.clear();
+        servicesList.addAll(value);
+      }
+    );
   }
 
 

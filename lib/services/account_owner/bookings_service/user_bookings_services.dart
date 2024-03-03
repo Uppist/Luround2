@@ -317,7 +317,6 @@ class AccOwnerBookingService extends getx.GetxController {
         
         //return data list
         return dataList;
-        
 
       } else {
         isLoading.value = false;
@@ -334,7 +333,8 @@ class AccOwnerBookingService extends getx.GetxController {
   }
 
 
-  IO.Socket? socket;
+
+  /*IO.Socket? socket;
   Stream<List<DetailsModel>> getUserBookingsSocket() async* {
     try {
       
@@ -348,7 +348,7 @@ class AccOwnerBookingService extends getx.GetxController {
       socket!.connect();
 
       socket!.onConnect((ye) {
-        print('Connection established: $ye');
+        print('Connection established successfully');
         // Subscribe to the "user-bookings" event after connecting
         socket!.emit('user-bookings');
       });
@@ -385,7 +385,7 @@ class AccOwnerBookingService extends getx.GetxController {
       throw SocketException("websocket exception: $e => $stacktrace");
     }
 
-  }
+  }*/
 
 
   
@@ -601,13 +601,16 @@ class AccOwnerBookingService extends getx.GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    getUserBookings();
+    getUserBookings().then((value) {
+      filteredList.clear();
+      filteredList.addAll(value);
+    });
   }
 
   @override
   void dispose() {
     // TODO: implement dispose
-    socket!.dispose();
+    //socket!.dispose();
     super.dispose();
   }
 

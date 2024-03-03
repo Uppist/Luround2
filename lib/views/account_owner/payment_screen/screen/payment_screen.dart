@@ -57,7 +57,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                     //padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                     padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
                     //width: 500.w,
-                    height: 70.h,
+                    //height: 70.h,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: AppColor.bgColor,

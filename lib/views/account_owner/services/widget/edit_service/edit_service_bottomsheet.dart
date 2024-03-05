@@ -69,6 +69,7 @@ Future<void> editServiceDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
+                    Navigator.pop(context);
                     Get.to(() => EditServiceScreen(
                       serviceId: serviceId,
                       service_name: service_name,
@@ -102,6 +103,7 @@ Future<void> editServiceDialogueBox({
                 //2            
                 InkWell(
                   onTap: () {
+                    //Navigator.pop(context);
                     //shareServiceLink(link: service_link);
                   },
                   child: Row(
@@ -124,6 +126,7 @@ Future<void> editServiceDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
+                    Navigator.pop(context);
                     deleteServiceDialogueBox(
                       userId: userId,
                       email: email,

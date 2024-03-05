@@ -10,7 +10,8 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank
 import 'package:luround/views/account_owner/more/widget/settings/widget/customize_your_url/customize_url.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/password_settings/change_password_screen.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/settings_selector.dart';
-import 'package:luround/views/account_owner/payment_screen/screen/payment_screen.dart';
+import 'package:luround/views/account_owner/payment_screen/screen/payment_screen_for_app.dart';
+
 
 
 
@@ -77,7 +78,7 @@ class SettingsScreen extends StatelessWidget {
                 SettingsSelector(
                   text: "Pricing",
                   onFlip: () {
-                    Get.to(() => SubscriptionScreen());
+                    Get.to(() => const SubscriptionScreenInApp());
                   },
                 ),
                 SizedBox(height: 20.h,),

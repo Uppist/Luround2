@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/payment_screen/widget/monthly_sub.dart';
 import 'package:luround/views/account_owner/payment_screen/widget/yearly_sub.dart';
 
 
 
-class SubscriptionScreen extends StatefulWidget {
-  const SubscriptionScreen
-  ({super.key});
+
+
+class SubscriptionScreenAuth extends StatefulWidget {
+  const SubscriptionScreenAuth({super.key,});
 
   @override
-  State<SubscriptionScreen> createState() => _SubscriptionScreenState();
+  State<SubscriptionScreenAuth> createState() => _SubscriptionScreenAuthState();
 }
 
-class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTickerProviderStateMixin {
+class _SubscriptionScreenAuthState extends State<SubscriptionScreenAuth> with SingleTickerProviderStateMixin {
   
   late TabController tabController;
 
@@ -109,8 +112,16 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> with SingleTick
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      MonthlySubscriptionPage(),
-                      YearlySubscriptionPage()
+                      MonthlySubscriptionPage(
+                        onNavigate: () {
+                          Get.off(() => MainPage());
+                        },
+                      ),
+                      YearlySubscriptionPage(
+                        onNavigate: () {
+                          Get.off(() => MainPage());
+                        },
+                      )
                     ]
                   ),
                 ),

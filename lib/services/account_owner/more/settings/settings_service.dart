@@ -473,7 +473,8 @@ class SettingsService extends getx.GetxController {
       banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
 
       isLoading.value = false;
-      filteredSavedAccounts.value = List.from(banks);  //addAll(service.savedAccounts);
+      filteredSavedAccounts.clear();
+      filteredSavedAccounts.addAll(banks);
       print("loaded: ${filteredSavedAccounts}");
       return filteredSavedAccounts;
   
@@ -627,7 +628,7 @@ class SettingsService extends getx.GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
-    loadSavedBanksData();
+    //loadSavedBanksData();
     loadFetchedBank();
     super.onInit();
   }

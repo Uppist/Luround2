@@ -373,12 +373,6 @@ class AccOwnerServicePageService extends getx.GetxController {
   @override
   void onInit() {
     super.onInit();
-    getUserServices().then(
-      (value) {
-        servicesList.clear();
-        servicesList.addAll(value);
-      }
-    );
   }
 
 

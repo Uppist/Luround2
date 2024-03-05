@@ -62,6 +62,7 @@ Future<void> bookingsListDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
+                    Navigator.pop(context);
                     Get.off(() => RescheduleBookingPage(
                       bookingId: bookingId,
                       service_name: serviceName,
@@ -90,6 +91,7 @@ Future<void> bookingsListDialogueBox({
                 //2
                 InkWell(
                   onTap: () {
+                    Navigator.pop(context);
                     cancelBookingDialogueBox(
                       service: service,
                       context: context, 
@@ -118,11 +120,13 @@ Future<void> bookingsListDialogueBox({
                 //3
                 InkWell(
                   onTap: () {
+
                     deleteBookingsDialogueBox(
                       context: context, 
                       titleText: serviceName, 
                       onDelete: onDelete,
                     );
+                    
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

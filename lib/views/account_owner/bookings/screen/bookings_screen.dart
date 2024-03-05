@@ -307,7 +307,10 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                   service.deleteBooking(
                                                                     context: context, 
                                                                     bookingId: item.id
-                                                                  ).whenComplete(() => Get.back());
+                                                                  ).whenComplete(() {
+                                                                      Navigator.pop(context);
+                                                                      Navigator.pop(context);
+                                                                  });
                                                                 },
                                                                 context: context, 
                                                                 serviceName: item.serviceDetails.serviceName,

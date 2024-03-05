@@ -76,7 +76,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                             
                             InkWell(
                               onTap: () {
-                                Get.back();
+                                Navigator.pop(context);
                               },
                               child: Icon(
                                 Icons.arrow_back_rounded,

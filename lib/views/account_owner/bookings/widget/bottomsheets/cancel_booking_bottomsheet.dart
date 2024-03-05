@@ -108,7 +108,8 @@ Future<void> cancelBookingDialogueBox({
                 SizedBox(height: 25.h),
                 InkWell(
                   onTap: () {
-                    Get.back();
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   },
                   child: Container(
                     //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

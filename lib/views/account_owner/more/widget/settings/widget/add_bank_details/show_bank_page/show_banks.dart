@@ -37,6 +37,13 @@ class _ShowBanksState extends State<ShowBanks> {
     super.dispose();
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    service.loadSavedBanksData();
+  }
+
 
 
   @override
@@ -51,9 +58,9 @@ class _ShowBanksState extends State<ShowBanks> {
             SizedBox(height: 30.h),
             SearchBankTextField(
               onFieldSubmitted: (p0) {
-                setState(() {
+                //setState(() {
                   service.filterSavedBank(p0);
-                });
+                //});
               },
               hintText: 'Search',
               keyboardType: TextInputType.name,

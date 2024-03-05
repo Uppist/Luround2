@@ -12,7 +12,8 @@ import 'package:luround/views/account_owner/payment_screen/widget/custom_row.dar
 
 
 class MonthlySubscriptionPage extends StatelessWidget {
-  MonthlySubscriptionPage({super.key});
+  MonthlySubscriptionPage({super.key, required this.onNavigate});
+  final VoidCallback onNavigate;
 
   var paystackService = Get.put(PaystackClientService());
 
@@ -105,8 +106,8 @@ class MonthlySubscriptionPage extends StatelessWidget {
                 paystackService.payWithPaystack(
                   context: context, 
                   realAmount: 4200, 
-                  eventName: "Subscription", 
-                  companyEmail: "support@luround.com"
+                  companyEmail: "support@luround.com",
+                  onNavigate: onNavigate,
                 );
               }, 
               textColor: AppColor.bgColor,

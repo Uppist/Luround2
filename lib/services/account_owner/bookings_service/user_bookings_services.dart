@@ -472,6 +472,7 @@ class AccOwnerBookingService extends getx.GetxController {
           message: "booking successfully cancelled"
         ).whenComplete(() {
           //show meeting cancelled dialog
+          Navigator.pop(context);
           meetingCancelledBookingDialogueBox(context: context);
         });
         

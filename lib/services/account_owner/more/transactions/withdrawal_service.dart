@@ -804,7 +804,8 @@ class WithdrawalService extends getx.GetxController {
       banks.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
 
       isLoading.value = false;
-      filteredSavedAccounts.value = List.from(banks);  //addAll(service.savedAccounts);
+      filteredSavedAccounts.clear();
+      filteredSavedAccounts.addAll(banks);
       print("initState: ${filteredSavedAccounts}");
       return filteredSavedAccounts;
   

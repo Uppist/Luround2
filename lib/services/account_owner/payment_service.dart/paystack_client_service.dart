@@ -20,6 +20,7 @@ class PaystackClientService extends getx.GetxController {
    var baseService = getx.Get.put(BaseService());
 
   String _message = '';
+
   //bool hasUserPayed = false;
 
   Future<void> payWithPaystack({
@@ -32,6 +33,7 @@ class PaystackClientService extends getx.GetxController {
     try {
       
       int randNum = Random().nextInt(4000000);
+      String trxReference = "PAY_Sub_$randNum";
       double amount = (realAmount * 100) + (0.02 * (realAmount * 100));   //already added transaction charges
 
       //Charge Call
@@ -41,7 +43,7 @@ class PaystackClientService extends getx.GetxController {
       //..transactionCharge = (0.03 * (realAmount * 100)).toInt()
       //logged in luround user bears paystack charges
       ..bearer = Bearer.SubAccount
-      ..reference = "Ref_Luround_Subscription_$randNum";
+      ..reference = trxReference;
       //..account!.bank;
       //..accessCode = 'jetify'
 
@@ -68,7 +70,7 @@ class PaystackClientService extends getx.GetxController {
         await verifyPaystackPayment(
           onNavigate: onNavigate,
           context: context, 
-          trx_ref_number: randNum
+          trx_ref_number: trxReference
         );
       }
       else{
@@ -78,7 +80,7 @@ class PaystackClientService extends getx.GetxController {
           context: context ,
           message: _message
         );
-        debugPrint("error: $_message");
+        debugPrint("paystack error: $_message");
       }
     }
     catch (e) {
@@ -89,7 +91,7 @@ class PaystackClientService extends getx.GetxController {
 
   /////[VERIFY PAYMENT API]////// I.E, FOR SEARCHING OR FILTERING
   Future<dynamic> verifyPaystackPayment({
-    required int trx_ref_number,
+    required String trx_ref_number,
     required BuildContext context,
     required VoidCallback  onNavigate,
   }) async {

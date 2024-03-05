@@ -22,13 +22,13 @@ class NoSavedAccounts extends StatelessWidget {
       child: Container(
         color: AppColor.bgColor,
         alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(vertical: 30.h),
+        padding: EdgeInsets.symmetric(vertical: 10.h),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //SizedBox(height: 60.h,),
             SvgPicture.asset('assets/svg/no_acc.svg'),
-            SizedBox(height: 60.h,),
+            SizedBox(height: 30.h,),
             Text(
               'No saved account yet',
               style: GoogleFonts.inter(
@@ -41,7 +41,7 @@ class NoSavedAccounts extends StatelessWidget {
             ),
             SizedBox(height: 20.h,),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 40.w),
+              padding: EdgeInsets.symmetric(horizontal: 30.w),
               child: RichText(
                 text: TextSpan(
                   children: [

@@ -23,6 +23,7 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:luround/views/account_owner/payment_screen/screen/payment_screen_auth.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
@@ -107,58 +108,118 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         RegisterResponse response = RegisterResponse.fromJson(json.decode(res.body));
-        //save access token
-        await LocalStorage.saveToken(response.tokenData);
-        //check for existing token
-        var token = await LocalStorage.getToken();
-        //show the saved token
-        debugPrint("my token: $token");
-        // Decode the JWT token
-        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-        // Access the payload
-        if (decodedToken != null) {
-          print("Token payload: $decodedToken");
-          // Access specific claims
-          // Replace 'sub' with the actual claim you want
-          String userId = decodedToken['sub'];
-          String email = decodedToken['email'];
-          String displayName = decodedToken['displayName'];
-          int expDate = decodedToken['exp'];
-          await LocalStorage.saveTokenExpDate(expDate);
-          await LocalStorage.saveUserID(userId);
-          await LocalStorage.saveEmail(email);
-          await LocalStorage.saveUsername(displayName);
+        
+        //CHECK IF THE USER HAS PAID
+        if(response.account_status == "TRIAL") {
+          //save access token
+          await LocalStorage.saveToken(response.tokenData);
+          //check for existing token
+          var token = await LocalStorage.getToken();
+          //show the saved token
+          debugPrint("my token: $token");
+          // Decode the JWT token
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          // Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['sub'];
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
 
-          //await generateQrLink(urlSlug: email);
+            //await generateQrLink(urlSlug: email);
 
-          //isLoading.value = false;
+            //isLoading.value = false;
+            getx.Get.offAll(() => MainPage());
+            showMySnackBar(
+              context: context,
+              backgroundColor: AppColor.darkGreen,
+              message: "account created successfully"
+            ).whenComplete(() => sendPushNotification(
+                noti_title: "Account created successfuly", 
+                noti_body: "Hey $displayName, welcome to luround.",
+                fcm_token: FCMToken,
+                userID: userId
+              )
+            );
+
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //
+          /*isLoading.value = false;
           getx.Get.offAll(() => MainPage());
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
-            message: "account created successfully"
-          ).whenComplete(() => sendPushNotification(
-              noti_title: "Account created successfuly", 
-              noti_body: "Hey $displayName, welcome to luround.",
-              fcm_token: FCMToken,
-              userID: userId
-            )
-          );
-        } 
-        else {
-          print("Failed to decode JWT token.");
+           message: "account created successfully"
+          );*/
         }
-        //
-        /*isLoading.value = false;
-        getx.Get.offAll(() => MainPage());
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "account created successfully"
-        );*/
+        else if(response.account_status == "ACTIVE") {
+          //save access token
+          await LocalStorage.saveToken(response.tokenData);
+          //check for existing token
+          var token = await LocalStorage.getToken();
+          //show the saved token
+          debugPrint("my token: $token");
+          // Decode the JWT token
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          // Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['sub'];
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
 
+            //await generateQrLink(urlSlug: email);
+
+            //isLoading.value = false;
+            getx.Get.offAll(() => MainPage());
+            showMySnackBar(
+              context: context,
+              backgroundColor: AppColor.darkGreen,
+              message: "account created successfully"
+            ).whenComplete(() => sendPushNotification(
+                noti_title: "Account created successfuly", 
+                noti_body: "Hey $displayName, welcome to luround.",
+                fcm_token: FCMToken,
+                userID: userId
+              )
+            );
+
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //
+          /*isLoading.value = false;
+          getx.Get.offAll(() => MainPage());
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+           message: "account created successfully"
+          );*/
+        }
+        else{
+          getx.Get.to(() => SubscriptionScreenAuth());
+        }
         
-      } else {
+      } 
+      else {
         isLoading.value = false;
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==>${res.body}');
@@ -261,41 +322,84 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         LoginResponse response = LoginResponse.fromJson(json.decode(res.body));
-        await LocalStorage.saveToken(response.tokenData);
-        //LocalStorage.saveEmail(email);
-        debugPrint("my token: ${LocalStorage.getToken()}");
-        //check for existing token
-        var token = await LocalStorage.getToken();
-        // Decode the JWT token
-        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-        // Access the payload
-        if (decodedToken != null) {
-          print("Token payload: $decodedToken");
-          // Access specific claims
-          // Replace 'sub' with the actual claim you want
-          String userId = decodedToken['sub'];
-          String email = decodedToken['email'];
-          String displayName = decodedToken['displayName'];
-          int expDate = decodedToken['exp'];
-          await LocalStorage.saveTokenExpDate(expDate);
-          await LocalStorage.saveUserID(userId);
-          await LocalStorage.saveEmail(email);
-          await LocalStorage.saveUsername(displayName);
-        } 
-        else {
-          print("Failed to decode JWT token.");
+        
+        //CHECK IF THE USER HAS PAID
+        if(response.account_status == "TRIAL") {
+          await LocalStorage.saveToken(response.tokenData);
+          //LocalStorage.saveEmail(email);
+          debugPrint("my token: ${LocalStorage.getToken()}");
+          //check for existing token
+          var token = await LocalStorage.getToken();
+          // Decode the JWT token
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          // Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['sub'];
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //
+          //await generateQrLink(urlSlug: email);
+          //
+          isLoading.value = false;
+          getx.Get.offAll(() => MainPage());
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "login successful",
+          );
         }
-        //
-        //await generateQrLink(urlSlug: email);
-        //
-        isLoading.value = false;
-        getx.Get.offAll(() => MainPage());
-        //LuroundSnackBar.successSnackBar(message: "Welcome Onboard");
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "login successful",
-        );
+        else if(response.account_status == "ACTIVE") {
+          await LocalStorage.saveToken(response.tokenData);
+          //LocalStorage.saveEmail(email);
+          debugPrint("my token: ${LocalStorage.getToken()}");
+          //check for existing token
+          var token = await LocalStorage.getToken();
+          // Decode the JWT token
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          // Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['sub'];
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //
+          //await generateQrLink(urlSlug: email);
+          //
+          isLoading.value = false;
+          getx.Get.offAll(() => MainPage());
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "login successful",
+          );
+        }
+        else {
+          getx.Get.to(() => SubscriptionScreenAuth());
+        }
+
       } 
       else {
         isLoading.value = false;
@@ -494,40 +598,83 @@ class AuthService extends getx.GetxController {
         Map<String, dynamic> jsonResponse = res.data;
         // Access the "accessToken" from the response
         String accessToken = jsonResponse["accessToken"];
-
-        await LocalStorage.saveToken(accessToken);
-        var token = await LocalStorage.getToken();
-        print(token);
+        String account_status = jsonResponse["account_status"];
+    
+        //CHECK IF THE USER HAS PAID
+        if(account_status == "TRIAL") {
+          print(account_status);
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
         
-        // Decode the JWT token with the awesome package {JWT Decoder}
-        Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
 
-        //Access the payload
-        if (decodedToken != null) {
-          print("Token payload: $decodedToken");
-          // Access specific claims
-          // Replace 'sub' with the actual claim you want
-          String userId = decodedToken['userId']; //?? "user_id";
-          String email = decodedToken['email'];
-          String displayName = decodedToken['displayName'];
-          int expDate = decodedToken['exp'];
-          await LocalStorage.saveTokenExpDate(expDate);
-          await LocalStorage.saveUserID(userId);
-          await LocalStorage.saveEmail(email);
-          await LocalStorage.saveUsername(displayName);
-        } 
-        else {
-          print("Failed to decode JWT token.");
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //generate grlink
+          //await generateQrLink(urlSlug: email);
+          //move with agility to the next page
+          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "log in successful"
+          );
         }
-        //generate grlink
-        //await generateQrLink(urlSlug: email);
-        //move with agility to the next page
-        getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "log in successful"
-        );
+        else if(account_status == "ACTIVE") {
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+        
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //generate grlink
+          //await generateQrLink(urlSlug: email);
+          //move with agility to the next page
+          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "log in successful"
+          );
+        }
+        else {
+          getx.Get.offAll(() =>  SubscriptionScreenAuth()); 
+        }
 
       } 
       else {
@@ -553,7 +700,7 @@ class AuthService extends getx.GetxController {
       debugPrint("$e");
       debugPrint("trace: $stackTrace");
     }
-    on HttpException {
+    on Exception {
       isLoading.value = false;
       baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(

@@ -13,6 +13,7 @@ import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
+import 'package:luround/views/account_owner/payment_screen/widget/free_trial_banner.dart.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/page/edit_education_page.dart';
@@ -82,6 +83,8 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SafeArea(
           child: Column(
             children: [
+              const FreeTrialBanner(),
+              SizedBox(height: 5.h,),
               _buildHeaderSection(),
               Expanded(
                 child: SingleChildScrollView(

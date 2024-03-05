@@ -83,7 +83,7 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SafeArea(
           child: Column(
             children: [
-              const FreeTrialBanner(),
+              //const FreeTrialBanner(),
               SizedBox(height: 5.h,),
               _buildHeaderSection(),
               Expanded(

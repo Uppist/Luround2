@@ -124,7 +124,7 @@ class AuthService extends getx.GetxController {
             print("Token payload: $decodedToken");
             // Access specific claims
             // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['sub'];
+            String userId = decodedToken['userId'];
             String email = decodedToken['email'];
             String displayName = decodedToken['displayName'];
             int expDate = decodedToken['exp'];
@@ -337,7 +337,7 @@ class AuthService extends getx.GetxController {
             print("Token payload: $decodedToken");
             // Access specific claims
             // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['sub'];
+            String userId = decodedToken['userId'];
             String email = decodedToken['email'];
             String displayName = decodedToken['displayName'];
             int expDate = decodedToken['exp'];

@@ -215,7 +215,33 @@ class AuthService extends getx.GetxController {
           );*/
         }
         else{
-          getx.Get.to(() => SubscriptionScreenAuth());
+          //getx.Get.to(() => SubscriptionScreenAuth());
+          ////INACTIVE////
+          await LocalStorage.saveToken(response.tokenData);
+          var token = await LocalStorage.getToken();
+          print(token);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
         }
         
       } 
@@ -397,7 +423,33 @@ class AuthService extends getx.GetxController {
           );
         }
         else {
-          getx.Get.to(() => SubscriptionScreenAuth());
+          ////INACTIVE////
+          await LocalStorage.saveToken(response.tokenData);
+          var token = await LocalStorage.getToken();
+          print(token);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+        
         }
 
       } 
@@ -671,6 +723,37 @@ class AuthService extends getx.GetxController {
             message: "log in successful"
           );
         }
+        
+        //remove later
+        else if(account_status == "You are an old user") {
+          ////You are an old user////
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() => MainPage());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+        }
+      
         else {
           ////INACTIVE////
           await LocalStorage.saveToken(accessToken);
@@ -738,10 +821,9 @@ class AuthService extends getx.GetxController {
   }
   
   //to eliminate loop hole of user not trying to pay upon login, register, e.t.c
-  bool checkForUserInactive() {
-    var token = LocalStorage.getToken();
+  bool checkForUserInactive({required String token}) {
     print("check for token: $token");
-
+  
     // Decode the JWT token with the awesome package {JWT Decoder}
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
     String account_status = decodedToken['account_status'];

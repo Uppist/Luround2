@@ -17,6 +17,7 @@ class InvoiceResponse{
   final int created_at;
   //service provider bank details here
   final Map<String, dynamic> bank_details;
+  final bool invoice_generated_from_quote;
   
   
   InvoiceResponse({
@@ -37,10 +38,12 @@ class InvoiceResponse{
     required this.created_at,
     //
     required this.bank_details,
+    required this.invoice_generated_from_quote
   });
 
   factory InvoiceResponse.fromJson(Map<String, dynamic> json) {
     return InvoiceResponse( 
+      invoice_generated_from_quote: json['invoice_generated_from_quote'] ?? false,
       tracking_id: json['invoice_id'] ?? 0, 
       created_at: json['created_at'] ?? 0,
       service_provider: json['service_provider'] ?? {},

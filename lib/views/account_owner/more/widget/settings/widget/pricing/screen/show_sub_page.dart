@@ -195,11 +195,11 @@ class ShowSubscriptionPage extends StatelessWidget {
                       Obx(
                         () {
                           return service.isBillingHistoryActive.value ? ListView.separated(
-                            physics: const BouncingScrollPhysics(),
+                            physics: NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical, 
                             shrinkWrap: true,
                             separatorBuilder: (context, index) => SizedBox(height: 20.h,), 
-                            itemCount: 2,
+                            itemCount: 4,
                             itemBuilder: (context, index) {
                               return const BillingHistoryDisplay(
                                 payment_date: 'March 12, 2024',

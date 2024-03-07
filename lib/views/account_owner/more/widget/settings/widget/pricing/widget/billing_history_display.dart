@@ -19,7 +19,7 @@ class BillingHistoryDisplay extends StatelessWidget {
     return Container(
       alignment: Alignment.center,
       width: double.infinity,
-      padding: EdgeInsets.fromLTRB(20, 0, 20, 30),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
       decoration: BoxDecoration(
         color: AppColor.bgColor,
         borderRadius: BorderRadius.circular(5.r),
@@ -52,7 +52,7 @@ class BillingHistoryDisplay extends StatelessWidget {
           ),
           SizedBox(height: 10.h,),
           Divider(thickness: 0.3, color: Colors.grey,),
-          SizedBox(height: 20.h,),
+          SizedBox(height: 30.h,),
           //2
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

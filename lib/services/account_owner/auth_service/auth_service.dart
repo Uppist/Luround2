@@ -23,7 +23,7 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/payment_screen/screen/payment_screen_auth.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_auth.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
@@ -614,7 +614,6 @@ class AuthService extends getx.GetxController {
           if (decodedToken != null) {
             print("Token payload: $decodedToken");
             // Access specific claims
-            // Replace 'sub' with the actual claim you want
             String userId = decodedToken['userId']; //?? "user_id";
             String email = decodedToken['email'];
             String displayName = decodedToken['displayName'];
@@ -673,8 +672,34 @@ class AuthService extends getx.GetxController {
           );
         }
         else {
-          getx.Get.offAll(() =>  SubscriptionScreenAuth()); 
+          ////INACTIVE////
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
         }
+        //////////////
 
       } 
       else {
@@ -709,10 +734,24 @@ class AuthService extends getx.GetxController {
         message: "connection timed out"
       );
     }
-    on Exception catch(e, stackTrace){
-      // Handle errors
-      print('Error occurred: $e \n$stackTrace');
+
+  }
+  
+  //to eliminate loop hole of user not trying to pay upon login, register, e.t.c
+  bool checkForUserInactive() {
+    var token = LocalStorage.getToken();
+    print("check for token: $token");
+
+    // Decode the JWT token with the awesome package {JWT Decoder}
+    Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+    String account_status = decodedToken['account_status'];
+    if(account_status == "INACTIVE") {
+      return true;
     }
+    else{
+      return false;
+    }
+  
   }
 
   

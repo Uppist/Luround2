@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/payment_service.dart/paystack_client_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/payment_screen/widget/custom_row.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/custom_row.dart';
 
 
 
@@ -100,7 +100,7 @@ class YearlySubscriptionPage extends StatelessWidget {
                 PaymentRowText(
                   text: 'Sync your calendar',
                 ),
-                SizedBox(height: 90.h,),
+                SizedBox(height: 80.h,),
                 RebrandedReusableButton(
                   color: AppColor.navyBlue, 
                   text: "Choose Plan", 

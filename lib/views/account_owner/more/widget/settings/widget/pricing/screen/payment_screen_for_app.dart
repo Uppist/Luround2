@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/payment_screen/widget/monthly_sub.dart';
-import 'package:luround/views/account_owner/payment_screen/widget/yearly_sub.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/monthly_sub.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/yearly_sub.dart';
 
 
 
@@ -41,36 +42,26 @@ class _SubscriptionScreenInAppState extends State<SubscriptionScreenInApp> with 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.mainColor,
+      backgroundColor: AppColor.mainColor,  //darkMainColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
           
-            SizedBox(height: 20.h,),
+            SizedBox(height: 10.h,),
             //navigation button
-            SizedBox(
-              height: 15.h,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w,),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        //Navigator.pop(context);
-                        Get.back();
-                      },
-                      child: Icon(
-                        Icons.arrow_back,
-                        color: AppColor.bgColor,
-                      ),
-                    ),
-                      
-                  ],
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  //Navigator.pop(context);
+                  Get.back();
+                },
+                child: Icon(
+                  CupertinoIcons.xmark_circle,
+                  color: AppColor.bgColor,
+                  size: 36.r,
                 ),
               ),
-              
             ),
             
             SizedBox(height: 10.h,),

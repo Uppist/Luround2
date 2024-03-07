@@ -27,6 +27,7 @@ class UserModel {
   late final String luround_url;
   late final String company;
   late final String logo_url;
+  late final String account_status;
   late final List<dynamic> certificates;
   late final List<dynamic> media_links;
   
@@ -42,6 +43,7 @@ class UserModel {
     address = json['address'] ?? "address";
     luround_url = json["luround_url"] ?? "url";
     logo_url = json["logo_url"] ?? "logo_url";
+    account_status = json["account_status"] ?? "account_status";
     company = json["company"] ?? "company";
     certificates = json['certificates'] ?? [];
     media_links = json['media_links'] ?? [];
@@ -60,6 +62,7 @@ class UserModel {
     _data['address'] = address;
     _data["luround_url"] = luround_url;
     _data["logo_url"] = logo_url;
+    _data['account_status'] = account_status;
     _data["company"] = company;
     _data['certificates'] = certificates;
     _data['media_links'] = media_links;

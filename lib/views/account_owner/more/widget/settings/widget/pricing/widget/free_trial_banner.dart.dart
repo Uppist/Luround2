@@ -10,16 +10,23 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class FreeTrialBanner extends StatelessWidget {
-  const FreeTrialBanner({super.key});
+class FreeTrialBanner extends StatefulWidget {
+  FreeTrialBanner({super.key, required this.isCancelled});
+  bool isCancelled;
+
+  @override
+  State<FreeTrialBanner> createState() => _FreeTrialBannerState();
+}
+
+class _FreeTrialBannerState extends State<FreeTrialBanner> {
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 36.h, //40.h
+      height: 45.h, //40.h
       width: double.infinity,
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w,),
       color: AppColor.navyBlue,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -38,11 +45,14 @@ class FreeTrialBanner extends StatelessWidget {
           SizedBox(width: 10.w,),
           InkWell(
             onTap: () {
-              Navigator.pop(context);
+              setState(() {
+                widget.isCancelled = !widget.isCancelled;
+              });
             },
             child: Icon(
               CupertinoIcons.xmark,
               color: AppColor.bgColor,
+              size: 24.r,
             )
           ),
         ],

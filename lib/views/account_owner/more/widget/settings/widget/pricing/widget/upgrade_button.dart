@@ -24,7 +24,7 @@ class UpgradeButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
-          "Upgrade",
+          "Change",
           style: GoogleFonts.inter(
             textStyle: TextStyle(
               color: AppColor.bgColor,

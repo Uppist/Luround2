@@ -616,6 +616,13 @@ class SettingsService extends getx.GetxController {
 
 
 
+
+  ////PRICING STUFFS///
+  var isBillingHistoryActive = false.obs;
+
+
+
+
   @override
   void dispose() {
     // TODO: implement dispose

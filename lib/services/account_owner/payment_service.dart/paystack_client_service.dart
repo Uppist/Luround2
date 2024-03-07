@@ -33,7 +33,7 @@ class PaystackClientService extends getx.GetxController {
     try {
       
       int randNum = Random().nextInt(4000000);
-      String trxReference = "PAY_Sub_$randNum";
+      String trxReference = "PAY_$randNum";
       double amount = (realAmount * 100) + (0.02 * (realAmount * 100));   //already added transaction charges
 
       //Charge Call
@@ -110,7 +110,7 @@ class PaystackClientService extends getx.GetxController {
         showMySnackBar(
           backgroundColor: AppColor.greenColor,
           context: context ,
-          message: "stauts code: ${res.statusCode} => payment verification successful"
+          message: "status code: ${res.statusCode} => payment verification successful"
         ).whenComplete(() => onNavigate);
       }
       else {
@@ -120,7 +120,7 @@ class PaystackClientService extends getx.GetxController {
         showMySnackBar(
           backgroundColor: AppColor.redColor,
           context: context ,
-          message: "stauts code: ${res.statusCode} => payment verification failed"
+          message: "status code: ${res.statusCode} : ${res.body} => payment verification failed"
         );
       }
     } 

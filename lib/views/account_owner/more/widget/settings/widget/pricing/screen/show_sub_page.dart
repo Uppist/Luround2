@@ -5,12 +5,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/billings/widgets/add_card_button.dart';
-import 'package:luround/views/account_owner/more/widget/billings/no_payment_method.dart';
-import 'package:luround/views/account_owner/more/widget/billings/widgets/payment_card.dart';
-import 'package:luround/views/account_owner/more/widget/billings/widgets/upgrade_button.dart';
-import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
+import 'package:luround/views/account_owner/more/widget/settings/billings/widgets/add_card_button.dart';
+import 'package:luround/views/account_owner/more/widget/settings/billings/widgets/payment_card.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/billing_history_display.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/upgrade_button.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
 
 
 
@@ -20,11 +21,12 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 
-/*class SubscriptionScreen extends StatelessWidget {
+class ShowSubscriptionPage extends StatelessWidget {
 
-  SubscriptionScreen({super.key});
+  ShowSubscriptionPage({super.key});
    
   var controller = Get.put(MoreController());
+  var service = Get.put(SettingsService());
   
   @override
   Widget build(BuildContext context) {
@@ -83,7 +85,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
                   ),
                   SizedBox(width: 3.w,),
                   Text(
-                    "Billing",
+                    "Pricing",
                     style: GoogleFonts.inter(
                       color: AppColor.blackColor,
                       fontSize: 16.sp,
@@ -102,7 +104,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
           
             Expanded(
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: Column(
@@ -116,44 +118,104 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
                           fontWeight: FontWeight.w600
                         ),
                       ),
+
                       SizedBox(height: 5.h,),
                       Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      SizedBox(height: 10.h,),
+                      SizedBox(height: 15.h,),
+                      
                       Text(
-                        "You are using the free plan",
+                        "You are on a 30 days free trial plan",
+                        style: GoogleFonts.inter(
+                          color: AppColor.darkGreyColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+
+
+                      SizedBox(height: 30.h,),
+                      Text(
+                        "N0.00",
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
-                          fontSize: 16.sp,
+                          fontSize: 30.sp,
                           fontWeight: FontWeight.w600
                         ),
                       ),
-                      SizedBox(height: 20.h,),
-                      //upgrade subscription plan
-                      UpgradeButton(onPressed: () {},),
-                      SizedBox(height: 20.h,),
-                      //payment method row (add card)
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Payment Method",
-                            style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w600
+
+                      SizedBox(height: 30.h,),
+                      //upgrade/change subscription plan
+                      UpgradeButton(
+                        onPressed: () {
+                          Get.to(() => const SubscriptionScreenInApp());
+                        },
+                      ),
+        
+                      //SizedBox(height: 2,),
+                      
+                      SizedBox(height: 50.h,),
+
+                      //see billing history
+                      Obx(
+                        () {
+                          return InkWell(
+                            onTap: () {
+                              service.isBillingHistoryActive.value = !service.isBillingHistoryActive.value;
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "See Billing History",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                                service.isBillingHistoryActive.value ?
+                                Icon(
+                                  CupertinoIcons.chevron_down,
+                                  color: AppColor.blackColor,
+                                  size: 24.r,
+                                )
+                                :Icon(
+                                  CupertinoIcons.chevron_right,
+                                  color: AppColor.blackColor,
+                                  size: 24.r,
+                                )
+                              ],
                             ),
-                          ),
-                          AddCardButton(onPressed: () { },)
-                        ],
+                          );
+                        }
                       ),
                       //SizedBox(height: 2,),
                       Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      SizedBox(height: 20.h,),
+                      const SizedBox(height: 20,),
+                      Obx(
+                        () {
+                          return service.isBillingHistoryActive.value ? ListView.separated(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical, 
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) => SizedBox(height: 20.h,), 
+                            itemCount: 2,
+                            itemBuilder: (context, index) {
+                              return const BillingHistoryDisplay(
+                                payment_date: 'March 12, 2024',
+                                plan_type: 'Monthly plan',
+                                amount: 'N4,200',
+                              );
+                            }
+                          ): const SizedBox();
+                        }
+                      ),
+
                       
                       
                       /////EXPANDED/////
                       //NoPaymentMethodText(), //wrap with future builder
-                      ListView.separated(
+                      /*ListView.separated(
                         physics: NeverScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical, 
                         shrinkWrap: true,
@@ -168,31 +230,9 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
                             onDelete: () {}
                           );
                         }
-                      ),
-                      SizedBox(height: 40.h,),
-                      //see billing history
-                      InkWell(
-                        onTap: () {},
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "See Billing History",
-                              style: GoogleFonts.inter(
-                                color: AppColor.darkGreyColor,
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w600
-                              ),
-                            ),
-                            Icon(
-                              CupertinoIcons.chevron_right,
-                              color: AppColor.blackColor,
-                            )
-                          ],
-                        ),
-                      ),
-                      //SizedBox(height: 2,),
-                      Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
+                      ),*/
+                      
+        
               
               
                     ],
@@ -205,4 +245,4 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
       )
     );
   }
-}*/
+}

@@ -13,7 +13,7 @@ import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
-import 'package:luround/views/account_owner/payment_screen/widget/free_trial_banner.dart.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/free_trial_banner.dart.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/page/edit_education_page.dart';
@@ -66,6 +66,9 @@ class _ProfilePageState extends State<ProfilePage> {
     print('updated profile data: $newData');
     return newData;
   }
+
+  //is free trial banner cancelled
+  final bool isCancelled = false;
   
 
 
@@ -83,8 +86,8 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SafeArea(
           child: Column(
             children: [
-              //const FreeTrialBanner(),
-              SizedBox(height: 5.h,),
+              //isCancelled ? SizedBox() : FreeTrialBanner(isCancelled: isCancelled,),
+              //SizedBox(height: 5.h,),
               _buildHeaderSection(),
               Expanded(
                 child: SingleChildScrollView(
@@ -268,7 +271,7 @@ class _ProfilePageState extends State<ProfilePage> {
         if (snapshot.hasData) {
           var data = snapshot.data!;
           //&& data.company.isEmpty && data.logo_url.isEmpty
-          if(data.occupation.isEmpty && data.about.isEmpty && data.certificates.isEmpty && data.media_links.isEmpty) {
+          /*if(data.occupation.isEmpty || data.about.isEmpty  || data.media_links.isEmpty) {
             return ProfileEmptyState(
               onPressed: () {
                 Get.to(
@@ -284,11 +287,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     
               }
             );
-          }
+          }*/
         
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              data.account_status == "TRIAL" ? isCancelled ? SizedBox() : FreeTrialBanner(isCancelled: isCancelled) : SizedBox(),
+              //QRCODE Widget
               Container(
                 padding: EdgeInsets.symmetric(
                   horizontal: 40.w,
@@ -466,69 +471,87 @@ class _ProfilePageState extends State<ProfilePage> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 30.h),
-                  Container(
-                    color: AppColor.greyColor,
-                    width: double.infinity,
-                    height: 7.h,
+
+                 
+                  
+                  //////////////////////
+                  /*if(data.occupation.isEmpty || data.about.isEmpty  || data.media_links.isEmpty)
+                  ProfileEmptyState(
+                    onPressed: () {
+                      //userProfileService.getUserProfileDetails(email: userEmail);
+                    },
+                  ),*/
+                  
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 30.h),
+                      Container(
+                        color: AppColor.greyColor,
+                        width: double.infinity,
+                        height: 7.h,
+                      ),
+                      SizedBox(height: 30.h),
+                      data.about.isEmpty ? SizedBox() :
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: AboutSection(
+                          onPressed: () {
+                            Get.to(() => EditAboutPage(
+                              about: data.about,
+                            ));
+                          },
+                          text: data.about
+                        ),
+                      ),
+                      SizedBox(height: 30.h),
+                      /*Container(
+                        color: AppColor.greyColor,
+                        width: double.infinity,
+                        height: 7.h,
+                      ),
+                      SizedBox(height: 30.h),   
+                      data.certificates.isEmpty ? SizedBox() :                       
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: EducationAndCertificationSection(
+                          itemCount: data.certificates.length,
+                          eduAndCertList: data.certificates,
+                          onPressedEdit: () {
+                            Get.to(() => EditEducationPage());
+                          },     
+                        ),
+                      ),
+                      SizedBox(height: 30.h),*/
+                      Container(
+                        color: AppColor.greyColor,
+                        width: double.infinity,
+                        height: 7.h,
+                      ),
+                      SizedBox(height: 30.h),
+                      data.media_links.isEmpty ? SizedBox() :
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: OtherDetailsSection(
+                          media_links: data.media_links,
+                          onPressedEdit: () {
+                            Get.to(() => EditOthersPage());
+                          },
+                          profileController: controller,
+                          profileService: userProfileService,
+                        ),
+                      ),
+                      SizedBox(height: 30.h),
+                      Container(
+                        color: AppColor.greyColor,
+                        width: double.infinity,
+                        height: 7.h,
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 30.h),
-                  data.about.isEmpty ? SizedBox() :
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: AboutSection(
-                      onPressed: () {
-                        Get.to(() => EditAboutPage(
-                          about: data.about,
-                        ));
-                      },
-                      text: data.about
-                    ),
-                  ),
-                  SizedBox(height: 30.h),
-                  /*Container(
-                    color: AppColor.greyColor,
-                    width: double.infinity,
-                    height: 7.h,
-                  ),
-                  SizedBox(height: 30.h),   
-                  data.certificates.isEmpty ? SizedBox() :                       
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: EducationAndCertificationSection(
-                      itemCount: data.certificates.length,
-                      eduAndCertList: data.certificates,
-                      onPressedEdit: () {
-                        Get.to(() => EditEducationPage());
-                      },     
-                    ),
-                  ),
-                  SizedBox(height: 30.h),*/
-                  Container(
-                    color: AppColor.greyColor,
-                    width: double.infinity,
-                    height: 7.h,
-                  ),
-                  SizedBox(height: 30.h),
-                  data.media_links.isEmpty ? SizedBox() :
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: OtherDetailsSection(
-                      media_links: data.media_links,
-                      onPressedEdit: () {
-                        Get.to(() => EditOthersPage());
-                      },
-                      profileController: controller,
-                      profileService: userProfileService,
-                    ),
-                  ),
-                  SizedBox(height: 30.h),
-                  Container(
-                    color: AppColor.greyColor,
-                    width: double.infinity,
-                    height: 7.h,
-                  ),
-                  //SizedBox(height: 30.h),
+                  //////////////////////
+                  
+
                   SizedBox(height: 50.h),
 
                   ///////[RUN CHECK]///////////////

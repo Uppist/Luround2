@@ -9,8 +9,9 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_sett
 import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/bank_details_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/customize_your_url/customize_url.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/password_settings/change_password_screen.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/show_sub_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/settings_selector.dart';
-import 'package:luround/views/account_owner/payment_screen/screen/payment_screen_for_app.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
 
 
 
@@ -78,7 +79,8 @@ class SettingsScreen extends StatelessWidget {
                 SettingsSelector(
                   text: "Pricing",
                   onFlip: () {
-                    Get.to(() => const SubscriptionScreenInApp());
+                    //Get.to(() => const SubscriptionScreenInApp());
+                    Get.to(() => ShowSubscriptionPage());
                   },
                 ),
                 SizedBox(height: 20.h,),

@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/payment_screen/widget/monthly_sub.dart';
-import 'package:luround/views/account_owner/payment_screen/widget/yearly_sub.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/monthly_sub.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/yearly_sub.dart';
 
 
 

@@ -7,6 +7,9 @@ import 'package:luround/utils/components/rebranded_reusable_button.dart';
 
 
 
+
+
+
 ///Alert Dialog
 Future<void> freeTrialEndsReminder({
   required BuildContext context,
@@ -14,15 +17,15 @@ Future<void> freeTrialEndsReminder({
   required VoidCallback onSelectPlan,
   required VoidCallback onDismiss,
 }) async{
-  showModalBottomSheet(
-    isDismissible: true,
-    backgroundColor: AppColor.bgColor,
+  showDialog(
+    barrierDismissible: true,
+    /*backgroundColor: AppColor.bgColor,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20.r),
         topRight: Radius.circular(20.r)
       )
-    ),
+    ),*/
     //useSafeArea: true,
     context: context, 
     builder: (context) {

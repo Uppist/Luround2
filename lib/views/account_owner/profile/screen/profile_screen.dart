@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/copy_to_clipboard.dart';
@@ -66,9 +65,6 @@ class _ProfilePageState extends State<ProfilePage> {
     print('updated profile data: $newData');
     return newData;
   }
-
-  //is free trial banner cancelled
-  final bool isCancelled = false;
   
 
 
@@ -292,7 +288,9 @@ class _ProfilePageState extends State<ProfilePage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              data.account_status == "TRIAL" ? isCancelled ? SizedBox() : FreeTrialBanner(isCancelled: isCancelled) : SizedBox(),
+              data.account_status == "TRIAL" 
+              ? FreeTrialBanner() 
+              : SizedBox(),
               //QRCODE Widget
               Container(
                 padding: EdgeInsets.symmetric(

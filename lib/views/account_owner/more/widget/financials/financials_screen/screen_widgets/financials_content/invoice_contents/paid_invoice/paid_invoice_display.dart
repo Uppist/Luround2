@@ -86,11 +86,20 @@ class PaidInvoiceDisplay extends StatelessWidget {
                   ),
                   SizedBox(width: 10.w,),
                   invoice_generated_from_quote ?
-                  Icon(
+                  Text(
+                    'from quote',
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreen,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400
+                    ),
+                  )
+                  /*Icon(
                     CupertinoIcons.doc_checkmark,
                     size: 24.r,
                     color: AppColor.darkGreen,
-                  ): SizedBox()
+                  )*/
+                  : SizedBox()
                 ],
               ),
               InvoicePaidDropDown(

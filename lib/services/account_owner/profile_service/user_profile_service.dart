@@ -26,6 +26,7 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
+
 class AccOwnerProfileService extends getx.GetxController {
 
   
@@ -38,6 +39,7 @@ class AccOwnerProfileService extends getx.GetxController {
   var authService = getx.Get.put(AuthService());
   
   final isLoading = false.obs;
+  var isBannerCancelled = false.obs;
   var userId = LocalStorage.getUserID();
   var userEmail = LocalStorage.getUseremail();
   var token = LocalStorage.getToken();

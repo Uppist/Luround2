@@ -40,6 +40,7 @@ class AccOwnerProfileService extends getx.GetxController {
   
   final isLoading = false.obs;
   var isBannerCancelled = false.obs;
+  
   var userId = LocalStorage.getUserID();
   var userEmail = LocalStorage.getUseremail();
   var token = LocalStorage.getToken();

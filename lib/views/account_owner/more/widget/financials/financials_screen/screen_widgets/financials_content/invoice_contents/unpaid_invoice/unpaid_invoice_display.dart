@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class UnpaidInvoiceDisplay extends StatelessWidget {
-  const UnpaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.service_provider,});
+  const UnpaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.service_provider, required this.invoice_generated_from_quote,});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -33,6 +33,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
   final List<dynamic> booking_detail;
   final String tracking_id;
   final int created_at;
+  final String invoice_generated_from_quote;
   //service provider bank details here
   final Map<String, dynamic> service_provider;
 
@@ -69,13 +70,34 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                tracking_id,
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    tracking_id,
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                  invoice_generated_from_quote == "True" ?
+                  Text(
+                    'from quote',
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreen,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400
+                    ),
+                  )
+                  /*Icon(
+                    CupertinoIcons.doc_checkmark,
+                    size: 24.r,
+                    color: AppColor.darkGreen,
+                  )*/
+                  : SizedBox()
+                ],
               ),
               InvoiceUnpaidDropDown(
                 bank_details: service_provider['bank_details'],

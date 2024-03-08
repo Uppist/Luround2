@@ -30,7 +30,7 @@ class DetailsModel {
   final String booked_status;
   final String proof_of_payment;
   final String payment_reference_id;
-  final bool booking_generated_from_invoice;
+  final String booking_generated_from_invoice;
 
   DetailsModel({
     required this.id,
@@ -54,7 +54,7 @@ class DetailsModel {
       booked_status: json["booked_status"] ?? 'non',
       payment_reference_id: json['payment_reference_id'] ?? "non",
       proof_of_payment: json['payment_proof'] ?? "no proof",
-      booking_generated_from_invoice: json['booking_generated_from_invoice'] ?? false
+      booking_generated_from_invoice: json['booking_generated_from_invoice'] ?? "False"
     );
   }
 }

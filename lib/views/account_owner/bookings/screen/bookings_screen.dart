@@ -261,7 +261,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   //more vert icon
-                                                  item.booking_generated_from_invoice ? 
+                                                  item.booking_generated_from_invoice == "True" ? 
                                                   Text(
                                                     'from invoice',
                                                     style: GoogleFonts.inter(
@@ -272,7 +272,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   )
                                                   :SizedBox(),
 
-                                                  SizedBox(height: 10.h),
+                                                  SizedBox(height: 5.h),
 
                                                   //more vert icon
                                                   Row(

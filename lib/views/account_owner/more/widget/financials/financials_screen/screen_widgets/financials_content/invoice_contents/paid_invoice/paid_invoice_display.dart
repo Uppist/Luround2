@@ -34,7 +34,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
   final List<dynamic> booking_detail;
   final String tracking_id;
   final int created_at;
-  final bool invoice_generated_from_quote;
+  final String invoice_generated_from_quote;
   //service provider bank details here
   final Map<String, dynamic> service_provider;
 
@@ -85,7 +85,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 10.w,),
-                  invoice_generated_from_quote ?
+                  invoice_generated_from_quote == "True" ?
                   Text(
                     'from quote',
                     style: GoogleFonts.inter(

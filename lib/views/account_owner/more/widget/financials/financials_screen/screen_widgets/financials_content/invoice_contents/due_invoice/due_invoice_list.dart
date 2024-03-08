@@ -58,6 +58,7 @@ class DueInvoiceList extends StatelessWidget {
                 
                 return DueInvoiceDisplay (
                   onPressed: (){},
+                  invoice_generated_from_quote: item.invoice_generated_from_quote,
                   service_provider: item.service_provider,
                   tracking_id: item.tracking_id.toString(),
                   created_at: item.created_at,

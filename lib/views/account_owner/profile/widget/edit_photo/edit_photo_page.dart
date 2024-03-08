@@ -210,7 +210,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 /////////////////////////////////////  
                                 
                                 Text(
-                                  'Personal Details',
+                                  'Personal details',
                                   style: GoogleFonts.inter(
                                     color: AppColor.blackColor,
                                     fontSize: 18.sp,
@@ -227,7 +227,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     fontWeight: FontWeight.w500
                                   )
                                 ),
-                                //SizedBox(height: 10.h,),
+                                SizedBox(height: 5.h,),
                                 UtilsTextField2(
                                   onChanged: (val) {                                      
                                     //setState(() {
@@ -249,7 +249,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     fontWeight: FontWeight.w500
                                   )
                                 ),
-                                //SizedBox(height: 10.h,),
+                                SizedBox(height: 5.h,),
                                 UtilsTextField2(
                                   onChanged: (val) {                                 
                                     controller.companyNameController.text = val;
@@ -269,7 +269,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     fontWeight: FontWeight.w500
                                   )
                                 ),
-                                //SizedBox(height: 10.h,),
+                                SizedBox(height: 5.h,),
                                 UtilsTextField2(
                                   onChanged: (val) {
                                     controller.occupationController.text = val;

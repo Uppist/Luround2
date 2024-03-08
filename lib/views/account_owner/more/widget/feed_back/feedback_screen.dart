@@ -92,79 +92,77 @@ class _FeedbackPageState extends State<FeedbackPage> {
               Expanded(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
-                  child: Container(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: 10.h),
-                          //1
-                          Text(
-                            "Subject",
-                            style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500
-                            ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10.h),
+                        //1
+                        Text(
+                          "Subject",
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500
                           ),
-                          SizedBox(height: 10.h),
-                          SubjectTextField(
-                            onChanged: (val) {},
-                            hintText: "Enter your subject here",
-                            keyboardType: TextInputType.name,
-                            textInputAction: TextInputAction.next,
-                            controller: controller.subjectController,
+                        ),
+                        SizedBox(height: 10.h),
+                        SubjectTextField(
+                          onChanged: (val) {},
+                          hintText: "Enter your subject here",
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          controller: controller.subjectController,
+                        ),
+                        SizedBox(height: 30.h),
+                        //2
+                        Text(
+                          "Description",
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500
                           ),
-                          SizedBox(height: 30.h),
-                          //2
-                          Text(
-                            "Description",
-                            style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          SizedBox(height: 10.h),
-                          FeedbackDescriptionTextField(
-                            onTap: () {
-                              /*setState(() {
-                                controller.isSubmit = true;
-                              });*/
-                            },
-                            onChanged: (val) {},
-                            hintText: "Enter the details of your request. Our team will respond as soon as possible.",
-                            keyboardType: TextInputType.text,
-                            textInputAction: TextInputAction.next,
-                            controller: controller.descriptionController,
-                          ),
-                          SizedBox(height: 450.h),  //390
-                          RebrandedReusableButton(
-                            textColor: AppColor.bgColor,
-                            color: AppColor.mainColor,
-                            text: "Submit", 
-                            onPressed: () {
-                              if(controller.subjectController.text.isNotEmpty && controller.descriptionController.text.isNotEmpty) {
-                                service.sendFeedback(
-                                  context: context, 
-                                  description: controller.descriptionController.text, 
-                                  subject: controller.subjectController.text
-                                );
-                              }
-                              else {
-                                showMySnackBar(
-                                  context: context,
-                                  backgroundColor: AppColor.redColor,
-                                  message: "fields must not be empty"
-                                );
-                              }
+                        ),
+                        SizedBox(height: 10.h),
+                        FeedbackDescriptionTextField(
+                          onTap: () {
+                            /*setState(() {
+                              controller.isSubmit = true;
+                            });*/
+                          },
+                          onChanged: (val) {},
+                          hintText: "Enter the details of your request. Our team will respond as soon as possible.",
+                          keyboardType: TextInputType.text,
+                          textInputAction: TextInputAction.next,
+                          controller: controller.descriptionController,
+                        ),
+                        SizedBox(height: 450.h),  //390
+                        RebrandedReusableButton(
+                          textColor: AppColor.bgColor,
+                          color: AppColor.mainColor,
+                          text: "Submit", 
+                          onPressed: () {
+                            if(controller.subjectController.text.isNotEmpty && controller.descriptionController.text.isNotEmpty) {
+                              service.sendFeedback(
+                                context: context, 
+                                description: controller.descriptionController.text, 
+                                subject: controller.subjectController.text
+                              );
                             }
-                          ),
-          
-                          SizedBox(height: 20.h),
-                        ],
-                      ),
+                            else {
+                              showMySnackBar(
+                                context: context,
+                                backgroundColor: AppColor.redColor,
+                                message: "fields must not be empty"
+                              );
+                            }
+                          }
+                        ),
+                            
+                        SizedBox(height: 20.h),
+                      ],
                     ),
                   ),
                 ),

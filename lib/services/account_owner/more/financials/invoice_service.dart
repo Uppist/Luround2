@@ -136,7 +136,7 @@ class InvoicesService extends getx.GetxController {
   var filteredDueInvoiceList = <InvoiceResponse>[].obs;
   
 
-  //check if today's date is 3 days before the unpaid invoice
+  //check if today's date is exactly 3 days before the unpaid invoice
   bool isDueInThreeDays(InvoiceResponse invoice) {
     // Get the current date
     DateTime currentDate = DateTime.now();
@@ -147,8 +147,8 @@ class InvoicesService extends getx.GetxController {
     // Calculate the difference in days
     int differenceInDays = dateTime.difference(currentDate).inDays;
 
-    // Check if the difference is 3 or more days
-    return differenceInDays >= 3;
+    // Check if the difference is exactly 3 days to the due date
+    return differenceInDays == 3; //>=
   }
 
   //check if an invoice is due

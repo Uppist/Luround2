@@ -725,7 +725,7 @@ class AuthService extends getx.GetxController {
         }
         
         //remove later
-        else if(account_status == "You are an old user") {
+        /*else if(account_status == "You are an old user") {
           ////You are an old user////
           await LocalStorage.saveToken(accessToken);
           var token = await LocalStorage.getToken();
@@ -752,7 +752,7 @@ class AuthService extends getx.GetxController {
           else {
             print("Failed to decode JWT token.");
           }
-        }
+        }*/
       
         else {
           ////INACTIVE////

@@ -12,7 +12,9 @@ import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/free_trial_banner.dart.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/free_trial_ending_reminder.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';
 import 'package:luround/views/account_owner/profile/widget/add_section/add_section_screen.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/page/edit_education_page.dart';
@@ -229,6 +231,21 @@ class _ProfilePageState extends State<ProfilePage> {
           var data = snapshot.data!;
           return InkWell(
             onTap: () {
+              
+              ////EXPIRY CHECK///
+              /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+              freeTrialEndsReminder(
+                context: context,
+                userName: data.displayName,
+                onDismiss: () {
+                  Get.back();
+                },
+                onSelectPlan: () {
+                  Get.off(() => SubscriptionScreenInApp());
+                },
+              ):*/
+
+              //
               Get.to(() => EditPhotoPage(
                   logo_url: data.logo_url,
                   displayName: data.displayName,
@@ -237,6 +254,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   photoUrl: data.photoUrl,
                 )
               );
+              //
             },
             child: SvgPicture.asset('assets/svg/edit.svg'),
           );

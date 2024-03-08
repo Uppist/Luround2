@@ -833,7 +833,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         sendInvoiceBottomSheet(
                           context: context,
                           onShare: () {
-                          service.createNewInvoiceAndSendToClient(
+                          service.createNewInvoiceAndSendToClientMarkTrue(
                             context: context, 
                             bank_name: widget.bank_details['bank'],
                             account_name: widget.bank_details['account_name'],

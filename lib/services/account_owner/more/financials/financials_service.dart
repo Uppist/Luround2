@@ -835,6 +835,7 @@ class FinancialsService extends getx.GetxController {
     update();
   } 
 
+
   ///[CREATE NEW QUOTE AND SEND IT TO CLIENT]//
   Future<void> createNewInvoiceAndSendToClient({
     required BuildContext context,
@@ -873,6 +874,7 @@ class FinancialsService extends getx.GetxController {
       "bank": bank_name,
       "account_name": account_name,
       "account_number": account_number,
+      "invoice_generated_from_quote": "False",
     };
 
     try {
@@ -942,6 +944,116 @@ class FinancialsService extends getx.GetxController {
       throw Exception("Something went wrong");
     }
   }
+
+  ///[CREATE NEW QUOTE AND SEND IT TO CLIENT Mark True]//
+  Future<void> createNewInvoiceAndSendToClientMarkTrue({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    required String note,
+    required String invoice_date,
+    required String due_date,
+    required String vat,
+    required String sub_total,
+    required String discount,
+    required String total,
+    required List<dynamic> booking_detail,
+    //service provider bank details here
+    required String bank_name,
+    required String account_name,
+    required String account_number,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      "send_to_name": client_name,
+      "send_to_email": client_email,
+      "phone_number": client_phone_number,
+      //"tracking_id": "#$tracking_id",
+      "note": note,
+      "due_date": due_date,
+      "vat": vat,
+      "sub_total": sub_total,
+      "discount": discount,
+      "total": total,
+      "product_detail": booking_detail,
+      //service provider bank details
+      "bank": bank_name,
+      "account_name": account_name,
+      "account_number": account_number,
+      "invoice_generated_from_quote": "True",
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "invoice/generate-invoice", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("invoice created and saved successfully to database");
+
+        //decode the response body here
+        final dynamic response = jsonDecode(res.body);
+        int invoice_id = response['invoice_id'];
+        String address = response['service_provider_address'] ?? "non";
+        String phone_number = response['service_provider_phone_number'] ?? "non";
+        // ignore: use_build_context_synchronously
+        finPdfService.shareInvoicePDF(
+          bank_name: bank_name,
+          account_name: account_name,
+          account_number: account_number,
+          sender_address: address,
+          sender_phone_number: phone_number,
+          context: context,
+          tracking_id: invoice_id.toString(),
+          receiver_email: client_email,
+          receiver_name: client_name,
+          receiver_phone_number: client_phone_number,
+          invoice_status: "SENT",
+          due_date: due_date,
+          subtotal: sub_total,
+          discount: discount,
+          vat: vat,
+          note: note,
+          grand_total: total,
+          serviceList: booking_detail,
+        ).whenComplete(() {
+          controller.invoiceClientEmailController.clear();
+          controller.invoiceClientNameController.clear();
+          controller.invoiceClientPhoneNumberController.clear();
+          controller.invoiceNoteController.clear();
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "invoice created and saved successfully"
+          ).whenComplete(() => getx.Get.back());
+    
+        });
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to save invoice ${res.body}"
+        );
+        //.whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
 
   ///[DELETE INVOICE FROM DB]//
   Future<void> deleteInvoiceFromDB({

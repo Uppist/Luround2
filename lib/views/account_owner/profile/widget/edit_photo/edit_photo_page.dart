@@ -8,6 +8,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/field_flipper.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_photo/customs/upload_logo.dart';
@@ -135,28 +136,17 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     child: SvgPicture.asset("assets/svg/edit_photo_icon.svg"),
                                   )
                                 ),
-                                SizedBox(height: 20.h),
-                                //Personal Details
-                                Text(
-                                  'Personal Details',
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.blackColor,
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.w600
-                                  )
-                                ),
+                        
                                 SizedBox(height: 20.h,),
                             
                                 //name textfield
-                              
-                                TextfieldFlipper(
+                                /*TextfieldFlipper(
                                   text: "Enter your name", 
                                   onFlip: () {    
                                     controller.isSuffixIconTapped2.value = !controller.isSuffixIconTapped2.value;                  
                                   }                    
                                 ),
-                  
-                                /////////////////////////////////////////
+                                            /////////////////////////////////////////
                                 controller.isSuffixIconTapped2.value ?
                                 Form(
                                   key: controller.formKey2,
@@ -216,11 +206,51 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       ],
                                     ),
                                   ),
-                                ) : SizedBox(),             
-                                /////////////////////////////////////                  
-                            
-                                SizedBox(height: 10.h,),
-                                OccupationTextField(
+                                ) : SizedBox(),*/             
+                                /////////////////////////////////////  
+                                
+                                Text(
+                                  'Personal Details',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w600
+                                  )
+                                ),
+                                SizedBox(height: 30.h,),
+
+                                Text(
+                                  'Enter your name',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                ),
+                                //SizedBox(height: 10.h,),
+                                UtilsTextField2(
+                                  onChanged: (val) {                                      
+                                    //setState(() {
+                                      controller.nameController.text = val;
+                                    //});
+                                  },
+                                  initialValue: widget.displayName,
+                                  hintText: 'Your full name',
+                                  keyboardType: TextInputType.name,
+                                  textInputAction: TextInputAction.next,
+                                ),
+                                SizedBox(height: 20.h,),
+
+                                Text(
+                                  'Enter your company name',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                ),
+                                //SizedBox(height: 10.h,),
+                                UtilsTextField2(
                                   onChanged: (val) {                                 
                                     controller.companyNameController.text = val;
                                   },
@@ -229,8 +259,18 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                   keyboardType: TextInputType.name,
                                   textInputAction: TextInputAction.next,
                                 ),
-                                SizedBox(height: 10.h,),
-                                OccupationTextField(
+                                SizedBox(height: 20.h,),
+
+                                Text(
+                                  'What do you do?',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                ),
+                                //SizedBox(height: 10.h,),
+                                UtilsTextField2(
                                   onChanged: (val) {
                                     controller.occupationController.text = val;
                                   },
@@ -239,7 +279,27 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                   keyboardType: TextInputType.text,
                                   textInputAction: TextInputAction.done,
                                 ),
-                                SizedBox(height: 30.h),
+                                SizedBox(height: 30.h,),
+
+                                Text(
+                                  'Upload Logo',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  )
+                                ),
+                                SizedBox(height: 20.h,),
+                                Text(
+                                  'Accepted file types: img, png, jpeg.\nMax size: 5mb',
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w400
+                                  )
+                                ),
+                                SizedBox(height: 30.h,),
+
                                 /////////////////
                                 profileService.isLogoSelected.value
                                 ?UploadedLogoForProfile(
@@ -270,8 +330,8 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     await profileService.updatePersonalDetails(
                                       logo_url: logoUrl.isEmpty ? widget.logo_url : logoUrl,
                                       context: context,
-                                      firstName: controller.firstNameController.text.isEmpty ? getFirstName(fullName: widget.displayName) : controller.firstNameController.text, 
-                                      lastName: controller.lastNameController.text.isEmpty ? getLastName(fullName: widget.displayName) : controller.lastNameController.text, 
+                                      firstName: controller.nameController.text.isEmpty ? getFirstName(fullName: widget.displayName) : getFirstName(fullName: controller.nameController.text), 
+                                      lastName: controller.nameController.text.isEmpty ? getLastName(fullName: widget.displayName) : getLastName(fullName: controller.nameController.text), 
                                       occupation: controller.occupationController.text.isEmpty ? widget.occupation : controller.occupationController.text,
                                       company: controller.companyNameController.text.isEmpty ? widget.company : controller.companyNameController.text
                                     ).whenComplete(() {

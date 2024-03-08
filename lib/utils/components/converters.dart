@@ -1,6 +1,25 @@
 import 'dart:core';
-
 import 'package:intl/intl.dart';
+
+
+
+
+
+
+
+DateTime convertNodeJSServerTimestampToDateObject({
+  required String serverTimestampStr
+  }) {
+  try {
+    DateTime dateTime = DateTime.parse(serverTimestampStr);
+    return dateTime;
+  } 
+  catch (e) {
+    throw Exception("error: $e");
+  }
+}
+
+
 
 // Function 1: Convert string to DateTime
 DateTime convertStringToDateTime(String dateString) {

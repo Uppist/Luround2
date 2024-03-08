@@ -30,7 +30,7 @@ class UserModel {
   late final String account_status;
   late final List<dynamic> certificates;
   late final List<dynamic> media_links;
-  late final String trial_expiry;
+  late final Map<String, dynamic> payment_details;
   
   UserModel.fromJson(Map<String, dynamic> json,){
     id = json['_id'] ?? "id";
@@ -48,7 +48,7 @@ class UserModel {
     company = json["company"] ?? "company";
     certificates = json['certificates'] ?? [];
     media_links = json['media_links'] ?? [];
-    trial_expiry = json['trial_expiry'] ?? 'no utc date';
+    payment_details = json['payment_details'] ?? {}; //expiry_date and // start_date
   }
 
   Map<String, dynamic> toJson() {
@@ -68,7 +68,7 @@ class UserModel {
     _data["company"] = company;
     _data['certificates'] = certificates;
     _data['media_links'] = media_links;
-    _data['trial_expiry'] = trial_expiry;
+    _data['payment_details'] = payment_details;
     return _data;
   }
 }

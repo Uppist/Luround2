@@ -146,6 +146,27 @@ class ProfilePageController extends getx.GetxController {
   bool isEmpty = true;
  
 
+  //check if todays date is 7days from the expiry date of the luround user
+  bool isFreeTrialPlanApproachingSevenDaysToEnd({required String server_timestamp}) {
+    debugPrint('ts: $server_timestamp');
+    // Get the current date
+    DateTime currentDate = DateTime.now();
+
+    // Convert the the due date string to a DateTime object
+    DateTime dateTime = DateTime.parse(server_timestamp);
+
+    // Calculate the difference in days
+    int differenceInDays = dateTime.difference(currentDate).inDays;
+    
+    debugPrint('date diff: $differenceInDays');
+
+    // Check if the difference is 3 or more days
+    return differenceInDays == 7; //>=
+  }
+
+
+
+
   //dispose function from getX
   @override
   void dispose() {

@@ -112,16 +112,8 @@ class _SubscriptionScreenAuthState extends State<SubscriptionScreenAuth> with Si
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      MonthlySubscriptionPage(
-                        onNavigate: () {
-                          Get.off(() => MainPage());
-                        },
-                      ),
-                      YearlySubscriptionPage(
-                        onNavigate: () {
-                          Get.off(() => MainPage());
-                        },
-                      )
+                      MonthlySubscriptionPageAuth(),
+                      YearlySubscriptionPageAuth()
                     ]
                   ),
                 ),

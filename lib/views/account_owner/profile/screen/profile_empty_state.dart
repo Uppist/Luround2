@@ -76,7 +76,8 @@ class ProfileEmptyState extends StatelessWidget {
             )
           ),
 
-          /*SizedBox(height: 60.h,),
+          SizedBox(height: 50.h,), //60.h
+          
           //ADD SECTION BUTTON
           InkWell(
             onTap: onPressed,
@@ -103,7 +104,7 @@ class ProfileEmptyState extends StatelessWidget {
                 )
               ),
             )
-          )*/
+          )
 
         ],
       ),

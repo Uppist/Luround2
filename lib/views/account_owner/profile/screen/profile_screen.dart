@@ -233,7 +233,7 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: () {
               
               ////EXPIRY CHECK///
-              /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+              controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
               freeTrialEndsReminder(
                 context: context,
                 userName: data.displayName,
@@ -243,9 +243,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 onSelectPlan: () {
                   Get.off(() => SubscriptionScreenInApp());
                 },
-              ):*/
+              ):
 
-              //
+              //navigate to this page regardless of the reminder dialog
               Get.to(() => EditPhotoPage(
                   logo_url: data.logo_url,
                   displayName: data.displayName,
@@ -346,6 +346,19 @@ class _ProfilePageState extends State<ProfilePage> {
                     //SEE ALL REVIEWS
                     TextButton(
                       onPressed: () {
+                        ////EXPIRY CHECK///
+                        controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+                        freeTrialEndsReminder(
+                          context: context,
+                          userName: data.displayName,
+                          onDismiss: () {
+                            Get.back();
+                          },
+                          onSelectPlan: () {
+                            Get.off(() => SubscriptionScreenInApp());
+                          },
+                        ):
+
                         Get.to(() => ReviewsPage());
                       }, 
                       child: Text(
@@ -513,6 +526,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: AboutSection(
                           onPressed: () {
+                            ////EXPIRY CHECK///
+                            controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+                            freeTrialEndsReminder(
+                              context: context,
+                              userName: data.displayName,
+                              onDismiss: () {
+                                Get.back();
+                              },
+                              onSelectPlan: () {
+                                Get.off(() => SubscriptionScreenInApp());
+                              },
+                            ):
+                            
+                            //
                             Get.to(() => EditAboutPage(
                               about: data.about,
                             ));

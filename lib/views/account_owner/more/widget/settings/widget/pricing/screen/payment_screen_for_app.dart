@@ -140,12 +140,8 @@ class _SubscriptionScreenInAppState extends State<SubscriptionScreenInApp> with 
                       controller: tabController,
                       physics: const BouncingScrollPhysics(),
                       children: [
-                        MonthlySubscriptionPage(onNavigate: () {
-                          Get.back();
-                        },),
-                        YearlySubscriptionPage(onNavigate: () {
-                          Get.back();
-                        },)
+                        MonthlySubscriptionPageApp(),
+                        YearlySubscriptionPageApp()
                       ]
                     ),
                   ),

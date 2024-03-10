@@ -36,6 +36,7 @@ class AccViewerServicesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Access the parameter using Get.parameters['userName']
     String userName = Get.parameters['user'] ?? 'DefaultUserName';
+    
     return Scaffold(
       backgroundColor: AppColor.greyColor,
       body: SafeArea(

@@ -12,6 +12,7 @@ import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
+import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 
@@ -23,16 +24,26 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class AccViewerReviewsPage extends StatelessWidget {
-  AccViewerReviewsPage({super.key, required this.userName, required this.photoUrl, required this.userId});
-  final String userName;
-  final String photoUrl;
-  final String userId;
+  AccViewerReviewsPage({super.key,});
+  //final String userName;
+  //final String photoUrl;
+  //final String userId;
 
   var controller = Get.put(ProfilePageAccViewerController());
   var service = Get.put(AccViewerService());
 
+
   @override
   Widget build(BuildContext context) {
+
+    // Get the arguments using Get.arguments
+    final Map<String, dynamic> arguments = Get.arguments;
+
+    // Access the arguments
+    final String userName = arguments['userName'];
+    final String photoUrl = arguments['photoUrl'];
+    final String userId = arguments['userId'];
+
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       appBar: AppBar(
@@ -77,11 +88,19 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.to(() => WriteReviewsPage(
+                            /*Get.to(() => WriteReviewsPage(
                               userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,
-                            ));
+                            ));*/
+                            Get.toNamed(
+                              WriteReviewRoute,
+                              arguments: {
+                                'userId': userId,
+                                'photoUrl': photoUrl,
+                                'userName': userName,
+                              }
+                            );
                           }, 
                           child: Text(
                            'Write a review',
@@ -130,11 +149,14 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.to(() => WriteReviewsPage(
-                              userId: userId,
-                              photoUrl: photoUrl,
-                              userName: userName,
-                            ));
+                            Get.toNamed(
+                              WriteReviewRoute,
+                              arguments: {
+                                'userId': userId,
+                                'photoUrl': photoUrl,
+                                'userName': userName,
+                              }
+                            );
                           }, 
                           child: Text(
                            'Write a review',
@@ -181,11 +203,14 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.to(() => WriteReviewsPage(
-                              userId: userId,
-                              photoUrl: photoUrl,
-                              userName: userName,
-                            ));
+                            Get.toNamed(
+                              WriteReviewRoute,
+                              arguments: {
+                                'userId': userId,
+                                'photoUrl': photoUrl,
+                                'userName': userName,
+                              }
+                            );
                           }, 
                           child: Text(
                             'Write a review',

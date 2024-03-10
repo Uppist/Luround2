@@ -23,13 +23,13 @@ import 'radio_section.dart';
 
 
 class RequestQuoteScreen extends StatefulWidget {
-  RequestQuoteScreen({super.key, required this.service_name, required this.service_provider_name, required this.service_provider_email, required this.service_id, required this.service_charge_virtual, required this.service_charge_inperson});
-  final String service_name;
-  final String service_id;
-  final String service_provider_name;
-  final String service_provider_email;
-  final String service_charge_virtual;
-  final String service_charge_inperson;
+  RequestQuoteScreen({super.key,});
+  //final String service_name;
+  //final String service_id;
+  //final String service_provider_name;
+  //final String service_provider_email;
+  //final String service_charge_virtual;
+  //final String service_charge_inperson;
 
   @override
   State<RequestQuoteScreen> createState() => _RequestQuoteScreenState();
@@ -40,20 +40,22 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
   var controller = Get.put(AccViewerServicesController());
   var service = Get.put(AccViewerService());
 
-  /*@override
-  void initState() {
-    // Add a listener to the text controller
-    controller.serviceNameController.addListener(() {
-      setState(() {
-        // Check if the text field is empty or not
-        controller.isButtonEnabled.value = controller.serviceNameController.text.isNotEmpty;
-      });
-    });
-    super.initState();
-  }*/
+
 
   @override
   Widget build(BuildContext context) {
+
+    // Get the arguments using Get.arguments
+    final Map<String, dynamic> arguments = Get.arguments;
+
+    // Access the arguments
+    final String service_name = arguments['service_name'];
+    final String service_id = arguments['service_id'];
+    final String service_provider_name = arguments['service_provider_name'];
+    final String service_provider_email = arguments['service_provider_email'];
+    final String service_charge_virtual = arguments['service_charge_virtual'];
+    final String service_charge_inperson = arguments['service_charge_inperson'];
+
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       appBar: AppBar(
@@ -170,7 +172,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             hintText: "Enter service name",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
-                            initialValue: widget.service_name,
+                            initialValue: service_name,
                           ),
                           SizedBox(height: 30.h),
                           Text(
@@ -184,8 +186,8 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 20.h,),
                           //appoint radio widget
                           AppointmentType(
-                            service_charge_inperson: widget.service_charge_inperson,
-                            service_charge_virtual: widget.service_charge_virtual,
+                            service_charge_inperson: service_charge_inperson,
+                            service_charge_virtual: service_charge_virtual,
                           ),
                           SizedBox(height: 30.h),
                           Text(
@@ -279,7 +281,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                     //do sumething
                                     service.requestQuote(
                                       context: context, 
-                                      service_id: widget.service_id, 
+                                      service_id: service_id, 
                                       offer: controller.offerController.text, 
                                       uploaded_file: controller.fileUrl.value, 
                                       appointment_type: controller.apppointment,

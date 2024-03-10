@@ -13,6 +13,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
+import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_accviewer.dart';
@@ -282,14 +283,28 @@ class AccViewerServicesPage extends StatelessWidget {
                                     //time
                                     TextButton(
                                       onPressed: () {
-                                        Get.to(() => RequestQuoteScreen(
+                                        /*Get.to(() => RequestQuoteScreen(
                                           service_charge_inperson: data[index].service_charge_in_person!,
                                           service_charge_virtual: data[index].service_charge_virtual!,
                                           service_name: data[index].service_name,
                                           service_provider_email: data[index].service_provider_details['email'],
                                           service_provider_name: data[index].service_provider_details['displayName'], 
                                           service_id: data[index].serviceId,
-                                        ));
+                                        ));*/
+                                        
+                                        Get.toNamed(
+                                          RequestQuoteRoute,
+                                          arguments: {
+                                            'service_charge_inperson': data[index].service_charge_in_person!,
+                                            'service_charge_virtual': data[index].service_charge_virtual!,
+                                            'service_name': data[index].service_name,
+                                            'service_provider_email': data[index].service_provider_details['email'],
+                                            'service_provider_name': data[index].service_provider_details['displayName'], 
+                                            'service_id': data[index].serviceId,
+                                          }
+                                        );
+
+
                                       },
                                       child: Text(
                                         "Request Quote",
@@ -310,7 +325,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                 //bookings button here
                                 ReusableButton(
                                   onPressed: () {
-                                    Get.to(() => BookAppointmentScreen(
+                                    /*Get.to(() => BookAppointmentScreen(
                                       service_provider_id: data[index].service_provider_details['userId'],
                                       avail_time: data[index].available_time,
                                       serviceId: data[index].serviceId,
@@ -320,7 +335,23 @@ class AccViewerServicesPage extends StatelessWidget {
                                       duration: data[index].duration!,
                                       service_charge_virtual: data[index].service_charge_virtual!,
                                       service_charge_in_person: data[index].service_charge_in_person!,
-                                    ));
+                                    ));*/
+
+                                    Get.toNamed(
+                                      BookingsRoute,
+                                      arguments: {
+                                        'service_provider_id': data[index].service_provider_details['userId'],
+                                        'avail_time': data[index].available_time,
+                                        'serviceId': data[index].serviceId,
+                                        'service_name': data[index].service_name,
+                                        'date': data[index].date,
+                                        'time': data[index].time,
+                                        'duration': data[index].duration!,
+                                        'service_charge_virtual': data[index].service_charge_virtual!,
+                                        'service_charge_in_person': data[index].service_charge_in_person!,
+                                      }
+                                    );
+
                                   },
                                   color: index.isEven ? AppColor.navyBlue : AppColor.mainColor,
                                   text: "Book Now",

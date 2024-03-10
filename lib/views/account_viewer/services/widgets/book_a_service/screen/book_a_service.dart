@@ -22,8 +22,8 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/ste
 
 
 class BookAppointmentScreen extends StatefulWidget {
-  BookAppointmentScreen({super.key, required this.serviceId, required this.service_name, required this.date, required this.time, required this.duration, required this.service_charge_virtual, required this.service_charge_in_person, required this.avail_time, required this.service_provider_id});
-  final String serviceId;
+  const BookAppointmentScreen({super.key,});
+  /*final String serviceId;
   final String service_name;
   final String service_provider_id;
   final String date;
@@ -31,7 +31,7 @@ class BookAppointmentScreen extends StatefulWidget {
   final String duration;
   final String service_charge_virtual;
   final String service_charge_in_person;
-  final List<dynamic> avail_time;
+  final List<dynamic> avail_time;*/
    
 
   @override
@@ -44,6 +44,20 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Get the arguments using Get.arguments
+    final Map<String, dynamic> arguments = Get.arguments;
+
+    final String serviceId = arguments['serviceId'];
+    final String service_name = arguments['service_name'];
+    final String service_provider_id = arguments['service_provider_id'];
+    final String date = arguments['date'];
+    final String time = arguments['time'];
+    final String duration = arguments['duration'];
+    final String service_charge_virtual = arguments['service_charge_virtual'];
+    final String service_charge_in_person = arguments['service_charge_in_person'];
+    final List<dynamic> avail_time = arguments['avail_time'];
+
     return Scaffold(
       backgroundColor: AppColor.bgColor,
       appBar: AppBar(
@@ -126,9 +140,9 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
           Step(
             title: Text(""), 
             content: Step1Screen(
-              service_name: widget.service_name,
-              service_charge_inperson: widget.service_charge_in_person,
-              service_charge_virtual: widget.service_charge_virtual,
+              service_name: service_name,
+              service_charge_inperson: service_charge_in_person,
+              service_charge_virtual: service_charge_virtual,
               onSubmit: () {
                 if(controller.curentStep < 2) {
                   setState(() {
@@ -177,19 +191,19 @@ class _BookAppointmentScreenState extends State<BookAppointmentScreen> {
             title: Text(""), 
             isActive: controller.curentStep >= 2,
             content: Step3Screen(
-              avail_time: widget.avail_time,
+              avail_time: avail_time,
               onSubmit: () {
                 //save all details before getting to the next screen
                 //booking details
                 Get.to(() => BookingDetails(
-                  service_provider_id: widget.service_provider_id,
-                  serviceId: widget.serviceId,
-                  service_name: widget.service_name,
-                  date: widget.date,
-                  time: widget.time,
-                  duration: widget.duration,
-                  service_charge_in_person: widget.service_charge_in_person,
-                  service_charge_virtual: widget.service_charge_virtual,
+                  service_provider_id: service_provider_id,
+                  serviceId: serviceId,
+                  service_name: service_name,
+                  date: date,
+                  time: time,
+                  duration: duration,
+                  service_charge_in_person: service_charge_in_person,
+                  service_charge_virtual: service_charge_virtual,
                 ));
               },
             ),

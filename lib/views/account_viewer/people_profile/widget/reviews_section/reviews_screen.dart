@@ -88,19 +88,20 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            /*Get.to(() => WriteReviewsPage(
+                            Get.to(() => WriteReviewsPage(
                               userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,
-                            ));*/
-                            Get.toNamed(
+                            ));
+
+                            /*Get.toNamed(
                               WriteReviewRoute,
                               arguments: {
                                 'userId': userId,
                                 'photoUrl': photoUrl,
                                 'userName': userName,
                               }
-                            );
+                            );*/
                           }, 
                           child: Text(
                            'Write a review',

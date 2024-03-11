@@ -21,10 +21,10 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class WriteReviewsPage extends StatefulWidget {
-  WriteReviewsPage({super.key,});
-  //final String photoUrl;
-  //final String userName;
-  //final String userId;
+  WriteReviewsPage({super.key, required this.photoUrl, required this.userName, required this.userId,});
+  final String photoUrl;
+  final String userName;
+  final String userId;
 
   @override
   State<WriteReviewsPage> createState() => _WriteReviewsPageState();
@@ -39,12 +39,11 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
   Widget build(BuildContext context) {
 
     // Get the arguments using Get.arguments
-    final Map<String, dynamic> arguments = Get.arguments;
-
+    /*final Map<String, dynamic> arguments = Get.arguments;
     // Access the arguments
     final String photoUrl = arguments['photoUrl'];
     final String userName = arguments['userName'];
-    final String userId = arguments['userId'];
+    final String userId = arguments['userId'];*/
 
     return Scaffold(
       backgroundColor: AppColor.bgColor,
@@ -67,7 +66,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
             onTap: () {
               if(controller.reviewController.value.text.isNotEmpty) {
                 service.addReview(
-                  userId: userId,
+                  userId: widget.userId,
                   context: context, 
                   rating: controller.rating.value, 
                   comment: controller.reviewController.value.text
@@ -131,17 +130,17 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         //Image
-                        photoUrl != "my_photo" ?
+                        widget.photoUrl != "my_photo" ?
                         CircleAvatar(
                           backgroundColor: AppColor.greyColor,
                           radius: 30.r,
-                          child: Image.network(photoUrl)   
+                          child: Image.network(widget.photoUrl)   
                         )
                         :CircleAvatar(
                           backgroundColor: AppColor.greyColor,
                           radius: 30.r,
                           child: Text(
-                            getFirstLetter(userName),
+                            getFirstLetter(widget.userName),
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 16.sp,
@@ -156,7 +155,7 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userName,
+                                widget.userName,
                                 style: GoogleFonts.inter(
                                   textStyle: TextStyle(
                                     color: AppColor.blackColor,

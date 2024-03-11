@@ -13,14 +13,13 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
-import 'package:luround/utils/components/pull_to_refresh.dart';
 import 'package:luround/views/account_owner/bookings/screen/booking_screen_empty_state.dart';
 import 'package:luround/views/account_owner/bookings/screen/see_proof_of_payment_screen.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/bookings_list_bottomsheet.dart';
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_bottomsheet.dart';
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_container.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
-import 'package:smartrefresh/smartrefresh.dart';
+
 
 
 

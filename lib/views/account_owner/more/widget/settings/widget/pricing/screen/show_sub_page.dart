@@ -202,9 +202,9 @@ class ShowSubscriptionPage extends StatelessWidget {
                             itemCount: 4,
                             itemBuilder: (context, index) {
                               return const BillingHistoryDisplay(
-                                payment_date: 'March 12, 2024',
+                                payment_date: 'March 20, 2024',
                                 plan_type: 'Monthly plan',
-                                amount: 'N4,200',
+                                amount: 'N4,500',
                               );
                             }
                           ): const SizedBox();

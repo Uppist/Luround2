@@ -25,7 +25,7 @@ class AppColor {
   static Color emptyPic = const Color.fromRGBO(211, 216, 225, 1);
   static Color yellowStar = const Color.fromRGBO(251, 177, 60, 1);
   static Color darkGreen = const Color.fromRGBO(68, 197, 102, 1);
-
+  static Color mainGreen = Color.fromRGBO(0,163,163, 1);
 
 
   //for services

@@ -24,10 +24,10 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class AccViewerReviewsPage extends StatelessWidget {
-  AccViewerReviewsPage({super.key,});
-  //final String userName;
-  //final String photoUrl;
-  //final String userId;
+  AccViewerReviewsPage({super.key, required this.userName, required this.photoUrl, required this.userId,});
+  final String userName;
+  final String photoUrl;
+  final String userId;
 
   var controller = Get.put(ProfilePageAccViewerController());
   var service = Get.put(AccViewerService());
@@ -36,13 +36,13 @@ class AccViewerReviewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    // Get the arguments using Get.arguments
-    final Map<String, dynamic> arguments = Get.arguments;
 
+    // Get the arguments using Get.arguments
+    /*final Map<String, dynamic> arguments = Get.arguments;
     // Access the arguments
     final String userName = arguments['userName'];
     final String photoUrl = arguments['photoUrl'];
-    final String userId = arguments['userId'];
+    final String userId = arguments['userId'];*/
 
     return Scaffold(
       backgroundColor: AppColor.bgColor,

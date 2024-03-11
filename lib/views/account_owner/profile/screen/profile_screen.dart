@@ -547,7 +547,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           text: data.about
                         ),
                       ),
-                      SizedBox(height: 30.h),
+                      data.about.isEmpty ? SizedBox() : SizedBox(height: 30.h),
                       /*Container(
                         color: AppColor.greyColor,
                         width: double.infinity,
@@ -566,12 +566,15 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       SizedBox(height: 30.h),*/
+                      data.about.isEmpty ? SizedBox() : 
                       Container(
                         color: AppColor.greyColor,
                         width: double.infinity,
                         height: 7.h,
                       ),
+                      data.about.isEmpty ? SizedBox() : 
                       SizedBox(height: 30.h),
+
                       data.media_links.isEmpty ? SizedBox() :
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -584,7 +587,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           profileService: userProfileService,
                         ),
                       ),
+
+                      data.media_links.isEmpty ? SizedBox() :
                       SizedBox(height: 30.h),
+
+                      data.media_links.isEmpty ? SizedBox() :
                       Container(
                         color: AppColor.greyColor,
                         width: double.infinity,

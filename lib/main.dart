@@ -73,8 +73,8 @@ void main() async{
   await GetStorage.init() ;
 
   //check for existing fcmtoken
-  //var token = LocalStorage.getFCMToken();
-  //print("my_FCMtoken: $token");
+  ///var token = LocalStorage.getFCMToken();
+  ///print("my_FCMtoken: $token");
 
   runApp(const MainApp());
 
@@ -145,35 +145,40 @@ class _MainAppState extends State<MainApp> {
         getPages: [
           
           GetPage(
+            //parameters: {"user": userName},
             name: ProfileRoute,
             page: () => SplashScreenXtra2(),
             curve: Curves.bounceInOut
           ),
-          GetPage(
+          /*GetPage(
+            parameters: {"user": userName},
             name: ReviewsRoute,
             page: () => AccViewerReviewsPage(),
             curve: Curves.bounceInOut,
           ),
           GetPage(
+            parameters: {"user": userName},
             name: RequestQuoteRoute,
             page: () => RequestQuoteScreen(),
             curve: Curves.easeInOut,
           ),
           GetPage(
+            parameters: {"user": userName},
             name: BookingsRoute,
             page: () => BookAppointmentScreen(),
             curve: Curves.easeInOut,
           ),
           GetPage(
+            parameters: {"user": userName},
             name: WriteReviewRoute,
             page: () => WriteReviewsPage(),
             curve: Curves.easeOutSine,
-          ),
+          ),*/
 
         ],
 
         //|| authService.checkForUserInactive(token: token)
-        //home: token == null || authService.isTokenExpired(tokenExpDate) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       ),
     );
   }

@@ -48,7 +48,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.r),
-              color: AppColor.badGreen,
+              color: AppColor.darkGreen,
               /*boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5) ,//withOpacity(0.2),
@@ -97,7 +97,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                         width: 230.w,
                         //width: double.infinity,
                         decoration: BoxDecoration(
-                          color: AppColor.badGreen,
+                          color: AppColor.darkGreen,
                           borderRadius: BorderRadius.circular(10.r),
                           border: Border.all(
                             color: AppColor.whiteTextColor,

@@ -472,7 +472,6 @@ class AccOwnerBookingService extends getx.GetxController {
           message: "booking successfully cancelled"
         ).whenComplete(() {
           //show meeting cancelled dialog
-          Navigator.pop(context);
           meetingCancelledBookingDialogueBox(context: context);
         });
         
@@ -572,7 +571,7 @@ class AccOwnerBookingService extends getx.GetxController {
           message: "booking rescheduled successfully"
         ).whenComplete(() {
           Navigator.pop(context);
-          Navigator.pop(context);
+          //Navigator.pop(context);
         });
       } 
       else {
@@ -587,7 +586,7 @@ class AccOwnerBookingService extends getx.GetxController {
           message: "failed to reschedule booking: ${res.statusCode} | ${res.body}"
         ).whenComplete(() {
           Navigator.pop(context);
-          Navigator.pop(context);
+          //Navigator.pop(context);
         });
       }
     } 

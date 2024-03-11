@@ -34,6 +34,7 @@ class AccViewerServicesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     // Access the parameter using Get.parameters['userName']
     String userName = Get.parameters['user'] ?? 'DefaultUserName';
     
@@ -284,16 +285,16 @@ class AccViewerServicesPage extends StatelessWidget {
                                     //time
                                     TextButton(
                                       onPressed: () {
-                                        /*Get.to(() => RequestQuoteScreen(
+                                        Get.to(() => RequestQuoteScreen(
                                           service_charge_inperson: data[index].service_charge_in_person!,
                                           service_charge_virtual: data[index].service_charge_virtual!,
                                           service_name: data[index].service_name,
                                           service_provider_email: data[index].service_provider_details['email'],
                                           service_provider_name: data[index].service_provider_details['displayName'], 
                                           service_id: data[index].serviceId,
-                                        ));*/
+                                        ));
                                         
-                                        Get.toNamed(
+                                        /*Get.toNamed(
                                           RequestQuoteRoute,
                                           arguments: {
                                             'service_charge_inperson': data[index].service_charge_in_person!,
@@ -302,8 +303,8 @@ class AccViewerServicesPage extends StatelessWidget {
                                             'service_provider_email': data[index].service_provider_details['email'],
                                             'service_provider_name': data[index].service_provider_details['displayName'], 
                                             'service_id': data[index].serviceId,
-                                          }
-                                        );
+                                          },
+                                        );*/
 
 
                                       },
@@ -326,7 +327,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                 //bookings button here
                                 ReusableButton(
                                   onPressed: () {
-                                    /*Get.to(() => BookAppointmentScreen(
+                                    Get.to(() => BookAppointmentScreen(
                                       service_provider_id: data[index].service_provider_details['userId'],
                                       avail_time: data[index].available_time,
                                       serviceId: data[index].serviceId,
@@ -336,9 +337,9 @@ class AccViewerServicesPage extends StatelessWidget {
                                       duration: data[index].duration!,
                                       service_charge_virtual: data[index].service_charge_virtual!,
                                       service_charge_in_person: data[index].service_charge_in_person!,
-                                    ));*/
+                                    ));
 
-                                    Get.toNamed(
+                                    /*Get.toNamed(
                                       BookingsRoute,
                                       arguments: {
                                         'service_provider_id': data[index].service_provider_details['userId'],
@@ -350,8 +351,8 @@ class AccViewerServicesPage extends StatelessWidget {
                                         'duration': data[index].duration!,
                                         'service_charge_virtual': data[index].service_charge_virtual!,
                                         'service_charge_in_person': data[index].service_charge_in_person!,
-                                      }
-                                    );
+                                      },
+                                    );*/
 
                                   },
                                   color: index.isEven ? AppColor.navyBlue : AppColor.mainColor,

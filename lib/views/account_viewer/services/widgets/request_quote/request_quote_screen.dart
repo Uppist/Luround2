@@ -11,6 +11,7 @@ import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
+import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/country_code_widget.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/phone_number_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
@@ -23,13 +24,13 @@ import 'radio_section.dart';
 
 
 class RequestQuoteScreen extends StatefulWidget {
-  RequestQuoteScreen({super.key,});
-  //final String service_name;
-  //final String service_id;
-  //final String service_provider_name;
-  //final String service_provider_email;
-  //final String service_charge_virtual;
-  //final String service_charge_inperson;
+  RequestQuoteScreen({super.key, required this.service_name, required this.service_id, required this.service_provider_name, required this.service_provider_email, required this.service_charge_virtual, required this.service_charge_inperson,});
+  final String service_name;
+  final String service_id;
+  final String service_provider_name;
+  final String service_provider_email;
+  final String service_charge_virtual;
+  final String service_charge_inperson;
 
   @override
   State<RequestQuoteScreen> createState() => _RequestQuoteScreenState();
@@ -45,16 +46,17 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
   @override
   Widget build(BuildContext context) {
 
-    // Get the arguments using Get.arguments
-    final Map<String, dynamic> arguments = Get.arguments;
+    
 
+    // Get the arguments using Get.arguments
+    /*final Map<String, dynamic> arguments = Get.arguments;
     // Access the arguments
     final String service_name = arguments['service_name'];
     final String service_id = arguments['service_id'];
     final String service_provider_name = arguments['service_provider_name'];
     final String service_provider_email = arguments['service_provider_email'];
     final String service_charge_virtual = arguments['service_charge_virtual'];
-    final String service_charge_inperson = arguments['service_charge_inperson'];
+    final String service_charge_inperson = arguments['service_charge_inperson'];*/
 
     return Scaffold(
       backgroundColor: AppColor.bgColor,
@@ -63,7 +65,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -172,7 +174,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             hintText: "Enter service name",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
-                            initialValue: service_name,
+                            initialValue: widget.service_name,
                           ),
                           SizedBox(height: 30.h),
                           Text(
@@ -186,8 +188,8 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                           SizedBox(height: 20.h,),
                           //appoint radio widget
                           AppointmentType(
-                            service_charge_inperson: service_charge_inperson,
-                            service_charge_virtual: service_charge_virtual,
+                            service_charge_inperson: widget.service_charge_inperson,
+                            service_charge_virtual: widget.service_charge_virtual,
                           ),
                           SizedBox(height: 30.h),
                           Text(
@@ -281,7 +283,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                     //do sumething
                                     service.requestQuote(
                                       context: context, 
-                                      service_id: service_id, 
+                                      service_id: widget.service_id, 
                                       offer: controller.offerController.text, 
                                       uploaded_file: controller.fileUrl.value, 
                                       appointment_type: controller.apppointment,
@@ -298,7 +300,8 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                                       controller.offerController.clear();
                                       controller.selectedFileForRequestingQuote.value = null;
                                       controller.isFileUploaded.value  = false;
-                                      Get.back();
+                                      //navigate
+                                      Navigator.pop(context);
                                     });
                                   }
                                   else if(controller.code.value.isEmpty) {

@@ -44,8 +44,9 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    // Access the parameter using Get.parameters['userName']
+
+
+    //Access a query parameter from the web url using "Get.parameters['']"
     String userName = Get.parameters['user'] ?? 'DefaultUserName';
     
     return Scaffold(
@@ -140,18 +141,18 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                   children: [
                                     TextButton(
                                       onPressed: () {
-                                        /*Get.to(() => AccViewerReviewsPage(
+                                        Get.to(() => AccViewerReviewsPage(
                                           userId: data.id,
                                           userName: data.displayName,
                                           photoUrl: data.photoUrl,
-                                        ));*/
+                                        ));
 
                                         // Navigate to ReviewsScreen and pass arguments
-                                        Get.toNamed(ReviewsRoute, arguments: {
+                                        /*Get.toNamed(ReviewsRoute, arguments: {
                                           'userId': data.id,
                                           'userName': data.displayName,
                                           'photoUrl': data.photoUrl
-                                        });
+                                        });*/
                                       }, 
                                       child: Text(
                                         'See all reviews',

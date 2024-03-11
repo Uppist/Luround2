@@ -51,7 +51,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "N25,200",
+                          text: "N50,000",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 36.sp,
@@ -107,7 +107,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
                     //call paystack api
                     paystackService.payWithPaystackForAuth(
                       context: context, 
-                      realAmount: 25200, 
+                      realAmount: 50000, 
                       companyEmail: "support@luround.com",
                     );
                   }, 
@@ -126,13 +126,13 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
             //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             alignment: Alignment.center,
             height: 35.h,
-            width: 110.w,
+            width: 140.w, //130.w
             decoration: BoxDecoration(
               color: AppColor.yellowStar,
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Text(
-              'You save 52%',
+              'You save N4,000',
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 12.sp,
@@ -191,7 +191,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "N25,200",
+                          text: "N50,000",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 36.sp,
@@ -247,7 +247,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
                     //call paystack api
                     paystackService.payWithPaystackForApp(
                       context: context, 
-                      realAmount: 25200, 
+                      realAmount: 50000, 
                       companyEmail: "support@luround.com",
                     );
                   }, 
@@ -266,13 +266,13 @@ class YearlySubscriptionPageApp extends StatelessWidget {
             //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             alignment: Alignment.center,
             height: 35.h,
-            width: 110.w,
+            width: 140.w, //130.w
             decoration: BoxDecoration(
               color: AppColor.yellowStar,
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Text(
-              'You save 52%',
+              'You save N4,000',
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 12.sp,

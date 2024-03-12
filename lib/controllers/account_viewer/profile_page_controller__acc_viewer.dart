@@ -21,6 +21,7 @@ class ProfilePageAccViewerController extends getx.GetxController {
   int maxLength = 500;
 
   final getx.Rx<TextEditingController> reviewController = TextEditingController().obs;
+  final getx.Rx<TextEditingController> reviewerNameController = TextEditingController().obs;
 
   final reviewFocus = false.obs;
   final rating = 0.0.obs;  //save to db
@@ -76,6 +77,7 @@ class ProfilePageAccViewerController extends getx.GetxController {
   void dispose() {
     // TODO: implement onInit
     reviewController.value.dispose();
+    reviewerNameController.value.dispose();
     super.dispose();
   }
 

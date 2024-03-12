@@ -103,7 +103,7 @@ class AccViewerService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserServices({required String userName}) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/user/profile/$userName",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/app/profile/$userName",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -307,11 +307,13 @@ class AccViewerService extends getx.GetxController {
     required BuildContext context,
     required double rating,
     required String comment,
+    //required String user_name,
   }) async {
 
     isLoading.value = true;
 
     var body = {
+      //"user_name": user_name,
       "rating": rating,
       "comment": comment
     };

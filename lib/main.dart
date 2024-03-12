@@ -65,16 +65,16 @@ void main() async{
   await PaystackClient.initialize(publicKey);
   
   //initialize firebase
-  await Firebase.initializeApp(
+  /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  );*/
 
   //initialize get_storage
   await GetStorage.init() ;
 
   //check for existing fcmtoken
-  var token = LocalStorage.getFCMToken();
-  print("my_FCMtoken: $token");
+  //var token = LocalStorage.getFCMToken();
+  //print("my_FCMtoken: $token");
 
   runApp(const MainApp());
 
@@ -125,8 +125,8 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        /*unknownRoute: GetPage(
-          name: '/', 
+        unknownRoute: GetPage(
+          name: '/app', 
           page: () => UnknownPage(
             onPressed: () {}     
           )
@@ -152,6 +152,7 @@ class _MainAppState extends State<MainApp> {
           ),
           /*GetPage(
             parameters: {"user": userName},
+
             name: ReviewsRoute,
             page: () => AccViewerReviewsPage(),
             curve: Curves.bounceInOut,
@@ -175,10 +176,9 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],*/
+        ],
 
-        //|| authService.checkForUserInactive(token: token)
-        home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       ),
     );
   }

@@ -67,7 +67,8 @@ class _AmountTextFieldState extends State<AmountTextField> {
           hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
-          prefixIcon: InkWell(
+          prefixIcon: Image.asset('assets/images/naija_flag.png')
+          /*InkWell(
             onTap: () {
               serviceController.showNiceCurrencyPickerAdd(context: context);
             },
@@ -75,7 +76,7 @@ class _AmountTextFieldState extends State<AmountTextField> {
               CupertinoIcons.add_circled,
               color: AppColor.blackColor,
             ),
-          ),
+          ),*/
         ),
       ),
     );

@@ -45,7 +45,7 @@ class UserModel {
     luround_url = json["luround_url"] ?? "url";
     logo_url = json["logo_url"] ?? "logo_url";
     account_status = json["account_status"] ?? "account_status";
-    company = json["company"] ?? "company";
+    company = json["company"] ?? "company-null";
     certificates = json['certificates'] ?? [];
     media_links = json['media_links'] ?? [];
     payment_details = json['payment_details'] ?? {}; //expiry_date and // start_date

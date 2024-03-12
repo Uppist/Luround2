@@ -792,11 +792,13 @@ class AccOwnerProfileService extends getx.GetxController {
     required BuildContext context,
     required double rating,
     required String comment,
+    //required String user_name,
   }) async {
 
     isLoading.value = true;
 
     var body = {
+      //"user_name": user_name,
       "rating": rating,
       "comment": comment
     };

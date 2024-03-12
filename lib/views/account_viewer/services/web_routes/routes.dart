@@ -1,9 +1,11 @@
-const String ProfileRoute = '/user/profile/:user';
-const String ServicesRoute = '/user/services/:user';
-const String ReviewsRoute = '/user/reviews/:user';
-const String WriteReviewRoute = '/user/write-review/:user';
-const String RequestQuoteRoute = '/user/quotes/:user';
-const String BookingsRoute = '/user/bookings/:user';
+const String ProfileRoute = '/app/profile/:user';
+
+const String ServicesRoute = '/app/services/:user';
+const String ReviewsRoute = '/app/reviews/:user';
+const String WriteReviewRoute = '/app/write-review/:user';
+const String RequestQuoteRoute = '/app/quotes/:user';
+const String BookingsRoute = '/app/bookings/:user';
+
 
 
 

@@ -48,7 +48,7 @@ class MonthlySubscriptionPageAuth extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "N4,500",
+                      text: "N4,200",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 36.sp,
@@ -104,7 +104,7 @@ class MonthlySubscriptionPageAuth extends StatelessWidget {
                 //call paystack api
                 paystackService.payWithPaystackForAuth(
                   context: context, 
-                  realAmount: 4500, 
+                  realAmount: 4200, 
                   companyEmail: "support@luround.com",
                 );
               }, 
@@ -157,7 +157,7 @@ class MonthlySubscriptionPageApp extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "N4,500",
+                      text: "N4,200",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 36.sp,
@@ -213,7 +213,7 @@ class MonthlySubscriptionPageApp extends StatelessWidget {
                 //call paystack api
                 paystackService.payWithPaystackForApp(
                   context: context, 
-                  realAmount: 4500, 
+                  realAmount: 4200, 
                   companyEmail: "support@luround.com",
                 );
               }, 

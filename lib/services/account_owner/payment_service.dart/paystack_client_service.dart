@@ -35,8 +35,8 @@ class PaystackClientService extends getx.GetxController {
       
       int randNum = Random().nextInt(4000000);
       String trxReference = "PAY_$randNum";
-      double chargeFee = 100 * 100;
-      double amount = (realAmount * 100) + (0.015 * (realAmount * 100)) + chargeFee;   //already added transaction charges
+      double chargeFee = 100.00 * 100.00;
+      double amount = (realAmount * 100); //+ (0.015 * (realAmount * 100)) + chargeFee;   //already added transaction charges
 
       //Charge Call
       final charge = Charge()
@@ -153,8 +153,8 @@ class PaystackClientService extends getx.GetxController {
       
       int randNum = Random().nextInt(4000000);
       String trxReference = "PAY_$randNum";
-      double chargeFee = 100 * 100;
-      double amount = (realAmount * 100) + (0.02 * (realAmount * 100)) + chargeFee;   //already added transaction charges
+      double chargeFee = 100.00 * 100;
+      double amount = (realAmount * 100); // + (0.02 * (realAmount * 100)) + chargeFee;   //already added transaction charges
 
       //Charge Call
       final charge = Charge()

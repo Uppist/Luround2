@@ -1,4 +1,4 @@
-const String ProfileRoute = '/app/profile/:user';
+const String ProfileRoute = '/profile/:user';
 
 
 const String ServicesRoute = '/app/services/:user';

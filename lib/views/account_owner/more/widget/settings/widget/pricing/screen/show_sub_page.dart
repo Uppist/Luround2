@@ -199,12 +199,12 @@ class ShowSubscriptionPage extends StatelessWidget {
                             scrollDirection: Axis.vertical, 
                             shrinkWrap: true,
                             separatorBuilder: (context, index) => SizedBox(height: 20.h,), 
-                            itemCount: 4,
+                            itemCount: 1,
                             itemBuilder: (context, index) {
                               return const BillingHistoryDisplay(
-                                payment_date: 'March 20, 2024',
+                                payment_date: 'March 20, 2025',
                                 plan_type: 'Monthly plan',
-                                amount: 'N4,500',
+                                amount: 'N4,200',
                               );
                             }
                           ): const SizedBox();

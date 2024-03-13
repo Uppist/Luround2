@@ -177,7 +177,7 @@ class _ProfilePageState extends State<ProfilePage> {
               borderRadius: BorderRadius.circular(20.r),
             ),
             onPressed: () {
-              shareProfileLink(link: data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'));
+              shareProfileLink(link: data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'));
               //shareProfileLink(link: editedUrl);
             },
             label: Text(
@@ -264,6 +264,8 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+
+
   ////////////////////////////////////////////////////
   //[MAIN CONTENT HERE]//
   Widget _buildContent() {
@@ -321,7 +323,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 width: double.infinity,
                 child: QrImageView(
-                  data: data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'), //editedUrl,
+                  data: data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'), //editedUrl,
                   version: QrVersions.auto,
                   size: 170.w,
                   errorStateBuilder: (context, error) {
@@ -475,7 +477,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Expanded(
                           child: Text(
-                            data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
+                            data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'),
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.blueColor,
@@ -490,7 +492,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         InkWell(
                           onTap: () {
                             copyToClipboard(
-                              text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/#/'),
+                              text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'),
                               context: context,
                               snackMessage: "profile link copied to clipboard"
                             );

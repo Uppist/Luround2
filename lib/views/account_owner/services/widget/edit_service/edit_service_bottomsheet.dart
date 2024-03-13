@@ -16,6 +16,7 @@ import 'package:luround/views/account_owner/services/widget/edit_service/screen/
 
 
 
+
 ///Alert Dialog
 Future<void> editServiceDialogueBox({
   required BuildContext context, 
@@ -111,13 +112,29 @@ Future<void> editServiceDialogueBox({
                     children: [
                       SvgPicture.asset('assets/svg/share_service.svg'),
                       SizedBox(width: 20.w,),
-                      Text(
-                        'Share service link',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Share service link',
+                              style: GoogleFonts.inter(
+                                color: AppColor.textGreyColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500
+                              )
+                            ),
+                            Text(
+                              'coming soon',
+                              style: GoogleFonts.inter(
+                                color: AppColor.redColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.w400
+                              )
+                            ),
+                        
+                          ],
+                        ),
                       ),
                     ],
                   ),

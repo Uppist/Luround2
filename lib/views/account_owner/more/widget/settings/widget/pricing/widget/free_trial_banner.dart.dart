@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
 
 
 
@@ -31,7 +32,7 @@ class _FreeTrialBannerState extends State<FreeTrialBanner> {
           alignment: Alignment.center,
           height: 45.h, //40.h
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 20.w,),
+          padding: EdgeInsets.symmetric(horizontal: 10.w,),
           color: AppColor.navyBlue,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,15 +49,36 @@ class _FreeTrialBannerState extends State<FreeTrialBanner> {
                 ),
               ),
               SizedBox(width: 10.w,),
-              InkWell(
-                onTap: () {
-                  userProfileService.isBannerCancelled.value = true; //!userProfileService.isBannerCancelled.value;
-                },
-                child: Icon(
-                  CupertinoIcons.xmark,
-                  color: AppColor.bgColor,
-                  size: 24.r,
-                )
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => SubscriptionScreenInApp());
+                    },
+                    child: Text(
+                      'see pricing',
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14.sp,
+                        decorationColor: AppColor.bgColor,
+                        decoration: TextDecoration.underline
+                      ),
+                    )
+                  ),
+                  SizedBox(width: 10.w,),
+                  InkWell(
+                    onTap: () {
+                      userProfileService.isBannerCancelled.value = true; //!userProfileService.isBannerCancelled.value;
+                    },
+                    child: Icon(
+                      CupertinoIcons.xmark,
+                      color: AppColor.bgColor,
+                      size: 24.r,
+                    )
+                  ),
+                ],
               ),
             ],
           ),

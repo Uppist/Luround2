@@ -150,14 +150,20 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.toNamed(
+                            Get.to(() => WriteReviewsScreen(
+                              userId: userId,
+                              photoUrl: photoUrl,
+                              userName: userName,
+                            ));
+
+                            /*Get.toNamed(
                               WriteReviewRoute,
                               arguments: {
                                 'userId': userId,
                                 'photoUrl': photoUrl,
                                 'userName': userName,
                               }
-                            );
+                            );*/
                           }, 
                           child: Text(
                            'Write a review',
@@ -204,14 +210,21 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.toNamed(
+
+                            Get.to(() => WriteReviewsScreen(
+                              userId: userId,
+                              photoUrl: photoUrl,
+                              userName: userName,
+                            ));
+                            
+                            /*Get.toNamed(
                               WriteReviewRoute,
                               arguments: {
                                 'userId': userId,
                                 'photoUrl': photoUrl,
                                 'userName': userName,
                               }
-                            );
+                            );*/
                           }, 
                           child: Text(
                             'Write a review',

@@ -273,7 +273,7 @@ class _WriteReviewsScreenState extends State<WriteReviewsScreen> {
                         //textfield here
                         ReviewTextField(
                           controller: controller.reviewerNameController.value,
-                          hintText: 'Enter your name',
+                          hintText: 'enter your name',
                           keyboardType: TextInputType.name,
                           textInputAction: TextInputAction.next,
                           onChanged: (val) {

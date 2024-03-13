@@ -24,7 +24,7 @@ import 'package:luround/views/account_viewer/services/screen/services_screen.dar
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
-import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
+import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -125,8 +125,8 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        unknownRoute: GetPage(
-          name: '/app', 
+        /*unknownRoute: GetPage(
+          name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
           )
@@ -176,9 +176,9 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],
+        ],*/
 
-        //home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       ),
     );
   }

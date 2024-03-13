@@ -13,7 +13,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
+import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_accviewer.dart';

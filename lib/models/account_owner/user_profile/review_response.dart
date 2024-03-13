@@ -17,8 +17,8 @@ class ReviewResponse{
   late final int createdAt;
   
   ReviewResponse.fromJson(Map<String, dynamic> json,){
-    userName = json['userName'] ?? "Anonymous";
-    userPhoto = json['userPhoto'] ?? "non";
+    userName = json['user_name'] ?? "Anonymous";
+    userPhoto = json['user_photo'] ?? "non";
     reviewText = json['reviewText'] ?? "non";
     rating = json['rating'] ?? 0.0;
     createdAt = json['created_at'] ?? 0;

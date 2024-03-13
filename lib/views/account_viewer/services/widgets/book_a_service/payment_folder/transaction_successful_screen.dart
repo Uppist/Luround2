@@ -8,7 +8,7 @@ import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
-import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
+import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'package:luround/views/account_viewer/services/widgets/sign_me_up/sign_up_bottomsheet.dart';
 import 'package:lottie/lottie.dart';
 

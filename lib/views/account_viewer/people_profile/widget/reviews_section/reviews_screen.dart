@@ -12,7 +12,7 @@ import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/review_empty_state.dart';
 import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
-import 'package:luround/views/account_viewer/services/web_routes/routes.dart';
+import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/title_text.dart';
 

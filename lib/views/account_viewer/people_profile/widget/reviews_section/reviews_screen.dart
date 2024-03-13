@@ -88,7 +88,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Get.to(() => WriteReviewsPage(
+                            Get.to(() => WriteReviewsScreen(
                               userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,

@@ -26,7 +26,6 @@ import 'package:luround/views/account_viewer/services/widgets/book_a_service/scr
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'views/account_owner/mainpage/screen/mainpage.dart';
-import 'views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 //import 'package:flutter_web_plugins/url_strategy.dart';
@@ -65,16 +64,16 @@ void main() async{
   await PaystackClient.initialize(publicKey);
   
   //initialize firebase
-  await Firebase.initializeApp(
+  /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  );*/
 
   //initialize get_storage
   await GetStorage.init() ;
 
   //check for existing fcmtoken
-  var token = LocalStorage.getFCMToken();
-  print("my_FCMtoken: $token");
+  /*var token = LocalStorage.getFCMToken();
+  print("my_FCMtoken: $token");*/
 
   runApp(const MainApp());
 
@@ -105,7 +104,8 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     //initialize firebase cloud messaging
-    controller.initFCM(backgroundHandler: backgroundHandler);
+    
+    //controller.initFCM(backgroundHandler: backgroundHandler);
     super.initState();
   }
 
@@ -125,7 +125,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        /*unknownRoute: GetPage(
+        unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -178,9 +178,10 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],*/
+        ],
 
-        home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+      
       ),
     );
   }

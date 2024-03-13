@@ -20,17 +20,17 @@ import '../../../../../utils/components/title_text.dart';
 
 
 
-class WriteReviewsPage extends StatefulWidget {
-  WriteReviewsPage({super.key, required this.photoUrl, required this.userName, required this.userId,});
+class WriteReviewsScreen extends StatefulWidget {
+  WriteReviewsScreen({super.key, required this.photoUrl, required this.userName, required this.userId,});
   final String photoUrl;
   final String userName;
   final String userId;
 
   @override
-  State<WriteReviewsPage> createState() => _WriteReviewsPageState();
+  State<WriteReviewsScreen> createState() => _WriteReviewsScreenState();
 }
 
-class _WriteReviewsPageState extends State<WriteReviewsPage> {
+class _WriteReviewsScreenState extends State<WriteReviewsScreen> {
 
   var controller = Get.put(ProfilePageAccViewerController());
   var service = Get.put(AccViewerProfileService());
@@ -64,18 +64,22 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
           //button
           InkWell(
             onTap: () {
-              if(controller.reviewController.value.text.isNotEmpty) {
+              if(controller.reviewController.value.text.isNotEmpty && controller.reviewerNameController.value.text.isNotEmpty) {
                 service.addReview(
                   userId: widget.userId,
                   context: context, 
                   rating: controller.rating.value, 
-                  comment: controller.reviewController.value.text
-                ).whenComplete(() => controller.reviewController.value.clear());
+                  comment: controller.reviewController.value.text,
+                  user_name: controller.reviewerNameController.value.text,
+                ).whenComplete(() { 
+                  controller.reviewController.value.clear();
+                  controller.reviewerNameController.value.clear();
+                });
               }
               else{
                 showMySnackBar(
                   context: context, 
-                  message: "write a review", 
+                  message: "fill the required fields", 
                   backgroundColor: AppColor.redColor
                 );
               }
@@ -263,7 +267,24 @@ class _WriteReviewsPageState extends State<WriteReviewsPage> {
                             fontWeight: FontWeight.w400
                           ),
                         ),
+
+                        //Reviewer's Name
                         SizedBox(height: 20.h,),
+                        //textfield here
+                        ReviewTextField(
+                          controller: controller.reviewerNameController.value,
+                          hintText: 'Enter your name',
+                          keyboardType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          onChanged: (val) {
+                            controller.reviewerNameController.value.text = val;
+                            print(controller.reviewerNameController.value.text);
+                          },
+                        ),
+                        
+                        //Review Textfield
+                        SizedBox(height: 20.h,),
+
                         //textfield here
                         ReviewTextField(
                           controller: controller.reviewController.value,

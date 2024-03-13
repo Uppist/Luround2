@@ -72,8 +72,8 @@ void main() async{
   await GetStorage.init();
 
   //check for existing fcmtoken
-  //var token = LocalStorage.getFCMToken();
-  //print("my_FCMtoken: $token");
+  var token = LocalStorage.getFCMToken();
+  print("my_FCMtoken: $token");
 
   runApp(const MainApp());
 

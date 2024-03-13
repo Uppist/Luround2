@@ -696,6 +696,18 @@ class _BookingsPageState extends State<BookingsPage> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   //more vert icon
+                                                  item.booking_generated_from_invoice == "True" ? 
+                                                  Text(
+                                                    'from invoice',
+                                                    style: GoogleFonts.inter(
+                                                      color: AppColor.darkGreen,
+                                                      fontSize: 12.sp,
+                                                      fontWeight: FontWeight.w400
+                                                    ),
+                                                  )
+                                                  :SizedBox(),
+                                                  SizedBox(height: 5.h),
+                                                  //more vert icon
                                                   Row(
                                                     mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
                                                     children: [

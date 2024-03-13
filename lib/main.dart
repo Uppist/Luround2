@@ -65,16 +65,16 @@ void main() async{
   await PaystackClient.initialize(publicKey);
   
   //initialize firebase
-  /*await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );*/
+  );
 
   //initialize get_storage
   await GetStorage.init() ;
 
   //check for existing fcmtoken
-  //var token = LocalStorage.getFCMToken();
-  //print("my_FCMtoken: $token");
+  var token = LocalStorage.getFCMToken();
+  print("my_FCMtoken: $token");
 
   runApp(const MainApp());
 
@@ -150,6 +150,8 @@ class _MainAppState extends State<MainApp> {
             page: () => SplashScreenXtra2(),
             curve: Curves.bounceInOut
           ),
+
+
           /*GetPage(
             parameters: {"user": userName},
 

@@ -64,16 +64,16 @@ void main() async{
   await PaystackClient.initialize(publicKey);
   
   //initialize firebase
-  await Firebase.initializeApp(
+  /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );
+  );*/
 
   //initialize get_storage
   await GetStorage.init();
 
   //check for existing fcmtoken
-  var token = LocalStorage.getFCMToken();
-  print("my_FCMtoken: $token");
+  //var token = LocalStorage.getFCMToken();
+  //print("my_FCMtoken: $token");
 
   runApp(const MainApp());
 
@@ -104,7 +104,7 @@ class _MainAppState extends State<MainApp> {
   @override
   void initState() {
     //initialize firebase cloud messaging
-    controller.initFCM(backgroundHandler: backgroundHandler);
+    //controller.initFCM(backgroundHandler: backgroundHandler);
     super.initState();
   }
 
@@ -124,7 +124,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        /*unknownRoute: GetPage(
+        unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -177,9 +177,9 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],*/
+        ],
 
-        home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
+        //home: token == null || authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : MainPage(),  //SplashScreenXtra2(), //MainPageAccViewer(),
       
       ),
     );

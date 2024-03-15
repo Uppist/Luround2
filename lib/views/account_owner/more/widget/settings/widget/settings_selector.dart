@@ -96,11 +96,11 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
                   Container(
                     //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     alignment: Alignment.center,
-                    height: 35.h,
-                    width: 80.w, //130.w
+                    height: 30.h,
+                    width: 90.w, //130.w
                     decoration: BoxDecoration(
                       color: AppColor.redColor,
-                      borderRadius: BorderRadius.circular(40.r),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                     child: Text(
                       'coming soon',

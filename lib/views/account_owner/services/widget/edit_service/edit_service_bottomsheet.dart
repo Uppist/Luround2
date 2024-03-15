@@ -124,14 +124,28 @@ Future<void> editServiceDialogueBox({
                                 fontWeight: FontWeight.w500
                               )
                             ),
-                            Text(
-                              'coming soon',
-                              style: GoogleFonts.inter(
+
+                            /////////COMING SOON//////////////
+                            SizedBox(width: 20.w,),
+                            Container(
+                              //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                              alignment: Alignment.center,
+                              height: 35.h,
+                              width: 80.w, //130.w
+                              decoration: BoxDecoration(
                                 color: AppColor.redColor,
-                                fontSize: 13.sp,
-                                fontWeight: FontWeight.w400
-                              )
+                                borderRadius: BorderRadius.circular(40.r),
+                              ),
+                              child: Text(
+                                'coming soon',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.bgColor,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w700
+                                )
+                              ),
                             ),
+                            ////////////////////////////////////////
                         
                           ],
                         ),

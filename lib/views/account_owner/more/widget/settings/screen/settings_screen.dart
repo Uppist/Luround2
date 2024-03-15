@@ -84,7 +84,7 @@ class SettingsScreen extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 20.h,),
-                SettingsSelector(
+                SettingsSelector2(
                   text: "Customize your URL",
                   onFlip: () {
                     //Get.to(() => CustomizeYourURLPage());
@@ -112,3 +112,6 @@ class SettingsScreen extends StatelessWidget {
     );
   }
 }
+
+
+

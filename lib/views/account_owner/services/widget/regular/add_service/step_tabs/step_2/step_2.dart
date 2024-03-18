@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_2/radio_section_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/radio_section.dart';
 
 
 
@@ -18,11 +18,18 @@ import 'package:luround/views/account_owner/services/widget/edit_service/step_ta
 
 
 
-class Step2PageEdit extends GetView<ServicesController> {
-  Step2PageEdit({super.key, required this.onNext});
+
+class Step2Page extends StatefulWidget {
+  Step2Page({super.key, required this.onNext});
   final VoidCallback onNext;
 
   @override
+  State<Step2Page> createState() => _Step2PageState();
+}
+
+class _Step2PageState extends State<Step2Page> {
+  var controller = Get.put(ServicesController());
+
   Widget build(BuildContext context) {
     return Form(
       key: GlobalKey(),
@@ -40,7 +47,7 @@ class Step2PageEdit extends GetView<ServicesController> {
           SizedBox(height: 30.h),
           InkWell(
             onTap: () async{
-              controller.showDurationPickerDialogEdit(context: context);         
+              controller.showDurationPickerDialog(context: context);         
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
@@ -61,7 +68,7 @@ class Step2PageEdit extends GetView<ServicesController> {
                   Obx(
                     () {
                       return Text(
-                        "${controller.durationEdit.value}".substring(0, 7),
+                        "${controller.duration.value}".substring(0, 7),
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
                             color: AppColor.textGreyColor,
@@ -93,18 +100,18 @@ class Step2PageEdit extends GetView<ServicesController> {
           SizedBox(height: 20.h,),
 
           //schedule radio section
-          EditScheduleRadioWidget(),
+          ScheduleRadioWidget(),
           
           SizedBox(height: 280.h,),
 
           Obx(
             () {
               return RebrandedReusableButton(
-                textColor: controller.ispriceButtonEnabledEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
-                color: controller.ispriceButtonEnabledEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
+                textColor: controller.ispriceButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
+                color: controller.ispriceButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
                 text: "Next", 
-                onPressed: controller.ispriceButtonEnabledEdit.value ? 
-                onNext
+                onPressed: controller.ispriceButtonEnabled.value ? 
+                widget.onNext
                 : () {
                   print('nothing');
                 },

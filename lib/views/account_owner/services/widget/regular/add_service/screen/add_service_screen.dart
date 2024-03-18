@@ -7,8 +7,8 @@ import 'package:luround/controllers/account_owner/services/services_controller.d
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/add_service/step_tabs/step_2/step_2.dart';
-import 'package:luround/views/account_owner/services/widget/add_service/step_tabs/step_3/step_3.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/step_2.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_3/step_3.dart';
 import '../step_tabs/step_1/step_1.dart';
 
 

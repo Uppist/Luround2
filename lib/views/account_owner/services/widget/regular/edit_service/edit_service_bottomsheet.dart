@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
-import 'package:luround/views/account_owner/services/widget/delete_service/delete_service_bottomsheet.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service/screen/edit_service.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/screen/edit_service.dart';
 
 
 

@@ -10,7 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_3/time_range_picker_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_3/time_range_picker_edit.dart';
 
 
 

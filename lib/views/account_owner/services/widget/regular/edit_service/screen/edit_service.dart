@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_1/step_1_edit.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_2/step_2_edit.dart';
-import 'package:luround/views/account_owner/services/widget/edit_service/step_tabs/step_3/step_3_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/step_1_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_2/step_2_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_3/step_3_edit.dart';
 
 
 

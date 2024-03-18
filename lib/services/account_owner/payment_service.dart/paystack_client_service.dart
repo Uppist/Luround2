@@ -15,6 +15,8 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 
 
 
+
+
 class PaystackClientService extends getx.GetxController {
 
 
@@ -41,7 +43,7 @@ class PaystackClientService extends getx.GetxController {
       //Charge Call
       final charge = Charge()
       ..email = companyEmail
-      ..amount = amount.toInt()
+      ..amount = chargeFee.toInt()  //amount.toInt()
       //..transactionCharge = (0.03 * (realAmount * 100)).toInt()
       //logged in luround user bears paystack charges
       ..bearer = Bearer.SubAccount
@@ -159,7 +161,7 @@ class PaystackClientService extends getx.GetxController {
       //Charge Call
       final charge = Charge()
       ..email = companyEmail
-      ..amount = amount.toInt()
+      ..amount = chargeFee.toInt() //amount.toInt()
       //..transactionCharge = (0.03 * (realAmount * 100)).toInt()
       //logged in luround user bears paystack charges
       ..bearer = Bearer.SubAccount

@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                             authService.signInWithGoogle(context: context);
                           },
                           onTextButton: () {
-                            Get.to(() => RegisterPage1());
+                            Get.off(() => RegisterPage1());
                             //Get.to(() => RegisterPage1());
                           },
                           firstText: "Don't have an account?",

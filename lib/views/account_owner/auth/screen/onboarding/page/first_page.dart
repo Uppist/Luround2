@@ -28,7 +28,7 @@ class FirstPage extends StatelessWidget {
             //height: 400,
             //width: 450,
           ),
-          SizedBox(height: 60.h,),
+          SizedBox(height: 55.h,),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Text(

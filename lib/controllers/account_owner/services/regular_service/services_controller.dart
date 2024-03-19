@@ -29,6 +29,8 @@ class ServicesController extends getx.GetxController {
   final isradio1 = false.obs;
   final isradio2 = false.obs;
   final isradio3 = false.obs;
+  /////////////////////////////////////////////////////////
+
 
   //list of dates for "calendar_picker" package (addservices)
   var dates = <DateTime?>[].obs;
@@ -38,6 +40,7 @@ class ServicesController extends getx.GetxController {
       update();
     }
   }
+  //////////////////////////////
 
 
   //(save both dates below to db)

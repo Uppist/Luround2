@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/services_controller.dart';
+import 'package:luround/controllers/account_owner/services/regular_service/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/date_range_bottomsheet.dart';
 

@@ -258,7 +258,7 @@ class AuthService extends getx.GetxController {
     } 
     on HttpException {
       isLoading.value = false;
-      baseService.handleError(const HttpException("Something went wrong"));
+      //baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
@@ -338,7 +338,7 @@ class AuthService extends getx.GetxController {
     var body = {
       "email": email,
       "password": password,
-      "user_nToken": FCMToken ?? "no token",
+      "user_nToken": FCMToken,
     };
 
     try {
@@ -497,7 +497,7 @@ class AuthService extends getx.GetxController {
   }
 
 
-  //Login or Sign Up with Google
+  //Login with Google
   Future<void> signInWithGoogle({required BuildContext context}) async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']); // Add desired scopes
@@ -526,7 +526,7 @@ class AuthService extends getx.GetxController {
           google_user_id: userCredential.user!.uid
         );*/
 
-        await decodeJWTWithDio(
+        await decodeJWTWithDioGoogleSignIn(
           context: context, 
           email: googleUser.email, 
           firstName:getFirstName(fullName: googleUser.displayName!), 
@@ -594,7 +594,104 @@ class AuthService extends getx.GetxController {
   }
 
 
-  Future<void> decodeJWTWithDio({
+  //Sign Up with Google
+  Future<void> signUpWithGoogle({required BuildContext context}) async {
+    try {
+      final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']); // Add desired scopes
+      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+
+      if (googleUser != null) {
+        print("Google fetched user successfully");
+        // User signed in successfully
+        // You can also fetch additional information if needed
+        final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+        final AuthCredential credential = GoogleAuthProvider.credential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken
+        );
+        
+        /*UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+        print("${userCredential.user!.displayName}");
+        print("${userCredential.user!.email}");*/
+        
+        /*await decodeJWTWithDio(
+          context: context, 
+          email: userCredential.user!.email!, 
+          firstName: getFirstName(fullName: userCredential.user!.displayName!), 
+          lastName: getLastName(fullName: userCredential.user!.displayName!), 
+          photoUrl: "photoUrl", 
+          google_user_id: userCredential.user!.uid
+        );*/
+
+        await decodeJWTWithDioGoogleSignUp(
+          context: context, 
+          email: googleUser.email, 
+          firstName:getFirstName(fullName: googleUser.displayName!), 
+          lastName: getLastName(fullName: googleUser.displayName!), 
+          photoUrl: "my_photo", 
+          google_user_id: googleUser.id
+        );
+
+      } 
+      else {
+        // User cancelled the sign-in process
+        print("Google Sign-In cancelled by the user");
+      }
+
+    }
+    on PlatformException catch (e) {
+      if (e.code == GoogleSignIn.kNetworkError) {
+        print(e.code);
+        String errorMessage = "A network error (such as timeout, interrupted connection or unreachable host) has occurred.";
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: errorMessage
+        );
+      }
+      else if (e.code == GoogleSignIn.kSignInCanceledError) {
+        // User cancelled the sign-in process
+        print("Google Sign-In cancelled by the user");
+        print(e.code);
+        // Handle errors gracefully
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "Sign-In process terminated or cancelled"
+        );
+      }
+      else if (e.code == GoogleSignIn.kSignInFailedError) {
+        // User cancelled the sign-in process
+        print(e.code);
+        // Handle errors gracefully
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "Sign-In process failed"
+        );
+      }
+      else {        
+        String errorMessage = "Something went wrong.";
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: errorMessage
+        );
+      }
+    }
+    catch (e, stackTrace) {
+      print("Error during Google Sign-In: $e => $stackTrace");
+      // Handle errors gracefully
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "Error during Google Sign-In: $e => $stackTrace"
+      );
+    }
+  }
+
+
+  Future<void> decodeJWTWithDioGoogleSignIn({
     required BuildContext context,
     required String email,
     required String firstName,
@@ -614,7 +711,7 @@ class AuthService extends getx.GetxController {
         "firstName": firstName,
         "lastName": lastName,
         "photoUrl": photoUrl,
-        "google_user_id": google_user_id,
+        //"google_user_id": google_user_id,
         "user_nToken": FCMToken
       };
 
@@ -808,13 +905,244 @@ class AuthService extends getx.GetxController {
       debugPrint("$e");
       debugPrint("trace: $stackTrace");
     }
-    on Exception {
+    on Exception catch(e, stackTrace) {
       isLoading.value = false;
-      baseService.handleError(const HttpException("Something went wrong"));
+      //baseService.handleError(const HttpException("Something went wrong"));
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "connection timed out"
+        message: "$e"
+      );
+    }
+
+  }
+
+
+  Future<void> decodeJWTWithDioGoogleSignUp({
+    required BuildContext context,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String photoUrl,
+    required String google_user_id,
+  }) async {
+    isLoading.value = true;
+    try {
+
+      //dio instance
+      diomygee.Dio dio = diomygee.Dio();
+      
+      //body to be encoded by dio
+      var body = {
+        "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "photoUrl": photoUrl,
+        //"google_user_id": google_user_id,
+        "user_nToken": FCMToken
+      };
+
+      //define or state your headers
+      diomygee.Options options = diomygee.Options(
+        headers: {
+          // Your headers
+          "Content-Type": "application/json",
+          "Connection": "keep-alive",
+          "Accept": "*/*",
+          // Add any other headers as needed
+         },
+      );
+    
+      //make your POST request
+      var res = await dio.post(
+        "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/google/sign-up", 
+        /* other parameters */
+        data: body,
+        options: options,
+      );
+
+      //if/else check to make sure everything goes smooth
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.data}');
+        
+        //decode response from the server
+        //GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.data)); 
+        
+        Map<String, dynamic> jsonResponse = res.data;
+        // Access the "accessToken" from the response
+        String accessToken = jsonResponse["accessToken"];
+        String account_status = jsonResponse["account_status"];
+    
+        //CHECK IF THE USER HAS PAID
+        if(account_status == "TRIAL") {
+          print(account_status);
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+        
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //generate grlink
+          //await generateQrLink(urlSlug: email);
+          //move with agility to the next page
+          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "log in successful"
+          );
+        }
+        else if(account_status == "ACTIVE") {
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+        
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //generate grlink
+          //await generateQrLink(urlSlug: email);
+          //move with agility to the next page
+          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "log in successful"
+          );
+        }
+        
+        //remove later
+        /*else if(account_status == "You are an old user") {
+          ////You are an old user////
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() => MainPage());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+        }*/
+      
+        else {
+          ////INACTIVE////
+          await LocalStorage.saveToken(accessToken);
+          var token = await LocalStorage.getToken();
+          print(token);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+        }
+        //////////////
+
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response body ==>${res.data}');
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response extra ==> ${res.extra}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed => ${res.statusCode} - ${res.data}"
+        );
+      }
+
+    }
+    on FormatException catch(e, stackTrace){
+      isLoading.value = false;
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "$e"
+      );
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
+    }
+    on Exception catch(e, stackTrace) {
+      isLoading.value = false;
+      //baseService.handleError(const HttpException("Something went wrong"));
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "$e"
       );
     }
 

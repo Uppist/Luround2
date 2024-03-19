@@ -229,7 +229,7 @@ class _RegisterPage2State extends State<RegisterPage2> {
                         SizedBox(height: 60.h,),
                         SignInWithGoogleWidget(
                           onGoogleSignIn: () {
-                            authService.signInWithGoogle(context: context);
+                            authService.signUpWithGoogle(context: context);
                           },
                           onTextButton: () {
                             Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);

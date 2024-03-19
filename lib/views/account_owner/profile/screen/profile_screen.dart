@@ -233,7 +233,8 @@ class _ProfilePageState extends State<ProfilePage> {
             onTap: () {
               
               ////EXPIRY CHECK///
-              controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+              //data.payment_details['expiry_date']
+              controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
               freeTrialEndsReminder(
                 context: context,
                 userName: data.displayName,
@@ -349,7 +350,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     TextButton(
                       onPressed: () {
                         ////EXPIRY CHECK///
-                        controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+                        //data.payment_details['expiry_date']
+                        controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
                         freeTrialEndsReminder(
                           context: context,
                           userName: data.displayName,
@@ -427,6 +429,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        data.logo_url.isNotEmpty ?
                         Container(
                           alignment: Alignment.center,
                           height: 40.h,
@@ -439,7 +442,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               fit: BoxFit.contain
                             )
                           ),
-                        ),
+                        ) : SizedBox(),
                         SizedBox(width: 10.w,),
                         Text(
                           data.company,

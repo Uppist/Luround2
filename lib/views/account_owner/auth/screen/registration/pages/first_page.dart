@@ -66,7 +66,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                             },
                             child: Icon(
                               CupertinoIcons.xmark,
@@ -174,7 +174,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             authService.signUpWithGoogle(context: context);
                           },
                           onTextButton: () {
-                            Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
+                            Get.to(() => LoginPage());
                           },
                           firstText: "Already have an account?",
                           lastText: "Log in",

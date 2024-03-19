@@ -22,6 +22,7 @@ import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
+import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_auth.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
@@ -890,7 +891,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode} - ${res.data}"
+          message: "failed => ${res.statusCode}"
         );
       }
 
@@ -913,8 +914,9 @@ class AuthService extends getx.GetxController {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "$e"
+        message: "Email does not exit in database."  //$e
       );
+      getx.Get.to(() => RegisterPage1());
     }
 
   }

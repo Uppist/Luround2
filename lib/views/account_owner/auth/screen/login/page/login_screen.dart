@@ -67,7 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                         children: [
                           InkWell(
                             onTap: () {
-                              Get.back();
+                              Navigator.pop(context);
                             },
                             child: Icon(
                               CupertinoIcons.xmark,
@@ -183,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
                             authService.signInWithGoogle(context: context);
                           },
                           onTextButton: () {
-                            Get.offUntil(GetPageRoute(page: () => RegisterPage1()), (route) => false);
+                            Get.to(() => RegisterPage1());
                             //Get.to(() => RegisterPage1());
                           },
                           firstText: "Don't have an account?",

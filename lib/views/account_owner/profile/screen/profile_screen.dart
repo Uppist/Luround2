@@ -383,7 +383,7 @@ class _ProfilePageState extends State<ProfilePage> {
               SizedBox(height: 10.h,),
               InkWell(
                 onTap: () {
-                  userProfileService.pickImageFromGallery(context: context);
+                  //userProfileService.pickImageFromGallery(context: context);
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w),

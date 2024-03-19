@@ -916,7 +916,7 @@ class AuthService extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Email does not exit in database."  //$e
       );
-      getx.Get.to(() => RegisterPage1());
+      getx.Get.off(() => RegisterPage1());
     }
 
   }

@@ -225,7 +225,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update profile details"
+          message: "failed to update profile details: ${res.statusCode} --> ${res.body}"
         );
       }
     } 

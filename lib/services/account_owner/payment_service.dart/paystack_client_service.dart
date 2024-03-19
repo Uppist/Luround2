@@ -43,7 +43,7 @@ class PaystackClientService extends getx.GetxController {
       //Charge Call
       final charge = Charge()
       ..email = companyEmail
-      ..amount = chargeFee.toInt()  //amount.toInt()
+      ..amount = amount.toInt()  //amount.toInt() //chargeFee.toInt()
       //..transactionCharge = (0.03 * (realAmount * 100)).toInt()
       //logged in luround user bears paystack charges
       ..bearer = Bearer.SubAccount
@@ -161,7 +161,7 @@ class PaystackClientService extends getx.GetxController {
       //Charge Call
       final charge = Charge()
       ..email = companyEmail
-      ..amount = chargeFee.toInt() //amount.toInt()
+      ..amount = amount.toInt() //chargeFee.toInt() //amount.toInt()
       //..transactionCharge = (0.03 * (realAmount * 100)).toInt()
       //logged in luround user bears paystack charges
       ..bearer = Bearer.SubAccount

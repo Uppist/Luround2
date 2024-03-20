@@ -766,6 +766,7 @@ class AuthService extends getx.GetxController {
           );
         }
         else if(account_status == "ACTIVE") {
+          print(account_status);
           await LocalStorage.saveToken(accessToken);
           var token = await LocalStorage.getToken();
           print(token);
@@ -804,6 +805,7 @@ class AuthService extends getx.GetxController {
       
         else {
           ////INACTIVE////
+          print(account_status);
           await LocalStorage.saveToken(accessToken);
           var token = await LocalStorage.getToken();
           print(token);
@@ -979,6 +981,7 @@ class AuthService extends getx.GetxController {
 
         }
         else if(account_status == "ACTIVE") {
+          print(account_status);
           await LocalStorage.saveToken(accessToken);
           var token = await LocalStorage.getToken();
           print(token);
@@ -1017,6 +1020,7 @@ class AuthService extends getx.GetxController {
       
         else {
           ////INACTIVE////
+          print(account_status);
           await LocalStorage.saveToken(accessToken);
           var token = await LocalStorage.getToken();
           print(token);

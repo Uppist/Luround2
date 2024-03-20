@@ -73,9 +73,18 @@ void main() async{
   //initialize get_storage
   await GetStorage.init();
 
+  //FCM Instance
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+  //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
+  String? token = await messaging.getToken();
+  await LocalStorage.saveFCMToken(token!);
+  debugPrint("raw fcm token: $token"); //save to firebase
+  debugPrint("void main fcm token: ${LocalStorage.getFCMToken()}");
+
   //check for existing fcmtoken
-  var token = LocalStorage.getFCMToken();
-  print("existing fcm token: $token");
+  //var token = LocalStorage.getFCMToken();
+  //print("existing fcm token: $token");
 
   runApp(const MainApp());
 
@@ -105,10 +114,13 @@ class _MainAppState extends State<MainApp> {
   var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
 
+
   @override
   void initState() {
+
     //initialize firebase cloud messaging
     controller.initFCM(backgroundHandler: backgroundHandler);
+    
     print("initialize fcm token $FCMtoken");
     super.initState();
   }

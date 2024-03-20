@@ -101,6 +101,7 @@ class MainApp extends StatefulWidget {
 class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
+  var FCMtoken = LocalStorage.getFCMToken();
   int tokenExpDate = LocalStorage.getTokenExpDate() ?? 0;
   var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
@@ -109,6 +110,7 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     //initialize firebase cloud messaging
     controller.initFCM(backgroundHandler: backgroundHandler);
+    print("initialize fcm token $FCMtoken");
     super.initState();
   }
 

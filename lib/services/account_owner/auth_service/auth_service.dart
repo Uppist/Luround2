@@ -25,7 +25,6 @@ import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.
 import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_auth.dart';
-import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
@@ -331,7 +330,7 @@ class AuthService extends getx.GetxController {
     var body = {
       "email": email,
       "password": password,
-      "user_nToken": FCMToken,
+      "user_nToken": FCMToken ?? "no token",
     };
 
     try {
@@ -693,7 +692,7 @@ class AuthService extends getx.GetxController {
         "lastName": lastName,
         "photoUrl": photoUrl,
         //"google_user_id": google_user_id,
-        "user_nToken": FCMToken
+        "user_nToken": FCMToken ?? "no token"
       };
 
       //define or state your headers
@@ -892,7 +891,7 @@ class AuthService extends getx.GetxController {
         "lastName": lastName,
         "photoUrl": photoUrl,
         //"google_user_id": google_user_id,
-        "user_nToken": FCMToken
+        "user_nToken": FCMToken ?? "no token"
       };
 
       //dio instance
@@ -958,10 +957,10 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
-            sendPushNotification(
+            await sendPushNotification(
               noti_title: "Account created successfully", 
               noti_body: "Hey $displayName, welcome to luround.",
-              fcm_token: FCMToken,
+              fcm_token: FCMToken ?? "no token",
               userID: userId
             );
           } 
@@ -975,7 +974,7 @@ class AuthService extends getx.GetxController {
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
-            message: "log in successful"
+            message: "sign up successful"
           );
 
         }

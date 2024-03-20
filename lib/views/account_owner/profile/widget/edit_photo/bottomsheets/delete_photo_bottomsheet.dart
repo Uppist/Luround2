@@ -70,7 +70,8 @@ Future<void> deletePhotoDialogueBox({required BuildContext context, required Voi
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.back();
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

@@ -49,7 +49,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //1
-                InkWell(
+                /*InkWell(
                   onTap: () {
                     profileService.pickImageFromGallery(context: context);
                   },
@@ -69,7 +69,7 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                     ],
                   ),
                 ),
-                SizedBox(height: 30.h,),
+                SizedBox(height: 30.h,),*/
                 //2
                 InkWell(
                   onTap: () {
@@ -99,7 +99,11 @@ Future<void> editPhotoDialogueBox({required BuildContext context}) async {
                       context: context,
                       onDelete: () {
                         profileService.deleteProfilePhoto(context)
-                        .whenComplete(() => Get.back());
+                        .whenComplete(() {
+                          //to remove both bottomsheets
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        });
                       },
                     );
                   },

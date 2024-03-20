@@ -532,7 +532,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: AboutSection(
                           onPressed: () {
                             ////EXPIRY CHECK///
-                            controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.payment_details['expiry_date']) ?
+                            //data.payment_details['expiry_date']
+                            controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
                             freeTrialEndsReminder(
                               context: context,
                               userName: data.displayName,
@@ -586,6 +587,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: OtherDetailsSection(
                           media_links: data.media_links,
                           onPressedEdit: () {
+                            ////EXPIRY CHECK///
+                            //data.payment_details['expiry_date']
+                            controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
+                            freeTrialEndsReminder(
+                              context: context,
+                              userName: data.displayName,
+                              onDismiss: () {
+                                Get.back();
+                              },
+                              onSelectPlan: () {
+                                Get.off(() => SubscriptionScreenInApp());
+                              },
+                            ):
+                            
                             Get.to(() => EditOthersPage());
                           },
                           profileController: controller,

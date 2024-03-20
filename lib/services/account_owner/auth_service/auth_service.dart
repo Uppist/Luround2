@@ -528,6 +528,7 @@ class AuthService extends getx.GetxController {
 
     }
     on PlatformException catch (e) {
+      isLoading.value = false;
       if (e.code == GoogleSignIn.kNetworkError) {
         print(e.code);
         String errorMessage = "A network error (such as timeout, interrupted connection or unreachable host) has occurred.";
@@ -568,12 +569,13 @@ class AuthService extends getx.GetxController {
       }
     }
     catch (e, stackTrace) {
+      isLoading.value = false;
       print("Error during Google Sign-In: $e => $stackTrace");
       // Handle errors gracefully
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "Error during Google Sign-In: $e => $stackTrace"
+        message: "Error during Google Sign-In: $e"
       );
     }
   }
@@ -617,6 +619,7 @@ class AuthService extends getx.GetxController {
 
     }
     on PlatformException catch (e) {
+      isLoading.value = false;
       if (e.code == GoogleSignIn.kNetworkError) {
         print(e.code);
         String errorMessage = "A network error (such as timeout, interrupted connection or unreachable host) has occurred.";
@@ -657,12 +660,13 @@ class AuthService extends getx.GetxController {
       }
     }
     catch (e, stackTrace) {
+      isLoading.value = false;
       print("Error during Google Sign-In: $e => $stackTrace");
       // Handle errors gracefully
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "Error during Google Sign-In: $e => $stackTrace"
+        message: "Error during Google Sign-In: $e"
       );
     }
   }
@@ -922,7 +926,7 @@ class AuthService extends getx.GetxController {
         isLoading.value = false;
 
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
+        //debugPrint('this is response body ==> ${res.body}');
         
         //decode response from the server
         //GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.data)); 
@@ -1051,7 +1055,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode} - ${res.body}"
+          message: "failed --> staus: ${res.statusCode} - ${res.body}"
         );
       }
 

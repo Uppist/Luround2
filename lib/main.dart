@@ -14,7 +14,6 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/onboarding/screen/onboarding_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
-import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_2.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
 import 'package:luround/views/account_owner/profile/widget/reviews/reviews_screen.dart';
@@ -76,7 +75,7 @@ void main() async{
 
   //check for existing fcmtoken
   var token = LocalStorage.getFCMToken();
-  print("my_FCMtoken: $token");
+  print("existing fcm token: $token");
 
   runApp(const MainApp());
 

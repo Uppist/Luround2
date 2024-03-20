@@ -225,7 +225,7 @@ class _ServicesPageState extends State<ServicesPage> {
                                               Text(
                                                 "Available from",
                                                 style: GoogleFonts.inter(
-                                                  color: AppColor.navyBlue,  //AppColor.yellowStar,
+                                                  color: AppColor.limeGreen,  //AppColor.yellowStar,
                                                   fontSize: 14.sp,
                                                   fontWeight: FontWeight.w400
                                                 ),

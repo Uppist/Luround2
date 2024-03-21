@@ -24,11 +24,18 @@ class ServicesController extends getx.GetxController {
   //add service stepper//////////////////////////////////
   //(save to db)
   String selectDurationRadio = "select something";
-
   //checks the selected radio
   final isradio1 = false.obs;
   final isradio2 = false.obs;
   final isradio3 = false.obs;
+
+  //service model
+  //(save to db)
+  String selectServiceModel = "select service model";
+
+  //checks the selected radio
+  final isOneOff = false.obs;
+  final isRetainer = false.obs;
   /////////////////////////////////////////////////////////
 
 
@@ -494,11 +501,19 @@ class ServicesController extends getx.GetxController {
   //edit service stepper//////////////////////////////////
   //(save to db)
   String selectDateRangeEdit = "select something";
-
   //checks the selected radio
   final isradio1Edit = false.obs;
   final isradio2Edit = false.obs;
   final isradio3Edit = false.obs;
+
+  //service model
+  //(save to db)
+  String selectServiceModelEdit = "select service model";
+
+  //checks the selected radio
+  final isOneOffEdit = false.obs;
+  final isRetainerEdit = false.obs;
+  ////////////////////////////////////////////////
 
   //list of dates for "calendar_picker" package (addservices)
   var datesEdit = <DateTime?>[].obs;

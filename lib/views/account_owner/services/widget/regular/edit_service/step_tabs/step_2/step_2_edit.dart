@@ -9,6 +9,7 @@ import 'package:luround/controllers/account_owner/services/regular_service/servi
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_2/radio_section_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_2/service_model_edit.dart';
 
 
 
@@ -94,6 +95,7 @@ class Step2PageEdit extends GetView<ServicesController> {
 
           //schedule radio section
           EditScheduleRadioWidget(),
+          //EditRegularServiceModelSelector(),
           
           SizedBox(height: 280.h,),
 

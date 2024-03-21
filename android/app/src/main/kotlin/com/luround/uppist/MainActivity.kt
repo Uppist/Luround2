@@ -1,4 +1,4 @@
-package com.example.luround
+package com.luround.uppist
 
 import io.flutter.embedding.android.FlutterActivity
 

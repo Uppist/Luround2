@@ -9,6 +9,8 @@ import 'package:luround/controllers/account_owner/services/regular_service/servi
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/radio_section.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/service_model.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_2/radio_section_edit.dart';
 
 
 
@@ -89,10 +91,10 @@ class _Step2PageState extends State<Step2Page> {
           ),
           SizedBox(height: 30.h,),
           Text(
-            "This service can be scheduled...",
+            "Service model",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 15.sp,
+              fontSize: 14.sp,
               fontWeight: FontWeight.w500
             ),
           ),
@@ -101,6 +103,7 @@ class _Step2PageState extends State<Step2Page> {
 
           //schedule radio section
           ScheduleRadioWidget(),
+          //RegularServiceModelSelector(),
           
           SizedBox(height: 280.h,),
 

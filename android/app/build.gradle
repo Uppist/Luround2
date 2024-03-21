@@ -58,7 +58,8 @@ android {
     signingConfigs {
         //debug
         release {
-            keyAlias 'login-key'
+            //'login-key' for google auth and "my-release-key" for release certificate
+            keyAlias 'my-release-key'
             keyPassword '533566'
             storeFile file('my-keystore.jks')
             storePassword '533566'

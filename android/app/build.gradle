@@ -57,9 +57,9 @@ android {
 
     signingConfigs {
         //debug
-        release {
+        debug {
             //'login-key' for google auth and "my-release-key" for release certificate
-            keyAlias 'my-release-key'
+            keyAlias 'login-key'
             keyPassword '533566'
             storeFile file('my-keystore.jks')
             storePassword '533566'
@@ -72,7 +72,7 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             
             //debug
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.debug
         }
     }
 }

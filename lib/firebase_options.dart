@@ -44,38 +44,38 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyAKe2z58TPfrMHHPgdeopFQC2JUQQ3TkSw',
-    appId: '1:747612609885:web:4cece214e490ad7b2f1cb4',
-    messagingSenderId: '747612609885',
-    projectId: 'luround-fb183',
-    authDomain: 'luround-fb183.firebaseapp.com',
-    storageBucket: 'luround-fb183.appspot.com',
-    measurementId: 'G-JS7WZHL20R',
+    apiKey: 'AIzaSyBV9zI-cYdabexEjsMbbepwG-OUT4lho8U',
+    appId: '1:435201146577:web:e4d53bc56c6dcdedbd0ff0',
+    messagingSenderId: '435201146577',
+    projectId: 'luround-japhet',
+    authDomain: 'luround-japhet.firebaseapp.com',
+    storageBucket: 'luround-japhet.appspot.com',
+    measurementId: 'G-FJMZENNT1L',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyC7_8_92ufVyq_BFTlT3iWzyLF61_7R8ks',
-    appId: '1:747612609885:android:d718c60c3739a31c2f1cb4',
-    messagingSenderId: '747612609885',
-    projectId: 'luround-fb183',
-    storageBucket: 'luround-fb183.appspot.com',
+    apiKey: 'AIzaSyAPUrHViZVSbJ7p8jN53iIiJ8mDnlO5H1Q',
+    appId: '1:435201146577:android:8589139bbe3af271bd0ff0',
+    messagingSenderId: '435201146577',
+    projectId: 'luround-japhet',
+    storageBucket: 'luround-japhet.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDExb1GAVglDoAlXZS2O1lmdGTLO5vUDYo',
-    appId: '1:747612609885:ios:8192771122695f7d2f1cb4',
-    messagingSenderId: '747612609885',
-    projectId: 'luround-fb183',
-    storageBucket: 'luround-fb183.appspot.com',
+    apiKey: 'AIzaSyBj2pMlwZ-VzRA5cMXhUxzSoxqG71pYU6A',
+    appId: '1:435201146577:ios:a1fcbd9ae9343cdebd0ff0',
+    messagingSenderId: '435201146577',
+    projectId: 'luround-japhet',
+    storageBucket: 'luround-japhet.appspot.com',
     iosBundleId: 'com.example.luround',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDExb1GAVglDoAlXZS2O1lmdGTLO5vUDYo',
-    appId: '1:747612609885:ios:04b062e53c6cefd52f1cb4',
-    messagingSenderId: '747612609885',
-    projectId: 'luround-fb183',
-    storageBucket: 'luround-fb183.appspot.com',
+    apiKey: 'AIzaSyBj2pMlwZ-VzRA5cMXhUxzSoxqG71pYU6A',
+    appId: '1:435201146577:ios:1d3cdd5ebc3ffb5dbd0ff0',
+    messagingSenderId: '435201146577',
+    projectId: 'luround-japhet',
+    storageBucket: 'luround-japhet.appspot.com',
     iosBundleId: 'com.example.luround.RunnerTests',
   );
 }

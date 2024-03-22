@@ -59,9 +59,9 @@ android {
         //debug
         debug {
             //'login-key' for google auth and "my-release-key" for release certificate
-            keyAlias 'login-key'
+            keyAlias 'google-key'
             keyPassword '533566'
-            storeFile file('my-keystore.jks')
+            storeFile file('google-key.jks')
             storePassword '533566'
         }
     }

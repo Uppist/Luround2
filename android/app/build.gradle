@@ -31,8 +31,10 @@ android {
     ndkVersion flutter.ndkVersion
 
     compileOptions {
+        
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        
     }
 
     kotlinOptions {
@@ -59,9 +61,9 @@ android {
         //debug
         release {
             //'login-key' for google auth and "my-release-key" for release certificate
-            keyAlias 'google-key'
+            keyAlias 'authkey'
             keyPassword '533566'
-            storeFile file('google-key.jks')
+            storeFile file('auth-key.jks')
             storePassword '533566'
         }
     }

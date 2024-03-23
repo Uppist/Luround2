@@ -550,12 +550,13 @@ class AuthService extends getx.GetxController {
       }
       else if (e.code == GoogleSignIn.kSignInFailedError) {
         // User cancelled the sign-in process
-        print(e.code);
+        print(e.details);
+        print(e.message);
         // Handle errors gracefully
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "Sign-In process failed"
+          message: "Sign-In process failed : ${e.details} || ${e.message}"
         );
       }
       else {        
@@ -640,13 +641,15 @@ class AuthService extends getx.GetxController {
         );
       }
       else if (e.code == GoogleSignIn.kSignInFailedError) {
+
         // User cancelled the sign-in process
-        print(e.code);
+        print(e.details);
+        print(e.message);
         // Handle errors gracefully
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "Sign-In process failed"
+          message: "Sign-Up process failed : ${e.details} || ${e.message}"
         );
       }
       else {        

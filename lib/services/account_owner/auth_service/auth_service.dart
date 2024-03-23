@@ -674,6 +674,7 @@ class AuthService extends getx.GetxController {
   }
 
 
+
   Future<void> decodeJWTWithDioGoogleSignIn({
     required BuildContext context,
     required String email,
@@ -685,209 +686,6 @@ class AuthService extends getx.GetxController {
     isLoading.value = true;
     try {
 
-      //dio instance
-      diomygee.Dio dio = diomygee.Dio();
-      
-      //body to be encoded by dio
-      var body = {
-        "email": email,
-        "firstName": firstName,
-        "lastName": lastName,
-        "photoUrl": photoUrl,
-        //"google_user_id": google_user_id,
-        "user_nToken": FCMToken ?? "no token"
-      };
-
-      //define or state your headers
-      diomygee.Options options = diomygee.Options(
-        headers: {
-          // Your headers
-          "Content-Type": "application/json",
-          "Connection": "keep-alive",
-          "Accept": "*/*",
-          // Add any other headers as needed
-         },
-      );
-    
-      //make your POST request
-      var res = await dio.post(
-        "https://luround-api-7ad1326c3c1f.herokuapp.com/google/signIn", 
-        /* other parameters */
-        data: body,
-        options: options,
-      );
-
-      //if/else check to make sure everything goes smooth
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
-
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.data}');
-        
-        //decode response from the server
-        //GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.data)); 
-        
-        Map<String, dynamic> jsonResponse = res.data;
-        // Access the "accessToken" from the response
-        String accessToken = jsonResponse["accessToken"];
-        String account_status = jsonResponse["account_status"];
-    
-        //CHECK IF THE USER HAS PAID
-        if(account_status == "TRIAL") {
-          print(account_status);
-          await LocalStorage.saveToken(accessToken);
-          var token = await LocalStorage.getToken();
-          print(token);
-        
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-          //generate grlink
-          //await generateQrLink(urlSlug: email);
-          //move with agility to the next page
-          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "log in successful"
-          );
-        }
-        else if(account_status == "ACTIVE") {
-          print(account_status);
-          await LocalStorage.saveToken(accessToken);
-          var token = await LocalStorage.getToken();
-          print(token);
-        
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-          //generate grlink
-          //await generateQrLink(urlSlug: email);
-          //move with agility to the next page
-          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "log in successful"
-          );
-        }
-        
-      
-        else {
-          ////INACTIVE////
-          print(account_status);
-          await LocalStorage.saveToken(accessToken);
-          var token = await LocalStorage.getToken();
-          print(token);
-
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  SubscriptionScreenAuth());
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-        }
-        //////////////
-
-      } 
-      else {
-        isLoading.value = false;
-        debugPrint('this is response body ==>${res.data}');
-        debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response extra ==> ${res.extra}');
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode}"
-        );
-      }
-
-    }
-    on FormatException catch(e, stackTrace){
-      isLoading.value = false;
-      showMySnackBar(
-        context: context,
-        backgroundColor: AppColor.redColor,
-        message: "$e"
-      );
-      debugPrint("$e");
-      debugPrint("trace: $stackTrace");
-    }
-    on Exception catch(e, stackTrace) {
-      isLoading.value = false;
-      //baseService.handleError(const HttpException("Something went wrong"));
-      debugPrint("$e");
-      debugPrint("trace: $stackTrace");
-      showMySnackBar(
-        context: context,
-        backgroundColor: AppColor.redColor,
-        message: "Email does not exit in database."  //$e
-      );
-      getx.Get.off(() => RegisterPage1());
-    }
-
-  }
-
-
-  Future<void> decodeJWTWithDioGoogleSignUp({
-    required BuildContext context,
-    required String email,
-    required String firstName,
-    required String lastName,
-    required String photoUrl,
-    required String google_user_id,
-  }) async {
-    isLoading.value = true;
-    try {
-
 
       //body to be encoded by dio
       var body = {
@@ -898,57 +696,31 @@ class AuthService extends getx.GetxController {
         //"google_user_id": google_user_id,
         "user_nToken": FCMToken ?? "no token"
       };
-
-      //dio instance
-      ///diomygee.Dio dio = diomygee.Dio(); 
-
-      //define or state your headers
-      //diomygee.Options options = diomygee.Options(
-        //headers: {
-          // Your headers
-          //"Content-Type": "application/json",
-          //"Connection": "keep-alive",
-          //"Accept": "*/*",
-          //"Accept-Encoding": "gzip, deflate, br",
-          // Add any other headers as needed
-         //},
-      //);
-    
-      //make your POST request
-      //var res = await dio.post(
-        //"https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/google/sign-up", 
-        /* other parameters */
-        //data: body,
-        //options: options,
-      //);
       
-      
-      http.Response res = await baseService.httpGooglePost(endPoint: "google/sign-up", body: body);
+      //http call
+      http.Response res = await baseService.httpGooglePost2(endPoint: "google/signIn", body: body);
 
       //if/else check to make sure everything goes smooth
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
 
         debugPrint('this is response status ==> ${res.statusCode}');
-        //debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         
         //decode response from the server
-        //GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.data)); 
+        GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.body)); 
         
-        Map<String, dynamic> jsonResponse = json.decode(res.body);
         // Access the "accessToken" from the response
-        String accessToken = jsonResponse["accessToken"];
-        String account_status = jsonResponse["account_status"];
+        String accessToken = jsonResponse.accessToken;
+        String account_status = jsonResponse.account_status;
+        await LocalStorage.saveToken(accessToken);
     
         //CHECK IF THE USER HAS PAID
         if(account_status == "TRIAL") {
           print(account_status);
-          await LocalStorage.saveToken(accessToken);
-          var token = await LocalStorage.getToken();
-          print(token);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
 
           //Access the payload
           if (decodedToken != null) {
@@ -985,12 +757,9 @@ class AuthService extends getx.GetxController {
         }
         else if(account_status == "ACTIVE") {
           print(account_status);
-          await LocalStorage.saveToken(accessToken);
-          var token = await LocalStorage.getToken();
-          print(token);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
 
           //Access the payload
           if (decodedToken != null) {
@@ -1024,12 +793,9 @@ class AuthService extends getx.GetxController {
         else {
           ////INACTIVE////
           print(account_status);
-          await LocalStorage.saveToken(accessToken);
-          var token = await LocalStorage.getToken();
-          print(token);
 
           // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
 
           //Access the payload
           if (decodedToken != null) {
@@ -1088,6 +854,185 @@ class AuthService extends getx.GetxController {
     }
 
   }
+
+
+  Future<void> decodeJWTWithDioGoogleSignUp({
+    required BuildContext context,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String photoUrl,
+    required String google_user_id,
+  }) async {
+    isLoading.value = true;
+    try {
+
+      //body to be encoded by dio
+      var body = {
+        "email": email,
+        "firstName": firstName,
+        "lastName": lastName,
+        "photoUrl": photoUrl,
+        //"google_user_id": google_user_id,
+        "user_nToken": FCMToken ?? "no token"
+      };
+      
+      http.Response res = await baseService.httpGooglePost(endPoint: "google/sign-up", body: body);
+
+      //if/else check to make sure everything goes smooth
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        
+        //decode response from the server
+        GoogleSigninResponse jsonResponse = GoogleSigninResponse.fromJson(json.decode(res.body)); 
+        
+        // Access the "accessToken" from the response
+        String accessToken = jsonResponse.accessToken;
+        String account_status = jsonResponse.account_status;
+        await LocalStorage.saveToken(accessToken);
+    
+        //CHECK IF THE USER HAS PAID
+        if(account_status == "TRIAL") {
+          print(account_status);
+        
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            await sendPushNotification(
+              noti_title: "Account created successfully", 
+              noti_body: "Hey $displayName, welcome to luround.",
+              fcm_token: FCMToken ?? "no token",
+              userID: userId
+            );
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //generate grlink
+          //await generateQrLink(urlSlug: email);
+          //move with agility to the next page
+          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "sign up successful"
+          );
+
+        }
+        else if(account_status == "ACTIVE") {
+          print(account_status);
+        
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+          //generate grlink
+          //await generateQrLink(urlSlug: email);
+          //move with agility to the next page
+          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "log in successful"
+          );
+        }
+        
+      
+        else {
+          ////INACTIVE////
+          print(account_status);
+
+          // Decode the JWT token with the awesome package {JWT Decoder}
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
+
+          //Access the payload
+          if (decodedToken != null) {
+            print("Token payload: $decodedToken");
+            // Access specific claims
+            // Replace 'sub' with the actual claim you want
+            String userId = decodedToken['userId']; //?? "user_id";
+            String email = decodedToken['email'];
+            String displayName = decodedToken['displayName'];
+            int expDate = decodedToken['exp'];
+            await LocalStorage.saveTokenExpDate(expDate);
+            await LocalStorage.saveUserID(userId);
+            await LocalStorage.saveEmail(email);
+            await LocalStorage.saveUsername(displayName);
+            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+          } 
+          else {
+            print("Failed to decode JWT token.");
+          }
+        }
+        //////////////
+
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response extra ==> ${res.reasonPhrase}');
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed --> staus: ${res.statusCode} - ${res.body}"
+        );
+      }
+
+    }
+    on FormatException catch(e, stackTrace){
+      isLoading.value = false;
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "$e"
+      );
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
+    }
+    on Exception catch(e, stackTrace) {
+      isLoading.value = false;
+      debugPrint("$e");
+      debugPrint("trace: $stackTrace");
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "$e"
+      );
+    }
+  }
+  
   
   //to eliminate loop hole of user not trying to pay upon login, register, e.t.c
   bool checkForUserInactive({required String token}) {

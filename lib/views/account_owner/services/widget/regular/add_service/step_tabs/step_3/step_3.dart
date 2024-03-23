@@ -152,7 +152,7 @@ class _Step3PageState extends State<Step3Page> {
                     service_charge_virtual: mainController.virtualController.text, 
                     duration: mainController.formatDuration(), 
                     time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                    date: mainController.selectDurationRadio,  //selectServiceModel,   //regular service model           
+                    date: mainController.selectDurationRadio,  //selectServiceModel, selectDurationRadio   //regular service model           
                     available_days: mainController.availableDays(),
                   ).whenComplete(() {
                     //1

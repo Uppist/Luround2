@@ -19,7 +19,7 @@ class BaseService extends getX.GetxController {
   String socketUrl = "ws://luround-api-7ad1326c3c1f.herokuapp.com/";
   String baseUrl = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
   String baseUrlForGoogle = "https://luround-api-7ad1326c3c1f.herokuapp.com/api/v1/"; //"https://luround.onrender.com/";
-
+  String baseUrlForGoogle2 = "https://luround-api-7ad1326c3c1f.herokuapp.com/";
 
 
   //DIO (DELETE REQUEST)
@@ -195,6 +195,27 @@ class BaseService extends getX.GetxController {
   Future<dynamic> httpGooglePost({required String endPoint, required dynamic body}) async {
     //var token = await LocalStorage.getToken();
     Uri url = Uri.parse("$baseUrlForGoogle$endPoint");
+    print(url);
+    var res = http.post(
+      url,
+      body: json.encode(body),
+      headers: //token != null ? 
+      {
+        //'Authorization': 'Bearer $token',
+        "Accept": "*/*",
+        "Content-Type": "application/json",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Connection": "keep-alive",
+      } 
+      //: null
+    );
+    return res;
+  }
+
+  //function that sends a GET request for Google Auth (on a soft)
+  Future<dynamic> httpGooglePost2({required String endPoint, required dynamic body}) async {
+    //var token = await LocalStorage.getToken();
+    Uri url = Uri.parse("$baseUrlForGoogle2$endPoint");
     print(url);
     var res = http.post(
       url,

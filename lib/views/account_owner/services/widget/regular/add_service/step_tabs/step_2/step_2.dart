@@ -94,7 +94,7 @@ class _Step2PageState extends State<Step2Page> {
             "Service model",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
-              fontSize: 14.sp,
+              fontSize: 15.sp,
               fontWeight: FontWeight.w500
             ),
           ),

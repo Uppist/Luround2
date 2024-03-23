@@ -13,6 +13,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/regular/edit_service/edit_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/channel/choose_service_type_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/toggle_service_price_container/toggle_price.dart';
 import '../../../../services/account_owner/data_service/local_storage/local_storage.dart';
 
@@ -107,7 +108,7 @@ class _ServicesPageState extends State<ServicesPage> {
                     ),
                     InkWell(
                       onTap: () async{
-                        Get.to(() => AddServiceScreen());
+                        Get.to(() => ChooseServiceTypePage());
                       },
                       child: SvgPicture.asset("assets/svg/add_service.svg"),
                     ),

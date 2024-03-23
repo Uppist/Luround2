@@ -94,8 +94,8 @@ class Step2PageEdit extends GetView<ServicesController> {
           SizedBox(height: 20.h,),
 
           //schedule radio section
-          EditScheduleRadioWidget(),
-          //EditRegularServiceModelSelector(),
+          //EditScheduleRadioWidget(),
+          EditRegularServiceModelSelector(),
           
           SizedBox(height: 280.h,),
 

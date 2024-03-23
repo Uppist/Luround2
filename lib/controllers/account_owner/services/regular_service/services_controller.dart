@@ -1,4 +1,3 @@
-import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:currency_picker/currency_picker.dart';
 import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';

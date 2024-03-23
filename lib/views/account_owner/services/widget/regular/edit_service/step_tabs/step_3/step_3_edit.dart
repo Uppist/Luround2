@@ -171,8 +171,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                     duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
                     time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
                     
-                    //chnage the date below to service model field  --- //selectDateRangeEdit //selectServiceModelEdit
-                    date: mainController.selectDateRangeEdit.isEmpty ? widget.date : mainController.selectDateRangeEdit,             
+                    //change the date below to service model field  --- //selectDateRangeEdit //selectServiceModelEdit
+                    date: mainController.selectServiceModelEdit.isEmpty ? widget.date : mainController.selectServiceModelEdit,             
                     available_days: mainController.availableDaysEdit(), 
                     available_time: mainController.availableTimeEdit,
                   ).whenComplete(() {

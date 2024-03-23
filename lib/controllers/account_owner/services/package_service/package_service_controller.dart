@@ -20,7 +20,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 class PackageServiceController extends getx.GetxController {
   
 
-  //add service stepper//////////////////////////////////
+  //add package service stepper//////////////////////////////////
   //(save to db)
   String selectDurationRadio = "select something";
   //checks the selected radio

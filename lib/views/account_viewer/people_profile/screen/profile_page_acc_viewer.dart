@@ -178,13 +178,19 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                   height: 300.h,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    //color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
-                                    image: DecorationImage(
-                                      image: NetworkImage(data.photoUrl),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
+                                    color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
+                                    image:  data.photoUrl == "my_photo" ?
+                                    DecorationImage(
+                                      image: AssetImage('assets/images/profile_null.png'),
                                       fit: BoxFit.contain
                                     )
-                                  ),
+                                    :DecorationImage(
+                                      image: NetworkImage(data.photoUrl),
+                                      fit: BoxFit.cover
+                                    )
+                                  ),       
                                 ),
+
                               ],
                             ),
                           ), 
@@ -211,7 +217,8 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
+                              data.logo_url.isEmpty ? SizedBox()
+                              :Container(
                                 alignment: Alignment.center,
                                 height: 40.h,
                                 width: 50.w,
@@ -254,69 +261,84 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             ),
                           ),
                           
-                          SizedBox(height: 30.h,),
-
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppColor.greyColor
-                            ),
-                            height: 7.h,
-                            width: double.infinity,
-                          ),
-                          const SizedBox(height: 30),
-                          /////////////////////////////
-                          //About section here
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                            child: AccViewerAboutSection(
-                              text: data.about
-                            ),
-                          ),
-                          SizedBox(height: 30.h),
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppColor.greyColor
-                            ),
-                            height: 7,
-                            width: double.infinity,
-                          ),
-                          /*SizedBox(height: 30.h),                 
-                          AccViewerEducationAndCertificationSection(
-                            eduAndCertList: data.certificates,
-                            service: service,
-                          ),
-                          SizedBox(height: 30.h),
-                          Container(
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: AppColor.greyColor
-                            ),
-                            height: 7.h,
-                            width: double.infinity,
-                          ),*/
-                                
                         SizedBox(height: 30.h,),
-                        //Additional information
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                          child: AdditionalInfoSection(
-                            media_links: data.media_links,
-                            service: service,
-                            profileController: controller,
-                          ),
-                        ),
-                        SizedBox(height: 30.h),
+
+                        data.about.isEmpty || data.media_links.isEmpty ?
+                        ProfileEmptyState2(
+                          onPressed: () {
+                            showMySnackBar(
+                              context: context, 
+                              message: "uh-oh! could not fetch profile details", 
+                              backgroundColor: AppColor.redColor
+                            );
+                          },
+                        )
+                        :Column(
+                          children: [
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppColor.greyColor
+                              ),
+                              height: 7.h,
+                              width: double.infinity,
+                            ),
+                            const SizedBox(height: 30),
+                            /////////////////////////////
+                            //About section here
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                              child: AccViewerAboutSection(
+                                text: data.about
+                              ),
+                            ),
+                            SizedBox(height: 30.h),
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppColor.greyColor
+                              ),
+                              height: 7,
+                              width: double.infinity,
+                            ),
+                            /*SizedBox(height: 30.h),                 
+                            AccViewerEducationAndCertificationSection(
+                              eduAndCertList: data.certificates,
+                              service: service,
+                            ),
+                            SizedBox(height: 30.h),
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppColor.greyColor
+                              ),
+                              height: 7.h,
+                              width: double.infinity,
+                            ),*/
                                 
-                        Container(
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: AppColor.greyColor
-                          ),
-                          height: 7.h,
-                          width: double.infinity,
+                            SizedBox(height: 30.h,),
+                            //Additional information
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                              child: AdditionalInfoSection(
+                                media_links: data.media_links,
+                                service: service,
+                                profileController: controller,
+                              ),
+                            ),
+                            SizedBox(height: 30.h),
+                                
+                            Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: AppColor.greyColor
+                              ),
+                              height: 7.h,
+                              width: double.infinity,
+                            ),
+                          ],
                         ),
+
                         SizedBox(height: 20.h,), 
                                 
                                 

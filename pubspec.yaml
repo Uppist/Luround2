@@ -1,7 +1,7 @@
 name: luround
 description: "Welcome to luround."
 publish_to: 'none'
-version: 1.0.2+2
+version: 1.0.2+3
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -113,6 +113,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  #for updating launcher icons
   flutter_launcher_icons: ^0.13.1
   #change app package name
   change_app_package_name: ^1.1.0

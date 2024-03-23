@@ -733,12 +733,7 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
-            await sendPushNotification(
-              noti_title: "Account created successfully", 
-              noti_body: "Hey $displayName, welcome to luround.",
-              fcm_token: FCMToken ?? "no token",
-              userID: userId
-            );
+            
           } 
           else {
             print("Failed to decode JWT token.");

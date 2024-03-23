@@ -52,8 +52,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            //Get.back();
-            Get.offAll(() => MainPage());
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -81,8 +80,6 @@ class _EditOthersPageState extends State<EditOthersPage> {
                 controller.viewItems.clear();
                 print("textfield_list: ${controller.viewTextfields}");
                 print("controller_list_length: ${controller.viewItems.length}");
-                //Get.back();
-                Get.offAll(() => MainPage());
               });
 
             },

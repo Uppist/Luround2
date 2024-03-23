@@ -62,9 +62,9 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
+                          /*InkWell(
                             onTap: () {
                               Navigator.pop(context);
                             },
@@ -74,7 +74,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                               size: 23,
                             ),
                           ),
-                          SizedBox(width: 150.w),
+                          SizedBox(width: 150.w),*/
                           //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                           Image.asset('assets/images/luround_logo.png')
                         ]
@@ -174,7 +174,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             authService.signUpWithGoogle(context: context);
                           },
                           onTextButton: () {
-                            Get.off(() => LoginPage());
+                            Get.offAll(() => LoginPage());
                           },
                           firstText: "Already have an account?",
                           lastText: "Log in",

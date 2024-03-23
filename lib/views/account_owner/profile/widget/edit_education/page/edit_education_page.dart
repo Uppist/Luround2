@@ -54,7 +54,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
         leading: IconButton(
           onPressed: () {
             //Get.back();
-            Get.offAll(() => MainPage());
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -327,8 +327,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                         profileController.controllers.clear();
                         print("textfield_list: ${profileController.textFields}");
                         print("controller_list_length: ${profileController.controllers.length}");
-                        //Get.back();
-                        Get.offAll(() => MainPage());
+                        
                       });
                     },
                   ),

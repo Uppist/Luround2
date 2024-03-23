@@ -16,6 +16,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_others/view_model.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -213,8 +214,9 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "updated successfully"
+          message: "profile updated successfully"
         );
+        getx.Get.offAll(() => MainPage());
       } 
       else {
         isLoading.value = false;
@@ -225,7 +227,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update profile details: ${res.statusCode} --> ${res.body}"
+          message: "failed to update profile: ${res.statusCode} => ${res.body}"
         );
       }
     } 
@@ -466,8 +468,9 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "updated successfully"
+          message: "detail updated successfully"
         );
+        getx.Get.offAll(() => MainPage());
       } 
       else {
         isLoading.value = false;
@@ -478,7 +481,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update"
+          message: "failed to update detail ${res.statusCode} => ${res.body}"
         );
       }
     } 
@@ -539,6 +542,7 @@ class AccOwnerProfileService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "media data updated successfully"
         );
+        getx.Get.offAll(() => MainPage());
       } 
       else {
         isLoading.value = false;
@@ -549,7 +553,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update media data"
+          message: "failed to update media data ${res.statusCode}",
         );
       }
     } 
@@ -613,8 +617,9 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "updated successfully"
+          message: "certificate details updated successfully"
         );
+        getx.Get.offAll(() => MainPage());
       } 
       else {
         isLoading.value = false;
@@ -625,7 +630,7 @@ class AccOwnerProfileService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update"
+          message: "failed to update certificate details"
         );
       }
     } 

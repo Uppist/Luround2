@@ -686,7 +686,6 @@ class AuthService extends getx.GetxController {
     isLoading.value = true;
     try {
 
-
       //body to be encoded by dio
       var body = {
         "email": email,
@@ -829,7 +828,7 @@ class AuthService extends getx.GetxController {
           backgroundColor: AppColor.redColor,
           message: "failed => ${res.statusCode}-${res.body}"
         );
-        getx.Get.off(() => RegisterPage1());
+        getx.Get.offAll(() => RegisterPage1());
       }
 
     }
@@ -1009,7 +1008,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed --> staus: ${res.statusCode} - ${res.body}"
+          message: "failed => ${res.statusCode}-${res.body}"
         );
       }
 

@@ -43,8 +43,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            //Get.back();
-            Get.offAll(() => MainPage());
+            //Get.offAll(() => MainPage());
+            Navigator.pop(context);
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -125,8 +125,8 @@ class _EditAboutPageState extends State<EditAboutPage> {
                               await profileService.updateAbout(
                                 context: context,
                                 about: controller.aboutController.text.isEmpty ? widget.about : controller.aboutController.text
-                              )
-                              .whenComplete(() => Get.offAll(() => MainPage()));
+                              );
+                              //.whenComplete(() => Get.offAll(() => MainPage()));
                             },
                           ),
                           SizedBox(height: 20.h,),

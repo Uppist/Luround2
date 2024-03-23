@@ -56,8 +56,8 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            //Get.back();
-            Get.offAll(() => MainPage());
+            Navigator.pop(context);
+            //Get.offAll(() => MainPage());
           },
           icon: Icon(
             Icons.arrow_back_rounded,
@@ -336,8 +336,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       company: controller.companyNameController.text.isEmpty ? widget.company : controller.companyNameController.text
                                     ).whenComplete(() {
                                       profileService.isImageSelected.value = false;
-                                      Get.offAll(() => MainPage());
-                                      //Get.back(canPop: true);
+                                      //Get.offAll(() => MainPage());
                                     });
           
                                   },

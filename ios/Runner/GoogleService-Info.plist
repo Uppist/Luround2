@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>435201146577-jptvcq353844i9i03bagh4ch830k3ugt.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.435201146577-jptvcq353844i9i03bagh4ch830k3ugt</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDExb1GAVglDoAlXZS2O1lmdGTLO5vUDYo</string>
+	<string>AIzaSyBj2pMlwZ-VzRA5cMXhUxzSoxqG71pYU6A</string>
 	<key>GCM_SENDER_ID</key>
-	<string>747612609885</string>
+	<string>435201146577</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.luround</string>
 	<key>PROJECT_ID</key>
-	<string>luround-fb183</string>
+	<string>luround-japhet</string>
 	<key>STORAGE_BUCKET</key>
-	<string>luround-fb183.appspot.com</string>
+	<string>luround-japhet.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:747612609885:ios:8192771122695f7d2f1cb4</string>
+	<string>1:435201146577:ios:a1fcbd9ae9343cdebd0ff0</string>
 </dict>
 </plist>

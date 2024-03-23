@@ -1,7 +1,7 @@
 name: luround
 description: "Welcome to luround."
 publish_to: 'none'
-version: 1.2.3+6
+version: 1.0.2+7
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -70,7 +70,7 @@ dependencies:
   cached_network_image: ^3.3.0
   cloudinary: ^1.2.0
   image_picker: ^1.0.7
-  #image_picker_web: ^3.1.1
+  image_picker_web: ^3.1.1
   
 
   #for generating qr codes

@@ -264,14 +264,16 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                         SizedBox(height: 30.h,),
 
                         data.about.isEmpty || data.media_links.isEmpty ?
-                        ProfileEmptyState2(
-                          onPressed: () {
-                            showMySnackBar(
-                              context: context, 
-                              message: "uh-oh! could not fetch profile details", 
-                              backgroundColor: AppColor.redColor
-                            );
-                          },
+                        Center(
+                          child: ProfileEmptyState2(
+                            onPressed: () {
+                              showMySnackBar(
+                                context: context, 
+                                message: "uh-oh! could not fetch profile details", 
+                                backgroundColor: AppColor.redColor
+                              );
+                            },
+                          ),
                         )
                         :Column(
                           children: [

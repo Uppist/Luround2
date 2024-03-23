@@ -301,15 +301,15 @@ class AuthService extends getx.GetxController {
     };
 
     try {
-      dio.Response res = await baseService.postRequestWithDio(endPoint: "notifications/send-notification", data: body);
+      http.Response res = await baseService.httpGooglePost(endPoint: "notifications/send-notification", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.data}');
+        debugPrint('this is response body ==> ${res.body}');
       }
       else {
         debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response reason ==> ${res.statusMessage}');
-        debugPrint('this is response body ==>${res.data}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
       }
     } 
     catch (e) {
@@ -827,8 +827,9 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed --> staus: ${res.statusCode} - ${res.body}"
+          message: "failed => ${res.statusCode}-${res.body}"
         );
+        getx.Get.off(() => RegisterPage1());
       }
 
     }
@@ -913,6 +914,8 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
+            
+            //this push notification is a problem
             await sendPushNotification(
               noti_title: "Account created successfully", 
               noti_body: "Hey $displayName, welcome to luround.",
@@ -1033,7 +1036,7 @@ class AuthService extends getx.GetxController {
     }
   }
   
-  
+
   //to eliminate loop hole of user not trying to pay upon login, register, e.t.c
   bool checkForUserInactive({required String token}) {
     print("check for token: $token");

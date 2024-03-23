@@ -12,7 +12,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class PasswordTextField extends StatefulWidget {
-  PasswordTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.isObscured, required this.validator,});
+  PasswordTextField({super.key,required this.onChanged, required this.labelText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.isObscured, this.validator,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String labelText;

@@ -63,9 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center, //start
                         children: [
-                          InkWell(
+                          /*InkWell(
                             onTap: () {
                               Navigator.pop(context);
                             },
@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                               size: 23,
                             ),
                           ),
-                          SizedBox(width: 150.w),
+                          SizedBox(width: 150.w),*/
                           //SizedBox(width: MediaQuery.of(context).size.width / 3.8.w,),
                           Image.asset('assets/images/luround_logo.png')
                         ]
@@ -132,9 +132,9 @@ class _LoginPageState extends State<LoginPage> {
                               SizedBox(height: 20.h,),
                               PasswordTextField(
                                 onChanged: (val) {},
-                                validator: (val) {
+                                /*validator: (val) {
                                   return controller.validateLoginPassword();
-                                },    
+                                },*/   
                                 labelText: "Input password",
                                 keyboardType: TextInputType.visiblePassword,
                                 textInputAction: TextInputAction.done,

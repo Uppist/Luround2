@@ -276,6 +276,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                           ),
                         )
                         :Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
                               alignment: Alignment.center,

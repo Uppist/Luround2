@@ -102,8 +102,8 @@ class _Step2PageState extends State<Step2Page> {
           SizedBox(height: 20.h,),
 
           //schedule radio section
-          //ScheduleRadioWidget(),
-          RegularServiceModelSelector(),
+          ScheduleRadioWidget(),
+          //RegularServiceModelSelector(),
           
           SizedBox(height: 280.h,),
 

@@ -83,7 +83,7 @@ class Step2PageEdit extends GetView<ServicesController> {
           ),
           SizedBox(height: 30.h,),
           Text(
-            "This service can be scheduled...",
+            "Service model",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 15.sp,
@@ -94,8 +94,8 @@ class Step2PageEdit extends GetView<ServicesController> {
           SizedBox(height: 20.h,),
 
           //schedule radio section
-          //EditScheduleRadioWidget(),
-          EditRegularServiceModelSelector(),
+          EditScheduleRadioWidget(),
+          //EditRegularServiceModelSelector(),
           
           SizedBox(height: 280.h,),
 

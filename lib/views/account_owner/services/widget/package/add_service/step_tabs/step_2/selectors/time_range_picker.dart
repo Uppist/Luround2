@@ -4,10 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_2/date_range_bottomsheet_edit.dart';
-
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/date_range_bottomsheet.dart';
 
 
 
@@ -17,16 +16,16 @@ import 'package:luround/views/account_owner/services/widget/regular/edit_service
 
 
 //DATE RANGE PICKER
-class TimeRangePickerWidgetEdit extends StatefulWidget {
-  TimeRangePickerWidgetEdit({super.key});
+class TimeRangePickerWidget extends StatefulWidget {
+  TimeRangePickerWidget({super.key});
 
   @override
-  State<TimeRangePickerWidgetEdit> createState() => _TimeRangePickerWidgetEditState();
+  State<TimeRangePickerWidget> createState() => _TimeRangePickerWidgetState();
 }
 
-class _TimeRangePickerWidgetEditState extends State<TimeRangePickerWidgetEdit> {
+class _TimeRangePickerWidgetState extends State<TimeRangePickerWidget> {
   
-  var controller = Get.put(ServicesController());
+  var controller = Get.put(PackageServiceController());
 
   
 
@@ -34,7 +33,7 @@ class _TimeRangePickerWidgetEditState extends State<TimeRangePickerWidgetEdit> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        selectDateRangeBottomSheetEdit(
+        selectDateRangeBottomSheet(
           context: context, 
           onCancel: () {
             Get.back();
@@ -74,7 +73,7 @@ class _TimeRangePickerWidgetEditState extends State<TimeRangePickerWidgetEdit> {
                       Obx(
                         () {
                           return Text(
-                            controller.startDateEdit(),
+                            controller.startDate(),
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
@@ -126,7 +125,7 @@ class _TimeRangePickerWidgetEditState extends State<TimeRangePickerWidgetEdit> {
                       Obx(
                         () {
                           return Text(
-                            controller.endDateEdit(),
+                            controller.endDate(),
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,

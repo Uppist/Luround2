@@ -16,49 +16,22 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class EditTimeRangeSelector extends StatefulWidget {
-  EditTimeRangeSelector({super.key, required this.index});
+
+class TimeRangeSelector extends StatefulWidget {
+  TimeRangeSelector({super.key, required this.index});
   final int index;
 
   @override
-  State<EditTimeRangeSelector> createState() => _EditTimeRangeSelectorState();
+  State<TimeRangeSelector> createState() => _TimeRangeSelectorState();
 }
 
-class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
+class _TimeRangeSelectorState extends State<TimeRangeSelector> {
   
   var controller = Get.put(ServicesController());
+  
 
   //t1
-  Future<void> openFlutterTimePickerForStartTimeEdit({required BuildContext context, required int index}) async{
-    var time = await showTimePicker(
-      context: context, 
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input,
-      builder: (context, child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false), 
-          child: child!
-        );
-      },
-    );
-
-    if (time != null) {
-
-      setState(() {
-        controller.startTimeValueEdit.value = time.format(context);
-        controller.daysOfTheWeekCheckBoxEdit[index].addAll({
-          "from" : controller.startTimeValueEdit.value,
-        });
-        //controller.addStartTimeEdit();
-        controller.addFirstTimeEdit();
-        print("time list: ${controller.availableTimeEdit}");
-      });
-
-    }
-  }
-
-  //t2
-  Future<void> openFlutterTimePickerForStopTimeEdit({required BuildContext context, required int index}) async{
+  Future<void> openFlutterTimePickerForStartTime({required BuildContext context, required int index}) async{
     var time = await showTimePicker(
       context: context, 
       initialTime: TimeOfDay.now(),
@@ -73,15 +46,41 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
 
     if (time != null) {
       setState(() {
-        controller.stopTimeValueEdit.value = time.format(context);
-        controller.daysOfTheWeekCheckBoxEdit[index].addAll({
-          "to" : controller.stopTimeValueEdit.value,
+        controller.startTimeValue.value = time.format(context);
+        controller.daysOfTheWeekCheckBox[index].addAll({
+          "from" : controller.startTimeValue.value,
         });
-        controller.addLastTimeEdit();
+        //controller.addStartTime();
+        controller.addFirstTime();
+        print("time list: ${controller.availableTime}");
       });
     }
   }
   
+  //t2
+  Future<void> openFlutterTimePickerForStopTime({required BuildContext context, required int index}) async{
+    var time = await showTimePicker(
+      context: context, 
+      initialTime: TimeOfDay.now(),
+      initialEntryMode: TimePickerEntryMode.input,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false), 
+          child: child!
+        );
+      },
+    );
+
+    if (time != null) {
+      setState(() {
+        controller.stopTimeValue.value = time.format(context);
+        controller.daysOfTheWeekCheckBox[index].addAll({
+          "to" : controller.stopTimeValue.value,
+        });
+        controller.addLastTime();
+      });
+    }
+  }
   
 
   @override
@@ -96,7 +95,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
           //from container      
           InkWell(
             onTap: () {
-              openFlutterTimePickerForStartTimeEdit(context: context, index: widget.index);
+              openFlutterTimePickerForStartTime(context: context, index: widget.index);
             },
             child: Container(
               alignment: Alignment.center,
@@ -115,7 +114,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [                  
                   Text(
-                    controller.daysOfTheWeekCheckBoxEdit[widget.index]['from'] ?? "from", //"${controller.startTime.value}: ${controller.startMinute.value}",
+                    controller.daysOfTheWeekCheckBox[widget.index]['from'] ?? "from", //"${controller.startTime.value}: ${controller.startMinute.value}",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                         color: AppColor.textGreyColor,
@@ -123,7 +122,9 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
                         fontWeight: FontWeight.normal
                       )
                     )
-                  ),                   
+                  )
+                  
+                                   
                   /*SizedBox(width: 5.w,),
                   Icon(
                     CupertinoIcons.time,
@@ -150,7 +151,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
           //to container
           InkWell(
             onTap: () {
-              openFlutterTimePickerForStopTimeEdit(context: context, index: widget.index);
+              openFlutterTimePickerForStopTime(context: context, index: widget.index);
             },
             child: Container(
               alignment: Alignment.center,
@@ -169,7 +170,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [          
                   Text(
-                    controller.daysOfTheWeekCheckBoxEdit[widget.index]['to'] ?? "to", //"${controller.endTime.value}: ${controller.endMinute.value}",
+                    controller.daysOfTheWeekCheckBox[widget.index]['to'] ?? "to", //"${controller.endTime.value}: ${controller.endMinute.value}",
                     style: GoogleFonts.inter(
                       textStyle: TextStyle(
                       color: AppColor.textGreyColor,
@@ -194,14 +195,14 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
             child: IconButton(
               onPressed: () {
                 setState(() {
-                  controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"] = false;
-                  controller.daysOfTheWeekCheckBoxEdit[widget.index]['to'] = "to";
-                  controller.daysOfTheWeekCheckBoxEdit[widget.index]['from'] = "from";
-                  //controller.removeStartTimeEdit(index: widget.index);
-                  controller.removeTimeEdit(index: widget.index);
+                  controller.daysOfTheWeekCheckBox[widget.index]["isChecked"] = false;
+                  controller.daysOfTheWeekCheckBox[widget.index]['to'] = "to";
+                  controller.daysOfTheWeekCheckBox[widget.index]['from'] = "from";
+                  //controller.removeStartTime(index: widget.index);
+                  controller.removeTime(index: widget.index);
                 });
-                print("time list: ${controller.availableTimeEdit}");
-                print(controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"]);
+                print("time list: ${controller.availableTime}");
+                print(controller.daysOfTheWeekCheckBox[widget.index]["isChecked"]);
               }, 
               icon: Icon(Icons.delete_outline_rounded),
               color: AppColor.textGreyColor,

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/step_2.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_3/step_3.dart';
-import '../step_tabs/step_1/step_1.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_1/step_1.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/step_2.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/step_3.dart';
 
 
 
@@ -18,16 +18,17 @@ import '../step_tabs/step_1/step_1.dart';
 
 
 
-class AddServiceScreen extends StatefulWidget {
-  AddServiceScreen({super.key});
+
+class AddPackageServiceScreen extends StatefulWidget {
+  AddPackageServiceScreen({super.key});
 
   @override
-  State<AddServiceScreen> createState() => _AddServiceScreenState();
+  State<AddPackageServiceScreen> createState() => _AddPackageServiceScreenState();
 }
 
-class _AddServiceScreenState extends State<AddServiceScreen> {
+class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
   
-  var controller = Get.put(ServicesController());
+  var controller = Get.put(PackageServiceController());
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +113,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
         steps: [
           Step(
             title: Text(""), 
-            content: Step1Page(
+            content: Step1PagePackageService (
               onNext: () {
                 if(controller.curentStep < 2) {
                   setState(() {
@@ -127,7 +128,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
           Step(
             title: Text(""), 
             isActive: controller.curentStep >= 1,
-            content: Step2Page(
+            content: Step2PagePackageService (
               onNext: () {
                 if(controller.curentStep < 2) {
                   setState(() {
@@ -141,7 +142,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
           Step(
             title: Text(""), 
             isActive: controller.curentStep >= 2,
-            content: Step3Page()
+            content: Step3PagePackageService ()
           )
         ]
       )

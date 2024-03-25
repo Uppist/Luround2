@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/services_controller.dart';
-import 'package:luround/controllers/account_viewer/services_controller.dart';
+import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -13,14 +12,14 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class EditRegularServiceModelSelector extends StatefulWidget {
-  const EditRegularServiceModelSelector({super.key,});
+class RegularServiceModelSelector extends StatefulWidget {
+  const RegularServiceModelSelector({super.key,});
 
   @override
-  State<EditRegularServiceModelSelector> createState() => _EditRegularServiceModelSelectorState();
+  State<RegularServiceModelSelector> createState() => _RegularServiceModelSelectorState();
 }
 
-class _EditRegularServiceModelSelectorState extends State<EditRegularServiceModelSelector> {
+class _RegularServiceModelSelectorState extends State<RegularServiceModelSelector> {
 
   var controller = Get.put(ServicesController());
 
@@ -37,17 +36,19 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
               activeColor: AppColor.mainColor,
               toggleable: false,
               value: "One-off", 
-              groupValue: controller.selectServiceModelEdit, 
+              groupValue: controller.selectServiceModel.value, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectServiceModelEdit = val.toString();
+                  controller.selectServiceModel.value = val.toString();
                   //controller.isradio1.value = true;
-                  controller.isOneOffEdit.value = false;
-                  print("radio 1: ${controller.selectServiceModelEdit}");
+                  controller.isOneOff.value = false;
+                  print("radio 1: ${controller.selectServiceModel.value}");
                 });
               },
-            ),
+            ),  
+          
             SizedBox(width: 10.w,),
+
             Text(
               "One-off",
               style: GoogleFonts.inter(
@@ -61,7 +62,7 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
     
 
         SizedBox(height: 5.h,),
-        //3
+        //2
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -70,17 +71,19 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
               toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Retainer", 
-              groupValue: controller.selectServiceModelEdit, 
+              groupValue: controller.selectServiceModel.value, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectServiceModelEdit = val.toString();
+                  controller.selectServiceModel.value = val.toString();
                   //controller.isradio3.value = true;
-                  controller.isRetainerEdit.value = false;
-                  print("radio 3: ${controller.selectServiceModelEdit}");
+                  controller.isRetainer.value = false;
+                  print("radio 2: ${controller.selectServiceModel.value}");
                 });
               },
             ),
+
             SizedBox(width: 10.w,),
+
             Text(
               "Retainer",
               style: GoogleFonts.inter(
@@ -89,6 +92,7 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
                 fontWeight: FontWeight.w400
               ),
             ),
+
           ],
         ),
         SizedBox(height: 5.h,),

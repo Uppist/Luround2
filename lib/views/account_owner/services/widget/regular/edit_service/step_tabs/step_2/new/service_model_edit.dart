@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/services_controller.dart';
+import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/range_widget.dart';
 
 
 
@@ -13,14 +12,15 @@ import 'package:luround/views/account_owner/services/widget/regular/add_service/
 
 
 
-class RegularServiceModelSelector extends StatefulWidget {
-  const RegularServiceModelSelector({super.key,});
+
+class EditRegularServiceModelSelector extends StatefulWidget {
+  const EditRegularServiceModelSelector({super.key,});
 
   @override
-  State<RegularServiceModelSelector> createState() => _RegularServiceModelSelectorState();
+  State<EditRegularServiceModelSelector> createState() => _EditRegularServiceModelSelectorState();
 }
 
-class _RegularServiceModelSelectorState extends State<RegularServiceModelSelector> {
+class _EditRegularServiceModelSelectorState extends State<EditRegularServiceModelSelector> {
 
   var controller = Get.put(ServicesController());
 
@@ -37,13 +37,13 @@ class _RegularServiceModelSelectorState extends State<RegularServiceModelSelecto
               activeColor: AppColor.mainColor,
               toggleable: false,
               value: "One-off", 
-              groupValue: controller.selectServiceModel, 
+              groupValue: controller.selectServiceModelEdit, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectServiceModel = val.toString();
+                  controller.selectServiceModelEdit.value = val.toString();
                   //controller.isradio1.value = true;
-                  controller.isOneOff.value = false;
-                  print("radio 1: ${controller.selectServiceModel}");
+                  controller.isOneOffEdit.value = false;
+                  print("radio 1: ${controller.selectServiceModelEdit}");
                 });
               },
             ),
@@ -70,13 +70,13 @@ class _RegularServiceModelSelectorState extends State<RegularServiceModelSelecto
               toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Retainer", 
-              groupValue: controller.selectServiceModel, 
+              groupValue: controller.selectServiceModelEdit, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectServiceModel = val.toString();
+                  controller.selectServiceModelEdit.value = val.toString();
                   //controller.isradio3.value = true;
-                  controller.isRetainer.value = false;
-                  print("radio 3: ${controller.selectServiceModel}");
+                  controller.isRetainerEdit.value = false;
+                  print("radio 3: ${controller.selectServiceModelEdit}");
                 });
               },
             ),

@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/amount_textfield_edit.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/description_textfield_edit.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/normal_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/amount_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/description_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 
 
@@ -20,34 +20,30 @@ import 'package:luround/views/account_viewer/services/widgets/request_quote/reus
 
 
 
-class Step1PageEdit extends StatefulWidget {
-  Step1PageEdit({super.key, required this.onNext, required this.serviceId, required this.service_name, required this.description, required this.links, required this.service_charge_in_person, required this.service_charge_virtual,});
+class Step1PagePackageService extends StatefulWidget {
+  Step1PagePackageService({super.key, required this.onNext});
   final VoidCallback onNext;
-  final String serviceId;
-  final String service_name;
-  final String description;
-  final List<dynamic> links;
-  final String service_charge_in_person;
-  final String service_charge_virtual;
 
   @override
-  State<Step1PageEdit> createState() => _Step1PageEditState();
+  State<Step1PagePackageService> createState() => _Step1PagePackageServiceState();
 }
 
-class _Step1PageEditState extends State<Step1PageEdit> {
-  
-  var controller = Get.put(ServicesController());
+class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
+
+
+  var controller = Get.put(PackageServiceController());
 
   @override
   void initState() {
     // TODO: implement initState
-    controller.serviceNameControllerEdit.addListener(() {
+    controller.serviceNameController.addListener(() {
       setState(() {
-        controller.isServiceNameTappedEdit.value = controller.serviceNameControllerEdit.text.isNotEmpty;
+        controller.isServiceNameTapped.value = controller.serviceNameController.text.isNotEmpty;
       });
     });
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -63,16 +59,12 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           ),
         ),
         SizedBox(height: 10.h),
-        ReusableEditTextField(  
-          onChanged: (val) {
-            setState(() {
-              controller.serviceNameControllerEdit.text = val;
-            });
-          },
+        ReusableTextField(  
+          onChanged: (val) {},
           hintText: "Service name",
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
-          initialValue: widget.service_name,
+          textController: controller.serviceNameController
         ),
         SizedBox(height: 30.h),
         Text(
@@ -84,22 +76,23 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           ),
         ),
         SizedBox(height: 10.h),
-        DescriptionTextFieldEdit(  
+        DescriptionTextField(  
           onChanged: (val) {
+            //controller.handleTextChanged(val);
+            // Check if character count exceeds the maximum
             setState(() {
-              // Check if character count exceeds the maximum
-              if (val.length > controller.maxLengthEdit) {
-                // Remove extra characters        
-                controller.descriptionControllerEdit.text = val.substring(0, controller.maxLengthEdit);
+              if (val.length > controller.maxLength) {
+                //Remove extra characters      
+                controller.descriptionController.text = val.substring(0, controller.maxLength);
                 debugPrint("you have reached max length");
               } 
-              controller.descriptionControllerEdit.text = val;
             });
+            
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
-          initialValue: widget.description,
+          textController: controller.descriptionController,
         ),
         SizedBox(height: 10.h,),
         //max length for message textfield
@@ -107,7 +100,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "${controller.descriptionControllerEdit.text.length}/${controller.maxLengthEdit}",
+              "${controller.descriptionController.text.length}/${controller.maxLength}",
               style: GoogleFonts.inter(
                 color: AppColor.textGreyColor,
                 fontSize: 15.sp,
@@ -116,9 +109,8 @@ class _Step1PageEditState extends State<Step1PageEdit> {
             ),
           ],
         ),
-        SizedBox(height: 20.h),
-
-        /*Row(
+        /*SizedBox(height: 20.h),
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
@@ -130,11 +122,11 @@ class _Step1PageEditState extends State<Step1PageEdit> {
               ),
             ),
             InkWell(
-              onTap: () {  
+              onTap: () {
                 setState(() {
-                  controller.toggleLinkEdit.value = true;
-                  controller.isTextGoneEdit.value = true;
-                });         
+                  controller.toggleLink.value = true;
+                  controller.isTextGone.value = true;
+                });
               },
               child: SvgPicture.asset("assets/svg/add_icon.svg"),
             )
@@ -142,30 +134,25 @@ class _Step1PageEditState extends State<Step1PageEdit> {
         ),
         SizedBox(height: 10.h),
         //textfield
-        controller.toggleLinkEdit.value ?
+        controller.toggleLink.value ?
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
-              child: DescriptionTextFieldEdit(  
-                onChanged: (val) {
-                  setState(() {
-                    controller.addLinksControllerEdit.text = val;
-                  });
-                },
+              child: ReusableTextField(  
+                onChanged: (val) {},
                 hintText: "e.g, https://www.example.com",
                 keyboardType: TextInputType.url,
                 textInputAction: TextInputAction.next,
-                initialValue: widget.links[0],
+                textController: controller.addLinksController
               ),
             ),
             IconButton(
-              onPressed: () { 
+              onPressed: () {
                 setState(() {
-                  controller.toggleLinkEdit.value = false;
-                  controller.isTextGoneEdit.value = false; 
-                });              
-                              
+                  controller.toggleLink.value = false;
+                  controller.isTextGone.value = false;
+                });
               }, 
               icon: Icon(CupertinoIcons.xmark, color: AppColor.blackColor,),
             )
@@ -173,7 +160,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
         ) : SizedBox(),
         SizedBox(height: 20.h,),
 
-        controller.isTextGoneEdit.value ? SizedBox()
+        controller.isTextGone.value ? SizedBox()
         :Text(
           "Add links to contents that relates to this service",
           style: GoogleFonts.inter(
@@ -182,15 +169,13 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           ),
         ),
         
-        controller.isTextGoneEdit.value ? SizedBox(): SizedBox(height: 4.h,),
+        controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
         
-        controller.isTextGoneEdit.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),
+        controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),*/
     
-        SizedBox(height: 20.h,),*/
-
-
+        SizedBox(height: 20.h,),
         Text(
-          "Service fee per session*",
+          "Service fee",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -211,16 +196,12 @@ class _Step1PageEditState extends State<Step1PageEdit> {
             ),
             SizedBox(width: 20.w,),
             Expanded(
-              child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  setState(() {
-                    controller.inPersonControllerEdit.text = val;
-                  });
-                },
+              child: AmountTextField(  
+                onChanged: (val) {},
                 hintText: "00.00",
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
-                initialValue: widget.service_charge_in_person,
+                textController: controller.inPersonController
               ),
             ),
           ],
@@ -239,28 +220,29 @@ class _Step1PageEditState extends State<Step1PageEdit> {
             ),
             SizedBox(width: 45.w,),
             Expanded(
-              child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  setState(() {
-                    controller.virtualControllerEdit.text = val;
-                  });
-                },
+              child: AmountTextField(  
+                onChanged: (val) {},
                 hintText: "00.00",
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.done,
-                initialValue: widget.service_charge_virtual,
+                textController: controller.virtualController
               ),
             ),
           ],
         ),
         SizedBox(height: 150.h,),
         RebrandedReusableButton(
-          textColor: AppColor.bgColor,
-          color: AppColor.mainColor, 
+          textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
+          color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 
           text: "Next", 
-          onPressed: widget.onNext
+          onPressed: controller.isServiceNameTapped.value ? 
+          widget.onNext
+          : () {
+            print('nothing');
+          },
         ),
         SizedBox(height: 20.h,),
+
 
       ]
     );

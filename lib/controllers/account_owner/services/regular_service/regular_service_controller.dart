@@ -15,23 +15,24 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
-
 class ServicesController extends getx.GetxController {
   
 
-  //add service stepper//////////////////////////////////
-  //(save to db)
-  String selectDurationRadio = "select something";
+  //////NOT IN ANYMORE USE FOR REGULAR SERVICE///////
+  /////(save to db)
+  String selectDateRange = "select something";
   //checks the selected radio
   final isradio1 = false.obs;
   final isradio2 = false.obs;
   final isradio3 = false.obs;
+  ///////////////////////////////////////////////////
 
+  //add service stepper//////////////////////////////////
+  getx.RxString serviceTimeline = "3 months".obs;
+  final listOfServiceTimeline = <String>["3 months", "6 months", "1 year", "Custom"];
   //service model
   //(save to db)
-  String selectServiceModel = "select service model";
-
+  getx.RxString selectServiceModel = "".obs;
   //checks the selected radio
   final isOneOff = false.obs;
   final isRetainer = false.obs;
@@ -84,7 +85,6 @@ class ServicesController extends getx.GetxController {
 
   //description textcontroller count
   int maxLength = 500;
-  
   void handleTextChanged(String val,) {
     // Check if character count exceeds the maximum
     if (val.length > maxLength) {
@@ -96,13 +96,13 @@ class ServicesController extends getx.GetxController {
     }
   }
 
-  //checks if the user has inputed their prices in order to enable the button
-  final ispriceButtonEnabled = false.obs;
+  //checks if the user has inputed their the service name
+  final isServiceNameTapped = false.obs;
   //for Stepper widget (starts to count at 0)
   int curentStep = 0;
 
   //select duration in minutes
-  final duration = Duration(hours: 0, minutes: 0).obs;
+  final duration = const Duration(hours: 0, minutes: 0).obs;
   //(save to db)
   String formatDuration() {
     int hours = duration.value.inHours;
@@ -131,7 +131,7 @@ class ServicesController extends getx.GetxController {
       initialTime: duration.value,
     );
     duration.value = resultingDuration!;
-    ispriceButtonEnabled.value = true;
+    //ispriceButtonEnabled.value = true;
     //debugPrint("duartion: ${resultingDuration}");
     debugPrint("duration: ${duration.value}");
   }
@@ -177,28 +177,7 @@ class ServicesController extends getx.GetxController {
   
   //available time list
   List<String> availableTime = [];
-  /*void addStartTime() {
-    if (!availableTime.contains(startTimeValue.value)) {
-      //add all start time to the list
-      availableTime.add(startTimeValue.value,);
-      print("avail_time_list: $availableTime");
-    } else {
-      print("${startTimeValue.value} is already in the list");
-    }
-  }
-
-  void removeStartTime({required int index}) {
-    if (index >= 0 && index < availableTime.length) {
-      //add all start time to the list
-      availableTime.removeAt(index);
-      print("avail_time_list: $availableTime");
-      print("Item ${availableTime[index]} removed at index $index");
-    } 
-    else {
-      print("Invalid index: $index");
-    }
-  }*/
-
+  
   Future<List<String>> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async {
     final DateFormat format = DateFormat('h:mm a');
     DateTime earliest = parseTimeString(earliestTime);
@@ -234,10 +213,6 @@ class ServicesController extends getx.GetxController {
     print("available_time_: $availableTime");
     return availableTime;
   }
-
-
-
-
 
   void addItem({required String item}) {
     if (!selectedDays.contains(item)) {
@@ -438,10 +413,6 @@ class ServicesController extends getx.GetxController {
    );
   }
 
-  
-  
-  
-
   /////////////////////////////////////////////////////
 
 
@@ -506,8 +477,12 @@ class ServicesController extends getx.GetxController {
   final isradio3Edit = false.obs;
 
   //service model
+  //edit service stepper//////////////////////////////////
+  getx.RxString serviceTimelineEdit = "3 months".obs;
+  final listOfServiceTimelineEdit = <String>["3 months", "6 months", "1 year", "Custom"];
+  //service model
   //(save to db)
-  String selectServiceModelEdit = "select service model";
+  getx.RxString selectServiceModelEdit = "".obs;
 
   //checks the selected radio
   final isOneOffEdit = false.obs;
@@ -558,7 +533,7 @@ class ServicesController extends getx.GetxController {
   final TextEditingController virtualControllerEdit = TextEditingController();
 
   //checks if the user has inputed their prices in order to enable the button
-  final ispriceButtonEnabledEdit = false.obs;
+  final isServiceNameTappedEdit = false.obs;
 
   //description textcontroller count
   int maxLengthEdit = 500;
@@ -597,7 +572,6 @@ class ServicesController extends getx.GetxController {
       initialTime: durationEdit.value,
     );
     durationEdit.value = resultingDuration!;
-    ispriceButtonEnabledEdit.value = true;
     //debugPrint("duartion: ${resultingDuration}");
     debugPrint("duration: ${durationEdit.value}");
   }

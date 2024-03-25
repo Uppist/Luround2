@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -12,10 +12,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
+var controller = Get.put(PackageServiceController());
 
-var controller = Get.put(ServicesController());
-
-Future<void> selectDateRangeBottomSheetEdit({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
+Future<void> selectDateRangeBottomSheet({required BuildContext context, required VoidCallback onCancel, required VoidCallback onApply,}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -70,10 +69,10 @@ Future<void> selectDateRangeBottomSheetEdit({required BuildContext context, requ
                     selectedDayHighlightColor: AppColor.mainColor,
                     //calendarViewMode: DatePickerMode.day
                   ),
-                  value: controller.datesEdit,
+                  value: controller.dates,
                   onValueChanged: (dates) {
-                    controller.selectedDateEdit(dates);
-                    debugPrint("${controller.datesEdit}");
+                    controller.selectedDate(dates);
+                    debugPrint("${controller.dates}");
                   },
                 ),
                 SizedBox(height: 20.h,),

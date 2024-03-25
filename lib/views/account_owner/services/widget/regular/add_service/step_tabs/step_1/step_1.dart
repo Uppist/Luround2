@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/services_controller.dart';
+import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/amount_textfield.dart';
@@ -37,7 +37,7 @@ class _Step1PageState extends State<Step1Page> {
     // TODO: implement initState
     controller.serviceNameController.addListener(() {
       setState(() {
-        controller.ispriceButtonEnabled.value = controller.serviceNameController.text.isNotEmpty;
+        controller.isServiceNameTapped.value = controller.serviceNameController.text.isNotEmpty;
       });
     });
     super.initState();
@@ -174,7 +174,7 @@ class _Step1PageState extends State<Step1Page> {
     
         SizedBox(height: 20.h,),
         Text(
-          "Service fee per session*",
+          "Service fee",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -231,10 +231,10 @@ class _Step1PageState extends State<Step1Page> {
         ),
         SizedBox(height: 150.h,),
         RebrandedReusableButton(
-          textColor: controller.ispriceButtonEnabled.value ? AppColor.bgColor : AppColor.darkGreyColor,
-          color: controller.ispriceButtonEnabled.value ? AppColor.mainColor : AppColor.lightPurple, 
+          textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
+          color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 
           text: "Next", 
-          onPressed: controller.ispriceButtonEnabled.value ? 
+          onPressed: controller.isServiceNameTapped.value ? 
           widget.onNext
           : () {
             print('nothing');

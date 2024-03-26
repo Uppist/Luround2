@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
-import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -37,13 +36,13 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
               activeColor: AppColor.mainColor,
               toggleable: false,
               value: "One-off", 
-              groupValue: controller.selectServiceModelEdit, 
+              groupValue: controller.selectServiceModelEdit.value, 
               onChanged: (val) {
                 setState(() {
                   controller.selectServiceModelEdit.value = val.toString();
                   //controller.isradio1.value = true;
                   controller.isOneOffEdit.value = false;
-                  print("radio 1: ${controller.selectServiceModelEdit}");
+                  print("radio 1: ${controller.selectServiceModelEdit.value}");
                 });
               },
             ),
@@ -70,13 +69,13 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
               toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Retainer", 
-              groupValue: controller.selectServiceModelEdit, 
+              groupValue: controller.selectServiceModelEdit.value, 
               onChanged: (val) {
                 setState(() {
                   controller.selectServiceModelEdit.value = val.toString();
                   //controller.isradio3.value = true;
                   controller.isRetainerEdit.value = false;
-                  print("radio 3: ${controller.selectServiceModelEdit}");
+                  print("radio 2: ${controller.selectServiceModelEdit.value}");
                 });
               },
             ),

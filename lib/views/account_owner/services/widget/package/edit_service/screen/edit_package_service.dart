@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/step_1_edit.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_2/step_2_edit.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_3/step_3_edit.dart';
+import 'package:luround/views/account_owner/services/widget/package/edit_service/step_tabs/step_1/step_1_edit.dart';
+import 'package:luround/views/account_owner/services/widget/package/edit_service/step_tabs/step_2/step_2_edit.dart';
+import 'package:luround/views/account_owner/services/widget/package/edit_service/step_tabs/step_3/step_3_edit.dart';
 
 
 
@@ -15,9 +15,8 @@ import 'package:luround/views/account_owner/services/widget/regular/edit_service
 
 
 
-
-class EditServiceScreen extends StatefulWidget {
-  EditServiceScreen({
+class EditPackageServiceScreen extends StatefulWidget {
+  EditPackageServiceScreen({
     super.key, 
     required this.serviceId,
     required this.service_name, 
@@ -43,12 +42,13 @@ class EditServiceScreen extends StatefulWidget {
   final String available_days;
 
   @override
-  State<EditServiceScreen> createState() => _EditServiceScreenState();
+  State<EditPackageServiceScreen> createState() => _EditPackageServiceScreenState();
 }
 
-class _EditServiceScreenState extends State<EditServiceScreen> {
+class _EditPackageServiceScreenState extends State<EditPackageServiceScreen> {
   
-  final ServicesController controller = Get.put(ServicesController());
+  final controller = Get.put(PackageServiceController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +136,7 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
             steps: [
               Step(
                 title: Text(""), 
-                content: Step1PageEdit(
+                content: Step1PagePackageServiceEdit(
                   serviceId: widget.serviceId,
                   service_name: widget.service_name,
                   description: widget.description,
@@ -155,7 +155,7 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
               Step(
                 title: Text(""), 
                 isActive: controller.curentStepEdit.value >= 1,
-                content: Step2PageEdit(
+                content: Step2PagePackageServiceEdit(
                   onNext: () {
                     if(controller.curentStepEdit.value < 2) {             
                       controller.curentStepEdit.value = controller.curentStepEdit.value + 1;
@@ -167,8 +167,8 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
               Step(
                 title: Text(""), 
                 isActive: controller.curentStepEdit.value >= 2,
-                content: Step3PageEdit(
-                  serviceId: widget.serviceId,
+                content: Step3PagePackageServiceEdit(
+                  /*serviceId: widget.serviceId,
                   service_name: widget.service_name,
                   description: widget.description,
                   links: widget.links,
@@ -177,7 +177,7 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                   duration: widget.duration,
                   time: widget.time,
                   date: widget.date,
-                  available_days: widget.available_days,
+                  available_days: widget.available_days,*/
                 )
               )
             ]

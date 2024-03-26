@@ -541,6 +541,10 @@ class PackageServiceController extends getx.GetxController {
 
   //description textcontroller count
   int maxLengthEdit = 500;
+  
+  //for Stepper widget (starts to count at 0)
+  getx.RxInt curentStepEdit = 0.obs;
+
   void handleTextChangedEdit(String val,) {
     // Check if character count exceeds the maximum
     if (val.length > maxLengthEdit) {
@@ -886,11 +890,11 @@ class PackageServiceController extends getx.GetxController {
     inPersonController.dispose();
     //virtualController.dispose();
 
-    //serviceNameControllerEdit.dispose();
-    //descriptionControllerEdit.dispose();
-    //addLinksControllerEdit.dispose();
-    //inPersonControllerEdit.dispose();
-    //virtualControllerEdit.dispose();
+    serviceNameControllerEdit.dispose();
+    descriptionControllerEdit.dispose();
+    addLinksControllerEdit.dispose();
+    inPersonControllerEdit.dispose();
+    virtualControllerEdit.dispose();
     super.dispose();
   }
 

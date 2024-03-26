@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -10,16 +10,17 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class TogglePriceContainer extends StatefulWidget {
-  TogglePriceContainer({super.key, required this.index,});
+class TogglePriceContainerPackageService extends StatefulWidget {
+  TogglePriceContainerPackageService({super.key, required this.index,});
   final int index;
 
   @override
-  State<TogglePriceContainer> createState() => _TogglePriceContainerState();
+  State<TogglePriceContainerPackageService> createState() => _TogglePriceContainerPackageServiceState();
 }
 
-class _TogglePriceContainerState extends State<TogglePriceContainer> {
-  var controller = Get.put(ServicesController());
+class _TogglePriceContainerPackageServiceState extends State<TogglePriceContainerPackageService> {
+  
+  var controller = Get.put(PackageServiceController());
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/time_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/selectors/time_range_picker.dart';
 
 
 
@@ -13,14 +13,14 @@ import 'package:luround/views/account_owner/services/widget/regular/add_service/
 
 
 
-class EditScheduleRadioWidget extends StatefulWidget {
-  EditScheduleRadioWidget ({super.key,});
+class ScheduleRadioWidget extends StatefulWidget {
+  ScheduleRadioWidget ({super.key,});
 
   @override
-  State<EditScheduleRadioWidget > createState() => _EditScheduleRadioWidgetState();
+  State<ScheduleRadioWidget > createState() => _ScheduleRadioWidgetState();
 }
 
-class _EditScheduleRadioWidgetState extends State<EditScheduleRadioWidget > {
+class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
 
   var controller = Get.put(ServicesController());
 
@@ -37,13 +37,13 @@ class _EditScheduleRadioWidgetState extends State<EditScheduleRadioWidget > {
               activeColor: AppColor.mainColor,
               toggleable: false,
               value: "Future timeframe", 
-              groupValue: controller.selectDateRangeEdit, 
+              groupValue: controller.selectDateRange, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectDateRangeEdit = val.toString();
+                  controller.selectDateRange = val.toString();
                   //controller.isradio1.value = true;
-                  controller.isradio2Edit.value = false;
-                  print("radio 1: ${controller.selectDateRangeEdit}");
+                  controller.isradio2.value = false;
+                  print("radio 1: ${controller.selectDateRange}");
                 });
               },
             ),
@@ -69,13 +69,13 @@ class _EditScheduleRadioWidgetState extends State<EditScheduleRadioWidget > {
               activeColor: AppColor.mainColor,
               toggleable: false,
               //tileColor: AppColor.bgColor,
-              value: "${controller.startDateEdit()} - ${controller.endDateEdit()}", //"Date range timeframe", 
-              groupValue: controller.selectDateRangeEdit, 
+              value: "${controller.startDate()} - ${controller.endDate()}", //"Date range timeframe", 
+              groupValue: controller.selectDateRange, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectDateRangeEdit = val.toString();
-                  controller.isradio2Edit.value = true;
-                  print("radio 2: ${controller.selectDateRangeEdit}");
+                  controller.selectDateRange = val.toString();
+                  controller.isradio2.value = true;
+                  print("radio 2: ${controller.selectDateRange}");
                 });
               },
             ),
@@ -92,7 +92,7 @@ class _EditScheduleRadioWidgetState extends State<EditScheduleRadioWidget > {
         ),
         SizedBox(height: 5.h,),
         
-        controller.isradio2Edit.value ? 
+        controller.isradio2.value ? 
         TimeRangePickerWidget() : SizedBox(),
 
         SizedBox(height: 5.h,),
@@ -105,13 +105,13 @@ class _EditScheduleRadioWidgetState extends State<EditScheduleRadioWidget > {
               toggleable: false,
               //tileColor: AppColor.bgColor,
               value: "Indefinitely to the future timeframe", 
-              groupValue: controller.selectDateRangeEdit, 
+              groupValue: controller.selectDateRange, 
               onChanged: (val) {
                 setState(() {
-                  controller.selectDateRangeEdit = val.toString();
+                  controller.selectDateRange = val.toString();
                   //controller.isradio3.value = true;
-                  controller.isradio2Edit.value = false;
-                  print("radio 3: ${controller.selectDateRangeEdit}");
+                  controller.isradio2.value = false;
+                  print("radio 3: ${controller.selectDateRange}");
                 });
               },
             ),

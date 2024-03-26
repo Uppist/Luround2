@@ -7,9 +7,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/recurrence_dropdown.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
 import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/selectors/date_range_bottomsheet.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/timeline_dropdown.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/selectors/time_range_s2.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/dropdows/timeline_dropdown.dart';
+
 
 
 
@@ -47,6 +49,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
         ),
         //SizedBox(height: 20.h),
         PackageServiceTimeline(),
+
         SizedBox(height: 30.h,),
         Text(
           "Select date range",
@@ -119,8 +122,61 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
         ),
         //SizedBox(height: 20.h),
         PackageServiceRecurrence(),
+
         SizedBox(height: 30.h),
         Text(
+          "Select time interval",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 20.h),
+        TimeRangeSelectorForStep2(),
+
+        SizedBox(height: 30.h,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  CupertinoIcons.clock,
+                  color: AppColor.blackColor,
+                  size: 22.r,
+                ),
+                SizedBox(width: 5.w,),
+                Text(
+                  "Duration",
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+              ],
+            ),
+
+            Obx(
+              () {
+                return Text(
+                  controller.calcDuration.value,
+                  style: GoogleFonts.inter(
+                    color: AppColor.darkGreyColor,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400
+                  ),
+                );
+              }
+            ),
+          ],
+        ),
+
+
+
+        /*Text(
           "Service duration",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
@@ -170,7 +226,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
               ],
             ),
           )
-        ),
+        ),*/
         
     
         

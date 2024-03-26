@@ -7,9 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/amount_textfield_edit.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/description_textfield_edit.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/normal_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/textfields/amount_textfield_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/textfields/description_textfield_edit.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_1/textfields/edit_normal_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 
 

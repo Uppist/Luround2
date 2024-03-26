@@ -4,14 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_3/time_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/new/custom_checkbox.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/new/custom_checkbox_listtile.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/time_picker/time_range_picker.dart';
+
 
 
 
@@ -31,7 +34,7 @@ class Step3PagePackageService extends StatefulWidget{
 
 class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
 
-  var mainController = Get.put(ServicesController());
+  var mainController = Get.put(PackageServiceController());
   var servicesService = Get.put(AccOwnerServicePageService());
 
   @override
@@ -39,8 +42,16 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
+        /*Text(
           "Day and Time availability*",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),*/
+        Text(
+          "Day availability*",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -67,6 +78,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
           ],
         ),
         SizedBox(height: 30.h),
+
         ListView.separated(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
@@ -74,25 +86,51 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
           itemCount: mainController.daysOfTheWeekCheckBox.length,
           itemBuilder: (context, index) {
-            return CheckboxListTile.adaptive(
-              checkColor: AppColor.bgColor,
-              checkboxShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.r)
+
+            return CustomCheckBox(
+              checkbox: Checkbox.adaptive(
+                checkColor: AppColor.bgColor,
+                activeColor: AppColor.mainColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.r)
+                ),
+                value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
+                onChanged: (value) {   
+                  setState(() {
+                    mainController.isCheckBoxActive.value = true;
+                    mainController.toggleCheckbox(index, value);
+                    print("selectedDays: ${mainController.selectedDays}");
+                  });     
+                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
+                },
               ),
-              enableFeedback: true,
-              activeColor: AppColor.mainColor,
-              controlAffinity: ListTileControlAffinity.leading,
-              value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
-              contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-              onChanged: (value) {   
-                setState(() {
-                  mainController.isCheckBoxActive.value = true;
-                  mainController.toggleCheckbox(index, value);
-                  print("selectedDays: ${mainController.selectedDays}");
-                });     
-                //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
-              },
-              tileColor: AppColor.bgColor,
+              title: Text(
+                mainController.daysOfTheWeekCheckBox[index]["day"],
+                style: GoogleFonts.inter(
+                  color: AppColor.blackColor,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500
+                ),
+              )
+            );
+
+            /*return CustomCheckBoxListTile(
+              checkbox: Checkbox.adaptive(
+                checkColor: AppColor.bgColor,
+                activeColor: AppColor.mainColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.r)
+                ),
+                value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
+                onChanged: (value) {   
+                  setState(() {
+                    mainController.isCheckBoxActive.value = true;
+                    mainController.toggleCheckbox(index, value);
+                    print("selectedDays: ${mainController.selectedDays}");
+                  });     
+                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
+                },
+              ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,12 +158,22 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
               subtitle: mainController.daysOfTheWeekCheckBox[index]["isChecked"] 
               ?TimeRangeSelector(index: index)           
               :const SizedBox(),
-            );      
+            );*/
+                 
           }, 
         ),
-        SizedBox(height: 90.h),  
+        SizedBox(height: 90.h),
 
-        Obx(
+        //button
+        RebrandedReusableButton(
+          textColor: AppColor.bgColor,
+          color: AppColor.mainColor, 
+          text: "Done", 
+          onPressed: () {}
+        ),
+
+        //button
+        /*Obx(
           () {
             return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -183,7 +231,8 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                 
             );
           }
-        ),
+        ),*/
+
         SizedBox(height: 5.h),
       ]
     );

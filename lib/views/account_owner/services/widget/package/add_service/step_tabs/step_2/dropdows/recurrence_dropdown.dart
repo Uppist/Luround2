@@ -49,7 +49,7 @@ class PackageServiceRecurrence extends StatelessWidget {
           value: controller.serviceRecurrence.value,
           onChanged: (String? newValue) {
             controller.serviceRecurrence.value = newValue!;
-            debugPrint("selected timeline: ${controller.serviceRecurrence.value}");
+            debugPrint("selected recurrence: ${controller.serviceRecurrence.value}");
           },
           style: GoogleFonts.inter(
             color: AppColor.blackColor, //textGreyColor,

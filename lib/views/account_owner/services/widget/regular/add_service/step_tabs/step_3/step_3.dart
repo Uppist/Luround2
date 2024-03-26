@@ -4,12 +4,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_3/time_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/new/custom_checkbox_listtile.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_3/time_range_picker/time_range_picker.dart';
+
 
 
 
@@ -29,8 +32,8 @@ class Step3Page extends StatefulWidget{
 
 class _Step3PageState extends State<Step3Page> {
 
-  var mainController = Get.put(PackageServiceController());
-  //var servicesService = Get.put(AccOwnerServicePageService());
+  var mainController = Get.put(ServicesController());
+  var servicesService = Get.put(AccOwnerServicePageService());
 
   @override
   Widget build(BuildContext context) {
@@ -72,25 +75,24 @@ class _Step3PageState extends State<Step3Page> {
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
           itemCount: mainController.daysOfTheWeekCheckBox.length,
           itemBuilder: (context, index) {
-            return CheckboxListTile.adaptive(
-              checkColor: AppColor.bgColor,
-              checkboxShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.r)
+    
+            return CustomCheckBoxListTile(
+              checkbox: Checkbox.adaptive(
+                checkColor: AppColor.bgColor,
+                activeColor: AppColor.mainColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.r)
+                ),
+                value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
+                onChanged: (value) {   
+                  setState(() {
+                    mainController.isCheckBoxActive.value = true;
+                    mainController.toggleCheckbox(index, value);
+                    print("selectedDays: ${mainController.selectedDays}");
+                  });     
+                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
+                },
               ),
-              enableFeedback: true,
-              activeColor: AppColor.mainColor,
-              controlAffinity: ListTileControlAffinity.leading,
-              value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
-              contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-              onChanged: (value) {   
-                setState(() {
-                  mainController.isCheckBoxActive.value = true;
-                  mainController.toggleCheckbox(index, value);
-                  print("selectedDays: ${mainController.selectedDays}");
-                });     
-                //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
-              },
-              tileColor: AppColor.bgColor,
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,26 +113,31 @@ class _Step3PageState extends State<Step3Page> {
                         mainController.isCheckBoxActive.value = true;
                       });              
                     },
-                    child: SvgPicture.asset("assets/svg/add_icon.svg"),
+                    child: SvgPicture.asset(
+                      "assets/svg/add_icon.svg",
+                      height: 25.h,
+                      width: 25.w,
+                    ),
                   )
                 ],
               ),
               subtitle: mainController.daysOfTheWeekCheckBox[index]["isChecked"] 
               ?TimeRangeSelector(index: index)           
               :const SizedBox(),
-            );      
+            );
+            
           }, 
         ),
         SizedBox(height: 90.h),  
 
-        RebrandedReusableButton(
+        /*RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor,
           text: "Done", 
           onPressed: () {}
-        ),
+        ),*/
 
-        /*Obx(
+        Obx(
           () {
             return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -157,7 +164,9 @@ class _Step3PageState extends State<Step3Page> {
                     service_charge_virtual: mainController.virtualController.text, 
                     duration: mainController.formatDuration(), 
                     time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
+                    //hmmmmmm
                     date: mainController.selectServiceModel.value,  //selectServiceModel, selectDurationRadio   //regular service model           
+                    
                     available_days: mainController.availableDays(),
                   ).whenComplete(() {
                     //1
@@ -188,7 +197,7 @@ class _Step3PageState extends State<Step3Page> {
                 
             );
           }
-        ),*/
+        ),
 
 
         SizedBox(height: 5.h),

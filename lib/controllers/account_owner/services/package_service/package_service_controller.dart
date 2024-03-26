@@ -20,6 +20,63 @@ import 'package:luround/utils/colors/app_theme.dart';
 class PackageServiceController extends getx.GetxController {
   
 
+
+  //calculates the duration based on a given time range
+  getx.RxString calcDuration = "0:00 min".obs;
+  String calculateDuration({required String startTime, required String endTime}) {
+    // Create DateFormat with the expected time format
+    final DateFormat format = DateFormat('hh:mm a');
+
+    // Parse the time strings into DateTime objects
+    DateTime start = format.parse(startTime);
+    DateTime end = format.parse(endTime);
+
+    // Calculate the duration
+    Duration duration = end.difference(start);
+
+    // Check if the duration is in hours, minutes, or minutes only
+    if (duration.inHours > 0) {
+      // Duration is in hours and possibly minutes
+      int hours = duration.inHours;
+      int minutes = duration.inMinutes % 60;
+
+      if (minutes > 0) {
+        // Duration is in hours and minutes
+        String durationString = '$hours hr: ${minutes.toString().padLeft(2, '0')} mins';
+        print(durationString);
+        calcDuration.value = durationString;
+        update();
+        return durationString;
+      } 
+      else {
+        // Duration is in hours only
+        String durationString = '$hours hr';
+        print(durationString);
+        calcDuration.value = durationString;
+        update();
+        return durationString;
+      }
+    } 
+    else if (duration.inMinutes > 0) {
+      // Duration is in minutes only
+      int minutes = duration.inMinutes;
+      String durationString = '$minutes mins';
+      print(durationString);
+      calcDuration.value = durationString;
+      update();
+      return durationString;
+    } 
+    else {
+      // Duration is zero
+      print('0 mins');
+      update();
+      return '0 mins';
+    }
+  }
+
+
+
+
   //checks if the user has inputed their the service name
   final isServiceNameTapped = false.obs;
   //for Stepper widget (starts to count at 0)
@@ -169,6 +226,7 @@ class PackageServiceController extends getx.GetxController {
     },
   ];
   
+
   ////**[STEP 3]***////
   List<String> selectedDays = [];
   //service_screen time picker (add_service_step 3)/// ///////////////////////////////
@@ -427,6 +485,7 @@ class PackageServiceController extends getx.GetxController {
 
   //////EDIT PACKAGE SERVICE SCREEN//////////
   //add service stepper//////////////////////////////////
+  getx.RxString calcDurationEdit = "0:00 min".obs;
   //service time line
   getx.RxString serviceTimelineEdit = "3 months".obs;
   final listOfServiceTimelineEdit = <String>["3 months", "6 months", "1 year", "Custom"];

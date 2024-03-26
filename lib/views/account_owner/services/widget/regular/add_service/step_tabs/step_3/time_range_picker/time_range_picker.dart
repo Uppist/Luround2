@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -27,7 +27,7 @@ class TimeRangeSelector extends StatefulWidget {
 
 class _TimeRangeSelectorState extends State<TimeRangeSelector> {
   
-  var controller = Get.put(ServicesController());
+  var controller = Get.put(PackageServiceController());
   
 
   //t1

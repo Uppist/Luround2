@@ -10,7 +10,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_3/time_range_picker_edit.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/new/custom_checkbox_listtile.dart';
+import 'package:luround/views/account_owner/services/widget/regular/edit_service/step_tabs/step_3/time_range_picker/time_range_picker_edit.dart';
 
 
 
@@ -96,25 +97,23 @@ class _Step3PageEditState extends State<Step3PageEdit> {
           separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
           itemCount: mainController.daysOfTheWeekCheckBoxEdit.length,
           itemBuilder: (context, index) {
-            return CheckboxListTile.adaptive(
-              checkColor: AppColor.bgColor,
-              checkboxShape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.r)
-              ),
-              enableFeedback: true,
-              activeColor: AppColor.mainColor,
-              controlAffinity: ListTileControlAffinity.leading,
-              value: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"],
-              contentPadding: EdgeInsets.symmetric(horizontal: 5.w,),
-              onChanged: (value) {    
-                setState(() {
-                  mainController.isCheckBoxActiveEdit.value = true;
-                  mainController.toggleCheckboxEdit(index, value);
-                  print("selectedDaysEdit: ${mainController.selectedDaysEdit}");     
-                }); 
+            return CustomCheckBoxListTile(
+              checkbox: Checkbox.adaptive(
+                checkColor: AppColor.bgColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.r)
+                ),
+                activeColor: AppColor.mainColor,
+                value: mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"],
+                onChanged: (value) {    
+                  setState(() {
+                    mainController.isCheckBoxActiveEdit.value = true;
+                    mainController.toggleCheckboxEdit(index, value);
+                    print("selectedDaysEdit: ${mainController.selectedDaysEdit}");     
+                  }); 
 
-              },
-              tileColor: AppColor.bgColor,
+                },
+              ),
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +132,11 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                       //to activate the done button
                       mainController.isCheckBoxActiveEdit.value = true;                  
                     },
-                    child: SvgPicture.asset("assets/svg/add_icon.svg"),
+                    child: SvgPicture.asset(
+                      "assets/svg/add_icon.svg",
+                      height: 25.h,
+                      width: 25.w,
+                    ),
                   )
                 ],
               ),
@@ -143,7 +146,9 @@ class _Step3PageEditState extends State<Step3PageEdit> {
             );                
           }
         ),
-        SizedBox(height: 90.h,),   
+
+        SizedBox(height: 90.h,),
+
         Obx(
           () {
             return servicesService.isServiceEDLoading.value ? Loader() : RebrandedReusableButton(

@@ -8,8 +8,8 @@ import 'package:luround/controllers/account_owner/services/package_service/packa
 import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/amount_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/description_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 
 

@@ -16,10 +16,28 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-
 class ProgramServiceController extends getx.GetxController {
   
 
+  //maximum nuber of participants section
+  getx.RxInt count = 0.obs;
+  getx.RxInt countEdit = 0.obs;
+
+  void increaseCount({required int count}) {
+    if(count >= 0) {
+      count = count++;
+      debugPrint("participants: $count");
+    }
+  }
+  void decreaseCount({required int count}) {
+    if(count >= 1) {
+      count = count--;
+      debugPrint("participants: $count");
+    }
+  }
+
+
+  
 
   //calculates the duration based on a given time range
   getx.RxString calcDuration = "0:00 min".obs;
@@ -541,6 +559,10 @@ class ProgramServiceController extends getx.GetxController {
 
   //description textcontroller count
   int maxLengthEdit = 500;
+
+  //for Stepper widget (starts to count at 0)
+  getx.RxInt curentStepEdit = 0.obs;
+
   void handleTextChangedEdit(String val,) {
     // Check if character count exceeds the maximum
     if (val.length > maxLengthEdit) {

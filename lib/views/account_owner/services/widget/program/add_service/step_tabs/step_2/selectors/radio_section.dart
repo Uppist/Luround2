@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/selectors/date_range_picker.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/selectors/date_range_picker.dart';
+
 
 
 
@@ -21,7 +22,7 @@ class ScheduleRadioWidget extends StatefulWidget {
 
 class _ScheduleRadioWidgetState extends State<ScheduleRadioWidget > {
 
-  var controller = Get.put(PackageServiceController());
+  final controller = Get.put(ProgramServiceController());
 
   @override
   Widget build(BuildContext context) {

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen_selector.dart';
-import 'package:luround/views/account_owner/more/widget/crm/contact_screen.dart';
+import 'package:luround/views/account_owner/more/widget/crm/screen/contact_screen.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/sent_quote_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/main_screen/main_screen.dart';

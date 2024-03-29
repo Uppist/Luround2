@@ -643,6 +643,12 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
                                     print("sent");
+                                    setState(() {
+                                      service.reactiveSubtotalForInvoice.value = '';
+                                      service.reactiveTotalDiscountForInvoice.value = '';
+                                      service.reactiveTotalVATForInvoice.value = '';
+                                      service.reactiveTotalForInvoice.value = '';
+                                    });
                                 });
 
                               },
@@ -668,6 +674,12 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   controller.invoiceClientNameController.clear();
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
+                                  setState(() {
+                                    service.reactiveSubtotalForInvoice.value = '';
+                                    service.reactiveTotalDiscountForInvoice.value = '';
+                                    service.reactiveTotalVATForInvoice.value = '';
+                                    service.reactiveTotalForInvoice.value = '';
+                                  });
                                   Get.back();
                                 });
                               },
@@ -696,6 +708,12 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   controller.invoiceClientNameController.clear();
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
+                                  setState(() {
+                                    service.reactiveSubtotalForInvoice.value = '';
+                                    service.reactiveTotalDiscountForInvoice.value = '';
+                                    service.reactiveTotalVATForInvoice.value = '';
+                                    service.reactiveTotalForInvoice.value = '';
+                                  });
                                   Get.back();
                                 });
                               },

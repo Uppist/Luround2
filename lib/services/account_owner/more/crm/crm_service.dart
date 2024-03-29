@@ -70,6 +70,7 @@ class CRMService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        //debugPrint('this is response body ==>${res.body}');
         debugPrint("user contacts fetched successfully!!");
 
         List<dynamic> response = json.decode(res.body);
@@ -85,11 +86,12 @@ class CRMService extends getx.GetxController {
         return finalResult;
         
 
-      } else {
+      } 
+      else {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to fetch contacts from server');
       }
     }   
@@ -150,6 +152,81 @@ class CRMService extends getx.GetxController {
     }
   }
 
+  
+
+
+
+
+
+
+
+
+
+  /////////////////////for searching for client transaction history///////////////////////////
+  final TextEditingController searchClientTrxController = TextEditingController();
+  /////[GET LOGGED-IN USER'S CONTACT LIST]//////
+  var clientTrxList = [].obs;
+  var filteredclientTrxList = [].obs;
+
+  //working well
+  Future<void> filterClientTrxHistory(String query) async {
+    if (query.isEmpty) {
+      filteredclientTrxList.clear();
+      filteredclientTrxList.addAll(clientTrxList);
+      print("when query is empty: $filteredclientTrxList");
+    } 
+    else {
+      filteredclientTrxList.clear();
+      // Use addAll to add the filtered items to the list
+      filteredclientTrxList.addAll(clientTrxList
+        .where((user) => user['service_name'].contains(query)) // == query
+        .toList());
+
+      print("when query is not empty: $filteredclientTrxList");
+    }
+  }
+  
+
+  Future<List<dynamic>> getClientTrxHistory() async {
+    try {
+
+      isLoading.value = true;
+      http.Response res = await baseService.httpGet(endPoint: "crm/contact-trx-history");
+
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("client trx history fetched successfully!!");
+
+        List<dynamic> response = json.decode(res.body);
+  
+
+        //var finalResult = response.map((e) => ContactResponse.fromJson(e)).toList();
+        
+        clientTrxList.clear();
+        clientTrxList.addAll(response);
+        print("client-trx-list: $clientTrxList");
+        
+        //return data list
+        return clientTrxList;
+        
+
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        throw Exception('Failed to fetch client trx from server');
+      }
+    }   
+    catch (e) {
+      isLoading.value = false;
+      throw Exception("$e");
+    }
+  }
+
 
 
 
@@ -161,18 +238,15 @@ class CRMService extends getx.GetxController {
     contactEmailController.dispose();
     contactNameController.dispose();
     contactPhoneNumberController.dispose();
+    searchClientTrxController.dispose();
     super.dispose();
   }
 
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    getUserContacts().then((value) {
-      filteredContactList.value = value;
-      print("filtered contacts list: ${filteredContactList}");
-    });
     super.onInit();
   }
+
 
 }

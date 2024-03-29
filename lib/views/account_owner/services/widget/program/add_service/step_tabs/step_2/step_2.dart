@@ -174,6 +174,70 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
           ],
         ),
 
+        SizedBox(height: 30.h),
+        Text(
+          "Maximum number of participants",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 20.h),
+        Container(
+          //padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 0.h),
+          alignment: Alignment.center,
+          height: 45.h,
+          width: 135.w, //125
+          decoration: BoxDecoration(
+            color: AppColor.bgColor,
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              color: AppColor.textGreyColor,
+              width: 1.0, //2
+            )
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed:() {
+                  controller.decreaseCount();
+                }, 
+                icon: Icon(
+                  CupertinoIcons.minus_circle,
+                  color: AppColor.textGreyColor,
+                  size: 24.r,
+                )
+              ),
+              //SizedBox(width: 5.w,),
+              Obx(
+                () {
+                  return Text(
+                    controller.count.value.toString(),
+                    style: GoogleFonts.inter(
+                      color: AppColor.textGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400
+                    ),
+                  );
+                }
+              ),
+              //SizedBox(width: 5.w,),
+              IconButton(
+                onPressed:() {
+                  controller.increaseCount();
+                }, 
+                icon: Icon(
+                  CupertinoIcons.add_circled,
+                  color: AppColor.textGreyColor,
+                  size: 24.r,
+                )
+              )
+            ],
+          )
+        ),
+
 
 
         /*Text(

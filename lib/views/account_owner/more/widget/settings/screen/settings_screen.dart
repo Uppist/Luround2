@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/more_screen/logout_dialogue.dart';
+import 'package:luround/views/account_owner/more/widget/more_screen_widgets/logout_dialogue.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/pin_management_options.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/bank_details_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/customize_your_url/customize_url.dart';

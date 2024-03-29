@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,13 +15,16 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/due_date_selector.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/invocie_date_selector.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/add_product_bottomsheet.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/view_added_services_details.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/payment_method.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
+import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/textfield_tool_for_invoice.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/date_selectors/receipt_date_selector.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/add_product_widget/add_product_bottomsheet.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/add_product_widget/added_service_widgets/view_added_services_details_for_receipt.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/create_invoice_widgets/send_receipt_bottomsheet.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/create_invoice_widgets/textfield_tool_for_receipt.dart';
 
 
 
@@ -29,21 +34,24 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class CreateReceiptPage extends StatefulWidget {
-  CreateReceiptPage({super.key, required this.receiptNumber});
-  final int receiptNumber;
+class SendInvoiceCRM extends StatefulWidget {
+  const SendInvoiceCRM({super.key, required this.name, required this.email, required this.phone_number,});
+  final String name;
+  final String email;
+  final String phone_number;
 
   @override
-  State<CreateReceiptPage> createState() => _CreateReceiptPageState();
+  State<SendInvoiceCRM> createState() => _SendInvoiceCRMState();
 }
 
-class _CreateReceiptPageState extends State<CreateReceiptPage> {
-
+class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
+  
+  var user_email = LocalStorage.getUseremail();
+  var userProfileService = Get.put(AccOwnerProfileService());
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
-  var user_email = LocalStorage.getUseremail();
-  var userProfileService = Get.put(AccOwnerProfileService());
+  int invoiceNumber = Random().nextInt(2000000);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +83,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                   ),
                   SizedBox(width: 100.w,),
                   Text(
-                    "Receipt ${widget.receiptNumber}",
+                    "Invoice $invoiceNumber",
                     style: GoogleFonts.inter(
                       color: AppColor.textGreyColor,
                       fontSize: 14.sp,
@@ -171,7 +179,6 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               return Loader2();
                             }
                           ),
-                      
                           Divider(color: Colors.grey, thickness: 0.2,),
                           SizedBox(height: 30.h,),
 
@@ -194,14 +201,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               );
                             },
                           ),*/
-                          ClientEmailTextFieldForReceipt(
-                            onChanged: (val) {
-                              controller.receiptClientNameController.text = val;
+                          UtilsTextField2(
+                            onChanged: (val) {                 
+                              controller.invoiceClientNameController.text = val; 
                             },
                             hintText: "Receiver's name",
                             keyboardType: TextInputType.name,
                             textInputAction: TextInputAction.next,
-                            controller: controller.receiptClientNameController,
+                            initialValue: widget.name,
                           ),
                           
                           //Email
@@ -215,14 +222,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             ),
                           ),
                           SizedBox(height: 10.h,),
-                          ClientEmailTextFieldForReceipt(
+                          UtilsTextField2(
                             onChanged: (val) {
-                              controller.receiptClientEmailController.text = val;
+                              controller.invoiceClientEmailController.text = val;
                             },
                             hintText: "Receiver's email address",
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
-                            controller: controller.receiptClientEmailController,
+                            initialValue: widget.email,
                           ),
 
                           //Email
@@ -236,21 +243,21 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             ),
                           ),
                           SizedBox(height: 10.h,),
-                          ClientEmailTextFieldForReceipt(
+                          UtilsTextField2(
                             onChanged: (val) {
-                              controller.receiptClientPhoneNumberController.text = val;
+                              controller.invoiceClientPhoneNumberController.text = val;
                             },
                             hintText: "Receiver's mobile number",
                             keyboardType: TextInputType.phone,
                             textInputAction: TextInputAction.done,
-                            controller: controller.receiptClientPhoneNumberController,
+                            initialValue: widget.phone_number,
                           ),
 
 
                           SizedBox(height: 30.h,),
 
                           Text(
-                            "Receipt Date",
+                            "Invoice Date",
                             style: GoogleFonts.inter(
                               color: AppColor.blackColor,
                               fontSize: 14.sp,
@@ -263,21 +270,52 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             () {
                               return DateContainer(
                                 onTap: () {
-                                  selectReceiptDateBottomSheet(
+                                  selectInvoiceDateBottomSheet(
                                     context: context,
                                     onCancel: () {
                                       Get.back();
                                     },
                                     onApply: () {
+                                      controller.updatedInvoiceDate(initialDate: "Select Date");
                                       Get.back();
                                     },
                                   );
                                 },
-                                date: controller.updatedReceiptDate(initialDate: "Select Date"),
+                                date: controller.updatedInvoiceDate(initialDate: "Select Date"),
                               );
                             }
                           ),                  
                           
+                          SizedBox(height: 30.h,),
+                          
+                          Text(
+                            "Due Date",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 20.h,),
+                          Obx(
+                            () {
+                              return DateContainer(
+                                onTap: () {
+                                  selectDueDateBottomSheetForInvoice(
+                                    context: context,
+                                    onCancel: () {
+                                      Get.back();
+                                    },
+                                    onApply: () {
+                                      controller.updatedDueDateForInvoice(initialDate: "Select Date");
+                                      Get.back();
+                                    },
+                                  );
+                                },
+                                date: controller.updatedDueDateForInvoice(initialDate: "Select Date"),
+                              );
+                            }
+                          ),
                     
                         ],
                       ),
@@ -309,8 +347,9 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  addProductBottomSheetForReceipt(
-                                    context: context
+                                  addProductBottomSheetForInvoice(
+                                    client_phone_number: controller.invoiceClientPhoneNumberController.text ,
+                                    context: context, 
                                   );
                                 },
                                 child: SvgPicture.asset("assets/svg/add_icon.svg")
@@ -333,25 +372,30 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                     //To show the items that were added (Use Future builder to show the items addedd)
                     Obx(
                       () {
-                        return service.selectedReceiptbslist.isNotEmpty ? ListView.builder(
+                        return //service.selectedInvoicebslist.isNotEmpty ? 
+                        ListView.builder(
                           scrollDirection: Axis.vertical,
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          itemCount: service.selectedReceiptbslist.length,
+                          itemCount: service.selectedInvoicebslist.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final item = service.selectedReceiptbslist[index];
+                            final item = service.selectedInvoicebslist[index];
                             return AddedServicesTile(
                               onTap: (){
-                                Get.to(() => ViewAddedServiceDetailsForReceipt(
-                                  discounted_total: item['discounted_total'] ?? item['total'].toString(),
-                                  appointment_type: item['appointment_type'],
+                                Get.to(() => ViewAddedServiceDetailsForInvoice(
+                                  client_phone_number: item['phone_number'],
                                   service_name: item['service_name'],
+                                  service_id: item['service_id'],
+                                  service_description: item['description'],
+                                  discounted_total: item["discounted_total"].toString() ?? item['total'].toString(),
+                                  meeting_type: item['appointment_type'],
+                                  appointmentType: item['appointment_type'],
+                                  index: index,
+                                  rate: item['rate'],
                                   total: item['total'],
                                   discount: item['discount'],
-                                  rate: item['rate'],
                                   duration: item['duration'],
-                                  index: index,
                                 ));
                               },
                               productName: item['service_name'],
@@ -359,7 +403,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               duration: item['duration'],
                             );
                           }
-                        ) : SizedBox();
+                        ); //: SizedBox();
                       }
                     ),
 
@@ -391,7 +435,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "N${service.reactiveSubtotalForReceipt.value}",
+                                    "N${service.reactiveSubtotalForInvoice.value}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -414,7 +458,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "${service.reactiveTotalDiscountForReceipt.value}%",
+                                    "${service.reactiveTotalDiscountForInvoice.value}%",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -437,7 +481,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "N${service.reactiveTotalVATForReceipt.value}",
+                                    "N${service.reactiveTotalVATForInvoice.value}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -460,7 +504,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "N${service.reactiveTotalForReceipt.value}",
+                                    "N${service.reactiveTotalForInvoice.value}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -483,93 +527,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                     ),
                     SizedBox(height: 20.h,),
 
-                    //4 dropdown menu textfield for selcting mode of payment
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Mode of payment",
-                            style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          SizedBox(height: 20.h,),
-                          //DropDown Menu Button comes here
-                          Obx(
-                            () {
-                              return DropdownButtonFormField<String>(
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                decoration: InputDecoration(        
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none, // Remove the border
-                                  ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
-                                  ),     
-                                  hintText: "Tap to select",
-                                  hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
-                                ),
-                                icon: Icon(
-                                  CupertinoIcons.chevron_down,
-                                  color: AppColor.blackColor,
-                                ),
-                                iconDisabledColor: AppColor.textGreyColor,
-                                iconEnabledColor: AppColor.blackColor,
-                                dropdownColor: AppColor.bgColor,
-                                borderRadius: BorderRadius.circular(10.r),
-                                value: controller.selectedModeOfPayment.value,
-                                onChanged: (String? newValue) {
-                                  controller.selectedModeOfPayment.value = newValue!;
-                                  debugPrint("mode of payment: ${controller.selectedModeOfPayment.value}");
-                                },
-                                style: GoogleFonts.inter(
-                                  color: AppColor.textGreyColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400,
-                                ),
-
-                                //dropdown menu item padding
-                                //padding: EdgeInsets.symmetric(horizontal: 20.w),
-
-                                items: controller.listOfModeOfPayments
-                                .map<DropdownMenuItem<String>>((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.darkGreyColor,
-                                        fontSize: 14.sp,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  );
-                                }).toList(),
-                              );
-                            }
-                          ),
-                        ]
-                      )
-                    ),
-                    
-                    
-                    SizedBox(height: 20.h,),
-                    //style
-                    Container(
-                      height: 7.h,
-                      width: double.infinity,
-                      color: AppColor.greyColor,
-                    ),
-                    SizedBox(height: 20.h,),
-
-                    //5 write notes section
+                    //4 write notes section
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
                       child: Column(
@@ -584,12 +542,12 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             ),
                           ),
                           SizedBox(height: 20.h,),
-                          NotesTextFieldForReceipt(
+                          NotesTextFieldForInvoice(
                             onChanged: (val) {
                               // Check if character count exceeds the maximum
-                              if (val.length > controller.maxLengthForReceipt) {
+                              if (val.length > controller.maxLengthForInvoice) {
                                 // Remove extra characters       
-                                controller.receiptNoteController.text = val.substring(0, controller.maxLengthForReceipt);
+                                controller.invoiceNoteController.text = val.substring(0, controller.maxLengthForInvoice);
                                 debugPrint("you have reached max length");
                               } 
                               setState(() {}); // Update the UI
@@ -597,14 +555,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             hintText: "Write a short note for the recipient.",
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.done,
-                            controller: controller.receiptNoteController,
+                            controller: controller.invoiceNoteController,
                           ),
                           SizedBox(height: 20.h),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                '${controller.receiptNoteController.text.length}/${controller.maxLengthForReceipt}',
+                                '${controller.invoiceNoteController.text.length}/${controller.maxLengthForInvoice}',
                                 style: GoogleFonts.inter(
                                   color: AppColor.textGreyColor,
                                   fontSize: 14.sp,
@@ -616,6 +574,38 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                         ]
                       )
                     ),
+                    SizedBox(height: 20.h,),  
+
+                    //style
+                    Container(
+                      height: 7.h,
+                      width: double.infinity,
+                      color: AppColor.greyColor,
+                    ),
+                    SizedBox(height: 20.h,),
+                    //5 Bank Payment Widget
+                    //
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Payment",
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                          SizedBox(height: 20.h,),
+                          //List of banks
+                          PaymentMethodForInvoice()
+                        ]
+                      )
+                    ),
+
+                    
                     SizedBox(height: 20.h,),
                     //style
                     Container(
@@ -628,99 +618,107 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                       child: ReusableButton(
                         color: AppColor.mainColor,
-                        text: 'Send Receipt',
+                        text: 'Send Invoice',
                         onPressed: () {
-                          if(
-                            controller.receiptClientNameController.text.isNotEmpty 
-                            && controller.receiptClientEmailController.text.isNotEmpty 
-                            && controller.receiptClientPhoneNumberController.text.isNotEmpty
-                          ) {
-                            sendReceiptBottomSheet(
+                          if(service.selectedBankForInvoice.value.isNotEmpty) {
+                            sendInvoiceBottomSheet(
                               context: context,
                               onShare: () {
-                                service.createNewReceiptAndSendToClient(
+                                service.createNewInvoiceAndSendToClient(
                                   context: context, 
-                                  client_name: controller.receiptClientNameController.text, 
-                                  client_email: controller.receiptClientEmailController.text, 
-                                  client_phone_number: controller.receiptClientPhoneNumberController.text, 
-                                  note: controller.receiptNoteController.text,
-                                  receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
-                                  mode_of_payment: controller.selectedModeOfPayment.value,
-                                  
-                                  vat: service.reactiveTotalVATForReceipt.value,
-                                  sub_total: service.reactiveSubtotalForReceipt.value,
-                                  discount: service.reactiveTotalDiscountForReceipt.value,
-                                  total: service.reactiveTotalForReceipt.value,
-                                  service_detail: service.selectedReceiptbslist,
+                                  bank_name: service.selectedBankForInvoice.value,
+                                  account_name: service.selectedAccNameForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  client_name: widget.name, 
+                                  client_email: widget.email, 
+                                  client_phone_number: widget.phone_number, 
+                                  note: controller.invoiceNoteController.text,
+                                  invoice_date: controller.updatedInvoiceDate(initialDate: "(non)"), 
+                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  vat: service.reactiveTotalVATForInvoice.value,
+                                  sub_total: service.reactiveSubtotalForInvoice.value,
+                                  discount: service.reactiveTotalDiscountForInvoice.value,
+                                  total: service.reactiveTotalForInvoice.value,
+                                  booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
-                                  print("sent");
-                                  setState(() {
-                                    service.reactiveSubtotalForReceipt.value = '';
-                                    service.reactiveTotalDiscountForReceipt.value = '';
-                                    service.reactiveTotalVATForReceipt.value = '';
-                                    service.reactiveTotalForReceipt.value = '';
-                                  });
+                                    print("sent");
+                                    setState(() {
+                                      service.reactiveSubtotalForInvoice.value = '';
+                                      service.reactiveTotalDiscountForInvoice.value = '';
+                                      service.reactiveTotalVATForInvoice.value = '';
+                                      service.reactiveTotalForInvoice.value = '';
+                                    });
                                 });
+
                               },
                               onSave: () {
-                                service.createNewReceiptAndSaveToDB(
+                                service.createNewInvoiceAndSaveToDB(
                                   context: context, 
-                                  client_name: controller.receiptClientNameController.text, 
-                                  client_email: controller.receiptClientEmailController.text, 
-                                  client_phone_number: controller.receiptClientPhoneNumberController.text, 
-                                  note: controller.receiptNoteController.text,
-                                  receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
-                                  mode_of_payment: controller.selectedModeOfPayment.value,
-
-                                  vat: service.reactiveTotalVATForReceipt.value,
-                                  sub_total: service.reactiveSubtotalForReceipt.value,
-                                  discount: service.reactiveTotalDiscountForReceipt.value,
-                                  total: service.reactiveTotalForReceipt.value,
-                                  service_detail: service.selectedReceiptbslist,
+                                  bank_name: service.selectedBankForInvoice.value,
+                                  account_name: service.selectedAccNameForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  client_name: widget.name, 
+                                  client_email: widget.email, 
+                                  client_phone_number: widget.phone_number,
+                                  note: controller.invoiceNoteController.text,
+                                  invoice_date: controller.updatedInvoiceDate(initialDate: "(non)"), 
+                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  vat: service.reactiveTotalVATForInvoice.value,
+                                  sub_total: service.reactiveSubtotalForInvoice.value,
+                                  discount: service.reactiveTotalDiscountForInvoice.value,
+                                  total: service.reactiveTotalForInvoice.value,
+                                  booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
-                                    controller.receiptClientEmailController.clear();
-                                    controller.receiptClientNameController.clear();
-                                    controller.receiptClientPhoneNumberController.clear();
-                                    controller.receiptNoteController.clear();
-                                    setState(() {
-                                      service.reactiveSubtotalForReceipt.value = '';
-                                      service.reactiveTotalDiscountForReceipt.value = '';
-                                      service.reactiveTotalVATForReceipt.value = '';
-                                      service.reactiveTotalForReceipt.value = '';
-                                    });
-                                    Get.back();
+                                  controller.invoiceClientEmailController.clear();
+                                  controller.invoiceClientNameController.clear();
+                                  controller.invoiceClientPhoneNumberController.clear();
+                                  controller.invoiceNoteController.clear();
+
+                                  setState(() {
+                                    service.reactiveSubtotalForInvoice.value = '';
+                                    service.reactiveTotalDiscountForInvoice.value = '';
+                                    service.reactiveTotalVATForInvoice.value = '';
+                                    service.reactiveTotalForInvoice.value = '';
                                   });
+
+                                  Get.back();
+                                });
                               },
                               onDownload: () {
-                                finPdfService.downloadReceiptPDFToDevice(
-                                  context: context,
-                                  tracking_id: widget.receiptNumber.toString(),
+                                finPdfService.downloadInvoicePDFToDevice(
                                   sender_address: "",
                                   sender_phone_number: '',
-                                  receiver_email: controller.receiptClientEmailController.text,
-                                  receiver_name: controller.receiptClientNameController.text,
-                                  receiver_phone_number: controller.receiptClientPhoneNumberController.text,
-                                  receipt_status: "SENT",
-                                  due_date: controller.updatedReceiptDate(initialDate: "(non)"),
-                                  subtotal: service.reactiveSubtotalForReceipt.value,
-                                  discount: service.reactiveTotalDiscountForReceipt.value,
-                                  vat: service.reactiveTotalVATForReceipt.value,
-                                  note: controller.receiptNoteController.text,
-                                  grand_total: service.reactiveTotalForReceipt.value,
-                                  serviceList: service.selectedReceiptbslist,
+                                  bank_name: service.selectedBankForInvoice.value,
+                                  account_name: service.selectedAccNameForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  context: context, 
+                                  tracking_id: invoiceNumber.toString(),
+                                  receiver_email: widget.email,
+                                  receiver_name: widget.name,
+                                  receiver_phone_number: widget.phone_number,
+                                  note: controller.invoiceNoteController.text,
+                                  invoice_status: "SENT",
+                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  subtotal: service.reactiveSubtotalForInvoice.value,
+                                  discount: service.reactiveTotalDiscountForInvoice.value,
+                                  vat: service.reactiveTotalVATForInvoice.value,
+                                  grand_total: service.reactiveTotalForInvoice.value,
+                                  serviceList: service.selectedInvoicebslist,
                                 ).whenComplete(() {
-                                    controller.receiptClientEmailController.clear();
-                                    controller.receiptClientNameController.clear();
-                                    controller.receiptClientPhoneNumberController.clear();
-                                    controller.receiptNoteController.clear();
-                                    setState(() {
-                                      service.reactiveSubtotalForReceipt.value = '';
-                                      service.reactiveTotalDiscountForReceipt.value = '';
-                                      service.reactiveTotalVATForReceipt.value = '';
-                                      service.reactiveTotalForReceipt.value = '';
-                                    });
-                                    Get.back();
+                                  controller.invoiceClientEmailController.clear();
+                                  controller.invoiceClientNameController.clear();
+                                  controller.invoiceClientPhoneNumberController.clear();
+                                  controller.invoiceNoteController.clear();
+
+                                  setState(() {
+                                    service.reactiveSubtotalForInvoice.value = '';
+                                    service.reactiveTotalDiscountForInvoice.value = '';
+                                    service.reactiveTotalVATForInvoice.value = '';
+                                    service.reactiveTotalForInvoice.value = '';
                                   });
+
+                                  Get.back();
+                                });
                               },
                             );
                           }
@@ -729,7 +727,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             showMySnackBar(
                               context: context,
                               backgroundColor: AppColor.redColor,
-                              message: "fields must not be empty"
+                              message: "please select bank account"
                             );
                           }
                         },

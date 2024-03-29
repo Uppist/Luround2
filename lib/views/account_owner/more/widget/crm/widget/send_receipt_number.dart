@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +15,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/date_selectors/receipt_date_selector.dart';
@@ -29,21 +32,24 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class CreateReceiptPage extends StatefulWidget {
-  CreateReceiptPage({super.key, required this.receiptNumber});
-  final int receiptNumber;
+class SendReceiptCRM extends StatefulWidget {
+  const SendReceiptCRM({super.key, required this.name, required this.email, required this.phone_number,});
+  final String name;
+  final String email;
+  final String phone_number;
 
   @override
-  State<CreateReceiptPage> createState() => _CreateReceiptPageState();
+  State<SendReceiptCRM> createState() => _SendReceiptCRMState();
 }
 
-class _CreateReceiptPageState extends State<CreateReceiptPage> {
+class _SendReceiptCRMState extends State<SendReceiptCRM> {
 
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
   var user_email = LocalStorage.getUseremail();
   var userProfileService = Get.put(AccOwnerProfileService());
+  int receiptNumber = Random().nextInt(2000000);
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +81,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                   ),
                   SizedBox(width: 100.w,),
                   Text(
-                    "Receipt ${widget.receiptNumber}",
+                    "Receipt $receiptNumber",
                     style: GoogleFonts.inter(
                       color: AppColor.textGreyColor,
                       fontSize: 14.sp,
@@ -194,14 +200,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                               );
                             },
                           ),*/
-                          ClientEmailTextFieldForReceipt(
+                          UtilsTextField2(
                             onChanged: (val) {
                               controller.receiptClientNameController.text = val;
                             },
                             hintText: "Receiver's name",
                             keyboardType: TextInputType.name,
                             textInputAction: TextInputAction.next,
-                            controller: controller.receiptClientNameController,
+                            initialValue: widget.name,
                           ),
                           
                           //Email
@@ -215,14 +221,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             ),
                           ),
                           SizedBox(height: 10.h,),
-                          ClientEmailTextFieldForReceipt(
+                          UtilsTextField2(
                             onChanged: (val) {
                               controller.receiptClientEmailController.text = val;
                             },
                             hintText: "Receiver's email address",
                             keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
-                            controller: controller.receiptClientEmailController,
+                            initialValue: widget.email,
                           ),
 
                           //Email
@@ -236,14 +242,14 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                             ),
                           ),
                           SizedBox(height: 10.h,),
-                          ClientEmailTextFieldForReceipt(
+                          UtilsTextField2(
                             onChanged: (val) {
                               controller.receiptClientPhoneNumberController.text = val;
                             },
                             hintText: "Receiver's mobile number",
                             keyboardType: TextInputType.phone,
                             textInputAction: TextInputAction.done,
-                            controller: controller.receiptClientPhoneNumberController,
+                            initialValue: widget.phone_number,
                           ),
 
 
@@ -631,18 +637,16 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                         text: 'Send Receipt',
                         onPressed: () {
                           if(
-                            controller.receiptClientNameController.text.isNotEmpty 
-                            && controller.receiptClientEmailController.text.isNotEmpty 
-                            && controller.receiptClientPhoneNumberController.text.isNotEmpty
+                            widget.name.isNotEmpty
                           ) {
                             sendReceiptBottomSheet(
                               context: context,
                               onShare: () {
                                 service.createNewReceiptAndSendToClient(
                                   context: context, 
-                                  client_name: controller.receiptClientNameController.text, 
-                                  client_email: controller.receiptClientEmailController.text, 
-                                  client_phone_number: controller.receiptClientPhoneNumberController.text, 
+                                  client_name: widget.name, 
+                                  client_email: widget.email, 
+                                  client_phone_number: widget.phone_number,
                                   note: controller.receiptNoteController.text,
                                   receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
                                   mode_of_payment: controller.selectedModeOfPayment.value,
@@ -654,20 +658,22 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   service_detail: service.selectedReceiptbslist,
                                 ).whenComplete(() {
                                   print("sent");
+
                                   setState(() {
                                     service.reactiveSubtotalForReceipt.value = '';
                                     service.reactiveTotalDiscountForReceipt.value = '';
                                     service.reactiveTotalVATForReceipt.value = '';
                                     service.reactiveTotalForReceipt.value = '';
                                   });
+
                                 });
                               },
                               onSave: () {
                                 service.createNewReceiptAndSaveToDB(
                                   context: context, 
-                                  client_name: controller.receiptClientNameController.text, 
-                                  client_email: controller.receiptClientEmailController.text, 
-                                  client_phone_number: controller.receiptClientPhoneNumberController.text, 
+                                  client_name: widget.name, 
+                                  client_email: widget.email, 
+                                  client_phone_number: widget.phone_number, 
                                   note: controller.receiptNoteController.text,
                                   receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
                                   mode_of_payment: controller.selectedModeOfPayment.value,
@@ -682,24 +688,26 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     controller.receiptClientNameController.clear();
                                     controller.receiptClientPhoneNumberController.clear();
                                     controller.receiptNoteController.clear();
+                                    
                                     setState(() {
                                       service.reactiveSubtotalForReceipt.value = '';
                                       service.reactiveTotalDiscountForReceipt.value = '';
                                       service.reactiveTotalVATForReceipt.value = '';
                                       service.reactiveTotalForReceipt.value = '';
                                     });
+                                    
                                     Get.back();
                                   });
                               },
                               onDownload: () {
                                 finPdfService.downloadReceiptPDFToDevice(
                                   context: context,
-                                  tracking_id: widget.receiptNumber.toString(),
+                                  tracking_id: receiptNumber.toString(),
                                   sender_address: "",
                                   sender_phone_number: '',
-                                  receiver_email: controller.receiptClientEmailController.text,
-                                  receiver_name: controller.receiptClientNameController.text,
-                                  receiver_phone_number: controller.receiptClientPhoneNumberController.text,
+                                  receiver_email: widget.email,
+                                  receiver_name: widget.name,
+                                  receiver_phone_number: widget.phone_number,
                                   receipt_status: "SENT",
                                   due_date: controller.updatedReceiptDate(initialDate: "(non)"),
                                   subtotal: service.reactiveSubtotalForReceipt.value,
@@ -713,13 +721,16 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     controller.receiptClientNameController.clear();
                                     controller.receiptClientPhoneNumberController.clear();
                                     controller.receiptNoteController.clear();
+
                                     setState(() {
                                       service.reactiveSubtotalForReceipt.value = '';
                                       service.reactiveTotalDiscountForReceipt.value = '';
                                       service.reactiveTotalVATForReceipt.value = '';
                                       service.reactiveTotalForReceipt.value = '';
                                     });
+
                                     Get.back();
+
                                   });
                               },
                             );

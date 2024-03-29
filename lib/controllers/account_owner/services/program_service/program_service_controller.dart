@@ -19,21 +19,39 @@ import 'package:luround/utils/colors/app_theme.dart';
 class ProgramServiceController extends getx.GetxController {
   
 
-  //maximum nuber of participants section
+  //maximum nuber of participants section for add & edit program service section
   getx.RxInt count = 0.obs;
   getx.RxInt countEdit = 0.obs;
 
-  void increaseCount({required int count}) {
-    if(count >= 0) {
-      count = count++;
-      debugPrint("participants: $count");
+  void increaseCount() {
+    if(count.value >= 0 && count.value <= 49) {
+      count.value++;
+      debugPrint("participants: ${count.value}");
     }
+    update();
   }
-  void decreaseCount({required int count}) {
-    if(count >= 1) {
-      count = count--;
-      debugPrint("participants: $count");
+  void decreaseCount() {
+    if(count.value >= 1) {
+      count.value--;
+      debugPrint("participants: ${count.value}");
     }
+    update();
+  }
+  
+  //edit service package
+  void increaseCountEdit() {
+    if(countEdit.value >= 0 && countEdit.value <= 49) {
+      countEdit.value++;
+      debugPrint("participants: ${countEdit.value}");
+    }
+    update();
+  }
+  void decreaseCountEdit() {
+    if(countEdit.value >= 1) {
+      countEdit.value--;
+      debugPrint("participants: ${countEdit.value}");
+    }
+    update();
   }
 
 

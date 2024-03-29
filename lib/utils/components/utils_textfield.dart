@@ -103,7 +103,7 @@ class _UtilsTextField2State extends State<UtilsTextField2> {
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),
         decoration: InputDecoration(        
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
             borderSide: BorderSide.none, // Remove the border
           ),
           enabledBorder: UnderlineInputBorder(

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,6 +16,7 @@ import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/add_product_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
@@ -32,21 +35,25 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
-class CreateQuotePage extends StatefulWidget {
-  CreateQuotePage({super.key, required this.quoteNumber});
-  final int quoteNumber;
+class SendQuoteCRM extends StatefulWidget {
+  const SendQuoteCRM({super.key, required this.name, required this.email, required this.phone_number});
+  final String name;
+  final String email;
+  final String phone_number;
+
 
   @override
-  State<CreateQuotePage> createState() => _CreateQuotePageState();
+  State<SendQuoteCRM> createState() => _SendQuoteCRMState();
 }
 
-class _CreateQuotePageState extends State<CreateQuotePage> {
+class _SendQuoteCRMState extends State<SendQuoteCRM> {
   
   var user_email = LocalStorage.getUseremail();
   var userProfileService = Get.put(AccOwnerProfileService());
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
+  int quoteNumber = Random().nextInt(2000000);
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +85,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                       ),
                       SizedBox(width: 100.w,),
                       Text(
-                        "Quote ${widget.quoteNumber}",
+                        "Quote $quoteNumber",
                         style: GoogleFonts.inter(
                           color: AppColor.textGreyColor,
                           fontSize: 14.sp,
@@ -196,14 +203,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       );
                                     },
                                   ),*/
-                                  ClientEmailTextField(
+                                  UtilsTextField2(
                                     onChanged: (val) {
                                       controller.quoteClientNameController.text = val;
                                     },
                                     hintText: "Receiver's name",
                                     keyboardType: TextInputType.name,
                                     textInputAction: TextInputAction.next,
-                                    controller: controller.quoteClientNameController,
+                                    initialValue: widget.name,
                                   ),
                                   
                                   //Email
@@ -217,14 +224,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                     ),
                                   ),
                                   SizedBox(height: 10.h,),
-                                  ClientEmailTextField(
+                                  UtilsTextField2(
                                     onChanged: (val) {
                                       controller.quoteClientEmailController.text = val;
                                     },
                                     hintText: "Receiver's email address",
                                     keyboardType: TextInputType.emailAddress,
                                     textInputAction: TextInputAction.next,
-                                    controller: controller.quoteClientEmailController,
+                                    initialValue: widget.email,
                                   ),
                             
                                   //Email
@@ -238,14 +245,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                     ),
                                   ),
                                   SizedBox(height: 10.h,),
-                                  ClientEmailTextField(
+                                  UtilsTextField2(
                                     onChanged: (val) {
                                       controller.quoteClientPhoneNumberController.text = val;
                                     },
                                     hintText: "Receiver's mobile number",
                                     keyboardType: TextInputType.phone,
                                     textInputAction: TextInputAction.done,
-                                    controller: controller.quoteClientPhoneNumberController,
+                                    initialValue: widget.phone_number,
                                   ),
                             
                             
@@ -627,7 +634,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             color: AppColor.mainColor,
                             text: 'Send Quote',
                             onPressed: () {
-                              if(service.selectedBankForQuote.value.isNotEmpty && controller.quoteClientNameController.text.isNotEmpty && controller.quoteClientEmailController.text.isNotEmpty && controller.quoteClientPhoneNumberController.text.isNotEmpty) {
+                              if(service.selectedBankForQuote.value.isNotEmpty) {
                                 sendQuoteBottomSheet(
                                   context: context,
                                   onShare: () {
@@ -636,9 +643,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       bank_name: service.selectedBankForQuote.value,
                                       account_name: service.selectedAccNameForQuote.value,
                                       account_number: service.selectedAccNumberForQuote.value,
-                                      client_name: controller.quoteClientNameController.text, 
-                                      client_email: controller.quoteClientEmailController.text, 
-                                      client_phone_number: controller.quoteClientPhoneNumberController.text, 
+                                      client_name: widget.name, 
+                                      client_email: widget.email, 
+                                      client_phone_number: widget.phone_number, 
                                       note: controller.quoteNoteController.text,
                                       quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
                                       quote_due_date: controller.updatedDueDate(initialDate: "(non)"),
@@ -663,9 +670,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       bank_name: service.selectedBankForQuote.value,
                                       account_name: service.selectedAccNameForQuote.value,
                                       account_number: service.selectedAccNumberForQuote.value,
-                                      client_name: controller.quoteClientNameController.text, 
-                                      client_email: controller.quoteClientEmailController.text, 
-                                      client_phone_number: controller.quoteClientPhoneNumberController.text, 
+                                      client_name: widget.name, 
+                                      client_email: widget.email, 
+                                      client_phone_number: widget.phone_number,  
                                       note: controller.quoteNoteController.text,
                                       quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
                                       quote_due_date: controller.updatedDueDate(initialDate: "(non)"),
@@ -696,10 +703,10 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       bank_name: service.selectedBankForQuote.value,
                                       account_name: service.selectedAccNameForQuote.value,
                                       account_number: service.selectedAccNumberForQuote.value,
-                                      tracking_id: widget.quoteNumber.toString(),
-                                      receiver_email: controller.quoteClientEmailController.text,
-                                      receiver_name: controller.quoteClientNameController.text,
-                                      receiver_phone_number: controller.quoteClientPhoneNumberController.text,
+                                      tracking_id: quoteNumber.toString(),
+                                      receiver_email: widget.email,
+                                      receiver_name: widget.name,
+                                      receiver_phone_number: widget.phone_number,
                                       quote_status: "SENT",
                                       due_date: controller.updatedDueDate(initialDate: "(non)"),
                                       subtotal: service.reactiveSubtotalForQuote.value,
@@ -713,12 +720,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       controller.quoteClientNameController.clear();
                                       controller.quoteClientPhoneNumberController.clear();
                                       controller.quoteNoteController.clear();
+
                                       setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
                                       });
+                                      
                                       Get.back();
                                     });
                                   },
@@ -729,7 +738,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                 showMySnackBar(
                                   context: context,
                                   backgroundColor: AppColor.redColor,
-                                  message: "fields must not be empty"
+                                  message: "please select bank account"
                                 );
                               }
                             },

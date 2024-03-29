@@ -662,6 +662,7 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
                                       });
+                                      Get.back();
                                     });                       
                                   },
                                   onSave: () {

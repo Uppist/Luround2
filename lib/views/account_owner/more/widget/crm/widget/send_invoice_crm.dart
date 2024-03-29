@@ -648,6 +648,7 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                       service.reactiveTotalVATForInvoice.value = '';
                                       service.reactiveTotalForInvoice.value = '';
                                     });
+                                    Get.back();
                                 });
 
                               },

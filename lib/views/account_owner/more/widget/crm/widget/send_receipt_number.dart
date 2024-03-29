@@ -666,6 +666,8 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                     service.reactiveTotalForReceipt.value = '';
                                   });
 
+                                  Get.back();
+
                                 });
                               },
                               onSave: () {

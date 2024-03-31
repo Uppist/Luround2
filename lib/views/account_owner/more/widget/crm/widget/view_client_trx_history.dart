@@ -85,7 +85,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                 width: double.infinity,
                 height: 7,
               ),*/
-
+        
               //search textfield
               SearchTextField(
                 onFocusChanged: (val) {},
@@ -98,9 +98,9 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                 textController: service.searchClientTrxController,
                 onTap: () {},
               ),
-
+        
               SizedBox(height: 30.h,),
-
+        
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 20.h),
                 alignment: Alignment.center,
@@ -149,7 +149,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                   ],
                 ),
               ),
-
+        
               //change to Obx later
               Builder(
                 builder: (context) {
@@ -229,13 +229,13 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                       ),
                     ),
                   );
-
+        
                 }
               )
               //////////////////
             ]
           )
-        )
+        ),
       )
     );
   }

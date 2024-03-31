@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/timeline_dropdown.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
@@ -171,10 +173,21 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
         controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
         
         controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),*/
-    
-        SizedBox(height: 20.h,),
         Text(
-          "Service fee",
+          "Service timeline",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        //SizedBox(height: 20.h),
+        ProgramServiceTimeline(),
+
+
+        SizedBox(height: 30.h,),
+        Text(
+          "Service recurrence",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -182,53 +195,10 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
           ),
         ),
         SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "In-person",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 20.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                textController: controller.inPersonController
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Virtual",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 45.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                textController: controller.virtualController
-              ),
-            ),
-          ],
-        ),
+        //SizedBox(height: 20.h),
+        ProgramServiceRecurrence(),
+
+
         SizedBox(height: 150.h,),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,

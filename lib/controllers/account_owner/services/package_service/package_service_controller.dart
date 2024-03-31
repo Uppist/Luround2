@@ -122,7 +122,7 @@ class PackageServiceController extends getx.GetxController {
       print(refinedList);
       return refinedList;
     }
-    return "from";
+    return "start date";
   }
   String endDate () {
     print(dates);
@@ -132,7 +132,7 @@ class PackageServiceController extends getx.GetxController {
       print(refinedList);
       return refinedList;
     }
-    return "to";
+    return "stop date";
   }
 
   //to add other links at {step 1}
@@ -515,7 +515,7 @@ class PackageServiceController extends getx.GetxController {
       print(refinedList);
       return refinedList;
     }
-    return "from";
+    return "start date";
   }
   String endDateEdit() {
     print(datesEdit);
@@ -525,7 +525,7 @@ class PackageServiceController extends getx.GetxController {
       print(refinedList);
       return refinedList;
     }
-    return "to";
+    return "stop date";
   }
 
   //to add other links at {step 1}

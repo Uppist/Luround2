@@ -7,7 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/dropdows/timeline_dropdown.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 
@@ -174,61 +175,29 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
     
         SizedBox(height: 20.h,),
         Text(
-          "Service fee",
+          "Service timeline",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "In-person",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 20.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                textController: controller.inPersonController
-              ),
-            ),
-          ],
+        //SizedBox(height: 20.h),
+        PackageServiceTimeline(),
+        
+        SizedBox(height: 30.h,),
+        Text(
+          "Service recurrence",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
         ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Virtual",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 45.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                textController: controller.virtualController
-              ),
-            ),
-          ],
-        ),
+        //SizedBox(height: 20.h),
+        PackageServiceRecurrence(),
+
+
         SizedBox(height: 150.h,),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,

@@ -7,9 +7,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_1/textfields/amount_textfield_edit.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_1/textfields/description_textfield_edit.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_1/textfields/edit_normal_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_2/dropdows/recurrence_dropdown_edit.dart';
+import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_2/dropdows/timeline_dropdown_edit.dart';
 
 
 
@@ -188,71 +189,30 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
     
         SizedBox(height: 20.h,),*/
 
-
         Text(
-          "Service fee per session*",
+          "Service timeline",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
             fontWeight: FontWeight.w500
           ),
         ),
+        //SizedBox(height: 20.h),
+        ProgramServiceTimelineEdit(),
+        
         SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "In-person",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 20.w,),
-            Expanded(
-              child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  setState(() {
-                    controller.inPersonControllerEdit.text = val;
-                  });
-                },
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                initialValue: widget.service_charge_in_person,
-              ),
-            ),
-          ],
+        Text(
+          "Service recurrence",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
         ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Virtual",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 45.w,),
-            Expanded(
-              child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  setState(() {
-                    controller.virtualControllerEdit.text = val;
-                  });
-                },
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                initialValue: widget.service_charge_virtual,
-              ),
-            ),
-          ],
-        ),
+        //SizedBox(height: 20.h),
+        ProgramServiceRecurrenceEdit(),
+
+
         SizedBox(height: 150.h,),
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

@@ -11,7 +11,14 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/date_range_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/selectors/time_range_s2.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/custom_checkbox.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/start_date_box.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/start_time_box.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/stop_date_box.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/stop_time_box.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 
 
 
@@ -41,127 +48,197 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /*Text(
-          "Day and Time availability*",
+
+        Text(
+          "Date and Time",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
-        ),*/
+        ),
+        SizedBox(height: 20.h),
+        //r1
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            StartDateBoxProgram(),
+            StartTimeBoxProgram()
+          ],
+        ),
+        SizedBox(height: 30.h,),
+        //r2
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            StopDateBoxProgram(),
+            StopTimeBoxProgram()
+          ],
+        ),
+        
+  
+        SizedBox(height: 30.h,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(
+                  CupertinoIcons.clock,
+                  color: AppColor.blackColor,
+                  size: 22.r,
+                ),
+                SizedBox(width: 5.w,),
+                Text(
+                  "Duration",
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+              ],
+            ),
+
+            Obx(
+              () {
+                return Text(
+                  mainController.calcDuration.value,
+                  style: GoogleFonts.inter(
+                    color: AppColor.darkGreyColor,
+                    fontSize: 15.sp,
+                    fontWeight: FontWeight.w400
+                  ),
+                );
+              }
+            ),
+          ],
+        ),
+
+        SizedBox(height: 30.h),
         Text(
-          "Day availability*",
+          "Maximum number of participants",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 20.h),
+        Container(
+          //padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 10.h),
+          alignment: Alignment.center,
+          height: 45.h,
+          width: 130.w, //125
+          decoration: BoxDecoration(
+            color: AppColor.bgColor,
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(
+              color: AppColor.textGreyColor,
+              width: 1.0, //2
+            )
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              IconButton(
+                onPressed:() {
+                  mainController.decreaseCount();
+                }, 
+                icon: Icon(
+                  CupertinoIcons.minus_circle,
+                  color: AppColor.textGreyColor,
+                  size: 24.r,
+                )
+              ),
+              //SizedBox(width: 5.w,),
+              Obx(
+                () {
+                  return Text(
+                    mainController.count.value.toString(),
+                    style: GoogleFonts.inter(
+                      color: AppColor.textGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400
+                    ),
+                  );
+                }
+              ),
+              //SizedBox(width: 5.w,),
+              IconButton(
+                onPressed:() {
+                  mainController.increaseCount();
+                }, 
+                icon: Icon(
+                  CupertinoIcons.add_circled,
+                  color: AppColor.textGreyColor,
+                  size: 24.r,
+                )
+              )
+            ],
+          )
+        ),
+
+        SizedBox(height: 30.h,),
+
+        Text(
+          "Service fee",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 15.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 20.h,),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Icon(
-              Icons.circle_rounded,
-              color: AppColor.mainColor,
-            ),
-            SizedBox(width: 10.w,),
             Text(
-              "West Africa Standard Time",
+              "In-person",
               style: GoogleFonts.inter(
-                color: AppColor.mainColor,
-                fontSize: 15.sp,
+                color: AppColor.darkGreyColor, 
+                fontSize: 16.sp,
                 fontWeight: FontWeight.w500
+              ),
+            ),
+            SizedBox(width: 20.w,),
+            Expanded(
+              child: AmountTextField(  
+                onChanged: (val) {},
+                hintText: "00.00",
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                textController: mainController.inPersonController
               ),
             ),
           ],
         ),
-        SizedBox(height: 30.h),
-
-        ListView.separated(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
-          itemCount: mainController.daysOfTheWeekCheckBox.length,
-          itemBuilder: (context, index) {
-
-            return CustomCheckBox(
-              checkbox: Checkbox.adaptive(
-                checkColor: AppColor.bgColor,
-                activeColor: AppColor.mainColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.r)
-                ),
-                value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
-                onChanged: (value) {   
-                  setState(() {
-                    mainController.isCheckBoxActive.value = true;
-                    mainController.toggleCheckbox(index, value);
-                    print("selectedDays: ${mainController.selectedDays}");
-                  });     
-                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
-                },
+        SizedBox(height: 20.h,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "Virtual",
+              style: GoogleFonts.inter(
+                color: AppColor.darkGreyColor, 
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w500
               ),
-              title: Text(
-                mainController.daysOfTheWeekCheckBox[index]["day"],
-                style: GoogleFonts.inter(
-                  color: AppColor.blackColor,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w500
-                ),
-              )
-            );
-
-            /*return CustomCheckBoxListTile(
-              checkbox: Checkbox.adaptive(
-                checkColor: AppColor.bgColor,
-                activeColor: AppColor.mainColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.r)
-                ),
-                value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
-                onChanged: (value) {   
-                  setState(() {
-                    mainController.isCheckBoxActive.value = true;
-                    mainController.toggleCheckbox(index, value);
-                    print("selectedDays: ${mainController.selectedDays}");
-                  });     
-                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
-                },
+            ),
+            SizedBox(width: 45.w,),
+            Expanded(
+              child: AmountTextField(  
+                onChanged: (val) {},
+                hintText: "00.00",
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.done,
+                textController: mainController.virtualController
               ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    mainController.daysOfTheWeekCheckBox[index]["day"],
-                    style: GoogleFonts.inter(
-                      color: AppColor.blackColor,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {    
-                      setState(() {
-                        mainController.daysOfTheWeekCheckBox[index]["isChecked"] = !mainController.daysOfTheWeekCheckBox[index]["isChecked"];
-                        //to activate the done button
-                        mainController.isCheckBoxActive.value = true;
-                      });              
-                    },
-                    child: SvgPicture.asset("assets/svg/add_icon.svg"),
-                  )
-                ],
-              ),
-              subtitle: mainController.daysOfTheWeekCheckBox[index]["isChecked"] 
-              ?TimeRangeSelector(index: index)           
-              :const SizedBox(),
-            );*/
-                 
-          }, 
+            ),
+          ],
         ),
-        SizedBox(height: 90.h),
+        SizedBox(height: 100.h),
 
         //button
         RebrandedReusableButton(

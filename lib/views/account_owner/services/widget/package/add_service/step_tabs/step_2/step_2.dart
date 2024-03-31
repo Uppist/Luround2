@@ -7,10 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/selectors/date_range_bottomsheet.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/selectors/time_range_s2.dart';
-import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_2/dropdows/timeline_dropdown.dart';
+import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/new/custom_checkbox.dart';
 
 
 
@@ -39,199 +36,54 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        
         Text(
-          "Service timeline",
+          "Select days",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        //SizedBox(height: 20.h),
-        PackageServiceTimeline(),
-
-        SizedBox(height: 30.h,),
-        Text(
-          "Select date range",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
         SizedBox(height: 20.h),
-        InkWell(
-          onTap: () async{
-            selectDateRangeBottomSheet(
-              context: context, 
-              onCancel: () {
-                Get.back();
-              }, 
-              onApply: () {
-                Get.back();
-              }
-            );      
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-            alignment: Alignment.centerLeft,
-            height: 50.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColor.bgColor,
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(
-                color: AppColor.textGreyColor,
-                width: 1.0, //2
-              )
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(
-                  () {
-                    return Text(
-                      "${controller.startDate()} - ${controller.endDate()}",
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          //fontWeight: FontWeight.w500
-                        )
-                      )
-                    );
-                  }
+        ListView.separated(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => SizedBox(height: 10.h,),
+          itemCount: controller.daysOfTheWeekCheckBox.length,
+          itemBuilder: (context, index) {
+
+            return CustomCheckBox(
+              checkbox: Checkbox.adaptive(
+                checkColor: AppColor.bgColor,
+                activeColor: AppColor.mainColor,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4.r)
                 ),
-                Icon(
-                  CupertinoIcons.calendar_today,
-                  color: AppColor.textGreyColor,
-                ),
-              ],
-            ),
-          )
-        ),
-
-        SizedBox(height: 30.h,),
-        Text(
-          "Service recurrence",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        //SizedBox(height: 20.h),
-        PackageServiceRecurrence(),
-
-        SizedBox(height: 30.h),
-        Text(
-          "Select time interval",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 20.h),
-        TimeRangeSelectorForStep2(),
-
-        SizedBox(height: 30.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  CupertinoIcons.clock,
+                value:controller.daysOfTheWeekCheckBox[index]["isChecked"],
+                onChanged: (value) {   
+                  setState(() {
+                    controller.isCheckBoxActive.value = true;
+                    controller.toggleCheckbox(index, value);
+                    print("selectedDays: ${controller.selectedDays}");
+                  });     
+                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
+                },
+              ),
+              title: Text(
+                controller.daysOfTheWeekCheckBox[index]["day"],
+                style: GoogleFonts.inter(
                   color: AppColor.blackColor,
-                  size: 22.r,
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w500
                 ),
-                SizedBox(width: 5.w,),
-                Text(
-                  "Duration",
-                  style: GoogleFonts.inter(
-                    color: AppColor.blackColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-              ],
-            ),
-
-            Obx(
-              () {
-                return Text(
-                  controller.calcDuration.value,
-                  style: GoogleFonts.inter(
-                    color: AppColor.darkGreyColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400
-                  ),
-                );
-              }
-            ),
-          ],
-        ),
-
-
-
-        /*Text(
-          "Service duration",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 20.h),
-        InkWell(
-          onTap: () async{
-            controller.showDurationPickerDialog(context: context);         
-          },
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-            alignment: Alignment.centerLeft,
-            height: 50.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: AppColor.bgColor,
-              borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(
-                color: AppColor.textGreyColor,
-                width: 1.0, //2
               )
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Obx(
-                  () {
-                    return Text(
-                      "${controller.duration.value}".substring(0, 7),
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          //fontWeight: FontWeight.w500
-                        )
-                      )
-                    );
-                  }
-                ),
-                Icon(
-                  CupertinoIcons.time,
-                  color: AppColor.textGreyColor,
-                ),
-              ],
-            ),
-          )
-        ),*/
+            );
+          }, 
+        ),
         
-    
-        
-        
-        SizedBox(height: 180.h,), //280.h
+        SizedBox(height: 100.h,), //280.h
     
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

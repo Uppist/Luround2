@@ -32,7 +32,6 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
-
 class AuthService extends getx.GetxController {
 
 
@@ -76,9 +75,10 @@ class AuthService extends getx.GetxController {
     bool isExpired = tokenExpDate.year == currentDate.year &&
     tokenExpDate.month == currentDate.month &&
     tokenExpDate.day == currentDate.day;
-    print("is token expired ${isExpired}");
+    print("is token expired: $isExpired");
     return isExpired;
   }
+
 
   //to register user locally
   Future<dynamic> registerUser({
@@ -759,7 +759,7 @@ class AuthService extends getx.GetxController {
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
-            message: "sign up successful"
+            message: "sign in successful"
           );
 
         }
@@ -793,7 +793,7 @@ class AuthService extends getx.GetxController {
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
-            message: "log in successful"
+            message: "sign in successful"
           );
         }
         
@@ -975,7 +975,7 @@ class AuthService extends getx.GetxController {
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
-            message: "log in successful"
+            message: "sign up successful"
           );
         }
         

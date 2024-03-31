@@ -168,16 +168,16 @@ class _EditPackageServiceScreenState extends State<EditPackageServiceScreen> {
                 title: Text(""), 
                 isActive: controller.curentStepEdit.value >= 2,
                 content: Step3PagePackageServiceEdit(
+                  service_charge_in_person: widget.service_charge_in_person,
+                  service_charge_virtual: widget.service_charge_virtual,
                   /*serviceId: widget.serviceId,
                   service_name: widget.service_name,
                   description: widget.description,
                   links: widget.links,
-                  service_charge_in_person: widget.service_charge_in_person,
-                  service_charge_virtual: widget.service_charge_virtual,
                   duration: widget.duration,
                   time: widget.time,
                   date: widget.date,
-                  available_days: widget.available_days,*/
+                  available_days: widget.available_days*/
                 )
               )
             ]

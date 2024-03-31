@@ -194,7 +194,7 @@ class _MainAppState extends State<MainApp> {
 
         ],*/
 
-        home: token == null ? SplashScreen1() : authService.isTokenExpired(tokenExpDate) || authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        home: token == null ? SplashScreen1() : authService.isTokenExpired(tokenExpDate) ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
       
       ),
     );

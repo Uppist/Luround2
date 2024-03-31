@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/services/widget/program/edit_service
 
 
 class EditProgramServiceScreen extends StatefulWidget {
-  EditProgramServiceScreen({
+  const EditProgramServiceScreen({
     super.key, 
     required this.serviceId,
     required this.service_name, 
@@ -168,6 +168,8 @@ class _EditProgramServiceScreenState extends State<EditProgramServiceScreen> {
                 title: Text(""), 
                 isActive: controller.curentStepEdit.value >= 2,
                 content: Step3PageProgramServiceEdit(
+                  service_charge_in_person: widget.service_charge_in_person,
+                  service_charge_virtual: widget.service_charge_virtual,
                   /*serviceId: widget.serviceId,
                   service_name: widget.service_name,
                   description: widget.description,

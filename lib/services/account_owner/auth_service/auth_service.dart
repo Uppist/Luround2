@@ -66,17 +66,22 @@ class AuthService extends getx.GetxController {
   //to check if the token is expired
   bool isTokenExpired(int serverTimestamp) {
     // Convert the server timestamp to a DateTime object
-    DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(serverTimestamp * 1000);
+    DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(serverTimestamp * 1000, isUtc: true);
 
     // Get today's date
-    DateTime currentDate = DateTime.now();
+    DateTime currentDate = DateTime.now().toUtc();
 
     // Check if the token expiration date is equal to today's date
     bool isExpired = tokenExpDate.year == currentDate.year &&
     tokenExpDate.month == currentDate.month &&
-    tokenExpDate.day == currentDate.day;
-    print("is token expired: $isExpired");
-    return isExpired;
+    tokenExpDate.day >= currentDate.day;
+    print("is token expired value: $isExpired");
+    if(isExpired) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
 
@@ -459,7 +464,6 @@ class AuthService extends getx.GetxController {
     } 
     on HttpException {
       isLoading.value = false;
-      baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
@@ -1110,7 +1114,6 @@ class AuthService extends getx.GetxController {
     } 
     on HttpException {
       isLoading.value = false;
-      baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
@@ -1155,12 +1158,46 @@ class AuthService extends getx.GetxController {
     } 
     on HttpException {
       isLoading.value = false;
-      baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
         message: "something went wrong"
       );
+    }
+  }
+
+  //delete user account
+  Future<dynamic> deleteUserAccount({
+    required BuildContext context,
+    //required String email,
+    }) async {
+    
+    isLoading.value = true;
+
+    var body = {
+      //"email": email,
+    };
+
+    try {
+      http.Response res = await baseService.httpGet(
+        endPoint: "user/account/delete", 
+        //body: body
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        getx.Get.offAll(() => const MainPage());
+      }
+    }
+    on HttpException catch(e, stackTrace) {
+      isLoading.value = false;
+      showMySnackBar(
+        context: context,
+        backgroundColor: AppColor.redColor,
+        message: "something went wrong"
+      );
+      debugPrint("$e");
     }
   }
 

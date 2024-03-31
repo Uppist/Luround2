@@ -108,7 +108,7 @@ class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
   var FCMtoken = LocalStorage.getFCMToken();
-  int tokenExpDate = LocalStorage.getTokenExpDate() ?? 0;
+  int tokenExpDate = LocalStorage.getTokenExpDate();
   var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
 

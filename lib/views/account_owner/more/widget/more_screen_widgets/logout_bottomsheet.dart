@@ -19,7 +19,7 @@ var authService = Get.put(AuthService());
 
 
 ///Alert Dialog
-Future<void> logoutDialogue({required BuildContext context,}) async{
+Future<void> logoutBottomsheet({required BuildContext context,}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,

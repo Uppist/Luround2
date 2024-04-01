@@ -51,10 +51,38 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
+
+
+
+  //for main service screen and the service screen tab
+  final TextEditingController searchServiceController = TextEditingController();
+  //final searchServicesList = <UserServiceModel>[].obs;
+  final filterSearchServicesList = <UserServiceModel>[].obs;
+  int activeTabIndex = 0;
   
-  /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  var servicesList = <UserServiceModel>[].obs;
-  Future<List<UserServiceModel>> getUserServices() async {
+
+   
+  /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
+  //Method to pass in the search textfield
+  Future<void> filterRegularServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesList);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesList
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  //
+  final servicesList = <UserServiceModel>[].obs;
+  Future<List<UserServiceModel>> getUserRegularServices() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
@@ -67,9 +95,10 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-        //servicesList.clear();
-        //servicesList.addAll(finalResult);
-        print("user services list: $servicesList");
+        servicesList.clear();
+        servicesList.addAll(finalResult);
+        print("user services list: $finalResult");
+
         return finalResult;
       }
       else {
@@ -381,6 +410,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   void dispose() {
     // TODO: implement dispose
     //socket!.dispose();
+    searchServiceController.dispose();
     super.dispose();
   }
 

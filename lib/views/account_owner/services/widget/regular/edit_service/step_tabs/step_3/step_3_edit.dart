@@ -182,7 +182,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                     available_time: mainController.availableTimeEdit,
                   ).whenComplete(() {
                     setState(() {
-                      mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;
+                      mainController.curentStepEdit.value = mainController.curentStepEdit.value - 2;
                     });
                     Get.offUntil(
                       GetPageRoute(

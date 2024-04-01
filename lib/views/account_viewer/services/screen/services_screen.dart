@@ -164,8 +164,9 @@ class AccViewerServicesPage extends StatelessWidget {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
+                                          //available from
                                           Text(
-                                            "${data[index].available_days}",
+                                            data[index].available_days,
                                             style: GoogleFonts.inter(
                                               color: AppColor.bgColor,
                                               fontSize: 14.sp,
@@ -174,7 +175,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                           Text(
-                                            "${data[index].time}",
+                                            data[index].time,
                                             style: GoogleFonts.inter(
                                               color: AppColor.bgColor,
                                               fontSize: 14.sp,
@@ -311,7 +312,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                       child: Text(
                                         "Request Quote",
                                           style: GoogleFonts.inter(
-                                          color: AppColor.yellowStar,
+                                          color: index.isOdd ? AppColor.yellowStar : AppColor.limeGreen,
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w600,
                                           decoration: TextDecoration.underline,

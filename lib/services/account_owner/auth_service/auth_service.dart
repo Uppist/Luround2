@@ -1187,6 +1187,7 @@ class AuthService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
+        await logoutUser();
         getx.Get.offAll(() => const MainPage());
       }
     }
@@ -1197,7 +1198,7 @@ class AuthService extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "something went wrong"
       );
-      debugPrint("$e");
+      debugPrint("$e -- $stackTrace");
     }
   }
 

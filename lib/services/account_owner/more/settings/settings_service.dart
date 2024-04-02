@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/models/account_owner/more/pricing/billing_history_model.dart';
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -453,7 +454,7 @@ class SettingsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to fetch user saved banks');
       }
     } 
@@ -617,8 +618,59 @@ class SettingsService extends getx.GetxController {
 
 
 
-  ////PRICING STUFFS///
+
+
+
+
+
+
+
+
+  /////////PRICING STUFFS///////////////////////////
   var isBillingHistoryActive = false.obs;
+  /////[GET LOGGED-IN USER'S PAYMENT HISTORY LIST]//////
+  var billingHistoryList = <BillingHistoryResponse>[].obs;
+  Future<List<BillingHistoryResponse>> getUserBillingHistory() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "payments/payment-history",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user billing history fetched successfully!!");
+        //decode the response body here
+        // Check if the response body is not null
+        if (res.body != null) {
+          final List<dynamic> response = jsonDecode(res.body);
+          final List<BillingHistoryResponse> finalResult = response.map((e) => BillingHistoryResponse.fromJson(e)).toList();
+
+          //billingHistoryList.clear();
+          //billingHistoryList.addAll(finalResult);
+          debugPrint("$finalResult");
+
+          // Return saved bank account list
+          return finalResult;
+        } 
+        else {
+          throw Exception('Response body is null');
+        }
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response bosy ==> ${res.body}');
+        throw Exception('Failed to fetch user billing history');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
 
 
 

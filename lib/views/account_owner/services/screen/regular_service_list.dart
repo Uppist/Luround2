@@ -156,7 +156,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "Regular(One-off)",
+                          "Regular(One-off)",  //Retainer
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,

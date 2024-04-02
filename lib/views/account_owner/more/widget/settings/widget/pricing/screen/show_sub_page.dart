@@ -192,6 +192,7 @@ class ShowSubscriptionPage extends StatelessWidget {
                       //SizedBox(height: 2,),
                       Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
                       const SizedBox(height: 20,),
+                    
                       Obx(
                         () {
                           return service.isBillingHistoryActive.value ? ListView.separated(

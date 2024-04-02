@@ -33,9 +33,13 @@ class ServiceEmptyState extends StatelessWidget {
                 height: 7.h,
               ),
               //SizedBox(height: 30,),
-              SizedBox(height: 60.h,),
-              SvgPicture.asset('assets/svg/no_service.svg'),
-              SizedBox(height: 60.h,),
+              SizedBox(height: 20.h,),
+              SvgPicture.asset(
+                'assets/svg/no_service.svg',
+                //height: 50.h,
+                //width: 50.w,
+              ),
+              SizedBox(height: 20.h,),
               Text(
                 'No services yet',
                 style: GoogleFonts.inter(
@@ -83,7 +87,7 @@ class ServiceEmptyState extends StatelessWidget {
                   ]
                 )
               ),
-              SizedBox(height: 60.h,),
+              SizedBox(height: 50.h,),
               //ADD SECTION BUTTON
               InkWell(
                 onTap: onPressed,

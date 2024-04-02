@@ -128,9 +128,11 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   ),
                   InkWell(
                     onTap: () {
-                      mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] = !mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"];
-                      //to activate the done button
-                      mainController.isCheckBoxActiveEdit.value = true;                  
+                      /*setState(() {
+                        mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"] = !mainController.daysOfTheWeekCheckBoxEdit[index]["isChecked"];
+                        //to activate the done button
+                        mainController.isCheckBoxActiveEdit.value = true;
+                      });*/                
                     },
                     child: SvgPicture.asset(
                       "assets/svg/add_icon.svg",

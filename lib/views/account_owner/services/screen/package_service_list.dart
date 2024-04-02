@@ -34,7 +34,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
       scrollDirection: Axis.vertical,
       physics: const BouncingScrollPhysics(),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-      itemCount: 3, //userService.filterSearchServicesList.length,
+      itemCount: 2, //userService.filterSearchServicesList.length,
       separatorBuilder: (context, index) => SizedBox(height: 25.h,),
       itemBuilder: (context, index) {
         
@@ -44,7 +44,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
           //height: 500,
           width: double.infinity,
           alignment: Alignment.center,
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           decoration: BoxDecoration(
             color: index.isEven ? AppColor.darkMainColor : AppColor.navyBlue,
             borderRadius: BorderRadius.circular(20.r),
@@ -52,6 +52,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              //SizedBox(height: 10.h),
               //toggle price button
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -87,7 +88,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                 ],
               ),
 
-              SizedBox(height: 20.h,),
+              SizedBox(height: 30.h,),
               
               //ALL SUBSEQUENT INFORMATION COMES HERE
               Text(
@@ -98,6 +99,249 @@ class _PackageServiceListState extends State<PackageServiceList> {
                   fontWeight: FontWeight.w600
                 ),
               ),
+              SizedBox(height: 20.h,),
+              //1
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Service type:",
+                    style: GoogleFonts.inter(
+                      color: AppColor.whiteTextColor,
+                      fontSize: 10..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                  Text(
+                    "Package",
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 12..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 5.h,),
+
+              //2
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Timeline:",
+                    style: GoogleFonts.inter(
+                      color: AppColor.whiteTextColor,
+                      fontSize: 10..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                  Text(
+                    "3 months",
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 12..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 5.h,),
+
+              //3
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Service recurrence:",
+                    style: GoogleFonts.inter(
+                      color: AppColor.whiteTextColor,
+                      fontSize: 10..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                  Expanded(
+                    child: Text(
+                      "Twice a week (Thursday, Friday)",
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 12..sp,
+                        fontWeight: FontWeight.w500
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 5.h,),
+
+              //4
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Duration:",
+                    style: GoogleFonts.inter(
+                      color: AppColor.whiteTextColor,
+                      fontSize: 10..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                  Text(
+                    "40 mins per session",
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 12..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 20.h,),
+
+              Text(
+                "Available from",
+                style: GoogleFonts.inter(
+                  color: index.isEven ? AppColor.limeGreen : AppColor.yellowStar,  //AppColor.yellowStar,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500
+                ),
+              ),  
+              SizedBox(height: 20.h,),
+              //1
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    "Start date:",
+                    style: GoogleFonts.inter(
+                      color: AppColor.whiteTextColor,
+                      fontSize: 10..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                  SizedBox(width: 10.w,),
+                  Text(
+                    "2024-08-12",
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 12..sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5.h,),
+              //2
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "End date:",
+                        style: GoogleFonts.inter(
+                          color: AppColor.whiteTextColor,
+                          fontSize: 10..sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      SizedBox(width: 10.w,),
+                      Text(
+                        "2024-09-12",
+                        style: GoogleFonts.inter(
+                          color: AppColor.bgColor,
+                          fontSize: 12..sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  ),
+                  //price
+                  Obx(
+                    () {
+                      return Text(
+                        key: Key('price_text_$index'),
+                        controller.isVirtual.value && controller.selectedIndex.value == index 
+                        ?'N20,000'  //"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
+                        :'N40,000',  //"N${userService.filterSearchServicesList[index].service_charge_in_person}",
+                        style: GoogleFonts.inter(
+                          color: AppColor.bgColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      );
+                    }
+                  )
+                ],
+              ),
+              SizedBox(height: 5.h,),
+              //3
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Time:",
+                        style: GoogleFonts.inter(
+                          color: AppColor.whiteTextColor,
+                          fontSize: 10..sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                      SizedBox(width: 10.w,),
+                      Text(
+                        "9:00 AM - 11:30 PM",
+                        style: GoogleFonts.inter(
+                          color: AppColor.bgColor,
+                          fontSize: 12..sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  ),
+                  //timeline again
+                  Text(
+                    'for 3 months timeline',
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 10.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+
+                ],
+              ),
+
+              SizedBox(height: 20.h,),
+
+              Text(
+                'This service aims at giving you the best personal and quality training',
+                style: GoogleFonts.inter(
+                  color: AppColor.bgColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+
+
+
+
+
+              
 
 
             ]

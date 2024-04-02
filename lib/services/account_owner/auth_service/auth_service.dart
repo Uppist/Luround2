@@ -65,7 +65,7 @@ class AuthService extends getx.GetxController {
 
   //to check if the token is expired
   bool isTokenExpired(int serverTimestamp) {
-    // Convert the server timestamp to a DateTime object
+    // Convert the server timestamp to a DateTime object and make isUtc true
     DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(serverTimestamp * 1000, isUtc: true);
 
     // Get today's date
@@ -74,14 +74,9 @@ class AuthService extends getx.GetxController {
     // Check if the token expiration date is equal to today's date
     bool isExpired = tokenExpDate.year == currentDate.year &&
     tokenExpDate.month == currentDate.month &&
-    tokenExpDate.day >= currentDate.day;
+    tokenExpDate.day == currentDate.day;
     print("is token expired value: $isExpired");
-    if(isExpired) {
-      return true;
-    }
-    else {
-      return false;
-    }
+    return isExpired;
   }
 
 

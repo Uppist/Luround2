@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/services/screen/package_service_list.dart';
+import 'package:luround/views/account_owner/services/screen/program_service_list.dart';
 import 'package:luround/views/account_owner/services/screen/regular_service_list.dart';
 
 
@@ -107,12 +109,10 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
             child: TabBarView(
               controller: tabController,
               physics: const BouncingScrollPhysics(),
-              children: [
+              children: const [
                 RegularServiceList(),
-                SizedBox(),
-                SizedBox(),
-                //RegularServiceList(),
-                //RegularServiceList(),
+                PackageServiceList(),
+                ProgramServiceList(),     
               ]
             ),
           ),

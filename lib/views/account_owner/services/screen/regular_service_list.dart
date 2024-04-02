@@ -30,7 +30,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
 
   final controller = Get.put(ServicesController());
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
-
+  
   //GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refresh() async {
@@ -57,6 +57,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -72,406 +73,224 @@ class _RegularServiceListState extends State<RegularServiceList> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
             itemCount: userService.filterSearchServicesList.length,
             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
             itemBuilder: (context, index) {
-              if(index.isEven) {
-                return Container(
-                  //height: 500,
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: AppColor.darkMainColor,
-                    borderRadius: BorderRadius.circular(20.r),
-                    /*border: Border.all(
-                      color: AppColor.darkGreyColor,
-                      width: 1.0,
-                    )*/
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: 20.h),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                //check if the account owner selected in-person or virtual
-                                TogglePriceContainer(index: index,),
-                                InkWell(
-                                  onTap: () {
-                                    editServiceDialogueBox(
-                                      service_link: userService.filterSearchServicesList[index].service_link,
-                                      context: context, 
-                                      userId: userService.filterSearchServicesList[index].service_provider_details['userId'],
-                                      email: userService.filterSearchServicesList[index].service_provider_details['email'],
-                                      displayName: userService.filterSearchServicesList[index].service_provider_details['displayName'],
-                                      serviceId: userService.filterSearchServicesList[index].serviceId,
-                                      service_name: userService.filterSearchServicesList[index].service_name,
-                                      description: userService.filterSearchServicesList[index].description!,
-                                      links: userService.filterSearchServicesList[index].links,
-                                      service_charge_in_person: userService.filterSearchServicesList[index].service_charge_in_person!,
-                                      service_charge_virtual: userService.filterSearchServicesList[index].service_charge_virtual!,
-                                      duration: userService.filterSearchServicesList[index].duration!,
-                                      date: userService.filterSearchServicesList[index].date,
-                                      time: userService.filterSearchServicesList[index].time,
-                                      available_days: userService.filterSearchServicesList[index].available_days
-                                  );
-                                },
-                                child: Icon(
-                                  Icons.more_vert_rounded,
-                                  color: AppColor.bgColor,
-                                  size: 30.r,
-                                ),
-                              ),                                   
-                            ],
-                          ),
-                                  
-                          SizedBox(height: 40.h,),
-                              
-                          Text(
-                            userService.filterSearchServicesList[index].service_name,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 16.sp,
-                              fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          SizedBox(height: 20.h,),
-                          Text(
-                            "Available from",
-                            style: GoogleFonts.inter(
-                              color: AppColor.limeGreen,  //AppColor.yellowStar,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400
-                            ),
-                          ),                      
-                          SizedBox(height: 20.sp,),   
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        userService.filterSearchServicesList[index].available_days,
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.bgColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(height: 10.h),
-                                      Text(
-                                        userService.filterSearchServicesList[index].time,
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.bgColor,
-                                          fontSize: 14.sp,
-                                          fontWeight: FontWeight.w400
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                //price text here
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Obx(
-                                        () {
-                                          return Text(
-                                            key: Key('price_text_$index'),
-                                            controller.isVirtual.value && controller.selectedIndex.value == index 
-                                            ?"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
-                                            :"N${userService.filterSearchServicesList[index].service_charge_in_person}",
-                                            style: GoogleFonts.inter(
-                                              color: AppColor.bgColor,
-                                              fontSize: 20.sp,
-                                              fontWeight: FontWeight.w600
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                          );
-                                        }
-                                      ),
-                                      SizedBox(height: 5.h,),
-                                      //time
-                                      userService.filterSearchServicesList[index].duration!.isEmpty ?
-                                      const Text('')
-                                      :Text(
-                                        "per ${userService.filterSearchServicesList[index].duration} session",
-                                        style: GoogleFonts.inter(
-                                          color: AppColor.whiteTextColor,
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w500
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                                                
-                              SizedBox(height: 30.h,),
-                              Text(
-                                userService.filterSearchServicesList[index].description!,
-                                style: GoogleFonts.inter(
-                                  color: AppColor.bgColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w400
-                                ),
-                              ),
-                              SizedBox(height: 30.h,),
-                                            
-                              //link 1
-                              /*InkWell(
-                                onTap: () {},
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    //SvgPicture.asset("assets/svg/link_icon.svg"),
-                                    Icon(
-                                      CupertinoIcons.link,
-                                      color: AppColor.whiteTextColor,
-                                    ),
-                                    SizedBox(width: 10.w,),
-                                    Expanded(
-                                      child: InkWell(
-                                        onTap: () {
-                                          userService.launchUrlLink(link: data[index].links[0]);
-                                        },
-                                        child: Text(
-                                          data[index].links[0],
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.navyBlue,
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: 20.h,),*/
-                            ]
-                          )
-                        )
-                      ]                                          
-                    ),
-                  );
-              }
+              
+              //run even and odd checks for dynamism
+
+              final data = userService.filterSearchServicesList[index];
+          
               return Container(
                 //height: 500,
                 width: double.infinity,
                 alignment: Alignment.center,
-                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                 decoration: BoxDecoration(
-                  color: AppColor.navyBlue,
-                    borderRadius: BorderRadius.circular(20.r),
-                      /*border: Border.all(
-                        color: AppColor.darkGreyColor,
-                        width: 1.0,
-                      )*/
+                  color: index.isEven ? AppColor.darkMainColor : AppColor.navyBlue,
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //SizedBox(height: 10.h),
+                    //toggle price button
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //check if the account owner selected in-person or virtual
+                        TogglePriceContainer(index: index,),
+                        InkWell(
+                          onTap: () {
+                            editServiceDialogueBox(
+                              service_link: userService.filterSearchServicesList[index].service_link,
+                              context: context, 
+                              userId: userService.filterSearchServicesList[index].service_provider_details['userId'],
+                              email: userService.filterSearchServicesList[index].service_provider_details['email'],
+                              displayName: userService.filterSearchServicesList[index].service_provider_details['displayName'],
+                              serviceId: userService.filterSearchServicesList[index].serviceId,
+                              service_name: userService.filterSearchServicesList[index].service_name,
+                              description: userService.filterSearchServicesList[index].description!,
+                              links: userService.filterSearchServicesList[index].links,
+                              service_charge_in_person: userService.filterSearchServicesList[index].service_charge_in_person!,
+                              service_charge_virtual: userService.filterSearchServicesList[index].service_charge_virtual!,
+                              duration: userService.filterSearchServicesList[index].duration!,
+                              date: userService.filterSearchServicesList[index].date,
+                              time: userService.filterSearchServicesList[index].time,
+                              available_days: userService.filterSearchServicesList[index].available_days
+                            );
+                          },
+                          child: Icon(
+                            Icons.more_vert_rounded,
+                            color: AppColor.bgColor,
+                            size: 30.r,
+                          ),
+                        ),                                   
+                      ],
                     ),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              SizedBox(height: 20.h),
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  //check if the account owner selected in-person or virtual
-                                                  TogglePriceContainer(index: index,),
-                                                  InkWell(
-                                                    onTap: () {
-                                                      editServiceDialogueBox(
-                                                        service_link: userService.filterSearchServicesList[index].service_link,
-                                                        context: context, 
-                                                        userId: userService.filterSearchServicesList[index].service_provider_details['userId'],
-                                                        email: userService.filterSearchServicesList[index].service_provider_details['email'],
-                                                        displayName: userService.filterSearchServicesList[index].service_provider_details['displayName'],
-                                                        serviceId: userService.filterSearchServicesList[index].serviceId,
-                                                        service_name: userService.filterSearchServicesList[index].service_name,
-                                                        description: userService.filterSearchServicesList[index].description!,
-                                                        links: userService.filterSearchServicesList[index].links,
-                                                        service_charge_in_person: userService.filterSearchServicesList[index].service_charge_in_person!,
-                                                        service_charge_virtual: userService.filterSearchServicesList[index].service_charge_virtual!,
-                                                        duration: userService.filterSearchServicesList[index].duration!,
-                                                        date: userService.filterSearchServicesList[index].date,
-                                                        time: userService.filterSearchServicesList[index].time,
-                                                        available_days: userService.filterSearchServicesList[index].available_days
-                                                      );
-                                                    },
-                                                    child: Icon(
-                                                      Icons.more_vert_rounded,
-                                                      color: AppColor.bgColor,
-                                                      size: 30,
-                                                    ),
-                                                  ),                                   
-                                                ],
-                                              ),
-                              
-                                            
-                                            SizedBox(height: 40.h,),
-                              
-                                            Text(
-                                              userService.filterSearchServicesList[index].service_name,
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.bgColor,
-                                                fontSize: 16.sp,
-                                                fontWeight: FontWeight.w600
-                                              ),
-                                            ),
-                                            SizedBox(height: 20.h,),
-                                            Text(
-                                              "Available from",
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.yellowStar,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w400
-                                              ),
-                                            ),
-                              
-                                            SizedBox(height: 20.sp,),
-                              
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        userService.filterSearchServicesList[index].available_days,
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.bgColor,
-                                                          fontSize: 14.sp,
-                                                          fontWeight: FontWeight.w400
-                                                        ),
-                                                      ),
-                                                      SizedBox(height: 10.h),
-                                                      Text(
-                                                        userService.filterSearchServicesList[index].time,
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.bgColor,
-                                                          fontSize: 14.sp,
-                                                          fontWeight: FontWeight.w400
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                                //price text here
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                                    children: [
-                                                      Obx(
-                                                        () {
-                                                          return Text(
-                                                            key: Key('price_text_2_$index'),
-                                                            controller.isVirtual.value && controller.selectedIndex.value == index 
-                                                            ?"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
-                                                            :"N${userService.filterSearchServicesList[index].service_charge_in_person}",
-                                                            style: GoogleFonts.inter(
-                                                              color: AppColor.bgColor,
-                                                              fontSize: 20.sp,
-                                                              fontWeight: FontWeight.w600
-                                                            ),
-                                                            overflow: TextOverflow.ellipsis,
-                                                          );
-                                                        }
-                                                      ),
-                                                      SizedBox(height: 5.h,),
-                                                      //time
-                                                      userService.filterSearchServicesList[index].duration!.isEmpty ?
-                                                      const Text('')
-                                                      :Text(
-                                                        "per ${userService.filterSearchServicesList[index].duration} session",
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.whiteTextColor,
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w500
-                                                        ),
-                                                        overflow: TextOverflow.ellipsis,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                                
-                                            SizedBox(height: 30.h,),
-                                            Text(
-                                              userService.filterSearchServicesList[index].description!,
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.bgColor,
-                                                fontSize: 14.sp,
-                                                fontWeight: FontWeight.w400
-                                              ),
-                                            ),
-                                            SizedBox(height: 30.h,),
-                              
-                                            //link 1
-                                            /*InkWell(
-                                              onTap: () {},
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  //SvgPicture.asset("assets/svg/link_icon.svg"),
-                                                  Icon(
-                                                    CupertinoIcons.link,
-                                                    color: AppColor.whiteTextColor,
-                                                  ),
-                                                  SizedBox(width: 10.w,),
-                                                  Expanded(
-                                                    child: InkWell(
-                                                      onTap: () {
-                                                        userService.launchUrlLink(link: data[index].links[0]);
-                                                      },
-                                                      child: Text(
-                                                        data[index].links[0],
-                                                        style: GoogleFonts.inter(
-                                                          color: AppColor.mainColor,
-                                                          fontSize: 12.sp,
-                                                          fontWeight: FontWeight.w500,
-                                                        ),
-                                                        overflow: TextOverflow.ellipsis,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(height: 20.h,),*/
-                                          ]
-                                        )
-                                      )
-                                    ]                           
-                                    
-                                  ),
-                                );
-                              }
+          
+                    SizedBox(height: 30.h,),
+                    
+                    //ALL SUBSEQUENT INFORMATION COMES HERE
+                    Text(
+                      data.service_name,
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600
+                      ),
+                    ),
+                    SizedBox(height: 20.h,),
+                    //1
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Service type:",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 10..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          "Regular(One-off)",
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 12..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
+          
+                    SizedBox(height: 5.h,),
+          
+                    //2
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Duration:",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 10..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          data.duration!,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 12..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
+          
+                    SizedBox(height: 20.h,),
+          
+                    Text(
+                      "Available from",
+                      style: GoogleFonts.inter(
+                        color: index.isEven ? AppColor.limeGreen : AppColor.yellowStar,  //AppColor.yellowStar,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),  
+                    SizedBox(height: 20.h,),
+                    
+                    //1
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          data.available_days,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        
+                        //price
+                        Obx(
+                          () {
+                            return Text(
+                              key: Key('price_text_$index'),
+                              controller.isVirtual.value && controller.selectedIndex.value == index 
+                              ?'N10,000'  //"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
+                              :'N70,000',  //"N${userService.filterSearchServicesList[index].service_charge_in_person}",
+                              style: GoogleFonts.inter(
+                                color: AppColor.bgColor,
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            );
+                          }
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 5.h,),
+                    //3
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          data.time,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400
+                          ),
+                        ),
+    
+                        //time
+                        data.duration!.isEmpty ?
+                        const Text('')
+                        :Text(
+                          "per ${data.duration} session",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+          
+                      ],
+                    ),
+          
+                    SizedBox(height: 20.h,),
+          
+                    Text(
+                      data.description!,
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400
+                      ),
+                    ),
+          
+          
+          
+          
+          
+                    
+          
+          
+                  ]
+                )
+              );
+            }
           ),
-        )
-                                            
+        ) 
         :ServiceEmptyState(
           onPressed: () {
             Get.to(() => AddServiceScreen());

@@ -37,83 +37,85 @@ class _ServicesPageState extends State<ServicesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColor.bgColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          //Header Section
-          Container(
-            color: AppColor.bgColor,
-            alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 20.h,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                 
-                    Text(
-                      "Services",
-                      style: GoogleFonts.inter(
-                        color: AppColor.blackColor,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w600
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColor.bgColor,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //Header Section
+            Container(
+              color: AppColor.bgColor,
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 20.h,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                   
+                      Text(
+                        "Services",
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600
+                        ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: () async{
-                        Get.to(() => ChooseServiceTypePage());
-                      },
-                      child: SvgPicture.asset("assets/svg/add_service.svg"),
-                    ),
-                  ]
-                ),
-              ],
+                      InkWell(
+                        onTap: () async{
+                          Get.to(() => ChooseServiceTypePage());
+                        },
+                        child: SvgPicture.asset("assets/svg/add_service.svg"),
+                      ),
+                    ]
+                  ),
+                ],
+              ),
+            ),         
+                 
+            //SizedBox(height: 15.h,),      
+            
+            //search textfield
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+              child: SearchTextField(
+                onFocusChanged: (val) {},
+                onFieldSubmitted: (val) {
+                  if(userService.activeTabIndex == 0) {
+                    userService.filterRegularServices(val);
+                  }
+                  else if(userService.activeTabIndex == 1){
+                    print('func for filtering package service');
+                  }
+                  else if(userService.activeTabIndex == 2){
+                    print('func for filtering program service');
+                  }
+                  else {
+                    print('no more func');
+                  }
+                },
+                hintText: "Search",
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.done,
+                textController: userService.searchServiceController,
+                onTap: () {
+                  //service.searchContactController.clear();
+                },
+              ),
             ),
-          ),         
-               
-          SizedBox(height: 15.h,),      
-          
-          //search textfield
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-            child: SearchTextField(
-              onFocusChanged: (val) {},
-              onFieldSubmitted: (val) {
-                if(userService.activeTabIndex == 0) {
-                  userService.filterRegularServices(val);
-                }
-                else if(userService.activeTabIndex == 1){
-                  print('func for filtering package service');
-                }
-                else if(userService.activeTabIndex == 2){
-                  print('func for filtering program service');
-                }
-                else {
-                  print('no more func');
-                }
-              },
-              hintText: "Search",
-              keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.done,
-              textController: userService.searchServiceController,
-              onTap: () {
-                //service.searchContactController.clear();
-              },
-            ),
-          ),
-          
-          SizedBox(height: 10.h,), 
-
-          //service tab here
-          ServiceScreenTab()
-          
-              
-        ]
-      )
+            
+            //SizedBox(height: 10.h,), 
+      
+            //service tab here
+            ServiceScreenTab()
+            
+                
+          ]
+        )
+      ),
     );
   }
 }

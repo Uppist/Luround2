@@ -28,7 +28,7 @@ class Step2PageEdit extends GetView<ServicesController> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Service model*",
+          "Service model",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -46,7 +46,7 @@ class Step2PageEdit extends GetView<ServicesController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Service duration*",
+                  "Service timeline",
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 15.sp,
@@ -61,7 +61,7 @@ class Step2PageEdit extends GetView<ServicesController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Service duration*",
+                  "Service duration",
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 15.sp,

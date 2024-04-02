@@ -190,7 +190,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
 
 
         Text(
-          "Service fee per session*",
+          "Service fee",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,

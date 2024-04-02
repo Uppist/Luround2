@@ -36,7 +36,7 @@ class _Step2PageState extends State<Step2Page> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Service model*",
+          "Service model",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -54,7 +54,7 @@ class _Step2PageState extends State<Step2Page> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Service duration*",
+                  "Service timeline",
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 15.sp,
@@ -70,7 +70,7 @@ class _Step2PageState extends State<Step2Page> {
               children: [
                 //SizedBox(height: 20.h,),
                 Text(
-                  "Service duration*",
+                  "Service duration",
                   style: GoogleFonts.inter(
                     color: AppColor.blackColor,
                     fontSize: 15.sp,

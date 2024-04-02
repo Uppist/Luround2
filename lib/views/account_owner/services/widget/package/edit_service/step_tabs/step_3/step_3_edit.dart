@@ -113,6 +113,8 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
           ],
         ),
 
+        SizedBox(height: 30.h,),
+
         Text(
           "Service fee",
           style: GoogleFonts.inter(

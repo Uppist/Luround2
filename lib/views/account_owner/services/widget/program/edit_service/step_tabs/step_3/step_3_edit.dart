@@ -183,7 +183,7 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
         SizedBox(height: 30.h,),
 
         Text(
-          "Service fee per session*",
+          "Service fee",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,

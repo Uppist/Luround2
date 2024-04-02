@@ -18,8 +18,9 @@ import 'package:luround/views/account_owner/more/widget/crm/screen/crm_empty_sta
 
 
 class CRMClientTransactionHistory extends StatefulWidget {
-  const CRMClientTransactionHistory({super.key});
-
+  const CRMClientTransactionHistory({super.key, required this.client_email});
+  final String client_email;
+  
   @override
   State<CRMClientTransactionHistory> createState() => _CRMClientTransactionHistoryState();
 }
@@ -33,7 +34,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<dynamic>  newData = await service.getClientTrxHistory();
+    final List<dynamic>  newData = await service.getClientTrxHistory(client_email: widget.client_email);
     // Update the UI with the new data
     service.filteredclientTrxList.clear();
     service.filteredclientTrxList.addAll(newData);
@@ -44,10 +45,10 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
   void initState() {
     // TODO: implement initState
     super.initState();
-    /*service.getClientTrxHistory().then((value) {
+    service.getClientTrxHistory(client_email: widget.client_email).then((value) {
       service.filteredclientTrxList.value = value;
       print("filtered trx history list: ${service.filteredclientTrxList}");
-    });*/
+    });
   }
 
 
@@ -165,7 +166,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                         scrollDirection: Axis.vertical,
                         //shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
-                        itemCount: 3, //service.filteredclientTrxList.length,
+                        itemCount: 2, //service.filteredclientTrxList.length,
                         //separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.5,),
                         itemBuilder: (context, index) {
                           /*final item = service.filteredclientTrxList[index];
@@ -210,7 +211,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                                   ),
                                   //SizedBox(width: 10.w,),
                                   Text(
-                                    "N20,000", //'N${item['amount_paid']}',
+                                    "N20,000", //'N${item['amount']}',
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         overflow: TextOverflow.ellipsis,

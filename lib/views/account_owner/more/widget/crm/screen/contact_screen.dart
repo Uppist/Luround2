@@ -133,8 +133,8 @@ class _ContactScreenState extends State<ContactScreen> {
               //listview.builder
               Obx(
                 () {
-                  return service.filteredContactList.isNotEmpty 
-                  ?Expanded(
+                  return service.filteredContactList.isNotEmpty ?
+                  Expanded(
                     child: RefreshIndicator.adaptive(
                       color: AppColor.greyColor,
                       backgroundColor: AppColor.mainColor,
@@ -320,7 +320,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       SizedBox(height: 20.h,),
                                       InkWell(
                                         onTap: () {
-                                          Get.to(() => CRMClientTransactionHistory());
+                                          Get.to(() => CRMClientTransactionHistory(client_email: item.client_email,));
                                         }, 
                                         child: Text(
                                           'Transaction history',

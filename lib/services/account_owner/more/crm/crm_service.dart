@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/models/account_owner/more/crm/contact_response_model.dart';
-import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -187,11 +186,11 @@ class CRMService extends getx.GetxController {
   }
   
 
-  Future<List<dynamic>> getClientTrxHistory() async {
+  Future<List<dynamic>> getClientTrxHistory({required String client_email}) async {
     try {
 
       isLoading.value = true;
-      http.Response res = await baseService.httpGet(endPoint: "crm/contact-trx-history");
+      http.Response res = await baseService.httpGet(endPoint: "crm/customer-transactions?customer_email=$client_email");
 
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
@@ -204,12 +203,12 @@ class CRMService extends getx.GetxController {
 
         //var finalResult = response.map((e) => ContactResponse.fromJson(e)).toList();
         
-        clientTrxList.clear();
-        clientTrxList.addAll(response);
-        print("client-trx-list: $clientTrxList");
+        //clientTrxList.clear();
+        //clientTrxList.addAll(response);
+        print("client-trx-list: $response");
         
         //return data list
-        return clientTrxList;
+        return response;
         
 
       } 

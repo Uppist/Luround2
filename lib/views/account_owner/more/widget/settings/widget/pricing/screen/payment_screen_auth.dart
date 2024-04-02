@@ -76,6 +76,7 @@ class _SubscriptionScreenAuthState extends State<SubscriptionScreenAuth> with Si
                           indicatorPadding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
                           indicatorColor: AppColor.navyBlue,
                           indicatorSize: TabBarIndicatorSize.tab,
+                          dividerColor: AppColor.mainColor,
                           //indicatorWeight: 0.1,
                           labelStyle: GoogleFonts.inter(
                             textStyle: TextStyle(

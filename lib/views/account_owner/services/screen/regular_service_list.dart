@@ -88,7 +88,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
                 decoration: BoxDecoration(
-                  color: index.isEven ? AppColor.darkMainColor : AppColor.navyBlue,
+                  color: index.isEven ? AppColor.navyBlue : AppColor.darkMainColor,
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 child: Column(
@@ -197,7 +197,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                     Text(
                       "Available from",
                       style: GoogleFonts.inter(
-                        color: index.isEven ? AppColor.limeGreen : AppColor.yellowStar,  //AppColor.yellowStar,
+                        color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w500
                       ),
@@ -224,8 +224,8 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             return Text(
                               key: Key('price_text_$index'),
                               controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ?'N10,000'  //"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
-                              :'N70,000',  //"N${userService.filterSearchServicesList[index].service_charge_in_person}",
+                              ?"N${data.service_charge_virtual}" 
+                              :"N${data.service_charge_in_person}",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 20.sp,

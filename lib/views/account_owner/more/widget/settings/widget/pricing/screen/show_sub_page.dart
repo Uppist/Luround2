@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/models/account_owner/more/pricing/billing_history_model.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/settings/billings/widgets/add_card_button.dart';
-import 'package:luround/views/account_owner/more/widget/settings/billings/widgets/payment_card.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/no_billing_history.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/billing_history_display.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/upgrade_button.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
@@ -21,13 +21,43 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/
 
 
 
-class ShowSubscriptionPage extends StatelessWidget {
+class ShowSubscriptionPage extends StatefulWidget {
 
-  ShowSubscriptionPage({super.key});
-   
+  const ShowSubscriptionPage({super.key});
+
+  @override
+  State<ShowSubscriptionPage> createState() => _ShowSubscriptionPageState();
+}
+
+class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
+
+
   var controller = Get.put(MoreController());
   var service = Get.put(SettingsService());
-  
+
+  // GlobalKey for RefreshIndicator
+  final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
+
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    // Fetch new data here
+    final List<BillingHistoryResponse>  newData = await service.getUserBillingHistory();
+    // Update the UI with the new data
+    service.billingHistoryList.clear();
+    service.billingHistoryList.addAll(newData);
+    print('updated billing history list: ${service.billingHistoryList}');
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    service.getUserBillingHistory().then((value) {
+      service.billingHistoryList.value = value;
+      print("initialized billing history list: ${service.billingHistoryList}");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -195,20 +225,30 @@ class ShowSubscriptionPage extends StatelessWidget {
                     
                       Obx(
                         () {
-                          return service.isBillingHistoryActive.value ? ListView.separated(
-                            physics: NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical, 
-                            shrinkWrap: true,
-                            separatorBuilder: (context, index) => SizedBox(height: 20.h,), 
-                            itemCount: 1,
-                            itemBuilder: (context, index) {
-                              return const BillingHistoryDisplay(
-                                payment_date: 'March 20, 2025',
-                                plan_type: 'Monthly plan',
-                                amount: 'N4,200',
-                              );
-                            }
-                          ): const SizedBox();
+                          return service.isBillingHistoryActive.value || service.billingHistoryList.isNotEmpty ?
+                           RefreshIndicator.adaptive(
+                            color: AppColor.greyColor,
+                            backgroundColor: AppColor.mainColor,
+                            key: _refreshKey,
+                            onRefresh: () {
+                              return _refresh();
+                            },
+                            child: ListView.separated(
+                              physics: NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.vertical, 
+                              shrinkWrap: true,
+                              separatorBuilder: (context, index) => SizedBox(height: 20.h,), 
+                              itemCount: service.billingHistoryList.length,
+                              itemBuilder: (context, index) {
+                                final data = service.billingHistoryList[index];
+                                return const BillingHistoryDisplay(
+                                  payment_date: 'March 20, 2025',
+                                  plan_type: 'Monthly plan',
+                                  amount: 'N4,200',
+                                );
+                              }
+                            ),
+                          ): SizedBox(); //const NoBillingHistoryState();
                         }
                       ),
 

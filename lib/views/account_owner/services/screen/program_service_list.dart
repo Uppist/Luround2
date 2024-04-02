@@ -47,7 +47,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
           decoration: BoxDecoration(
-            color: index.isEven ? AppColor.darkMainColor : AppColor.navyBlue,
+            color: index.isEven ? AppColor.navyBlue : AppColor.darkMainColor,
             borderRadius: BorderRadius.circular(20.r),
           ),
           child: Column(
@@ -237,7 +237,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
               Text(
                 "Available from",
                 style: GoogleFonts.inter(
-                  color: index.isEven ? AppColor.limeGreen : AppColor.yellowStar,  //AppColor.yellowStar,
+                  color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w500
                 ),

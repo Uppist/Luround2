@@ -4,7 +4,7 @@ class BillingHistoryResponse{
 
   final String date;
   final String plan;
-  final int amount;
+  final String amount;
   
   BillingHistoryResponse({
     required this.date,
@@ -14,9 +14,9 @@ class BillingHistoryResponse{
 
   factory BillingHistoryResponse.fromJson(Map<String, dynamic> json) {
     return BillingHistoryResponse( 
-      date: json['date'] ?? 'date',
-      plan: json['plan'] ?? 'plan',
-      amount: json['amount'] ?? 0, //"amount",
+      date: json['payment_date'] ?? "iso8601String",
+      plan: json['plan'] ?? "plan",
+      amount: json['amount'] ?? "amount",
     );
   }
 }

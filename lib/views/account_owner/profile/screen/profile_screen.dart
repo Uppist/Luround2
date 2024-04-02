@@ -422,9 +422,45 @@ class _ProfilePageState extends State<ProfilePage> {
 
               SizedBox(height: 20.h),
 
+              //user profile url
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 40.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'),
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            color: AppColor.blueColor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w400
+                          )
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    SizedBox(width: 4.w,),
+                    InkWell(
+                      onTap: () {
+                        copyToClipboard(
+                          text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'),
+                          context: context,
+                          snackMessage: "profile link copied to clipboard"
+                        );
+                      },
+                      child: SvgPicture.asset('assets/svg/copy_link.svg')
+                    ),
+                  ],
+                ),
+              ),
+ 
+              //////////
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  //logo and company
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -459,7 +495,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
 
                   SizedBox(height: 15.h,),
-
+                  
+                  //occupation
                   Center(
                     child: Text(
                       data.occupation,
@@ -470,39 +507,6 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                    ),
-                  ),
-                  SizedBox(height: 10.h,),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40.w),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'),
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.blueColor,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400
-                              )
-                            ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                        SizedBox(width: 4.w,),
-                        InkWell(
-                          onTap: () {
-                            copyToClipboard(
-                              text:  data.luround_url.replaceFirst('luround.com/', 'luround.com/app/#/'),
-                              context: context,
-                              snackMessage: "profile link copied to clipboard"
-                            );
-                          },
-                          child: SvgPicture.asset('assets/svg/copy_link.svg')
-                        ),
-                      ],
                     ),
                   ),
 

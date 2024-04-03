@@ -2,7 +2,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_paystack_client/flutter_paystack_client.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -108,7 +107,7 @@ class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
   var FCMtoken = LocalStorage.getFCMToken();
-  int tokenExpDate = LocalStorage.getTokenExpDate();
+  int tokenExpDateInt = LocalStorage.getTokenExpDate();
   var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
 
@@ -120,6 +119,7 @@ class _MainAppState extends State<MainApp> {
     controller.initFCM(backgroundHandler: backgroundHandler);
     
     print("initialize fcm token $FCMtoken");
+    print('token exp: $tokenExpDateInt');
     super.initState();
   }
 
@@ -194,7 +194,7 @@ class _MainAppState extends State<MainApp> {
 
         ],*/
 
-        home: token == null ? SplashScreen1() : authService.isTokenExpired(tokenExpDate) ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        home: token == null ? SplashScreen1() : authService.isTokenExpired() ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
       
       ),
     );

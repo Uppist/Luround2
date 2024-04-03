@@ -38,6 +38,7 @@ class AuthService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var FCMToken = LocalStorage.getFCMToken();
+  int tokenExpDateInt = LocalStorage.getTokenExpDate();
   var userId = LocalStorage.getUserID();
   var isLoading = false.obs;
   
@@ -64,9 +65,10 @@ class AuthService extends getx.GetxController {
 
 
   //to check if the token is expired
-  bool isTokenExpired(int serverTimestamp) {
+  bool isTokenExpired() {
+    print('token exp: $tokenExpDateInt');
     // Convert the server timestamp to a DateTime object and make isUtc true
-    DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(serverTimestamp * 1000, isUtc: true);
+    DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(tokenExpDateInt * 1000, isUtc: true);
 
     // Get today's date
     DateTime currentDate = DateTime.now().toUtc();

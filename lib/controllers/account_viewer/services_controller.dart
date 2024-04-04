@@ -293,8 +293,8 @@ class AccViewerServicesController extends getx.GetxController {
 
   ////////////////////
   
-
-  ///service_screen list/// 
+  //TODO: CREATE DATA BELOW FOR 'PACKAGE' & 'PROGRAM' AS WELL
+  ///REGULAR SERVICE SCREEN LIST/// 
   final selectedIndex = 0.obs; //for toggling price of the services list,
   final isVirtual = true.obs;  //boolean to switch between prices in the services list
   //List<String> tabs = ['Virtual', "In-Person"];

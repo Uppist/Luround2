@@ -5,13 +5,15 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_viewer/services/get_user_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_viewer/services/widgets/service_types/regular_service_list.dart';
 
 
 
 
 
 class ServiceScreenTabForWeb extends StatefulWidget {
-  const ServiceScreenTabForWeb({super.key});
+  const ServiceScreenTabForWeb({super.key, required this.userName});
+  final String userName;
 
   @override
   State<ServiceScreenTabForWeb> createState() => _ServiceScreenTabForWebState();
@@ -104,11 +106,10 @@ class _ServiceScreenTabForWebState extends State<ServiceScreenTabForWeb> with Si
             child: TabBarView(
               controller: tabController,
               physics: const BouncingScrollPhysics(),
-              children: const [
+              children: [
+                RegularServiceListWeb(userName: widget.userName),
                 SizedBox(),
                 SizedBox(),
-                SizedBox(),
-                //RegularServiceListWeb(),
                 //PackageServiceListWeb(),
                 //ProgramServiceListWeb(),     
               ]

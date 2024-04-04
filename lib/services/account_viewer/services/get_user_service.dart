@@ -105,7 +105,6 @@ class AccViewerService extends getx.GetxController {
 
   //for main service screen and the service screen tab
   final TextEditingController searchServiceController = TextEditingController();
-  //final searchServicesList = <UserServiceModel>[].obs;
   final filterSearchServicesList = <UserServiceModel>[].obs;
   int activeTabIndex = 0;
 

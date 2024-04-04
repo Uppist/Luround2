@@ -49,7 +49,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
           enableSuggestions: true,
           enableInteractiveSelection: true,
           cursorColor: AppColor.textGreyColor,
-          style: GoogleFonts.poppins(color: AppColor.textGreyColor),
+          style: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
           textCapitalization: TextCapitalization.sentences,
           textInputAction: widget.textInputAction,          
           scrollPhysics: const BouncingScrollPhysics(),
@@ -67,7 +67,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
               borderRadius: BorderRadius.circular(12)
             ),     
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14.sp),              
+            hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),

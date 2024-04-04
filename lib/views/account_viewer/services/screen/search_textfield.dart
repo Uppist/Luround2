@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/bookings/bookings_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -12,8 +10,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class SearchTextField extends StatefulWidget {
-  const SearchTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap,});
+class SearchTextFieldWeb extends StatefulWidget {
+  const SearchTextFieldWeb({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, required this.onTap,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
@@ -24,12 +22,10 @@ class SearchTextField extends StatefulWidget {
   
 
   @override
-  State<SearchTextField> createState() => _SearchTextFieldState();
+  State<SearchTextFieldWeb> createState() => _SearchTextFieldWebState();
 }
 
-class _SearchTextFieldState extends State<SearchTextField> {
-
-  var controller = Get.put(BookingsController());
+class _SearchTextFieldWebState extends State<SearchTextFieldWeb> {
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +45,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
           enableSuggestions: true,
           enableInteractiveSelection: true,
           cursorColor: AppColor.textGreyColor,
-          style: GoogleFonts.poppins(color: AppColor.textGreyColor),
+          style: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
           textCapitalization: TextCapitalization.sentences,
           textInputAction: widget.textInputAction,          
           scrollPhysics: const BouncingScrollPhysics(),
@@ -67,22 +63,10 @@ class _SearchTextFieldState extends State<SearchTextField> {
               borderRadius: BorderRadius.circular(12)
             ),     
             hintText: widget.hintText,
-            hintStyle: GoogleFonts.poppins(color: AppColor.textGreyColor, fontSize: 14.sp),              
+            hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp),              
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: Icon(CupertinoIcons.search, color: AppColor.textGreyColor, size: 20,),
-            suffixIcon: controller.isFieldTapped.value == true ?
-            IconButton(
-              onPressed:() {
-                widget.textController.clear();
-              },
-              icon: Icon(
-                CupertinoIcons.xmark, 
-                color: AppColor.textGreyColor, 
-                size: 20
-              ),
-            )
-             : null
           ),
         ),
       ),

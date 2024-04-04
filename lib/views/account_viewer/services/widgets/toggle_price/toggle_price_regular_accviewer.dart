@@ -11,15 +11,16 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 
-class TogglePriceContainerAccViewer extends StatefulWidget {
-  TogglePriceContainerAccViewer({super.key, required this.index});
+class TogglePriceContainerAccViewerRegular extends StatefulWidget {
+  const TogglePriceContainerAccViewerRegular({super.key, required this.index});
   final int index;
 
   @override
-  State<TogglePriceContainerAccViewer> createState() => _TogglePriceContainerAccViewerState();
+  State<TogglePriceContainerAccViewerRegular> createState() => _TogglePriceContainerAccViewerRegularState();
 }
 
-class _TogglePriceContainerAccViewerState extends State<TogglePriceContainerAccViewer> {
+class _TogglePriceContainerAccViewerRegularState extends State<TogglePriceContainerAccViewerRegular> {
+  
   var controller = Get.put(AccViewerServicesController());
 
   @override

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_viewer/services/get_user_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_viewer/services/widgets/service_types/package_service_list.dart';
+import 'package:luround/views/account_viewer/services/widgets/service_types/program_service_list.dart';
 import 'package:luround/views/account_viewer/services/widgets/service_types/regular_service_list.dart';
 
 
@@ -108,10 +110,8 @@ class _ServiceScreenTabForWebState extends State<ServiceScreenTabForWeb> with Si
               physics: const BouncingScrollPhysics(),
               children: [
                 RegularServiceListWeb(userName: widget.userName),
-                SizedBox(),
-                SizedBox(),
-                //PackageServiceListWeb(),
-                //ProgramServiceListWeb(),     
+                const PackageServiceListWeb(),
+                const ProgramServiceListWeb(),    
               ]
             ),
           ),

@@ -268,6 +268,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                             fontWeight: FontWeight.w500
                           ),
                         ),
+                        SizedBox(width: 5.w,),
                         InkWell(
                           onTap: () {
                             Get.to(() => RequestQuoteScreen(

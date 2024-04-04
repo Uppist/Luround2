@@ -291,18 +291,40 @@ class AccViewerServicesController extends getx.GetxController {
   final isButtonEnabled4 = false.obs;  //step3
   final isButtonEnabled5 = false.obs;  //payment
 
-  ////////////////////
+
+
+
+
+
   
   //TODO: CREATE DATA BELOW FOR 'PACKAGE' & 'PROGRAM' AS WELL
   ///REGULAR SERVICE SCREEN LIST/// 
   final selectedIndex = 0.obs; //for toggling price of the services list,
   final isVirtual = true.obs;  //boolean to switch between prices in the services list
-  //List<String> tabs = ['Virtual', "In-Person"];
-
   void handleTabTap(int index) {
     isVirtual.value = !isVirtual.value;
     selectedIndex.value = index;
     print("price switch check: ${isVirtual.value}");
+    update();
+  }
+
+  ///PACKAGE SERVICE SCREEN LIST/// 
+  final selectedIndexPackage = 0.obs; //for toggling price of the services list,
+  final isVirtualPackage = true.obs;  //boolean to switch between prices in the services list
+  void handleTabTapPackage(int index) {
+    isVirtualPackage.value = !isVirtualPackage.value;
+    selectedIndexPackage.value = index;
+    print("price switch check: ${isVirtualPackage.value}");
+    update();
+  }
+
+  ///PROGRAM SERVICE SCREEN LIST/// 
+  final selectedIndexProgram = 0.obs; //for toggling price of the services list,
+  final isVirtualProgram = true.obs;  //boolean to switch between prices in the services list
+  void handleTabTapProgram(int index) {
+    isVirtualProgram.value = !isVirtualProgram.value;
+    selectedIndexProgram.value = index;
+    print("price switch check: ${isVirtualProgram.value}");
     update();
   }
   

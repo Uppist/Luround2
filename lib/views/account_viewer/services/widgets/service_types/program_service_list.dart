@@ -9,6 +9,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
+import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_program_accviewer.dart';
 
 
 
@@ -56,9 +57,9 @@ class _ProgramServiceListWebState extends State<ProgramServiceListWeb> {
             children: [
               //SizedBox(height: 10.h),
               //toggle price button
-              /*Center(
+              Center(
                 child: TogglePriceContainerAccViewerProgram(index: index)
-              ),*/
+              ),
 
               SizedBox(height: 30.h,),
               
@@ -351,6 +352,8 @@ class _ProgramServiceListWebState extends State<ProgramServiceListWeb> {
                       fontWeight: FontWeight.w500
                     ),
                   ),
+
+                  SizedBox(width: 5.w,),
 
                   InkWell(        
                     onTap: () {

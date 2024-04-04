@@ -103,13 +103,41 @@ class AccViewerService extends getx.GetxController {
 
   
 
+  //for main service screen and the service screen tab
+  final TextEditingController searchServiceController = TextEditingController();
+  //final searchServicesList = <UserServiceModel>[].obs;
+  final filterSearchServicesList = <UserServiceModel>[].obs;
+  int activeTabIndex = 0;
 
 
 
 
 
-  /////[GET LOGGED-IN USER'S SERVICES LIST]//////
-  Future<List<UserServiceModel>> getUserServices({required String userName}) async {
+
+
+
+
+  //Method to pass in the search textfield
+  Future<void> filterRegularServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesList);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesList
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  
+  /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
+  final servicesList = <UserServiceModel>[].obs;
+  Future<List<UserServiceModel>> getUserRegularServices({required String userName}) async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/profile/$userName",);
@@ -120,13 +148,20 @@ class AccViewerService extends getx.GetxController {
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
-        return response.map((e) => UserServiceModel.fromJson(e)).toList();
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesList.clear();
+        servicesList.addAll(finalResult);
+        print("user services list: $finalResult");
+
+        return finalResult;
+
       }
       else {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load user services data');
       }
     } 

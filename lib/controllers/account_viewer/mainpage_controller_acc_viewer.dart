@@ -3,10 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
-import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
-import '../../views/account_owner/profile/screen/profile_screen.dart';
-
-
+import 'package:luround/views/account_viewer/services/screen/main_service_screen.dart';
 
 
 

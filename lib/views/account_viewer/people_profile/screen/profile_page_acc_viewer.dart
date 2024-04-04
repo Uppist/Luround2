@@ -289,6 +289,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                             const SizedBox(height: 30),
                             /////////////////////////////
                             //About section here
+                            data.about.isEmpty ? SizedBox() :
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                               child: AccViewerAboutSection(
@@ -304,7 +305,8 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                               height: 7,
                               width: double.infinity,
                             ),
-                            /*SizedBox(height: 30.h),                 
+                            /*SizedBox(height: 30.h),   
+                            data.certificates.isEmpty ? SizedBox() :              
                             AccViewerEducationAndCertificationSection(
                               eduAndCertList: data.certificates,
                               service: service,
@@ -321,6 +323,7 @@ class _AccViewerProfilePageState extends State<AccViewerProfilePage> {
                                 
                             SizedBox(height: 30.h,),
                             //Additional information
+                            data.media_links.isEmpty ? SizedBox() :
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                               child: AdditionalInfoSection(

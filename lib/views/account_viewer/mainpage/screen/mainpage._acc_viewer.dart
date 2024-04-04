@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
-import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
+import 'package:luround/views/account_viewer/services/screen/main_service_screen.dart';
 import '../../../../controllers/account_owner/main/mainpage_controller.dart';
 import '../../../../controllers/account_viewer/mainpage_controller_acc_viewer.dart';
 import '../widget/bottom_bar_widget_acc_viewer.dart';

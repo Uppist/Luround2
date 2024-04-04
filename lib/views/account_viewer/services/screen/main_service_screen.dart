@@ -12,7 +12,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
+import 'package:luround/views/account_viewer/services/screen/search_textfield.dart';
+import 'package:luround/views/account_viewer/services/service_tab/service_screen_tab.dart';
 import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
@@ -38,12 +39,13 @@ class AccViewerServicesPage extends StatelessWidget {
     // Access the parameter using Get.parameters['userName']
     String userName = Get.parameters['user'] ?? 'DefaultUserName';
     
-    return Scaffold(
-      backgroundColor: AppColor.greyColor,
-      body: SafeArea(
-        child: Column(
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColor.bgColor,
+        body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            
             ///Header Section
             Container(
               color: AppColor.bgColor,
@@ -72,14 +74,42 @@ class AccViewerServicesPage extends StatelessWidget {
                   //SizedBox(height: 10,),
                 ],
               ),
-            ),         
+            ),        
             /////////////////
-      
+          
+            //search textfield
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+              child: SearchTextField(
+                onFocusChanged: (val) {},
+                onFieldSubmitted: (val) {
+                  if(service.activeTabIndex == 0) {
+                    service.filterRegularServices(val);
+                  }
+                  else if(service.activeTabIndex == 1){
+                    print('func for filtering package service');
+                  }
+                  else if(service.activeTabIndex == 2){
+                    print('func for filtering program service');
+                  }
+                  else {
+                    print('no more func');
+                  }
+                },
+                hintText: "Search",
+                keyboardType: TextInputType.name,
+                textInputAction: TextInputAction.done,
+                textController: service.searchServiceController,
+                onTap: () {},
+              ),
+            ),
+                
             SizedBox(height: 20.h,),
-
+            ServiceScreenTabForWeb(),
+              
             //Futurebuilder will start from here (will wrap this listview)
-            FutureBuilder<List<UserServiceModel>>(
-              future: service.getUserServices(userName: userName),
+            /*FutureBuilder<List<UserServiceModel>>(
+              future: service.getUserRegularServices(userName: userName),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Expanded(child: Loader());
@@ -112,7 +142,7 @@ class AccViewerServicesPage extends StatelessWidget {
                      
                 //[Do this if anything sups]//
                 if (snapshot.hasData) {
-      
+                
                   var data = snapshot.data!;
               
                   return Expanded(
@@ -306,8 +336,8 @@ class AccViewerServicesPage extends StatelessWidget {
                                             'service_id': data[index].serviceId,
                                           },
                                         );*/
-
-
+              
+              
                                       },
                                       child: Text(
                                         "Request Quote",
@@ -322,7 +352,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                     ),
                                   ]
                                 ),
-
+              
                                 SizedBox(height: 30.h,),
                                 
                                 //bookings button here
@@ -339,7 +369,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                       service_charge_virtual: data[index].service_charge_virtual!,
                                       service_charge_in_person: data[index].service_charge_in_person!,
                                     ));
-
+              
                                     /*Get.toNamed(
                                       BookingsRoute,
                                       arguments: {
@@ -354,7 +384,7 @@ class AccViewerServicesPage extends StatelessWidget {
                                         'service_charge_in_person': data[index].service_charge_in_person!,
                                       },
                                     );*/
-
+              
                                   },
                                   color: index.isEven ? AppColor.navyBlue : AppColor.mainColor,
                                   text: "Book Now",
@@ -370,7 +400,7 @@ class AccViewerServicesPage extends StatelessWidget {
                     ),
                   );
                 }
-
+              
                 return ServiceEmptyState2(
                   onPressed: () {
                     showMySnackBar(
@@ -380,14 +410,14 @@ class AccViewerServicesPage extends StatelessWidget {
                     );
                   }
                 );
-
+              
               }
-            ),
+            ),*/
             
             ///
           ]
         )
-      )
+      ),
     );
   }
 }

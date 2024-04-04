@@ -54,7 +54,7 @@ void main() async{
   await PaystackClient.initialize(publicKey);
   
   //initialize firebase
-  await Firebase.initializeApp(
+  /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -62,7 +62,7 @@ void main() async{
   await GetStorage.init();
 
   //FCM Instance
-  /*FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
   String? token = await messaging.getToken();

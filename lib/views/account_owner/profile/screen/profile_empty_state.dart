@@ -116,6 +116,9 @@ class ProfileEmptyState extends StatelessWidget {
 
 
 
+
+//for the web
+
 class ProfileEmptyState2 extends StatelessWidget {
   const ProfileEmptyState2({super.key, required this.onPressed,});
   final VoidCallback onPressed;
@@ -131,7 +134,7 @@ class ProfileEmptyState2 extends StatelessWidget {
             width: double.infinity,
             height: 7.h,
           ),
-          SizedBox(height: 110.h,),
+          SizedBox(height: 20.h,), //110.h
           SvgPicture.asset('assets/svg/profile_empty.svg'),
           SizedBox(height: 30.h,),
           Text(

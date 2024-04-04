@@ -13,6 +13,8 @@ import 'package:luround/views/account_viewer/services/widgets/service_types/regu
 
 
 
+
+
 class ServiceScreenTabForWeb extends StatefulWidget {
   const ServiceScreenTabForWeb({super.key, required this.userName});
   final String userName;
@@ -110,8 +112,10 @@ class _ServiceScreenTabForWebState extends State<ServiceScreenTabForWeb> with Si
               physics: const BouncingScrollPhysics(),
               children: [
                 RegularServiceListWeb(userName: widget.userName),
-                const PackageServiceListWeb(),
-                const ProgramServiceListWeb(),    
+                SizedBox(),
+                SizedBox(),
+                //const PackageServiceListWeb(),
+                //const ProgramServiceListWeb(),    
               ]
             ),
           ),

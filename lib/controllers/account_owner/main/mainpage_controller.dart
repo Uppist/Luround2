@@ -12,10 +12,12 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/bookings/screen/bookings_screen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_auth.dart';
 import 'package:luround/views/account_owner/services/screen/main_service_screen.dart';
 import '../../../views/account_owner/profile/screen/profile_screen.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+
+
+
 
 
 

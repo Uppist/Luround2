@@ -14,6 +14,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:luround/views/account_viewer/404page/unknown_route.dart';
+import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'firebase_options.dart';
 //import 'package:flutter_web_plugins/url_strategy.dart';
 
@@ -60,13 +62,13 @@ void main() async{
   await GetStorage.init();
 
   //FCM Instance
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
+  /*FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
   String? token = await messaging.getToken();
   await LocalStorage.saveFCMToken(token!);
   debugPrint("raw fcm token: $token"); //save to firebase
-  debugPrint("void main fcm token: ${LocalStorage.getFCMToken()}");
+  debugPrint("void main fcm token: ${LocalStorage.getFCMToken()}");*/
 
   
 
@@ -103,10 +105,12 @@ class _MainAppState extends State<MainApp> {
   void initState() {
 
     //initialize firebase cloud messaging
-    controller.initFCM(backgroundHandler: backgroundHandler);
+    
+    /*controller.initFCM(backgroundHandler: backgroundHandler);
     
     print("initialize fcm token $FCMtoken");
-    print('token exp: $tokenExpDateInt');
+    print('token exp: $tokenExpDateInt');*/
+
     super.initState();
   }
 
@@ -126,7 +130,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        /*unknownRoute: GetPage(
+        unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -179,9 +183,9 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],*/
+        ],
 
-        home: token == null ? SplashScreen1() : authService.isTokenExpired() ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        //home: token == null ? SplashScreen1() : authService.isTokenExpired() ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
       
       ),
     );

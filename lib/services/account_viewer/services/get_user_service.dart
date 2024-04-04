@@ -4,7 +4,6 @@ import 'package:luround/models/account_owner/more/transactions/saved_banks_respo
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/models/account_viewer/booking/bookimg_response.dart';
-import 'package:luround/models/account_viewer/payment/futter_wave_response.dart';
 import 'package:luround/models/account_viewer/request_quote/request_quote_response.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -16,9 +15,11 @@ import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewe
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'dart:convert';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
+
+
 
 
 
@@ -99,6 +100,14 @@ class AccViewerService extends getx.GetxController {
     }
   }
 
+
+  
+
+
+
+
+
+
   /////[GET LOGGED-IN USER'S SERVICES LIST]//////
   Future<List<UserServiceModel>> getUserServices({required String userName}) async {
     isLoading.value = true;
@@ -128,6 +137,11 @@ class AccViewerService extends getx.GetxController {
     
     }
   }
+
+
+
+
+
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
   Future<UserServiceModel> getSingleService({
@@ -426,16 +440,27 @@ class AccViewerService extends getx.GetxController {
     }
   }
   
+
+
+
+
+
+
   //user list of bank accounts from backend
   var userBankAccountList = <SavedBanks>[].obs;
+
+
+
+
+
+
+
+
+
+
   @override
   void onInit() {
     // TODO: implement onInit
-    /*withdrawalService.loadSavedBanksData()
-    .then((value) {
-      userBankAccountList.value = value;
-      debugPrint("user bank accounts: $userBankAccountList");
-    });*/
     super.onInit();
   }
 

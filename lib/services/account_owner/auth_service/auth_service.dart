@@ -24,7 +24,7 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_auth.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/payment_screen/payment_screen_auth.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 
 

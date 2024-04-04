@@ -1,5 +1,5 @@
 name: luround
-description: "Welcome to luround"
+description: "Luround App"
 publish_to: 'none'
 version: 1.0.2+9
 
@@ -11,7 +11,7 @@ dependencies:
     sdk: flutter
   
   intl: ^0.17.0
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.6
   
   #state management
   get: ^4.6.0
@@ -70,7 +70,7 @@ dependencies:
   cached_network_image: ^3.3.0
   cloudinary: ^1.2.0
   image_picker: ^1.0.7
-  #image_picker_web: ^3.1.1
+  image_picker_web: ^3.1.1
   
 
   #for generating qr codes

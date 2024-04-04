@@ -8,6 +8,7 @@ import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/models/account_owner/more/pricing/billing_history_model.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/no_billing_history.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/billing_history_display.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/upgrade_button.dart';
@@ -66,35 +67,6 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ///Header Section/////
-            /*Container(
-              color: AppColor.bgColor,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/images/luround_logo.png'),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => NotificationsPage());
-                        },
-                        child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                      ),
-                    ]
-                  ),
-                ]
-              )
-            ),
-            /////////////////////////////////////////////
-            Container(
-              color: AppColor.greyColor,
-              width: double.infinity,
-              height: 7.h,
-            ),*/
             ///Navigation Section/////
             Container(
               padding: EdgeInsets.symmetric(horizontal: 7.w,),
@@ -226,7 +198,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                       Obx(
                         () {
                           return service.isBillingHistoryActive.value || service.billingHistoryList.isNotEmpty ?
-                           RefreshIndicator.adaptive(
+                          RefreshIndicator.adaptive(
                             color: AppColor.greyColor,
                             backgroundColor: AppColor.mainColor,
                             key: _refreshKey,
@@ -241,10 +213,10 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                               itemCount: service.billingHistoryList.length,
                               itemBuilder: (context, index) {
                                 final data = service.billingHistoryList[index];
-                                return const BillingHistoryDisplay(
-                                  payment_date: 'March 20, 2025',
-                                  plan_type: 'Monthly plan',
-                                  amount: 'N4,200',
+                                return BillingHistoryDisplay(
+                                  payment_date: convertStringServerTimeToDate(data.date),
+                                  plan_type: data.plan,
+                                  amount: 'N${data.amount}',
                                 );
                               }
                             ),

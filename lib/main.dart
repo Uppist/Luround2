@@ -11,21 +11,8 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/payment_service.dart/paystack_constant.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:luround/views/account_owner/auth/screen/onboarding/screen/onboarding_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
-import 'package:luround/views/account_owner/profile/widget/reviews/reviews_screen.dart';
-import 'package:luround/views/account_viewer/404page/unknown_route.dart';
-import 'package:luround/views/account_viewer/people_profile/screen/profile_page_acc_viewer.dart';
-import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/reviews_screen.dart';
-import 'package:luround/views/account_viewer/people_profile/widget/reviews_section/write_review_screen.dart';
-import 'package:luround/views/account_viewer/services/screen/services_screen.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
-import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
-import 'package:luround/views/account_viewer/web_routes/routes.dart';
-import 'views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 //import 'package:flutter_web_plugins/url_strategy.dart';
@@ -107,7 +94,7 @@ class _MainAppState extends State<MainApp> {
   
   var token = LocalStorage.getToken();
   var FCMtoken = LocalStorage.getFCMToken();
-  int tokenExpDateInt = LocalStorage.getTokenExpDate();
+  var tokenExpDateInt = LocalStorage.getTokenExpDate();
   var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
 

@@ -85,6 +85,19 @@ bool isDateInFuture(DateTime date) {
   return date.isAfter(today);
 }
 
+String convertStringServerTimeToDate(String timestamp){
+
+  // Convert the timestamp to a DateTime object
+  DateTime dateTime = DateTime.parse(timestamp);
+
+  // Use the toString method
+  String formattedDate = dateTime.toString();
+  //String finalResult = formattedDate.substring(0, 10);
+
+  print(formattedDate); // Output: 2023-01-27 20:48:47.960
+  return formattedDate;
+}
+
 String convertServerTimeToDate(int timestamp) {
   // Convert the timestamp to a DateTime object
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);

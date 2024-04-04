@@ -38,10 +38,9 @@ class AuthService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var FCMToken = LocalStorage.getFCMToken();
-  int tokenExpDateInt = LocalStorage.getTokenExpDate();
+  var tokenExpDateInt = LocalStorage.getTokenExpDate() ?? 0;
   var userId = LocalStorage.getUserID();
-  var isLoading = false.obs;
-  
+  var isLoading = false.obs;  
 
   /*Stream<dynamic> connectToWebSocket() async* {
     final wsUrl = Uri.parse('ws://example.com');

@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/models/account_owner/more/crm/client_transaction_model.dart';
 import 'package:luround/services/account_owner/more/crm/crm_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/crm/screen/crm_empty_state.dart';
@@ -34,7 +36,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<dynamic>  newData = await service.getClientTrxHistory(client_email: widget.client_email);
+    final List<ClientTrxHistoryResponse>  newData = await service.getClientTrxHistory(client_email: widget.client_email);
     // Update the UI with the new data
     service.filteredclientTrxList.clear();
     service.filteredclientTrxList.addAll(newData);
@@ -152,8 +154,8 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
               ),
         
               //change to Obx later
-              Builder(
-                builder: (context) {
+              Obx(
+                () {
                   return Expanded(
                     child: RefreshIndicator.adaptive(
                       color: AppColor.greyColor,
@@ -165,16 +167,23 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
                         //shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        itemCount: 2, //service.filteredclientTrxList.length,
+                        physics: const BouncingScrollPhysics(),
+                        itemCount: service.filteredclientTrxList.length,
                         //separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.5,),
                         itemBuilder: (context, index) {
-                          /*final item = service.filteredclientTrxList[index];
+                          final item = service.filteredclientTrxList[index];
                           if(service.filteredclientTrxList.isEmpty) {
-                            return CRMEmptyState(
-                              onPressed: () {},
+                            return Center(
+                              child: Text(
+                                'No Transaction Found',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
                             );
-                          }*/
+                          }
                           return InkWell(
                             onTap: () {},
                             child: Container(
@@ -187,7 +196,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
-                                    "2024-03-23", //item['date'],
+                                    convertServerTimeToDate(item.date),
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         overflow: TextOverflow.ellipsis,
@@ -199,7 +208,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                                   ),
                                   //SizedBox(width: 10.w,),
                                   Text(
-                                    "Personal Training",   //item['service_name'],
+                                    item.service_name,
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         overflow: TextOverflow.ellipsis,
@@ -211,7 +220,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                                   ),
                                   //SizedBox(width: 10.w,),
                                   Text(
-                                    "N20,000", //'N${item['amount']}',
+                                    'N${item.amount}',
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         overflow: TextOverflow.ellipsis,

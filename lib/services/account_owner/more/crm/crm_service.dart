@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/models/account_owner/more/crm/client_transaction_model.dart';
 import 'package:luround/models/account_owner/more/crm/contact_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -164,8 +165,8 @@ class CRMService extends getx.GetxController {
   /////////////////////for searching for client transaction history///////////////////////////
   final TextEditingController searchClientTrxController = TextEditingController();
   /////[GET LOGGED-IN USER'S CONTACT LIST]//////
-  var clientTrxList = [].obs;
-  var filteredclientTrxList = [].obs;
+  var clientTrxList = <ClientTrxHistoryResponse>[].obs;
+  var filteredclientTrxList = <ClientTrxHistoryResponse>[].obs;
 
   //working well
   Future<void> filterClientTrxHistory(String query) async {
@@ -177,16 +178,18 @@ class CRMService extends getx.GetxController {
     else {
       filteredclientTrxList.clear();
       // Use addAll to add the filtered items to the list
-      filteredclientTrxList.addAll(clientTrxList
-        .where((user) => user['service_name'].contains(query)) // == query
-        .toList());
+      filteredclientTrxList.addAll(
+        clientTrxList
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query
+        .toList()
+      );
 
       print("when query is not empty: $filteredclientTrxList");
     }
   }
   
 
-  Future<List<dynamic>> getClientTrxHistory({required String client_email}) async {
+  Future<List<ClientTrxHistoryResponse>> getClientTrxHistory({required String client_email}) async {
     try {
 
       isLoading.value = true;
@@ -199,16 +202,14 @@ class CRMService extends getx.GetxController {
         debugPrint("client trx history fetched successfully!!");
 
         List<dynamic> response = json.decode(res.body);
-  
-
-        //var finalResult = response.map((e) => ContactResponse.fromJson(e)).toList();
+        List<ClientTrxHistoryResponse> finalResult = response.map((e) => ClientTrxHistoryResponse.fromJson(e)).toList();
         
-        //clientTrxList.clear();
-        //clientTrxList.addAll(response);
-        print("client-trx-list: $response");
+        clientTrxList.clear();
+        clientTrxList.addAll(finalResult);
+        print("client-trx-list: $clientTrxList");
         
         //return data list
-        return response;
+        return clientTrxList;
         
 
       } 

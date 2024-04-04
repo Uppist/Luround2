@@ -12,7 +12,7 @@ import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/payment_screen/payment_screen_for_app.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/free_trial_banner.dart.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/free_trial_ending_reminder.dart';
 import 'package:luround/views/account_owner/profile/screen/profile_empty_state.dart';

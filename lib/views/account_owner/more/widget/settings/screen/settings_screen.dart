@@ -12,7 +12,7 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/customiz
 import 'package:luround/views/account_owner/more/widget/settings/widget/password_settings/change_password_screen.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/show_sub_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/settings_selector.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/payment_screen/payment_screen_for_app.dart';
 
 
 

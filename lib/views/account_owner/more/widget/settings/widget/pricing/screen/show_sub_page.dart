@@ -9,10 +9,10 @@ import 'package:luround/models/account_owner/more/pricing/billing_history_model.
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/no_billing_history.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/no_billing_history.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/billing_history_display.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/upgrade_button.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/payment_screen_for_app.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/payment_screen/payment_screen_for_app.dart';
 
 
 

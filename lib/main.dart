@@ -54,7 +54,7 @@ void main() async{
   await PaystackClient.initialize(publicKey);
   
   //initialize firebase
-  /*await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -68,7 +68,7 @@ void main() async{
   String? token = await messaging.getToken();
   await LocalStorage.saveFCMToken(token!);
   debugPrint("raw fcm token: $token"); //save to firebase
-  debugPrint("void main fcm token: ${LocalStorage.getFCMToken()}");*/
+  debugPrint("void main fcm token: ${LocalStorage.getFCMToken()}");
 
   
 
@@ -106,10 +106,10 @@ class _MainAppState extends State<MainApp> {
 
     //initialize firebase cloud messaging
     
-    /*controller.initFCM(backgroundHandler: backgroundHandler);
+    controller.initFCM(backgroundHandler: backgroundHandler);
     
     print("initialize fcm token $FCMtoken");
-    print('token exp: $tokenExpDateInt');*/
+    print('token exp: $tokenExpDateInt');
 
     super.initState();
   }
@@ -130,7 +130,7 @@ class _MainAppState extends State<MainApp> {
         debugShowCheckedModeBanner: false,
         title: 'Luround',
         
-        unknownRoute: GetPage(
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -157,7 +157,7 @@ class _MainAppState extends State<MainApp> {
           ),
 
 
-          /*GetPage(
+          GetPage(
             parameters: {"user": userName},
 
             name: ReviewsRoute,
@@ -181,11 +181,11 @@ class _MainAppState extends State<MainApp> {
             name: WriteReviewRoute,
             page: () => WriteReviewsPage(),
             curve: Curves.easeOutSine,
-          ),*/
+          ),
 
-        ],
+        ],*/
 
-        //home: token == null ? SplashScreen1() : authService.isTokenExpired() ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        home: token == null ? SplashScreen1() : authService.isTokenExpired() ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
       
       ),
     );

@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/screen/package_service_list.dart';
-import 'package:luround/views/account_owner/services/screen/program_service_list.dart';
-import 'package:luround/views/account_owner/services/screen/regular_service_list.dart';
+import 'package:luround/views/account_owner/services/service_type/package_service_list.dart';
+import 'package:luround/views/account_owner/services/service_type/program_service_list.dart';
+import 'package:luround/views/account_owner/services/service_type/regular_service_list.dart';
 
 
 

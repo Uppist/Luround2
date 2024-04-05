@@ -130,7 +130,7 @@ class _ProgramServiceListWebState extends State<ProgramServiceListWeb> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
-                    "Service recurrence:",
+                    "Recurrence:",
                     style: GoogleFonts.inter(
                       color: AppColor.whiteTextColor,
                       fontSize: 10..sp,
@@ -270,7 +270,7 @@ class _ProgramServiceListWebState extends State<ProgramServiceListWeb> {
                     () {
                       return Text(
                         //key: Key('price_text_$index'),
-                        controller.isVirtual.value && controller.selectedIndex.value == index 
+                        controller.isVirtualProgram.value && controller.selectedIndexProgram.value == index 
                         ?'N10,600'  //"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
                         :'N40,800',  //"N${userService.filterSearchServicesList[index].service_charge_in_person}",
                         style: GoogleFonts.inter(

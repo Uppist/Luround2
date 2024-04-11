@@ -194,7 +194,7 @@ class CRMService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete contact"
+          message: "failed to delete contact: ${res.reasonPhrase} - ${res.body}"
         );
         //.whenComplete(() => getx.Get.back());
       }

@@ -49,14 +49,14 @@ class PinManagementOptions extends StatelessWidget {
                 SettingsSelector(
                   text: "Change withdrawal PIN",
                   onFlip: () {
-                    Get.to(() => ChangePINScreen());
+                    Get.to(() => ChangePINScreen(), transition: Transition.rightToLeft);
                   },
                 ),
                 SizedBox(height: 20.h,),
                 SettingsSelector(
                   text: "Forgot  withdrawal PIN",
                   onFlip: () {
-                    Get.to(() => ForgotPINScreen());
+                    Get.to(() => ForgotPINScreen(), transition: Transition.rightToLeft);
                   },
                 ),
               ],

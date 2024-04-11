@@ -112,7 +112,10 @@ class ChangePINScreen extends StatelessWidget {
                         textController: controller.confirmNewPINController,
                         isObscured: false,
                       ),
-                      SizedBox(height: 360.h),
+                      
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.3),
+
+
                       ReusableButton(
                         color: AppColor.mainColor,
                         text: 'Change PIN',

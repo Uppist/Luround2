@@ -98,7 +98,7 @@ class ForgotPINScreen extends StatelessWidget {
                           textController: controller.confirmNewWithdrawalPINController,
                           isObscured: false,
                         ),   
-                        SizedBox(height: 480.h),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.35),
                         ReusableButton(
                           color: AppColor.mainColor,
                           text: 'Next',

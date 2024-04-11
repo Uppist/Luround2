@@ -161,14 +161,14 @@ class _ShowBanksState extends State<ShowBanks> {
                         }          
                         return NoSavedAccounts(
                           onPressed: () {
-                            Get.to(() => AddAccountForSettings2()); //AddAccountForSettings
+                            Get.to(() => AddAccountForSettings2(), transition: Transition.rightToLeft); //AddAccountForSettings
                           },
                         ); 
                       }
                     ),
                   ):NoSavedAccounts(
                    onPressed: () {
-                    Get.to(() => AddAccountForSettings2());
+                    Get.to(() => AddAccountForSettings2(), transition: Transition.rightToLeft);
                   },
                 );
               }

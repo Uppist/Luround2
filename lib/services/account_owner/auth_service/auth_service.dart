@@ -23,6 +23,7 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
+import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/payment_screen/payment_screen_auth.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -1195,7 +1196,7 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.data}');
         await logoutUser();
-        getx.Get.offAll(() => const MainPage(), transition: getx.Transition.leftToRight);
+        getx.Get.offAll(() => const SplashScreenTokenExpired(), transition: getx.Transition.leftToRight);
       }
     }
     on Exception catch(e, stackTrace) {

@@ -113,7 +113,7 @@ class ChangePasswordScreen extends StatelessWidget {
                           textController: controller.confirmNewPasswordController,
                           isObscured: false,
                         ),
-                        SizedBox(height: 360.h),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.40),
                         ReusableButton(
                           color: AppColor.mainColor,
                           text: 'Change password',

@@ -5,14 +5,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/bank_api/select_bank.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/bank_field_flipper_2.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/widget/select_bank_screen_for_tab2.dart';
 
 
 
@@ -117,7 +115,7 @@ class _AddAccountForSettings2State extends State<AddAccountForSettings2> {
               textController: service.enterAccountNameController,
             ),
 
-            SizedBox(height: 275.h,),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.3),
             
             RebrandedReusableButton(
               textColor: AppColor.bgColor,

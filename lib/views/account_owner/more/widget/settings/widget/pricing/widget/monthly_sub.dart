@@ -96,7 +96,7 @@ class MonthlySubscriptionPageAuth extends StatelessWidget {
             PaymentRowText(
               text: 'Sync your calendar',
             ),
-            SizedBox(height: 90.h,),
+            SizedBox(height: 60.h,),
             RebrandedReusableButton(
               color: AppColor.navyBlue, 
               text: "Choose Plan", 
@@ -205,7 +205,7 @@ class MonthlySubscriptionPageApp extends StatelessWidget {
             PaymentRowText(
               text: 'Sync your calendar',
             ),
-            SizedBox(height: 90.h,),
+            SizedBox(height: 60.h,),
             RebrandedReusableButton(
               color: AppColor.navyBlue, 
               text: "Choose Plan", 

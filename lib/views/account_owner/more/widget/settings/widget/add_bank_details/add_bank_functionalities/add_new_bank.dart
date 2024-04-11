@@ -103,7 +103,7 @@ class _AddAccountForSettingsState extends State<AddAccountForSettings> {
               textController: service.enterAccountNameController,
             ),
 
-            SizedBox(height: 185.h,),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.20),
             
             RebrandedReusableButton(
               textColor: AppColor.bgColor,

@@ -118,7 +118,7 @@ class CustomizeYourURLPage extends StatelessWidget {
                               )
                             ),
                             
-                            SizedBox(height: 430.h,),
+                            SizedBox(height: MediaQuery.of(context).size.height * 0.5),
                               
                             ReusableButton(
                               color: AppColor.mainColor,

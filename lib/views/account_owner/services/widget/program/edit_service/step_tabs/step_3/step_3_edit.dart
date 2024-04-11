@@ -253,7 +253,7 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
           ],
         ),
         
-        SizedBox(height: 90.h),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
 
         //button
         Obx(
@@ -313,7 +313,6 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
           }
         ),
 
-        SizedBox(height: 5.h),
       ]
     );
     

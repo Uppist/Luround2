@@ -89,7 +89,7 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
           }, 
         ),
         
-        SizedBox(height: 100.h,), //280.h
+        SizedBox(height: MediaQuery.of(context).size.height * 0.18),
     
         RebrandedReusableButton(
           textColor: AppColor.bgColor,
@@ -97,7 +97,7 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
           text: "Next", 
           onPressed: widget.onNext,
         ),
-        SizedBox(height: 10.h,),
+    
     
     
       ]

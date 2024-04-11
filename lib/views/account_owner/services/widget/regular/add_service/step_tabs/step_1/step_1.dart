@@ -229,7 +229,7 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ],
         ),
-        SizedBox(height: 150.h,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.16),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 
@@ -240,7 +240,7 @@ class _Step1PageState extends State<Step1Page> {
             print('nothing');
           },
         ),
-        SizedBox(height: 20.h,),
+        //SizedBox(height: 20.h,),
 
 
       ]

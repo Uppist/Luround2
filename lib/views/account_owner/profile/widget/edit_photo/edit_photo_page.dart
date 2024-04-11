@@ -320,7 +320,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                 ? Loader2() : SizedBox(),*/
 
                                 ////////////////                  
-                                SizedBox(height: 60.h,), //80.h
+                                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
                               
                                 ReusableButton(
                                   color: AppColor.mainColor,
@@ -340,8 +340,9 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                     });
           
                                   },
-                                ),          
-                                SizedBox(height: 20.h,),     
+                                ), 
+                                SizedBox(height: 20.h,),         
+                                   
                                         
                                 /////////////////////////                               
                               ]

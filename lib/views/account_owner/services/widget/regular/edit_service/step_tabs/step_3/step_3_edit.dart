@@ -149,7 +149,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
           }
         ),
 
-        SizedBox(height: 90.h,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.07),
 
         Obx(
           () {
@@ -160,12 +160,53 @@ class _Step3PageEditState extends State<Step3PageEdit> {
               onPressed: mainController.isCheckBoxActiveEdit.value ? 
               //widget.onNext
               () {
+                
+                if(mainController.durationEdit.value != null) {
+                  mainController.getTimeIntervalsEdit(
+                    earliestTime: mainController.findEarliestTimeEdit(),
+                    latestTime: mainController.findLatestTimeEdit(),
+                    interval: mainController.durationEdit.value
+                  ).whenComplete(() {
+                    servicesService.updateRegularService(
+                      context: context,
+                      //service_type: "Virtual", //In-Person
+                      serviceId: widget.serviceId,
+                      service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
+                      description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
+                      links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
+                      service_charge_in_person: mainController.inPersonControllerEdit.text.isEmpty ? widget.service_charge_in_person : mainController.inPersonControllerEdit.text, 
+                      service_charge_virtual: mainController.virtualControllerEdit.text.isEmpty ? widget.service_charge_virtual : mainController.virtualControllerEdit.text, 
+                      duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
+                      time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
                     
-                mainController.getTimeIntervalsEdit(
-                  earliestTime: mainController.findEarliestTimeEdit(),
-                  latestTime: mainController.findLatestTimeEdit(),
-                  interval: mainController.durationEdit.value
-                ).whenComplete(() {
+                      //change the date below to service model field
+                      date: mainController.selectDateRangeEdit,             
+                      available_days: mainController.availableDaysEdit(), 
+                      available_time: mainController.availableTimeEdit,
+                      //NEW
+                      //regular service model         
+                      service_model: mainController.selectServiceModelEdit.value,
+                      service_timeline: mainController.serviceTimelineEdit.value,
+                    ).whenComplete(() {
+                      //1
+                      setState(() {
+                        mainController.curentStepEdit.value = mainController.curentStepEdit.value - 2;
+                      });
+                      //2
+                      mainController.serviceNameControllerEdit.clear();
+                      mainController.descriptionControllerEdit.clear();
+                      mainController.addLinksControllerEdit.clear();
+                      mainController.inPersonControllerEdit.clear();
+                      mainController.virtualControllerEdit.clear();
+                      //3
+                      Get.offAll(
+                        () => const MainPage(),
+                        transition: Transition.rightToLeft
+                      );
+                    });
+                  });
+                }
+                else{
                   servicesService.updateRegularService(
                     context: context,
                     //service_type: "Virtual", //In-Person
@@ -203,7 +244,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                       transition: Transition.rightToLeft
                     );
                   });
-                });
+                }
                     
               }
               :() {

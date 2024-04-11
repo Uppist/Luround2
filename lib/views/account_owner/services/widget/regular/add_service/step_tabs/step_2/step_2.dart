@@ -132,7 +132,7 @@ class _Step2PageState extends State<Step2Page> {
     
         
         
-        SizedBox(height: 280.h,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.43),
     
         Obx(
           () {
@@ -148,7 +148,7 @@ class _Step2PageState extends State<Step2Page> {
             );
           }
         ),
-        SizedBox(height: 10.h,),
+        //SizedBox(height: 10.h,),
     
     
       ]

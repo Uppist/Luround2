@@ -304,7 +304,7 @@ class _EditEducationPageState extends State<EditEducationPage> {
                   ),       
                 ),
                 ///////////////////////             
-                // SizedBox(height: 10.h,),  //500
+                //SizedBox(height: MediaQuery.of(context).size.height * 0.54),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
                   child: ReusableButton(

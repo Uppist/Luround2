@@ -117,7 +117,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 490.h,),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.54),
                           ReusableButton(
                             color: AppColor.mainColor,
                             text: 'Save',

@@ -128,14 +128,8 @@ class _Step3PageState extends State<Step3Page> {
             
           }, 
         ),
-        SizedBox(height: 90.h),  
 
-        /*RebrandedReusableButton(
-          textColor: AppColor.bgColor,
-          color: AppColor.mainColor,
-          text: "Done", 
-          onPressed: () {}
-        ),*/
+        SizedBox(height: MediaQuery.of(context).size.height * 0.07),
 
         Obx(
           () {
@@ -146,13 +140,50 @@ class _Step3PageState extends State<Step3Page> {
               onPressed: mainController.isCheckBoxActive.value ? 
               //widget.onNext
               () {
-                    
-                mainController.getTimeIntervals(
-                  earliestTime: mainController.findEarliestTime(),
-                  latestTime: mainController.findLatestTime(),
-                  interval: mainController.duration.value
-                )
-                .whenComplete(() {
+                if(mainController.duration.value != null) {
+                  mainController.getTimeIntervals(
+                    earliestTime: mainController.findEarliestTime(),
+                    latestTime: mainController.findLatestTime(),
+                    interval: mainController.duration.value
+                  )
+                  .whenComplete(() {
+                    servicesService.createRegularService(
+                      context: context,
+                      service_name: mainController.serviceNameController.text, 
+                      description: mainController.descriptionController.text, 
+                      links: [mainController.addLinksController.text], 
+                      service_charge_in_person: mainController.inPersonController.text, 
+                      service_charge_virtual: mainController.virtualController.text, 
+                      duration: mainController.formatDuration(), 
+                      time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
+                      available_time_list: mainController.availableTime,
+                      available_days: mainController.availableDays(),
+                      date: mainController.selectDateRange,
+
+                      //NEW
+                      //regular service model         
+                      service_model: mainController.selectServiceModel.value,
+                      service_timeline: mainController.serviceTimeline.value,
+                    ).whenComplete(() {
+                      //1
+                      setState(() {
+                        mainController.curentStep = mainController.curentStep - 2;
+                      });
+                      //2
+                      mainController.serviceNameController.clear();
+                      mainController.descriptionController.clear();
+                      mainController.addLinksController.clear();
+                      mainController.inPersonController.clear();
+                      mainController.virtualController.clear();
+                      //3
+                      Get.offAll(
+                        () => MainPage(),
+                        transition: Transition.rightToLeft
+                      );
+                    }); 
+                  });
+                }
+                else{
                   servicesService.createRegularService(
                     context: context,
                     service_name: mainController.serviceNameController.text, 
@@ -186,8 +217,8 @@ class _Step3PageState extends State<Step3Page> {
                       () => MainPage(),
                       transition: Transition.rightToLeft
                     );
-                  });       
-                });
+                  });
+                }  
                         
               }
               : () {
@@ -198,8 +229,6 @@ class _Step3PageState extends State<Step3Page> {
           }
         ),
 
-
-        SizedBox(height: 5.h),
       ]
     );
     

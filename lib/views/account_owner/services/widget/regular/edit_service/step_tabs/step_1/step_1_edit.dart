@@ -253,7 +253,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
             ),
           ],
         ),
-        SizedBox(height: 150.h,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.16),
         RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor, 

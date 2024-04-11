@@ -120,7 +120,7 @@ class Step2PageEdit extends GetView<ServicesController> {
         //EditScheduleRadioWidget(),
 
         
-        SizedBox(height: 280.h,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.43),
     
         Obx(
           () {

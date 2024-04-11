@@ -43,7 +43,8 @@ class ServicesController extends getx.GetxController {
   var dates = <DateTime?>[].obs;
   void selectedDate(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
-      dates.value = dateList;
+      dates.clear();
+      dates.addAll(dateList);
       update();
     }
   }
@@ -179,39 +180,43 @@ class ServicesController extends getx.GetxController {
   List<String> availableTime = [];
   
   Future<List<String>> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async {
-    final DateFormat format = DateFormat('h:mm a');
-    DateTime earliest = parseTimeString(earliestTime);
-    DateTime latest = parseTimeString(latestTime);
-
-    // Add the first time interval (earliest time)
-    //availableTime.add(earliestTime);
     
-    availableTime.clear();
-    // Set to store unique time intervals
-    Set<String> uniqueTimeSet = {earliestTime};
+    try {
+      final DateFormat format = DateFormat('h:mm a');
+      DateTime earliest = parseTimeString(earliestTime);
+      DateTime latest = parseTimeString(latestTime);
+    
+      availableTime.clear();
+      // Set to store unique time intervals
+      Set<String> uniqueTimeSet = {earliestTime};
 
-    // Calculate intervals until the latest time
-    while (earliest.isBefore(latest)) {
-      earliest = earliest.add(interval);
-      // Check if the current calculated time is equal to or before the latest time
-      if (earliest.isBefore(latest)) {
-        if (!uniqueTimeSet.contains(format.format(earliest))) {
-          uniqueTimeSet.add(format.format(earliest));
-        }
-        else {
-          debugPrint("already in the list");
-        }
+      // Calculate intervals until the latest time
+      while (earliest.isBefore(latest)) {
+        earliest = earliest.add(interval);
+        // Check if the current calculated time is equal to or before the latest time
+        if (earliest.isBefore(latest)) {
+          if (!uniqueTimeSet.contains(format.format(earliest))) {
+            uniqueTimeSet.add(format.format(earliest));
+          }
+          else {
+            debugPrint("already in the list");
+          }
+        } 
       }
+
+      // Convert the set to a list
+      availableTime.addAll(uniqueTimeSet.toList());
+
+      // Add the latest time
+      availableTime.add(latestTime);
+
+      print("available_time_: $availableTime");
+      return availableTime;
     }
-
-    // Convert the set to a list
-    availableTime.addAll(uniqueTimeSet.toList());
-
-    // Add the latest time
-    availableTime.add(latestTime);
-
-    print("available_time_: $availableTime");
-    return availableTime;
+    catch(e, stacktrace) {
+      throw Exception("te-error: $e == $stacktrace");
+    }
+    
   }
 
   void addItem({required String item}) {
@@ -772,37 +777,44 @@ class ServicesController extends getx.GetxController {
   
   //get time intervals
   Future<void> getTimeIntervalsEdit({required String earliestTime, required String latestTime, required Duration interval}) async{
-    final DateFormat format = DateFormat('h:mm a');
-    DateTime earliest = parseTimeString(earliestTime);
-    DateTime latest = parseTimeString(latestTime);
+    
+    try{
+      final DateFormat format = DateFormat('h:mm a');
+      DateTime earliest = parseTimeString(earliestTime);
+      DateTime latest = parseTimeString(latestTime);
 
-    // Add the first time interval (earliest time)
-    availableTimeEdit.clear();
+      // Add the first time interval (earliest time)
+      availableTimeEdit.clear();
 
-    // Set to store unique time intervals
-    Set<String> uniqueTimeSet = {earliestTime};
+      // Set to store unique time intervals
+      Set<String> uniqueTimeSet = {earliestTime};
 
-    // Calculate intervals until the latest time
-    while (earliest.isBefore(latest)) {
-      earliest = earliest.add(interval);
-      // Check if the current calculated time is equal to or before the latest time
-      if (earliest.isBefore(latest)) {
-        if (!uniqueTimeSet.contains(format.format(earliest))) {
-          uniqueTimeSet.add(format.format(earliest));
-        }
-        else {
-          debugPrint("already in the list");
+      // Calculate intervals until the latest time
+      while (earliest.isBefore(latest)) {
+        earliest = earliest.add(interval);
+        // Check if the current calculated time is equal to or before the latest time
+        if (earliest.isBefore(latest)) {
+          if (!uniqueTimeSet.contains(format.format(earliest))) {
+            uniqueTimeSet.add(format.format(earliest));
+          }
+          else {
+            debugPrint("already in the list");
+          }
         }
       }
+
+      // Convert the set to a list
+      availableTimeEdit.addAll(uniqueTimeSet.toList());
+
+      // Add the latest time
+      availableTimeEdit.add(latestTime);
+      print("available_ time_edit: $availableTimeEdit");
+      }
+      catch(e, stacktrace) {
+        throw Exception("te-error: $e == $stacktrace");
+      }
+    
     }
-
-    // Convert the set to a list
-    availableTimeEdit.addAll(uniqueTimeSet.toList());
-
-    // Add the latest time
-    availableTimeEdit.add(latestTime);
-    print("available_ time_edit: $availableTimeEdit");
-  }
 
 
   //show currency picker when adding/creating a service

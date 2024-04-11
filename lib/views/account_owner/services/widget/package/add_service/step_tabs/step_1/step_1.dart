@@ -198,7 +198,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
         PackageServiceRecurrence(),
 
 
-        SizedBox(height: 150.h,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.14),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

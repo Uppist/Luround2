@@ -85,7 +85,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
           }, 
         ),
         
-        SizedBox(height: 100.h,), //280.h
+        SizedBox(height: MediaQuery.of(context).size.height * 0.19),
     
         RebrandedReusableButton(
           textColor: AppColor.bgColor,
@@ -93,7 +93,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
           text: "Next", 
           onPressed: widget.onNext,
         ),
-        SizedBox(height: 10.h,),
+        //SizedBox(height: 10.h,),
     
     
       ]

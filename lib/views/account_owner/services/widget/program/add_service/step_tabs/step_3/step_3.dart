@@ -238,15 +238,8 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
             ),
           ],
         ),
-        SizedBox(height: 100.h),
-
-        //button
-        /*RebrandedReusableButton(
-          textColor: AppColor.bgColor,
-          color: AppColor.mainColor, 
-          text: "Done", 
-          onPressed: () {}
-        ),*/
+        
+        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
 
         //button
         Obx(
@@ -303,7 +296,6 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
           }
         ),
 
-        SizedBox(height: 5.h),
       ]
     );
     

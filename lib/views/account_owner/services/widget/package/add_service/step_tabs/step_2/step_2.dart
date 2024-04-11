@@ -83,7 +83,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
           }, 
         ),
         
-        SizedBox(height: 100.h,), //280.h
+        SizedBox(height: MediaQuery.of(context).size.height * 0.19),
     
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

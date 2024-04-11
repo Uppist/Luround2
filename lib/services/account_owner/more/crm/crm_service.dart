@@ -101,7 +101,8 @@ class CRMService extends getx.GetxController {
     }
   }
 
-  ///[CREATE NEW RECEIPT AND SAVE IT TO DB]//
+
+  ///[CREATE NEW CONTACT AND SAVE IT TO DB]//
   Future<void> addNewContact({
     required BuildContext context,
     required String client_name,
@@ -143,6 +144,59 @@ class CRMService extends getx.GetxController {
           backgroundColor: AppColor.redColor,
           message: "failed to add contact"
         ).whenComplete(() => getx.Get.back());
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
+  ///[DELETE CONTACT FROM DB]//
+  Future<void> deleteContact({
+    required BuildContext context,
+    required String client_name,
+    required String client_email,
+    required String client_phone_number,
+    }) async {
+
+    isLoading.value = true;
+
+    var body = {
+      ////////////////
+      "name": client_name,
+      "email": client_email,
+      "phone_number": client_phone_number,
+    };
+
+    try {
+      http.Response res = await baseService.httpDelete(endPoint: "crm/delete-customer-contact", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("contact deleted successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "contact deleted successfully"
+        );
+        //.whenComplete(() => getx.Get.back());
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to delete contact"
+        );
+        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {

@@ -4,11 +4,9 @@ import 'package:luround/controllers/account_owner/services/regular_service/regul
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:dio/dio.dart' as dio;
@@ -62,6 +60,8 @@ class AccOwnerServicePageService extends getx.GetxController {
   
 
    
+
+
   /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
   //Method to pass in the search textfield
   Future<void> filterRegularServices(String query) async {
@@ -86,6 +86,117 @@ class AccOwnerServicePageService extends getx.GetxController {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user services fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesList.clear();
+        servicesList.addAll(finalResult);
+        print("user services list: $finalResult");
+
+        return finalResult;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load user services data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+
+  /////[GET LOGGED-IN USER'S PACKAGE SERVICES LIST]//////
+  //Method to pass in the search textfield
+  Future<void> filterPackageServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesListPackage);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesListPackage
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  //
+  final servicesListPackage = <UserServiceModel>[].obs;
+  Future<List<UserServiceModel>> getUserPackageServices() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "services/get-package-services",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user services fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesList.clear();
+        servicesList.addAll(finalResult);
+        print("user services list: $finalResult");
+
+        return finalResult;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load user services data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+  /////[GET LOGGED-IN USER'S PACKAGE SERVICES LIST]//////
+  //Method to pass in the search textfield
+  Future<void> filterProgramServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesListProgram);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesListProgram
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  //
+  final servicesListProgram = <UserServiceModel>[].obs;
+  Future<List<UserServiceModel>> getUserProgramServices() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "services/get-program-services",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -199,7 +310,7 @@ class AccOwnerServicePageService extends getx.GetxController {
 
 
   /////[CREATE A SERVICE FOR LOGGED-IN USER]//////
-  Future<void> createUserService({
+  Future<void> createRegularService({
     required BuildContext context,
     required String service_name,
     required String description,
@@ -208,10 +319,13 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String duration,
     required String time,
     required String available_days,
-    //required String service_type,
     required List<dynamic> links,
     required List<dynamic> available_time_list,
-    required String date
+    required String date,
+
+    //NEW UPDATE
+    required String service_model,
+    required String service_timeline,
     
     }) async {
 
@@ -227,9 +341,13 @@ class AccOwnerServicePageService extends getx.GetxController {
       "duration": duration,
       "time": time,
       'available_days': available_days,
-      //"service_type": service_type,
       "date": date,
       "available_time": available_time_list,
+
+      //NEW UPDATE
+      "service_type": 'Regular',
+      "service_model": service_model,
+      "service_timeline": service_timeline
     };
 
     try {
@@ -238,7 +356,161 @@ class AccOwnerServicePageService extends getx.GetxController {
         isServiceCRLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        debugPrint("user service created succesfully");
+        debugPrint("user service created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "Your service has been created successfully"
+        );
+      } 
+      else {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create service: ${res.statusCode} || ${res.body}"
+        );
+      }
+    } 
+    catch (e) {
+      isServiceCRLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong: $e");
+    }
+  }
+
+  Future<void> createPackageService({
+    required BuildContext context,
+    required String service_name,
+    required String description,
+    required String service_charge_in_person,
+    required String service_charge_virtual,
+    required String duration,
+    required List<dynamic> links,
+
+    //NEW UPDATE
+    required String service_recurrence,
+    required String service_timeline,
+    required List<dynamic> timeline_days,
+    required String start_date,
+    required String end_date,
+    required String start_time,
+    required String end_time
+    
+    }) async {
+
+    isServiceCRLoading.value = true;
+
+    var body = {
+      "email": email,
+      "service_name": service_name,
+      "description": description,
+      "links": links,
+      "service_charge_in_person": service_charge_in_person,
+      "service_charge_virtual": service_charge_virtual,
+      "duration": duration,
+
+      //NEW UPDATE
+      "service_type": 'Package',
+      "service_recurrence": service_recurrence,
+      "service_timeline": service_timeline,
+      "timeline_days": timeline_days,
+      "start_date": start_date,
+      "end_date": end_date,
+      "start_time": start_time,
+      "end_time": end_time
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("user service created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "Your service has been created successfully"
+        );
+      } 
+      else {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create service: ${res.statusCode} || ${res.body}"
+        );
+      }
+    } 
+    catch (e) {
+      isServiceCRLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong: $e");
+    }
+  }
+
+  Future<void> createProgramService({
+    required BuildContext context,
+    required String service_name,
+    required String description,
+    required String service_charge_in_person,
+    required String service_charge_virtual,
+    required String duration,
+    required List<dynamic> links,
+
+    //NEW UPDATE
+    required String service_recurrence,
+    required String service_timeline,
+    required List<dynamic> timeline_days,
+    required String start_date,
+    required String end_date,
+    required String start_time,
+    required String end_time,
+    required int max_number_of_participants,
+    
+    }) async {
+
+    isServiceCRLoading.value = true;
+
+    var body = {
+      "email": email,
+      "service_name": service_name,
+      "description": description,
+      "links": links,
+      "service_charge_in_person": service_charge_in_person,
+      "service_charge_virtual": service_charge_virtual,
+      "duration": duration,
+
+      //NEW UPDATE
+      "service_type": 'Package',
+      "service_recurrence": service_recurrence,
+      "service_timeline": service_timeline,
+      "timeline_days": timeline_days,
+      "start_date": start_date,
+      "end_date": end_date,
+      "start_time": start_time,
+      "end_time": end_time,
+      "max_number_of_participants": max_number_of_participants
+    };
+
+    try {
+      http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("user service created successfully");
         //success snackbar
         showMySnackBar(
           context: context,
@@ -268,7 +540,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   
 
   /////[UPDATE/EDIT AN EXISTING SERVICE OF LOGGED-IN USER]//////
-  Future<void> updateUserService({
+  Future<void> updateRegularService({
     required BuildContext context,
     required String serviceId,
     required String service_name,
@@ -281,6 +553,11 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String date,
     required String available_days,
     required List<dynamic> available_time,
+
+    //NEW UPDATE
+    required String service_model,
+    required String service_timeline,
+
     
     }) async {
 
@@ -298,7 +575,167 @@ class AccOwnerServicePageService extends getx.GetxController {
       "date": date,
       'available_days': available_days,
       "available_time": available_time,
-      //"service_type": service_type
+
+      //NEW UPDATE
+      "service_type": 'Regular',
+      "service_model": service_model,
+      "service_timeline": service_timeline,
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user service updated by id succesfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "service updated successfully"
+        );
+      } 
+      else {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update service: ${res.statusCode} || ${res.body} "
+        );
+      }
+    } 
+    catch (e) {
+      isServiceEDLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong $e");
+    }
+  }
+
+  Future<void> updatePackageService({
+    required BuildContext context,
+    required String serviceId,
+    required String service_name,
+    required String description,
+    required String service_charge_in_person,
+    required String service_charge_virtual,
+    required String duration,
+    required List<dynamic> links,
+
+    //NEW UPDATE
+    required String service_recurrence,
+    required String service_timeline,
+    required List<dynamic> timeline_days,
+    required String start_date,
+    required String end_date,
+    required String start_time,
+    required String end_time
+
+    
+    }) async {
+
+    isServiceEDLoading.value = true;
+
+    var body = {
+      "email": email,
+      "service_name": service_name,
+      "description": description,
+      "links": links,
+      "service_charge_in_person": service_charge_in_person,
+      "service_charge_virtual": service_charge_virtual,
+      "duration": duration,
+
+      //NEW UPDATE
+      "service_type": 'Package',
+      "service_recurrence": service_recurrence,
+      "service_timeline": service_timeline,
+      "timeline_days": timeline_days,
+      "start_date": start_date,
+      "end_date": end_date,
+      "start_time": start_time,
+      "end_time": end_time
+    };
+
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user service updated by id succesfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "service updated successfully"
+        );
+      } 
+      else {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update service: ${res.statusCode} || ${res.body} "
+        );
+      }
+    } 
+    catch (e) {
+      isServiceEDLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong $e");
+    }
+  }
+
+  Future<void> updateProgramService({
+    required BuildContext context,
+    required String serviceId,
+    required String service_name,
+    required String description,
+    required String service_charge_in_person,
+    required String service_charge_virtual,
+    required String duration,
+    required List<dynamic> links,
+
+    //NEW UPDATE
+    required String service_recurrence,
+    required String service_timeline,
+    required List<dynamic> timeline_days,
+    required String start_date,
+    required String end_date,
+    required String start_time,
+    required String end_time,
+    required int max_number_of_participants,
+
+    
+    }) async {
+
+    isServiceEDLoading.value = true;
+
+    var body = {
+      "email": email,
+      "service_name": service_name,
+      "description": description,
+      "links": links,
+      "service_charge_in_person": service_charge_in_person,
+      "service_charge_virtual": service_charge_virtual,
+      "duration": duration,
+
+      //NEW UPDATE
+      "service_type": 'Package',
+      "service_recurrence": service_recurrence,
+      "service_timeline": service_timeline,
+      "timeline_days": timeline_days,
+      "start_date": start_date,
+      "end_date": end_date,
+      "start_time": start_time,
+      "end_time": end_time,
+      "max_number_of_participants": max_number_of_participants
     };
 
     try {
@@ -386,9 +823,11 @@ class AccOwnerServicePageService extends getx.GetxController {
     catch (e) {
       isLoading.value = false;
       debugPrint("$e");
-      throw const HttpException("Something went wrong");
+      throw Exception("Something went wrong");
     }
   }
+
+
 
 
 

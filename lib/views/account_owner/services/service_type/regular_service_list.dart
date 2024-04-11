@@ -52,7 +52,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
         // Update the UI with the new data
         userService.filterSearchServicesList.clear();
         userService.filterSearchServicesList.addAll(value);
-        print('updated service list: ${userService.filterSearchServicesList}');
+        print('updated regular service list: ${userService.filterSearchServicesList}');
       }
     );
   }
@@ -104,21 +104,21 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         InkWell(
                           onTap: () {
                             editServiceDialogueBox(
-                              service_link: userService.filterSearchServicesList[index].service_link,
+                              service_link: data.service_link,
                               context: context, 
-                              userId: userService.filterSearchServicesList[index].service_provider_details['userId'],
-                              email: userService.filterSearchServicesList[index].service_provider_details['email'],
-                              displayName: userService.filterSearchServicesList[index].service_provider_details['displayName'],
-                              serviceId: userService.filterSearchServicesList[index].serviceId,
-                              service_name: userService.filterSearchServicesList[index].service_name,
-                              description: userService.filterSearchServicesList[index].description!,
-                              links: userService.filterSearchServicesList[index].links,
-                              service_charge_in_person: userService.filterSearchServicesList[index].service_charge_in_person!,
-                              service_charge_virtual: userService.filterSearchServicesList[index].service_charge_virtual!,
-                              duration: userService.filterSearchServicesList[index].duration!,
-                              date: userService.filterSearchServicesList[index].date,
-                              time: userService.filterSearchServicesList[index].time,
-                              available_days: userService.filterSearchServicesList[index].available_days
+                              userId: data.service_provider_details['userId'],
+                              email: data.service_provider_details['email'],
+                              displayName: data.service_provider_details['displayName'],
+                              serviceId: data.serviceId,
+                              service_name: data.service_name,
+                              description: data.description,
+                              links: data.links,
+                              service_charge_in_person: data.service_charge_in_person,
+                              service_charge_virtual: data.service_charge_virtual,
+                              duration: data.duration,
+                              date: data.date,
+                              time: data.time,
+                              available_days: data.available_days
                             );
                           },
                           child: Icon(
@@ -156,7 +156,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "Regular(One-off)",  //Retainer
+                          "${data.service_type}(${data.service_model})",  //Retainer //One-off
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -169,6 +169,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                     SizedBox(height: 5.h,),
           
                     //2
+                    data.duration.isNotEmpty ?
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -182,7 +183,29 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.duration!,
+                          data.duration,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 12..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    )
+                    :Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Timeline:",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 10..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          data.service_timeline,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -252,8 +275,16 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
     
                         //time
-                        data.duration!.isEmpty ?
-                        const Text('')
+                        data.duration.isEmpty ?
+                        Text(
+                          "for ${data.service_timeline} timeline",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        )
                         :Text(
                           "per ${data.duration} session",
                           style: GoogleFonts.inter(
@@ -270,19 +301,13 @@ class _RegularServiceListState extends State<RegularServiceList> {
                     SizedBox(height: 20.h,),
           
                     Text(
-                      data.description!,
+                      data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w400
                       ),
                     ),
-          
-          
-          
-          
-          
-                    
           
           
                   ]

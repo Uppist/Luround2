@@ -27,7 +27,8 @@ class EditProgramServiceScreen extends StatefulWidget {
     required this.duration, 
     required this.time, 
     required this.date, 
-    required this.available_days
+    required this.available_days, 
+    required this.max_number_of_participants
   });
 
   final String serviceId;
@@ -40,6 +41,7 @@ class EditProgramServiceScreen extends StatefulWidget {
   final String time;
   final String date;
   final String available_days;
+  final int max_number_of_participants;
 
   @override
   State<EditProgramServiceScreen> createState() => _EditProgramServiceScreenState();
@@ -168,18 +170,14 @@ class _EditProgramServiceScreenState extends State<EditProgramServiceScreen> {
                 title: Text(""), 
                 isActive: controller.curentStepEdit.value >= 2,
                 content: Step3PageProgramServiceEdit(
+                  service_id: widget.serviceId,
                   service_charge_in_person: widget.service_charge_in_person,
                   service_charge_virtual: widget.service_charge_virtual,
-                  /*serviceId: widget.serviceId,
                   service_name: widget.service_name,
-                  description: widget.description,
+                  service_description: widget.description,
                   links: widget.links,
-                  service_charge_in_person: widget.service_charge_in_person,
-                  service_charge_virtual: widget.service_charge_virtual,
                   duration: widget.duration,
-                  time: widget.time,
-                  date: widget.date,
-                  available_days: widget.available_days,*/
+                  max_number_of_participants: widget.max_number_of_participants,
                 )
               )
             ]

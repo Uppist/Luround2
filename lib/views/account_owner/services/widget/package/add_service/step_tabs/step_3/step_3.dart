@@ -171,15 +171,15 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
         SizedBox(height: 100.h),
 
         //button
-        RebrandedReusableButton(
+        /*RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor, 
           text: "Done", 
           onPressed: () {}
-        ),
+        ),*/
 
         //button
-        /*Obx(
+        Obx(
           () {
             return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -188,26 +188,22 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
               onPressed: mainController.isCheckBoxActive.value ? 
               //widget.onNext
               () {
-                    
-                mainController.getTimeIntervals(
-                  earliestTime: mainController.findEarliestTime(),
-                  latestTime: mainController.findLatestTime(),
-                  interval: mainController.duration.value
-                )
-                .whenComplete(() {
-                  servicesService.createUserService(
-                    available_time_list: mainController.availableTime,
+    
+                  servicesService.createPackageService(
                     context: context,
-                    //service_type: "Virtual", //In-Person
                     service_name: mainController.serviceNameController.text, 
                     description: mainController.descriptionController.text, 
                     links: [mainController.addLinksController.text], 
                     service_charge_in_person: mainController.inPersonController.text, 
                     service_charge_virtual: mainController.virtualController.text, 
-                    duration: mainController.formatDuration(), 
-                    time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                    date: mainController.selectServiceModel.value,  //selectServiceModel, selectDurationRadio   //regular service model           
-                    available_days: mainController.availableDays(),
+                    duration: mainController.calcDuration.value, 
+                    service_recurrence: mainController.serviceRecurrence.value,
+                    service_timeline: mainController.serviceTimeline.value,
+                    timeline_days: mainController.selectedDays,
+                    start_date: mainController.startDate(),
+                    end_date: mainController.endDate(),
+                    start_time: mainController.startTimeValue.value,
+                    end_time: mainController.stopTimeValue.value,
                   ).whenComplete(() {
                     //1
                     setState(() {
@@ -220,15 +216,12 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                     mainController.inPersonController.clear();
                     mainController.virtualController.clear();
                     //3
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => const MainPage(),
-                      ), 
-                      (route) => true
+                    Get.offAll(
+                      () => const MainPage(),
+                      transition: Transition.rightToLeft
                     );
                   });       
-                });
+                
                         
               }
               : () {
@@ -237,7 +230,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                 
             );
           }
-        ),*/
+        ),
 
         SizedBox(height: 5.h),
       ]

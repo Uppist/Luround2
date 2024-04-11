@@ -241,15 +241,15 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
         SizedBox(height: 100.h),
 
         //button
-        RebrandedReusableButton(
+        /*RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor, 
           text: "Done", 
           onPressed: () {}
-        ),
+        ),*/
 
         //button
-        /*Obx(
+        Obx(
           () {
             return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -257,48 +257,42 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
               text: "Done", 
               onPressed: mainController.isCheckBoxActive.value ? 
               //widget.onNext
-              () {
+              () {          
+                
+                servicesService.createProgramService(
+                  context: context,
+                  service_name: mainController.serviceNameController.text, 
+                  description: mainController.descriptionController.text, 
+                  links: [mainController.addLinksController.text], 
+                  service_charge_in_person: mainController.inPersonController.text, 
+                  service_charge_virtual: mainController.virtualController.text, 
+                  duration: mainController.calcDuration.value, 
+                  service_recurrence: mainController.serviceRecurrence.value,
+                  service_timeline: mainController.serviceTimeline.value,
+                  timeline_days: mainController.selectedDays,
+                  start_date: mainController.startDate(),
+                  end_date: mainController.endDate(),
+                  start_time: mainController.startTimeValue.value,
+                  end_time: mainController.stopTimeValue.value,
+                  max_number_of_participants: mainController.count.value
                     
-                mainController.getTimeIntervals(
-                  earliestTime: mainController.findEarliestTime(),
-                  latestTime: mainController.findLatestTime(),
-                  interval: mainController.duration.value
-                )
-                .whenComplete(() {
-                  servicesService.createUserService(
-                    available_time_list: mainController.availableTime,
-                    context: context,
-                    //service_type: "Virtual", //In-Person
-                    service_name: mainController.serviceNameController.text, 
-                    description: mainController.descriptionController.text, 
-                    links: [mainController.addLinksController.text], 
-                    service_charge_in_person: mainController.inPersonController.text, 
-                    service_charge_virtual: mainController.virtualController.text, 
-                    duration: mainController.formatDuration(), 
-                    time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                    date: mainController.selectServiceModel.value,  //selectServiceModel, selectDurationRadio   //regular service model           
-                    available_days: mainController.availableDays(),
-                  ).whenComplete(() {
-                    //1
-                    setState(() {
-                      mainController.curentStep = mainController.curentStep - 2;
-                    });
-                    //2
-                    mainController.serviceNameController.clear();
-                    mainController.descriptionController.clear();
-                    mainController.addLinksController.clear();
-                    mainController.inPersonController.clear();
-                    mainController.virtualController.clear();
-                    //3
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => const MainPage(),
-                      ), 
-                      (route) => true
-                    );
-                  });       
-                });
+                ).whenComplete(() {
+                  //1
+                  setState(() {
+                    mainController.curentStep = mainController.curentStep - 2;
+                  });
+                  //2
+                  mainController.serviceNameController.clear();
+                  mainController.descriptionController.clear();
+                  mainController.addLinksController.clear();
+                  mainController.inPersonController.clear();
+                  mainController.virtualController.clear();
+                  //3
+                  Get.offAll(
+                    () => const MainPage(),
+                    transition: Transition.rightToLeft
+                  );
+                });       
                         
               }
               : () {
@@ -307,7 +301,7 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                 
             );
           }
-        ),*/
+        ),
 
         SizedBox(height: 5.h),
       ]

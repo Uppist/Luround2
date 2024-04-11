@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_paystack_client/flutter_paystack_client.dart';
+import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
@@ -18,6 +19,7 @@ import 'package:luround/views/account_viewer/404page/unknown_route.dart';
 import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'firebase_options.dart';
 //import 'package:flutter_web_plugins/url_strategy.dart';
+
 
 
 
@@ -94,11 +96,24 @@ class MainApp extends StatefulWidget {
 
 class _MainAppState extends State<MainApp> {
   
+  
   var token = LocalStorage.getToken();
   var FCMtoken = LocalStorage.getFCMToken();
   var tokenExpDateInt = LocalStorage.getTokenExpDate();
   var controller = Get.put(MainPageController());
   var authService = Get.put(AuthService());
+
+
+  bool isExpiredVal = false;
+  //checks if the token is expired
+  Future<bool> isTokenExpired() async{
+    bool isExpired = await FlutterSessionJwt.isTokenExpired();
+    setState(() {
+      isExpiredVal = isExpired;
+    });
+    print("is token expired: $isExpiredVal");
+    return isExpired;
+  }
 
 
   @override
@@ -110,6 +125,7 @@ class _MainAppState extends State<MainApp> {
     
     print("initialize fcm token $FCMtoken");
     print('token exp: $tokenExpDateInt');
+    isTokenExpired();
 
     super.initState();
   }
@@ -129,6 +145,12 @@ class _MainAppState extends State<MainApp> {
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Luround',
+        
+        //try this
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColor.mainColor),
+          useMaterial3: true,
+        ),
         
         /*unknownRoute: GetPage(
           name: '/', 
@@ -185,7 +207,7 @@ class _MainAppState extends State<MainApp> {
 
         ],*/
 
-        home: token == null ? SplashScreen1() : authService.isTokenExpired() ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        home: token == null ? SplashScreen1() : isExpiredVal ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
       
       ),
     );

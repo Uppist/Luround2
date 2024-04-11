@@ -34,7 +34,8 @@ Future<void> editProgramServiceDialogueBox({
   //service_provider_details below
   required String userId,
   required String email,
-  required String displayName
+  required String displayName,
+  required int max_number_of_participants,
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -82,6 +83,7 @@ Future<void> editProgramServiceDialogueBox({
                       time: time,
                       date: date,
                       available_days: available_days,
+                      max_number_of_participants: max_number_of_participants,
                     ));
                   },
                   child: Row(

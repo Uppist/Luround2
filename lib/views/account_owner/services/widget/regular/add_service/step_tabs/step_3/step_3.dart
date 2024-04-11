@@ -153,10 +153,8 @@ class _Step3PageState extends State<Step3Page> {
                   interval: mainController.duration.value
                 )
                 .whenComplete(() {
-                  servicesService.createUserService(
-                    available_time_list: mainController.availableTime,
+                  servicesService.createRegularService(
                     context: context,
-                    //service_type: "Virtual", //In-Person
                     service_name: mainController.serviceNameController.text, 
                     description: mainController.descriptionController.text, 
                     links: [mainController.addLinksController.text], 
@@ -164,10 +162,14 @@ class _Step3PageState extends State<Step3Page> {
                     service_charge_virtual: mainController.virtualController.text, 
                     duration: mainController.formatDuration(), 
                     time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                    //hmmmmmm
-                    date: mainController.selectServiceModel.value,  //selectServiceModel, selectDurationRadio   //regular service model           
-                    
+                    available_time_list: mainController.availableTime,
                     available_days: mainController.availableDays(),
+                    date: mainController.selectDateRange,
+
+                    //NEW
+                    //regular service model         
+                    service_model: mainController.selectServiceModel.value,
+                    service_timeline: mainController.serviceTimeline.value,
                   ).whenComplete(() {
                     //1
                     setState(() {
@@ -180,12 +182,9 @@ class _Step3PageState extends State<Step3Page> {
                     mainController.inPersonController.clear();
                     mainController.virtualController.clear();
                     //3
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => const MainPage(),
-                      ), 
-                      (route) => true
+                    Get.offAll(
+                      () => MainPage(),
+                      transition: Transition.rightToLeft
                     );
                   });       
                 });

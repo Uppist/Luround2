@@ -166,7 +166,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   latestTime: mainController.findLatestTimeEdit(),
                   interval: mainController.durationEdit.value
                 ).whenComplete(() {
-                  servicesService.updateUserService(
+                  servicesService.updateRegularService(
                     context: context,
                     //service_type: "Virtual", //In-Person
                     serviceId: widget.serviceId,
@@ -178,20 +178,29 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                     duration: mainController.formatDurationEdit().isEmpty ? widget.duration  : mainController.formatDurationEdit(), 
                     time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}".isEmpty ? widget.time : "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
                     
-                    //change the date below to service model field  --- //selectDateRangeEdit //selectServiceModelEdit
-                    date: mainController.selectServiceModelEdit.value.isEmpty ? widget.date : mainController.selectServiceModelEdit.value,             
+                    //change the date below to service model field
+                    date: mainController.selectDateRangeEdit,             
                     available_days: mainController.availableDaysEdit(), 
                     available_time: mainController.availableTimeEdit,
+                    //NEW
+                    //regular service model         
+                    service_model: mainController.selectServiceModelEdit.value,
+                    service_timeline: mainController.serviceTimelineEdit.value,
                   ).whenComplete(() {
+                    //1
                     setState(() {
                       mainController.curentStepEdit.value = mainController.curentStepEdit.value - 2;
                     });
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => MainPage(),
-                      ), 
-                      (route) => true
+                    //2
+                    mainController.serviceNameControllerEdit.clear();
+                    mainController.descriptionControllerEdit.clear();
+                    mainController.addLinksControllerEdit.clear();
+                    mainController.inPersonControllerEdit.clear();
+                    mainController.virtualControllerEdit.clear();
+                    //3
+                    Get.offAll(
+                      () => const MainPage(),
+                      transition: Transition.rightToLeft
                     );
                   });
                 });

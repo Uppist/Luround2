@@ -170,14 +170,11 @@ class _EditPackageServiceScreenState extends State<EditPackageServiceScreen> {
                 content: Step3PagePackageServiceEdit(
                   service_charge_in_person: widget.service_charge_in_person,
                   service_charge_virtual: widget.service_charge_virtual,
-                  /*serviceId: widget.serviceId,
+                  service_id: widget.serviceId,
                   service_name: widget.service_name,
-                  description: widget.description,
+                  service_description: widget.description,
                   links: widget.links,
                   duration: widget.duration,
-                  time: widget.time,
-                  date: widget.date,
-                  available_days: widget.available_days*/
                 )
               )
             ]

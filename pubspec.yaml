@@ -98,6 +98,9 @@ dependencies:
   #paystack payment
   flutter_paystack_client: ^0.1.1
 
+  #to check everything about your jwt
+  flutter_session_jwt: ^0.0.6
+
 
 
 

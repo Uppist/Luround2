@@ -675,6 +675,18 @@ class SettingsService extends getx.GetxController {
 
 
 
+
+  //DELETE USER ACCOUNT//
+  
+
+
+
+
+
+
+
+
+
   @override
   void dispose() {
     // TODO: implement dispose

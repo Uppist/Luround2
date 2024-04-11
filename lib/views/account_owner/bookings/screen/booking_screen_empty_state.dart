@@ -18,7 +18,7 @@ class BookingScreenEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),  //10.h
         child: Container(
           color: AppColor.bgColor,
           alignment: Alignment.center,

@@ -21,7 +21,7 @@ class SplashScreen1 extends StatefulWidget {
 
 class _SplashScreen1State extends State<SplashScreen1> {
 
-  var controller = Get.put(AuthController());
+  //var controller = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {

@@ -157,7 +157,9 @@ class _PasswordLinkSentPageState extends State<PasswordLinkSentPage> {
                               if(controller.otpController.text.isNum && controller.otpController.text.isNotEmpty) {
                                 Get.offUntil(GetPageRoute(page: () => ResetPasswordPage()), (route) => false);
                               }
-                              print("OTP FIELD IS EMPTY OR ISN'T A DIGIT");
+                              else{
+                                print("OTP FIELD IS EMPTY OR ISN'T A DIGIT");
+                              }
                             },
                             child: Container(
                               //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),

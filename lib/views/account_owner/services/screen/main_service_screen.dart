@@ -66,7 +66,7 @@ class _ServicesPageState extends State<ServicesPage> {
                       ),
                       InkWell(
                         onTap: () async{
-                          Get.to(() => ChooseServiceTypePage());
+                          Get.to(() => const ChooseServiceTypePage());
                         },
                         child: SvgPicture.asset("assets/svg/add_service.svg"),
                       ),
@@ -88,10 +88,10 @@ class _ServicesPageState extends State<ServicesPage> {
                     userService.filterRegularServices(val);
                   }
                   else if(userService.activeTabIndex == 1){
-                    print('func for filtering package service');
+                    userService.filterPackageServices(val);
                   }
                   else if(userService.activeTabIndex == 2){
-                    print('func for filtering program service');
+                    userService.filterProgramServices(val);
                   }
                   else {
                     print('no more func');
@@ -110,7 +110,7 @@ class _ServicesPageState extends State<ServicesPage> {
             //SizedBox(height: 10.h,), 
       
             //service tab here
-            ServiceScreenTab()
+            const ServiceScreenTab()
             
                 
           ]

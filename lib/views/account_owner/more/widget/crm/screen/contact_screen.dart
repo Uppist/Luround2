@@ -318,21 +318,46 @@ class _ContactScreenState extends State<ContactScreen> {
                                         ]
                                       ),
                                       SizedBox(height: 20.h,),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.to(() => CRMClientTransactionHistory(client_email: item.client_email,));
-                                        }, 
-                                        child: Text(
-                                          'Transaction history',
-                                          style: GoogleFonts.inter(
-                                            fontSize: 12.sp,
-                                            fontWeight: FontWeight.w500,
-                                            fontStyle: FontStyle.italic,
-                                            color: AppColor.blueColor,
-                                            decoration: TextDecoration.underline,
-                                            decorationColor: AppColor.blueColor
-                                          )
-                                        )
+
+                                      //trx history and delete icon
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              Get.to(() => CRMClientTransactionHistory(client_email: item.client_email,));
+                                            }, 
+                                            child: Text(
+                                              'Transaction history',
+                                              style: GoogleFonts.inter(
+                                                fontSize: 12.sp,
+                                                fontWeight: FontWeight.w500,
+                                                fontStyle: FontStyle.italic,
+                                                color: AppColor.blueColor,
+                                                decoration: TextDecoration.underline,
+                                                decorationColor: AppColor.blueColor
+                                              )
+                                            )
+                                          ),
+
+                                          InkWell(
+                                            onTap: () {
+                                              //delete function
+                                              service.deleteContact(
+                                                context: context, 
+                                                client_name: item.client_name, 
+                                                client_email: item.client_email, 
+                                                client_phone_number: item.client_phone_number
+                                              );
+                                            }, 
+                                            child: Icon(
+                                              CupertinoIcons.delete_simple,
+                                              size: 24.r,
+                                              color: AppColor.redColor
+                                            )
+                                          ),
+
+                                        ],
                                       )
                                       //trx history list button
                                     ],

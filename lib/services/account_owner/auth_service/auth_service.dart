@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:dio/dio.dart' as diomygee;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart' as dio;
@@ -64,7 +64,7 @@ class AuthService extends getx.GetxController {
 
 
   //to check if the token is expired
-  bool isTokenExpired() {
+  Future<bool> isAuthTokenExpired() async{
     print('token exp: $tokenExpDateInt');
     // Convert the server timestamp to a DateTime object and make isUtc true
     DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(tokenExpDateInt * 1000, isUtc: true);
@@ -78,6 +78,7 @@ class AuthService extends getx.GetxController {
     tokenExpDate.day == currentDate.day;
     print("is token expired value: $isExpired");
     return isExpired;
+
   }
 
 
@@ -114,6 +115,7 @@ class AuthService extends getx.GetxController {
         if(response.account_status == "TRIAL") {
           //save access token
           await LocalStorage.saveToken(response.tokenData);
+          await FlutterSessionJwt.saveToken(response.tokenData);
           //check for existing token
           var token = await LocalStorage.getToken();
           //show the saved token
@@ -159,6 +161,7 @@ class AuthService extends getx.GetxController {
         else if(response.account_status == "ACTIVE") {
           //save access token
           await LocalStorage.saveToken(response.tokenData);
+          await FlutterSessionJwt.saveToken(response.tokenData);
           //check for existing token
           var token = await LocalStorage.getToken();
           //show the saved token
@@ -211,6 +214,7 @@ class AuthService extends getx.GetxController {
         else{
           ////INACTIVE////
           await LocalStorage.saveToken(response.tokenData);
+          await FlutterSessionJwt.saveToken(response.tokenData);
           var token = await LocalStorage.getToken();
           print(token);
 
@@ -249,7 +253,7 @@ class AuthService extends getx.GetxController {
         );
       }
     } 
-    on HttpException {
+    on Exception {
       isLoading.value = false;
       //baseService.handleError(const HttpException("Something went wrong"));
       showMySnackBar(
@@ -345,6 +349,7 @@ class AuthService extends getx.GetxController {
         //CHECK IF THE USER HAS PAID
         if(response.account_status == "TRIAL") {
           await LocalStorage.saveToken(response.tokenData);
+          await FlutterSessionJwt.saveToken(response.tokenData);
           //LocalStorage.saveEmail(email);
           debugPrint("my token: ${LocalStorage.getToken()}");
           //check for existing token
@@ -381,6 +386,7 @@ class AuthService extends getx.GetxController {
         }
         else if(response.account_status == "ACTIVE") {
           await LocalStorage.saveToken(response.tokenData);
+          await FlutterSessionJwt.saveToken(response.tokenData);
           //LocalStorage.saveEmail(email);
           debugPrint("my token: ${LocalStorage.getToken()}");
           //check for existing token
@@ -418,6 +424,7 @@ class AuthService extends getx.GetxController {
         else {
           ////INACTIVE////
           await LocalStorage.saveToken(response.tokenData);
+          await FlutterSessionJwt.saveToken(response.tokenData);
           var token = await LocalStorage.getToken();
           print(token);
 
@@ -458,7 +465,7 @@ class AuthService extends getx.GetxController {
         );
       }
     } 
-    on HttpException {
+    on Exception {
       isLoading.value = false;
       showMySnackBar(
         context: context,
@@ -731,6 +738,7 @@ class AuthService extends getx.GetxController {
         //CHECK IF THE USER HAS PAID
         if(account_status == "TRIAL") {
           print(account_status);
+          await FlutterSessionJwt.saveToken(accessToken);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -765,6 +773,7 @@ class AuthService extends getx.GetxController {
         }
         else if(account_status == "ACTIVE") {
           print(account_status);
+          await FlutterSessionJwt.saveToken(accessToken);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -801,6 +810,7 @@ class AuthService extends getx.GetxController {
         else {
           ////INACTIVE////
           print(account_status);
+          await FlutterSessionJwt.saveToken(accessToken);
 
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -906,6 +916,7 @@ class AuthService extends getx.GetxController {
         //CHECK IF THE USER HAS PAID
         if(account_status == "TRIAL") {
           print(account_status);
+          await FlutterSessionJwt.saveToken(accessToken);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -947,6 +958,7 @@ class AuthService extends getx.GetxController {
         }
         else if(account_status == "ACTIVE") {
           print(account_status);
+          await FlutterSessionJwt.saveToken(accessToken);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -983,6 +995,7 @@ class AuthService extends getx.GetxController {
         else {
           ////INACTIVE////
           print(account_status);
+          await FlutterSessionJwt.saveToken(accessToken);
 
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -1162,6 +1175,7 @@ class AuthService extends getx.GetxController {
     }
   }
 
+
   //delete user account
   Future<dynamic> deleteUserAccount({
     required BuildContext context,
@@ -1170,24 +1184,20 @@ class AuthService extends getx.GetxController {
     
     isLoading.value = true;
 
-    var body = {
-      //"email": email,
-    };
-
     try {
-      http.Response res = await baseService.httpGet(
+      dio.Response res = await baseService.deleteRequestWithDio(
         endPoint: "user/account/delete", 
         //body: body
       );
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        debugPrint('this is response body ==>${res.body}');
+        debugPrint('this is response body ==>${res.data}');
         await logoutUser();
         getx.Get.offAll(() => const MainPage());
       }
     }
-    on HttpException catch(e, stackTrace) {
+    on Exception catch(e, stackTrace) {
       isLoading.value = false;
       showMySnackBar(
         context: context,

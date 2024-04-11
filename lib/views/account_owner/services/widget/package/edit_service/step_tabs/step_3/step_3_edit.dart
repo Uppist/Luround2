@@ -27,9 +27,14 @@ import 'package:luround/views/account_owner/services/widget/package/edit_service
 
 
 class Step3PagePackageServiceEdit extends StatefulWidget{
-  const Step3PagePackageServiceEdit({super.key, required this.service_charge_virtual, required this.service_charge_in_person,});
+  const Step3PagePackageServiceEdit({super.key, required this.service_charge_virtual, required this.service_charge_in_person, required this.service_id, required this.service_name, required this.service_description, required this.links, required this.duration,});
+  final String service_id;
+  final String service_name;
+  final String service_description;
   final String service_charge_virtual;
   final String service_charge_in_person;
+  final String duration;
+  final List<dynamic> links;
 
   @override
   State<Step3PagePackageServiceEdit> createState() => _Step3PagePackageServiceEditState();
@@ -138,10 +143,8 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
             SizedBox(width: 20.w,),
             Expanded(
               child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  setState(() {
-                    mainController.inPersonControllerEdit.text = val;
-                  });
+                onChanged: (val) {            
+                  mainController.inPersonControllerEdit.text = val;
                 },
                 hintText: "00.00",
                 keyboardType: TextInputType.number,
@@ -168,9 +171,9 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
             Expanded(
               child: AmountTextFieldEdit(  
                 onChanged: (val) {
-                  setState(() {
-                    mainController.virtualControllerEdit.text = val;
-                  });
+              
+                  mainController.virtualControllerEdit.text = val;
+                  
                 },
                 hintText: "00.00",
                 keyboardType: TextInputType.number,
@@ -185,15 +188,15 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
         SizedBox(height: 90.h),
 
         //button
-        RebrandedReusableButton(
+        /*RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor, 
           text: "Done", 
           onPressed: () {}
-        ),
+        ),*/
 
         //button
-        /*Obx(
+        Obx(
           () {
             return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
@@ -203,47 +206,41 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
               //widget.onNext
               () {
                     
-                mainController.getTimeIntervalsEdit(
-                  earliestTime: mainController.findEarliestTimeEdit(),
-                  latestTime: mainController.findLatestTimeEdit(),
-                  interval: mainController.durationEdit.value
-                )
-                .whenComplete(() {
-                  servicesService.createUserService(
-                    available_time_list: mainController.availableTimeEdit,
-                    context: context,
-                    //service_type: "Virtual", //In-Person
-                    service_name: mainController.serviceNameControllerEdit.text, 
-                    description: mainController.descriptionControllerEdit.text, 
-                    links: [mainController.addLinksControllerEdit.text], 
-                    service_charge_in_person: mainController.inPersonControllerEdit.text, 
-                    service_charge_virtual: mainController.virtualControllerEdit.text, 
-                    duration: mainController.formatDurationEdit(), 
-                    time: "${mainController.findEarliestTimeEdit()} - ${mainController.findLatestTimeEdit()}",
-                    date: mainController.selectServiceModelEdit.value,  //selectServiceModel, selectDurationRadio   //regular service model           
-                    available_days: mainController.availableDaysEdit(),
-                  ).whenComplete(() {
-                    //1
-                    setState(() {
-                      mainController.curentStepEdit = mainController.curentStepEdit - 2;
-                    });
-                    //2
-                    mainController.serviceNameControllerEdit.clear();
-                    mainController.descriptionControllerEdit.clear();
-                    mainController.addLinksControllerEdit.clear();
-                    mainController.inPersonControllerEdit.clear();
-                    mainController.virtualControllerEdit.clear();
-                    //3
-                    Get.offUntil(
-                      GetPageRoute(
-                        curve: Curves.bounceIn,
-                        page: () => const MainPage(),
-                      ), 
-                      (route) => true
-                    );
-                  });       
-                });
-                        
+                servicesService.updatePackageService(
+                  context: context,
+                  serviceId: widget.service_id,
+                  service_name: mainController.serviceNameControllerEdit.text.isNotEmpty ? mainController.serviceNameControllerEdit.text : widget.service_name, 
+                  description: mainController.descriptionControllerEdit.text.isNotEmpty ? mainController.descriptionControllerEdit.text : widget.service_description, 
+                  links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
+                  service_charge_in_person: mainController.inPersonControllerEdit.text.isNotEmpty ? mainController.inPersonControllerEdit.text : widget.service_charge_in_person, 
+                  service_charge_virtual: mainController.virtualControllerEdit.text.isNotEmpty ? mainController.virtualControllerEdit.text : widget.service_charge_virtual, 
+                  duration: mainController.calcDurationEdit.value.isEmpty ? widget.duration  : mainController.calcDurationEdit.value, 
+                  //
+                  service_recurrence: mainController.serviceRecurrenceEdit.value,
+                  service_timeline: mainController.serviceTimelineEdit.value,
+                  timeline_days: mainController.selectedDaysEdit,
+                  start_date: mainController.startDateEdit(),
+                  end_date: mainController.endDateEdit(),
+                  start_time: mainController.startTimeValueEdit.value,
+                  end_time: mainController.stopTimeValueEdit.value,
+                ).whenComplete(() {
+                  //1
+                  setState(() {
+                    mainController.curentStepEdit = mainController.curentStepEdit - 2;
+                  });
+                  //2
+                  mainController.serviceNameControllerEdit.clear();
+                  mainController.descriptionControllerEdit.clear();
+                  mainController.addLinksControllerEdit.clear();
+                  mainController.inPersonControllerEdit.clear();
+                  mainController.virtualControllerEdit.clear();
+                  //3
+                  Get.offAll(
+                    () => const MainPage(),
+                    transition: Transition.rightToLeft
+                  );
+                });       
+                         
               }
               : () {
                 print('nothing');
@@ -251,7 +248,7 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
                 
             );
           }
-        ),*/
+        ),
 
         SizedBox(height: 5.h),
       ]

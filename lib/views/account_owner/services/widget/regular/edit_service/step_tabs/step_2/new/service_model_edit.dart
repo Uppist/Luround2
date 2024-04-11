@@ -35,7 +35,7 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
             Radio.adaptive(
               activeColor: AppColor.mainColor,
               toggleable: false,
-              value: "one-off", 
+              value: "ONE-OFF", 
               groupValue: controller.selectServiceModelEdit.value, 
               onChanged: (val) {
                 setState(() {
@@ -68,7 +68,7 @@ class _EditRegularServiceModelSelectorState extends State<EditRegularServiceMode
               activeColor: AppColor.mainColor,
               toggleable: false,
               //tileColor: AppColor.bgColor,
-              value: "retainer", 
+              value: "RETAINER", 
               groupValue: controller.selectServiceModelEdit.value, 
               onChanged: (val) {
                 setState(() {

@@ -41,7 +41,7 @@ class Step2PageEdit extends GetView<ServicesController> {
 
         Obx(
           () {
-            return controller.selectServiceModelEdit.value == "retainer"?
+            return controller.selectServiceModelEdit.value == "RETAINER"?
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

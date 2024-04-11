@@ -156,7 +156,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "${data.service_type}(${data.service_model})",  //Retainer //One-off
+                          "${data.service_type}(${data.service_model.toLowerCase()})",  //Retainer //One-off
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,

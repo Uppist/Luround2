@@ -8,9 +8,8 @@ import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_sent_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/textfields/fp_email_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/more_screen_widgets/logout_bottomsheet.dart';
+
 
 
 

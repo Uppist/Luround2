@@ -174,7 +174,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                             authService.signUpWithGoogle(context: context);
                           },
                           onTextButton: () {
-                            Get.offAll(() => LoginPage());
+                            Get.offAll(() => LoginPage(), transition: Transition.rightToLeft);
                           },
                           firstText: "Already have an account?",
                           lastText: "Log in",

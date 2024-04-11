@@ -9,13 +9,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/forgot_password.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_link_expired.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
-import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/reset_password.dart';
 import 'package:luround/views/account_owner/auth/screen/login/login_with_google.dart';
 import 'package:luround/views/account_owner/auth/screen/login/textfields/password_textfield.dart';
 import 'package:luround/views/account_owner/auth/screen/login/textfields/textfield.dart';
-import 'package:luround/views/account_owner/auth/screen/registration/google_signin_option.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
 
 
@@ -183,7 +179,7 @@ class _LoginPageState extends State<LoginPage> {
                             authService.signInWithGoogle(context: context);
                           },
                           onTextButton: () {
-                            Get.off(() => RegisterPage1());
+                            Get.off(() => RegisterPage1(), transition: Transition.rightToLeft);
                             //Get.to(() => RegisterPage1());
                           },
                           firstText: "Don't have an account?",

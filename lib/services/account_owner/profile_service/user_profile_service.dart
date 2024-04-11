@@ -14,7 +14,6 @@ import 'package:http/http.dart' as http;
 import 'package:dio/dio.dart' as dioCall;
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/custom_snackbar.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/profile/widget/edit_education/controller_set.dart';
@@ -216,7 +215,7 @@ class AccOwnerProfileService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "profile updated successfully"
         );
-        getx.Get.offAll(() => MainPage());
+        getx.Get.offAll(() => MainPage(), transition: getx.Transition.rightToLeft);
       } 
       else {
         isLoading.value = false;
@@ -470,7 +469,7 @@ class AccOwnerProfileService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "detail updated successfully"
         );
-        getx.Get.offAll(() => MainPage());
+        getx.Get.offAll(() => MainPage(), transition: getx.Transition.rightToLeft);
       } 
       else {
         isLoading.value = false;
@@ -542,7 +541,7 @@ class AccOwnerProfileService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "media data updated successfully"
         );
-        getx.Get.offAll(() => MainPage());
+        getx.Get.offAll(() => MainPage(), transition: getx.Transition.rightToLeft);
       } 
       else {
         isLoading.value = false;
@@ -619,7 +618,7 @@ class AccOwnerProfileService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "certificate details updated successfully"
         );
-        getx.Get.offAll(() => MainPage());
+        getx.Get.offAll(() => MainPage(), transition: getx.Transition.rightToLeft);
       } 
       else {
         isLoading.value = false;

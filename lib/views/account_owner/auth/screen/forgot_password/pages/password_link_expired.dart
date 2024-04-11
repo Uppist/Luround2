@@ -105,7 +105,7 @@ class _PasswordLinkExpiredPageState extends State<PasswordLinkExpiredPage> {
                 color: AppColor.mainColor, 
                 text: "Resend Email",
                 onPressed: () {
-                  Get.offAll(() => LoginPage());
+                  Get.offAll(() => LoginPage(), transition: Transition.rightToLeft);
                 },
               ),
             ),

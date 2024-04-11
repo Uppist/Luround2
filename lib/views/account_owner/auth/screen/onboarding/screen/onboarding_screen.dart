@@ -104,7 +104,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 color: AppColor.mainColor, 
                 text: "Log in to Luround", 
                 onPressed: () {
-                  Get.to(() => LoginPage());
+                  Get.off(() => LoginPage(), transition: Transition.rightToLeft);
                 }, 
                 textColor: AppColor.bgColor
               ),
@@ -113,7 +113,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
                 color: AppColor.bgColor, 
                 text: "Create Account", 
                 onPressed: () {
-                  Get.to(() => RegisterPage1());
+                  Get.off(() => RegisterPage1(), transition: Transition.rightToLeft);
                 }, 
                 textColor: AppColor.mainColor
               )

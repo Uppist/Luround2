@@ -9,7 +9,6 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/auth/screen/forgot_password/textfields/reset_password_textfield.dart';
-import 'password_updated.dart';
 
 
 

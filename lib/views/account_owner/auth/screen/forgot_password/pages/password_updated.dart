@@ -54,7 +54,7 @@ class PasswordUpdatedPage extends StatelessWidget {
                 color: AppColor.mainColor, 
                 text: "Log in",
                 onPressed: (){
-                  Get.offUntil(GetPageRoute(page: () => LoginPage()), (route) => false);
+                  Get.offAll(() => LoginPage(), transition: Transition.rightToLeft);
                 },
               ),
               //SizedBox(height: 20,),

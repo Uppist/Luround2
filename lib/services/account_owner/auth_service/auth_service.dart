@@ -64,7 +64,7 @@ class AuthService extends getx.GetxController {
 
 
   //to check if the token is expired
-  Future<bool> isAuthTokenExpired() async{
+  /*Future<bool> isAuthTokenExpired() async{
     print('token exp: $tokenExpDateInt');
     // Convert the server timestamp to a DateTime object and make isUtc true
     DateTime tokenExpDate = DateTime.fromMillisecondsSinceEpoch(tokenExpDateInt * 1000, isUtc: true);
@@ -79,7 +79,7 @@ class AuthService extends getx.GetxController {
     print("is token expired value: $isExpired");
     return isExpired;
 
-  }
+  }*/
 
 
   //to register user locally
@@ -139,7 +139,7 @@ class AuthService extends getx.GetxController {
             //await generateQrLink(urlSlug: email);
 
             //isLoading.value = false;
-            getx.Get.offAll(() => MainPage());
+            getx.Get.offAll(() => const MainPage(), transition: getx.Transition.rightToLeft);
             showMySnackBar(
               context: context,
               backgroundColor: AppColor.darkGreen,
@@ -185,7 +185,7 @@ class AuthService extends getx.GetxController {
             //await generateQrLink(urlSlug: email);
 
             //isLoading.value = false;
-            getx.Get.offAll(() => MainPage());
+            getx.Get.offAll(() => const MainPage(), transition: getx.Transition.rightToLeft);
             showMySnackBar(
               context: context,
               backgroundColor: AppColor.darkGreen,
@@ -234,7 +234,7 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
           } 
           else {
             print("Failed to decode JWT token.");
@@ -377,7 +377,7 @@ class AuthService extends getx.GetxController {
           //await generateQrLink(urlSlug: email);
           //
           isLoading.value = false;
-          getx.Get.offAll(() => MainPage());
+          getx.Get.offAll(() => const MainPage(), transition: getx.Transition.rightToLeft);
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
@@ -414,7 +414,7 @@ class AuthService extends getx.GetxController {
           //await generateQrLink(urlSlug: email);
           //
           isLoading.value = false;
-          getx.Get.offAll(() => MainPage());
+          getx.Get.offAll(() => const MainPage(), transition: getx.Transition.rightToLeft);
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
@@ -444,7 +444,7 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
           } 
           else {
             print("Failed to decode JWT token.");
@@ -763,7 +763,7 @@ class AuthService extends getx.GetxController {
           //generate grlink
           //await generateQrLink(urlSlug: email);
           //move with agility to the next page
-          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          getx.Get.offAll(() =>  const MainPage(), transition: getx.Transition.rightToLeft);  //MainPage()  MainPageAccViewer()
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
@@ -798,7 +798,7 @@ class AuthService extends getx.GetxController {
           //generate grlink
           //await generateQrLink(urlSlug: email);
           //move with agility to the next page
-          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          getx.Get.offAll(() =>  const MainPage(), transition: getx.Transition.rightToLeft);  //MainPage()  MainPageAccViewer()
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
@@ -828,7 +828,8 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+
+            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
           } 
           else {
             print("Failed to decode JWT token.");
@@ -948,7 +949,7 @@ class AuthService extends getx.GetxController {
           //generate grlink
           //await generateQrLink(urlSlug: email);
           //move with agility to the next page
-          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          getx.Get.offAll(() =>  const MainPage(), transition: getx.Transition.rightToLeft); 
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
@@ -983,7 +984,7 @@ class AuthService extends getx.GetxController {
           //generate grlink
           //await generateQrLink(urlSlug: email);
           //move with agility to the next page
-          getx.Get.offAll(() =>  MainPage());  //MainPage()  MainPageAccViewer()
+          getx.Get.offAll(() =>  const MainPage(), transition: getx.Transition.rightToLeft);  //MainPage()  MainPageAccViewer()
           showMySnackBar(
             context: context,
             backgroundColor: AppColor.darkGreen,
@@ -1013,7 +1014,7 @@ class AuthService extends getx.GetxController {
             await LocalStorage.saveUserID(userId);
             await LocalStorage.saveEmail(email);
             await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  SubscriptionScreenAuth());
+            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
           } 
           else {
             print("Failed to decode JWT token.");
@@ -1108,7 +1109,7 @@ class AuthService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "otp sent successfully"
         );
-        getx.Get.to(() => PasswordLinkSentPage());
+        getx.Get.to(() => PasswordLinkSentPage(), transition: getx.Transition.rightToLeft);
       } else {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -1153,7 +1154,7 @@ class AuthService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         isLoading.value = false;
-        getx.Get.offAll(() => PasswordUpdatedPage());
+        getx.Get.offAll(() => const PasswordUpdatedPage(), transition: getx.Transition.rightToLeft);
       } else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
@@ -1194,7 +1195,7 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.data}');
         await logoutUser();
-        getx.Get.offAll(() => const MainPage());
+        getx.Get.offAll(() => const MainPage(), transition: getx.Transition.leftToRight);
       }
     }
     on Exception catch(e, stackTrace) {

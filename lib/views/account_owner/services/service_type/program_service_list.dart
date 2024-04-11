@@ -40,7 +40,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
     // Update the UI with the new data
     userService.filterSearchServicesList.clear();
     userService.filterSearchServicesList.addAll(newData);
-    print('refreshed regular service list: ${userService.filterSearchServicesList}');
+    print('refreshed program service list: ${userService.filterSearchServicesList}');
   }
 
   @override
@@ -52,7 +52,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
         // Update the UI with the new data
         userService.filterSearchServicesList.clear();
         userService.filterSearchServicesList.addAll(value);
-        print('updated package service list: ${userService.filterSearchServicesList}');
+        print('updated program service list: ${userService.filterSearchServicesList}');
       }
     );
   }
@@ -73,11 +73,12 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-            itemCount: 1, //userService.filterSearchServicesList.length,
+            itemCount: userService.filterSearchServicesList.length,
             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
             itemBuilder: (context, index) {
               
               //run even and odd checks for dynamism
+              final data = userService.filterSearchServicesList[index];
           
               return Container(
                 //height: 500,
@@ -101,22 +102,22 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         InkWell(
                           onTap: () {
                             editProgramServiceDialogueBox(
-                              max_number_of_participants: userService.filterSearchServicesList[index].max_number_of_participants,
-                              service_link: userService.filterSearchServicesList[index].service_link,
+                              max_number_of_participants: data.max_number_of_participants,
+                              service_link: data.service_link,
                               context: context, 
-                              userId: userService.filterSearchServicesList[index].service_provider_details['userId'],
-                              email: userService.filterSearchServicesList[index].service_provider_details['email'],
-                              displayName: userService.filterSearchServicesList[index].service_provider_details['displayName'],
-                              serviceId: userService.filterSearchServicesList[index].serviceId,
-                              service_name: userService.filterSearchServicesList[index].service_name,
-                              description: userService.filterSearchServicesList[index].description,
-                              links: userService.filterSearchServicesList[index].links,
-                              service_charge_in_person: userService.filterSearchServicesList[index].service_charge_in_person,
-                              service_charge_virtual: userService.filterSearchServicesList[index].service_charge_virtual,
-                              duration: userService.filterSearchServicesList[index].duration,
-                              date: userService.filterSearchServicesList[index].date,
-                              time: userService.filterSearchServicesList[index].time,
-                              available_days: userService.filterSearchServicesList[index].available_days
+                              userId: data.service_provider_details['userId'],
+                              email: data.service_provider_details['email'],
+                              displayName: data.service_provider_details['displayName'],
+                              serviceId: data.serviceId,
+                              service_name: data.service_name,
+                              description: data.description,
+                              links: data.links,
+                              service_charge_in_person: data.service_charge_in_person,
+                              service_charge_virtual: data.service_charge_virtual,
+                              duration: data.duration,
+                              date: data.date,
+                              time: data.time,
+                              available_days: data.available_days
                             );
                           },
                           child: Icon(
@@ -132,7 +133,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                     
                     //ALL SUBSEQUENT INFORMATION COMES HERE
                     Text(
-                      "Backend with Django",
+                      data.service_name,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 16.sp,
@@ -154,7 +155,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "Program",
+                          data.service_type,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -180,7 +181,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "6 months",
+                          data.service_timeline,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -207,7 +208,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         SizedBox(width: 10.w,),
                         Expanded(
                           child: Text(
-                            "Once a week (Thursday, Friday)",
+                            "${data.service_timeline} (${data.timeline_days[index]})",
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -235,7 +236,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "40 mins per session",
+                          "${data.duration} per session",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -261,7 +262,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "45",
+                          "${data.max_number_of_participants}",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -296,7 +297,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "2024-05-02",
+                          data.start_date,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -323,7 +324,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                             SizedBox(width: 10.w,),
                             Text(
-                              "2024-10-03",
+                              data.end_date,
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 12..sp,
@@ -338,8 +339,8 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             return Text(
                               //key: Key('price_text_$index'),
                               controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ?'N50,000'  //"N${userService.filterSearchServicesList[index].service_charge_virtual}" 
-                              :'N80,000',  //"N${userService.filterSearchServicesList[index].service_charge_in_person}",
+                              ?'N${data.service_charge_virtual}' 
+                              :'N${data.service_charge_in_person}',
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 20.sp,
@@ -369,7 +370,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                             SizedBox(width: 10.w,),
                             Text(
-                              "10:00 AM - 12:30 PM",
+                              "${data.start_time} - ${data.end_time}",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 12..sp,
@@ -380,7 +381,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         //timeline again
                         Text(
-                          'for 3 months timeline',
+                          'for ${data.service_timeline} timeline',
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 10.sp,
@@ -395,7 +396,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                     SizedBox(height: 20.h,),
           
                     Text(
-                      'This service aims at giving you the best coding experience with micro-services',
+                      data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,

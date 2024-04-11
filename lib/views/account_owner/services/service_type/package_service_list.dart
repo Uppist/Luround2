@@ -39,7 +39,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
     // Update the UI with the new data
     userService.filterSearchServicesList.clear();
     userService.filterSearchServicesList.addAll(newData);
-    print('refreshed regular service list: ${userService.filterSearchServicesList}');
+    print('refreshed package service list: ${userService.filterSearchServicesList}');
   }
 
   @override

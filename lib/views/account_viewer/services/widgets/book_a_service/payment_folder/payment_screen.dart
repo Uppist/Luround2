@@ -239,6 +239,16 @@ class _PaymentScreenState extends State<PaymentScreen> {
                               ).whenComplete(() {
                                 controller.isFileSelectedForBooking.value = false;
                                 controller.imageFromGallery.value = null;
+                                controller.nameBAController.clear();
+                                controller.emailBAController.clear();
+                                controller.phoneNumberBAController.clear();
+                                controller.messageBAController.clear();
+                                //1
+                                setState(() {
+                                  controller.codeBA.value = "";
+                                  controller.paymentProofUrl.value = "";
+                                  controller.curentStep = controller.curentStep - 2;
+                                });
                               });
                             }
                             : () {

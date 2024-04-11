@@ -85,7 +85,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserRegularServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
+      http.Response res = await baseService.httpGet(endPoint:"services/get-services?service_type=REGULAR",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -141,7 +141,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserPackageServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-package-services",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?service_type=PACKAGE",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -196,7 +196,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserProgramServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-program-services",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?service_type=PROGRAM",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');

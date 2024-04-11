@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
-import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_viewer/services/widgets/book_a_service/step_tabs/step_3/time_selector_grid_view.dart';
 import '../../../../../../../utils/colors/app_theme.dart';

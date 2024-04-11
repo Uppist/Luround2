@@ -140,7 +140,7 @@ class _Step3PageState extends State<Step3Page> {
               onPressed: mainController.isCheckBoxActive.value ? 
               //widget.onNext
               () {
-                if(mainController.duration.value != null) {
+                if(mainController.selectServiceModel.value == "one-off") {
                   mainController.getTimeIntervals(
                     earliestTime: mainController.findEarliestTime(),
                     latestTime: mainController.findLatestTime(),

@@ -315,15 +315,6 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                   serviceTime: item.serviceDetails.time,
                                                                   serviceDuration: item.serviceDetails.duration,
                                                                   bookingId: item.id,
-                                                                  onDelete: () {
-                                                                    service.deleteBooking(
-                                                                      context: context, 
-                                                                      bookingId: item.id
-                                                                    ).whenComplete(() {
-                                                                        Navigator.pop(context);
-                                                                        Navigator.pop(context);
-                                                                    });
-                                                                  },
                                                                   context: context, 
                                                                   serviceName: item.serviceDetails.serviceName,
                                                                   client_name: item.bookingUserInfo.displayName,
@@ -749,12 +740,6 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               serviceTime: item.serviceDetails.time,
                                                               serviceDuration: item.serviceDetails.duration,
                                                               bookingId: item.id,
-                                                              onDelete: () {
-                                                                service.deleteBooking(
-                                                                  context: context, 
-                                                                  bookingId: item.id
-                                                                ).whenComplete(() => Get.back());
-                                                              },
                                                               context: context, 
                                                               serviceName: item.serviceDetails.serviceName,
                                                               client_name: item.bookingUserInfo.displayName,

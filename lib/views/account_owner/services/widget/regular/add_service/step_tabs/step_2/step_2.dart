@@ -49,7 +49,7 @@ class _Step2PageState extends State<Step2Page> {
     
         Obx(
           () {
-            return controller.selectServiceModel.value == "Retainer"?
+            return controller.selectServiceModel.value == "retainer"?
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

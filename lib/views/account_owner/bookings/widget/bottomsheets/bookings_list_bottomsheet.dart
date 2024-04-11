@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/delete_
 
 ///Alert Dialog
 Future<void> bookingsListDialogueBox({
-  required VoidCallback onDelete,
+  //required VoidCallback onDelete,
   required BuildContext context, 
   required String serviceName,
   required String serviceDate,
@@ -123,7 +123,15 @@ Future<void> bookingsListDialogueBox({
                     deleteBookingsDialogueBox(
                       context: context, 
                       titleText: serviceName, 
-                      onDelete: onDelete,
+                      onDelete: () {
+                        service.deleteBooking(
+                          context: context, 
+                          bookingId: bookingId
+                        ).whenComplete(() {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        });
+                      },
                     );
                     
                   },

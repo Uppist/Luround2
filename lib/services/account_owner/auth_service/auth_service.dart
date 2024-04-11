@@ -36,7 +36,6 @@ import 'package:url_launcher/url_launcher.dart' as launcher;
 class AuthService extends getx.GetxController {
 
 
-
   var baseService = getx.Get.put(BaseService());
   var FCMToken = LocalStorage.getFCMToken();
   var tokenExpDateInt = LocalStorage.getTokenExpDate() ?? 0;
@@ -1204,7 +1203,7 @@ class AuthService extends getx.GetxController {
       showMySnackBar(
         context: context,
         backgroundColor: AppColor.redColor,
-        message: "something went wrong"
+        message: "failed to delete account: $e"
       );
       debugPrint("$e -- $stackTrace");
     }

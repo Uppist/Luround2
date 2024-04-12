@@ -70,7 +70,6 @@ void main() async{
   String? token = await messaging.getToken();
   await LocalStorage.saveFCMToken(token!);
   debugPrint("raw fcm token: $token"); //save to firebase
-  debugPrint("void main fcm token: ${LocalStorage.getFCMToken()}");
 
   
 

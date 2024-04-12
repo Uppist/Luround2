@@ -54,14 +54,14 @@ void main() async{
 
   //initializing the Paystack API in my app  
   await PaystackClient.initialize(publicKey);
+
+  //initialize get_storage
+  await GetStorage.init();
   
   //initialize firebase
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  //initialize get_storage
-  await GetStorage.init();
 
   //FCM Instance
   FirebaseMessaging messaging = FirebaseMessaging.instance;
@@ -171,7 +171,7 @@ class _MainAppState extends State<MainApp> {
         //register all routes for the web app here
         getPages: [
           
-          GetPage(
+          /*GetPage(
             //parameters: {"user": userName},
             name: ProfileRoute,
             page: () => SplashScreenXtra2(),
@@ -203,7 +203,7 @@ class _MainAppState extends State<MainApp> {
             name: WriteReviewRoute,
             page: () => WriteReviewsPage(),
             curve: Curves.easeOutSine,
-          ),
+          ),*/
 
         ],*/
 

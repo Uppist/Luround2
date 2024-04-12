@@ -11,6 +11,7 @@ import 'package:luround/services/account_owner/more/crm/crm_service.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/crm/screen/add_contact_screen.dart';
 import 'package:luround/views/account_owner/more/widget/crm/screen/crm_empty_state.dart';
+import 'package:luround/views/account_owner/more/widget/crm/widget/confirm_delete_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/crm/widget/custom_crm_button.dart';
 import 'package:luround/views/account_owner/more/widget/crm/widget/send_invoice_crm.dart';
 import 'package:luround/views/account_owner/more/widget/crm/widget/send_quote_crm.dart';
@@ -343,7 +344,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                           InkWell(
                                             onTap: () {
                                               //delete function
-                                              service.deleteContact(
+                                              confirmCRMDeleteBottomsheet(
                                                 context: context, 
                                                 client_name: item.client_name, 
                                                 client_email: item.client_email, 

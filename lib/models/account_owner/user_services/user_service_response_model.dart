@@ -28,7 +28,6 @@ class UserServiceModel {
     required this.end_date,
     required this.start_time,
     required this.end_time,
-    //required this.appointment,
   });
   late final String serviceId;
   late final String email;
@@ -43,7 +42,7 @@ class UserServiceModel {
   late final String available_days;
   late final Map<String, dynamic> service_provider_details;
   late final String date;
-  late final String service_link;
+  late final List<dynamic> service_link;  //meant to be 'String' because it's an auto-generated service link from backend
   //late final String appointment;  //virtual or in-person
 
   //NEW ITEMS FOR THE 3 TYPES OF SERVICES
@@ -62,38 +61,37 @@ class UserServiceModel {
 
 
   //[FOR GET REQUEST]
-  UserServiceModel.fromJson(Map<String, dynamic> json,){
-    serviceId = json['_id'] ?? "_id";
-    email = json['email'] ?? "email";
-    service_name = json['service_name'] ?? "service_name";
-    description = json['description'] ?? "service_description";
-    links = json['links'] ?? [];
-    available_time = json['available_time'] ?? ["time"];
-    service_charge_in_person = json['service_charge_in_person'] ?? "0";
-    service_charge_virtual = json['service_charge_virtual'] ?? "0";
-    duration = json['duration'] ?? "duration";
-    time = json['time'] ?? "time";
-    available_days = json['available_days'] ?? "available_days";
-    service_provider_details = json['service_provider_details'] ?? {};
-    date = json['date'] ?? "already covered by available days";
-    service_link = json['service_link'] ?? "auto_generated_service_link";
-    //appointment = json['appointment'] ?? "appointment";
+  factory UserServiceModel.fromJson(Map<String, dynamic> json,){
+    return UserServiceModel(
+      serviceId: json['_id'] ?? "_id",
+      email: json['email'] ?? "email",
+      service_name: json['service_name'] ?? "service_name",
+      description: json['description'] ?? "service_description",
+      links: json['links'] ?? [],
+      service_charge_in_person: json['service_charge_in_person'] ?? "0",
+      service_charge_virtual: json['service_charge_virtual'] ?? "0",
+      duration: json['duration'] ?? "duration",
+      time: json['time'] ?? "time",
+      available_days: json['available_days'] ?? "available_days",
+      available_time: json['available_time'] ?? [],
+      service_provider_details: json['service_provider_details'] ?? {},
+      date: json['date'] ?? "date-null",
+      service_link: json['service_link'] ?? [], //auto-generated
 
     
-    service_model = json['service_model'] ?? "service_model";
-    service_type = json['service_type'] ?? "service_type";
-    service_recurrence = json['service_recurrence'] ?? "service_recurrence";
-    max_number_of_participants = json['max_number_of_participants'] ?? 0;
+      service_model: json['service_model'] ?? "service_model",
+      service_type: json['service_type'] ?? "service_type",
+      service_recurrence: json['service_recurrence'] ?? "service_recurrence",
+      max_number_of_participants: json['max_number_of_participants'] ?? 0,
     
-    //what i will show somto
-    timeline_days = json['timeline_days'] ?? [];
-    service_timeline = json['service_timeline'] ?? "service_timeline";
-    start_date = json['start_date'] ?? "start_date";
-    end_date = json['service_type'] ?? "end_date";
-    start_time = json['start_time'] ?? "start_time";
-    end_time = json['end_time'] ?? "end_time";
-
-
+      //what i will show somto
+      timeline_days: json['timeline_days'] ?? [],
+      service_timeline: json['service_timeline'] ?? "service_timeline",
+      start_date: json['start_date'] ?? "start_date",
+      end_date: json['end_date'] ?? "end_date",
+      start_time: json['start_time'] ?? "start_time",
+      end_time: json['end_time'] ?? "end_time",
+    );
   }
   
   //to Map

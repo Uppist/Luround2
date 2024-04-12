@@ -212,7 +212,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
         ),
         //SizedBox(height: 20.h),
         PackageServiceRecurrenceEdit(),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.14),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.13),
         RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor, 

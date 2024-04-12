@@ -26,7 +26,7 @@ Future<void> editPackageServiceDialogueBox({
   required List<dynamic> links, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
-  required String service_link,
+  //required String service_link,
   required String duration, 
   required String time, 
   required String date, 

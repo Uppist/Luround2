@@ -94,11 +94,11 @@ class PackageServiceController extends getx.GetxController {
 
   //add service stepper//////////////////////////////////
   //service time line
-  getx.RxString serviceTimeline = "3 months".obs;
-  final listOfServiceTimeline = <String>["3 months", "6 months", "1 year", "Custom"];
+  getx.RxString serviceTimeline = "2 weeks".obs;
+  final listOfServiceTimeline = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service recurrence
   getx.RxString serviceRecurrence = "Once a week".obs;
-  final listOfServiceRecurrence = <String>["Once a week", "Twice a week", "Once every two weeks", "Custom"];
+  final listOfServiceRecurrence = <String>["Once a week", "Twice a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
 
@@ -487,11 +487,11 @@ class PackageServiceController extends getx.GetxController {
   //add service stepper//////////////////////////////////
   getx.RxString calcDurationEdit = "0:00 min".obs;
   //service time line
-  getx.RxString serviceTimelineEdit = "3 months".obs;
-  final listOfServiceTimelineEdit = <String>["3 months", "6 months", "1 year", "Custom"];
+  getx.RxString serviceTimelineEdit = "2 weeks".obs;
+  final listOfServiceTimelineEdit = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service recurrence
   getx.RxString serviceRecurrenceEdit = "Once a week".obs;
-  final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Once every two weeks", "Custom"];
+  final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
 
@@ -700,12 +700,12 @@ class PackageServiceController extends getx.GetxController {
 
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
-      addItem(item: daysOfTheWeekCheckBoxEdit[index]['day']);
+      addItemEdit(item: daysOfTheWeekCheckBoxEdit[index]['day']);
       //addStartTime();
     } else {
       int selectedIndex = selectedDaysEdit.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
       if (selectedIndex != -1) {
-        removeItem(index: selectedIndex);
+        removeItemEdit(index: selectedIndex);
         //removeStartTime(index: selectedIndexForAvailTime);
       }
     }

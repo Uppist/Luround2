@@ -28,8 +28,8 @@ class ServicesController extends getx.GetxController {
   ///////////////////////////////////////////////////
 
   //add service stepper//////////////////////////////////
-  getx.RxString serviceTimeline = "3 months".obs;
-  final listOfServiceTimeline = <String>["3 months", "6 months", "1 year", "Custom"];
+  getx.RxString serviceTimeline = "2 weeks".obs;
+  final listOfServiceTimeline = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service model
   //(save to db)
   getx.RxString selectServiceModel = "".obs;
@@ -251,12 +251,10 @@ class ServicesController extends getx.GetxController {
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBox[index]['isChecked']) {
       addItem(item: daysOfTheWeekCheckBox[index]['day']);
-      //addStartTime();
     } else {
       int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBox[index]['day']);
       if (selectedIndex != -1) {
         removeItem(index: selectedIndex);
-        //removeStartTime(index: selectedIndexForAvailTime);
       }
     }
   }
@@ -483,8 +481,8 @@ class ServicesController extends getx.GetxController {
 
   //service model
   //edit service stepper//////////////////////////////////
-  getx.RxString serviceTimelineEdit = "3 months".obs;
-  final listOfServiceTimelineEdit = <String>["3 months", "6 months", "1 year", "Custom"];
+  getx.RxString serviceTimelineEdit = "2 weeks".obs;
+  final listOfServiceTimelineEdit = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service model
   //(save to db)
   getx.RxString selectServiceModelEdit = "".obs;
@@ -670,12 +668,10 @@ class ServicesController extends getx.GetxController {
     // Update the selectedDays list based on the checkbox state
     if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
       addItemEdit(item: daysOfTheWeekCheckBoxEdit[index]['day']);
-      //addStartTimeEdit();
     } else {
       int selectedIndex = selectedDaysEdit.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
       if (selectedIndex != -1) {
         removeItemEdit(index: selectedIndex);
-        //removeStartTimeEdit(index: selectedIndex);
       }
     }
   }

@@ -64,13 +64,14 @@ Future<void> deleteAccountBottomsheet({required BuildContext context,}) async{
                     ),
                     SizedBox(height: 30.h,),*/
                     Text(
-                      'Are you sure you want to delete your account?',
+                      'Are you sure you want to delete your Luround account?',
                       style: GoogleFonts.inter(
                         color: AppColor.darkGreyColor,
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500
                       ),
-                      overflow: TextOverflow.ellipsis,
+                      overflow: TextOverflow.clip,
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 40.h,),
                     Row(

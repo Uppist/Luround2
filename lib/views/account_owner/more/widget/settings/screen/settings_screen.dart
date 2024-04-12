@@ -93,7 +93,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 20.h,),
                 SettingsSelector(
-                  text: "Delete account",
+                  text: "Delete your Luround account",
                   onFlip: () {
                     deleteAccountBottomsheet(context: context);
                   },

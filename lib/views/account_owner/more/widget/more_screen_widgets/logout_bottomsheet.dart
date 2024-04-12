@@ -71,6 +71,7 @@ Future<void> logoutBottomsheet({required BuildContext context,}) async{
                         fontWeight: FontWeight.w500
                       ),
                       overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
                     ),
                     SizedBox(height: 40.h,),
                     Row(

@@ -121,7 +121,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
         //yellow stacked container
         Positioned(
           top: 5.h, // Adjust this value to control how much it protrudes
-          left: 115,
+          left: 135.w, //115.w
           child: Container(
             //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             alignment: Alignment.center,
@@ -261,7 +261,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
         //yellow stacked container
         Positioned(
           top: 5.h, // Adjust this value to control how much it protrudes
-          left: 115,
+          left: 135.w, //115.w
           child: Container(
             //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
             alignment: Alignment.center,

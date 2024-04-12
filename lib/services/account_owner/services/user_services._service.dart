@@ -97,9 +97,9 @@ class AccOwnerServicePageService extends getx.GetxController {
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
         servicesList.clear();
         servicesList.addAll(finalResult);
-        print("user services list: $finalResult");
+        print("user regular services list: $finalResult");
 
-        return finalResult;
+        return servicesList;
       }
       else {
         isLoading.value = false;
@@ -151,11 +151,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-        servicesList.clear();
-        servicesList.addAll(finalResult);
-        print("user services list: $finalResult");
+        servicesListPackage.clear();
+        servicesListPackage.addAll(finalResult);
+        print("user package services list: $finalResult");
 
-        return finalResult;
+        return servicesListPackage;
       }
       else {
         isLoading.value = false;
@@ -206,11 +206,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-        servicesList.clear();
-        servicesList.addAll(finalResult);
-        print("user services list: $finalResult");
+        servicesListProgram.clear();
+        servicesListProgram.addAll(finalResult);
+        print("user program services list: $finalResult");
 
-        return finalResult;
+        return servicesListProgram;
       }
       else {
         isLoading.value = false;

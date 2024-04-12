@@ -7,10 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_2/dropdows/recurrence_dropdown_edit.dart';
-import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_2/dropdows/timeline_dropdown_edit.dart';
-import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_3/new/date_range_bottomsheet_edit.dart';
-import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_2/selectors/time_range_s2_edit.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_3/new/custom_checkbox_edit.dart';
 
 
@@ -73,7 +69,6 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
                     controller.toggleCheckboxEdit(index, value);
                     print("selectedDays: ${controller.selectedDaysEdit}");
                   });     
-                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
                 },
               ),
               title: Text(

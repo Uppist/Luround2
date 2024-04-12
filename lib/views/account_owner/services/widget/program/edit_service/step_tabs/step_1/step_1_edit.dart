@@ -212,7 +212,7 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
         //SizedBox(height: 20.h),
         ProgramServiceRecurrenceEdit(),
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.14),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.13),
         RebrandedReusableButton(
           textColor: AppColor.bgColor,
           color: AppColor.mainColor, 

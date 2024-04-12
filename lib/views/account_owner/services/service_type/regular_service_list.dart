@@ -104,7 +104,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         InkWell(
                           onTap: () {
                             editServiceDialogueBox(
-                              service_link: data.service_link,
+                              //service_link: data.service_link,
                               context: context, 
                               userId: data.service_provider_details['userId'],
                               email: data.service_provider_details['email'],
@@ -286,7 +286,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           overflow: TextOverflow.ellipsis,
                         )
                         :Text(
-                          "per ${data.duration} session",
+                          "for ${data.duration} session",
                           style: GoogleFonts.inter(
                             color: AppColor.whiteTextColor,
                             fontSize: 12.sp,

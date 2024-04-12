@@ -71,8 +71,6 @@ void main() async{
   await LocalStorage.saveFCMToken(token!);
   debugPrint("raw fcm token: $token"); //save to firebase
 
-  
-
   runApp(const MainApp());
 
 

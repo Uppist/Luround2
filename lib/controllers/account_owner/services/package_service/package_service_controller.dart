@@ -228,7 +228,7 @@ class PackageServiceController extends getx.GetxController {
   
 
   ////**[STEP 3]***////
-  List<String> selectedDays = [];
+  var selectedDays = <String>[].obs;
   //service_screen time picker (add_service_step 3)/// ///////////////////////////////
   //(save to db) the two of them
   final startTimeValue = "".obs; 
@@ -282,7 +282,7 @@ class PackageServiceController extends getx.GetxController {
       .toList();
 
       // Update the selectedDays list based on the checkbox state
-      selectedDays = List.from(orderedSelectedDays);
+      selectedDays.value = List.from(orderedSelectedDays);
       //selectedDays.add(item);
     } else {
       print("$item is already in the list");
@@ -624,7 +624,7 @@ class PackageServiceController extends getx.GetxController {
   ];
   
   ////**[STEP 3]***////
-  List<String> selectedDaysEdit = [];
+  var selectedDaysEdit = <String>[].obs;
   //service_screen time picker (add_service_step 3)/// ///////////////////////////////
   //(save to db) the two of them
   final startTimeValueEdit = "".obs; 
@@ -678,7 +678,7 @@ class PackageServiceController extends getx.GetxController {
       .toList();
 
       // Update the selectedDays list based on the checkbox state
-      selectedDaysEdit = List.from(orderedSelectedDays);
+      selectedDaysEdit.value = List.from(orderedSelectedDays);
       //selectedDays.add(item);
     } else {
       print("$item is already in the list");

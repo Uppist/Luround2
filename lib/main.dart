@@ -69,9 +69,9 @@ void main() async{
   //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
   String? token = await messaging.getToken();
   await LocalStorage.saveFCMToken(token!);
-  debugPrint("raw fcm token: $token"); //save to firebase
+  debugPrint("raw fcm token: $token");*/
 
-  runApp(const MainApp());*/
+  runApp(const MainApp());
 
 
 }
@@ -163,10 +163,10 @@ class _MainAppState extends State<MainApp> {
 
         initialRoute: ProfileRoute,
 
-        defaultTransition: Transition.fade,
+        defaultTransition: Transition.rightToLeft,
         
         //register all routes for the web app here
-        getPages: [
+        getPages: const [
           
           /*GetPage(
             //parameters: {"user": userName},

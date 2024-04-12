@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-//import 'package:image_picker_web/image_picker_web.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 
 
 
@@ -35,12 +35,12 @@ class AccViewerServicesController extends getx.GetxController {
   //upload image to cloudinary
   Future<void> uploadReceiptToCloudinary({
     required BuildContext context,
-    required Uint8List? file
+    required Uint8List? file_path  //Uint8List?
   }) async{
     final int randomNum = Random().nextInt(2000000);
     final response = await cloudinary.upload(
-      //file: file!.path,
-      fileBytes: file,
+      fileBytes: file_path,
+      //fileBytes: file,
       //uploadPreset: "somePreset",
       resourceType: CloudinaryResourceType.image,
       folder: "luround_client_trx_receipts",
@@ -78,13 +78,14 @@ class AccViewerServicesController extends getx.GetxController {
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
     
-    /*try {
+    try {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); 
       if (pickedImage != null) {
         imageFromGallery.value = pickedImage;
+        debugPrint("web image path: ${imageFromGallery.value}");
         //ignore: use_build_context_synchronously
         isLoading.value = true;
-        await uploadReceiptToCloudinary(context: context, file: imageFromGallery.value);
+        await uploadReceiptToCloudinary(context: context, file_path: imageFromGallery.value);
         isFileSelectedForBooking.value = true;
         update();
       }
@@ -98,7 +99,7 @@ class AccViewerServicesController extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Error picking image: $e"
       );
-    }*/
+    }
 
   }
 
@@ -114,13 +115,14 @@ class AccViewerServicesController extends getx.GetxController {
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> selectFile(BuildContext context) async {
     
-    /*try {
-      final pickedImage = await ImagePickerWeb.getImageAsBytes(); //.pickImage(source: ImageSource.gallery);
+    try {
+      final pickedImage = await ImagePickerWeb.getImageAsBytes();
       if (pickedImage != null) {
         selectedFileForRequestingQuote.value = pickedImage;
+        print("web image path; ${selectedFileForRequestingQuote.value}");
         //ignore: use_build_context_synchronously
         isLoading.value = true;
-        await uploadRequestedQuoteFileToCloudinary(context: context, file: selectedFileForRequestingQuote.value);
+        await uploadRequestedQuoteFileToCloudinary(context: context, file_path: selectedFileForRequestingQuote.value);
         isFileSelected.value = true;
         update();
       }
@@ -134,7 +136,7 @@ class AccViewerServicesController extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Error picking image: $e"
       );
-    }*/
+    }
 
   }
 
@@ -145,13 +147,12 @@ class AccViewerServicesController extends getx.GetxController {
   //upload request quote file to cloudinary
   Future<void> uploadRequestedQuoteFileToCloudinary({
     required BuildContext context,
-    required Uint8List? file
+    required Uint8List? file_path,
   }) async{
 
     final int randomNum = Random().nextInt(2000000);
     final response = await cloudinary.upload(
-      //file: file!.path,
-      fileBytes: file,
+      fileBytes: file_path,
       //uploadPreset: "somePreset",
       resourceType: CloudinaryResourceType.image,
       folder: "luround_quote_requests",

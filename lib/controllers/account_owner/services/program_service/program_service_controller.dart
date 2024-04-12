@@ -195,40 +195,6 @@ class ProgramServiceController extends getx.GetxController {
     }
   }
 
-  //select duration in minutes
-  final duration = const Duration(hours: 0, minutes: 0).obs;
-  //(save to db)
-  String formatDuration() {
-    int hours = duration.value.inHours;
-    // Get remaining minutes after subtracting hours
-    int minutes = (duration.value.inMinutes % 60).abs();
-
-    String hoursString = hours > 0 ? '$hours hr' : '';
-    String minutesString = minutes > 0 ? '$minutes mins' : '';
-
-    if (hours > 0 && minutes > 0) {
-      return '$hoursString: $minutesString';
-    } 
-    else {
-      return '$hoursString$minutesString';
-    }
-  }
-
-
-  Future<void> showDurationPickerDialog({required BuildContext context}) async{
-    var resultingDuration = await showDurationPicker(
-      decoration: BoxDecoration(
-        color: AppColor.bgColor,
-        borderRadius: BorderRadius.circular(20)
-      ),
-      context: context,
-      initialTime: duration.value,
-    );
-    duration.value = resultingDuration!;
-    //ispriceButtonEnabled.value = true;
-    //debugPrint("duartion: ${resultingDuration}");
-    debugPrint("duration: ${duration.value}");
-  }
 
   ////////////step 3 screen///////////(save to db by index from ui)
   List<Map<String, dynamic>> daysOfTheWeekCheckBox = [
@@ -264,7 +230,7 @@ class ProgramServiceController extends getx.GetxController {
   
 
   ////**[STEP 3]***////
-  var selectedDays = <String>[].obs;
+  var selectedDays = <String>[];
   //service_screen time picker (add_service_step 3)/// ///////////////////////////////
   //(save to db) the two of them
   final startTimeValue = "".obs; 
@@ -318,7 +284,7 @@ class ProgramServiceController extends getx.GetxController {
       .toList();
 
       // Update the selectedDays list based on the checkbox state
-      selectedDays.value = List.from(orderedSelectedDays);
+      selectedDays.addAll(orderedSelectedDays);
     } else {
       print("$item is already in the list");
     }
@@ -521,6 +487,56 @@ class ProgramServiceController extends getx.GetxController {
   //////EDIT PACKAGE SERVICE SCREEN//////////
   //add service stepper//////////////////////////////////
   getx.RxString calcDurationEdit = "0:00 min".obs;
+  String calculateDurationEdit({required String startTime, required String endTime}) {
+    // Create DateFormat with the expected time format
+    final DateFormat format = DateFormat('hh:mm a');
+
+    // Parse the time strings into DateTime objects
+    DateTime start = format.parse(startTime);
+    DateTime end = format.parse(endTime);
+
+    // Calculate the duration
+    Duration duration = end.difference(start);
+
+    // Check if the duration is in hours, minutes, or minutes only
+    if (duration.inHours > 0) {
+      // Duration is in hours and possibly minutes
+      int hours = duration.inHours;
+      int minutes = duration.inMinutes % 60;
+
+      if (minutes > 0) {
+        // Duration is in hours and minutes
+        String durationString = '$hours hr: ${minutes.toString().padLeft(2, '0')} mins';
+        print(durationString);
+        calcDurationEdit.value = durationString;
+        update();
+        return durationString;
+      } 
+      else {
+        // Duration is in hours only
+        String durationString = '$hours hr';
+        print(durationString);
+        calcDurationEdit.value = durationString;
+        update();
+        return durationString;
+      }
+    } 
+    else if (duration.inMinutes > 0) {
+      // Duration is in minutes only
+      int minutes = duration.inMinutes;
+      String durationString = '$minutes mins';
+      print(durationString);
+      calcDurationEdit.value = durationString;
+      update();
+      return durationString;
+    } 
+    else {
+      // Duration is zero
+      print('0 mins');
+      update();
+      return '0 mins';
+    }
+  }
   //service time line
   getx.RxString serviceTimelineEdit = "2 weeks".obs;
   final listOfServiceTimelineEdit = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
@@ -591,41 +607,6 @@ class ProgramServiceController extends getx.GetxController {
     }
   }
 
-  //select duration in minutes
-  final durationEdit = const Duration(hours: 0, minutes: 0).obs;
-  //(save to db)
-  String formatDurationEdit() {
-    int hours = durationEdit.value.inHours;
-    // Get remaining minutes after subtracting hours
-    int minutes = (durationEdit.value.inMinutes % 60).abs();
-
-    String hoursString = hours > 0 ? '$hours hr' : '';
-    String minutesString = minutes > 0 ? '$minutes mins' : '';
-
-    if (hours > 0 && minutes > 0) {
-      return '$hoursString: $minutesString';
-    } 
-    else {
-      return '$hoursString$minutesString';
-    }
-  }
-
-
-  Future<void> showDurationPickerDialogEdit({required BuildContext context}) async{
-    var resultingDuration = await showDurationPicker(
-      decoration: BoxDecoration(
-        color: AppColor.bgColor,
-        borderRadius: BorderRadius.circular(20)
-      ),
-      context: context,
-      initialTime: durationEdit.value,
-    );
-    durationEdit.value = resultingDuration!;
-    //ispriceButtonEnabled.value = true;
-    //debugPrint("duartion: ${resultingDuration}");
-    debugPrint("duration: ${durationEdit.value}");
-  }
-
   ////////////step 3 screen///////////(save to db by index from ui)
   List<Map<String, dynamic>> daysOfTheWeekCheckBoxEdit = [
     {
@@ -659,7 +640,7 @@ class ProgramServiceController extends getx.GetxController {
   ];
   
   ////**[STEP 3]***////
-  var selectedDaysEdit = <String>[].obs;
+  var selectedDaysEdit = <String>[];
   //service_screen time picker (add_service_step 3)/// ///////////////////////////////
   //(save to db) the two of them
   final startTimeValueEdit = "".obs; 
@@ -713,8 +694,7 @@ class ProgramServiceController extends getx.GetxController {
       .toList();
 
       // Update the selectedDays list based on the checkbox state
-      selectedDaysEdit.value = List.from(orderedSelectedDays);
-      //selectedDays.add(item);
+      selectedDaysEdit.addAll(orderedSelectedDays);
     } else {
       print("$item is already in the list");
     }

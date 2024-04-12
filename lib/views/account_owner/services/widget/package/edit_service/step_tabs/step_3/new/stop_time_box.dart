@@ -40,7 +40,7 @@ class _StopTimeBoxPackageEditState extends State<StopTimeBoxPackageEdit> {
         controller.stopTimeValueEdit.value = time.format(context);
         print(controller.stopTimeValueEdit.value);
       });
-      controller.calculateDuration(startTime: controller.startTimeValueEdit.value, endTime: controller.stopTimeValueEdit.value);
+      controller.calculateDurationEdit(startTime: controller.startTimeValueEdit.value, endTime: controller.stopTimeValueEdit.value);
     }
   }
 

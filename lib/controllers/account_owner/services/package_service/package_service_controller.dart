@@ -1,5 +1,4 @@
 import 'package:currency_picker/currency_picker.dart';
-import 'package:duration_picker/duration_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -249,6 +248,7 @@ class PackageServiceController extends getx.GetxController {
       .toList();
 
       // Update the selectedDays list based on the checkbox state
+      selectedDays.clear();
       selectedDays.addAll(orderedSelectedDays);
     } else {
       print("$item is already in the list");
@@ -660,6 +660,7 @@ class PackageServiceController extends getx.GetxController {
       .toList();
 
       // Update the selectedDays list based on the checkbox state
+      selectedDaysEdit.clear();
       selectedDaysEdit.addAll(orderedSelectedDays);
       //selectedDays.add(item);
     } else {

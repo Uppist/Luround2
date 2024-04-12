@@ -493,7 +493,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       "duration": duration,
 
       //NEW UPDATE
-      "service_type": 'Package',
+      "service_type": 'Program',
       "service_recurrence": service_recurrence,
       "service_timeline": service_timeline,
       "timeline_days": timeline_days,
@@ -727,7 +727,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       "duration": duration,
 
       //NEW UPDATE
-      "service_type": 'Package',
+      "service_type": 'Program',
       "service_recurrence": service_recurrence,
       "service_timeline": service_timeline,
       "timeline_days": timeline_days,

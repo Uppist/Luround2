@@ -130,7 +130,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "Regular(One-off)",  //Retainer
+                          "${data.service_type}(${data.service_model.toLowerCase()})",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -143,6 +143,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                     SizedBox(height: 5.h,),
           
                     //2
+                    data.duration.isNotEmpty ?
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -156,7 +157,29 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.duration!,
+                          data.duration,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 12..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    )
+                    :Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Timeline:",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 10..sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                        SizedBox(width: 10.w,),
+                        Text(
+                          data.service_timeline,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -176,6 +199,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                         fontWeight: FontWeight.w500
                       ),
                     ),  
+
                     SizedBox(height: 20.h,),
                     
                     //1
@@ -226,10 +250,19 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                         ),
     
                         //timeline or duration
-                        data.duration!.isEmpty ?
-                        const Text('')
+                        //time
+                        data.duration.isEmpty ?
+                        Text(
+                          "for ${data.service_timeline} timeline",
+                          style: GoogleFonts.inter(
+                            color: AppColor.whiteTextColor,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        )
                         :Text(
-                          "per ${data.duration} session",
+                          "for ${data.duration} session",
                           style: GoogleFonts.inter(
                             color: AppColor.whiteTextColor,
                             fontSize: 12.sp,
@@ -244,7 +277,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                     SizedBox(height: 20.h,),
           
                     Text(
-                      data.description!,
+                      data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
@@ -272,8 +305,8 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                         InkWell(
                           onTap: () {
                             Get.to(() => RequestQuoteScreen(
-                              service_charge_inperson: data.service_charge_in_person!,
-                              service_charge_virtual: data.service_charge_virtual!,
+                              service_charge_inperson: data.service_charge_in_person,
+                              service_charge_virtual: data.service_charge_virtual,
                               service_name: data.service_name,
                               service_provider_email: data.service_provider_details['email'],
                               service_provider_name: data.service_provider_details['displayName'], 
@@ -318,9 +351,9 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                           service_name: data.service_name,
                           date: data.date,
                           time: data.time,
-                          duration: data.duration!,
-                          service_charge_virtual: data.service_charge_virtual!,
-                          service_charge_in_person: data.service_charge_in_person!,
+                          duration: data.duration,
+                          service_charge_virtual: data.service_charge_virtual,
+                          service_charge_in_person: data.service_charge_in_person,
                         ));
               
                         /*Get.toNamed(
@@ -352,7 +385,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
           onPressed: () {
             showMySnackBar(
               context: context, 
-              message: "no service found. please check for internet connectivity and try again", 
+              message: "no service found. please try again later", 
               backgroundColor: AppColor.redColor
             );
           },

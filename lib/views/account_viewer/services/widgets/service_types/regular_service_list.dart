@@ -311,7 +311,9 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                               service_provider_email: data.service_provider_details['email'],
                               service_provider_name: data.service_provider_details['displayName'], 
                               service_id: data.serviceId,
-                            ));
+                            ),
+                            transition: Transition.rightToLeft
+                            );
                                         
                             /*Get.toNamed(
                               RequestQuoteRoute,
@@ -323,6 +325,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                                 'service_provider_name': data[index].service_provider_details['displayName'], 
                                 'service_id': data[index].serviceId,
                               },
+                              transition: Transition.rightToLeft
                             );*/
                           },
                           child: Text(
@@ -354,7 +357,9 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                           duration: data.duration,
                           service_charge_virtual: data.service_charge_virtual,
                           service_charge_in_person: data.service_charge_in_person,
-                        ));
+                        ),
+                        transition: Transition.rightToLeft
+                        );
               
                         /*Get.toNamed(
                           BookingsRoute,
@@ -369,6 +374,7 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                             'service_charge_virtual': data.service_charge_virtual!,
                             'service_charge_in_person': data.service_charge_in_person!,
                           },
+                          transition: Transition.rightToLeft
                         );*/      
                       },
                       color: index.isEven ? AppColor.darkMainColor : AppColor.navyBlue,

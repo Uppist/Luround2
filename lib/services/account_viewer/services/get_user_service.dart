@@ -110,12 +110,6 @@ class AccViewerService extends getx.GetxController {
 
 
 
-
-
-
-
-
-
   //Method to pass in the search textfield
   Future<void> filterRegularServices(String query) async {
     if (query.isEmpty) {
@@ -139,7 +133,7 @@ class AccViewerService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserRegularServices({required String userName}) async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/profile/$userName",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/profile/$userName&service_type=Regular",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -162,6 +156,121 @@ class AccViewerService extends getx.GetxController {
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load user services data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
+
+
+  //Method to pass in the search textfield
+  Future<void> filterPackageServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesListPackage);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesListPackage
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  
+  /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
+  final servicesListPackage = <UserServiceModel>[].obs;
+  Future<List<UserServiceModel>> getUserPackageServices({required String userName}) async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/profile/$userName&service_type=Package",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user Package services fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesListPackage.clear();
+        servicesListPackage.addAll(finalResult);
+        print("user Package services list: $finalResult");
+
+        return servicesListPackage;
+
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        throw Exception('Failed to load user Package services data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
+
+  //Method to pass in the search textfield
+  Future<void> filterProgramServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesListProgram);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesListProgram
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase()))
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  
+  /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
+  final servicesListProgram = <UserServiceModel>[].obs;
+  Future<List<UserServiceModel>> getUserProgramServices({required String userName}) async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "services/get-user-services?url=https://www.luround.com/profile/$userName&service_type=Program",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user Program services fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesListProgram.clear();
+        servicesListProgram.addAll(finalResult);
+        print("user Program services list: $finalResult");
+
+        return servicesListProgram;
+
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        throw Exception('Failed to load user Program services data');
       }
     } 
     catch (e) {

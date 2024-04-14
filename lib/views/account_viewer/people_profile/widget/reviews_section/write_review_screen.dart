@@ -21,7 +21,7 @@ import '../../../../../utils/components/title_text.dart';
 
 
 class WriteReviewsScreen extends StatefulWidget {
-  WriteReviewsScreen({super.key, required this.photoUrl, required this.userName, required this.userId,});
+  const WriteReviewsScreen({super.key, required this.photoUrl, required this.userName, required this.userId,});
   final String photoUrl;
   final String userName;
   final String userId;
@@ -65,12 +65,12 @@ class _WriteReviewsScreenState extends State<WriteReviewsScreen> {
             //button
             InkWell(
               onTap: () {
-                if(controller.reviewController.value.text.isNotEmpty && controller.reviewerNameController.value.text.isNotEmpty) {
+                if(controller.reviewerNameController.value.text.isNotEmpty) {
                   service.addReview(
                     userId: widget.userId,
                     context: context, 
                     rating: controller.rating.value, 
-                    comment: controller.reviewController.value.text,
+                    comment:  controller.reviewController.value.text.isNotEmpty ? controller.reviewController.value.text : "no comment",
                     user_name: controller.reviewerNameController.value.text,
                   ).whenComplete(() { 
                     controller.reviewController.value.clear();
@@ -80,7 +80,7 @@ class _WriteReviewsScreenState extends State<WriteReviewsScreen> {
                 else{
                   showMySnackBar(
                     context: context, 
-                    message: "fill the required fields", 
+                    message: "your name is required", 
                     backgroundColor: AppColor.redColor
                   );
                 }

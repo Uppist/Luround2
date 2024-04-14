@@ -8,7 +8,6 @@ import 'package:luround/models/account_viewer/booking/bookimg_response.dart';
 import 'package:luround/models/account_viewer/request_quote/request_quote_response.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
-import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
@@ -483,6 +482,7 @@ class AccViewerService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("review sent successfully");
         //success snackbar
         showMySnackBar(
@@ -515,6 +515,7 @@ class AccViewerService extends getx.GetxController {
 
   ////[TO MAKE AN EXTERNAL USER REQUEST QUOTE]//////// 
   Future<void> requestQuote({
+
     required BuildContext context,
     required String service_id,
     required String offer,

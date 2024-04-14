@@ -202,9 +202,10 @@ class AccViewerReviewsPage extends StatelessWidget {
                   SizedBox(height: 10.h),
                   Container(
                     color: AppColor.greyColor,
+                    alignment: Alignment.center,
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    height: 60.h,
+                    //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    height: 6.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

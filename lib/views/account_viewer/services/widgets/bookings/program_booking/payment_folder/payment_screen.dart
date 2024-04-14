@@ -235,7 +235,7 @@ class _PaymentScreenProgramState extends State<PaymentScreenProgram> {
                                 setState(() {
                                   controller.codeBA.value = "";
                                   controller.paymentProofUrl.value = "";
-                                  controller.curentStep = controller.curentStep - 1;
+                                  controller.curentStep = controller.curentStep - 0;
                                 });
                               });
                             }

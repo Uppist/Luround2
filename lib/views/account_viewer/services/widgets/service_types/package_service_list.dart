@@ -10,7 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
+import 'package:luround/views/account_viewer/services/widgets/bookings/package_booking/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_package_accviewer.dart';
 
@@ -415,13 +415,12 @@ class _PackageServiceListWebState extends State<PackageServiceListWeb> {
                     //bookings button here
                     ReusableButton(
                       onPressed: () {
-                        Get.to(() => BookAppointmentScreen(
+                        Get.to(() => BookAppointmentScreenPackage(
                           service_provider_id: data.service_provider_details['userId'],
-                          avail_time: data.available_time,
                           serviceId: data.serviceId,
                           service_name: data.service_name,
-                          date: data.date,
-                          time: data.time,
+                          date: "${data.start_date} - ${data.end_date}",
+                          time: "${data.start_time} - ${data.end_time}",
                           duration: data.duration,
                           service_charge_virtual: data.service_charge_virtual,
                           service_charge_in_person: data.service_charge_in_person,
@@ -436,8 +435,8 @@ class _PackageServiceListWebState extends State<PackageServiceListWeb> {
                             'avail_time': data.available_time,
                             'serviceId': data.serviceId,
                             'service_name': data.service_name,
-                            'date': data.date,
-                            'time': data.time,
+                            date: "${data.start_date} - ${data.end_date}",
+                            time: "${data.start_time} - ${data.end_time}",
                             'duration': data.duration!,
                             'service_charge_virtual': data.service_charge_virtual!,
                             'service_charge_in_person': data.service_charge_in_person!,

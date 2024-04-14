@@ -10,7 +10,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
+import 'package:luround/views/account_viewer/services/widgets/bookings/regular_booking/book_a_service_one-ff/screen/book_a_service.dart';
+import 'package:luround/views/account_viewer/services/widgets/bookings/regular_booking/book_a_service_retainer/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_regular_accviewer.dart';
 
@@ -23,7 +24,7 @@ import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggl
 
 
 class RegularServiceListWeb extends StatefulWidget {
-  const RegularServiceListWeb({super.key, required this.userName});
+  const RegularServiceListWeb({super.key, required this.userName,});
   final String userName;
 
   @override
@@ -347,35 +348,68 @@ class _RegularServiceListWebState extends State<RegularServiceListWeb> {
                     //bookings button here
                     ReusableButton(
                       onPressed: () {
-                        Get.to(() => BookAppointmentScreen(
-                          service_provider_id: data.service_provider_details['userId'],
-                          avail_time: data.available_time,
-                          serviceId: data.serviceId,
-                          service_name: data.service_name,
-                          date: data.date,
-                          time: data.time,
-                          duration: data.duration,
-                          service_charge_virtual: data.service_charge_virtual,
-                          service_charge_in_person: data.service_charge_in_person,
-                        ),
-                        transition: Transition.rightToLeft
-                        );
+                        if(data.service_model == "ONE-OFF") {
+                          Get.to(() => BookAppointmentScreenRegularOneOff(
+                            service_provider_id: data.service_provider_details['userId'],
+                            avail_time: data.available_time,
+                            serviceId: data.serviceId,
+                            service_name: data.service_name,
+                            date: data.date,
+                            time: data.time,
+                            duration: data.duration,
+                            service_charge_virtual: data.service_charge_virtual,
+                            service_charge_in_person: data.service_charge_in_person,
+                            ),
+                            transition: Transition.rightToLeft
+                          );
               
-                        /*Get.toNamed(
-                          BookingsRoute,
-                          arguments: {
-                            'service_provider_id': data.service_provider_details['userId'],
-                            'avail_time': data.available_time,
-                            'serviceId': data.serviceId,
-                            'service_name': data.service_name,
-                            'date': data.date,
-                            'time': data.time,
-                            'duration': data.duration!,
-                            'service_charge_virtual': data.service_charge_virtual!,
-                            'service_charge_in_person': data.service_charge_in_person!,
-                          },
-                          transition: Transition.rightToLeft
-                        );*/      
+                          /*Get.toNamed(
+                            BookingsRoute,
+                            arguments: {
+                              'service_provider_id': data.service_provider_details['userId'],
+                              'avail_time': data.available_time,
+                              'serviceId': data.serviceId,
+                              'service_name': data.service_name,
+                              'date': data.date,
+                              'time': data.time,
+                              'duration': data.duration!,
+                              'service_charge_virtual': data.service_charge_virtual!,
+                              'service_charge_in_person': data.service_charge_in_person!,
+                            },
+                            transition: Transition.rightToLeft
+                          );*/
+                        }    
+                        else {
+                          Get.to(() => BookAppointmentScreenRegularRetainer(
+                            service_provider_id: data.service_provider_details['userId'],
+                            //avail_time: data.available_time,
+                            serviceId: data.serviceId,
+                            service_name: data.service_name,
+                            date: data.date,
+                            time: data.time,
+                            service_timeline: data.service_timeline,
+                            service_charge_virtual: data.service_charge_virtual,
+                            service_charge_in_person: data.service_charge_in_person,
+                            ),
+                            transition: Transition.rightToLeft
+                          );
+              
+                          /*Get.toNamed(
+                            BookingsRoute,
+                            arguments: {
+                              'service_provider_id': data.service_provider_details['userId'],
+                              'avail_time': data.available_time,
+                              'serviceId': data.serviceId,
+                              'service_name': data.service_name,
+                              'date': data.date,
+                              'time': data.time,
+                              'duration': data.duration!,
+                              'service_charge_virtual': data.service_charge_virtual!,
+                              'service_charge_in_person': data.service_charge_in_person!,
+                            },
+                            transition: Transition.rightToLeft
+                          );*/
+                        }  
                       },
                       color: index.isEven ? AppColor.darkMainColor : AppColor.navyBlue,
                       text: "Book Now",

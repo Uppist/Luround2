@@ -59,12 +59,12 @@ void main() async{
   await GetStorage.init();
   
   //initialize firebase
-  await Firebase.initializeApp(
+  /*await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   //FCM Instance
-  /*FirebaseMessaging messaging = FirebaseMessaging.instance;
+  FirebaseMessaging messaging = FirebaseMessaging.instance;
 
   //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
   String? token = await messaging.getToken();
@@ -101,7 +101,7 @@ class _MainAppState extends State<MainApp> {
   var authService = Get.put(AuthService());
 
 
-  bool isExpiredVal = false;
+  /*bool isExpiredVal = false;
   //checks if the token is expired
   Future<bool> isTokenExpired() async{
     bool isExpired = await FlutterSessionJwt.isTokenExpired();
@@ -110,7 +110,7 @@ class _MainAppState extends State<MainApp> {
     });
     print("is token expired: $isExpiredVal");
     return isExpired;
-  }
+  }*/
 
 
   @override
@@ -166,17 +166,18 @@ class _MainAppState extends State<MainApp> {
         defaultTransition: Transition.rightToLeft,
         
         //register all routes for the web app here
-        getPages: const [
+        getPages: [
           
-          /*GetPage(
+          GetPage(
             //parameters: {"user": userName},
             name: ProfileRoute,
             page: () => SplashScreenXtra2(),
-            curve: Curves.bounceInOut
+            curve: Curves.bounceInOut,
+            transition: Transition.rightToLeft
           ),
 
 
-          GetPage(
+          /*GetPage(
             parameters: {"user": userName},
 
             name: ReviewsRoute,

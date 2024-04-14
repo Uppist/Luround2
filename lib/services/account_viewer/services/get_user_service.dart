@@ -1,4 +1,5 @@
 import 'package:get/get.dart' as getx;
+import 'package:get/get_navigation/get_navigation.dart';
 import 'package:luround/controllers/account_viewer/services_controller.dart';
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_profile/review_response.dart';
@@ -12,7 +13,7 @@ import 'package:luround/services/account_owner/more/transactions/withdrawal_serv
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_viewer/mainpage/screen/mainpage._acc_viewer.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/payment_folder/transaction_successful_screen.dart';
+import 'package:luround/views/account_viewer/services/widgets/bookings/regular_booking/book_a_service_one-ff/payment_folder/transaction_successful_screen.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -384,7 +385,9 @@ class AccViewerService extends getx.GetxController {
           getx.Get.to(() => TransactionSuccesscreen(
             servie_provider_name: 'this service provider',
             service_name: service_name,
-          ));
+          ),
+          transition: Transition.rightToLeft
+          );
           
         });
 
@@ -407,7 +410,7 @@ class AccViewerService extends getx.GetxController {
           backgroundColor: AppColor.redColor,
           message: "failed to book service",
         ).whenComplete(() {
-          getx.Get.offAll(() => MainPageAccViewer());
+          getx.Get.offAll(() => MainPageAccViewer(), transition: Transition.rightToLeft);
         });
       }
     } 

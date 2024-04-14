@@ -10,7 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_viewer/services/widgets/book_a_service/screen/book_a_service.dart';
+import 'package:luround/views/account_viewer/services/widgets/bookings/program_booking/screen/book_a_service.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/request_quote_screen.dart';
 import 'package:luround/views/account_viewer/services/widgets/toggle_price/toggle_price_program_accviewer.dart';
 
@@ -438,9 +438,8 @@ class _ProgramServiceListWebState extends State<ProgramServiceListWeb> {
                     //bookings button here
                     ReusableButton(
                       onPressed: () {
-                        Get.to(() => BookAppointmentScreen(
+                        Get.to(() => BookAppointmentScreenProgram(
                           service_provider_id: data.service_provider_details['userId'],
-                          avail_time: data.available_time,
                           serviceId: data.serviceId,
                           service_name: data.service_name,
                           date: data.date,

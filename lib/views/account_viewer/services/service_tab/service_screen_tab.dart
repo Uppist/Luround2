@@ -87,20 +87,20 @@ class _ServiceScreenTabForWebState extends State<ServiceScreenTabForWeb> with Si
                 } 
                 else if (index == 1) {
                   //package service
-                  print("not yet implemented");
+                  service.filterSearchServicesList.clear();
+                  service.filterSearchServicesList.addAll(service.servicesListPackage);
                 } 
                 else if(index == 2) {
                   //program service
-                  print("not yet implemented");
+                  service.filterSearchServicesList.clear();
+                  service.filterSearchServicesList.addAll(service.servicesListProgram);
                 }
                 else {
                   print('no more indices to check');
                 }
-                // Apply search filter
-                //service.filterItems(service.searchServicesList);
-              }
-            );
-          },
+            
+              });
+            },
           ),
       
           SizedBox(height: 20.h,),
@@ -112,10 +112,8 @@ class _ServiceScreenTabForWebState extends State<ServiceScreenTabForWeb> with Si
               physics: const BouncingScrollPhysics(),
               children: [
                 RegularServiceListWeb(userName: widget.userName),
-                SizedBox(),
-                SizedBox(),
-                //const PackageServiceListWeb(),
-                //const ProgramServiceListWeb(),    
+                PackageServiceListWeb(userName: widget.userName,),
+                ProgramServiceListWeb(userName: widget.userName,),   
               ]
             ),
           ),

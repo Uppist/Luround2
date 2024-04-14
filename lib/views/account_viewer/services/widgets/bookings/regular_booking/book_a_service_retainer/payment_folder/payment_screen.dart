@@ -209,7 +209,7 @@ class _PaymentScreenRegularRetainerState extends State<PaymentScreenRegularRetai
                       ),
           
                       //sizedbox_height
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.10,),
           
                       //pay button
                       Obx(    //isFileSelectedForBooking

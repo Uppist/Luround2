@@ -108,7 +108,7 @@ class _TransactionSuccesscreenState extends State<TransactionSuccesscreen> {
             ),
         
             //sizedbox_height
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.10,),
 
             InkWell(
               onTap: () {

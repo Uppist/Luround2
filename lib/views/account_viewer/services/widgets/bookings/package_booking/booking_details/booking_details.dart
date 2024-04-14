@@ -169,7 +169,7 @@ class BookingDetailsPackage extends StatelessWidget {
                         ),
                         
                         //sizedbox_height
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.10,),
 
                         RebrandedReusableButton(
                           textColor: AppColor.bgColor,

@@ -187,7 +187,7 @@ class _Step1ScreenState extends State<Step1Screen> {
         ),
         
         //sizedbox_height
-        SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.10,),
         
         RebrandedReusableButton(
           textColor: controller.isButtonEnabled2.value ? AppColor.bgColor : AppColor.darkGreyColor,

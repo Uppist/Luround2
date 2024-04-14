@@ -79,10 +79,10 @@ class AccViewerServicesPage extends StatelessWidget {
                     service.filterRegularServices(val);
                   }
                   else if(service.activeTabIndex == 1){
-                    print('func for filtering package service');
+                    service.filterPackageServices(val);
                   }
                   else if(service.activeTabIndex == 2){
-                    print('func for filtering program service');
+                   service.filterProgramServices(val);
                   }
                   else {
                     print('no more func');

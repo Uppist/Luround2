@@ -36,7 +36,7 @@ class _Step2ScreenState extends State<Step2Screen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Select day",
+            "Select start date",
             style: GoogleFonts.inter(
               color: AppColor.blackColor,
               fontSize: 16.sp,

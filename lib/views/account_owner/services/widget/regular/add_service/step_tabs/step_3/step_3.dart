@@ -147,6 +147,7 @@ class _Step3PageState extends State<Step3Page> {
                     interval: mainController.duration.value
                   )
                   .whenComplete(() {
+                    print("available_time_list: ${mainController.availableTime}");
                     servicesService.createRegularService(
                       context: context,
                       service_name: mainController.serviceNameController.text, 

@@ -59,7 +59,7 @@ void main() async{
   await GetStorage.init();
   
   //initialize firebase
-  /*await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -69,7 +69,7 @@ void main() async{
   //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
   String? token = await messaging.getToken();
   await LocalStorage.saveFCMToken(token!);
-  debugPrint("raw fcm token: $token");*/
+  debugPrint("raw fcm token: $token");
 
   runApp(const MainApp());
 
@@ -101,7 +101,7 @@ class _MainAppState extends State<MainApp> {
   var authService = Get.put(AuthService());
 
 
-  /*bool isExpiredVal = false;
+  bool isExpiredVal = false;
   //checks if the token is expired
   Future<bool> isTokenExpired() async{
     bool isExpired = await FlutterSessionJwt.isTokenExpired();
@@ -110,7 +110,7 @@ class _MainAppState extends State<MainApp> {
     });
     print("is token expired: $isExpiredVal");
     return isExpired;
-  }*/
+  }
 
 
   @override
@@ -118,11 +118,11 @@ class _MainAppState extends State<MainApp> {
 
     //initialize firebase cloud messaging
     
-    /*controller.initFCM(backgroundHandler: backgroundHandler);
+    controller.initFCM(backgroundHandler: backgroundHandler);
     
     print("initialize fcm token $FCMtoken");
     print('token exp: $tokenExpDateInt');
-    isTokenExpired();*/
+    isTokenExpired();
 
     super.initState();
   }
@@ -148,8 +148,9 @@ class _MainAppState extends State<MainApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColor.mainColor),
           useMaterial3: true,
         ),
+        defaultTransition: Transition.rightToLeft,
         
-        unknownRoute: GetPage(
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -162,8 +163,6 @@ class _MainAppState extends State<MainApp> {
         },*/
 
         initialRoute: ProfileRoute,
-
-        defaultTransition: Transition.rightToLeft,
         
         //register all routes for the web app here
         getPages: [
@@ -203,9 +202,9 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],
+        ],*/
 
-        //home: token == null ? SplashScreen1() : isExpiredVal ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        home: token == null ? SplashScreen1() : isExpiredVal ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
       
       ),
     );

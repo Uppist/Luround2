@@ -92,7 +92,9 @@ class AccViewerReviewsPage extends StatelessWidget {
                               userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,
-                            ));
+                            ),
+                            transition: Transition.rightToLeft
+                            );
 
                             /*Get.toNamed(
                               WriteReviewRoute,
@@ -154,7 +156,9 @@ class AccViewerReviewsPage extends StatelessWidget {
                               userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,
-                            ));
+                            ),
+                            transition: Transition.rightToLeft
+                            );
 
                             /*Get.toNamed(
                               WriteReviewRoute,
@@ -193,6 +197,7 @@ class AccViewerReviewsPage extends StatelessWidget {
           if (snapshot.hasData) {
 
             var data = snapshot.data!;
+
             return SafeArea(
               child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
@@ -204,7 +209,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                     color: AppColor.greyColor,
                     alignment: Alignment.center,
                     width: double.infinity,
-                    //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     height: 6.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -216,7 +221,9 @@ class AccViewerReviewsPage extends StatelessWidget {
                               userId: userId,
                               photoUrl: photoUrl,
                               userName: userName,
-                            ));
+                            ),
+                            transition: Transition.rightToLeft
+                            );
                             
                             /*Get.toNamed(
                               WriteReviewRoute,
@@ -301,11 +308,11 @@ class AccViewerReviewsPage extends StatelessWidget {
                     ),
                   ),*/
           
-                  Container(
+                  /*Container(
                     color: AppColor.greyColor,
                     width: double.infinity,
                     height: 7.h,
-                  ),
+                  ),*/
                   SizedBox(height: 20.h,),
                   //List of reviews
                   ListView.separated(
@@ -338,7 +345,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                               backgroundColor: AppColor.greyColor,
                               radius: 30.r,
                               child: Text(
-                                getFirstLetter(data[index].userName ?? "Non"),
+                                getFirstLetter(data[index].userName),
                                 style: GoogleFonts.inter(
                                   color: AppColor.blackColor,
                                   fontSize: 16.sp,

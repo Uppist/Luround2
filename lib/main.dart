@@ -59,7 +59,7 @@ void main() async{
   await GetStorage.init();
   
   //initialize firebase
-  /*await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
@@ -69,7 +69,7 @@ void main() async{
   //Get Unique FCM DEVICE TOKEN AND SAVE TO GETSTORAGE()
   String? token = await messaging.getToken();
   await LocalStorage.saveFCMToken(token!);
-  debugPrint("raw fcm token: $token");*/
+  debugPrint("raw fcm token: $token");
 
   runApp(const MainApp());
 
@@ -116,10 +116,10 @@ class _MainAppState extends State<MainApp> {
 
     //initialize firebase cloud messaging
     
-    /*controller.initFCM(backgroundHandler: backgroundHandler);
+    controller.initFCM(backgroundHandler: backgroundHandler);
     print("initialize fcm token $FCMtoken");
     print('token exp: $tokenExpDateInt');
-    isTokenExpired();*/
+    isTokenExpired();
 
     super.initState();
   }
@@ -147,7 +147,7 @@ class _MainAppState extends State<MainApp> {
         ),
         defaultTransition: Transition.rightToLeft,
         
-        unknownRoute: GetPage(
+        /*unknownRoute: GetPage(
           name: '/', 
           page: () => UnknownPage(
             onPressed: () {}     
@@ -199,9 +199,9 @@ class _MainAppState extends State<MainApp> {
             curve: Curves.easeOutSine,
           ),*/
 
-        ],
+        ],*/
 
-        //home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
+        home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       
       ),
     );

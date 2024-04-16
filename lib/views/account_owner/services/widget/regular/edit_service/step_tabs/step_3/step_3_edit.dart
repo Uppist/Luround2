@@ -161,7 +161,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
               //widget.onNext
               () {
                 
-                if(mainController.selectServiceModelEdit.value == "one-off") {
+                if(mainController.selectServiceModelEdit.value == "ONE-OFF") {
+                  print("available_time_list: ${mainController.availableTimeEdit}");
                   mainController.getTimeIntervalsEdit(
                     earliestTime: mainController.findEarliestTimeEdit(),
                     latestTime: mainController.findLatestTimeEdit(),

@@ -49,7 +49,7 @@ class _PhoneNumberTextFieldState extends State<PhoneNumberTextField> {
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,
-        style: GoogleFonts.inter(color: AppColor.blackColor),
+        style: GoogleFonts.inter(color: AppColor.blackColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
         textCapitalization: TextCapitalization.sentences,
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),

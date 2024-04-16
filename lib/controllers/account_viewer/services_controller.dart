@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-//import 'package:image_picker_web/image_picker_web.dart';
+import 'package:image_picker_web/image_picker_web.dart';
 
 
 
@@ -78,7 +78,7 @@ class AccViewerServicesController extends getx.GetxController {
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> pickFileForPayment(BuildContext context) async {
     
-    /*try {
+    try {
       final pickedImage = await ImagePickerWeb.getImageAsBytes(); 
       if (pickedImage != null) {
         imageFromGallery.value = pickedImage;
@@ -99,7 +99,7 @@ class AccViewerServicesController extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Error picking image: $e"
       );
-    }*/
+    }
 
   }
 
@@ -115,7 +115,7 @@ class AccViewerServicesController extends getx.GetxController {
   //pick image from gallery, display the image picked and upload to cloudinary sharps.
   Future<void> selectFile(BuildContext context) async {
     
-    /*try {
+    try {
       final pickedImage = await ImagePickerWeb.getImageAsBytes();
       if (pickedImage != null) {
         selectedFileForRequestingQuote.value = pickedImage;
@@ -136,7 +136,7 @@ class AccViewerServicesController extends getx.GetxController {
         backgroundColor: AppColor.redColor,
         message: "Error picking image: $e"
       );
-    }*/
+    }
 
   }
 

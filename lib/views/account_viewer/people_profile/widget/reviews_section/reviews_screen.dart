@@ -64,15 +64,11 @@ class AccViewerReviewsPage extends StatelessWidget {
         future: service.getUserReviews(userID: userId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loader();
+            return const Loader();
           }
           if (snapshot.hasError) {
             print(snapshot.error);
-            /*return ReviewEmptyState(
-              onPressed: () {
-                service.getUserReviews();
-              },
-            );*/
+  
             return SafeArea(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -81,7 +77,8 @@ class AccViewerReviewsPage extends StatelessWidget {
                   Container(
                     color: AppColor.greyColor,
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    alignment: Alignment.center,
+                    //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     height: 60.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -145,8 +142,9 @@ class AccViewerReviewsPage extends StatelessWidget {
                   Container(
                     color: AppColor.greyColor,
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     height: 60.h,
+                    alignment: Alignment.center,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -200,7 +198,7 @@ class AccViewerReviewsPage extends StatelessWidget {
 
             return SafeArea(
               child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -209,8 +207,8 @@ class AccViewerReviewsPage extends StatelessWidget {
                     color: AppColor.greyColor,
                     alignment: Alignment.center,
                     width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                    height: 6.h,
+                    //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                    height: 60.h,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -318,7 +316,7 @@ class AccViewerReviewsPage extends StatelessWidget {
                   ListView.separated(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
                     itemBuilder: (context, index) {

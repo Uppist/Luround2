@@ -15,6 +15,7 @@ import 'package:luround/views/account_viewer/services/widgets/request_quote/coun
 import 'package:luround/views/account_viewer/services/widgets/request_quote/phone_number_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/upload_file_widget.dart';
+import 'package:luround/views/account_viewer/services/widgets/textfield_mock.dart';
 import 'radio_section.dart';
 
 
@@ -163,7 +164,9 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                               fontWeight: FontWeight.w500
                             ),
                           ),
-                          SizedBox(height: 10.h),
+                          SizedBox(height: 30.h), //25.h
+                          MockTextfield(text: widget.service_name),
+                          /*SizedBox(height: 10.h),
                           UtilsTextField2(  
                             onChanged: (val) {
                               setState(() {
@@ -174,7 +177,7 @@ class _RequestQuoteScreenState extends State<RequestQuoteScreen> {
                             keyboardType: TextInputType.text,
                             textInputAction: TextInputAction.next,
                             initialValue: widget.service_name,
-                          ),
+                          ),*/
                           SizedBox(height: 30.h),
                           Text(
                             "Appointment type*",

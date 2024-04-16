@@ -10,6 +10,7 @@ import 'package:luround/views/account_viewer/services/widgets/bookings/regular_b
 import 'package:luround/views/account_viewer/services/widgets/bookings/regular_booking/book_a_service_one-ff/step_tabs/step_1/radio_section.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/phone_number_textfield.dart';
 import 'package:luround/views/account_viewer/services/widgets/request_quote/reusable_custom_textfield.dart';
+import 'package:luround/views/account_viewer/services/widgets/textfield_mock.dart';
 
 
 
@@ -118,18 +119,8 @@ class _Step1ScreenState extends State<Step1Screen> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10),
-        ReusableTextField2(  
-          onChanged: (val) {
-            setState(() {
-              controller.serviceNameBAController.text = val;
-            });
-          },
-          hintText: "Enter service name",
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
-          initialValue: widget.service_name,
-        ),
+        SizedBox(height: 20.h),
+        MockTextfield(text: widget.service_name),
         SizedBox(height: 30.h),
         Text(
           "Appointment type*",

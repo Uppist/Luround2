@@ -500,7 +500,7 @@ class FinancialsService extends getx.GetxController {
   Future<List<UserServiceModel>> getUserServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services-by-id",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -520,7 +520,7 @@ class FinancialsService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load user services data');
       }
     } 

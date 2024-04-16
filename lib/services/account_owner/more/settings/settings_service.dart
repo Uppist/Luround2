@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/models/account_owner/more/pricing/billing_history_model.dart';
+import 'package:luround/models/account_owner/more/pricing/user_subscription_model.dart';
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -31,6 +32,31 @@ class SettingsService extends getx.GetxController {
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
   var controller = getx.Get.put(MoreController());
+
+
+  /////[GET USER SUBSCRIPTION PLAN]/////
+  Future<UserSubscriptionResponse> getUserSubscriptionPlan() async {
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "payments/user-subscription",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //decode the response body here
+        UserSubscriptionResponse userPlan = UserSubscriptionResponse.fromJson(jsonDecode(res.body));
+        return userPlan;
+      }
+      else {
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response body ==> ${res.body}');
+        throw Exception('Failed to fetch user subscription details');
+      }
+    } 
+    catch (e, stackTrace) {
+      throw Exception("$e => $stackTrace");
+    
+    }
+  }
   
 
   /////[GET USER PROFILE DETAILS]/////

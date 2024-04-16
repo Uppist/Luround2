@@ -455,6 +455,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+
+              SizedBox(height: 10.h,),
  
               //////////
               Column(
@@ -494,7 +496,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
 
-                  SizedBox(height: 15.h,),
+                  SizedBox(height: 10.h,),
                   
                   //occupation
                   Center(

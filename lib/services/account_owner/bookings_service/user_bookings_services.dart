@@ -182,7 +182,7 @@ class AccOwnerBookingService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filteredList.addAll(
         dataList
-        .where((user) => user.bookingUserInfo.displayName.contains(query)) // == query //.contains(query)
+        .where((user) => user.bookingUserInfo.displayName.toLowerCase().contains(query.toLowerCase()))
         .toList());
 
       /*filteredList.where((user) => user.serviceDetails.serviceName.toLowerCase() == query)
@@ -322,7 +322,7 @@ class AccOwnerBookingService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load user details');
       }
     }   

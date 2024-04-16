@@ -6,9 +6,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/models/account_owner/more/pricing/billing_history_model.dart';
+import 'package:luround/models/account_owner/more/pricing/user_subscription_model.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/no_billing_history.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/billing_history_display.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/widget/upgrade_button.dart';
@@ -40,7 +42,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
     final List<BillingHistoryResponse>  newData = await service.getUserBillingHistory();
     // Update the UI with the new data
@@ -112,6 +114,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+
                       Text(
                         "Current Plan",
                         style: GoogleFonts.inter(
@@ -120,30 +123,64 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                           fontWeight: FontWeight.w600
                         ),
                       ),
-
                       SizedBox(height: 5.h,),
                       Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
                       SizedBox(height: 15.h,),
-                      
-                      Text(
-                        "You are on a 30 days free trial plan",
-                        style: GoogleFonts.inter(
-                          color: AppColor.darkGreyColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500
-                        ),
+
+                      //FUTUREBUILDER
+                      FutureBuilder<UserSubscriptionResponse>(
+                        future: service.getUserSubscriptionPlan(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Loader2();
+                          }
+                          if (snapshot.hasError) {
+                            debugPrint("${snapshot.error}");
+                          }
+                          if (!snapshot.hasData) {
+                            print("sn-trace: ${snapshot.stackTrace}");
+                            print("sn-data: ${snapshot.data}");
+                            //return Loader2(); 
+                          }
+         
+                          if (snapshot.hasData) {
+                            var data = snapshot.data!;
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  data.subscription_plan == "Trial" ? "You are on a 30 days free trial plan" : data.subscription_plan == "Monthly" ? "You are on a monthly plan" : "You are on a yearly plan",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.darkGreyColor,
+                                    fontSize: 14.sp,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                ),
+                                SizedBox(height: 30.h,),
+                                Text(
+                                  data.subscription_plan == "Trial" ? "N0.00" : data.subscription_plan == "Monthly" ? "N4,200" : "N30,000",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.blackColor,
+                                    fontSize: 30.sp,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+                          return Center(
+                            child: Text(
+                              "connection timed out",
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 13.sp,
+                                fontWeight: FontWeight.normal
+                              )
+                            )
+                          );
+                        }
                       ),
 
-
-                      SizedBox(height: 30.h,),
-                      Text(
-                        "N0.00",
-                        style: GoogleFonts.inter(
-                          color: AppColor.blackColor,
-                          fontSize: 30.sp,
-                          fontWeight: FontWeight.w600
-                        ),
-                      ),
 
                       SizedBox(height: 30.h,),
                       //upgrade/change subscription plan
@@ -206,7 +243,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                               return _refresh();
                             },
                             child: ListView.separated(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.vertical, 
                               shrinkWrap: true,
                               separatorBuilder: (context, index) => SizedBox(height: 20.h,), 
@@ -220,7 +257,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                                 );
                               }
                             ),
-                          ): SizedBox(); //const NoBillingHistoryState();
+                          ): const SizedBox(); //const NoBillingHistoryState();
                         }
                       ),
 

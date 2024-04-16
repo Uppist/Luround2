@@ -119,7 +119,6 @@ class _MainAppState extends State<MainApp> {
     //initialize firebase cloud messaging
     
     controller.initFCM(backgroundHandler: backgroundHandler);
-    
     print("initialize fcm token $FCMtoken");
     print('token exp: $tokenExpDateInt');
     isTokenExpired();
@@ -204,7 +203,7 @@ class _MainAppState extends State<MainApp> {
 
         ],*/
 
-        home: token == null ? SplashScreen1() : isExpiredVal ? SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? SplashScreenTokenExpired() : SplashScreenXtra(),
+        home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       
       ),
     );

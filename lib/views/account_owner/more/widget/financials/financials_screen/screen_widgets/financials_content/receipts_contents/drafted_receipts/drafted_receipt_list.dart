@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DraftedReceiptList extends StatefulWidget {
-  DraftedReceiptList({super.key});
+  const DraftedReceiptList({super.key});
 
   @override
   State<DraftedReceiptList> createState() => _DraftedReceiptListState();
@@ -102,8 +102,8 @@ class _DraftedReceiptListState extends State<DraftedReceiptList> {
                         onPressed: (){},
                         created_at: item.created_at,
                         tracking_id: item.tracking_id.toString(),
-                        service_provider_address: item.service_provider_address,
-                        service_provider_phone_number: item.service_provider_phone_number,
+                        service_provider_address: item.service_provider_address ?? "",
+                        service_provider_phone_number: item.service_provider_phone_number ?? "",
                         receipt_id: item.receipt_id,
                         send_to: item.send_to_name,
                         sent_to_email: item.send_to_email,

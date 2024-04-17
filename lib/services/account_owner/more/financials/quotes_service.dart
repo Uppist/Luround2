@@ -264,6 +264,7 @@ class QuotesService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("user drafted quotes fetched successfully!!");
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);

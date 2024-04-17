@@ -713,6 +713,7 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                             service_detail: booking_details
                           ).whenComplete(() {
                             print("sent");
+                            //Get.back();
                           });                       
                         },
                         onSave: () {

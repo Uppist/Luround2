@@ -4,7 +4,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
-import 'package:luround/models/account_owner/more/transactions/bank_response.dart';
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -1043,8 +1042,7 @@ class FinancialsService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to save invoice ${res.body}"
-        );
-        //.whenComplete(() => getx.Get.back());
+        ).whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {

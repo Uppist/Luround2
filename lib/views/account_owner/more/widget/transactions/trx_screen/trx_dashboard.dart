@@ -105,7 +105,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                           )
                         ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.center,  //.spaceBetween,
                           children: [                      
                           
                             Text(
@@ -119,11 +119,12 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                               )
                             ),
                                                                    
-                            Icon(
+                            /*Icon(
                               CupertinoIcons.chevron_up_chevron_down,
                               color: AppColor.bgColor,
                               size: 20,
-                            )
+                            )*/
+                            
                           ],
                         ),                
                       ),

@@ -12,7 +12,6 @@ import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/send_invoice_bottomsheet.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/textfield_tool.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/dropdowns/quotes/convert_to_invoice/ctv_textfield.dart';
 
 
@@ -852,6 +851,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             booking_detail: widget.product_details
                           ).whenComplete(() {
                             print("sent");
+                            //Get.back();
                           });                       
                         },
                         onSave: () {

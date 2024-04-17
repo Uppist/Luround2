@@ -25,7 +25,7 @@ class _SettingsSelectorState extends State<SettingsSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onFlip,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: widget.onFlip,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

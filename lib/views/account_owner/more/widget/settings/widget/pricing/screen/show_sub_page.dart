@@ -149,7 +149,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  data.subscription_plan == "Trial" ? "You are on a 30 days free trial plan" : data.subscription_plan == "Monthly" ? "You are on a monthly plan" : "You are on a yearly plan",
+                                  data.subscription_plan == "Trial" ? "You are on a 30 days free trial plan" : data.subscription_plan == "Monthly" ? "You are on the monthly standard plan" : "You are on the yearly standard plan",
                                   style: GoogleFonts.inter(
                                     color: AppColor.darkGreyColor,
                                     fontSize: 14.sp,

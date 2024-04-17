@@ -142,62 +142,9 @@ class _MainAppState extends State<MainApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColor.mainColor),
           useMaterial3: true,
         ),
+        
         defaultTransition: Transition.rightToLeft,
         
-        /*unknownRoute: GetPage(
-          name: '/', 
-          page: () => UnknownPage(
-            onPressed: () {}     
-          )
-        ),
-        
-        /*routes: {
-          '/': (context) => HomeScreen(),
-          '/destination': (context) => DestinationScreen(argument: ''),
-        },*/
-
-        initialRoute: ProfileRoute,
-        
-        //register all routes for the web app here
-        getPages: [
-          
-          GetPage(
-            //parameters: {"user": userName},
-            name: ProfileRoute,
-            page: () => const SplashScreenXtra2(),
-            curve: Curves.bounceInOut,
-            transition: Transition.rightToLeft
-          ),
-
-
-          /*GetPage(
-            parameters: {"user": userName},
-
-            name: ReviewsRoute,
-            page: () => AccViewerReviewsPage(),
-            curve: Curves.bounceInOut,
-          ),
-          GetPage(
-            parameters: {"user": userName},
-            name: RequestQuoteRoute,
-            page: () => RequestQuoteScreen(),
-            curve: Curves.easeInOut,
-          ),
-          GetPage(
-            parameters: {"user": userName},
-            name: BookingsRoute,
-            page: () => BookAppointmentScreen(),
-            curve: Curves.easeInOut,
-          ),
-          GetPage(
-            parameters: {"user": userName},
-            name: WriteReviewRoute,
-            page: () => WriteReviewsPage(),
-            curve: Curves.easeOutSine,
-          ),*/
-
-        ],*/
-
         home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       
       ),

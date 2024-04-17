@@ -15,8 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:luround/views/account_viewer/404page/unknown_route.dart';
-import 'package:luround/views/account_viewer/web_routes/routes.dart';
 import 'firebase_options.dart';
 //import 'package:flutter_web_plugins/url_strategy.dart';
 

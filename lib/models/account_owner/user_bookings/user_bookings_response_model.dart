@@ -96,8 +96,8 @@ class BookingUserInfo {
     return BookingUserInfo(
       userId: json['userId'] ?? 'no id',
       email: json['email'] ?? 'no email',
-      displayName: json['displayName'] ?? 'No name',
-      phoneNumber: json['phone_number'] ?? 'non',
+      displayName: json['displayName'] ?? 'name_null',
+      phoneNumber: json['phone_number'] ?? 'phone_number',
     );
   }
 }

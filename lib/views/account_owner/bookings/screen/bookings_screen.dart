@@ -44,7 +44,7 @@ class _BookingsPageState extends State<BookingsPage> {
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
     final List<DetailsModel> newData = await service.getUserBookings();
     // Update the UI with the new data
@@ -189,7 +189,7 @@ class _BookingsPageState extends State<BookingsPage> {
                 future: userBookingFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Expanded(child: Loader(),);
+                    return const Expanded(child: Loader(),);
                   }
                   if (snapshot.hasError) {
                     print(snapshot.error);
@@ -225,7 +225,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                 child: ListView.separated(
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
-                                  physics: BouncingScrollPhysics(),
+                                  physics: const BouncingScrollPhysics(),
                                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0), //external paddin
                                   itemCount: service.filteredList.length,
                                   separatorBuilder: (context, index) => SizedBox(height: 25.h,),
@@ -260,15 +260,25 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   children: [
                                                     //more vert icon
                                                     item.booking_generated_from_invoice == "True" ? 
-                                                    Text(
-                                                      'from invoice',
-                                                      style: GoogleFonts.inter(
+                                                    Container(
+                                                      height: 35.h,
+                                                      width: 70.w,
+                                                      alignment: Alignment.center,
+                                                      //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                                      decoration: BoxDecoration(
                                                         color: AppColor.darkGreen,
-                                                        fontSize: 12.sp,
-                                                        fontWeight: FontWeight.w400
+                                                        borderRadius: BorderRadius.circular(30.r)
+                                                      ),
+                                                      child: Text(
+                                                        'from invoice',
+                                                        style: GoogleFonts.inter(
+                                                          color: AppColor.bgColor,
+                                                          fontSize: 12.sp,
+                                                          fontWeight: FontWeight.w400
+                                                        ),
                                                       ),
                                                     )
-                                                    :SizedBox(),
+                                                    :const SizedBox(),
       
                                                     SizedBox(height: 5.h),
       
@@ -304,7 +314,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                   ),
                                                                 ),
                                                               ),
-                                                            ) : SizedBox(),
+                                                            ) : const SizedBox(),
                                         
                                                             //more vert button
                                                             IconButton(
@@ -582,6 +592,25 @@ class _BookingsPageState extends State<BookingsPage> {
                                                             fontWeight: FontWeight.w500
                                                           ),
                                                         ),
+
+                                                        SizedBox(height: 30.h),
+                                                        Text(
+                                                          "Sender's Phone Number",
+                                                          style: GoogleFonts.inter(
+                                                            color: AppColor.darkGreyColor,
+                                                            fontSize: 14.sp,
+                                                            fontWeight: FontWeight.w400
+                                                          ),
+                                                        ),
+                                                        SizedBox(height: 10.h),
+                                                        Text(
+                                                          item.bookingUserInfo.phoneNumber,
+                                                          style: GoogleFonts.inter(
+                                                            color: AppColor.blackColor,
+                                                            fontSize: 14.sp,
+                                                            fontWeight: FontWeight.w500
+                                                          ),
+                                                        ),
                                         
                                                         SizedBox(height: 30.h),
                                                         Text(
@@ -695,7 +724,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         fontWeight: FontWeight.w400
                                                       ),
                                                     )
-                                                    :SizedBox(),
+                                                    :const SizedBox(),
                                                     SizedBox(height: 5.h),
                                                     //more vert icon
                                                     Row(
@@ -729,7 +758,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               ),
                                                             ),
                                                           ),
-                                                        ) : SizedBox(),
+                                                        ) : const SizedBox(),
                                         
                                                         //more vert button
                                                         IconButton(

@@ -261,8 +261,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                     //more vert icon
                                                     item.booking_generated_from_invoice == "True" ? 
                                                     Container(
-                                                      height: 35.h,
-                                                      width: 70.w,
+                                                      height: 30.h,
+                                                      width: 100.w,
                                                       alignment: Alignment.center,
                                                       //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
                                                       decoration: BoxDecoration(
@@ -716,12 +716,22 @@ class _BookingsPageState extends State<BookingsPage> {
                                                   children: [
                                                     //more vert icon
                                                     item.booking_generated_from_invoice == "True" ? 
-                                                    Text(
-                                                      'from invoice',
-                                                      style: GoogleFonts.inter(
+                                                    Container(
+                                                      height: 30.h,
+                                                      width: 100.w,
+                                                      alignment: Alignment.center,
+                                                      //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                                      decoration: BoxDecoration(
                                                         color: AppColor.darkGreen,
-                                                        fontSize: 12.sp,
-                                                        fontWeight: FontWeight.w400
+                                                        borderRadius: BorderRadius.circular(30.r)
+                                                      ),
+                                                      child: Text(
+                                                        'from invoice',
+                                                        style: GoogleFonts.inter(
+                                                          color: AppColor.bgColor,
+                                                          fontSize: 12.sp,
+                                                          fontWeight: FontWeight.w400
+                                                        ),
                                                       ),
                                                     )
                                                     :const SizedBox(),
@@ -857,8 +867,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                                             SizedBox(width: 10.w,),
                                                             /////////////
                                                             item.bookingUserInfo.userId.contains(userId) ?
-                                                            SvgPicture.asset("assets/svg/sent_blue.svg")
-                                                            :SvgPicture.asset("assets/svg/received_yellow.svg")
+                                                            SvgPicture.asset("assets/svg/received_yellow.svg")
+                                                            :SvgPicture.asset("assets/svg/sent_blue.svg")
                                                             /////////////////
                                                           ],
                                                         ),

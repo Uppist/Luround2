@@ -60,7 +60,7 @@ class _ProfilePageState extends State<ProfilePage> {
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
   Future<UserModel> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
     final UserModel newData = await userProfileService.getUserProfileDetails(email: userEmail);
     // Update the UI with the new data
@@ -90,7 +90,7 @@ class _ProfilePageState extends State<ProfilePage> {
               Expanded(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   //controller: _scrollController,
                   child: _buildContent(),
                 ),
@@ -242,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Get.back();
                 },
                 onSelectPlan: () {
-                  Get.off(() => SubscriptionScreenInApp());
+                  Get.off(() => const SubscriptionScreenInApp());
                 },
               ):
 
@@ -274,7 +274,7 @@ class _ProfilePageState extends State<ProfilePage> {
       future: userProfileService.getUserProfileDetails(email: userEmail),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Loader();
+          return const Loader();
         }
         if (snapshot.hasError) {
           print(snapshot.error);
@@ -282,7 +282,7 @@ class _ProfilePageState extends State<ProfilePage> {
         if (!snapshot.hasData) {
           print("sn-trace: ${snapshot.stackTrace}");
           print("sn-data: ${snapshot.data}");
-          return Loader2(); 
+          return const Loader2(); 
         }
          
         if (snapshot.hasData) {
@@ -311,7 +311,7 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               data.account_status == "TRIAL" 
               ? FreeTrialBanner() 
-              : SizedBox(),
+              : const SizedBox(),
               //QRCODE Widget
               Container(
                 padding: EdgeInsets.symmetric(
@@ -359,7 +359,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Get.back();
                           },
                           onSelectPlan: () {
-                            Get.off(() => SubscriptionScreenInApp());
+                            Get.off(() => const SubscriptionScreenInApp());
                           },
                         ):
 
@@ -394,7 +394,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     decoration: BoxDecoration(
                       color: data.photoUrl == "my_photo" ? AppColor.emptyPic : AppColor.greyColor,
                       image:  data.photoUrl == "my_photo" ?
-                      DecorationImage(
+                      const DecorationImage(
                         image: AssetImage('assets/images/profile_null.png'),
                         fit: BoxFit.contain
                       )
@@ -480,7 +480,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               fit: BoxFit.contain
                             )
                           ),
-                        ) : SizedBox(),
+                        ) : const SizedBox(),
                         SizedBox(width: 10.w,),
                         Text(
                           data.company,
@@ -532,7 +532,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         height: 7.h,
                       ),
                       SizedBox(height: 30.h),
-                      data.about.isEmpty ? SizedBox() :
+                      data.about.isEmpty ? const SizedBox() :
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: AboutSection(
@@ -547,7 +547,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Get.back();
                               },
                               onSelectPlan: () {
-                                Get.off(() => SubscriptionScreenInApp());
+                                Get.off(() => const SubscriptionScreenInApp());
                               },
                             ):
                             
@@ -559,7 +559,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           text: data.about
                         ),
                       ),
-                      data.about.isEmpty ? SizedBox() : SizedBox(height: 30.h),
+                      data.about.isEmpty ? const SizedBox() : SizedBox(height: 30.h),
                       /*Container(
                         color: AppColor.greyColor,
                         width: double.infinity,
@@ -578,16 +578,16 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
                       SizedBox(height: 30.h),*/
-                      data.about.isEmpty ? SizedBox() : 
+                      data.about.isEmpty ? const SizedBox() : 
                       Container(
                         color: AppColor.greyColor,
                         width: double.infinity,
                         height: 7.h,
                       ),
-                      data.about.isEmpty ? SizedBox() : 
+                      data.about.isEmpty ? const SizedBox() : 
                       SizedBox(height: 30.h),
 
-                      data.media_links.isEmpty ? SizedBox() :
+                      data.media_links.isEmpty ? const SizedBox() :
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: OtherDetailsSection(
@@ -603,7 +603,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 Get.back();
                               },
                               onSelectPlan: () {
-                                Get.off(() => SubscriptionScreenInApp());
+                                Get.off(() => const SubscriptionScreenInApp());
                               },
                             ):
                             
@@ -614,10 +614,10 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                       ),
 
-                      data.media_links.isEmpty ? SizedBox() :
+                      data.media_links.isEmpty ? const SizedBox() :
                       SizedBox(height: 30.h),
 
-                      data.media_links.isEmpty ? SizedBox() :
+                      data.media_links.isEmpty ? const SizedBox() :
                       Container(
                         color: AppColor.greyColor,
                         width: double.infinity,

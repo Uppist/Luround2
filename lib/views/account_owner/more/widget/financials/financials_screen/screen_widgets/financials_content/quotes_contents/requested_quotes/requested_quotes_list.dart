@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +9,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/empty_state/financials_empty_state_2.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/quotes_contents/requested_quotes/requested_quotes_display.dart';
+
 
 
 
@@ -112,6 +112,7 @@ class _RequestedQuotesListState extends State<RequestedQuotesList> {
                       
                       
                       return RequestedQuotesDisplay(
+                        refresh: _refresh(),
                         onPressed: (){},
                         bank_name: "",
                         account_name: "",

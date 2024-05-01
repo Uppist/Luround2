@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ import 'package:luround/views/account_owner/bookings/widget/search_textfield.dar
 
 
 class BookingsPage extends StatefulWidget {
-  BookingsPage({super.key});
+  const BookingsPage({super.key});
 
   @override
   State<BookingsPage> createState() => _BookingsPageState();
@@ -75,8 +76,18 @@ class _BookingsPageState extends State<BookingsPage> {
  
     userBookingFuture = service.getUserBookings();
     //userBookingStream = service.getUserBookingsSocket();
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColor.bgColor,
+        statusBarColor: AppColor.bgColor,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
 
   }
+
 
 
   @override
@@ -284,42 +295,48 @@ class _BookingsPageState extends State<BookingsPage> {
       
                                                     //more vert icon
                                                     Row(
-                                                          mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
-                                                          children: [
+                                                      mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                                      children: [
                                                             //confirm bookings button
                                                             item.booked_status == "PENDING CONFIRMATION" ?
-                                                            InkWell(
-                                                              onTap: () {
-                                                                service.confirmBooking(
-                                                                  context: context, 
-                                                                  bookingId: service.filteredList[index].id,
-                                                                  client_name: item.bookingUserInfo.displayName,
-                                                                );
-                                                              },
-                                                              child: Container(
-                                                                height: 40.h,
-                                                                width: 80.w,
-                                                                alignment: Alignment.center,
-                                                                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                                                decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(10.r),
-                                                                  color: AppColor.mainColor,
-                                                                ),
-                                                                child: Text(
-                                                                  "Confirm",
-                                                                  style: GoogleFonts.inter(
-                                                                    color: AppColor.bgColor,
-                                                                    fontSize: 12.sp,
-                                                                    fontWeight: FontWeight.w400
+                                                            
+                                                            Obx(
+                                                              () {
+                                                                return service.isConfirmBooking.value ? const Loader2() : InkWell(
+                                                                  onTap: () {
+                                                                    service.confirmBooking(
+                                                                      context: context, 
+                                                                      bookingId: service.filteredList[index].id,
+                                                                      client_name: item.bookingUserInfo.displayName,
+                                                                    ).whenComplete(() => _refresh());
+                                                                  },
+                                                                  child: Container(
+                                                                    height: 40.h,
+                                                                    width: 80.w,
+                                                                    alignment: Alignment.center,
+                                                                    //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                                                    decoration: BoxDecoration(
+                                                                      borderRadius: BorderRadius.circular(10.r),
+                                                                      color: AppColor.mainColor,
+                                                                    ),
+                                                                    child: Text(
+                                                                      "Confirm",
+                                                                      style: GoogleFonts.inter(
+                                                                        color: AppColor.bgColor,
+                                                                        fontSize: 12.sp,
+                                                                        fontWeight: FontWeight.w400
+                                                                      ),
+                                                                    ),
                                                                   ),
-                                                                ),
-                                                              ),
+                                                                );
+                                                              }
                                                             ) : const SizedBox(),
                                         
                                                             //more vert button
                                                             IconButton(
                                                               onPressed: () {
                                                                 bookingsListDialogueBox(
+                                                                  refresh: _refresh(),
                                                                   service: service,
                                                                   serviceDate: item.serviceDetails.date,
                                                                   serviceTime: item.serviceDetails.time,
@@ -742,38 +759,43 @@ class _BookingsPageState extends State<BookingsPage> {
                                                       children: [
                                                         //confirm bookings button
                                                         item.booked_status == "PENDING CONFIRMATION" ?
-                                                        InkWell(
-                                                          onTap: () {
-                                                            service.confirmBooking(
-                                                              context: context, 
-                                                              bookingId: item.id,
-                                                              client_name: item.bookingUserInfo.displayName,
-                                                            );
-                                                          },
-                                                          child: Container(
-                                                            height: 40.h,
-                                                            width: 80.w,
-                                                            alignment: Alignment.center,
-                                                            //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius.circular(10.r),
-                                                              color: AppColor.mainColor,
-                                                            ),
-                                                            child: Text(
-                                                              "Confirm",
-                                                              style: GoogleFonts.inter(
-                                                                color: AppColor.bgColor,
-                                                                fontSize: 12.sp,
-                                                                fontWeight: FontWeight.w400
+                                                        Obx(
+                                                          () {
+                                                            return service.isConfirmBooking.value ? const Loader2() : InkWell(
+                                                              onTap: () {
+                                                                service.confirmBooking(
+                                                                  context: context, 
+                                                                  bookingId: item.id,
+                                                                  client_name: item.bookingUserInfo.displayName,
+                                                                ).whenComplete(() => _refresh());
+                                                              },
+                                                              child: Container(
+                                                                height: 40.h,
+                                                                width: 80.w,
+                                                                alignment: Alignment.center,
+                                                                //padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(10.r),
+                                                                  color: AppColor.mainColor,
+                                                                ),
+                                                                child: Text(
+                                                                  "Confirm",
+                                                                  style: GoogleFonts.inter(
+                                                                    color: AppColor.bgColor,
+                                                                    fontSize: 12.sp,
+                                                                    fontWeight: FontWeight.w400
+                                                                  ),
+                                                                ),
                                                               ),
-                                                            ),
-                                                          ),
+                                                            );
+                                                          }
                                                         ) : const SizedBox(),
                                         
                                                         //more vert button
                                                         IconButton(
                                                           onPressed: () {
                                                             bookingsListDialogueBox(
+                                                              refresh: _refresh(),
                                                               service: service,
                                                               serviceDate: item.serviceDetails.date,
                                                               serviceTime: item.serviceDetails.time,

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,8 +14,11 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
+
+
+
 class QuoteDropDown extends StatelessWidget {
-  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_details,});
+  QuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_details, required this.refresh,});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -38,10 +39,11 @@ class QuoteDropDown extends StatelessWidget {
   final String tracking_id;
   //service provider bank details here
   final Map<String, dynamic> bank_details;
+  final Future<void> refresh;
 
 
-  var service = Get.put(FinancialsService());
-  var finPdfService = Get.put(FinancialsPdfService());
+  final service = Get.put(FinancialsService());
+  final finPdfService = Get.put(FinancialsPdfService());
   
   @override
   Widget build(BuildContext context) {
@@ -186,7 +188,10 @@ class QuoteDropDown extends StatelessWidget {
               deleteQuoteBottomSheet(
                 context: context,
                 onDelete: () {
-                  service.deleteQuoteFromDB(context: context, quote_id: quote_id);
+                  service.deleteQuoteFromDB(
+                    context: context, 
+                    quote_id: quote_id
+                  ).whenComplete(() => refresh);
                 },
                 service: service 
               );

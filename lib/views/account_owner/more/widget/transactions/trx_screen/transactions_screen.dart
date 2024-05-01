@@ -27,35 +27,13 @@ class TransactionPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ///Header Section/////
-            /*Container(
-              color: AppColor.bgColor,
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Image.asset('assets/images/luround_logo.png'),
-                      InkWell(
-                        onTap: () {
-                          Get.to(() => NotificationsPage());
-                        },
-                        child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                      ),
-                    ]
-                  ),
-                ]
-              )
-            ),*/
-            ///Navigation Section/////
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.w,),
-              height: 70.h, //65
-              width: double.infinity,
-              color: AppColor.bgColor,
+          
+            
+            //Header
+            /////////////
+            SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -80,6 +58,8 @@ class TransactionPage extends StatelessWidget {
                 ],
               ),
             ),
+            ////////
+            
             SizedBox(height: 20.h,),
         
             /////HERE/////////

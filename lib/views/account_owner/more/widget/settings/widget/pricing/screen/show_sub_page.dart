@@ -35,8 +35,8 @@ class ShowSubscriptionPage extends StatefulWidget {
 class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
 
 
-  var controller = Get.put(MoreController());
-  var service = Get.put(SettingsService());
+  final controller = Get.put(MoreController());
+  final service = Get.put(SettingsService());
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -69,12 +69,11 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            ///Navigation Section/////
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 7.w,),
-              height: 70.h, //65
-              width: double.infinity,
-              color: AppColor.bgColor,
+            //Header
+            /////////////
+            SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -99,6 +98,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                 ],
               ),
             ),
+            ////////
             Container(
               color: AppColor.greyColor,
               width: double.infinity,

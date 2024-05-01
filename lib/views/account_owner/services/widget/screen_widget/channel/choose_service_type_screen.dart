@@ -40,6 +40,7 @@ class ChooseServiceTypePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+        
             SizedBox(height: 30.h,),
             Text(
               "Choose the type of service",

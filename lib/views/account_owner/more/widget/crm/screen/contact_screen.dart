@@ -342,6 +342,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                             onTap: () {
                                               //delete function
                                               confirmCRMDeleteBottomsheet(
+                                                service: service,
+                                                refresh: _refresh(),
                                                 context: context, 
                                                 client_name: item.client_name, 
                                                 client_email: item.client_email, 

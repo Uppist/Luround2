@@ -37,141 +37,160 @@ class _AddContactScreenState extends State<AddContactScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColor.bgColor,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: AppColor.blackColor,
-          )
-        ),
-        title: CustomAppBarTitle(text: 'Add new contact',),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 10.h),
-          Container(
-            color: AppColor.greyColor,
-            width: double.infinity,
-            height: 7.h,
-          ),
-          SizedBox(height: 20.h,),
-          Expanded(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //name of client
-                    Text(
-                      'Name',
-                      style: GoogleFonts.inter(
-                        color: AppColor.blackColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
-                      )
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //Header
+            /////////////
+            SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColor.blackColor,
+                    )
+                  ),
+                  SizedBox(width: 3.w,),
+                  Text(
+                    'Add new contact',
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
                     ),
-                    SizedBox(height: 20.h),
-                    ContactTextField(
-                      onChanged: (val) {
-                        setState(() {
-                          service.contactNameController.text = val;
-                        });                 
-                      },
-                      initialValue: "",
-                      hintText: 'Your contact name',
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,                   
-                    ),
-                    SizedBox(height: 30.h),
-                    //name of client
-                    Text(
-                      'Email Address',
-                      style: GoogleFonts.inter(
-                        color: AppColor.blackColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
-                      )
-                    ),
-                    SizedBox(height: 20.h),
-                    //email of client
-                    ContactTextField(
-                      onChanged: (val) {
-                        setState(() {
-                          service.contactEmailController.text = val;
-                        });                 
-                      },
-                      initialValue: "",
-                      hintText: 'Your contact email',
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,                   
-                    ),
-                    SizedBox(height: 30.h),
-                    //mobile number of client
-                    Text(
-                      'Phone Number',
-                      style: GoogleFonts.inter(
-                        color: AppColor.blackColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500
-                      )
-                    ),
-                    SizedBox(height: 20.h),
-                    ContactTextField(
-                      onChanged: (val) {
-                        setState(() {
-                          service.contactPhoneNumberController.text = val;
-                        });                 
-                      },
-                      initialValue: "",
-                      hintText: 'Your contact phone number',
-                      keyboardType: TextInputType.phone,
-                      textInputAction: TextInputAction.done,                   
-                    ),
-      
-                    SizedBox(height: 320.h,),
-                    
-                    Obx(
-                      () {
-                        return service.isLoading.value ? Loader()
-                        :ReusableButton(
-                          color: AppColor.mainColor,
-                          text: 'Save',
-                          onPressed: () async{
-                            if(service.contactNameController.text.isNotEmpty && service.contactEmailController.text.isNotEmpty && service.contactPhoneNumberController.text.isNotEmpty) {
-                              service.addNewContact(
-                                context: context, 
-                                client_name: service.contactNameController.text, 
-                                client_email: service.contactEmailController.text,
-                                client_phone_number: service.contactPhoneNumberController.text,
-                              );
-                            }
-                            else {
-                              showMySnackBar(
-                                context: context,
-                                message: "fields must not be empty", 
-                                backgroundColor: AppColor.redColor
-                              );
-                            }
-                          },
-                        );
-                      }
-                    ),
-                    SizedBox(height: 20.h,),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+            ////////
+          
+            SizedBox(height: 10.h),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7.h,
+            ),
+            SizedBox(height: 10.h,),
+            Expanded(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      //name of client
+                      Text(
+                        'Name',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                      SizedBox(height: 20.h),
+                      ContactTextField(
+                        onChanged: (val) {
+                          setState(() {
+                            service.contactNameController.text = val;
+                          });                 
+                        },
+                        initialValue: "",
+                        hintText: 'Your contact name',
+                        keyboardType: TextInputType.name,
+                        textInputAction: TextInputAction.next,                   
+                      ),
+                      SizedBox(height: 30.h),
+                      //name of client
+                      Text(
+                        'Email Address',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                      SizedBox(height: 20.h),
+                      //email of client
+                      ContactTextField(
+                        onChanged: (val) {
+                          setState(() {
+                            service.contactEmailController.text = val;
+                          });                 
+                        },
+                        initialValue: "",
+                        hintText: 'Your contact email',
+                        keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,                   
+                      ),
+                      SizedBox(height: 30.h),
+                      //mobile number of client
+                      Text(
+                        'Phone Number',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                      SizedBox(height: 20.h),
+                      ContactTextField(
+                        onChanged: (val) {
+                          setState(() {
+                            service.contactPhoneNumberController.text = val;
+                          });                 
+                        },
+                        initialValue: "",
+                        hintText: 'Your contact phone number',
+                        keyboardType: TextInputType.phone,
+                        textInputAction: TextInputAction.done,                   
+                      ),
+        
+                      SizedBox(height: 320.h,),
+                      
+                      Obx(
+                        () {
+                          return service.isLoading.value ? Loader()
+                          :ReusableButton(
+                            color: AppColor.mainColor,
+                            text: 'Save',
+                            onPressed: () async{
+                              if(service.contactNameController.text.isNotEmpty && service.contactEmailController.text.isNotEmpty && service.contactPhoneNumberController.text.isNotEmpty) {
+                                service.addNewContact(
+                                  context: context, 
+                                  client_name: service.contactNameController.text, 
+                                  client_email: service.contactEmailController.text,
+                                  client_phone_number: service.contactPhoneNumberController.text,
+                                );
+                              }
+                              else {
+                                showMySnackBar(
+                                  context: context,
+                                  message: "fields must not be empty", 
+                                  backgroundColor: AppColor.redColor
+                                );
+                              }
+                            },
+                          );
+                        }
+                      ),
+                      SizedBox(height: 20.h,),
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-            
-        ]
+              
+          ]
+        ),
       )
     
     );

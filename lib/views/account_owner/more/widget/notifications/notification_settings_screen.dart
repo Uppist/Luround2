@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,12 +14,33 @@ import 'package:luround/views/account_owner/more/widget/notifications/switch_wid
 
 
 
-class NotificationSettingScreen extends StatelessWidget {
+class NotificationSettingScreen extends StatefulWidget {
 
   NotificationSettingScreen({super.key});
-   
-  var controller = Get.put(MoreController());
-  
+
+  @override
+  State<NotificationSettingScreen> createState() => _NotificationSettingScreenState();
+}
+
+class _NotificationSettingScreenState extends State<NotificationSettingScreen> {
+
+  final controller = Get.put(MoreController());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColor.bgColor,
+        statusBarColor: AppColor.bgColor,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +111,7 @@ class NotificationSettingScreen extends StatelessWidget {
                 ],
               ),
             ),
+            
             SizedBox(height: 10.h),
             
             /////Expanded/////

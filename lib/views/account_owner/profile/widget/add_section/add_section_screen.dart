@@ -36,7 +36,7 @@ class AddSectionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -49,20 +49,50 @@ class AddSectionPage extends StatelessWidget {
           )
         ),
         title: CustomAppBarTitle(text: 'Add Section',),
-      ),
+      ),*/
       body: SafeArea(
         child: SingleChildScrollView(
           physics: BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              //Header
+              /////////////
+              SizedBox(height: 10.h,),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 7.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      icon: Icon(
+                        Icons.arrow_back_rounded,
+                        color: AppColor.blackColor,
+                      )
+                    ),
+                    SizedBox(width: 3.w,),
+                    Text(
+                      'Add Section',
+                      style: GoogleFonts.inter(
+                        color: AppColor.blackColor,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              /////////
               SizedBox(height: 10.h),
               Container(
                 color: AppColor.greyColor,
                 width: double.infinity,
                 height: 7.h,
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(height: 20.h,),
               //Photo
               InkWell(
                 onTap: () {

@@ -18,14 +18,14 @@ import 'notifications_empty_state.dart';
 class NotificationsPage extends StatelessWidget {
   NotificationsPage({super.key});
 
-  var controller = Get.put(ProfilePageController());
-  var userProfileService = Get.put(AccOwnerProfileService());
+  final controller = Get.put(ProfilePageController());
+  final userProfileService = Get.put(AccOwnerProfileService());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -38,7 +38,7 @@ class NotificationsPage extends StatelessWidget {
           )
         ),
         title: CustomAppBarTitle(text: 'Notifications',),
-      ),
+      ),*/
       body: FutureBuilder(
         future: userProfileService.getUserNotifications(),
         builder: (context, snapshot) {
@@ -71,100 +71,137 @@ class NotificationsPage extends StatelessWidget {
             data.sort((a, b) => a['created_at'].compareTo(b['created_at']));
             sortedList.clear();
             sortedList.addAll(data);
- 
-            return sortedList.isNotEmpty ? ListView.separated(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
-              itemCount: sortedList.length,
-              separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
-              itemBuilder: (context, index) { 
-
-                final item = sortedList[index];
-                
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 10.h),
-                                
-                    /*Container(
-                      color: AppColor.greyColor,
-                      width: double.infinity,
-                      height: 7,
-                    ),*/
-                    
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColor.bgColor,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+            
+            //wrapped list with column and safearea
+            return SafeArea(
+              child: Column(
+                children: [
+                  //Header
+                  /////////////
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_rounded,
+                            color: AppColor.blackColor,
+                          )
+                        ),
+                        SizedBox(width: 3.w,),
+                        Text(
+                          'Notifications',
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  ////
+                  sortedList.isNotEmpty ? ListView.separated(
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    itemCount: sortedList.length,
+                    separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
+                    itemBuilder: (context, index) { 
+                  
+                      final item = sortedList[index];
+                      
+                      return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CircleAvatar(
-                            backgroundColor: AppColor.mainColor,
-                            radius: 30.r,
-                            child: Text(
-                              item['title'].toString().toUpperCase().substring(0, 1),
-                              style: GoogleFonts.inter(
-                                color: AppColor.bgColor,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w600
-                              ),
-                            ),
-                          ),
-
-                          SizedBox(width: 15.w),
+                    
+                          SizedBox(height: 10.h),
+                                      
+                          /*Container(
+                            color: AppColor.greyColor,
+                            width: double.infinity,
+                            height: 7,
+                          ),*/
                           
-                          Expanded(
-                            child: Column(
+                          Container(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  item['title'],  //recepient name
-                                  style: GoogleFonts.inter(
-                                    textStyle: TextStyle(
-                                      overflow: TextOverflow.visible,
-                                      color: AppColor.blackColor,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14.sp,
-                                    )
-                                  )
+                                CircleAvatar(
+                                  backgroundColor: AppColor.mainColor,
+                                  radius: 30.r,
+                                  child: Text(
+                                    item['title'].toString().toUpperCase().substring(0, 1),
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.bgColor,
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                  ),
                                 ),
-                                SizedBox(height: 5.h,),
-                                Text(
-                                  item['body'],
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.darkGreyColor,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp
-                                  )
-                                ),
-                                SizedBox(height: 5.h,),
-                                Text(
-                                  convertServerTimeToDate(item['created_at'] ?? 0) ,
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.darkGreyColor.withOpacity(0.5),
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 13.sp
-                                  )
-                                ),
-                              ],
-                            ),
-                          )
-                        ]
-                      )
+                  
+                                SizedBox(width: 15.w),
+                                
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        item['title'],  //recepient name
+                                        style: GoogleFonts.inter(
+                                          textStyle: TextStyle(
+                                            overflow: TextOverflow.visible,
+                                            color: AppColor.blackColor,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14.sp,
+                                          )
+                                        )
+                                      ),
+                                      SizedBox(height: 5.h,),
+                                      Text(
+                                        item['body'],
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14.sp
+                                        )
+                                      ),
+                                      SizedBox(height: 5.h,),
+                                      Text(
+                                        convertServerTimeToDate(item['created_at'] ?? 0) ,
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor.withOpacity(0.5),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13.sp
+                                        )
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ]
+                            )
+                          ),
+                        ],
+                      );
+                    }
+                    ): NotificationEmptyState(
+                      onPressed: () {
+                        userProfileService.getUserNotifications();
+                      }
                     ),
                   ],
-                );
-              }
-              ) : NotificationEmptyState(
-                onPressed: () {
-                  userProfileService.getUserNotifications();
-                }
-              );
+                ),
+            );
             }
             return NotificationEmptyState(
               onPressed: () {

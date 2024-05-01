@@ -21,14 +21,14 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/password
 class ChangePasswordScreen extends StatelessWidget {
   ChangePasswordScreen({super.key});
 
-  var controller = Get.put(MoreController());
-  var service = Get.put(SettingsService());
+  final controller = Get.put(MoreController());
+  final service = Get.put(SettingsService());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -41,20 +41,51 @@ class ChangePasswordScreen extends StatelessWidget {
           )
         ),
         title: CustomAppBarTitle(text: 'Change Password',),
-      ),
+      ),*/
       body: Obx(
         () {
           return service.isLoading.value ? Loader() : SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                //Header
+                /////////////
+                SizedBox(height: 10.h,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 7.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: AppColor.blackColor,
+                        )
+                      ),
+                      SizedBox(width: 3.w,),
+                      Text(
+                        'Change Password',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                ////////
+              
                 SizedBox(height: 10.h),
                 Container(
                   color: AppColor.greyColor,
                   width: double.infinity,
                   height: 7.h,
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 10.h,),
                 Expanded(
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),

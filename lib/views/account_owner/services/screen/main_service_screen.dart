@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/channe
 
 
 class ServicesPage extends StatefulWidget {
-  ServicesPage({super.key});
+  const ServicesPage({super.key});
 
   @override
   State<ServicesPage> createState() => _ServicesPageState();
@@ -33,7 +34,19 @@ class _ServicesPageState extends State<ServicesPage> {
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColor.bgColor,
+        statusBarColor: AppColor.bgColor,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      ),
+    );
+
   }
+
 
   @override
   Widget build(BuildContext context) {

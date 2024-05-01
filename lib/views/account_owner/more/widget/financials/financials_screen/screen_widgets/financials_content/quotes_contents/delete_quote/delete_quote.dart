@@ -12,7 +12,12 @@ import 'package:luround/utils/components/loader.dart';
 
 
 ///Alert Dialog
-Future<void> deleteQuoteBottomSheet({required BuildContext context, required VoidCallback onDelete, required FinancialsService service}) async{
+Future<void> deleteQuoteBottomSheet({
+  required BuildContext context, 
+  required VoidCallback onDelete, 
+  required FinancialsService service,
+  //required Future<void> refresh,
+}) async{
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,

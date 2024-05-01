@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,7 +15,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DraftedReceiptDropDown extends StatelessWidget {
-  DraftedReceiptDropDown({super.key, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id});
+  DraftedReceiptDropDown({super.key, required this.receipt_id, required this.send_to, required this.sent_to_email, required this.service_provider_name, required this.service_provider_email, required this.service_provider_userId, required this.phone_number, required this.payment_status, required this.discount, required this.vat, required this.sub_total, required this.total, required this.note, required this.mode_of_payment, required this.receipt_date, required this.service_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.refresh});
   final String receipt_id;
   final String send_to;
   final String sent_to_email;
@@ -36,9 +35,12 @@ class DraftedReceiptDropDown extends StatelessWidget {
   final String receipt_date;
   final List<dynamic> service_detail;
   final String tracking_id;
+  final Future<void> refresh;
 
-  var service = Get.put(FinancialsService());
-  var finPdfService = Get.put(FinancialsPdfService());
+
+
+  final service = Get.put(FinancialsService());
+  final finPdfService = Get.put(FinancialsPdfService());
   final int randNum = Random().nextInt(200000);
 
   @override
@@ -158,12 +160,12 @@ class DraftedReceiptDropDown extends StatelessWidget {
                 context: context,
                 onDelete: () {
                   deleteReceiptsBottomSheet(
-                  context: context,
-                  onDelete: () {
+                    context: context,
+                    onDelete: () {
                       service.deleteReceiptFromDB(
                         context: context, 
                         receipt_id: receipt_id
-                      );
+                      ).whenComplete(() => refresh);
                     },
                     service: service
                   );  

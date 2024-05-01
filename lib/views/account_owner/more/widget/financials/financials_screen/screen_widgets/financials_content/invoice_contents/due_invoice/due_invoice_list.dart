@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/services/account_owner/more/financials/invoice_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/empty_state/financials_empty_state.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/due_invoice/due_invoice_display.dart';
 
@@ -17,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 class DueInvoiceList extends StatelessWidget {
   DueInvoiceList({super.key});
   
-  var service = Get.put(InvoicesService());
+  final service = Get.put(InvoicesService());
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -58,12 +57,13 @@ class DueInvoiceList extends StatelessWidget {
                 
                 return DueInvoiceDisplay (
                   onPressed: (){},
+                  refresh: _refresh(),
                   invoice_generated_from_quote: item.invoice_generated_from_quote,
                   service_provider: item.service_provider,
                   tracking_id: item.tracking_id.toString(),
                   created_at: item.created_at,
-                  service_provider_address: item.service_provider['address'] ?? "non",
-                  service_provider_phone_number: item.service_provider['phone_number'] ?? "non",
+                  service_provider_address: item.service_provider['address'] ?? "no address",
+                  service_provider_phone_number: item.service_provider['phone_number'] ?? "no phone number",
                   invoice_id: item.invoice_id,
                   send_to_name: item.send_to_name,
                   send_to_email: item.send_to_email,

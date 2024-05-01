@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class RequestedQuoteDropDown extends StatelessWidget {
-  RequestedQuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.offer, required this.uploade_file, required this.service_name, required this.tracking_id, required this.bank_name, required this.account_name, required this.account_number});
+  RequestedQuoteDropDown({super.key, required this.quote_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.quote_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.appointment_type, required this.status, required this.note, required this.service_provider, required this.product_details, required this.offer, required this.uploade_file, required this.service_name, required this.tracking_id, required this.bank_name, required this.account_name, required this.account_number, required this.refresh});
   final String quote_id;
   final String send_to_name;
   final String send_to_email;
@@ -40,12 +40,13 @@ class RequestedQuoteDropDown extends StatelessWidget {
   final String bank_name;
   final String account_name;
   final String account_number;
+  final Future<void> refresh;
 
 
 
 
-  var service = Get.put(FinancialsService());
-  var finPdfService = Get.put(FinancialsPdfService());
+  final service = Get.put(FinancialsService());
+  final finPdfService = Get.put(FinancialsPdfService());
   final int randNum = Random().nextInt(100000);
 
   @override
@@ -113,6 +114,7 @@ class RequestedQuoteDropDown extends StatelessWidget {
                 vat: vat, 
                 note: note
               );
+              
             },
             child: Text(
               "Download",
@@ -129,7 +131,10 @@ class RequestedQuoteDropDown extends StatelessWidget {
               deleteQuoteBottomSheet(
                 context: context,
                 onDelete: () {
-                  service.deleteQuoteFromDB(context: context, quote_id: quote_id);
+                  service.deleteQuoteFromDB(
+                    context: context, 
+                    quote_id: quote_id
+                  ).whenComplete(() => refresh);
                 },
                 service: service 
               );

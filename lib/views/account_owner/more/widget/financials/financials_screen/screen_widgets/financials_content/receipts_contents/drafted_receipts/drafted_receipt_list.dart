@@ -99,6 +99,7 @@ class _DraftedReceiptListState extends State<DraftedReceiptList> {
                       final item = service.filteredDraftedReceiptsList[index]; 
                     
                       return DraftedReceiptDisplay(
+                        refresh: _refresh(),
                         onPressed: (){},
                         created_at: item.created_at,
                         tracking_id: item.tracking_id.toString(),

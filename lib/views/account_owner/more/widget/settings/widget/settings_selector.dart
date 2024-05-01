@@ -94,10 +94,10 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
                   /////////COMING SOON//////////////
                   SizedBox(width: 20.w,),
                   Container(
-                    //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+                    //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
                     alignment: Alignment.center,
                     height: 30.h,
-                    width: 90.w, //130.w
+                    width: 110.w, //130.w
                     decoration: BoxDecoration(
                       color: AppColor.redColor,
                       borderRadius: BorderRadius.circular(10.r),
@@ -108,7 +108,9 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
                         color: AppColor.bgColor,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w700
-                      )
+                      ),
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   ////////////////////////////////////////

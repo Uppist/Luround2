@@ -12,7 +12,7 @@ import 'package:luround/utils/components/loader.dart';
 
 
 
-var service = Get.put(CRMService());
+//var service = Get.put(CRMService());
 
 
 
@@ -23,6 +23,8 @@ Future<void> confirmCRMDeleteBottomsheet({
   required String client_name,
   required String client_email,
   required String client_phone_number,
+  required Future<void> refresh,
+  required CRMService service,
 
   }) async{
   showModalBottomSheet(
@@ -118,6 +120,7 @@ Future<void> confirmCRMDeleteBottomsheet({
                                 client_email: client_email, 
                                 client_phone_number: client_phone_number
                               ).whenComplete(() {
+                                refresh;
                                 Get.back();
                               });
                             },

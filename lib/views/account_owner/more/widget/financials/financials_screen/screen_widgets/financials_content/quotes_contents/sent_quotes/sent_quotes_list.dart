@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -111,6 +110,7 @@ class _QuotesListState extends State<QuotesList> {
                       }
                       if(service.filteredSentQuotesList.isNotEmpty) {
                         return QuotesDisplay(
+                          refresh: _refresh(),
                           onPressed: (){},
                           created_at: item.created_at,
                           tracking_id: item.tracking_id.toString(),

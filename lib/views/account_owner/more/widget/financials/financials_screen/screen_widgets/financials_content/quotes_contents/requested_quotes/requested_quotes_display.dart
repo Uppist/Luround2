@@ -40,7 +40,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
     required this.created_at, 
     required this.bank_name, 
     required this.account_name, 
-    required this.account_number,
+    required this.account_number, required this.refresh,
     
   });
   final VoidCallback onPressed;
@@ -67,6 +67,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
   final String bank_name;
   final String account_name;
   final String account_number;
+  final Future<void> refresh;
 
 
   @override
@@ -111,6 +112,7 @@ class RequestedQuotesDisplay extends StatelessWidget {
                 ),
               ),
               RequestedQuoteDropDown(
+                refresh: refresh,
                 bank_name: bank_name,
                 account_name: account_name,
                 account_number: account_number,

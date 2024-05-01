@@ -390,6 +390,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
   
   //confirm booking
+  var isConfirmBooking = false.obs;
   Future<dynamic> confirmBooking({
     required BuildContext context,
     required String bookingId,
@@ -397,11 +398,11 @@ class AccOwnerBookingService extends getx.GetxController {
   }) async {
     try {
 
-      isLoading.value = true;
+      isConfirmBooking.value = true;
       http.Response res = await baseService.httpGet(endPoint: "booking/confirm-booking?bookingId=$bookingId");
 
       if (res.statusCode == 200 || res.statusCode == 201) {
-        isLoading.value = false;
+        isConfirmBooking.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         debugPrint("booking confirmed");
@@ -423,7 +424,7 @@ class AccOwnerBookingService extends getx.GetxController {
 
       } 
       else {
-        isLoading.value = false;
+        isConfirmBooking.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==> ${res.body}');
@@ -437,7 +438,7 @@ class AccOwnerBookingService extends getx.GetxController {
       }
     }   
     catch (e) {
-      isLoading.value = false;
+      isConfirmBooking.value = false;
       throw Exception("$e");
     }
   }

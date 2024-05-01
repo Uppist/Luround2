@@ -31,7 +31,7 @@ class ReviewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -44,12 +44,12 @@ class ReviewsPage extends StatelessWidget {
           )
         ),
         title: CustomAppBarTitle(text: 'Reviews',),
-      ),
+      ),*/
       body: FutureBuilder<List<ReviewResponse>>(
         future: service.getUserReviews(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Loader();
+            return const Loader();
           }
           if (snapshot.hasError) {
             print(snapshot.error);
@@ -73,10 +73,40 @@ class ReviewsPage extends StatelessWidget {
             
             return SafeArea(
               child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
+                    //Header
+                    /////////////
+                    SizedBox(height: 10.h,),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 7.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_rounded,
+                              color: AppColor.blackColor,
+                            )
+                          ),
+                          SizedBox(width: 3.w,),
+                          Text(
+                            'Reviews',
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    /////////
                   SizedBox(height: 10.h),
                   /*Container(
                     color: AppColor.greyColor,
@@ -149,7 +179,7 @@ class ReviewsPage extends StatelessWidget {
                   ListView.separated(
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemCount: data.length,
                     separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.2,),
                     itemBuilder: (context, index) {
@@ -221,7 +251,7 @@ class ReviewsPage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 15),
+                                  const SizedBox(height: 15),
                                   Text(
                                     data[index].reviewText,
                                     style: GoogleFonts.inter(

@@ -47,7 +47,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -91,7 +91,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
           ),*/
           SizedBox(width: 20.w,),
         ],
-      ),
+      ),*/
       body: Obx(
         () {
           return profileService.isLoading.value ? Loader() : SafeArea(
@@ -100,6 +100,67 @@ class _EditOthersPageState extends State<EditOthersPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  //Header
+                  /////////////
+                  SizedBox(height: 10.h,),
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(7.w, 0, 20.w, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Get.back();
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_rounded,
+                                color: AppColor.blackColor,
+                              )
+                            ),
+                            SizedBox(width: 3.w,),
+                            Text(
+                              'Others',
+                              style: GoogleFonts.inter(
+                                color: AppColor.blackColor,
+                                fontSize: 16.sp,
+                               fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ],
+                        ),
+                        
+                        InkWell(
+                          onTap: () {
+
+                            //I JUST WANT TO BE SURE I'M SEEING THE OUTPUT
+                            for (ViewModel viewModelSet in controller.viewItems) {
+                              print("link: ${viewModelSet.linkController.text}");
+                              print("name: ${viewModelSet.name}");
+                              print("icon: ${viewModelSet.icon}");
+                            }
+                            ////////////
+            
+                            profileService.updateMediaLinks(
+                              context: context,
+                              viewModelList: controller.viewItems
+                            ).whenComplete(() {
+                              controller.viewTextfields.clear();//remove(field);
+                              controller.viewItems.clear();
+                              print("textfield_list: ${controller.viewTextfields}");
+                              print("controller_list_length: ${controller.viewItems.length}");
+                            });
+
+                          },
+                          child: SvgPicture.asset("assets/svg/save_button.svg")
+                        ),
+
+                      ],
+                    ),
+                  ),
+                  /////////
                   SizedBox(height: 10.h),
                   Container(
                     color: AppColor.greyColor,

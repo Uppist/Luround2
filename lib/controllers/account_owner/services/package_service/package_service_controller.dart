@@ -97,7 +97,7 @@ class PackageServiceController extends getx.GetxController {
   final listOfServiceTimeline = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service recurrence
   getx.RxString serviceRecurrence = "Once a week".obs;
-  final listOfServiceRecurrence = <String>["Once a week", "Twice a week", "Once every two weeks",];
+  final listOfServiceRecurrence = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
 
@@ -507,7 +507,7 @@ class PackageServiceController extends getx.GetxController {
   final listOfServiceTimelineEdit = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service recurrence
   getx.RxString serviceRecurrenceEdit = "Once a week".obs;
-  final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Once every two weeks",];
+  final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
 

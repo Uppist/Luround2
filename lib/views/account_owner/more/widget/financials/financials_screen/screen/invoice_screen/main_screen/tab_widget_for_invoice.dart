@@ -41,101 +41,103 @@ class _InvoiceScreenTabState extends State<InvoiceScreenTab> with SingleTickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 30.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-              IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: AppColor.blackColor,
-                )
-              ),
-              SizedBox(width: 3.w,),
-              Text(
-                "Invoices",
-                style: GoogleFonts.inter(
-                  color: AppColor.blackColor,
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.w500
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20.h,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_rounded,
+                    color: AppColor.blackColor,
+                  )
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 50.w),
-                  child: AnimatedContainer(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(50.r),
-                      border: Border.all(color: AppColor.navyBlue)
-                    ),
-                    duration: const Duration(milliseconds: 100),
-                    child: Column(
-                      children: [
-                        //added
-                        TabBar(                    
-                          physics: const BouncingScrollPhysics(),
-                          indicatorColor: AppColor.navyBlue,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          //indicatorWeight: 0.1,
-                          labelStyle: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: AppColor.bgColor,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                SizedBox(width: 3.w,),
+                Text(
+                  "Invoices",
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50.w),
+                    child: AnimatedContainer(
+                      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: AppColor.bgColor,
+                        borderRadius: BorderRadius.circular(50.r),
+                        border: Border.all(color: AppColor.navyBlue)
+                      ),
+                      duration: const Duration(milliseconds: 100),
+                      child: Column(
+                        children: [
+                          //added
+                          TabBar(                    
+                            physics: const BouncingScrollPhysics(),
+                            indicatorColor: AppColor.navyBlue,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            //indicatorWeight: 0.1,
+                            labelStyle: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.bgColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
+                            unselectedLabelColor: AppColor.navyBlue,
+                            labelColor: AppColor.bgColor,
+                            //padding: EdgeInsets.symmetric(horizontal: 10),
+                            indicator: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.r),
+                              color: AppColor.navyBlue,
+                              shape: BoxShape.rectangle,
+                            ),
+                            controller: tabController,
+                            isScrollable: false,
+                            tabs: const [
+                              Tab(text: 'Paid',),
+                              Tab(text: 'Unpaid',),
+                              Tab(text: 'Due',),
+                            ],
                           ),
-                          unselectedLabelColor: AppColor.navyBlue,
-                          labelColor: AppColor.bgColor,
-                          //padding: EdgeInsets.symmetric(horizontal: 10),
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.r),
-                            color: AppColor.navyBlue,
-                            shape: BoxShape.rectangle,
-                          ),
-                          controller: tabController,
-                          isScrollable: false,
-                          tabs: const [
-                            Tab(text: 'Paid',),
-                            Tab(text: 'Unpaid',),
-                            Tab(text: 'Due',),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-      
-                //tabbar content here //wrap with future builder
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      PaidInvoicesPage(),
-                      UnpaidInvoicesPage(),
-                      DueInvoicesPage()
-                    ]
+        
+                  //tabbar content here //wrap with future builder
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        PaidInvoicesPage(),
+                        UnpaidInvoicesPage(),
+                        DueInvoicesPage()
+                      ]
+                    ),
                   ),
-                ),
-              ]
+                ]
+              )
             )
-          )
-      
-        ],
+        
+          ],
+        ),
       ),
     );
   }

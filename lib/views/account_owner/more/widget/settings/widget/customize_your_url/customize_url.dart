@@ -24,14 +24,14 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/customiz
 class CustomizeYourURLPage extends StatelessWidget {
   CustomizeYourURLPage({super.key});
 
-  var controller = Get.put(MoreController());
-  var service = Get.put(SettingsService());
+  final controller = Get.put(MoreController());
+  final service = Get.put(SettingsService());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -44,7 +44,7 @@ class CustomizeYourURLPage extends StatelessWidget {
           )
         ),
         title: CustomAppBarTitle(text: 'Customize your URL',),
-      ),
+      ),*/
       body: FutureBuilder(
         future: service.getUserProfileDetails(),
         builder: (context, snapshot) {
@@ -65,6 +65,35 @@ class CustomizeYourURLPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  SizedBox(height: 10.h,),
+                  //Header
+                  /////////////
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_rounded,
+                            color: AppColor.blackColor,
+                          )
+                        ),
+                        SizedBox(width: 3.w,),
+                        Text(
+                          'Customize your URL',
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   SizedBox(height: 10.h),
                   Container(
                     color: AppColor.greyColor,

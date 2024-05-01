@@ -41,7 +41,7 @@ class _BankDetailsPageState extends State<BankDetailsPage> with SingleTickerProv
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -54,81 +54,113 @@ class _BankDetailsPageState extends State<BankDetailsPage> with SingleTickerProv
           )
         ),
         title: CustomAppBarTitle(text: 'Account details',),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 10.h),
-          Container(
-            color: AppColor.greyColor,
-            width: double.infinity,
-            height: 7.h,
-          ),
-          SizedBox(height: 20.h,),
-          Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20.h),
-                  child: AnimatedContainer(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(color: AppColor.mainColor)
-                    ),
-                    duration: const Duration(milliseconds: 100),
-                    child: Column(
-                      children: [
-
-                        //added
-                        TabBar(                    
-                          physics: const BouncingScrollPhysics(),
-                          indicatorColor: AppColor.mainColor,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          //indicatorWeight: 0.1,
-                          labelStyle: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: AppColor.bgColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          unselectedLabelColor: AppColor.mainColor,
-                          labelColor: AppColor.bgColor,
-                          //padding: EdgeInsets.symmetric(horizontal: 10),
-                          indicator: BoxDecoration(
-                            //borderRadius: BorderRadius.circular(5.r),
-                            color: AppColor.mainColor
-                          ),
-                          controller: tabController,
-                          isScrollable: false,
-                          tabs: const [
-                            Tab(text: 'Saved Accounts',),
-                            Tab(text: 'New Account',)
-                          ],
-                        ),
-                      ],
+      ),*/
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            //Header
+            /////////////
+            SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColor.blackColor,
+                    )
+                  ),
+                  SizedBox(width: 3.w,),
+                  Text(
+                    'Account details',
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
                     ),
                   ),
-                ),
-                
-                //tabbar content here //wrap with future builder
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      ShowBanks(),    
-                      AddAccountForSettings()    
-                    ]
-                  ),
-                )
-
-              ],
+                ],
+              ),
             ),
-          ),
-        ]
+            ////////
+            SizedBox(height: 10.h),
+            Container(
+              color: AppColor.greyColor,
+              width: double.infinity,
+              height: 7.h,
+            ),
+            SizedBox(height: 20.h,),
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.h),
+                    child: AnimatedContainer(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: AppColor.bgColor,
+                        borderRadius: BorderRadius.circular(5.r),
+                        border: Border.all(color: AppColor.mainColor)
+                      ),
+                      duration: const Duration(milliseconds: 100),
+                      child: Column(
+                        children: [
+        
+                          //added
+                          TabBar(                    
+                            physics: const BouncingScrollPhysics(),
+                            indicatorColor: AppColor.mainColor,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            //indicatorWeight: 0.1,
+                            labelStyle: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.bgColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            unselectedLabelColor: AppColor.mainColor,
+                            labelColor: AppColor.bgColor,
+                            //padding: EdgeInsets.symmetric(horizontal: 10),
+                            indicator: BoxDecoration(
+                              //borderRadius: BorderRadius.circular(5.r),
+                              color: AppColor.mainColor
+                            ),
+                            controller: tabController,
+                            isScrollable: false,
+                            tabs: const [
+                              Tab(text: 'Saved Accounts',),
+                              Tab(text: 'New Account',)
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  
+                  //tabbar content here //wrap with future builder
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        ShowBanks(),    
+                        AddAccountForSettings()    
+                      ]
+                    ),
+                  )
+        
+                ],
+              ),
+            ),
+          ]
+        ),
       )
     );
   }

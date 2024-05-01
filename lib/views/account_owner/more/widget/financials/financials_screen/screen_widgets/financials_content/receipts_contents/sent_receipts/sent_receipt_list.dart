@@ -100,6 +100,7 @@ class _SentReceiptListState extends State<SentReceiptList> {
                       final item = service.filteredSentReceiptList[index]; 
                     
                       return SentReceiptDisplay(
+                        refresh: _refresh(),
                         onPressed: (){},
                         created_at: item.created_at,
                         tracking_id: item.tracking_id.toString(),

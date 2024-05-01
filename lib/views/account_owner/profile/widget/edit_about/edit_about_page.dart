@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/components/loader.dart';
-import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
@@ -38,7 +37,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -52,20 +51,50 @@ class _EditAboutPageState extends State<EditAboutPage> {
           )
         ),
         title: CustomAppBarTitle(text: 'Edit About',),
-      ),
+      ),*/
       body: Obx(
         () {
           return profileService.isLoading.value ? Loader() : SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                //Header
+                /////////////
+                SizedBox(height: 10.h,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 7.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: AppColor.blackColor,
+                        )
+                      ),
+                      SizedBox(width: 3.w,),
+                      Text(
+                        'Edit About',
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                /////////
                 SizedBox(height: 10.h),
                 Container(
                   color: AppColor.greyColor,
                   width: double.infinity,
                   height: 7.h,
                 ),
-                SizedBox(height: 20.h,),
+                SizedBox(height: 10.h,),
                 Expanded(
                   child: SingleChildScrollView(
                     physics: BouncingScrollPhysics(),

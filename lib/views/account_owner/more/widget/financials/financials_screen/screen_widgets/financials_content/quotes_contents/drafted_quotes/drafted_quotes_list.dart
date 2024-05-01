@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,7 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class DraftedQuotesList extends StatefulWidget {
-  DraftedQuotesList({super.key});
+  const DraftedQuotesList({super.key});
 
   @override
   State<DraftedQuotesList> createState() => _DraftedQuotesListState();
@@ -27,7 +25,7 @@ class DraftedQuotesList extends StatefulWidget {
 
 class _DraftedQuotesListState extends State<DraftedQuotesList> {
 
-  var service = Get.put(QuotesService());
+  final service = Get.put(QuotesService());
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -106,6 +104,7 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
                     
                       return DraftedQuotesDisplay(
                         onPressed: (){},
+                        refresh: _refresh(),
                         tracking_id: item.tracking_id.toString(),
                         created_at: item.created_at,
                         quote_id: item.quote_id, 

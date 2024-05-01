@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/profile/widget/edit_education/edit_c
 
 
 class EditCertDetails extends StatefulWidget {
-  EditCertDetails({super.key, required this.issuingOrganization, required this.certificateName, required this.issueDate, required this.certificateLink});
+  const EditCertDetails({super.key, required this.issuingOrganization, required this.certificateName, required this.issueDate, required this.certificateLink});
   final String issuingOrganization;
   final String certificateName;
   final String issueDate;
@@ -34,7 +34,7 @@ class _EditCertDetailsState extends State<EditCertDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
+      /*appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -46,19 +46,50 @@ class _EditCertDetailsState extends State<EditCertDetails> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Edit education and certifications',),
-      ),
+        title: CustomAppBarTitle(text: 'Edit certification',),
+      ),*/
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            //Header
+            /////////////
+            SizedBox(height: 10.h,),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 7.w),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColor.blackColor,
+                    )
+                  ),
+                  SizedBox(width: 3.w,),
+                  Text(
+                    'Edit certifications',
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            /////////
+          
             SizedBox(height: 10.h),
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
               height: 7.h,
             ),
-            SizedBox(height: 20.h,),
+            SizedBox(height: 10.h,),
             Expanded(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),

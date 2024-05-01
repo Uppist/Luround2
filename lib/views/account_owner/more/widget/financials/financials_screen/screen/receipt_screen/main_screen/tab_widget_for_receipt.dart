@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/drafted_receipts/drafted_receipts_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/receipt_screen/sent_receipts/sent_receipts_screen.dart';
 
 
@@ -40,99 +39,101 @@ class _ReceiptScreenTabState extends State<ReceiptScreenTab> with SingleTickerPr
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 30.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-              IconButton(
-                onPressed: () {
-                  Get.back();
-                },
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: AppColor.blackColor,
-                )
-              ),
-              SizedBox(width: 3.w,),
-              Text(
-                "Receipts",
-                style: GoogleFonts.inter(
-                  color: AppColor.blackColor,
-                  fontSize: 17.sp,
-                  fontWeight: FontWeight.w500
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 20.h,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                IconButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_rounded,
+                    color: AppColor.blackColor,
+                  )
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: 20.h),
-          Expanded(
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 60.w),
-                  child: AnimatedContainer(
-                    padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(50.r),
-                      border: Border.all(color: AppColor.navyBlue)
-                    ),
-                    duration: const Duration(milliseconds: 100),
-                    child: Column(
-                      children: [
-                        //added
-                        TabBar(                    
-                          physics: const BouncingScrollPhysics(),
-                          indicatorColor: AppColor.navyBlue,
-                          indicatorSize: TabBarIndicatorSize.tab,
-                          //indicatorWeight: 0.1,
-                          labelStyle: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: AppColor.bgColor,
-                              fontSize: 12.sp,
-                              fontWeight: FontWeight.w600,
+                SizedBox(width: 3.w,),
+                Text(
+                  "Receipts",
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 17.sp,
+                    fontWeight: FontWeight.w500
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.h),
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 60.w),
+                    child: AnimatedContainer(
+                      padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: AppColor.bgColor,
+                        borderRadius: BorderRadius.circular(50.r),
+                        border: Border.all(color: AppColor.navyBlue)
+                      ),
+                      duration: const Duration(milliseconds: 100),
+                      child: Column(
+                        children: [
+                          //added
+                          TabBar(                    
+                            physics: const BouncingScrollPhysics(),
+                            indicatorColor: AppColor.navyBlue,
+                            indicatorSize: TabBarIndicatorSize.tab,
+                            //indicatorWeight: 0.1,
+                            labelStyle: GoogleFonts.inter(
+                              textStyle: TextStyle(
+                                color: AppColor.bgColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
+                            unselectedLabelColor: AppColor.navyBlue,
+                            labelColor: AppColor.bgColor,
+                            //padding: EdgeInsets.symmetric(horizontal: 10),
+                            indicator: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50.r),
+                              color: AppColor.navyBlue,
+                              shape: BoxShape.rectangle,
+                            ),
+                            controller: tabController,
+                            isScrollable: false,
+                            tabs: const [
+                              Tab(text: 'Sent',),
+                              //Tab(text: 'Drafts',),
+                            ],
                           ),
-                          unselectedLabelColor: AppColor.navyBlue,
-                          labelColor: AppColor.bgColor,
-                          //padding: EdgeInsets.symmetric(horizontal: 10),
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50.r),
-                            color: AppColor.navyBlue,
-                            shape: BoxShape.rectangle,
-                          ),
-                          controller: tabController,
-                          isScrollable: false,
-                          tabs: const [
-                            Tab(text: 'Sent',),
-                            //Tab(text: 'Drafts',),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-      
-                //tabbar content here //wrap with future builder
-                Expanded(
-                  child: TabBarView(
-                    controller: tabController,
-                    physics: const BouncingScrollPhysics(),
-                    children: [
-                      SentReceiptsPage(),
-                      //DraftedReceiptsPage()
-                    ]
+        
+                  //tabbar content here //wrap with future builder
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      physics: const BouncingScrollPhysics(),
+                      children: [
+                        SentReceiptsPage(),
+                        //DraftedReceiptsPage()
+                      ]
+                    ),
                   ),
-                ),
-              ]
+                ]
+              )
             )
-          )
-      
-        ],
+        
+          ],
+        ),
       ),
     );
   }

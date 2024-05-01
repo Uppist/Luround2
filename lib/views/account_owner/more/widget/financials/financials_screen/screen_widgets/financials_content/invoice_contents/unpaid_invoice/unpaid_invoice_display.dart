@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class UnpaidInvoiceDisplay extends StatelessWidget {
-  const UnpaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.service_provider, required this.invoice_generated_from_quote,});
+  const UnpaidInvoiceDisplay({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.created_at, required this.service_provider, required this.invoice_generated_from_quote, required this.refresh,});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -36,6 +35,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
   final String invoice_generated_from_quote;
   //service provider bank details here
   final Map<String, dynamic> service_provider;
+  final Future<void> refresh;
 
 
   @override
@@ -100,6 +100,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
                 ],
               ),
               InvoiceUnpaidDropDown(
+                refresh: refresh,
                 bank_details: service_provider['bank_details'],
                 tracking_id: tracking_id,
                 service_provider_address: service_provider_address,

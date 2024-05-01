@@ -19,12 +19,13 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/select_
 
 
 class RescheduleBookingPage extends StatefulWidget {
-  RescheduleBookingPage({super.key, required this.service_date, required this.service_name, required this.service_time, required this.service_duration, required this.bookingId});
+  RescheduleBookingPage({super.key, required this.service_date, required this.service_name, required this.service_time, required this.service_duration, required this.bookingId, required this.refresh});
   final String service_date;
   final String service_name;
   final String service_time;
   final String service_duration;
   final String bookingId;
+  final Future<void> refresh;
 
 
   @override
@@ -47,56 +48,38 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  ///Header Section
-                  Container(
-                    color: AppColor.bgColor,
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  
+                  //Header
+                  /////////////
+                  SizedBox(height: 10.h,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 7.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        /*Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.asset('assets/images/luround_logo.png'),
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => NotificationsPage());
-                              },
-                              child: SvgPicture.asset("assets/svg/notify_active.svg"),
-                            ),
-                          ]
-                        ),*/
-                        SizedBox(height: 10.h,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            
-                            InkWell(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Icon(
-                                Icons.arrow_back_rounded,
-                                color: AppColor.blackColor,
-                              ),
-                            ),
-                          
-                            SizedBox(width: 10.w,),
-                            Text(
-                              "Reschedule",
-                              style: GoogleFonts.inter(
-                                color: AppColor.blackColor,
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.w500
-                              ),
-                            ),
-                          ],
+                        IconButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          icon: Icon(
+                            Icons.arrow_back_rounded,
+                            color: AppColor.blackColor,
+                          )
                         ),
-                        //SizedBox(height: 30,),
-                      ]
-                    )
+                        SizedBox(width: 3.w,),
+                        Text(
+                          "Reschedule",
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                  /////////
+                  
                   Container(
                     height: 7.h,
                     width: double.infinity,
@@ -391,7 +374,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                       startTime: controller.getStartTime(initialTime: "t1"), 
                                       endTime: controller.getStopTime(initialTime: "t2"),
                                     )
-                                  );
+                                  ).whenComplete(() => widget.refresh);
                                   //rescheduleDialogueBox(context: context);
                                 },
                               );

@@ -103,6 +103,7 @@ class _UnpaidInvoiceListState extends State<UnpaidInvoiceList> {
                       
                       return UnpaidInvoiceDisplay(
                         onPressed: (){},
+                        refresh: _refresh(),
                         invoice_generated_from_quote: item.invoice_generated_from_quote,
                         service_provider: item.service_provider,
                         tracking_id: item.tracking_id.toString(),

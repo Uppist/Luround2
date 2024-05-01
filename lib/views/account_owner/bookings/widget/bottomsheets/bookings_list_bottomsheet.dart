@@ -26,7 +26,8 @@ Future<void> bookingsListDialogueBox({
   required String serviceDuration,
   required String bookingId,
   required String client_name, 
-  required AccOwnerBookingService service
+  required AccOwnerBookingService service,
+  required Future<void> refresh,
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -63,6 +64,7 @@ Future<void> bookingsListDialogueBox({
                 InkWell(
                   onTap: () {
                     Get.off(() => RescheduleBookingPage(
+                      refresh: refresh,
                       bookingId: bookingId,
                       service_name: serviceName,
                       service_date: serviceDate,
@@ -92,6 +94,7 @@ Future<void> bookingsListDialogueBox({
                   onTap: () {
                     //Navigator.pop(context);
                     cancelBookingDialogueBox(
+                      refresh: refresh,
                       service: service,
                       context: context, 
                       serviceName: serviceName,
@@ -128,6 +131,7 @@ Future<void> bookingsListDialogueBox({
                           context: context, 
                           bookingId: bookingId
                         ).whenComplete(() {
+                          refresh;
                           Navigator.pop(context);
                           Navigator.pop(context);
                         });

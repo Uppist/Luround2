@@ -7,7 +7,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class CustomAppBarTitle extends StatelessWidget {
-  CustomAppBarTitle({super.key, required this.text});
+  const CustomAppBarTitle({super.key, required this.text});
   final String text;
 
   @override

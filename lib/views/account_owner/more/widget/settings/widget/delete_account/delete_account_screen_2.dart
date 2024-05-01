@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,6 +27,21 @@ class DeleteAccountScreen2 extends StatefulWidget {
 
 class _DeleteAccountScreen2State extends State<DeleteAccountScreen2> {
   final authService = Get.put(AuthService());
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    SystemChrome.setSystemUIOverlayStyle(
+    SystemUiOverlayStyle(
+      systemNavigationBarColor: AppColor.bgColor,
+      statusBarColor: Colors.transparent, //AppColor.bgColor,
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+  }
 
   @override
   Widget build(BuildContext context) {

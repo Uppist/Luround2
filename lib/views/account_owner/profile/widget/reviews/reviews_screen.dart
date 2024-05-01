@@ -31,7 +31,7 @@ class ReviewsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      /*appBar: AppBar(
+      appBar: AppBar(
         elevation: 0,
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
@@ -44,7 +44,7 @@ class ReviewsPage extends StatelessWidget {
           )
         ),
         title: CustomAppBarTitle(text: 'Reviews',),
-      ),*/
+      ),
       body: FutureBuilder<List<ReviewResponse>>(
         future: service.getUserReviews(),
         builder: (context, snapshot) {
@@ -79,7 +79,7 @@ class ReviewsPage extends StatelessWidget {
                   children: <Widget>[
                     //Header
                     /////////////
-                    SizedBox(height: 10.h,),
+                    /*SizedBox(height: 10.h,),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 7.w),
                       child: Row(
@@ -105,7 +105,7 @@ class ReviewsPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                    ),
+                    ),*/
                     /////////
                   SizedBox(height: 10.h),
                   /*Container(

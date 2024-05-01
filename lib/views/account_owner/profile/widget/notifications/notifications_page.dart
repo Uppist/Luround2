@@ -76,6 +76,7 @@ class NotificationsPage extends StatelessWidget {
             return SafeArea(
               child: Column(
                 children: [
+                  SizedBox(height: 10.h),
                   //Header
                   /////////////
                   Padding(

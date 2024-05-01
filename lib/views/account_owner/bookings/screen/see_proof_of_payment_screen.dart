@@ -24,7 +24,7 @@ class SeePaymentProofPage extends StatelessWidget {
         )
       ),
       //FAB (floating action bubble / speed dial)
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SpeedDial(
         //extendedPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
         //isOpenOnStart: true,

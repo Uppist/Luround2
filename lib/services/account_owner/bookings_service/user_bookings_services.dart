@@ -570,10 +570,7 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking rescheduled successfully"
-        ).whenComplete(() {
-          Navigator.pop(context);
-          //Navigator.pop(context);
-        });
+        );
       } 
       else {
         isLoading.value = false;
@@ -585,10 +582,7 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.redColor,
           message: "failed to reschedule booking: ${res.statusCode} | ${res.body}"
-        ).whenComplete(() {
-          Navigator.pop(context);
-          //Navigator.pop(context);
-        });
+        );
       }
     } 
     catch (e) {

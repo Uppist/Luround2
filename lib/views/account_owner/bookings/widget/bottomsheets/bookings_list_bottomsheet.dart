@@ -131,9 +131,9 @@ Future<void> bookingsListDialogueBox({
                           context: context, 
                           bookingId: bookingId
                         ).whenComplete(() {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                           refresh;
-                          Navigator.pop(context);
-                          Navigator.pop(context);
                         });
                       },
                     );

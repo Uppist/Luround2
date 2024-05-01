@@ -74,6 +74,8 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
+                    Navigator.pop(context);
+
                   },
                   child: Container(
                     //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

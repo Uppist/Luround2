@@ -67,7 +67,8 @@ Future<void> rescheduleDialogueBox({required BuildContext context,}) async{
                     color: AppColor.darkGreyColor,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500
-                  )
+                  ),
+                  textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 30.h,),
                 InkWell(

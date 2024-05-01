@@ -4,11 +4,12 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/more_screen_widgets/delete_account_bottomsheet.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/delete_account/delete_account_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen_widgets/logout_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/pin_management_options.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/bank_details_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/customize_your_url/customize_url.dart';
+import 'package:luround/views/account_owner/more/widget/settings/widget/delete_account/delete_account_screen_1.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/password_settings/change_password_screen.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/screen/show_sub_page.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/settings_selector.dart';
@@ -95,7 +96,8 @@ class SettingsScreen extends StatelessWidget {
                 SettingsSelector(
                   text: "Delete your Luround account",
                   onFlip: () {
-                    deleteAccountBottomsheet(context: context);
+                    Get.to(() => DeleteAccountScreen1());
+                    //deleteAccountBottomsheet(context: context);
                   },
                 ),
                 SizedBox(height: 20.h,),

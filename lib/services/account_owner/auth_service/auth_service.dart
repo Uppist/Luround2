@@ -1195,6 +1195,8 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.data}');
         await logoutUser();
+        //clear the controller
+        anotherReasonController.clear();
         getx.Get.offAll(() => const SplashScreen1(), transition: getx.Transition.leftToRight);
       }
     }
@@ -1208,8 +1210,94 @@ class AuthService extends getx.GetxController {
       debugPrint("$e -- $stackTrace");
     }
   }
-
-
   
+  //(save to db by index from ui)
+  //to activate the delete button in the final stage screen
+  final isDeletionCheckBoxActive = false.obs;
+  List<Map<String, dynamic>> deletionReasonsList = [
+    {
+      "reason": "The app is not what i expected",
+      "isChecked": false,     
+    },
+    {
+      "reason": "There are too many bugs",
+      "isChecked": false,     
+    },
+    {
+      "reason": "I don't use Luround anymore",
+      "isChecked": false,     
+    },
+    {
+      "reason": "I do not find the features valuable",
+      "isChecked": false,     
+    },
+    {
+      "reason": "Safety or privacy concern",
+      "isChecked": false,     
+    },
+    {
+      "reason": "Another reason",
+      "isChecked": false,     
+    },
+  ];
+
+  //add to database
+  List<String> selectedReason = [];
+
+  //add to database
+  final TextEditingController anotherReasonController = TextEditingController();
+  //nice idea for dweller
+  var showReasonTextField = false.obs;
+
+  void addItem({required String item}) {
+    if (!selectedReason.contains(item)) {
+      // Get the selected reasons in the unique order as they were selected
+      List<String> orderedSelectedDays = deletionReasonsList
+      .where((e) => e['isChecked'])
+      .map<String>((e) => e['reason'] as String)
+      .toList();
+
+      // Update the selectedReason list based on the checkbox state
+      selectedReason.clear();
+      selectedReason.addAll(orderedSelectedDays);
+      //selectedReason.add(item);
+    } else {
+      print("$item is already in the list");
+    }
+  }
+
+  void removeItem({required int index}) {
+    if (index >= 0 && index < selectedReason.length) { //&& index < selectedReason.length
+      selectedReason.removeAt(index);
+      print("Item removed at index $index");
+    } else {
+      print("Invalid index: $index");
+    }
+  }
+
+  void toggleCheckbox(int index, bool? value) {
+    // Toggle the isChecked value
+    deletionReasonsList[index]['isChecked'] = value;
+
+    // Update the selectedReason list based on the checkbox state
+    if (deletionReasonsList[index]['isChecked']) {
+      addItem(item: deletionReasonsList[index]['reason']);
+    } 
+    else {
+      int selectedIndex = selectedReason.indexOf(deletionReasonsList[index]['reason']);
+      if (selectedIndex != -1) {
+        removeItem(index: selectedIndex);
+      }
+    }
+  }
+  
+  //final deletion check value
+  var isChecked = false.obs;
+
+  @override
+  void dispose() {
+    anotherReasonController.dispose();
+    super.dispose();
+  }
 
 }

@@ -355,8 +355,8 @@ class AccOwnerProfileService extends getx.GetxController {
       final pickedImage = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (pickedImage != null) {
         imageFromGallery.value = File(pickedImage.path);
-        await uploadImageToCloudinary(context: context);
         isImageSelected.value = true;
+        await uploadImageToCloudinary(context: context);
         update();
       }
     }

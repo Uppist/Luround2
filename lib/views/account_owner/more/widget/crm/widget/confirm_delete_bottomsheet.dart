@@ -120,8 +120,8 @@ Future<void> confirmCRMDeleteBottomsheet({
                                 client_email: client_email, 
                                 client_phone_number: client_phone_number
                               ).whenComplete(() {
-                                refresh;
                                 Get.back();
+                                refresh;
                               });
                             },
                             child: Container(

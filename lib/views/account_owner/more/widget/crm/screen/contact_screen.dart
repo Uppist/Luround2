@@ -77,7 +77,7 @@ class _ContactScreenState extends State<ContactScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Get.to(() => AddContactScreen());
+              Get.to(() => AddContactScreen(refresh: _refresh(),));
             }, 
             child: Text(
               "+ Add new",
@@ -150,7 +150,9 @@ class _ContactScreenState extends State<ContactScreen> {
                           final item = service.filteredContactList[index];
                           if(service.filteredContactList.isEmpty) {
                             return CRMEmptyState(
-                              onPressed: () {},
+                              onPressed: () {
+                                _refresh();
+                              },
                             );
                           }
                           return InkWell(
@@ -371,7 +373,9 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   )
                   :CRMEmptyState(
-                    onPressed: () {},
+                    onPressed: () {
+                      _refresh();
+                    },
                   );
 
                 }

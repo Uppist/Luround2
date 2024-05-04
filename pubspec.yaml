@@ -102,6 +102,9 @@ dependencies:
   #to check everything about your jwt
   flutter_session_jwt: ^0.0.6
 
+  #for syncing google calendr to flutter app
+  syncfusion_flutter_calendar: ^25.1.42
+
 
 
 

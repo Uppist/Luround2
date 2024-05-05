@@ -23,7 +23,7 @@ import 'package:luround/views/account_owner/profile/widget/notifications/notific
 
 
 class FeedbackPage extends StatefulWidget {
-  FeedbackPage({super.key});
+  const FeedbackPage({super.key});
 
   @override
   State<FeedbackPage> createState() => _FeedbackPageState();

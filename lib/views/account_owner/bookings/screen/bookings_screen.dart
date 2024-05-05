@@ -211,7 +211,12 @@ class _BookingsPageState extends State<BookingsPage> {
                     print("sn-trace: ${snapshot.stackTrace}");
                     print("sn-error: ${snapshot.error}");
               
-                    return BookingScreenEmptyState(onPressed: () {service.getUserBookings();},);
+                    return BookingScreenEmptyState(
+                      onPressed: () {
+                        //service.getUserBookings();
+                        _refresh();
+                      },
+                    );
                   }
                      
                   if (snapshot.hasData) {
@@ -1006,7 +1011,8 @@ class _BookingsPageState extends State<BookingsPage> {
                                           
                                     return BookingScreenEmptyState(
                                       onPressed: () {
-                                        service.getUserBookings();
+                                        //service.getUserBookings();
+                                        _refresh();
                                       },
                                     );
                                   }
@@ -1015,11 +1021,11 @@ class _BookingsPageState extends State<BookingsPage> {
                               //: BookingScreenEmptyState(onPressed: () {},);
                             
                         
-                        ) : BookingScreenEmptyState(onPressed: () {},);
+                        ) : BookingScreenEmptyState(onPressed: () {_refresh();},);
                       }
                     );
                   }
-                  return BookingScreenEmptyState(onPressed: () {},);
+                  return BookingScreenEmptyState(onPressed: () {_refresh();},);
                 }
               ),
           

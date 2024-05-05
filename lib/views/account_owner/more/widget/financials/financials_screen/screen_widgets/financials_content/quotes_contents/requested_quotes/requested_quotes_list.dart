@@ -144,7 +144,8 @@ class _RequestedQuotesListState extends State<RequestedQuotesList> {
                 ),
               ) : FinancialsEmptyState2(
                 onRefresh: () {
-                  service.getUserReceivedQuotes();
+                  //service.getUserReceivedQuotes();
+                  _refresh();
                 },
                 titleText: 'No requested quotes yet',
                 subtitleText: 'quote requests',
@@ -154,7 +155,7 @@ class _RequestedQuotesListState extends State<RequestedQuotesList> {
         }
         return FinancialsEmptyState2(
           onRefresh: () {
-              
+            _refresh();  
           },
           titleText: 'No requested quotes yet',
           subtitleText: 'quote requests',

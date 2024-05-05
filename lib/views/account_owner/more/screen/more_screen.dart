@@ -6,9 +6,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/screen/more_screen_selector.dart';
+import 'package:luround/views/account_owner/more/widget/calendar/sync_calendar_screen.dart';
 import 'package:luround/views/account_owner/more/widget/crm/screen/contact_screen.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/quotes_screen/sent_qoutes/sent_quote_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/main_screen/main_screen.dart';
 import 'package:luround/views/account_owner/more/widget/notifications/notification_settings_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
@@ -25,7 +25,7 @@ import '../widget/settings/screen/settings_screen.dart';
 class MorePage extends StatelessWidget {
   MorePage({super.key});
 
-  var controller = Get.put(MoreController());
+  final controller = Get.put(MoreController());
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,15 @@ class MorePage extends StatelessWidget {
                     onTap: () {
                       Get.to(() => SettingsScreen());
                     },
-                  ),                
+                  ),  
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
+                    text: 'Calendar',
+                    svgAsset: 'assets/svg/settings_new.svg',
+                    onTap: () {
+                      Get.to(() => SyncFusionCalendar());
+                    },
+                  ),               
                 ],
               ),
             )

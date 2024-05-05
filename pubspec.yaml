@@ -23,7 +23,6 @@ dependencies:
   file_picker: ^3.0.0
   pdf: ^3.10.7
   path_provider: ^2.1.1
-  syncfusion_flutter_pdfviewer: ^24.1.41
   flutter_dropzone: ^3.0.6
   
   #ui customizations
@@ -104,6 +103,7 @@ dependencies:
 
   #for syncing google calendr to flutter app
   syncfusion_flutter_calendar: ^25.1.42
+  #syncfusion_flutter_pdfviewer: ^24.1.41
 
 
 

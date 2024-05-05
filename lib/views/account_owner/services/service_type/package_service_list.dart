@@ -10,7 +10,6 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/package/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/package/edit_service/screen/edit_service_bottomsheet.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/toggle_service_price_container/toggle_price_package.dart';
 
 
@@ -312,8 +311,8 @@ class _PackageServiceListState extends State<PackageServiceList> {
                             return Text(
                               key: Key('price_text_$index'),
                               controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ?'N${data.service_charge_virtual}' 
-                              :'N${data.service_charge_in_person}',
+                              ? data.service_charge_virtual.isNotEmpty ? "N${data.service_charge_virtual}" : "FREE"
+                              : data.service_charge_in_person.isNotEmpty ? "N${data.service_charge_in_person}" : "FREE",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 20.sp,

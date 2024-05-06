@@ -4,7 +4,17 @@ import 'package:intl/intl.dart';
 
 
 
+DateTime parseDateTime({required String dateString, required String timeString}) {
+  // Parse date string
+  DateTime date = DateFormat("yyyy-MM-dd").parse(dateString);
 
+  // Parse time string
+  DateFormat timeFormat = DateFormat("h:mm a");
+  DateTime time = timeFormat.parse(timeString);
+
+  // Combine date and time
+  return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+}
 
 
 DateTime convertNodeJSServerTimestampToDateObject({

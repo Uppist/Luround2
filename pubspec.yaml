@@ -87,6 +87,7 @@ dependencies:
   firebase_core: ^2.24.0
   firebase_messaging: ^14.7.6
   firebase_auth: ^4.15.0
+  cloud_firestore: ^4.17.2
 
   #local notifications
   #awesome_notifications: ^0.9.0
@@ -103,6 +104,8 @@ dependencies:
 
   #for syncing google calendr to flutter app
   syncfusion_flutter_calendar: ^25.1.42
+  #for syncing google apis e.g google calendar
+  
   #syncfusion_flutter_pdfviewer: ^24.1.41
 
 

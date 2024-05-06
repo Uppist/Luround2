@@ -1,11 +1,12 @@
+import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/more/widget/calendar/fetch_data_source_service.dart';
+import 'package:luround/views/account_owner/more/widget/calendar/meeting_data_source.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/my_snackbar.dart';
-
 
 
 
@@ -14,9 +15,9 @@ import 'package:luround/utils/components/my_snackbar.dart';
 
 
 class SyncFusionCalendar extends StatelessWidget {
-  const SyncFusionCalendar({super.key});
+  SyncFusionCalendar({super.key});
   
-  //final controller = Get.put(MoreController());
+  final controller = Get.put(CalendarService());
 
   @override
   Widget build(BuildContext context) {
@@ -72,33 +73,96 @@ class SyncFusionCalendar extends StatelessWidget {
                       SizedBox(height: 10.h),
                       //1
                       Text(
-                        "Sync your calendar",
+                        "Track your bookings with ease on your calendar",
                         style: GoogleFonts.inter(
-                          color: AppColor.blackColor,
+                          color: AppColor.darkGreyColor, //semiDarkGreyColor,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w500
                         ),
                       ),
+                      
                       SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+                      
                       //SYNCFUSION CALENDAR
-                      SfCalendar(
-                        cellEndPadding: 5,
-                        view: CalendarView.month,
-                        todayHighlightColor: AppColor.navyBlue,
-                        backgroundColor: AppColor.bgColor,
-                        cellBorderColor: AppColor.mainColor,
-                        showNavigationArrow: true,
-                        dataSource: MeetingDataSource(_getDataSource()),
-                        monthViewSettings: const MonthViewSettings(
-                          appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
-                        ),
-                        initialDisplayDate: DateTime.now(),
-                        selectionDecoration: BoxDecoration(
-                          color: Colors.transparent,
-                          border: Border.all(color: AppColor.mainColor, width: 2),
-                          borderRadius: BorderRadius.all(Radius.circular(4.r)),
-                         shape: BoxShape.rectangle,
-                        ),
+                      FutureBuilder(
+                        future: controller.getDataFromWeb(),
+                        builder: (BuildContext context, AsyncSnapshot snapshot) {
+                          if (snapshot.connectionState == ConnectionState.waiting) {
+                            return const Loader2();
+                          }
+
+                          if (snapshot.hasError) {
+                            print(snapshot.error);
+                            return Text(
+                              "failed to fetch calendar",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                            );
+                          }
+                
+                          if (!snapshot.hasData) {
+                            print("sn-trace: ${snapshot.stackTrace}");
+                            print("sn-error: ${snapshot.error}");
+                            return Text(
+                              "no data found",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                            );
+                          }
+                     
+                          if (snapshot.hasData) {
+                        
+                            return SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.70,
+                              child: SfCalendar(
+                                cellEndPadding: 5,
+                                cellBorderColor: Colors.transparent,
+                                todayHighlightColor: AppColor.navyBlue,
+                                backgroundColor: AppColor.bgColor,
+                                view: CalendarView.month, //.month .timelineMonth
+                                dataSource: MeetingDataSource(snapshot.data),
+                                showNavigationArrow: true,
+                                initialDisplayDate: DateTime.now(),
+                                initialSelectedDate: DateTime.now(),
+                                //
+                                /*monthViewSettings: const MonthViewSettings(
+                                  appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
+                                ),*/
+                                selectionDecoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(color: AppColor.mainColor, width: 2),
+                                  borderRadius: BorderRadius.all(Radius.circular(5.r)),
+                                  shape: BoxShape.rectangle,
+                                ),
+                                //onViewChanged: (viewChangedDetails) {},
+                                onLongPress: (calendarTapDetails) {
+                                  controller.setDate(calendarTapDetails.date!);
+                                  controller.showAppointmentDetailBottomsheet(context: context);
+                                },
+                              
+                              ),
+                            );
+                          } 
+          
+                          return Text(
+                            "error: ${snapshot.error}",
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          );
+  
+                        },
                       ),
                         
                     ],
@@ -114,62 +178,6 @@ class SyncFusionCalendar extends StatelessWidget {
 }
 
 
-//test data source
-List<Meeting> _getDataSource() {
-  final List<Meeting> meetings = <Meeting>[];
-  final DateTime today = DateTime.now();
-  final DateTime startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
-  final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(
-      Meeting(
-        'Conference', 
-        startTime, 
-        endTime,
-        AppColor.mainColor, 
-        false
-      )
-    );
-    return meetings;
-}
 
 
-class MeetingDataSource extends CalendarDataSource {
-  MeetingDataSource(List<Meeting> source) {
-    appointments = source;
-  }
 
-  @override
-  DateTime getStartTime(int index) {
-    return appointments![index].from;
-  }
-
-  @override
-  DateTime getEndTime(int index) {
-    return appointments![index].to;
-  }
-
-  @override
-  String getSubject(int index) {
-    return appointments![index].eventName;
-  }
-
-  @override
-  Color getColor(int index) {
-    return appointments![index].background;
-  }
-
-  @override
-  bool isAllDay(int index) {
-    return appointments![index].isAllDay;
-  }
-}
-
-class Meeting {
-  Meeting(this.eventName, this.from, this.to, this.background, this.isAllDay);
-
-  String eventName;
-  DateTime from;
-  DateTime to;
-  Color background;
-  bool isAllDay;
-}

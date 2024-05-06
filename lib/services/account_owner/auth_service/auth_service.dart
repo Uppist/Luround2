@@ -23,7 +23,6 @@ import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/pa
 import 'package:luround/views/account_owner/auth/screen/forgot_password/pages/password_updated.dart';
 import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/registration/pages/first_page.dart';
-import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/payment_screen/payment_screen_auth.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -495,17 +494,14 @@ class AuthService extends getx.GetxController {
     getx.Get.offAll(() => LoginPage());
   }
 
-
   //Login with Google
   Future<void> signInWithGoogle({required BuildContext context}) async {
     try {
 
       final GoogleSignIn _googleSignIn = GoogleSignIn(
-        scopes: ['email'],
-        // The OAuth client id of your iOS app. This is required.
-        //serverClientId: '435201146577-jptvcq353844i9i03bagh4ch830k3ugt.apps.googleusercontent.com',
-        // If you need to authenticate to a backend server, specify its OAuth client. This is optional.
-        //serverClientId: 'Your Server ID',
+        scopes: [
+          'email' ,
+        ],
       ); // Add desired scopes
 
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -600,11 +596,9 @@ class AuthService extends getx.GetxController {
   Future<void> signUpWithGoogle({required BuildContext context}) async {
     try {
       final GoogleSignIn _googleSignIn = GoogleSignIn(
-        scopes: ['email'],
-        // The OAuth client id of your iOS app. This is required.
-        //serverClientId: '435201146577-jptvcq353844i9i03bagh4ch830k3ugt.apps.googleusercontent.com',
-        //If you need to authenticate to a backend server, specify its OAuth client. This is optional.
-        //serverClientId: 'Your Server ID',
+        scopes: [
+          'email' ,
+        ],
       ); // Add desired scopes
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 

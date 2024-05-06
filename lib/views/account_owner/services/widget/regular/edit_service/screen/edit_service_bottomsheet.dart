@@ -101,6 +101,75 @@ Future<void> editServiceDialogueBox({
                   ),
                 ),
                 SizedBox(height: 30.h,),
+
+                //1
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset('assets/svg/service_insight.svg'),
+                      SizedBox(width: 20.w,),
+                      Text(
+                        'Service insight',
+                        style: GoogleFonts.inter(
+                          color: AppColor.textGreyColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 30.h,),
+                //1
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset('assets/svg/suspend_service.svg'),
+                      SizedBox(width: 20.w,),
+                      Text(
+                        'Suspend service',
+                        style: GoogleFonts.inter(
+                          color: AppColor.textGreyColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 30.h,),
+                //1
+                InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset('assets/svg/suspend_service.svg'),
+                      SizedBox(width: 20.w,),
+                      Text(
+                        'Unsuspend service',
+                        style: GoogleFonts.inter(
+                          color: AppColor.textGreyColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 30.h,),
+
+
                 //2            
                 InkWell(
                   onTap: () {

@@ -25,9 +25,6 @@ import 'package:luround/views/account_owner/bookings/widget/search_textfield.dar
 
 
 
-
-
-
 class BookingsPage extends StatefulWidget {
   const BookingsPage({super.key});
 

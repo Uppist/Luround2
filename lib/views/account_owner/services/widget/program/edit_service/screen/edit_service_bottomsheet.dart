@@ -91,13 +91,15 @@ Future<void> editProgramServiceDialogueBox({
                     children: [
                       SvgPicture.asset('assets/svg/pen_photo.svg'),
                       SizedBox(width: 20.w,),
-                      Text(
-                        'Edit',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
+                      Expanded(
+                        child: Text(
+                          'Edit',
+                          style: GoogleFonts.inter(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        ),
                       ),
                     ],
                   ),
@@ -114,13 +116,15 @@ Future<void> editProgramServiceDialogueBox({
                     children: [
                       SvgPicture.asset('assets/svg/service_insight.svg'),
                       SizedBox(width: 20.w,),
-                      Text(
-                        'Service insight',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
+                      Expanded(
+                        child: Text(
+                          'Service insight',
+                          style: GoogleFonts.inter(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        ),
                       ),
                     ],
                   ),
@@ -136,13 +140,15 @@ Future<void> editProgramServiceDialogueBox({
                     children: [
                       SvgPicture.asset('assets/svg/suspend_service.svg'),
                       SizedBox(width: 20.w,),
-                      Text(
-                        'Suspend service',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
+                      Expanded(
+                        child: Text(
+                          'Suspend service',
+                          style: GoogleFonts.inter(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        ),
                       ),
                     ],
                   ),
@@ -156,15 +162,17 @@ Future<void> editProgramServiceDialogueBox({
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SvgPicture.asset('assets/svg/suspend_service.svg'),
+                      SvgPicture.asset('assets/svg/unsuspend_service.svg'),
                       SizedBox(width: 20.w,),
-                      Text(
-                        'Unsuspend service',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
+                      Expanded(
+                        child: Text(
+                          'Unsuspend service',
+                          style: GoogleFonts.inter(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        ),
                       ),
                     ],
                   ),
@@ -242,13 +250,15 @@ Future<void> editProgramServiceDialogueBox({
                     children: [
                       SvgPicture.asset('assets/svg/delete_photo.svg'),
                       SizedBox(width: 20.w,),
-                      Text(
-                        'Delete',
-                        style: GoogleFonts.inter(
-                          color: AppColor.textGreyColor,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.w500
-                        )
+                      Expanded(
+                        child: Text(
+                          'Delete',
+                          style: GoogleFonts.inter(
+                            color: AppColor.textGreyColor,
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.w500
+                          )
+                        ),
                       ),
                     ],
                   ),

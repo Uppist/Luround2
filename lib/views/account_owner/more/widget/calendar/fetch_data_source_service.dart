@@ -35,6 +35,10 @@ class CalendarService extends getx.GetxController {
     Colors.yellow,
     Colors.indigo,
     Colors.pink,
+    Colors.orange,
+    Colors.purple,
+    Colors.black,
+    AppColor.mainColor,
   ];
 
   //fetch data from bookings api
@@ -57,7 +61,7 @@ class CalendarService extends getx.GetxController {
 
         result.addAll(result2);
 
-        print("new_arr[0]: $result");
+        print("joined_array: $result");
 
         var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
@@ -73,16 +77,16 @@ class CalendarService extends getx.GetxController {
             from: //DateTime(2024, 5, 6, 09, 30, 0),
             parseDateTime(
               dateString: data.serviceDetails.date, 
-              timeString: '10:00 AM'  //data.serviceDetails.starttime
+              timeString: data.serviceDetails.start_time
             ),
 
             to: //DateTime(2024, 5, 6, 10, 30, 0),
             parseDateTime(
               dateString: data.serviceDetails.date, 
-              timeString: '12:00 PM'  //data.serviceDetails.endtime
+              timeString: data.serviceDetails.end_time
             ),
 
-            background: _colorCollection[random.nextInt(6)],
+            background: _colorCollection[random.nextInt(10)],
             isAllDay: false, //true
           );
           appointmentData.clear();
@@ -97,7 +101,7 @@ class CalendarService extends getx.GetxController {
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==> ${res.body}');
-        throw Exception('Failed to load calendar bookings');
+        throw Exception('Failed to load booking on calendar');
       }
     }   
     catch (e) {
@@ -118,7 +122,7 @@ class CalendarService extends getx.GetxController {
   //getter for selected date
   DateTime get selectedDateGetter => selectedDate;
 
-  //set the selected datedate
+  //set the selected date so the overlay can catch it
   void setDate(DateTime date) => selectedDate = date;
 
   //events of selected date

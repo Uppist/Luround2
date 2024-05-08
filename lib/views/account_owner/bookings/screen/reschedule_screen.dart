@@ -365,6 +365,8 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                 text: "Reschedule", 
                                 onPressed: () {
                                   service.rescheduleBooking(
+                                    start_time: controller.getStartTime(initialTime: "t1"),
+                                    end_time: controller.getStopTime(initialTime: "t2"),
                                     context: context, 
                                     bookingId: widget.bookingId, 
                                     date: controller.updatedDate(initialDate: widget.service_date), 

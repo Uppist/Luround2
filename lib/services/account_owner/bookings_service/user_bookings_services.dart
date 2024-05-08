@@ -548,6 +548,8 @@ class AccOwnerBookingService extends getx.GetxController {
     required String bookingId, //important
     required String date,
     required String time,
+    required String start_time,
+    required String end_time,
     required String duration,
   }) async {
     
@@ -556,6 +558,8 @@ class AccOwnerBookingService extends getx.GetxController {
     var body = {
       "date": date,
       "time": time,
+      "start_time": start_time,
+      "end_time": end_time,
       "duration": duration
     };
 

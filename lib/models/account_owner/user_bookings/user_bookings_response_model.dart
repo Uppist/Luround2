@@ -109,6 +109,8 @@ class ServiceDetails {
   final String appointmentType;
   final String date;
   final String time;
+  final String start_time;
+  final String end_time;
   final String duration;
   final String message;
   final dynamic file;
@@ -131,6 +133,8 @@ class ServiceDetails {
     required this.bookedStatus,
     required this.createdAt,
     required this.available_time,
+    required this.start_time,
+    required this.end_time,
   });
 
   factory ServiceDetails.fromJson(Map<String, dynamic> json) {
@@ -142,6 +146,8 @@ class ServiceDetails {
       appointmentType: json['appointment_type'] ?? '',
       date: json['date'] ?? '',
       time: json['time'] ?? '',
+      start_time: json['star_time'] ?? '',
+      end_time: json['end_time'] ?? '',
       duration: json['duration'] ?? '',
       message: json['message'] ?? '',
       file: json['file'] ?? '',

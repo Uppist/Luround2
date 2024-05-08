@@ -110,7 +110,6 @@ class _MainAppState extends State<MainApp> {
   void initState() {
 
     //initialize firebase cloud messaging
-    
     controller.initFCM(backgroundHandler: backgroundHandler);
     print("initialize fcm token $FCMtoken");
     print('token exp: $tokenExpDateInt');

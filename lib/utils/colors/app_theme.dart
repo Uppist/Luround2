@@ -14,12 +14,16 @@ class AppColor {
 
   static Color blueColor = const Color.fromRGBO(4, 104, 219, 1);
   static Color redColor = const Color.fromRGBO(198, 36, 36, 1);
+  static Color warningLightRedColor = const Color.fromRGBO(254, 247, 235, 1);
+  static Color warningDarkRedColor = const Color.fromRGBO(252, 238, 238, 1);
+
   static Color greenColor = const Color.fromRGBO(0, 163, 163, 1);  //mostly for bottomtab icon
   static Color darkGreyColor = const Color.fromRGBO(29, 46, 46, 0.8);
   static Color mainColor = const Color.fromRGBO(0, 204, 204, 1);
   static Color darkMainColor = const Color.fromRGBO(0, 163, 163, 1);
   static Color lightMainColor = const Color.fromRGBO(235, 255, 255, 0.35);
   static Color lightMainColor2 = const Color.fromRGBO(235, 255, 255, 1);
+
   
 
   static Color emptyPic = const Color.fromRGBO(211, 216, 225, 1);

@@ -17,6 +17,9 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 class ServicesController extends getx.GetxController {
   
+  //SUSPEND SERVICE
+  getx.RxBool isToggled = false.obs;
+
 
   //////NOT IN ANYMORE USE FOR REGULAR SERVICE///////
   /////(save to db)

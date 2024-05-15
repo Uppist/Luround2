@@ -4,10 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/regular/edit_service/screen/edit_service.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/switch_widget_suspend.dart';
 
 
 
@@ -36,6 +39,7 @@ Future<void> editServiceDialogueBox({
   required String email,
   required String displayName
 }) async {
+  var controller = Get.put(ServicesController());
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -107,7 +111,8 @@ Future<void> editServiceDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
+                    Get.back();
+                    Get.to(() => const ServiceInsightPage());
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -127,56 +132,49 @@ Future<void> editServiceDialogueBox({
                     ],
                   ),
                 ),
-                SizedBox(height: 30.h,),
-                //1
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset('assets/svg/suspend_service.svg'),
-                      SizedBox(width: 20.w,),
-                      Expanded(
-                        child: Text(
-                          'Suspend service',
-                          style: GoogleFonts.inter(
-                            color: AppColor.textGreyColor,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 30.h,),
-                //1
-                InkWell(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset('assets/svg/unsuspend_service.svg'),
-                      SizedBox(width: 20.w,),
-                      Expanded(
-                        child: Text(
-                          'Unsuspend service',
-                          style: GoogleFonts.inter(
-                            color: AppColor.textGreyColor,
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w500
-                          )
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+
                 SizedBox(height: 30.h,),
 
+                //SUSPEND/UNSUSPEND SERVICE
+                Obx(
+                  () {
+                    return InkWell(
+                      onTap: (){},
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          controller.isToggled.value ? SvgPicture.asset('assets/svg/unsuspend_service.svg') : SvgPicture.asset('assets/svg/suspend_service.svg'),
+                          SizedBox(width: 20.w,),
+                          Expanded(
+                            child: Text(
+                              controller.isToggled.value ? 'Unsuspend service' : 'Suspend service',
+                              style: GoogleFonts.inter(
+                                color: AppColor.textGreyColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500
+                              )
+                            ),
+                          ),
+                          SwitchWidgetSuspend(
+                            isToggled: controller.isToggled.value,
+                            onChanged: (value) {           
+                              controller.isToggled.value = value;
+                              debugPrint("toggled: ${controller.isToggled.value}");
+                              debugPrint("toggled val: $value");
+                              if(value){
+                                debugPrint("call the suspend api");
+                              }
+                              else{
+                                debugPrint("call the unsuspend api");
+                              }
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                ),
+                SizedBox(height: 30.h,),
 
                 //2            
                 InkWell(

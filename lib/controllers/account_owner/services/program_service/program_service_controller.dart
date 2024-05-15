@@ -17,6 +17,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 class ProgramServiceController extends getx.GetxController {
   
+  //SUSPEND SERVICE
+  getx.RxBool isToggled = false.obs;
 
   //maximum nuber of participants section for add & edit program service section
   getx.RxInt count = 0.obs;

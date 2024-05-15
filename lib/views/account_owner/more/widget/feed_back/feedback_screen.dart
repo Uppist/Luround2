@@ -11,8 +11,6 @@ import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/description_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/feed_back/subject_textfield.dart';
-import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
-
 
 
 

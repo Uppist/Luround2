@@ -4,11 +4,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/trx_content/trx_empty_state.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/filter_trx_button.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_dashboard.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_history_list.dart';
-import 'package:luround/views/account_owner/profile/widget/notifications/notifications_page.dart';
 
 
 
@@ -28,7 +26,6 @@ class TransactionPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
           
-            
             //Header
             /////////////
             SizedBox(height: 10.h,),

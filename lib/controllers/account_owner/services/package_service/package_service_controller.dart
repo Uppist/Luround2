@@ -18,7 +18,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 class PackageServiceController extends getx.GetxController {
   
-
+  //SUSPEND SERVICE
+  getx.RxBool isToggled = false.obs;
 
   //calculates the duration based on a given time range
   getx.RxString calcDuration = "0:00 min".obs;

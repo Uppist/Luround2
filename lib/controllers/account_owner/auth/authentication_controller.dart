@@ -329,12 +329,6 @@ class AuthController extends getx.GetxController {
     //Get.to(()=> PasswordUpdatedPage());
     return resetFpFormKey.currentState!.save();
   }
-  
- 
-
-
-
-
 
 
 

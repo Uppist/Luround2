@@ -108,6 +108,14 @@ class MorePage extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h,),
                   MoreSelector(
+                    text: 'Calendar',
+                    svgAsset: 'assets/svg/settings_new.svg',
+                    onTap: () {
+                      Get.to(() => SyncFusionCalendar());
+                    },
+                  ),
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
                     text: 'Notifications',
                     svgAsset: 'assets/svg/notifications_new.svg',
                     onTap: () {
@@ -130,14 +138,7 @@ class MorePage extends StatelessWidget {
                       Get.to(() => SettingsScreen());
                     },
                   ),  
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Calendar',
-                    svgAsset: 'assets/svg/settings_new.svg',
-                    onTap: () {
-                      Get.to(() => SyncFusionCalendar());
-                    },
-                  ),               
+                              
                 ],
               ),
             )

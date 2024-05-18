@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/qoutes/drafts/drafted_quotes_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/copy_to_clipboard.dart';
 
@@ -308,7 +309,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$total',
+                                '${currency(context).currencySymbol}$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -420,7 +421,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['rate']}',
+                                              '${currency(context).currencySymbol}${item['rate']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -489,7 +490,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['total']}',
+                                              '${currency(context).currencySymbol}${item['total']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -534,7 +535,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$sub_total',
+                                '${currency(context).currencySymbol}$sub_total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -580,7 +581,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$vat',
+                                '${currency(context).currencySymbol}$vat',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -603,7 +604,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$total',
+                                '${currency(context).currencySymbol}$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

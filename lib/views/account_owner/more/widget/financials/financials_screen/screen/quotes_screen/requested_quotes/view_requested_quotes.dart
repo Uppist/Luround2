@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/qoutes/requested_quotes/requested_quotes_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -250,7 +251,7 @@ class ViewRequestedQuoteScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$offer', //
+                                '${currency(context).currencySymbol}$offer', //
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

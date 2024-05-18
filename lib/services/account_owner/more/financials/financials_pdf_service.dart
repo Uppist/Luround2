@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
@@ -403,7 +404,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      'N${item['rate']}',
+                                      '${currency(context).currencySymbol}${item['rate']}',
                                       style: pw.TextStyle(
                                         color: PdfColors.grey,
                                         fontSize: 14.sp,
@@ -472,7 +473,7 @@ class FinancialsPdfService extends getx.GetxController {
                                           ),
                                         ),
                                         pw.Text(
-                                          'N${item['total']}',
+                                          '${currency(context).currencySymbol}${item['total']}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey,
                                             fontSize: 14.sp,
@@ -517,7 +518,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$subtotal',
+                          '${currency(context).currencySymbol}$subtotal',
                           style: pw.TextStyle(
                             color: PdfColors.grey500,
                             fontSize: 14.sp,
@@ -566,7 +567,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$vat',
+                          '${currency(context).currencySymbol}$vat',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -590,7 +591,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$grand_total',
+                          '${currency(context).currencySymbol}$grand_total',
                           style: pw.TextStyle(
                             color: PdfColors.grey, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -1235,7 +1236,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      'N${item["rate"]}',
+                                      '${currency(context).currencySymbol}${item["rate"]}',
                                       style: pw.TextStyle(
                                         color: PdfColors.grey,
                                         fontSize: 14.sp,
@@ -1304,7 +1305,7 @@ class FinancialsPdfService extends getx.GetxController {
                                           ),
                                         ),
                                         pw.Text(
-                                          'N${item["total"]}',
+                                          '${currency(context).currencySymbol}${item["total"]}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey,
                                             fontSize: 14.sp,
@@ -1346,7 +1347,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$subtotal',
+                          '${currency(context).currencySymbol}$subtotal',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -1395,7 +1396,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$vat',
+                          '${currency(context).currencySymbol}$vat',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -1419,7 +1420,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$grand_total',
+                          '${currency(context).currencySymbol}$grand_total',
                           style: pw.TextStyle(
                             color: PdfColors.grey500, //AppColor.darkGreyColor,
                             fontSize: 14.sp,
@@ -2002,7 +2003,7 @@ class FinancialsPdfService extends getx.GetxController {
                                       ),
                                     ),
                                     pw.Text(
-                                      'N${item["rate"]}',
+                                      '${currency(context).currencySymbol}${item["rate"]}',
                                       style: pw.TextStyle(
                                         color: PdfColors.grey,
                                         fontSize: 14.sp,
@@ -2071,7 +2072,7 @@ class FinancialsPdfService extends getx.GetxController {
                                           ),
                                         ),
                                         pw.Text(
-                                          'N${item["total"]}',
+                                          '${currency(context).currencySymbol}${item["total"]}',
                                           style: pw.TextStyle(
                                             color: PdfColors.grey,
                                             fontSize: 14.sp,
@@ -2113,7 +2114,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$subtotal',
+                          '${currency(context).currencySymbol}$subtotal',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -2162,7 +2163,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$vat',
+                          '${currency(context).currencySymbol}$vat',
                           style: pw.TextStyle(
                             color: PdfColors.grey,
                             fontSize: 14.sp,
@@ -2187,7 +2188,7 @@ class FinancialsPdfService extends getx.GetxController {
                           ),
                         ),
                         pw.Text(
-                          'N$grand_total',
+                          '${currency(context).currencySymbol}$grand_total',
                           style: pw.TextStyle(
                             color: PdfColors.grey, //AppColor.darkGreyColor,
                             fontSize: 14.sp,

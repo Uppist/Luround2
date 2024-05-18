@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/add_product_widget/added_service_widgets/no_border_textfield.dart';
+
+
 
 
 
@@ -146,7 +148,7 @@ class _ViewAddedServiceDetailsForReceiptState extends State<ViewAddedServiceDeta
                           ),
                         ),
                         Text(
-                          "N${widget.total}",
+                          "${currency(context).currencySymbol}${widget.total}",
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor, 
                             fontSize: 16.sp,
@@ -346,7 +348,7 @@ class _ViewAddedServiceDetailsForReceiptState extends State<ViewAddedServiceDeta
                                 )
                               ),
                               TextSpan(
-                                text: "N${widget.discounted_total}",
+                                text: "${currency(context).currencySymbol}${widget.discounted_total}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

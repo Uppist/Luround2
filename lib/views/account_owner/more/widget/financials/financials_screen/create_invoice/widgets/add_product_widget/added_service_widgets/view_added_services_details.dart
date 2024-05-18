@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/border_textfield.dart';
@@ -15,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 // ignore: must_be_immutable
 class ViewAddedServiceDetailsForInvoice extends StatefulWidget {
-  ViewAddedServiceDetailsForInvoice({super.key, required this.service_id, required this.service_name, required this.service_description, required this.meeting_type, required this.rate, required this.total, required this.discount, required this.duration, required this.index, required this.discounted_total, required this.appointmentType, required this.client_phone_number});
+  const ViewAddedServiceDetailsForInvoice({super.key, required this.service_id, required this.service_name, required this.service_description, required this.meeting_type, required this.rate, required this.total, required this.discount, required this.duration, required this.index, required this.discounted_total, required this.appointmentType, required this.client_phone_number});
   final String service_id;
   final String service_name;
   final String service_description;
@@ -357,7 +358,7 @@ class _ViewAddedServiceDetailsForInvoiceState extends State<ViewAddedServiceDeta
                                 )
                               ),
                               TextSpan(
-                                text: "N${widget.total}",
+                                text: "${currency(context).currencySymbol}${widget.total}",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

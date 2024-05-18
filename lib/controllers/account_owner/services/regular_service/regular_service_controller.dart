@@ -7,6 +7,8 @@ import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
+import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_2/one-off_widgets/view_models/one-off_service_field_model.dart';
 
 
 
@@ -435,10 +437,56 @@ class ServicesController extends getx.GetxController {
 
 
 
+  /////////////////////////////////////////////////////
+  //ADD ONE-OFF SERVICE CREATION//
+  //EDIT SPECIFIC CERTIFICATE PAGE//
+  //final TextEditingController durationController = TextEditingController();
+  //final TextEditingController virtualPriceController = TextEditingController();
+  //final TextEditingController inpersonPriceController = TextEditingController();
+
+  
+  List<ServiceControllerSett> controllers = [ServiceControllerSett(), ServiceControllerSett()]; //(save to db)
+  //List<Widget> viewTextfields = []; 
+
+  /*void reorderList(int oldIndex, int newIndex) {
+    if (newIndex > oldIndex) {
+      newIndex -= 1; 
+    }
+    final item = viewTextfields.removeAt(oldIndex);
+    viewTextfields.insert(newIndex, item);
+    update();
+  }*/
+
+  
+
+
+
+
+
+
+
+
 
 
 
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

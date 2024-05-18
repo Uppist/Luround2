@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 
@@ -41,7 +42,7 @@ class TrxDisplay extends StatelessWidget {
             ),
             SizedBox(width: 20.w,),
             Text(
-              "N${double.parse(amount)}",
+              "${currency(context).currencySymbol}${double.parse(amount)}",
               style: GoogleFonts.inter(
                 color: transaction_status == "RECEIVED"
                 ?AppColor.darkGreen

@@ -1,4 +1,6 @@
 //import 'package:awesome_notifications/awesome_notifications.dart';
+import 'dart:io';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_paystack_client/flutter_paystack_client.dart';
 import 'package:flutter_session_jwt/flutter_session_jwt.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -32,6 +35,14 @@ Future<void> backgroundHandler(RemoteMessage message) async {
   controller.displayNotification(message);
 }
 
+  //to display naira currency
+  NumberFormat currency(context) {
+    Locale locale = Localizations.localeOf(context);
+    var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "NGN");
+    print("CURRENCY SYMBOL: ${format.currencySymbol}");
+    print("CURRENCY NAME: ${format.currencyName}");
+    return format;
+  }
 
 void main() async{
   

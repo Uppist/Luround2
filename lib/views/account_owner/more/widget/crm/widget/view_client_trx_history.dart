@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/more/crm/client_transaction_model.dart';
 import 'package:luround/services/account_owner/more/crm/crm_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -220,7 +221,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
                                   ),
                                   //SizedBox(width: 10.w,),
                                   Text(
-                                    'N${item.amount}',
+                                    '${currency(context).currencySymbol}${item.amount}',
                                     style: GoogleFonts.inter(
                                       textStyle: TextStyle(
                                         overflow: TextOverflow.ellipsis,

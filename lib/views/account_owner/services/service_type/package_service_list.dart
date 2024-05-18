@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -311,8 +312,8 @@ class _PackageServiceListState extends State<PackageServiceList> {
                             return Text(
                               key: Key('price_text_$index'),
                               controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ? data.service_charge_virtual.isNotEmpty ? "N${data.service_charge_virtual}" : "FREE"
-                              : data.service_charge_in_person.isNotEmpty ? "N${data.service_charge_in_person}" : "FREE",
+                              ? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
+                              : data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 20.sp,

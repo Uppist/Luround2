@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -161,7 +162,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                               ),
                             ),
                             Text(
-                              "N${widget.total}",
+                              "${currency(context).currencySymbol}${widget.total}",
                               style: GoogleFonts.inter(
                                 color: AppColor.mainColor, 
                                 fontSize: 16.sp,
@@ -371,7 +372,7 @@ class _ViewAddedServiceDetailsState extends State<ViewAddedServiceDetails> {
                                     )
                                   ),
                                   TextSpan(
-                                    text: "N${widget.total}",
+                                    text: "${currency(context).currencySymbol}${widget.total}",
                                     //text: finService.subTotalForQuote.value.isNotEmpty ? "N${finService.subTotalForQuote.value}" : "N${widget.total}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,

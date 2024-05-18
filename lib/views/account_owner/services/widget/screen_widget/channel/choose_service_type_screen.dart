@@ -54,14 +54,14 @@ class ChooseServiceTypePage extends StatelessWidget {
             //CUSTOM CONTAINER()
             SizedBox(height: 30.h,),
             ServiceTypeContainer(
-              text: 'Regular',
+              text: 'One-off',
               onTap: () {
                 Get.to(() => AddServiceScreen());
               },
             ),
             SizedBox(height: 30.h,),
             ServiceTypeContainer(
-              text: 'Package',
+              text: 'Retainer',
               onTap: () {
                 Get.to(() => AddPackageServiceScreen());
               },
@@ -74,6 +74,12 @@ class ChooseServiceTypePage extends StatelessWidget {
               },
             ),
             SizedBox(height: 30.h,),
+            ServiceTypeContainer(
+              text: 'Event',
+              onTap: () {
+                //Get.to(() => AddEventServiceScreen());
+              },
+            ),
           ]
         ),
       ),

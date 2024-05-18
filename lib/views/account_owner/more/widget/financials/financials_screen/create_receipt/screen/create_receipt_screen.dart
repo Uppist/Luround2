@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
@@ -391,7 +392,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "N${service.reactiveSubtotalForReceipt.value}",
+                                    "${currency(context).currencySymbol}${service.reactiveSubtotalForReceipt.value}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -437,7 +438,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "N${service.reactiveTotalVATForReceipt.value}",
+                                    "${currency(context).currencySymbol}${service.reactiveTotalVATForReceipt.value}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,
@@ -460,7 +461,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ),
                                   ),
                                   Text(
-                                    "N${service.reactiveTotalForReceipt.value}",
+                                    "${currency(context).currencySymbol}${service.reactiveTotalForReceipt.value}",
                                     style: GoogleFonts.inter(
                                       color: AppColor.darkGreyColor,
                                       fontSize: 14.sp,

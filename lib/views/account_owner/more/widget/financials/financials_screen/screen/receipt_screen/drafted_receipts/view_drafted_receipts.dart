@@ -6,6 +6,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/receipt/draft/drafted_receipt_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -405,7 +406,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['rate']}',
+                                              '${currency(context).currencySymbol}${item['rate']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -474,7 +475,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                               ),
                                             ),
                                             Text(
-                                              'N${item['total']}',
+                                              '${currency(context).currencySymbol}${item['total']}',
                                               style: GoogleFonts.inter(
                                                 color: AppColor.darkGreyColor,
                                                 fontSize: 14.sp,
@@ -519,7 +520,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$sub_total',
+                                '${currency(context).currencySymbol}$sub_total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -565,7 +566,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$vat',
+                                '${currency(context).currencySymbol}$vat',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -588,7 +589,7 @@ class ViewDraftedReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$total',
+                                '${currency(context).currencySymbol}$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,

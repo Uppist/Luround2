@@ -14,6 +14,8 @@ class AppColor {
 
   static Color blueColor = const Color.fromRGBO(4, 104, 219, 1);
   static Color redColor = const Color.fromRGBO(198, 36, 36, 1);
+  static Color redColorOp = const Color.fromRGBO(218, 107, 82, 1);
+
   static Color warningLightRedColor = const Color.fromRGBO(254, 247, 235, 1);
   static Color warningDarkRedColor = const Color.fromRGBO(252, 238, 238, 1);
 

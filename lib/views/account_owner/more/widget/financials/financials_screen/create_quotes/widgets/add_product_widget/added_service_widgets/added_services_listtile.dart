@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -45,7 +46,7 @@ class AddedServicesTile extends StatelessWidget {
                     children: [
                       //price
                       TextSpan(
-                        text: "N$price",
+                        text: "${currency(context).currencySymbol}$price",
                         style: GoogleFonts.inter(
                           color: AppColor.darkGreyColor,
                           fontSize: 12.sp,

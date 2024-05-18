@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/bookings/bookings_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
 import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
@@ -584,7 +585,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         ),
                                                         SizedBox(height: 10.h),
                                                         Text(
-                                                          "N${item.serviceDetails.serviceFee}",
+                                                          "${currency(context).currencySymbol}${item.serviceDetails.serviceFee}",
                                                           style: GoogleFonts.inter(
                                                             color: AppColor.blackColor,
                                                             fontSize: 14.sp,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/payment_service.dart/paystack_client_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
@@ -51,7 +52,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "N30,000",
+                          text: "${currency(context).currencySymbol}30,000",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 36.sp,
@@ -132,7 +133,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Text(
-              'You save N20,400',
+              'You save ${currency(context).currencySymbol}20,400',
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 12.sp,
@@ -191,7 +192,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "N30,000",
+                          text: "${currency(context).currencySymbol}30,000",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 36.sp,
@@ -272,7 +273,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Text(
-              'You save N20,400',
+              'You save ${currency(context).currencySymbol}20,400',
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 12.sp,

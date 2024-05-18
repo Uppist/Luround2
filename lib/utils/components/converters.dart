@@ -16,7 +16,6 @@ DateTime parseDateTime({required String dateString, required String timeString})
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);
 }
 
-
 DateTime convertNodeJSServerTimestampToDateObject({
   required String serverTimestampStr
   }) {
@@ -27,6 +26,22 @@ DateTime convertNodeJSServerTimestampToDateObject({
   catch (e) {
     throw Exception("error: $e");
   }
+}
+
+
+
+//converts a date string of time "2022:03:21:TZ" to 'January 13, 2023'
+String transformDateString(String dateString) {
+  // Parse the original date string to a DateTime object
+  DateTime dateTime = DateTime.parse(dateString);
+  
+  // Define the desired output format
+  DateFormat outputFormat = DateFormat('MMMM d, yyyy');
+  
+  // Format the DateTime object to the desired output format
+  String formattedDate = outputFormat.format(dateTime);
+  
+  return formattedDate;
 }
 
 
@@ -95,6 +110,74 @@ bool isDateInFuture(DateTime date) {
   return date.isAfter(today);
 }
 
+String convertUTCTimestampToDate(int timestamp) {
+  // Convert timestamp to DateTime
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000, isUtc: true);
+
+  // Define month names
+  List<String> months = [
+    "January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"
+  ];
+
+  // Extract components
+  int year = dateTime.year;
+  String month = months[dateTime.month - 1]; // Month index starts from 1
+  int day = dateTime.day;
+
+  // Construct date string
+  String dateString = "$month $day, $year";
+
+  return dateString;
+}
+
+String convertServerTimeToDate(int timestamp) {
+  // Convert timestamp to DateTime
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+
+  // Define month names
+  List<String> months = [
+    "January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"
+  ];
+
+  // Extract components
+  int year = dateTime.year;
+  String month = months[dateTime.month - 1]; // Month index starts from 1
+  int day = dateTime.day;
+
+  // Construct date string
+  String dateString = "$month $day, $year";
+
+  return dateString;
+}
+
+//use well
+String convertDateStringToDate(String dateString) {
+  // Parse the date string
+  List<String> dateComponents = dateString.split('-');
+  int year = int.parse(dateComponents[0]);
+  int month = int.parse(dateComponents[1]);
+  int day = int.parse(dateComponents[2]);
+
+  // Convert to DateTime
+  DateTime dateTime = DateTime(year, month, day);
+
+  // Define month names
+  List<String> months = [
+    "January", "February", "March", "April", "May", "June", "July",
+    "August", "September", "October", "November", "December"
+  ];
+
+  // Extract components
+  String monthName = months[dateTime.month - 1]; // Month index starts from 1
+
+  // Construct date string
+  String formattedDate = "$monthName ${dateTime.day}, ${dateTime.year}";
+
+  return formattedDate;
+}
+
 String convertStringServerTimeToDate(String timestamp){
 
   // Convert the timestamp to a DateTime object
@@ -108,7 +191,7 @@ String convertStringServerTimeToDate(String timestamp){
   return formattedDate;
 }
 
-String convertServerTimeToDate(int timestamp) {
+/*String convertServerTimeToDate(int timestamp) {
   // Convert the timestamp to a DateTime object
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
 
@@ -118,7 +201,7 @@ String convertServerTimeToDate(int timestamp) {
 
   print(finalResult); // Output: 2023-01-27 20:48:47.960
   return finalResult;
-}
+}*/
 
 
 String convertServerTimeToTime(int timestamp) {

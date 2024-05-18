@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/more_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/more/pricing/billing_history_model.dart';
 import 'package:luround/models/account_owner/more/pricing/user_subscription_model.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
@@ -158,7 +159,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                                 ),
                                 SizedBox(height: 30.h,),
                                 Text(
-                                  data.subscription_plan == "Trial" ? "N0.00" : data.subscription_plan == "Monthly" ? "N4,200" : "N30,000",
+                                  data.subscription_plan == "Trial" ? "${currency(context).currencySymbol}0.00" : data.subscription_plan == "Monthly" ? "${currency(context).currencySymbol}4,200" : "${currency(context).currencySymbol}30,000",
                                   style: GoogleFonts.inter(
                                     color: AppColor.blackColor,
                                     fontSize: 30.sp,
@@ -253,7 +254,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                                 return BillingHistoryDisplay(
                                   payment_date: convertStringServerTimeToDate(data.date),
                                   plan_type: data.plan,
-                                  amount: 'N${data.amount}',
+                                  amount: '${currency(context).currencySymbol}${data.amount}',
                                 );
                               }
                             ),

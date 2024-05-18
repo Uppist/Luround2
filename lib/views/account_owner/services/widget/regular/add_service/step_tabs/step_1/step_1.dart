@@ -9,7 +9,6 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/description_textfield.dart';
-
 import '../../../../../../../../utils/components/reusable_custom_textfield.dart';
 
 
@@ -22,7 +21,7 @@ import '../../../../../../../../utils/components/reusable_custom_textfield.dart'
 
 
 class Step1Page extends StatefulWidget {
-  Step1Page({super.key, required this.onNext});
+  const Step1Page({super.key, required this.onNext});
   final VoidCallback onNext;
 
   @override
@@ -174,8 +173,8 @@ class _Step1PageState extends State<Step1Page> {
         
         controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),*/
     
-        SizedBox(height: 20.h,),
-        Text(
+        //SizedBox(height: 20.h,),
+        /*Text(
           "Service fee",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
@@ -230,8 +229,8 @@ class _Step1PageState extends State<Step1Page> {
               ),
             ),
           ],
-        ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.16),
+        ),*/
+        SizedBox(height: MediaQuery.of(context).size.height * 0.38),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

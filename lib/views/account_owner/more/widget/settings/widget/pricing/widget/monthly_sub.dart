@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/payment_service.dart/paystack_client_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
@@ -48,7 +49,7 @@ class MonthlySubscriptionPageAuth extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "N4,200",
+                      text: "${currency(context).currencySymbol}4,200",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 36.sp,
@@ -157,7 +158,7 @@ class MonthlySubscriptionPageApp extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "N4,200",
+                      text: "${currency(context).currencySymbol}4,200",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 36.sp,

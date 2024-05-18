@@ -4,14 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
-import 'package:luround/models/account_owner/more/transactions/wallet_balance.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/loader.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/toggle_account_balance.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/screen/select_account_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/otp_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
+
+
+
+
 
 
 
@@ -136,7 +135,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      isTapped ? "N${double.parse("${service.totalAmountReceived}")}" : "****",
+                      isTapped ? "${currency(context).currencySymbol}${double.parse("${service.totalAmountReceived}")}" : "****",
                       //controller.selectedMoneyType.value == "Total amount received" ?  "N${double.parse("${service.totalAmountReceived}")}" : "", //controller.selectedMoneyType.value == "Total amount paid" ? "N${double.parse("${service.totalAmountPaid}")}" : "N${double.parse("${data.wallet_balance}")}",
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,

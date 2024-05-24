@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/service_type/package_service_list.dart';
+import 'package:luround/views/account_owner/services/service_type/retainer_service_list.dart';
 import 'package:luround/views/account_owner/services/service_type/program_service_list.dart';
-import 'package:luround/views/account_owner/services/service_type/regular_service_list.dart';
+import 'package:luround/views/account_owner/services/service_type/oneoff_service_list.dart';
 
 
 
@@ -30,7 +30,7 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
   @override
   void initState() {
     super.initState();
-    tabController = TabController(length: 3, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -70,9 +70,10 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
             controller: tabController,
             isScrollable: false,
             tabs: const [
-              Tab(text: 'Regular',),
-              Tab(text: 'Package',),
+              Tab(text: 'One-off',),
+              Tab(text: 'Retainer',),
               Tab(text: 'Program',),
+              Tab(text: 'Event',),
             ],
             onTap: (index) {
               setState(() {
@@ -80,16 +81,22 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
                 service.activeTabIndex = index;
                 //run checks
                 if (index == 0) {
-                  //regular service
+                  //one-off service
                   service.filterSearchServicesList.clear();
                   service.filterSearchServicesList.addAll(service.servicesList);
                 } 
                 else if (index == 1) {
-                  //package service
-                  print("not yet implemented");
+                  //retainer service
+                  service.filterSearchServicesList.clear();
+                  service.filterSearchServicesList.addAll(service.servicesListPackage);
                 } 
                 else if(index == 2) {
                   //program service
+                  service.filterSearchServicesList.clear();
+                  service.filterSearchServicesList.addAll(service.servicesListProgram);
+                }
+                else if(index == 3) {
+                  //event service
                   print("not yet implemented");
                 }
                 else {
@@ -112,7 +119,8 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
               children: const [
                 RegularServiceList(),
                 PackageServiceList(),
-                ProgramServiceList(),     
+                ProgramServiceList(), 
+                SizedBox(),    
               ]
             ),
           ),

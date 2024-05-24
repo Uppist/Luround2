@@ -49,6 +49,7 @@ class ProgramServiceRecurrence extends StatelessWidget {
           value: controller.serviceRecurrence.value,
           onChanged: (String? newValue) {
             controller.serviceRecurrence.value = newValue!;
+            //make check to see if newValue is custom
             debugPrint("selected recurrence: ${controller.serviceRecurrence.value}");
           },
           style: GoogleFonts.inter(

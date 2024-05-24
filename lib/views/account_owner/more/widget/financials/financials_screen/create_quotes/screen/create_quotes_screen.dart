@@ -34,7 +34,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class CreateQuotePage extends StatefulWidget {
-  CreateQuotePage({super.key, required this.quoteNumber});
+  const CreateQuotePage({super.key, required this.quoteNumber});
   final int quoteNumber;
 
   @override

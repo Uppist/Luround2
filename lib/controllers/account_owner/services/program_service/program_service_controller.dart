@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:luround/models/account_owner/ui/dayselection_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
 
 
 
@@ -16,7 +20,20 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class ProgramServiceController extends getx.GetxController {
-  
+
+
+  ///service_screen list for package service list/// 
+  var selectedIndex = 0.obs; //for toggling price of the services list,
+  final isVirtual = true.obs;  //boolean to switch between prices in the services list
+
+
+  void handleTabTap(int index) {
+    isVirtual.value = !isVirtual.value;
+    selectedIndex.value = index;
+    print("price switch check: ${isVirtual.value}");
+    update();
+  }
+
   //SUSPEND SERVICE
   getx.RxBool isToggled = false.obs;
 
@@ -56,133 +73,75 @@ class ProgramServiceController extends getx.GetxController {
   }
 
 
-  
-
-  //calculates the duration based on a given time range
-  getx.RxString calcDuration = "0:00 min".obs;
-  String calculateDuration({required String startTime, required String endTime}) {
-    // Create DateFormat with the expected time format
-    final DateFormat format = DateFormat('hh:mm a');
-
-    // Parse the time strings into DateTime objects
-    DateTime start = format.parse(startTime);
-    DateTime end = format.parse(endTime);
-
-    // Calculate the duration
-    Duration duration = end.difference(start);
-
-    // Check if the duration is in hours, minutes, or minutes only
-    if (duration.inHours > 0) {
-      // Duration is in hours and possibly minutes
-      int hours = duration.inHours;
-      int minutes = duration.inMinutes % 60;
-
-      if (minutes > 0) {
-        // Duration is in hours and minutes
-        String durationString = '$hours hr: ${minutes.toString().padLeft(2, '0')} mins';
-        print(durationString);
-        calcDuration.value = durationString;
-        update();
-        return durationString;
-      } 
-      else {
-        // Duration is in hours only
-        String durationString = '$hours hr';
-        print(durationString);
-        calcDuration.value = durationString;
-        update();
-        return durationString;
-      }
-    } 
-    else if (duration.inMinutes > 0) {
-      // Duration is in minutes only
-      int minutes = duration.inMinutes;
-      String durationString = '$minutes mins';
-      print(durationString);
-      calcDuration.value = durationString;
-      update();
-      return durationString;
-    } 
-    else {
-      // Duration is zero
-      print('0 mins');
-      update();
-      return '0 mins';
-    }
-  }
-
-
-
-
   //checks if the user has inputed their the service name
   final isServiceNameTapped = false.obs;
   //for Stepper widget (starts to count at 0)
   int curentStep = 0;
 
 
-  //////IN USE FOR PACKAGE SERVICE///////
+  //////IN USE FOR PROGRAM SERVICE///////
   /////(save to db)
   String selectDateRange = "select something";
-  //checks the selected radio
-  final isradio1 = false.obs;
-  final isradio2 = false.obs;
-  final isradio3 = false.obs;
   ///////////////////////////////////////////////////
 
   //add service stepper//////////////////////////////////
-  //service time line
-  getx.RxString serviceTimeline = "2 weeks".obs;
-  final listOfServiceTimeline = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
   //service recurrence
   getx.RxString serviceRecurrence = "Once a week".obs;
   final listOfServiceRecurrence = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
 
-  //list of dates for "calendar_picker" package (addservices)
+  //single start date for "calendar_picker" package (addservices)
   var dates = <DateTime?>[].obs;
-  void selectedDate(List<DateTime?> dateList) {
+  void selectedStartDate(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
-      dates.value = dateList;
-      update();
+      // Remove any previous items, if any
+      dates.clear();
+      // Add the new unique item
+      dates.add(dateList[0]);
     }
+    update();
+  }
+  //(save to db) this is the selected date 
+  String startDate ({required String initialDate}) {
+    if(dates.isNotEmpty) {
+      var result = dates[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
+  
+  //single start date for "calendar_picker" package (addservices)
+  void selectedStopDate(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      dates.clear();
+      // Add the new unique item
+      dates.add(dateList[1]);
+    }
+    update();
+  }
+  //(save to db) this is the selected date 
+  String stopDate ({required String initialDate}) {
+    if(dates.isNotEmpty) {
+      var result = dates[1].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
   }
   //////////////////////////////
 
 
-  //(save both dates below to db)
-  String startDate () {
-    if(dates.isNotEmpty && dates.length >= 2) {
-      print(dates);
-      var result = dates[0].toString();
-      var refinedList = result.substring(0, 10);
-      print(refinedList);
-      return refinedList;
-    }
-    return "start date";
-  }
-  String endDate () {
-    print(dates);
-    if(dates.isNotEmpty && dates.length >= 2) {
-      var result = dates[1].toString();
-      var refinedList = result.substring(0, 10);
-      print(refinedList);
-      return refinedList;
-    }
-    return "stop date";
-  }
-
-  //to add other links at {step 1}
-  final toggleLink = false.obs;
-  final isTextGone  = false.obs;
 
   //(save to db)
   final TextEditingController serviceNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController addLinksController = TextEditingController();
-  final TextEditingController inPersonController = TextEditingController();
-  final TextEditingController virtualController = TextEditingController();
-
+  final TextEditingController inPersonPriceController = TextEditingController();
+  final TextEditingController virtualPriceController = TextEditingController();
   //description textcontroller count
   int maxLength = 500;
   void handleTextChanged(String val,) {
@@ -197,233 +156,11 @@ class ProgramServiceController extends getx.GetxController {
   }
 
 
-  ////////////step 3 screen///////////(save to db by index from ui)
-  List<Map<String, dynamic>> daysOfTheWeekCheckBox = [
-    {
-      "day": "Monday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Tuesday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Wednesday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Thursday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Friday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Saturday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Sunday",
-      "isChecked": false,     
-    },
-  ];
-  
-
   ////**[STEP 3]***////
-  var selectedDays = <String>[];
-  //service_screen time picker (add_service_step 3)/// ///////////////////////////////
-  //(save to db) the two of them
-  final startTimeValue = "".obs; 
-  final stopTimeValue = "".obs;
-  
-  //available time list
-  List<String> availableTime = [];
-  
-  Future<List<String>> getTimeIntervals({required String earliestTime, required String latestTime, required Duration interval}) async {
-    final DateFormat format = DateFormat('h:mm a');
-    DateTime earliest = parseTimeString(earliestTime);
-    DateTime latest = parseTimeString(latestTime);
-
-    // Add the first time interval (earliest time)
-    //availableTime.add(earliestTime);
-    
-    availableTime.clear();
-    // Set to store unique time intervals
-    Set<String> uniqueTimeSet = {earliestTime};
-
-    // Calculate intervals until the latest time
-    while (earliest.isBefore(latest)) {
-      earliest = earliest.add(interval);
-      // Check if the current calculated time is equal to or before the latest time
-      if (earliest.isBefore(latest)) {
-        if (!uniqueTimeSet.contains(format.format(earliest))) {
-          uniqueTimeSet.add(format.format(earliest));
-        }
-        else {
-          debugPrint("already in the list");
-        }
-      }
-    }
-
-    // Convert the set to a list
-    availableTime.addAll(uniqueTimeSet.toList());
-
-    // Add the latest time
-    availableTime.add(latestTime);
-
-    print("available_time_: $availableTime");
-    return availableTime;
-  }
-
-  void addItem({required String item}) {
-    if (!selectedDays.contains(item)) {
-      // Get the selected days in the order of the days of the week
-      List<String> orderedSelectedDays = daysOfTheWeekCheckBox
-      .where((day) => day['isChecked'])
-      .map<String>((day) => day['day'] as String)
-      .toList();
-
-      // Update the selectedDays list based on the checkbox state
-      selectedDays.clear();
-      selectedDays.addAll(orderedSelectedDays);
-    } else {
-      print("$item is already in the list");
-    }
-  }
-
-  void removeItem({required int index}) {
-    if (index >= 0 && index < selectedDays.length) {
-      print("Item ${selectedDays[index]} removed at index $index");
-      selectedDays.removeAt(index);
-    } else {
-      print("Invalid index: $index");
-    }
-  }
-
-  void toggleCheckbox(int index, bool? value) {
-    // Toggle the isChecked value
-    daysOfTheWeekCheckBox[index]['isChecked'] = value; //!daysOfTheWeekCheckBox[index]['isChecked'];
-
-    // Update the selectedDays list based on the checkbox state
-    if (daysOfTheWeekCheckBox[index]['isChecked']) {
-      addItem(item: daysOfTheWeekCheckBox[index]['day']);
-      //addStartTime();
-    } else {
-      int selectedIndex = selectedDays.indexOf(daysOfTheWeekCheckBox[index]['day']);
-      if (selectedIndex != -1) {
-        removeItem(index: selectedIndex);
-        //removeStartTime(index: selectedIndexForAvailTime);
-      }
-    }
-  }
-  
-  //available_days(save to db)
-  String availableDays() {
-    // Check if the list is not empty before getting the first and last values
-    if (selectedDays.isNotEmpty) {
-      String firstDay = selectedDays.first;
-      String lastDay = selectedDays.last;
-
-      // Now you can use firstDay and lastDay as needed
-      print('First day: $firstDay');
-      print('Last day: $lastDay');
-
-      // Combine first and last days into a single string
-      String combinedString = '$firstDay - $lastDay';
-      print('Combined string: $combinedString');
-      return combinedString;
-    } else {
-      // Handle the case when the list is empty
-      print('The list of selected days is empty.');
-      throw Exception("The list is empty fam");
-    }
-  }
   /////////////////////////////////
 
   //to activate the next/done button in step 3 screen
   final isCheckBoxActive = false.obs;
-  
-
-  ///////////////////////////////////////////////////////////////////
-  //trying to calculate the time-frame string
-  List<String> timeFrameList = [];
-  void addFirstTime() {
-    if (!timeFrameList.contains(startTimeValue.value)) {
-      //add all start time to the list
-      timeFrameList.add(startTimeValue.value,);
-      print("timeframe list: $timeFrameList");
-    } else {
-      print("${startTimeValue.value} is already in the list");
-    }
-  }
-
-  void addLastTime() {
-    if (!timeFrameList.contains(stopTimeValue.value)) {
-      //add all start time to the list
-      timeFrameList.add(stopTimeValue.value,);
-      print("timeframe list: $timeFrameList");
-    } else {
-      print("${stopTimeValue.value} is already in the list");
-    }
-  }
-
-  void removeTime({required int index}) {
-    if (index >= 0 && index < timeFrameList.length) {
-      //add all start time to the list
-      timeFrameList.removeAt(index);
-      print("timeframe list: $timeFrameList");
-      print("Item ${timeFrameList[index]} removed at index $index");
-    } 
-    else {
-      print("Invalid index: $index");
-    }
-  }
-
-  //get the earliest time in the list
-  String findEarliestTime() {
-    DateTime earliestTime = DateTime(2100); // A future date to compare against
-
-    for (String timeString in timeFrameList) {
-      DateTime time = parseTimeString(timeString);
-      if (time.isBefore(earliestTime)) {
-        earliestTime = time;
-      }
-    }
-    print("Earliest Time: $earliestTime");
-    return formatTimeString(earliestTime);
-  }
-  
-  //get the latest time in the list
-  String findLatestTime() {
-    DateTime latestTime = DateTime(0); // A past date to compare against
-
-    for (String timeString in timeFrameList) {
-      DateTime time = parseTimeString(timeString);
-      if (time.isAfter(latestTime)) {
-        latestTime = time;
-      }
-    }
-    print("Latest Time: $latestTime");
-    return formatTimeString(latestTime);
-  }
-  
-  //parseTimeString
-  DateTime parseTimeString(String timeString) {
-    // Parse time string into date time object
-    final DateFormat format = DateFormat('h:mm a');
-    return format.parse(timeString);
-  }
-  
-  
-  String formatTimeString(DateTime time) {
-    // Format Date object into time string (to keep the time in 12 hours format)
-    int hour = time.hour == 0 ? 12 : time.hour > 12 ? time.hour - 12 : time.hour;
-    String period = time.hour < 12 ? ' AM' : ' PM';
-
-    return "$hour:${time.minute < 10 ? '0${time.minute}' : time.minute}$period";
-  }
-
 
   //show currency picker when adding/creating a service
   var addServiceCurrency = "".obs;
@@ -466,8 +203,119 @@ class ProgramServiceController extends getx.GetxController {
         addServiceCurrency.value = currency.symbol;
         print('Select currency: ${addServiceCurrency.value}');
       },
-   );
+    );
   }
+
+  ////STEP 3////
+  // List of days with selection status
+  var days = <Map<String, dynamic>>[
+    {'day': 'Monday', 'isSelected': false},
+    {'day': 'Tuesday', 'isSelected': false},
+    {'day': 'Wednesday', 'isSelected': false},
+    {'day': 'Thursday', 'isSelected': false},
+    {'day': 'Friday', 'isSelected': false},
+    {'day': 'Saturday', 'isSelected': false},
+    {'day': 'Sunday', 'isSelected': false},
+  ];  //.obs;
+
+  // List of selected days with their start and stop times
+  //save to db
+  var selectedDays = <DaySelectionModel>[].obs;
+
+  // Toggles the selection status of a day, adding or removing it from the selectedDays list
+  void toggleDaySelection(
+    int index,
+    String day, 
+    bool? isSelected,
+    String startTime,
+    String stopTime,
+  ) {
+    final index2 = selectedDays.indexWhere((element) => element.day == day);
+    days[index]['isSelected'] = isSelected;
+    if (isSelected!) {
+      log("$isSelected");
+      addDay(day, startTime, stopTime);
+    } else {
+      log("$isSelected");
+      removeItem(index: index2);
+    }
+    update();
+  }
+
+  //Retrieves the DaySelectionModel for a specific day
+  DaySelectionModel? getDaySelection(String day) {
+    return selectedDays.firstWhereOrNull((element) => element.day == day);
+  }
+
+  // Adds a day with its start and stop times to the selectedDays list
+  Future<void> addDay(String day, String startTime, String stopTime) async {
+    selectedDays.add(DaySelectionModel(day: day, startTime: startTime, stopTime: stopTime));
+    log("list: $selectedDays");
+  }
+
+  // Removes a day from the selectedDays list based on its index
+  Future<void> removeItem({required int index}) async {
+    if (index >= 0 && index < selectedDays.length) {
+      log("Item ${selectedDays[index]} removed at index $index");
+      selectedDays.removeAt(index);
+      selectedDays.refresh();
+      log("updated list: $selectedDays");
+    } else {
+      print("Invalid index: $index");
+    }
+  }
+
+  // Updates the start time of a specific day in the selectedDays list
+  Future<void> updateStartTime(String day, String startTime) async {
+    final index = selectedDays.indexWhere((element) => element.day == day);
+    if (index != -1) {
+      selectedDays[index].startTime = startTime;
+      selectedDays.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Updates the stop time of a specific day in the selectedDays list
+  Future<void> updateStopTime(String day, String stopTime) async {
+    final index = selectedDays.indexWhere((element) => element.day == day);
+    if (index != -1) {
+      selectedDays[index].stopTime = stopTime;
+      selectedDays.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Reorders the selectedDays list based on the order of days in the week
+  Future<List<DaySelectionModel>> reorderDays(List<DaySelectionModel> selectedDays) async {
+    // Define the order of days in the week
+    const List<String> weekDaysOrder = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
+
+    // Create a map to define the order index of each day
+    Map<String, int> dayOrderMap = {
+      for (int i = 0; i < weekDaysOrder.length; i++) weekDaysOrder[i]: i
+    };
+
+    // Sort the selectedDays list based on the day order defined in dayOrderMap
+    selectedDays.sort((a, b) => dayOrderMap[a.day]!.compareTo(dayOrderMap[b.day]!));
+
+    // Return the sorted list
+    return selectedDays;
+  }
+
+  /////////////////////////////////////////////////////
+  //ADD PROGRAM SERVICE CREATION//
+  //STEP 2 (save to db)//
+  List<ServiceControllerSett> controllers = [ServiceControllerSett(), ServiceControllerSett()]; //(save to db)
+
+  
 
   /////////////////////////////////////////////////////
 
@@ -486,112 +334,65 @@ class ProgramServiceController extends getx.GetxController {
 
 
 
-  //////EDIT PACKAGE SERVICE SCREEN//////////
+
+
+  //////EDIT PROGRAM SERVICE SCREEN//////////
   //add service stepper//////////////////////////////////
-  getx.RxString calcDurationEdit = "0:00 min".obs;
-  String calculateDurationEdit({required String startTime, required String endTime}) {
-    // Create DateFormat with the expected time format
-    final DateFormat format = DateFormat('hh:mm a');
-
-    // Parse the time strings into DateTime objects
-    DateTime start = format.parse(startTime);
-    DateTime end = format.parse(endTime);
-
-    // Calculate the duration
-    Duration duration = end.difference(start);
-
-    // Check if the duration is in hours, minutes, or minutes only
-    if (duration.inHours > 0) {
-      // Duration is in hours and possibly minutes
-      int hours = duration.inHours;
-      int minutes = duration.inMinutes % 60;
-
-      if (minutes > 0) {
-        // Duration is in hours and minutes
-        String durationString = '$hours hr: ${minutes.toString().padLeft(2, '0')} mins';
-        print(durationString);
-        calcDurationEdit.value = durationString;
-        update();
-        return durationString;
-      } 
-      else {
-        // Duration is in hours only
-        String durationString = '$hours hr';
-        print(durationString);
-        calcDurationEdit.value = durationString;
-        update();
-        return durationString;
-      }
-    } 
-    else if (duration.inMinutes > 0) {
-      // Duration is in minutes only
-      int minutes = duration.inMinutes;
-      String durationString = '$minutes mins';
-      print(durationString);
-      calcDurationEdit.value = durationString;
-      update();
-      return durationString;
-    } 
-    else {
-      // Duration is zero
-      print('0 mins');
-      update();
-      return '0 mins';
-    }
-  }
-  //service time line
-  getx.RxString serviceTimelineEdit = "2 weeks".obs;
-  final listOfServiceTimelineEdit = <String>["2 weeks", "1 month", "3 months", "6 months", "1 year",];
-  //service recurrence
+  final isCheckBoxActiveEdit = false.obs;
   getx.RxString serviceRecurrenceEdit = "Once a week".obs;
   final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
 
-  //list of dates for "calendar_picker" package (addservices)
+  //single start date for "calendar_picker" program (addservices)
   var datesEdit = <DateTime?>[].obs;
-  void selectedDateEdit(List<DateTime?> dateList) {
+  void selectedStartDateEdit(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
-      datesEdit.value = dateList;
-      update();
+      // Remove any previous items, if any
+      datesEdit.clear();
+      // Add the new unique item
+      datesEdit.add(dateList[0]);
     }
+    update();
+  }
+  //(save to db) this is the selected date 
+  String startDateEdit({required String initialDate}) {
+    if(datesEdit.isNotEmpty) {
+      var result = datesEdit[0].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
+  }
+  
+  //single start date for "calendar_picker" package (addservices)
+  void selectedStopDateEdit(List<DateTime?> dateList) {
+    if (dateList.isNotEmpty) {
+      // Remove any previous items, if any
+      datesEdit.clear();
+      // Add the new unique item
+      datesEdit.add(dateList[1]);
+    }
+    update();
+  }
+  //(save to db) this is the selected date 
+  String stopDateEdit({required String initialDate}) {
+    if(datesEdit.isNotEmpty) {
+      var result = datesEdit[1].toString();
+      var refinedStr = result.substring(0, 10);
+      print(refinedStr);
+      return refinedStr;
+    }
+    return initialDate;
   }
   //////////////////////////////
-
-
-  //(save both dates below to db)
-  String startDateEdit() {
-    if(datesEdit.isNotEmpty && datesEdit.length >= 2) {
-      print(dates);
-      var result = datesEdit[0].toString();
-      var refinedList = result.substring(0, 10);
-      print(refinedList);
-      return refinedList;
-    }
-    return "start date";
-  }
-  String endDateEdit() {
-    print(datesEdit);
-    if(datesEdit.isNotEmpty && datesEdit.length >= 2) {
-      var result = datesEdit[1].toString();
-      var refinedList = result.substring(0, 10);
-      print(refinedList);
-      return refinedList;
-    }
-    return "stop date";
-  }
-
-  //to add other links at {step 1}
-  final toggleLinkEdit = false.obs;
-  final isTextGoneEdit  = false.obs;
 
   //(save to db)
   final TextEditingController serviceNameControllerEdit = TextEditingController();
   final TextEditingController descriptionControllerEdit = TextEditingController();
-  final TextEditingController addLinksControllerEdit = TextEditingController();
-  final TextEditingController inPersonControllerEdit = TextEditingController();
-  final TextEditingController virtualControllerEdit = TextEditingController();
-
+  final TextEditingController inPersonPriceControllerEdit= TextEditingController();
+  final TextEditingController virtualPriceControllerEdit = TextEditingController();
   //description textcontroller count
   int maxLengthEdit = 500;
 
@@ -608,218 +409,6 @@ class ProgramServiceController extends getx.GetxController {
       debugPrint("You have reached max length");
     }
   }
-
-  ////////////step 3 screen///////////(save to db by index from ui)
-  List<Map<String, dynamic>> daysOfTheWeekCheckBoxEdit = [
-    {
-      "day": "Monday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Tuesday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Wednesday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Thursday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Friday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Saturday",
-      "isChecked": false,     
-    },
-    {
-      "day": "Sunday",
-      "isChecked": false,     
-    },
-  ];
-  
-  ////**[STEP 3]***////
-  var selectedDaysEdit = <String>[];
-  //service_screen time picker (add_service_step 3)/// ///////////////////////////////
-  //(save to db) the two of them
-  final startTimeValueEdit = "".obs; 
-  final stopTimeValueEdit = "".obs;
-  
-  //available time list
-  List<String> availableTimeEdit = [];
-  
-  Future<List<String>> getTimeIntervalsEdit({required String earliestTime, required String latestTime, required Duration interval}) async {
-    final DateFormat format = DateFormat('h:mm a');
-    DateTime earliest = parseTimeString(earliestTime);
-    DateTime latest = parseTimeString(latestTime);
-
-    // Add the first time interval (earliest time)
-    //availableTime.add(earliestTime);
-    
-    availableTimeEdit.clear();
-    // Set to store unique time intervals
-    Set<String> uniqueTimeSet = {earliestTime};
-
-    // Calculate intervals until the latest time
-    while (earliest.isBefore(latest)) {
-      earliest = earliest.add(interval);
-      // Check if the current calculated time is equal to or before the latest time
-      if (earliest.isBefore(latest)) {
-        if (!uniqueTimeSet.contains(format.format(earliest))) {
-          uniqueTimeSet.add(format.format(earliest));
-        }
-        else {
-          debugPrint("already in the list");
-        }
-      }
-    }
-
-    // Convert the set to a list
-    availableTimeEdit.addAll(uniqueTimeSet.toList());
-
-    // Add the latest time
-    availableTimeEdit.add(latestTime);
-
-    print("available_time_: $availableTime");
-    return availableTime;
-  }
-
-  void addItemEdit({required String item}) {
-    if (!selectedDaysEdit.contains(item)) {
-      // Get the selected days in the order of the days of the week
-      List<String> orderedSelectedDays = daysOfTheWeekCheckBoxEdit
-      .where((day) => day['isChecked'])
-      .map<String>((day) => day['day'] as String)
-      .toList();
-
-      // Update the selectedDays list based on the checkbox state
-      selectedDaysEdit.clear();
-      selectedDaysEdit.addAll(orderedSelectedDays);
-    } else {
-      print("$item is already in the list");
-    }
-  }
-
-  void removeItemEdit({required int index}) {
-    if (index >= 0 && index < selectedDaysEdit.length) {
-      print("Item ${selectedDaysEdit[index]} removed at index $index");
-      selectedDaysEdit.removeAt(index);
-    } else {
-      print("Invalid index: $index");
-    }
-  }
-
-  void toggleCheckboxEdit(int index, bool? value) {
-    // Toggle the isChecked value
-    daysOfTheWeekCheckBoxEdit[index]['isChecked'] = value; //!daysOfTheWeekCheckBox[index]['isChecked'];
-
-    // Update the selectedDays list based on the checkbox state
-    if (daysOfTheWeekCheckBoxEdit[index]['isChecked']) {
-      addItemEdit(item: daysOfTheWeekCheckBoxEdit[index]['day']);
-      //addStartTime();
-    } else {
-      int selectedIndex = selectedDaysEdit.indexOf(daysOfTheWeekCheckBoxEdit[index]['day']);
-      if (selectedIndex != -1) {
-        removeItemEdit(index: selectedIndex);
-        //removeStartTime(index: selectedIndexForAvailTime);
-      }
-    }
-  }
-  
-  //available_days(save to db)
-  String availableDaysEdit() {
-    // Check if the list is not empty before getting the first and last values
-    if (selectedDays.isNotEmpty) {
-      String firstDay = selectedDaysEdit.first;
-      String lastDay = selectedDaysEdit.last;
-
-      // Now you can use firstDay and lastDay as needed
-      print('First day: $firstDay');
-      print('Last day: $lastDay');
-
-      // Combine first and last days into a single string
-      String combinedString = '$firstDay - $lastDay';
-      print('Combined string: $combinedString');
-      return combinedString;
-    } else {
-      // Handle the case when the list is empty
-      print('The list of selected days is empty.');
-      throw Exception("The list is empty fam");
-    }
-  }
-  /////////////////////////////////
-
-  //to activate the next/done button in step 3 screen
-  final isCheckBoxActiveEdit = false.obs;
-  
-
-  ///////////////////////////////////////////////////////////////////
-  //trying to calculate the time-frame string
-  List<String> timeFrameListEdit = [];
-  void addFirstTimeEdit() {
-    if (!timeFrameListEdit.contains(startTimeValueEdit.value)) {
-      //add all start time to the list
-      timeFrameListEdit.add(startTimeValueEdit.value,);
-      print("timeframe list: $timeFrameListEdit");
-    } else {
-      print("${startTimeValueEdit.value} is already in the list");
-    }
-  }
-
-  void addLastTimeEdit() {
-    if (!timeFrameListEdit.contains(stopTimeValueEdit.value)) {
-      //add all start time to the list
-      timeFrameListEdit.add(stopTimeValueEdit.value,);
-      print("timeframe list: $timeFrameList");
-    } else {
-      print("${stopTimeValue.value} is already in the list");
-    }
-  }
-
-  void removeTimeEdit({required int index}) {
-    if (index >= 0 && index < timeFrameListEdit.length) {
-      //add all start time to the list
-      timeFrameListEdit.removeAt(index);
-      print("timeframe list: $timeFrameListEdit");
-      print("Item ${timeFrameListEdit[index]} removed at index $index");
-    } 
-    else {
-      print("Invalid index: $index");
-    }
-  }
-
-  //get the earliest time in the list
-  String findEarliestTimeEdit() {
-    DateTime earliestTime = DateTime(2100); // A future date to compare against
-
-    for (String timeString in timeFrameListEdit) {
-      DateTime time = parseTimeString(timeString);
-      if (time.isBefore(earliestTime)) {
-        earliestTime = time;
-      }
-    }
-    print("Earliest Time: $earliestTime");
-    return formatTimeString(earliestTime);
-  }
-  
-  //get the latest time in the list
-  String findLatestTimeEdit() {
-    DateTime latestTime = DateTime(0); // A past date to compare against
-
-    for (String timeString in timeFrameListEdit) {
-      DateTime time = parseTimeString(timeString);
-      if (time.isAfter(latestTime)) {
-        latestTime = time;
-      }
-    }
-    print("Latest Time: $latestTime");
-    return formatTimeString(latestTime);
-  }
-  
-
 
   //show currency picker when adding/creating a service
   var addServiceCurrencyEdit = "".obs;
@@ -864,6 +453,116 @@ class ProgramServiceController extends getx.GetxController {
       },
    );
   }
+
+
+  ////STEP 3////
+  // List of days with selection status
+  var daysEdit = <Map<String, dynamic>>[
+    {'day': 'Monday', 'isSelected': false},
+    {'day': 'Tuesday', 'isSelected': false},
+    {'day': 'Wednesday', 'isSelected': false},
+    {'day': 'Thursday', 'isSelected': false},
+    {'day': 'Friday', 'isSelected': false},
+    {'day': 'Saturday', 'isSelected': false},
+    {'day': 'Sunday', 'isSelected': false},
+  ];  //.obs;
+
+  // List of selected days with their start and stop times
+  //save to db
+  var selectedDaysEdit = <DaySelectionModel>[].obs;
+
+  // Toggles the selection status of a day, adding or removing it from the selectedDays list
+  void toggleDaySelectionEdit(
+    int index,
+    String day, 
+    bool? isSelected,
+    String startTime,
+    String stopTime,
+  ) {
+    final index2 = selectedDaysEdit.indexWhere((element) => element.day == day);
+    daysEdit[index]['isSelected'] = isSelected;
+    if (isSelected!) {
+      log("$isSelected");
+      addDayEdit(day, startTime, stopTime);
+    } else {
+      log("$isSelected");
+      removeItemEdit(index: index2);
+    }
+    update();
+  }
+
+  //Retrieves the DaySelectionModel for a specific day
+  DaySelectionModel? getDaySelectionEdit(String day) {
+    return selectedDaysEdit.firstWhereOrNull((element) => element.day == day);
+  }
+
+  // Adds a day with its start and stop times to the selectedDays list
+  Future<void> addDayEdit(String day, String startTime, String stopTime) async {
+    selectedDaysEdit.add(DaySelectionModel(day: day, startTime: startTime, stopTime: stopTime));
+    log("list: $selectedDaysEdit");
+  }
+
+  // Removes a day from the selectedDays list based on its index
+  Future<void> removeItemEdit({required int index}) async {
+    if (index >= 0 && index < selectedDaysEdit.length) {
+      log("Item ${selectedDaysEdit[index]} removed at index $index");
+      selectedDaysEdit.removeAt(index);
+      selectedDaysEdit.refresh();
+      log("updated list: $selectedDaysEdit");
+    } else {
+      print("Invalid index: $index");
+    }
+  }
+
+  // Updates the start time of a specific day in the selectedDays list
+  Future<void> updateStartTimeEdit(String day, String startTime) async {
+    final index = selectedDaysEdit.indexWhere((element) => element.day == day);
+    if (index != -1) {
+      selectedDaysEdit[index].startTime = startTime;
+      selectedDaysEdit.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Updates the stop time of a specific day in the selectedDays list
+  Future<void> updateStopTimeEdit(String day, String stopTime) async {
+    final index = selectedDaysEdit.indexWhere((element) => element.day == day);
+    if (index != -1) {
+      selectedDaysEdit[index].stopTime = stopTime;
+      selectedDaysEdit.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Reorders the selectedDays list based on the order of days in the week
+  Future<List<DaySelectionModel>> reorderDaysEdit(List<DaySelectionModel> selectedDays) async {
+    // Define the order of days in the week
+    const List<String> weekDaysOrder = [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ];
+
+    // Create a map to define the order index of each day
+    Map<String, int> dayOrderMap = {
+      for (int i = 0; i < weekDaysOrder.length; i++) weekDaysOrder[i]: i
+    };
+
+    // Sort the selectedDays list based on the day order defined in dayOrderMap
+    selectedDaysEdit.sort((a, b) => dayOrderMap[a.day]!.compareTo(dayOrderMap[b.day]!));
+
+    // Return the sorted list
+    return selectedDaysEdit;
+  }
+
+  //save to db
+  List<ServiceControllerSett> controllersEdit = [ServiceControllerSett(), ServiceControllerSett()];
+  /////////////////////////////////////////////////////
+
   /////////////////////////////////////////////////////
 
   
@@ -871,28 +570,15 @@ class ProgramServiceController extends getx.GetxController {
 
 
 
-  ///service_screen list for package service list/// 
-  var selectedIndex = 0.obs; //for toggling price of the services list,
-  final isVirtual = true.obs;  //boolean to switch between prices in the services list
 
 
-  void handleTabTap(int index) {
-    isVirtual.value = !isVirtual.value;
-    selectedIndex.value = index;
-    print("price switch check: ${isVirtual.value}");
-    update();
-  }
+
+
 
 
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    //
-    /*serviceNameControllerEdit.addListener(() {
-      ispriceButtonEnabledEdit.value = serviceNameControllerEdit.text.isNotEmpty;  
-    });*/
-    //[ADD OTHER LISTENERS]
     super.onInit();
   }
 
@@ -904,15 +590,14 @@ class ProgramServiceController extends getx.GetxController {
     // TODO: implement dispose
     serviceNameController.dispose();
     descriptionController.dispose();
-    addLinksController.dispose();
-    inPersonController.dispose();
-    //virtualController.dispose();
+    inPersonPriceController.dispose();
+    virtualPriceController.dispose();
+
 
     serviceNameControllerEdit.dispose();
     descriptionControllerEdit.dispose();
-    addLinksControllerEdit.dispose();
-    inPersonControllerEdit.dispose();
-    virtualControllerEdit.dispose();
+    inPersonPriceController.dispose();
+    virtualPriceControllerEdit.dispose();
     super.dispose();
   }
 

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/package_service/package_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 

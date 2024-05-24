@@ -9,7 +9,6 @@ import 'package:luround/utils/components/loader.dart';
 import '../../../../../controllers/account_owner/profile/profile_page_controller.dart';
 import '../../../../../utils/colors/app_theme.dart';
 import '../../../../../utils/components/reusable_button.dart';
-import '../../../../../utils/components/title_text.dart';
 import 'about_textfield.dart';
 
 
@@ -21,7 +20,7 @@ import 'about_textfield.dart';
 
 
 class EditAboutPage extends StatefulWidget {
-  EditAboutPage({super.key, required this.about});
+  const EditAboutPage({super.key, required this.about});
   final String about;
 
   @override
@@ -54,7 +53,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
       ),*/
       body: Obx(
         () {
-          return profileService.isLoading.value ? Loader() : SafeArea(
+          return profileService.isLoading.value ? const Loader() : SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -130,7 +129,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                             initialValue: widget.about,  //text gotten from the server
                             hintText: 'Enter a brief summary of your experience, skills and achievements',
                             keyboardType: TextInputType.multiline,
-                            textInputAction: TextInputAction.done,                   
+                            textInputAction: TextInputAction.none,                   
                           ),
                           SizedBox(height: 20.h),
                           Row(

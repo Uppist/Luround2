@@ -8,9 +8,9 @@ import 'package:luround/controllers/account_owner/services/program_service/progr
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/timeline_dropdown.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/description_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_1/textfields/description_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/start_date_box.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/stop_date_box.dart';
 
 
 
@@ -22,7 +22,7 @@ import 'package:luround/views/account_owner/services/widget/regular/add_service/
 
 
 class Step1PageProgramService extends StatefulWidget {
-  Step1PageProgramService({super.key, required this.onNext});
+  const Step1PageProgramService({super.key, required this.onNext});
   final VoidCallback onNext;
 
   @override
@@ -52,10 +52,10 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Service name*",
+          "Program name",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
@@ -104,102 +104,39 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
               "${controller.descriptionController.text.length}/${controller.maxLength}",
               style: GoogleFonts.inter(
                 color: AppColor.textGreyColor,
-                fontSize: 15.sp,
+                fontSize: 14.sp,
                 fontWeight: FontWeight.w500
               ),
             ),
           ],
         ),
-        /*SizedBox(height: 20.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Add links (optional)",
-              style: GoogleFonts.inter(
-                color: AppColor.blackColor,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  controller.toggleLink.value = true;
-                  controller.isTextGone.value = true;
-                });
-              },
-              child: SvgPicture.asset("assets/svg/add_icon.svg"),
-            )
-          ],
-        ),
-        SizedBox(height: 10.h),
-        //textfield
-        controller.toggleLink.value ?
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: ReusableTextField(  
-                onChanged: (val) {},
-                hintText: "e.g, https://www.example.com",
-                keyboardType: TextInputType.url,
-                textInputAction: TextInputAction.next,
-                textController: controller.addLinksController
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  controller.toggleLink.value = false;
-                  controller.isTextGone.value = false;
-                });
-              }, 
-              icon: Icon(CupertinoIcons.xmark, color: AppColor.blackColor,),
-            )
-          ],
-        ) : SizedBox(),
-        SizedBox(height: 20.h,),
-
-        controller.isTextGone.value ? SizedBox()
-        :Text(
-          "Add links to contents that relates to this service",
-          style: GoogleFonts.inter(
-            color: AppColor.textGreyColor, 
-            fontSize: 14.sp
-          ),
-        ),
         
-        controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
-        
-        controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),*/
+        SizedBox(height: 30.h),
         Text(
-          "Service timeline",
+          "Start date",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        //SizedBox(height: 20.h),
-        ProgramServiceTimeline(),
+        SizedBox(height: 20.h),
+        StartDateBoxProgram(),
 
-
-        SizedBox(height: 30.h,),
+        SizedBox(height: 30.h),
         Text(
-          "Service recurrence",
+          "End date",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h,),
-        //SizedBox(height: 20.h),
-        ProgramServiceRecurrence(),
+        SizedBox(height: 20.h),
+        StopDateBoxProgram(),
 
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.14),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.13),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

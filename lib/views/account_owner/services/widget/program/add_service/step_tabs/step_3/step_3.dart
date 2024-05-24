@@ -1,24 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
-import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/start_date_box.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/start_time_box.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/stop_date_box.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_3/new/stop_time_box.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
-
-
-
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
 
 
 
@@ -29,7 +22,7 @@ import 'package:luround/views/account_owner/services/widget/regular/add_service/
 
 
 class Step3PageProgramService extends StatefulWidget{
-  Step3PageProgramService({super.key,});
+  const Step3PageProgramService({super.key,});
 
   @override
   State<Step3PageProgramService> createState() => _Step3PageProgramServiceState();
@@ -45,198 +38,193 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
+        
         Text(
-          "Date and Time",
+          "Day and Time Availability",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h),
-        //r1
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            StartDateBoxProgram(),
-            StartTimeBoxProgram()
-          ],
-        ),
-        SizedBox(height: 30.h,),
-        //r2
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            StopDateBoxProgram(),
-            StopTimeBoxProgram()
-          ],
-        ),
-        
-  
-        SizedBox(height: 30.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  CupertinoIcons.clock,
-                  color: AppColor.blackColor,
-                  size: 22.r,
-                ),
-                SizedBox(width: 5.w,),
-                Text(
-                  "Duration",
-                  style: GoogleFonts.inter(
-                    color: AppColor.blackColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-              ],
-            ),
 
-            Obx(
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+        //from & to row
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: Text(
+                "",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            ),
+            SizedBox(width: 40.w,),
+            Expanded(
+              child: Text(
+                "From",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            ),
+            //SizedBox(width: 0.w,),
+            Expanded(
+              child: Text(
+                "To",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+        //available days list
+        ListView.separated(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => SizedBox(height: 20.h,),
+          itemCount: mainController.days.length,
+          itemBuilder: (context, index) {
+    
+            return Obx(
               () {
-                return Text(
-                  mainController.calcDuration.value,
-                  style: GoogleFonts.inter(
-                    color: AppColor.darkGreyColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w400
+                //
+                String day = mainController.days[index]['day'];
+                //
+                bool isSelected = mainController.days[index]['isSelected'];
+                //
+                String startTime = mainController.getDaySelection(day)?.startTime ?? "start time";
+                //
+                String stopTime = mainController.getDaySelection(day)?.stopTime ?? "stop time";
+                
+                return CustomCheckBoxListTile(
+                  checkbox: Checkbox.adaptive(
+                    checkColor: AppColor.bgColor,
+                    activeColor: AppColor.mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.r)
+                    ),
+                    value: isSelected,
+                    onChanged: (value) {   
+                      // Toggle checkbox and update selection in the list
+                      setState(() {
+                        //
+                        isSelected = value!;
+                        //
+                        mainController.toggleDaySelection(
+                          index, 
+                          day, 
+                          value, 
+                          startTime, 
+                          stopTime,
+                        );
+                        //
+                        mainController.isCheckBoxActive.value = true;
+                      });
+                    },
+                  ),              
+                  
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          day,
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(width: 10.w,),
+
+                      //start time
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => _selectTime(context, 'start', index),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40.h,
+                            //width: 100.w,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                              borderRadius: BorderRadius.circular(10.r),
+                              border: Border.all(
+                                color: AppColor.textGreyColor,
+                                width: 1.0, //2
+                              )
+                            ),
+                            child: Text(
+                              startTime,
+                              style: GoogleFonts.inter(
+                                color: AppColor.blackColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+
+                      SizedBox(width: 10.w,),
+
+                      //stop time
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => _selectTime(context, 'stop', index),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40.h,
+                            //width: 100.w,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                              borderRadius: BorderRadius.circular(10.r),
+                              border: Border.all(
+                                color: AppColor.textGreyColor,
+                                width: 1.0, //2
+                              )
+                            ),
+                            child: Text(
+                              stopTime,
+                              style: GoogleFonts.inter(
+                                color: AppColor.blackColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+                
+                    ],
                   ),
+                  subtitle: mainController.isCheckBoxActive.value ? const SizedBox() : const SizedBox()
                 );
               }
-            ),
-          ],
+            );
+            
+          }, 
         ),
 
-        SizedBox(height: 30.h),
-        Text(
-          "Maximum number of participants",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 20.h),
-        Container(
-          //padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 10.h),
-          alignment: Alignment.center,
-          height: 45.h,
-          width: 130.w, //125
-          decoration: BoxDecoration(
-            color: AppColor.bgColor,
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(
-              color: AppColor.textGreyColor,
-              width: 1.0, //2
-            )
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              IconButton(
-                onPressed:() {
-                  mainController.decreaseCount();
-                }, 
-                icon: Icon(
-                  CupertinoIcons.minus_circle,
-                  color: AppColor.textGreyColor,
-                  size: 24.r,
-                )
-              ),
-              //SizedBox(width: 5.w,),
-              Obx(
-                () {
-                  return Text(
-                    mainController.count.value.toString(),
-                    style: GoogleFonts.inter(
-                      color: AppColor.textGreyColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400
-                    ),
-                  );
-                }
-              ),
-              //SizedBox(width: 5.w,),
-              IconButton(
-                onPressed:() {
-                  mainController.increaseCount();
-                }, 
-                icon: Icon(
-                  CupertinoIcons.add_circled,
-                  color: AppColor.textGreyColor,
-                  size: 24.r,
-                )
-              )
-            ],
-          )
-        ),
-
-        SizedBox(height: 30.h,),
-
-        Text(
-          "Service fee",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "In-person",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 20.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                textController: mainController.inPersonController
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Virtual",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 45.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                textController: mainController.virtualController
-              ),
-            ),
-          ],
-        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.065),
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
 
         //button
         Obx(
@@ -253,17 +241,17 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                   context: context,
                   service_name: mainController.serviceNameController.text, 
                   description: mainController.descriptionController.text, 
-                  links: [mainController.addLinksController.text], 
-                  service_charge_in_person: mainController.inPersonController.text, 
-                  service_charge_virtual: mainController.virtualController.text, 
-                  duration: mainController.calcDuration.value, 
+                  links: [], 
+                  service_charge_in_person: '', 
+                  service_charge_virtual: '', 
+                  duration: '', 
                   service_recurrence: mainController.serviceRecurrence.value,
-                  service_timeline: mainController.serviceTimeline.value,
-                  timeline_days: mainController.selectedDays,
-                  start_date: mainController.startDate(),
-                  end_date: mainController.endDate(),
-                  start_time: mainController.startTimeValue.value,
-                  end_time: mainController.stopTimeValue.value,
+                  service_timeline: '',
+                  timeline_days: [],
+                  start_date: mainController.startDate(initialDate: 'non'),
+                  end_date: mainController.stopDate(initialDate: 'non'),
+                  start_time: '',
+                  end_time: '',
                   max_number_of_participants: mainController.count.value
                     
                 ).whenComplete(() {
@@ -274,16 +262,15 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                   //2
                   mainController.serviceNameController.clear();
                   mainController.descriptionController.clear();
-                  mainController.addLinksController.clear();
-                  mainController.inPersonController.clear();
-                  mainController.virtualController.clear();
+                  mainController.inPersonPriceController.clear();
+                  mainController.virtualPriceController.clear();
                   //3
                   Get.offAll(
                     () => const MainPage(),
                     transition: Transition.rightToLeft
                   );
                 });       
-                        
+                      
               }
               : () {
                 print('nothing');
@@ -292,9 +279,70 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
             );
           }
         ),
-
       ]
     );
     
   }
+
+  
+  // Function to show the time picker and set the selected time
+  void _selectTime(BuildContext context, String timeType, int dayIndex) async {
+    // Ensure the dayIndex is within the valid range
+    /*if (dayIndex < 0 || dayIndex >= controller.days.length) {
+      log('Invalid day index: $dayIndex');
+      return;
+    }*/
+
+    // Determine if the user prefers 24-hour format
+    bool use24HourFormat = MediaQuery.of(context).alwaysUse24HourFormat;
+
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: use24HourFormat),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        String formattedTime = picked.format(context);
+        var day = mainController.days[dayIndex]['day'];
+
+        if (timeType == 'start') {
+          // Update the start time for the selected day
+          if(day != null) {
+            log(formattedTime);
+            mainController.updateStartTime(day, formattedTime,)
+            .whenComplete(() {
+              log("${mainController.selectedDays}");
+            });
+          }
+          else{
+            throw Exception('please select day first');
+          }
+        } 
+        else {
+          // Update the stop time for the selected day
+          if(day != null) {
+            log(formattedTime);
+            mainController.updateStopTime(day, formattedTime,)
+            .whenComplete(() {
+              //controller.addDay(day, controller.startTime.text, controller.stopTime.text);
+              log("${mainController.selectedDays}");
+            });
+          }
+          else{
+            throw Exception('please select day first');
+          }
+        }
+
+      });
+    }
+  }
+  
+
 }

@@ -164,6 +164,8 @@ class _EditProgramServiceScreenState extends State<EditProgramServiceScreen> {
                       print("current step: ${controller.curentStepEdit.value}");
                     }
                   },
+                  service_charge_in_person: widget.service_charge_in_person,
+                  service_charge_virtual: widget.service_charge_virtual,
                 )
               ),
               Step(

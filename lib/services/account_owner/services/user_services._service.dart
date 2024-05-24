@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:get/get.dart' as getx;
-import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';

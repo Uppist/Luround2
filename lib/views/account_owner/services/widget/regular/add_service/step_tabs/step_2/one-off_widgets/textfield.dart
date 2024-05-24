@@ -13,7 +13,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class OneoffTextField extends StatefulWidget {
-  const OneoffTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, this.width, required this.prefixIcon, this.onChanged,});
+  const OneoffTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, this.width, required this.prefixIcon, this.onChanged, this.suffixIcon,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
@@ -23,6 +23,7 @@ class OneoffTextField extends StatefulWidget {
   final void Function(bool)? onFocusChanged;
   final void Function(String)? onChanged;
   final Widget prefixIcon;
+  final Widget? suffixIcon;
   
 
   @override
@@ -73,7 +74,9 @@ class _OneoffTextFieldState extends State<OneoffTextField> {
             filled: true,
             fillColor: AppColor.bgColor,
             prefixIcon: widget.prefixIcon,
-            //prefixIconConstraints: BoxConstraints.loose()
+            suffixIcon: widget.suffixIcon,
+            //prefix: widget.prefixIcon,
+
           ),
         ),
       ),

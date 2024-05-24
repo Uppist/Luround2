@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/regular_service/regular_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import '../../../../../../../../utils/components/reusable_custom_textfield.dart';
 
@@ -109,128 +108,8 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ],
         ),
-        /*SizedBox(height: 20.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Add links (optional)",
-              style: GoogleFonts.inter(
-                color: AppColor.blackColor,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  controller.toggleLink.value = true;
-                  controller.isTextGone.value = true;
-                });
-              },
-              child: SvgPicture.asset("assets/svg/add_icon.svg"),
-            )
-          ],
-        ),
-        SizedBox(height: 10.h),
-        //textfield
-        controller.toggleLink.value ?
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: ReusableTextField(  
-                onChanged: (val) {},
-                hintText: "e.g, https://www.example.com",
-                keyboardType: TextInputType.url,
-                textInputAction: TextInputAction.next,
-                textController: controller.addLinksController
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  controller.toggleLink.value = false;
-                  controller.isTextGone.value = false;
-                });
-              }, 
-              icon: Icon(CupertinoIcons.xmark, color: AppColor.blackColor,),
-            )
-          ],
-        ) : SizedBox(),
-        SizedBox(height: 20.h,),
-
-        controller.isTextGone.value ? SizedBox()
-        :Text(
-          "Add links to contents that relates to this service",
-          style: GoogleFonts.inter(
-            color: AppColor.textGreyColor, 
-            fontSize: 14.sp
-          ),
-        ),
         
-        controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
-        
-        controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),*/
-    
-        //SizedBox(height: 20.h,),
-        /*Text(
-          "Service fee",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 15.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "In-person",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 20.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                textController: controller.inPersonController
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 20.h,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Virtual",
-              style: GoogleFonts.inter(
-                color: AppColor.darkGreyColor, 
-                fontSize: 16.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            SizedBox(width: 45.w,),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "00.00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                textController: controller.virtualController
-              ),
-            ),
-          ],
-        ),*/
-        SizedBox(height: MediaQuery.of(context).size.height * 0.38),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.39),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

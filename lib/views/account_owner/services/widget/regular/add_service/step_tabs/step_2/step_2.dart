@@ -46,93 +46,43 @@ class _Step2PageState extends State<Step2Page> {
           ),
         ),
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
-        
-        //choose service model radio widgets
-        /*RegularServiceModelSelector(),
-    
-        Obx(
-          () {
-            return controller.selectServiceModel.value == "RETAINER"?
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Service timeline",
-                  style: GoogleFonts.inter(
-                    color: AppColor.blackColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500
-                  ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(
+              child: SizedBox(width: 10.w,),
+            ),
+            SizedBox(width: 10.w,),
+            Expanded(
+              child: Text(
+                "Virtual",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
                 ),
-                SizedBox(height: 20.h),
-                RegularServiceTimeline(),
-              ],
-            )
-            :Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //SizedBox(height: 20.h,),
-                Text(
-                  "Service duration",
-                  style: GoogleFonts.inter(
-                    color: AppColor.blackColor,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500
-                  ),
+              ),
+            ),
+            SizedBox(width: 10.w,),
+            Expanded(
+              child: Text(
+                "In-person",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
                 ),
-                SizedBox(height: 30.h),
-                InkWell(
-                  onTap: () async{
-                    controller.showDurationPickerDialog(context: context);         
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
-                    alignment: Alignment.centerLeft,
-                    height: 50.h,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: AppColor.bgColor,
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(
-                        color: AppColor.textGreyColor,
-                        width: 1.0, //2
-                      )
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Obx(
-                          () {
-                            return Text(
-                              "${controller.duration.value}".substring(0, 7),
-                              style: GoogleFonts.inter(
-                                textStyle: TextStyle(
-                                  color: AppColor.textGreyColor,
-                                  fontSize: 16.sp,
-                                  //fontWeight: FontWeight.w500
-                                )
-                              )
-                            );
-                          }
-                        ),
-                        Icon(
-                          CupertinoIcons.time,
-                          color: AppColor.textGreyColor,
-                        ),
-                      ],
-                    ),
-                  )
-                ),
-              ],
-            );
-          }
-        ),*/
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
 
         //2           
         //growable list that displays textfields that was added
         ListView.separated(
           shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(), //const BouncingScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(), //const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           itemCount: controller.controllers.length, //certified (working)
           //padding: EdgeInsets.symmetric(vertical: 10.h),
@@ -144,45 +94,66 @@ class _Step2PageState extends State<Step2Page> {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                buildAdditionalTextField(
-                  '', 
-                  controllerSet.durationController, 
-                  TextInputType.number, 
-                  Icon(CupertinoIcons.clock, size: 22.r, color: AppColor.textGreyColor,), 
-                  100.w
-                ),
-                buildAdditionalTextField(
-                  '', 
-                  controllerSet.virtualPriceController, 
-                  TextInputType.number, 
-                  Text(
-                    currency(context).currencySymbol,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                      color: AppColor.textGreyColor,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400
-                    ),
-                    overflow: TextOverflow.ellipsis,
+                Expanded(
+                  child: buildAdditionalTextField(
+                    '', 
+                    controllerSet.durationController, 
+                    TextInputType.number, 
+                    Icon(CupertinoIcons.clock, size: 22.r, color: AppColor.textGreyColor,), 
+                    0.w,
+                    Text(
+                      "Min.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: AppColor.textGreyColor,
+                        fontSize: 10.sp, //12.sp
+                        fontWeight: FontWeight.w400
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ), 
                   ),
-                  100.w
                 ),
-                buildAdditionalTextField(
-                  '', 
-                  controllerSet.inpersonPriceController, 
-                  TextInputType.number, 
-                  Text(
-                    currency(context).currencySymbol,
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.inter(
-                      color: AppColor.textGreyColor,
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w400
+                SizedBox(width: 10.w,),
+                Expanded(
+                  child: buildAdditionalTextField(
+                    '', 
+                    controllerSet.virtualPriceController, 
+                    TextInputType.number, 
+                    Text(
+                      currency(context).currencySymbol,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: AppColor.textGreyColor,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.ellipsis,
+                    //SvgPicture.asset("assets/svg/naira.svg"),
+                    150.w
                   ),
-                  100.w
                 ),
+                SizedBox(width: 10.w,),
+                Expanded(
+                  child: buildAdditionalTextField(
+                    '', 
+                    controllerSet.inpersonPriceController, 
+                    TextInputType.number, 
+                    Text(
+                      currency(context).currencySymbol,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.inter(
+                        color: AppColor.textGreyColor,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w400
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    //SvgPicture.asset("assets/svg/naira.svg"),
+                    150.w
+                  ),
+                ),
+                SizedBox(width: 10.w),
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -202,7 +173,7 @@ class _Step2PageState extends State<Step2Page> {
         
         ),
             
-        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.23),
     
         InkWell(
           onTap: () {           
@@ -210,13 +181,15 @@ class _Step2PageState extends State<Step2Page> {
               ServiceControllerSett controllerSet = ServiceControllerSett();
               //controller.textFields.add(buildTextField(controllerSet));
               controller.controllers.add(controllerSet);
+              print("controller_list: ${controller.controllers}");
+              print("controller_list_length: ${controller.controllers.length}");
               // Access your controllers through the list of ControllerSet instances
               for (ServiceControllerSett controllerSet in controller.controllers) {
                 print("duration: ${controllerSet.durationController.text}");
                 print("virtual price: ${controllerSet.virtualPriceController.text}");
                 print("in-person price: ${controllerSet.inpersonPriceController.text}");
               }
-              controller.selectServiceModel.value = 'not empty';
+
             });    
           },
           child: Row(
@@ -242,100 +215,56 @@ class _Step2PageState extends State<Step2Page> {
         ),
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
+        //SizedBox(height: MediaQuery.of(context).size.height * 0.42),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              "Add meeting links for virtual bookings",
-              style: GoogleFonts.inter(
-                color: AppColor.blackColor,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w500
-              ),
-            ),
-            InkWell(
-              onTap: () {
-                setState(() {
-                  controller.toggleLink.value = true;
-                  controller.isTextGone.value = true;
-                });
-              },
-              child: SvgPicture.asset("assets/svg/add_icon.svg"),
-            )
-          ],
+        Text(
+          "Add meeting links for virtual bookings",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500
+          ),
         ),
         SizedBox(height: 10.h),
         //textfield
-        controller.toggleLink.value ?
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: ReusableTextField(  
-                onChanged: (val) {},
-                hintText: "e.g, https://www.example.com",
-                keyboardType: TextInputType.url,
-                textInputAction: TextInputAction.next,
-                textController: controller.addLinksController
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                setState(() {
-                  controller.toggleLink.value = false;
-                  controller.isTextGone.value = false;
-                });
-              }, 
-              icon: Icon(CupertinoIcons.xmark, color: AppColor.blackColor,),
-            )
-          ],
-        ) : SizedBox(),
-        SizedBox(height: 20.h,),
-
-        controller.isTextGone.value ? SizedBox()
-        :Text(
-          "Add meeting links for virtual bookings",
-          style: GoogleFonts.inter(
-            color: AppColor.textGreyColor, 
-            fontSize: 14.sp
-          ),
+        ReusableTextField(  
+          onChanged: (val) {},
+          hintText: "Meeting link",
+          keyboardType: TextInputType.url,
+          textInputAction: TextInputAction.next,
+          textController: controller.addLinksController
         ),
+
         
-        controller.isTextGone.value ? SizedBox(): SizedBox(height: 4.h,),
-        
-        controller.isTextGone.value ? SizedBox() : Divider(color: AppColor.textGreyColor, thickness: 1,),
-        
-        SizedBox(height: MediaQuery.of(context).size.height * 0.20),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
     
-        Obx(
-          () {
-            return RebrandedReusableButton(
-              textColor: controller.selectServiceModel.value.isNotEmpty ? AppColor.bgColor : AppColor.darkGreyColor,
-              color: controller.selectServiceModel.value.isNotEmpty ? AppColor.mainColor : AppColor.lightPurple, 
-              text: "Next", 
-              onPressed: controller.selectServiceModel.value.isNotEmpty ? 
-              widget.onNext
-              : () {
-                print('nothing');
+      
+        RebrandedReusableButton(
+          textColor: AppColor.bgColor,
+          color: AppColor.mainColor,
+          text: "Next", 
+          onPressed: //controller.selectServiceModel.value.isNotEmpty ? 
+          widget.onNext,
+          /*: () {
+            print('nothing');
 
-                //controller.textFields.clear();//remove(field);
-                controller.controllers.clear();
+            //controller.textFields.clear();//remove(field);
+            controller.controllers.clear();
 
-                ////////////
-                /*profileService.updateCertificateData(
-                  context: context,
-                  controllerSets: profileController.controllers
-                ).whenComplete(() {
-                  profileController.textFields.clear();//remove(field);
-                  profileController.controllers.clear();
-                  print("textfield_list: ${profileController.textFields}");
-                  print("controller_list_length: ${profileController.controllers.length}");      
-                });*/
-              },
-            );
-          }
-        ),
+            ////////////
+            /*profileService.updateCertificateData(
+              context: context,
+              controllerSets: profileController.controllers
+            ).whenComplete(() {
+              profileController.textFields.clear();//remove(field);
+              profileController.controllers.clear();
+              print("textfield_list: ${profileController.textFields}");
+              print("controller_list_length: ${profileController.controllers.length}");      
+            });*/
+          },*/
+        )
+        
+        
         //SizedBox(height: 10.h,),
     
     
@@ -347,7 +276,7 @@ class _Step2PageState extends State<Step2Page> {
 
 
   //subfields for duration, virtual and in-person price
-  Widget buildAdditionalTextField(String hintText, TextEditingController controller, TextInputType inputType, Widget prefixIcon, double width) {
+  Widget buildAdditionalTextField(String hintText, TextEditingController controller, TextInputType inputType, Widget prefixIcon, double width, [Widget? suffixIcon]) {
     return OneoffTextField(
       onFieldSubmitted: (p0) {},
       onFocusChanged: (p0) {},
@@ -358,6 +287,7 @@ class _Step2PageState extends State<Step2Page> {
       textInputAction: TextInputAction.next,
       prefixIcon: prefixIcon,
       width: width,
+      suffixIcon: suffixIcon,
     );
   }
   

@@ -70,10 +70,10 @@ Future<void> selectDateRangeBottomSheetEdit({required BuildContext context, requ
                     selectedDayHighlightColor: AppColor.mainColor,
                     //calendarViewMode: DatePickerMode.day
                   ),
-                  value: controller.datesEdit,
+                  value: [],
                   onValueChanged: (dates) {
-                    controller.selectedDateEdit(dates);
-                    debugPrint("${controller.datesEdit}");
+                    //controller.selectedDateEdit(dates);
+                    //debugPrint("${controller.datesEdit}");
                   },
                 ),
                 SizedBox(height: 20.h,),

@@ -50,7 +50,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
           "from" : controller.startTimeValueEdit.value,
         });
         //controller.addStartTimeEdit();
-        controller.addFirstTimeEdit();
+        //controller.addFirstTimeEdit();
         print("time list: ${controller.availableTimeEdit}");
       });
 
@@ -77,7 +77,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
         controller.daysOfTheWeekCheckBoxEdit[index].addAll({
           "to" : controller.stopTimeValueEdit.value,
         });
-        controller.addLastTimeEdit();
+        //controller.addLastTimeEdit();
       });
     }
   }
@@ -198,7 +198,7 @@ class _EditTimeRangeSelectorState extends State<EditTimeRangeSelector> {
                   controller.daysOfTheWeekCheckBoxEdit[widget.index]['to'] = "to";
                   controller.daysOfTheWeekCheckBoxEdit[widget.index]['from'] = "from";
                   //controller.removeStartTimeEdit(index: widget.index);
-                  controller.removeTimeEdit(index: widget.index);
+                  //ontroller.removeTimeEdit(index: widget.index);
                 });
                 print("time list: ${controller.availableTimeEdit}");
                 print(controller.daysOfTheWeekCheckBoxEdit[widget.index]["isChecked"]);

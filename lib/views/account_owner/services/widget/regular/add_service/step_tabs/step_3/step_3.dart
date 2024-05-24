@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,8 +13,6 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/services/widget/package/add_service/step_tabs/step_3/new/custom_checkbox_listtile.dart';
-import 'package:luround/views/account_owner/services/widget/regular/add_service/step_tabs/step_3/time_range_picker/time_range_picker.dart';
-
 
 
 
@@ -41,188 +41,233 @@ class _Step3PageState extends State<Step3Page> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Day and Time availability*",
+          "Day and Time Availability",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
-            fontSize: 15.sp,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 30.h),
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
+        //from & to row
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Icon(
-              Icons.circle_rounded,
-              color: AppColor.mainColor,
+            Expanded(
+              child: Text(
+                "",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
             ),
-            SizedBox(width: 10.w,),
-            Text(
-              "West Africa Standard Time",
-              style: GoogleFonts.inter(
-                color: AppColor.mainColor,
-                fontSize: 15.sp,
-                fontWeight: FontWeight.w500
+            SizedBox(width: 40.w,),
+            Expanded(
+              child: Text(
+                "From",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
+              ),
+            ),
+            //SizedBox(width: 0.w,),
+            Expanded(
+              child: Text(
+                "To",
+                style: GoogleFonts.inter(
+                  color: AppColor.darkGreyColor,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w400
+                ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 30.h),
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+        //available days list
         ListView.separated(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
-          itemCount: mainController.daysOfTheWeekCheckBox.length,
+          separatorBuilder: (context, index) => SizedBox(height: 20.h,),
+          itemCount: mainController.days.length,
           itemBuilder: (context, index) {
     
-            return CustomCheckBoxListTile(
-              checkbox: Checkbox.adaptive(
-                checkColor: AppColor.bgColor,
-                activeColor: AppColor.mainColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4.r)
-                ),
-                value: mainController.daysOfTheWeekCheckBox[index]["isChecked"],
-                onChanged: (value) {   
-                  setState(() {
-                    mainController.isCheckBoxActive.value = true;
-                    mainController.toggleCheckbox(index, value);
-                    print("selectedDays: ${mainController.selectedDays}");
-                  });     
-                  //print("$index, ${controller.daysOfTheWeekCheckBoxEdit[index]["day"]}");
-                },
-              ),
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    mainController.daysOfTheWeekCheckBox[index]["day"],
-                    style: GoogleFonts.inter(
-                      color: AppColor.blackColor,
-                      fontSize: 15.sp,
-                      fontWeight: FontWeight.w500
+            return Obx(
+              () {
+                //
+                String day = mainController.days[index]['day'];
+                //
+                bool isSelected = mainController.days[index]['isSelected'];
+                //
+                String startTime = mainController.getDaySelection(day)?.startTime ?? "Start Time";
+                //
+                String stopTime = mainController.getDaySelection(day)?.stopTime ?? "Stop Time";
+                
+                return CustomCheckBoxListTile(
+                  checkbox: Checkbox.adaptive(
+                    checkColor: AppColor.bgColor,
+                    activeColor: AppColor.mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.r)
                     ),
-                  ),
-                  InkWell(
-                    onTap: () {    
-                      /*setState(() {
-                        mainController.daysOfTheWeekCheckBox[index]["isChecked"] = !mainController.daysOfTheWeekCheckBox[index]["isChecked"];
-                        //to activate the done button
+                    value: isSelected,
+                    onChanged: (value) {   
+                      // Toggle checkbox and update selection in the list
+                      setState(() {
+                        //
+                        isSelected = value!;
+                        //
+                        mainController.toggleDaySelection(
+                          index, 
+                          day, 
+                          value, 
+                          startTime, 
+                          stopTime,
+                        );
+                        //
                         mainController.isCheckBoxActive.value = true;
-                      });*/         
+                      });
                     },
-                    child: SvgPicture.asset(
-                      "assets/svg/add_icon.svg",
-                      height: 25.h,
-                      width: 25.w,
-                    ),
-                  )
-                ],
-              ),
-              subtitle: mainController.daysOfTheWeekCheckBox[index]["isChecked"] 
-              ?TimeRangeSelector(index: index)           
-              :const SizedBox(),
+                  ),
+                  
+                  
+                  title: Row(
+                    //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          day,
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(width: 10.w,),
+
+                      //start time
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => _selectTime(context, 'start', index),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40.h,
+                            //width: 100.w,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                              borderRadius: BorderRadius.circular(10.r),
+                              border: Border.all(
+                                color: AppColor.textGreyColor,
+                                width: 1.0, //2
+                              )
+                            ),
+                            child: Text(
+                              startTime,
+                              style: GoogleFonts.inter(
+                                color: AppColor.blackColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+
+                      SizedBox(width: 10.w,),
+
+                      //stop time
+                      Expanded(
+                        child: InkWell(
+                          onTap: () => _selectTime(context, 'stop', index),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40.h,
+                            //width: 100.w,
+                            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
+                            decoration: BoxDecoration(
+                              color: AppColor.bgColor,
+                              borderRadius: BorderRadius.circular(10.r),
+                              border: Border.all(
+                                color: AppColor.textGreyColor,
+                                width: 1.0, //2
+                              )
+                            ),
+                            child: Text(
+                              stopTime,
+                              style: GoogleFonts.inter(
+                                color: AppColor.blackColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                            ),
+                          ),
+                        )
+                      ),
+                
+                    ],
+                  ),
+                  subtitle: mainController.isCheckBoxActive.value ? const SizedBox() : const SizedBox()
+                );
+              }
             );
             
           }, 
         ),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.07),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.065),
 
         Obx(
           () {
-            return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
+            return servicesService.isServiceCRLoading.value ? const Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
               color: mainController.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 
               onPressed: mainController.isCheckBoxActive.value ? 
-              //widget.onNext
-              () {
-                if(mainController.selectServiceModel.value == "ONE-OFF") {
-
-                  print("available_time_list: ${mainController.availableTime}");
-                  mainController.getTimeIntervals(
-                    earliestTime: mainController.findEarliestTime(),
-                    latestTime: mainController.findLatestTime(),
-                    interval: mainController.duration.value
-                  )
-                  .whenComplete(() {
-                    
-                    servicesService.createRegularService(
-                      context: context,
-                      service_name: mainController.serviceNameController.text, 
-                      description: mainController.descriptionController.text, 
-                      links: [mainController.addLinksController.text], 
-                      service_charge_in_person: mainController.inPersonController.text, 
-                      service_charge_virtual: mainController.virtualController.text, 
-                      duration: mainController.formatDuration(), 
-                      time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                      available_time_list: mainController.availableTime,
-                      available_days: mainController.availableDays(),
-                      date: mainController.selectDateRange,
-
-                      //NEW
-                      //regular service model         
-                      service_model: mainController.selectServiceModel.value,
-                      service_timeline: mainController.serviceTimeline.value,
-                    ).whenComplete(() {
-                      //1
-                      setState(() {
-                        mainController.curentStep = mainController.curentStep - 2;
-                      });
-                      //2
-                      mainController.serviceNameController.clear();
-                      mainController.descriptionController.clear();
-                      mainController.addLinksController.clear();
-                      mainController.inPersonController.clear();
-                      mainController.virtualController.clear();
-                      //3
-                      Get.offAll(
-                        () => MainPage(),
-                        transition: Transition.rightToLeft
-                      );
-                    }); 
+              () {     
+                servicesService.createRegularService(
+                  context: context,
+                  service_name: mainController.serviceNameController.text, 
+                  description: mainController.descriptionController.text, 
+                  links: [mainController.addLinksController.text], 
+                  service_charge_in_person: mainController.inPersonController.text, 
+                  service_charge_virtual: mainController.virtualController.text, 
+                  duration: '', 
+                  time: "",
+                  available_time_list: [],
+                  available_days: "",
+                  date: "",
+                  service_model: '',
+                  service_timeline: ''
+                ).whenComplete(() {
+                  //1
+                  setState(() {
+                    mainController.curentStep = mainController.curentStep - 2;
                   });
-                }
-                else{
-                  servicesService.createRegularService(
-                    context: context,
-                    service_name: mainController.serviceNameController.text, 
-                    description: mainController.descriptionController.text, 
-                    links: [mainController.addLinksController.text], 
-                    service_charge_in_person: mainController.inPersonController.text, 
-                    service_charge_virtual: mainController.virtualController.text, 
-                    duration: mainController.formatDuration(), 
-                    time: "${mainController.findEarliestTime()} - ${mainController.findLatestTime()}",
-                    available_time_list: mainController.availableTime,
-                    available_days: mainController.availableDays(),
-                    date: mainController.selectDateRange,
-
-                    //NEW
-                    //regular service model         
-                    service_model: mainController.selectServiceModel.value,
-                    service_timeline: mainController.serviceTimeline.value,
-                  ).whenComplete(() {
-                    //1
-                    setState(() {
-                      mainController.curentStep = mainController.curentStep - 2;
-                    });
-                    //2
-                    mainController.serviceNameController.clear();
-                    mainController.descriptionController.clear();
-                    mainController.addLinksController.clear();
-                    mainController.inPersonController.clear();
-                    mainController.virtualController.clear();
-                    //3
-                    Get.offAll(
-                      () => MainPage(),
-                      transition: Transition.rightToLeft
-                    );
-                  });
-                }  
-                        
+                  //2
+                  mainController.serviceNameController.clear();
+                  mainController.descriptionController.clear();
+                  mainController.addLinksController.clear();
+                  //mainController.inPersonController.clear();
+                  //mainController.virtualController.clear();
+                  //3
+                  Get.offAll(
+                    () => const MainPage(),
+                    transition: Transition.rightToLeft
+                  );
+                }); 
+                     
               }
               : () {
                 print('nothing');
@@ -231,9 +276,70 @@ class _Step3PageState extends State<Step3Page> {
             );
           }
         ),
-
       ]
     );
-    
   }
+
+  
+
+  // Function to show the time picker and set the selected time
+  void _selectTime(BuildContext context, String timeType, int dayIndex) async {
+    // Ensure the dayIndex is within the valid range
+    /*if (dayIndex < 0 || dayIndex >= controller.days.length) {
+      log('Invalid day index: $dayIndex');
+      return;
+    }*/
+
+    // Determine if the user prefers 24-hour format
+    bool use24HourFormat = MediaQuery.of(context).alwaysUse24HourFormat;
+
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+      builder: (BuildContext context, Widget? child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: use24HourFormat),
+          child: child!,
+        );
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        String formattedTime = picked.format(context);
+        var day = mainController.days[dayIndex]['day'];
+
+        if (timeType == 'start') {
+          // Update the start time for the selected day
+          if(day != null) {
+            log(formattedTime);
+            mainController.updateStartTime(day, formattedTime,)
+            .whenComplete(() {
+              log("${mainController.selectedDays}");
+            });
+          }
+          else{
+            throw Exception('please select day first');
+          }
+        } 
+        else {
+          // Update the stop time for the selected day
+          if(day != null) {
+            log(formattedTime);
+            mainController.updateStopTime(day, formattedTime,)
+            .whenComplete(() {
+              //controller.addDay(day, controller.startTime.text, controller.stopTime.text);
+              log("${mainController.selectedDays}");
+            });
+          }
+          else{
+            throw Exception('please select day first');
+          }
+        }
+
+      });
+    }
+  }
+  
+
 }

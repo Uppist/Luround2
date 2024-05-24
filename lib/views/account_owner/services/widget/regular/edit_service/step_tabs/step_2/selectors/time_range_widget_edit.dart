@@ -17,7 +17,7 @@ import 'package:luround/views/account_owner/services/widget/regular/edit_service
 
 //DATE RANGE PICKER
 class TimeRangePickerWidgetEdit extends StatefulWidget {
-  TimeRangePickerWidgetEdit({super.key});
+  const TimeRangePickerWidgetEdit({super.key});
 
   @override
   State<TimeRangePickerWidgetEdit> createState() => _TimeRangePickerWidgetEditState();
@@ -73,7 +73,7 @@ class _TimeRangePickerWidgetEditState extends State<TimeRangePickerWidgetEdit> {
                       Obx(
                         () {
                           return Text(
-                            controller.startDateEdit(),
+                            '',
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,
@@ -125,7 +125,7 @@ class _TimeRangePickerWidgetEditState extends State<TimeRangePickerWidgetEdit> {
                       Obx(
                         () {
                           return Text(
-                            controller.endDateEdit(),
+                            '',
                             style: GoogleFonts.inter(
                               textStyle: TextStyle(
                                 color: AppColor.textGreyColor,

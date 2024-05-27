@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:currency_picker/currency_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
@@ -87,25 +86,33 @@ class ProgramServiceController extends getx.GetxController {
   //add service stepper//////////////////////////////////
   //service recurrence
   getx.RxString serviceRecurrence = "Once a week".obs;
-  final listOfServiceRecurrence = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
+  final listOfServiceRecurrence = <String>[
+    "Once a week", 
+    "Twice a week", 
+    "Once every two weeks", 
+    "Custom",
+  ];
+  final TextEditingController customServiceRecurenceController = TextEditingController();
+  final TextEditingController customServiceRecurenceControllerEdit = TextEditingController();
   /////////////////////////////////////////////////////////
 
 
   //single start date for "calendar_picker" package (addservices)
-  var dates = <DateTime?>[].obs;
+  var datesStartList = <DateTime?>[].obs;
+  var datesStopList = <DateTime?>[].obs;
   void selectedStartDate(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
       // Remove any previous items, if any
-      dates.clear();
+      datesStartList.clear();
       // Add the new unique item
-      dates.add(dateList[0]);
+      datesStartList.add(dateList[0]);
     }
     update();
   }
   //(save to db) this is the selected date 
   String startDate ({required String initialDate}) {
-    if(dates.isNotEmpty) {
-      var result = dates[0].toString();
+    if(datesStartList.isNotEmpty) {
+      var result = datesStartList[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);
       return refinedStr;
@@ -117,16 +124,16 @@ class ProgramServiceController extends getx.GetxController {
   void selectedStopDate(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
       // Remove any previous items, if any
-      dates.clear();
+      datesStopList.clear();
       // Add the new unique item
-      dates.add(dateList[1]);
+      datesStopList.add(dateList[0]);
     }
     update();
   }
   //(save to db) this is the selected date 
   String stopDate ({required String initialDate}) {
-    if(dates.isNotEmpty) {
-      var result = dates[1].toString();
+    if(datesStopList.isNotEmpty) {
+      var result = datesStopList[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);
       return refinedStr;
@@ -345,20 +352,21 @@ class ProgramServiceController extends getx.GetxController {
 
 
   //single start date for "calendar_picker" program (addservices)
-  var datesEdit = <DateTime?>[].obs;
+  var datesStartListEdit = <DateTime?>[].obs;
+  var datesStopListEdit = <DateTime?>[].obs;
   void selectedStartDateEdit(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
       // Remove any previous items, if any
-      datesEdit.clear();
+      datesStartListEdit.clear();
       // Add the new unique item
-      datesEdit.add(dateList[0]);
+      datesStartListEdit.add(dateList[0]);
     }
     update();
   }
   //(save to db) this is the selected date 
   String startDateEdit({required String initialDate}) {
-    if(datesEdit.isNotEmpty) {
-      var result = datesEdit[0].toString();
+    if(datesStartListEdit.isNotEmpty) {
+      var result = datesStartListEdit[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);
       return refinedStr;
@@ -370,16 +378,16 @@ class ProgramServiceController extends getx.GetxController {
   void selectedStopDateEdit(List<DateTime?> dateList) {
     if (dateList.isNotEmpty) {
       // Remove any previous items, if any
-      datesEdit.clear();
+      datesStopListEdit.clear();
       // Add the new unique item
-      datesEdit.add(dateList[1]);
+      datesStopListEdit.add(dateList[0]);
     }
     update();
   }
   //(save to db) this is the selected date 
   String stopDateEdit({required String initialDate}) {
-    if(datesEdit.isNotEmpty) {
-      var result = datesEdit[1].toString();
+    if(datesStopListEdit.isNotEmpty) {
+      var result = datesStopListEdit[0].toString();
       var refinedStr = result.substring(0, 10);
       print(refinedStr);
       return refinedStr;
@@ -598,6 +606,8 @@ class ProgramServiceController extends getx.GetxController {
     descriptionControllerEdit.dispose();
     inPersonPriceController.dispose();
     virtualPriceControllerEdit.dispose();
+    customServiceRecurenceController.dispose();
+    customServiceRecurenceControllerEdit.dispose();
     super.dispose();
   }
 

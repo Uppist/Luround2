@@ -59,7 +59,7 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableTextField(  
           onChanged: (val) {},
           hintText: "Service name",
@@ -67,9 +67,9 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
           textInputAction: TextInputAction.next,
           textController: controller.serviceNameController
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
-          "Description (optional)",
+          "Description",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -95,7 +95,7 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
           textInputAction: TextInputAction.next,
           textController: controller.descriptionController,
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(height: 20.h,),
         //max length for message textfield
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -111,7 +111,7 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
           ],
         ),
         
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
           "Start date",
           style: GoogleFonts.inter(
@@ -120,7 +120,7 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         StartDateBoxProgram(),
 
         SizedBox(height: 30.h),
@@ -132,11 +132,11 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         StopDateBoxProgram(),
 
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.13),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

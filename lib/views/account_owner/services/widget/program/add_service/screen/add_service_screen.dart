@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/services/widget/program/add_service/
 
 
 class AddProgramServiceScreen extends StatefulWidget {
-  AddProgramServiceScreen({super.key});
+  const AddProgramServiceScreen({super.key});
 
   @override
   State<AddProgramServiceScreen> createState() => _AddProgramServiceScreenState();
@@ -37,7 +37,16 @@ class _AddProgramServiceScreenState extends State<AddProgramServiceScreen> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            if(controller.curentStep > 0) {
+              setState(() {
+                //controller.curentStep = value;
+                controller.curentStep = controller.curentStep - 1;
+              });
+              print(controller.curentStep);
+            }
+            else if(controller.curentStep == 0) {
+              Get.back();
+            }
           },
           icon: Icon(
             Icons.arrow_back_rounded,

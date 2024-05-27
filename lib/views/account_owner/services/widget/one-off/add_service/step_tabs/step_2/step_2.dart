@@ -76,7 +76,8 @@ class _Step2PageState extends State<Step2Page> {
             ),
           ],
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
 
         //2           
         //growable list that displays textfields that was added
@@ -225,7 +226,7 @@ class _Step2PageState extends State<Step2Page> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         //textfield
         ReusableTextField(  
           onChanged: (val) {},

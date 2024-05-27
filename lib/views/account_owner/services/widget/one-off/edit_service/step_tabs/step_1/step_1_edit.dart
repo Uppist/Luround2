@@ -61,7 +61,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableEditTextField(  
           onChanged: (val) {
             setState(() {
@@ -73,7 +73,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           textInputAction: TextInputAction.next,
           initialValue: widget.service_name,
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
           "Description (optional)",
           style: GoogleFonts.inter(
@@ -116,7 +116,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           ],
         ),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.40),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.39),
         
         RebrandedReusableButton(
           textColor: controller.isServiceNameTappedEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,

@@ -69,7 +69,7 @@ Future<void> selectStartDateBottomSheetEdit({required BuildContext context, requ
                     selectedDayHighlightColor: AppColor.mainColor,
                     //calendarViewMode: DatePickerMode.day
                   ),
-                  value: controller.datesEdit,
+                  value: controller.datesStopListEdit,
                   onValueChanged: (dates) {
                     if (dates.isNotEmpty) {
                       controller.selectedStartDateEdit(dates);
@@ -212,7 +212,7 @@ Future<void> selectStopDateBottomSheetEdit({required BuildContext context, requi
                     selectedDayHighlightColor: AppColor.mainColor,
                     //calendarViewMode: DatePickerMode.day
                   ),
-                  value: controller.datesEdit,
+                  value: controller.datesStopListEdit,
                   onValueChanged: (dates) {
                     if (dates.isNotEmpty) {
                       controller.selectedStopDateEdit(dates);

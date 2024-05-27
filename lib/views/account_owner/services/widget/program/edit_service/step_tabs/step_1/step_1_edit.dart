@@ -61,7 +61,7 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableEditTextField(  
           onChanged: (val) {
             setState(() {
@@ -73,9 +73,9 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
           textInputAction: TextInputAction.next,
           initialValue: widget.service_name,
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
-          "Description (optional)",
+          "Description",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -100,7 +100,7 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
           textInputAction: TextInputAction.next,
           initialValue: widget.description,
         ),
-        SizedBox(height: 10.h,),
+        SizedBox(height: 20.h,),
         //max length for message textfield
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -128,7 +128,7 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
         //SizedBox(height: 20.h),
         ProgramServiceRecurrenceEdit(),*/
         
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
           "Start date",
           style: GoogleFonts.inter(
@@ -137,7 +137,7 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         StartDateBoxProgramEdit(),
 
         SizedBox(height: 30.h),
@@ -149,11 +149,11 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         StopDateBoxProgramEdit(),
 
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.13),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
 
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

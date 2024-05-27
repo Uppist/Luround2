@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/alert/custom_recurrence_alert.dart';
 
 
 
@@ -50,6 +51,13 @@ class ProgramServiceRecurrenceEdit extends StatelessWidget {
           onChanged: (String? newValue) {
             controller.serviceRecurrenceEdit.value = newValue!;
             debugPrint("selected recurrence: ${controller.serviceRecurrenceEdit.value}");
+            //make check to see if newValue is custom
+            if(controller.serviceRecurrenceEdit.value == 'Custom'){
+              customRecurenceAlertEdit(
+                selectedValue : controller.serviceRecurrenceEdit,
+                controller: controller,
+              );
+            }
           },
           style: GoogleFonts.inter(
             color: AppColor.blackColor, //textGreyColor,

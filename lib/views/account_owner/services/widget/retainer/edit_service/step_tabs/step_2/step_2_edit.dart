@@ -78,7 +78,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
             ),
           ],
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
 
         //2           
         //growable list that displays textfields that was added

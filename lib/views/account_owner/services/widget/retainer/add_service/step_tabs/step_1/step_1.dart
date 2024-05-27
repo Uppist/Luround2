@@ -55,7 +55,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableTextField(  
           onChanged: (val) {},
           hintText: "Service name",
@@ -63,16 +63,16 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
           textInputAction: TextInputAction.next,
           textController: controller.serviceNameController
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
-          "Description (optional)",
+          "Description",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         DescriptionTextField(  
           onChanged: (val) {
             //controller.handleTextChanged(val);
@@ -106,6 +106,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
             ),
           ],
         ),
+        SizedBox(height: 40.h),
         Text(
           "Services included in Retainer",
           style: GoogleFonts.inter(
@@ -114,7 +115,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableTextField3(  
           onFieldSubmitted: (val) {
             controller.addInput(val).whenComplete(
@@ -128,7 +129,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
           textInputAction: TextInputAction.next,
           textController: controller.coreFeaturesController,
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Obx(() {
           return ListView.separated(
             shrinkWrap: true,
@@ -178,7 +179,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
           );
         }),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.27),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.20),
 
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,

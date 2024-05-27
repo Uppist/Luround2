@@ -38,7 +38,16 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            Get.back();
+            if(controller.curentStep > 0) {
+              setState(() {
+                //controller.curentStep = value;
+                controller.curentStep = controller.curentStep - 1;
+              });
+              print(controller.curentStep);
+            }
+            else if(controller.curentStep == 0) {
+              Get.back();
+            }
           },
           icon: Icon(
             Icons.arrow_back_rounded,

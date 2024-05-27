@@ -3,6 +3,13 @@ import 'package:intl/intl.dart';
 
 
 
+String formatDate(DateTime date) {
+  // Create a DateFormat instance with the desired format
+  final DateFormat formatter = DateFormat('d MMMM, yyyy');
+  // Use the formatter to format the DateTime object
+  return formatter.format(date);
+}
+
 
 DateTime parseDateTime({required String dateString, required String timeString}) {
   // Parse date string

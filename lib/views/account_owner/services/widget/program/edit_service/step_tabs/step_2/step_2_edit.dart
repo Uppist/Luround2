@@ -46,10 +46,10 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h,),
+        SizedBox(height: 30.h,),
         //SizedBox(height: 20.h),
         ProgramServiceRecurrenceEdit(),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
 
         Text(
           "Maximum number of participants",
@@ -59,7 +59,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 30.h),
         Container(
           //padding: EdgeInsets.symmetric(horizontal: 0.w, vertical: 10.h),
           alignment: Alignment.center,
@@ -113,7 +113,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
             ],
           )
         ),
-        SizedBox(height: 30.h,),
+        SizedBox(height: 40.h,),
 
         Text(
           "Program fee",
@@ -123,7 +123,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 20.h,),
+        SizedBox(height: 40.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -135,7 +135,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
                 fontWeight: FontWeight.w500
               ),
             ),
-            SizedBox(width: 20.w,),
+            SizedBox(width: 30.w,),
             Expanded(
               child: AmountTextFieldEdit(
                 onChanged: (val) {
@@ -152,7 +152,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
             ),
           ],
         ),
-        SizedBox(height: 20.h,),
+        SizedBox(height: 30.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -181,7 +181,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
           ],
         ),
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.17),
     
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

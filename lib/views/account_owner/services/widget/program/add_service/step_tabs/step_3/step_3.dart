@@ -88,7 +88,7 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
           ],
         ),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
 
         //available days list
         ListView.separated(

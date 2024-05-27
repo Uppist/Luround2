@@ -60,7 +60,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableEditTextField(  
           onChanged: (val) {
             setState(() {
@@ -74,7 +74,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
         ),
         SizedBox(height: 30.h),
         Text(
-          "Description (optional)",
+          "Description",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 15.sp,
@@ -114,7 +114,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
             ),
           ],
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
 
         Text(
           "Services included in Retainer",
@@ -124,7 +124,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableTextField3(  
           onFieldSubmitted: (val) {
             controller.addInputEdit(val).whenComplete(
@@ -138,7 +138,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
           textInputAction: TextInputAction.next,
           textController: controller.coreFeaturesControllerEdit,
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Obx(() {
           return ListView.separated(
             shrinkWrap: true,
@@ -189,7 +189,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
           );
         }),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.27),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.20),
 
         
         RebrandedReusableButton(

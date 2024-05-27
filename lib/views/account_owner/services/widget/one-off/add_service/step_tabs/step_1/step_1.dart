@@ -56,7 +56,7 @@ class _Step1PageState extends State<Step1Page> {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         ReusableTextField(  
           onChanged: (val) {},
           hintText: "Service name",
@@ -64,16 +64,16 @@ class _Step1PageState extends State<Step1Page> {
           textInputAction: TextInputAction.next,
           textController: controller.serviceNameController
         ),
-        SizedBox(height: 30.h),
+        SizedBox(height: 40.h),
         Text(
-          "Description (optional)",
+          "Description",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         DescriptionTextField(  
           onChanged: (val) {
             //controller.handleTextChanged(val);
@@ -108,7 +108,7 @@ class _Step1PageState extends State<Step1Page> {
           ],
         ),
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.40),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.39),
         
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,

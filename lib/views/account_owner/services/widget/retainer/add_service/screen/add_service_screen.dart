@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +22,7 @@ import 'package:luround/views/account_owner/services/widget/retainer/add_service
 
 
 class AddPackageServiceScreen extends StatefulWidget {
-  AddPackageServiceScreen({super.key});
+  const AddPackageServiceScreen({super.key});
 
   @override
   State<AddPackageServiceScreen> createState() => _AddPackageServiceScreenState();
@@ -28,7 +30,7 @@ class AddPackageServiceScreen extends StatefulWidget {
 
 class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
   
-  var controller = Get.put(PackageServiceController());
+  final controller = Get.put(PackageServiceController());
 
   @override
   Widget build(BuildContext context) {
@@ -55,33 +57,19 @@ class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Add Service',),
+        title: const CustomAppBarTitle(text: 'Add service',),
       ),
       body: Stepper(
         physics: BouncingScrollPhysics(),
         elevation: 0,
         currentStep: controller.curentStep,
-        /*onStepContinue: () {
-          if(controller.curentStep < 2) {
-            setState(() {
-              controller.curentStep = controller.curentStep + 1;
-            });
-          }
-        },*/
-        /*onStepCancel: () {
-          if(controller.curentStep <= 2) {
-            setState(() {
-              controller.curentStep = controller.curentStep - 1;
-            });
-          }
-        },*/
         onStepTapped: (int value) {
           if(controller.curentStep > 0) {
             setState(() {
               //controller.curentStep = value;
               controller.curentStep = controller.curentStep - 1;
             });
-            print(value);
+            log("$value");
           }
         },
         controlsBuilder: (context, details) {
@@ -107,7 +95,7 @@ class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
                 )
               ) 
               /*:Icon(CupertinoIcons.check_mark, color: AppColor.bgColor, size: 15,)*/
-            :Text(
+              :Text(
               "${stepIndex + 1}",
               style: GoogleFonts.inter(
                 fontSize: 13.sp,
@@ -115,7 +103,7 @@ class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
                 color: AppColor.bgColor
               )
             )
-      
+          
           );
         },
         type: StepperType.horizontal,
@@ -155,6 +143,8 @@ class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
           )
         ]
       )
+      
+    
     );
   }
 } 

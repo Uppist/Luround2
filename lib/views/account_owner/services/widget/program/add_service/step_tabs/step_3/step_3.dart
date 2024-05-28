@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -248,8 +247,8 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                   service_recurrence: mainController.serviceRecurrence.value,
                   service_timeline: '',
                   timeline_days: [],
-                  start_date: mainController.startDate(initialDate: 'non'),
-                  end_date: mainController.stopDate(initialDate: 'non'),
+                  start_date: mainController.selectedStartDate.value,
+                  end_date: mainController.selectedStopDate.value,
                   start_time: '',
                   end_time: '',
                   max_number_of_participants: mainController.count.value

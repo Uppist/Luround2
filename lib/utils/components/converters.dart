@@ -139,24 +139,13 @@ String convertUTCTimestampToDate(int timestamp) {
 }
 
 String convertServerTimeToDate(int timestamp) {
-  // Convert timestamp to DateTime
+  // Convert the timestamp to a DateTime object
   DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
 
-  // Define month names
-  List<String> months = [
-    "January", "February", "March", "April", "May", "June", "July",
-    "August", "September", "October", "November", "December"
-  ];
+  // Format the DateTime object to the desired format
+  String formattedDate = DateFormat.yMMMMd().format(dateTime);
 
-  // Extract components
-  int year = dateTime.year;
-  String month = months[dateTime.month - 1]; // Month index starts from 1
-  int day = dateTime.day;
-
-  // Construct date string
-  String dateString = "$month $day, $year";
-
-  return dateString;
+  return formattedDate;
 }
 
 //use well

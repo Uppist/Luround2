@@ -38,6 +38,12 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
         controller.isServiceNameTapped.value = controller.serviceNameController.text.isNotEmpty;
       });
     });
+    //listener
+    controller.coreFeaturesController.addListener((){
+      setState(() {
+        controller.isFeaturesTapped.value = controller.coreFeaturesController.text.isNotEmpty;
+      });
+    });
     super.initState();
   }
 
@@ -113,21 +119,42 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
             color: AppColor.blackColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w500
-          ),
+          ), 
         ),
         SizedBox(height: 20.h),
-        ReusableTextField3(  
-          onFieldSubmitted: (val) {
-            controller.addInput(val).whenComplete(
-              () {
-                controller.coreFeaturesController.clear();
-              }
+        Obx(
+          () {
+            return ReusableTextField4(  
+              onFieldSubmitted: (val) {
+                if(val.isNotEmpty) {
+                  controller.addInput(val).whenComplete(
+                    () {
+                      controller.coreFeaturesController.clear();
+                    }
+                  );
+                }
+              },
+              hintText: "List out the core features of this service",
+              keyboardType: TextInputType.name,
+              textInputAction: TextInputAction.next,
+              textController: controller.coreFeaturesController,
+              isTapped: controller.isFeaturesTapped.value,
+              suffixIcon: InkWell(
+                onTap: () {
+                  controller.addInput(controller.coreFeaturesController.text).whenComplete(
+                    () {
+                      controller.coreFeaturesController.clear();
+                    }
+                  );
+                },
+                child: Icon(
+                  size: 24.r,
+                  color: AppColor.darkGreen,
+                  CupertinoIcons.check_mark_circled
+                )
+              ),
             );
-          },
-          hintText: "List out the core features of this service",
-          keyboardType: TextInputType.name,
-          textInputAction: TextInputAction.next,
-          textController: controller.coreFeaturesController,
+          }
         ),
         SizedBox(height: 40.h),
         Obx(() {
@@ -136,7 +163,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
             physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.vertical,
             itemCount: controller.inputs.length,
-            separatorBuilder: (context, index) => SizedBox(height: 10.h,),
+            separatorBuilder: (context, index) => SizedBox(height: 15.h,),
             itemBuilder: (context, index) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.start,

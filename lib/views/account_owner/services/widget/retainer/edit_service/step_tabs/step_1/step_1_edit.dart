@@ -39,10 +39,16 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
   @override
   void initState() {
     // TODO: implement initState
-    controller.serviceNameControllerEdit.addListener(() {
+    /*controller.serviceNameControllerEdit.addListener(() {
       /*setState(() {
         controller.i.value = controller.serviceNameControllerEdit.text.isNotEmpty;
       });*/
+    });*/
+    //listener
+    controller.coreFeaturesControllerEdit.addListener((){
+      setState(() {
+        controller.isFeaturesTappedEdit.value = controller.coreFeaturesControllerEdit.text.isNotEmpty;
+      });
     });
     super.initState();
   }
@@ -125,18 +131,39 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
           ),
         ),
         SizedBox(height: 20.h),
-        ReusableTextField3(  
-          onFieldSubmitted: (val) {
-            controller.addInputEdit(val).whenComplete(
-              () {
-                controller.coreFeaturesControllerEdit.clear();
-              }
+        Obx(
+          () {
+            return ReusableTextField4(  
+              onFieldSubmitted: (val) {
+                if(val.isNotEmpty) {
+                  controller.addInputEdit(val).whenComplete(
+                    () {
+                      controller.coreFeaturesControllerEdit.clear();
+                    }
+                  );
+                }
+              },
+              hintText: "List out the core features of this service",
+              keyboardType: TextInputType.name,
+              textInputAction: TextInputAction.next,
+              textController: controller.coreFeaturesControllerEdit,
+              isTapped: controller.isFeaturesTappedEdit.value,
+              suffixIcon: InkWell(
+                onTap: () {
+                  controller.addInputEdit(controller.coreFeaturesControllerEdit.text).whenComplete(
+                    () {
+                      controller.coreFeaturesControllerEdit.clear();
+                    }
+                  );
+                },
+                child: Icon(
+                  size: 24.r,
+                  color: AppColor.darkGreen,
+                  CupertinoIcons.check_mark_circled
+                )
+              ),
             );
-          },
-          hintText: "List out the core features of this service",
-          keyboardType: TextInputType.name,
-          textInputAction: TextInputAction.next,
-          textController: controller.coreFeaturesControllerEdit,
+          }
         ),
         SizedBox(height: 40.h),
         Obx(() {

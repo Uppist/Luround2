@@ -98,13 +98,20 @@ class _ServicesPageState extends State<ServicesPage> {
                 onFocusChanged: (val) {},
                 onFieldSubmitted: (val) {
                   if(userService.activeTabIndex == 0) {
+                    //one-off
                     userService.filterRegularServices(val);
                   }
                   else if(userService.activeTabIndex == 1){
+                    //retainer
                     userService.filterPackageServices(val);
                   }
                   else if(userService.activeTabIndex == 2){
+                    //program
                     userService.filterProgramServices(val);
+                  }
+                  else if(userService.activeTabIndex == 3){
+                    //event
+                    //userService.filterEventServices(val);
                   }
                   else {
                     print('no more func');

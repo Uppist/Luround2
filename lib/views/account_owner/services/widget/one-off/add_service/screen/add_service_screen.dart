@@ -19,7 +19,7 @@ import '../step_tabs/step_1/step_1.dart';
 
 
 class AddServiceScreen extends StatefulWidget {
-  AddServiceScreen({super.key});
+  const AddServiceScreen({super.key});
 
   @override
   State<AddServiceScreen> createState() => _AddServiceScreenState();
@@ -54,7 +54,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Add Service',),
+        title: CustomAppBarTitle(text: 'Add service',),
       ),
       body: Stepper(
         physics: BouncingScrollPhysics(),

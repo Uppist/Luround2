@@ -53,7 +53,7 @@ class _AddProgramServiceScreenState extends State<AddProgramServiceScreen> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Add Service',),
+        title: CustomAppBarTitle(text: 'Add service',),
       ),
       body: Stepper(
         physics: BouncingScrollPhysics(),

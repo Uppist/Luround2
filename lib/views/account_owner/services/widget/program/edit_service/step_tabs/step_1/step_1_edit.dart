@@ -153,7 +153,7 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
         StopDateBoxProgramEdit(),
 
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
 
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

@@ -49,7 +49,7 @@ class _Step1PageState extends State<Step1Page> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Service name*",
+          "Service name",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 14.sp,

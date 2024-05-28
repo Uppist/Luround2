@@ -25,7 +25,6 @@ class ProgramServiceController extends getx.GetxController {
   var selectedIndex = 0.obs; //for toggling price of the services list,
   final isVirtual = true.obs;  //boolean to switch between prices in the services list
 
-
   void handleTabTap(int index) {
     isVirtual.value = !isVirtual.value;
     selectedIndex.value = index;
@@ -98,51 +97,10 @@ class ProgramServiceController extends getx.GetxController {
 
 
   //single start date for "calendar_picker" package (addservices)
-  var datesStartList = <DateTime?>[].obs;
-  var datesStopList = <DateTime?>[].obs;
-  void selectedStartDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      datesStartList.clear();
-      // Add the new unique item
-      datesStartList.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  String startDate ({required String initialDate}) {
-    if(datesStartList.isNotEmpty) {
-      var result = datesStartList[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
-    }
-    return initialDate;
-  }
-  
-  //single start date for "calendar_picker" package (addservices)
-  void selectedStopDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      datesStopList.clear();
-      // Add the new unique item
-      datesStopList.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  String stopDate ({required String initialDate}) {
-    if(datesStopList.isNotEmpty) {
-      var result = datesStopList[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
-    }
-    return initialDate;
-  }
-  //////////////////////////////
 
-
+  //date picker from flutter #STEP2
+  getx.RxString selectedStartDate = "".obs;
+  getx.RxString selectedStopDate = "".obs;
 
   //(save to db)
   final TextEditingController serviceNameController = TextEditingController();
@@ -350,50 +308,8 @@ class ProgramServiceController extends getx.GetxController {
   final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
   /////////////////////////////////////////////////////////
 
-
-  //single start date for "calendar_picker" program (addservices)
-  var datesStartListEdit = <DateTime?>[].obs;
-  var datesStopListEdit = <DateTime?>[].obs;
-  void selectedStartDateEdit(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      datesStartListEdit.clear();
-      // Add the new unique item
-      datesStartListEdit.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  String startDateEdit({required String initialDate}) {
-    if(datesStartListEdit.isNotEmpty) {
-      var result = datesStartListEdit[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
-    }
-    return initialDate;
-  }
-  
-  //single start date for "calendar_picker" package (addservices)
-  void selectedStopDateEdit(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      datesStopListEdit.clear();
-      // Add the new unique item
-      datesStopListEdit.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  String stopDateEdit({required String initialDate}) {
-    if(datesStopListEdit.isNotEmpty) {
-      var result = datesStopListEdit[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
-    }
-    return initialDate;
-  }
+  getx.RxString selectedStartDateEdit = "".obs;
+  getx.RxString selectedStopDateEdit = "".obs;
   //////////////////////////////
 
   //(save to db)

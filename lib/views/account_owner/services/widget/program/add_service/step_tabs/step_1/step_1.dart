@@ -136,7 +136,7 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
         StopDateBoxProgram(),
 
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

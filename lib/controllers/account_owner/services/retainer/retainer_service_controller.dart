@@ -69,6 +69,7 @@ class PackageServiceController extends getx.GetxController {
   //STEP 1//
   //core features list
   final inputs = [].obs;
+  final isFeaturesTapped = false.obs;
   
   // Function to add input to the core features list
   Future<void> addInput(String input) async{
@@ -333,6 +334,7 @@ class PackageServiceController extends getx.GetxController {
   //STEP 1//
   //core features list
   final inputsEdit = [].obs;
+  final isFeaturesTappedEdit = false.obs;
   
   // Function to add input to the core features list
   Future<void> addInputEdit(String input) async{

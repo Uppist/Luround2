@@ -20,7 +20,7 @@ import 'package:luround/views/account_owner/services/widget/one-off/edit_service
 
 
 class Step1PageEdit extends StatefulWidget {
-  Step1PageEdit({super.key, required this.onNext, required this.serviceId, required this.service_name, required this.description, required this.links, required this.service_charge_in_person, required this.service_charge_virtual,});
+  const Step1PageEdit({super.key, required this.onNext, required this.serviceId, required this.service_name, required this.description, required this.links, required this.service_charge_in_person, required this.service_charge_virtual,});
   final VoidCallback onNext;
   final String serviceId;
   final String service_name;
@@ -54,7 +54,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Service name*",
+          "Service name",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 14.sp,
@@ -75,14 +75,14 @@ class _Step1PageEditState extends State<Step1PageEdit> {
         ),
         SizedBox(height: 40.h),
         Text(
-          "Description (optional)",
+          "Description",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 14.sp,
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         DescriptionTextFieldEdit(  
           onChanged: (val) {
             setState(() {

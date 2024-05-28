@@ -51,7 +51,7 @@ class CustomFieldWidget extends StatelessWidget {
               ),
               //divider widget
               //SizedBox(height: 4,),
-              Divider(thickness: 0.8, color: AppColor.textGreyColor,)
+              
             ]
           ),
         ),

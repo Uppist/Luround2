@@ -1,6 +1,4 @@
-//import 'package:awesome_notifications/awesome_notifications.dart';
 import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,6 +35,8 @@ Future<void> backgroundHandler(RemoteMessage message) async {
 
   //to display naira currency
   NumberFormat currency(context) {
+    //String os = Platform.operatingSystem;
+    //if(Platform.isAndroid)
     Locale locale = Localizations.localeOf(context);
     var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "NGN");
     print("CURRENCY SYMBOL: ${format.currencySymbol}");

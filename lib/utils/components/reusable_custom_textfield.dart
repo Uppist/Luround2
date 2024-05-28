@@ -185,3 +185,64 @@ class _ReusableTextField3State extends State<ReusableTextField3> {
     );
   }
 }
+
+
+class ReusableTextField4 extends StatefulWidget {
+  ReusableTextField4 ({super.key,required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, this.onFocusChanged, required this.textController, this.onTap, this.suffixIcon, required this.isTapped});
+  final TextInputType keyboardType;
+  //final String initialValue;
+  final TextEditingController textController;
+  final String hintText;
+  final TextInputAction textInputAction;
+  final void Function(String)? onFieldSubmitted;
+  final void Function(bool)? onFocusChanged;
+  final void Function()? onTap;
+  final Widget? suffixIcon;
+  bool isTapped;
+  
+
+  @override
+  State<ReusableTextField4> createState() => _ReusableTextField4State();
+}
+
+class _ReusableTextField4State extends State<ReusableTextField4> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Focus(
+      onFocusChange: widget.onFocusChanged,
+      child: TextFormField(
+        onFieldSubmitted: widget.onFieldSubmitted,
+        //initialValue: widget.initialValue,
+        onTap: widget.onTap,
+        controller: widget.textController,
+        keyboardType: widget.keyboardType,
+        maxLines: 2,
+        minLines: 1,
+        autocorrect: true,
+        inputFormatters: const [],
+        enableSuggestions: true,
+        enableInteractiveSelection: true,
+        cursorColor: AppColor.blackColor,
+        style: GoogleFonts.inter(color: AppColor.blackColor),
+        textCapitalization: TextCapitalization.sentences,
+        textInputAction: widget.textInputAction,          
+        scrollPhysics: const BouncingScrollPhysics(),
+        decoration: InputDecoration(        
+          border: OutlineInputBorder(
+            borderSide: BorderSide.none, // Remove the border
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.textGreyColor), // Set the color you prefer
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
+          ),     
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
+          suffixIcon: widget.isTapped ? widget.suffixIcon : null,
+        ),
+      ),
+    );
+  }
+}

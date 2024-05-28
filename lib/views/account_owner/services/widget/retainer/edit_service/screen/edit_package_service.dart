@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/services/widget/retainer/edit_servic
 
 
 class EditPackageServiceScreen extends StatefulWidget {
-  EditPackageServiceScreen({
+  const EditPackageServiceScreen({
     super.key, 
     required this.serviceId,
     required this.service_name, 
@@ -59,14 +59,14 @@ class _EditPackageServiceScreenState extends State<EditPackageServiceScreen> {
         backgroundColor: AppColor.bgColor,
         leading: IconButton(
           onPressed: () {
-            if(controller.curentStep > 0) {
+            if(controller.curentStepEdit.value > 0) {
               setState(() {
                 //controller.curentStep = value;
-                controller.curentStep = controller.curentStep - 1;
+                controller.curentStepEdit.value = controller.curentStepEdit.value - 1;
               });
-              print(controller.curentStep);
+              print(controller.curentStepEdit.value);
             }
-            else if(controller.curentStep == 0) {
+            else if(controller.curentStepEdit.value == 0) {
               Get.back();
             }
           },
@@ -75,7 +75,7 @@ class _EditPackageServiceScreenState extends State<EditPackageServiceScreen> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Edit Service',),
+        title: CustomAppBarTitle(text: 'Edit service',),
       ),
       body: Obx(
         () {

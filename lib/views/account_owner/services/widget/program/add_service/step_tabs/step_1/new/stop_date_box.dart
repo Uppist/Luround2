@@ -5,7 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/date_range_bottomsheet.dart';
+import 'package:luround/utils/components/date_picker.dart';
+
 
 
 
@@ -22,19 +23,14 @@ class StopDateBoxProgram extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        selectStopDateBottomSheet(
+        selectDate(
           context: context, 
-          onCancel: () {
-            Get.back();
-          }, 
-          onApply: () {
-            Get.back();
-          }
+          selectedDate: controller.selectedStopDate
         );
       },
       child: Container(
         alignment: Alignment.center,
-        height: 45.h,
+        height: 50.h,
         width: double.infinity,
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
         decoration: BoxDecoration(
@@ -51,7 +47,7 @@ class StopDateBoxProgram extends StatelessWidget {
             Obx(
               () {
                 return Text(
-                  controller.stopDate(initialDate: 'end date'),
+                  controller.selectedStopDate.value,
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                       color: AppColor.textGreyColor,

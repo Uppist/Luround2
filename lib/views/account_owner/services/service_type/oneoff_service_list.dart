@@ -19,7 +19,6 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/toggle
 
 
 
-
 class RegularServiceList extends StatefulWidget {
   const RegularServiceList({super.key});
 

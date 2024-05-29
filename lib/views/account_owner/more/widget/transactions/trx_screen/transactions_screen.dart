@@ -3,10 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/filter_trx_button.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_dashboard.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_history_list.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/filter_date_bottomsheet.dart';
 
 
 
@@ -15,7 +17,9 @@ import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/
 
 
 class TransactionPage extends StatelessWidget {
-  const TransactionPage({super.key});
+  TransactionPage({super.key});
+
+  final service = Get.put(WithdrawalService());
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,38 @@ class TransactionPage extends StatelessWidget {
                       SizedBox(height: 30.h,),
 
                       //FILTER BUTTON
-                      FilterTrxButton(),
+                      FilterTrxButton(
+                        onTap: () {
+                          filterByDateBottomSheet(
+                            context: context,
+                            onAlltimePressed: () {
+                              service.filterTrxByPastDate().whenComplete(
+                                () => Get.back()
+                              );
+                            },
+                            onTodayPressed: () {
+                              service.filterListByToday().whenComplete(
+                                () => Get.back()
+                              );
+                            },
+                            onYesterdayPressed: () {
+                              service.filterListByYesterday().whenComplete(
+                                () => Get.back()
+                              );
+                            },
+                            onLast7daysPressed: () {
+                              service.filterListByLastSevenDays().whenComplete(
+                                () => Get.back()
+                              );
+                            },
+                            onLast30daysPressed: () {
+                              service.filterListByLastThirtyDays().whenComplete(
+                                () => Get.back()
+                              );
+                            },
+                          );
+                        },
+                      ),
                       SizedBox(height: 30.h,),
 
                       //List of transactions comes here and it's empty state // //Future building will be used here also

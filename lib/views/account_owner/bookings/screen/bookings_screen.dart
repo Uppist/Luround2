@@ -19,6 +19,7 @@ import 'package:luround/views/account_owner/bookings/screen/see_proof_of_payment
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/bookings_list_bottomsheet.dart';
 import 'package:luround/views/account_owner/bookings/widget/filter_section/filter_container.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/filter_date_bottomsheet.dart';
 
 
 
@@ -162,6 +163,36 @@ class _BookingsPageState extends State<BookingsPage> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   FilterContainer(
+                    onTap: () {
+                      filterByDateBottomSheet(
+                        context: context,
+                        onAlltimePressed: () {
+                          service.filterTrxByPastDate().whenComplete(
+                            () => Get.back()
+                          );
+                        },
+                        onTodayPressed: () {
+                          service.filterListByToday().whenComplete(
+                            () => Get.back()
+                          );
+                        },
+                        onYesterdayPressed: () {
+                          service.filterListByYesterday().whenComplete(
+                            () => Get.back()
+                          );
+                        },
+                        onLast7daysPressed: () {
+                          service.filterListByLastSevenDays().whenComplete(
+                            () => Get.back()
+                          );
+                        },
+                        onLast30daysPressed: () {
+                          service.filterListByLastThirtyDays().whenComplete(
+                            () => Get.back()
+                          );
+                        },
+                      );
+                    },
                     /*onTaped: () {
                       filterDialogueBox(
                         context: context,

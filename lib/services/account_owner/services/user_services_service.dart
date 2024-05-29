@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
@@ -102,7 +103,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
+        log('$servicesList');
         servicesList.clear();
         servicesList.addAll(finalResult);
         print("user one-off services list: $finalResult");
@@ -159,10 +161,10 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
         servicesListRetainer.clear();
         servicesListRetainer.addAll(finalResult);
-        print("user package services list: $finalResult");
+        print("user retainer services list: $finalResult");
 
         return servicesListRetainer;
       }
@@ -215,7 +217,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
         servicesListProgram.clear();
         servicesListProgram.addAll(finalResult);
         print("user program services list: $finalResult");
@@ -271,10 +273,10 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
         servicesListEvent.clear();
         servicesListEvent.addAll(finalResult);
-        print("user program services list: $finalResult");
+        print("user event services list: $finalResult");
 
         return servicesListEvent;
       }
@@ -379,7 +381,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   final filterServiceInsightList = <UserServiceInsightModel>[].obs;
 
   //FILTER FUNCTIONALITIES////////
-  Future<void> filterTrxByPastDate() async{
+  Future<void> filterInsightByPastDate() async{
     // Clear the filteredList so new values can come i n 
     filterServiceInsightList.clear();
 
@@ -399,7 +401,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     print("All time Service Insight List: $filterServiceInsightList");
   }
 
-  Future<void> filterListByToday() async{
+  Future<void> filterInsightByToday() async{
     DateTime today = DateTime.now();
     //DateTime todayAgo = today.subtract(Duration(days: 0));
 
@@ -424,7 +426,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     print("booking List from today: $filterServiceInsightList");
   }
 
-  Future<void> filterListByYesterday() async{
+  Future<void> filterInsightByYesterday() async{
     DateTime today = DateTime.now();
     DateTime yesterday = today.subtract(Duration(days: 1));
 
@@ -451,7 +453,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
 
-  Future<void> filterListByLastSevenDays() async{
+  Future<void> filterInsightByLastSevenDays() async{
     DateTime today = DateTime.now();
     DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
 
@@ -476,7 +478,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     print("bookings List from the last seven days: $serviceInsightList");
   }
 
-  Future<void> filterListByLastThirtyDays() async{
+  Future<void> filterInsightByLastThirtyDays() async{
     DateTime today = DateTime.now();
     DateTime thirtyDaysAgo = today.subtract(Duration(days: 30));
 
@@ -861,6 +863,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         //"email": email,
         "service_name": service_name,
         "description": description,
+        "service_type": "Program",
         "start_date": start_date,
         "end_date": end_date,
         "service_recurrence": program_recurrence,
@@ -1417,12 +1420,12 @@ class AccOwnerServicePageService extends getx.GetxController {
         isServiceEDLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        debugPrint("user service created successfully");
+        debugPrint("user Event service updated successfully");
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "Your service has been created successfully"
+          message: "Your service has been updated successfully"
         );
       } 
       else {

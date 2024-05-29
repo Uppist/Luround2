@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
-import 'package:luround/services/account_owner/services/user_services._service.dart';
+import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/add_service/screen/add_service_screen.dart';

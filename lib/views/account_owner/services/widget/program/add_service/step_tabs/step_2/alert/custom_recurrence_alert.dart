@@ -115,10 +115,12 @@ Future<void> customRecurenceAlert({
                             controller.listOfServiceRecurrence.add(selectedValue.value);
                             controller.customServiceRecurenceController.clear();
                             log("${controller.listOfServiceRecurrence}"); 
+                            log(selectedValue.value);
                           }
                           else{
                             //set the selected val back to custom
-                            selectedValue.value = "Custom";
+                            //selectedValue.value = 'Custom';
+                            log('empty ctrller');
                           }
 
                           Get.back();
@@ -271,10 +273,12 @@ Future<void> customRecurenceAlertEdit({
                             controller.listOfServiceRecurrenceEdit.add(selectedValue.value);
                             controller.customServiceRecurenceControllerEdit.clear();
                             log("${controller.listOfServiceRecurrenceEdit}"); 
+                            log(selectedValue.value);
                           }
                           else{
                             //set the selected val back to custom
-                            selectedValue.value = "Custom";
+                            //selectedValue.value = "Custom";
+                            log('empty ctrller');
                           }
 
                           Get.back();

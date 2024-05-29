@@ -79,7 +79,7 @@ class UserServiceModel {
       virtual_meeting_link: json['virtual_meeting_link'],
       physical_location_address: json['physical_location'],
       duration: json['duration'] ?? "duration",
-      service_provider_details: json['service_provider_details'] ?? {},
+      service_provider_details: json['service_provider_details'] ?? {}, //{userId: 66435818c053661df04b15fe, email: japhetebelechukwu@gmail.com, displayName: Japhet Ebelechukwu},
       date: json['date'] ?? "date-null",
       service_link: json['service_link'] ?? '', //auto-generated
       time: json['time'] ?? '',

@@ -15,7 +15,9 @@ class UserServiceInsightModel {
     return UserServiceInsightModel(
       booking_clicks: json['booking_clicks'] ?? 0,
       booking_count: json['booking_count'] ?? 0,
-      bookings_list: json['bookings'] ?? [],
+      bookings_list: (json['bookings'] as List<dynamic>?)
+          ?.map((detailsJson) => InsightInfo.fromJson(detailsJson))
+          .toList() ?? [],
     );
   }
   
@@ -28,7 +30,29 @@ class UserServiceInsightModel {
     return _data;
   }
   
-  
+}
+
+class InsightInfo {
+  final String service_name;
+  final String customer_name;
+  final String service_amount;
+  final int date_booked;
+
+  InsightInfo({
+    required this.service_name,
+    required this.customer_name,
+    required this.service_amount,
+    required this.date_booked,
+  });
+
+  factory InsightInfo.fromJson(Map<String, dynamic> json) {
+    return InsightInfo(
+      service_name: json['service_name'] ?? '',
+      customer_name: json['customer_name'] ?? '',
+      service_amount: json['service_amount'] ?? '',
+      date_booked: json['date_booked'] ?? 0,
+    );
+  }
 }
 
 

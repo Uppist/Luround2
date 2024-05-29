@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
-import 'package:luround/services/account_owner/services/user_services._service.dart';
+import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/add_service/screen/add_service_screen.dart';
@@ -48,15 +48,16 @@ class _RegularServiceListState extends State<RegularServiceList> {
   @override
   void initState() {
     super.initState();
-    //regular services
+    //one-off services
     userService.getUserOneOffServices().then(
       (value) {
         // Update the UI with the new data
         userService.filterSearchServicesList.clear();
         userService.filterSearchServicesList.addAll(value);
-        print('updated regular service list: ${userService.filterSearchServicesList}');
+        print('updated one-off service list: ${userService.filterSearchServicesList}');
       }
     );
+    
   }
 
 
@@ -105,7 +106,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         TogglePriceContainer(index: index,),
                         InkWell(
                           onTap: () {
-                            editServiceDialogueBox(
+                            /*editServiceDialogueBox(
                               //service_link: data.service_link,
                               service: userService,
                               context: context, 
@@ -122,7 +123,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                               date: data.date,
                               time: data.time,
                               available_days: '',
-                            );
+                            );*/
                           },
                           child: Icon(
                             Icons.more_vert_rounded,
@@ -137,7 +138,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                     
                     //ALL SUBSEQUENT INFORMATION COMES HERE
                     Text(
-                      data.service_name,
+                      '', //data.service_name,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 16.sp,
@@ -159,7 +160,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "${data.service_type}",  //Retainer //One-off
+                          '', //"${data.service_type}",  //Retainer //One-off
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -172,7 +173,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                     SizedBox(height: 5.h,),
           
                     //2
-                    data.duration.isNotEmpty ?
+                    /*data.duration.isNotEmpty ?
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
@@ -186,7 +187,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.duration,
+                          '',//data.duration,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -216,7 +217,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
           
                     SizedBox(height: 20.h,),
           
@@ -245,13 +246,14 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         
                         //price
-                        Obx(
+                        /*Obx(
                           () {
                             return Text(
-                              key: Key('price_text_$index'),
-                              controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                              : data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
+                              '',
+                              //key: Key('price_text_$index'),
+                              //controller.isVirtual.value && controller.selectedIndex.value == index 
+                              //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
+                              //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 20.sp,
@@ -260,7 +262,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                               overflow: TextOverflow.ellipsis,
                             );
                           }
-                        )
+                        )*/
                       ],
                     ),
                     SizedBox(height: 5.h,),
@@ -269,7 +271,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          data.time,
+                          '', //data.time,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 14.sp,
@@ -278,7 +280,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
     
                         //time
-                        data.duration.isEmpty ?
+                        /*data.duration.isEmpty ?
                         Text(
                           "",
                           style: GoogleFonts.inter(
@@ -289,14 +291,14 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           overflow: TextOverflow.ellipsis,
                         )
                         :Text(
-                          "for ${data.duration} session",
+                          '', //"for ${data.duration} session",
                           style: GoogleFonts.inter(
                             color: AppColor.whiteTextColor,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500
                           ),
                           overflow: TextOverflow.ellipsis,
-                        ),
+                        ),*/
           
                       ],
                     ),
@@ -304,7 +306,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                     SizedBox(height: 20.h,),
           
                     Text(
-                      data.description,
+                      '',//data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,

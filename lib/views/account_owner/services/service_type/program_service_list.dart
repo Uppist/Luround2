@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
-import 'package:luround/services/account_owner/services/user_services._service.dart';
+import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/screen/add_service_screen.dart';
@@ -102,7 +102,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         TogglePriceContainerProgramService(index: index,),
                         InkWell(
                           onTap: () {
-                            editProgramServiceDialogueBox(
+                            /*editProgramServiceDialogueBox(
                               max_number_of_participants: data.max_number_of_participants,
                               service: userService,
                               context: context, 
@@ -119,7 +119,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               date: data.date ?? '',
                               time: data.time ?? '',
                               available_days: '',
-                            );
+                            );*/
                           },
                           child: Icon(
                             Icons.more_vert_rounded,
@@ -156,7 +156,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.service_type,
+                          "data.service_type",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -209,7 +209,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         SizedBox(width: 10.w,),
                         Expanded(
                           child: Text(
-                            "${data.service_recurrence}",
+                            "", //"${data.service_recurrence}",
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -237,7 +237,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "${data.duration} per session",
+                          "per session", //${data.duration}
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -263,7 +263,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "${data.max_number_of_participants}",
+                          '', //"${data.max_number_of_participants}",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -298,7 +298,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.start_date,
+                          '', //data.start_date,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -325,7 +325,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                             SizedBox(width: 10.w,),
                             Text(
-                              data.end_date,
+                              '', //data.end_date,
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 12..sp,
@@ -339,9 +339,10 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                           () {
                             return Text(
                               //key: Key('price_text_$index'),
-                              controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                              : data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
+                              '',
+                              //controller.isVirtual.value && controller.selectedIndex.value == index 
+                              //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
+                              //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 20.sp,
@@ -371,7 +372,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                             SizedBox(width: 10.w,),
                             Text(
-                              "${data.start_time} - ${data.end_time}",
+                              '', //"${data.start_time} - ${data.end_time}",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 12..sp,
@@ -397,7 +398,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                     SizedBox(height: 20.h,),
           
                     Text(
-                      data.description,
+                      '', //data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,

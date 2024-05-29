@@ -49,7 +49,7 @@ class MonthlySubscriptionPageAuth extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${currency(context).currencySymbol}4,200",
+                      text: "${currency(context).currencySymbol}1,200",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 36.sp,
@@ -105,7 +105,7 @@ class MonthlySubscriptionPageAuth extends StatelessWidget {
                 //call paystack api
                 paystackService.payWithPaystackForAuth(
                   context: context, 
-                  realAmount: 4200, 
+                  realAmount: 1200, 
                   companyEmail: "support@luround.com",
                 );
               }, 
@@ -158,7 +158,7 @@ class MonthlySubscriptionPageApp extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "${currency(context).currencySymbol}4,200",
+                      text: "${currency(context).currencySymbol}1,200",
                       style: GoogleFonts.inter(
                         color: AppColor.blackColor,
                         fontSize: 36.sp,
@@ -214,7 +214,7 @@ class MonthlySubscriptionPageApp extends StatelessWidget {
                 //call paystack api
                 paystackService.payWithPaystackForApp(
                   context: context, 
-                  realAmount: 4200, 
+                  realAmount: 1200, 
                   companyEmail: "support@luround.com",
                 );
               }, 

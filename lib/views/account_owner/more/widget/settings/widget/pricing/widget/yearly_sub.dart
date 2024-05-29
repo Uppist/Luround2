@@ -11,6 +11,8 @@ import 'package:luround/views/account_owner/more/widget/settings/widget/pricing/
 
 
 
+
+
 class YearlySubscriptionPageAuth extends StatelessWidget {
   YearlySubscriptionPageAuth({super.key,});
 
@@ -52,7 +54,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "${currency(context).currencySymbol}30,000",
+                          text: "${currency(context).currencySymbol}10,000",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 36.sp,
@@ -108,7 +110,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
                     //call paystack api
                     paystackService.payWithPaystackForAuth(
                       context: context, 
-                      realAmount: 30000, 
+                      realAmount: 10000, 
                       companyEmail: "support@luround.com",
                     );
                   }, 
@@ -133,7 +135,7 @@ class YearlySubscriptionPageAuth extends StatelessWidget {
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Text(
-              'You save ${currency(context).currencySymbol}20,400',
+              'You save ${currency(context).currencySymbol}4,400',
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 12.sp,
@@ -192,7 +194,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
                     text: TextSpan(
                       children: [
                         TextSpan(
-                          text: "${currency(context).currencySymbol}30,000",
+                          text: "${currency(context).currencySymbol}10,000",
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 36.sp,
@@ -248,7 +250,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
                     //call paystack api
                     paystackService.payWithPaystackForApp(
                       context: context, 
-                      realAmount: 30000, 
+                      realAmount: 10000, 
                       companyEmail: "support@luround.com",
                     );
                   }, 
@@ -273,7 +275,7 @@ class YearlySubscriptionPageApp extends StatelessWidget {
               borderRadius: BorderRadius.circular(40.r),
             ),
             child: Text(
-              'You save ${currency(context).currencySymbol}20,400',
+              'You save ${currency(context).currencySymbol}4,400',
               style: GoogleFonts.inter(
                 color: AppColor.bgColor,
                 fontSize: 12.sp,

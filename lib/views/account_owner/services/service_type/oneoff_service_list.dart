@@ -77,7 +77,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
-            itemCount: userService.filterSearchServicesList.length,
+            itemCount: 1, //userService.filterSearchServicesList.length,
             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
             itemBuilder: (context, index) {
               

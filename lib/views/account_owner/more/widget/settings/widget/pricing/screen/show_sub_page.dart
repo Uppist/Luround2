@@ -159,7 +159,7 @@ class _ShowSubscriptionPageState extends State<ShowSubscriptionPage> {
                                 ),
                                 SizedBox(height: 30.h,),
                                 Text(
-                                  data.subscription_plan == "Trial" ? "${currency(context).currencySymbol}0.00" : data.subscription_plan == "Monthly" ? "${currency(context).currencySymbol}4,200" : "${currency(context).currencySymbol}30,000",
+                                  data.subscription_plan == "Trial" ? "${currency(context).currencySymbol}0.00" : data.subscription_plan == "Monthly" ? "${currency(context).currencySymbol}1,200" : "${currency(context).currencySymbol}10,000",
                                   style: GoogleFonts.inter(
                                     color: AppColor.blackColor,
                                     fontSize: 30.sp,

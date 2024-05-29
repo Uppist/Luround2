@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/services/service_type/event_service_list.dart';
 import 'package:luround/views/account_owner/services/service_type/retainer_service_list.dart';
 import 'package:luround/views/account_owner/services/service_type/program_service_list.dart';
 import 'package:luround/views/account_owner/services/service_type/oneoff_service_list.dart';
@@ -88,7 +89,7 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
                 else if (index == 1) {
                   //retainer service
                   service.filterSearchServicesList.clear();
-                  service.filterSearchServicesList.addAll(service.servicesListPackage);
+                  service.filterSearchServicesList.addAll(service.servicesListRetainer);
                 } 
                 else if(index == 2) {
                   //program service
@@ -97,7 +98,8 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
                 }
                 else if(index == 3) {
                   //event service
-                  print("not yet implemented");
+                  service.filterSearchServicesList.clear();
+                  service.filterSearchServicesList.addAll(service.servicesListEvent);
                 }
                 else {
                   print('no more indices to check');
@@ -120,7 +122,7 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
                 RegularServiceList(),
                 PackageServiceList(),
                 ProgramServiceList(), 
-                SizedBox(),    
+                EventServiceList(),    
               ]
             ),
           ),

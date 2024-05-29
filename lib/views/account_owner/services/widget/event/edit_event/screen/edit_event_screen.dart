@@ -18,9 +18,12 @@ import 'package:luround/views/account_owner/services/widget/event/edit_event/ste
 
 
 class EditEventScreen extends StatefulWidget {
-  const EditEventScreen({super.key, required this.meetingLink, required this.location});
+  const EditEventScreen({super.key, required this.meetingLink, required this.location, required this.inPersonFee, required this.virtualFee, required this.serviceId});
   final String meetingLink;
   final String location;
+  final String inPersonFee;
+  final String virtualFee;
+  final String serviceId;
 
   @override
   State<EditEventScreen> createState() => _EditEventScreenState();
@@ -154,6 +157,8 @@ class _EditEventScreenState extends State<EditEventScreen> {
             content: Step3PageEdit(
               location: widget.location,
               meetingLink: widget.meetingLink,
+              inPersonFee: widget.inPersonFee,
+              virtualFee: widget.virtualFee,
             )
           )
         ]

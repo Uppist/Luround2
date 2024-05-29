@@ -22,25 +22,18 @@ class EditServiceScreen extends StatefulWidget {
     required this.serviceId,
     required this.service_name, 
     required this.description, 
-    required this.links, 
+    required this.virtual_meeting_link, 
     required this.service_charge_in_person, 
     required this.service_charge_virtual, 
-    required this.duration, 
-    required this.time, 
-    required this.date, 
-    required this.available_days
   });
 
   final String serviceId;
   final String service_name;
   final String description;
-  final List<dynamic> links;
+  final String virtual_meeting_link;
   final String service_charge_in_person;
   final String service_charge_virtual;
-  final String duration;
-  final String time;
-  final String date;
-  final String available_days;
+
 
   @override
   State<EditServiceScreen> createState() => _EditServiceScreenState();
@@ -149,7 +142,6 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                   serviceId: widget.serviceId,
                   service_name: widget.service_name,
                   description: widget.description,
-                  links: widget.links,
                   service_charge_in_person: widget.service_charge_in_person,
                   service_charge_virtual: widget.service_charge_virtual,
                   onNext: () {
@@ -180,13 +172,10 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                   serviceId: widget.serviceId,
                   service_name: widget.service_name,
                   description: widget.description,
-                  links: widget.links,
+                  virtual_meeting_link: widget.virtual_meeting_link,
                   service_charge_in_person: widget.service_charge_in_person,
                   service_charge_virtual: widget.service_charge_virtual,
-                  duration: widget.duration,
-                  time: widget.time,
-                  date: widget.date,
-                  available_days: widget.available_days,
+
                 )
               )
             ]

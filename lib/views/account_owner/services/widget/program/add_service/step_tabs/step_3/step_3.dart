@@ -240,29 +240,27 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                   context: context,
                   service_name: mainController.serviceNameController.text, 
                   description: mainController.descriptionController.text, 
-                  links: [], 
-                  service_charge_in_person: '', 
-                  service_charge_virtual: '', 
-                  duration: '', 
-                  service_recurrence: mainController.serviceRecurrence.value,
-                  service_timeline: '',
-                  timeline_days: [],
+                  program_recurrence: mainController.serviceRecurrence.value,
+                  service_charge_in_person: mainController.inPersonPriceController.text, 
+                  service_charge_virtual: mainController.virtualPriceController.text, 
                   start_date: mainController.selectedStartDate.value,
                   end_date: mainController.selectedStopDate.value,
-                  start_time: '',
-                  end_time: '',
-                  max_number_of_participants: mainController.count.value
+                  max_number_of_participants: mainController.count.value,
+                  availability_schedule: mainController.selectedDays,
                     
                 ).whenComplete(() {
                   //1
                   setState(() {
                     mainController.curentStep = mainController.curentStep - 2;
+                    mainController.selectedStartDate.value = '';
+                    mainController.selectedStopDate.value = '';
                   });
                   //2
                   mainController.serviceNameController.clear();
                   mainController.descriptionController.clear();
                   mainController.inPersonPriceController.clear();
                   mainController.virtualPriceController.clear();
+                  mainController.selectedDays.clear();
                   //3
                   Get.offAll(
                     () => const MainPage(),

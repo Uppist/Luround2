@@ -305,7 +305,12 @@ class ProgramServiceController extends getx.GetxController {
   //add service stepper//////////////////////////////////
   final isCheckBoxActiveEdit = false.obs;
   getx.RxString serviceRecurrenceEdit = "Once a week".obs;
-  final listOfServiceRecurrenceEdit = <String>["Once a week", "Twice a week", "Thrice a week", "Four days a week","Five days a week", "Six days a week", "Seven days a week", "Once every two weeks",];
+  final listOfServiceRecurrenceEdit = <String>[
+    "Once a week", 
+    "Twice a week", 
+    "Once every two weeks", 
+    "Custom",
+  ];
   /////////////////////////////////////////////////////////
 
   getx.RxString selectedStartDateEdit = "".obs;

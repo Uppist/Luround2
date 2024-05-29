@@ -19,6 +19,8 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/toggle
 
 
 
+
+
 class RegularServiceList extends StatefulWidget {
   const RegularServiceList({super.key});
 
@@ -36,7 +38,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
   Future<void> _refresh() async {
     await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
-    final List<UserServiceModel>  newData = await userService.getUserRegularServices();
+    final List<UserServiceModel>  newData = await userService.getUserOneOffServices();
     // Update the UI with the new data
     userService.filterSearchServicesList.clear();
     userService.filterSearchServicesList.addAll(newData);
@@ -47,7 +49,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
   void initState() {
     super.initState();
     //regular services
-    userService.getUserRegularServices().then(
+    userService.getUserOneOffServices().then(
       (value) {
         // Update the UI with the new data
         userService.filterSearchServicesList.clear();
@@ -105,6 +107,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           onTap: () {
                             editServiceDialogueBox(
                               //service_link: data.service_link,
+                              service: userService,
                               context: context, 
                               userId: data.service_provider_details['userId'],
                               email: data.service_provider_details['email'],
@@ -112,13 +115,13 @@ class _RegularServiceListState extends State<RegularServiceList> {
                               serviceId: data.serviceId,
                               service_name: data.service_name,
                               description: data.description,
-                              links: data.links,
+                              virtual_meeting_link: data.virtual_meeting_link,
                               service_charge_in_person: data.service_charge_in_person,
                               service_charge_virtual: data.service_charge_virtual,
                               duration: data.duration,
                               date: data.date,
                               time: data.time,
-                              available_days: data.available_days
+                              available_days: '',
                             );
                           },
                           child: Icon(
@@ -156,7 +159,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          "${data.service_type}(${data.service_model.toLowerCase()})",  //Retainer //One-off
+                          "${data.service_type}",  //Retainer //One-off
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -205,7 +208,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.service_timeline,
+                          "",
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -232,7 +235,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          data.available_days,
+                          '',
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 14.sp,
@@ -277,7 +280,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                         //time
                         data.duration.isEmpty ?
                         Text(
-                          "for ${data.service_timeline} timeline",
+                          "",
                           style: GoogleFonts.inter(
                             color: AppColor.whiteTextColor,
                             fontSize: 12.sp,

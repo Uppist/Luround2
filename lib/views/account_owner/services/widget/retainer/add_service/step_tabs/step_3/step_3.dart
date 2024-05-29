@@ -235,21 +235,14 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
               //widget.onNext
               () {
   
-                servicesService.createPackageService(
+                servicesService.createRetainerService(
                   context: context,
                   service_name: mainController.serviceNameController.text, 
                   description: mainController.descriptionController.text, 
-                  links: [mainController.addLinksController.text], 
-                  service_charge_in_person: '', 
-                  service_charge_virtual: '', 
-                  duration: '', 
-                  service_recurrence: '',
-                  service_timeline: '',
-                  timeline_days: [],
-                  start_date: '',
-                  end_date: '',
-                  start_time: '',
-                  end_time: '',
+                  virtual_meeting_link: mainController.addLinksController.text,
+                  pricing: mainController.controllers,
+                  availability_schedule: mainController.selectedDays,
+                  coreFeatures: mainController.inputs,
                 ).whenComplete(() {
                   //1
                   setState(() {
@@ -260,7 +253,9 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                   mainController.descriptionController.clear();
                   mainController.addLinksController.clear();
                   mainController.coreFeaturesController.clear();
-                  mainController.inputsEdit.clear();
+                  mainController.inputs.clear();
+                  mainController.controllers.clear();
+                  mainController.selectedDays.clear();
                   //3
                   Get.offAll(
                     () => const MainPage(),

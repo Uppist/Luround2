@@ -68,7 +68,7 @@ class PackageServiceController extends getx.GetxController {
 
   //STEP 1//
   //core features list
-  final inputs = [].obs;
+  final inputs = <String>[].obs;
   final isFeaturesTapped = false.obs;
   
   // Function to add input to the core features list
@@ -333,7 +333,7 @@ class PackageServiceController extends getx.GetxController {
 
   //STEP 1//
   //core features list
-  final inputsEdit = [].obs;
+  final inputsEdit = <String>[].obs;
   final isFeaturesTappedEdit = false.obs;
   
   // Function to add input to the core features list

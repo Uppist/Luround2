@@ -19,6 +19,7 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/toggle
 
 
 
+
 class PackageServiceList extends StatefulWidget {
   const PackageServiceList({super.key});
 
@@ -36,7 +37,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
   Future<void> _refresh() async {
     await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
-    final List<UserServiceModel>  newData = await userService.getUserPackageServices();
+    final List<UserServiceModel>  newData = await userService.getUserRetainerServices();
     // Update the UI with the new data
     userService.filterSearchServicesList.clear();
     userService.filterSearchServicesList.addAll(newData);
@@ -47,7 +48,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
   void initState() {
     super.initState();
     //regular services
-    userService.getUserPackageServices().then(
+    userService.getUserRetainerServices().then(
       (value) {
         // Update the UI with the new data
         userService.filterSearchServicesList.clear();
@@ -102,7 +103,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                         InkWell(
                           onTap: () {
                             editPackageServiceDialogueBox(
-                              //service_link: data.service_link,
+                              service: userService,
                               context: context, 
                               userId: data.service_provider_details['userId'],
                               email: data.service_provider_details['email'],
@@ -110,13 +111,13 @@ class _PackageServiceListState extends State<PackageServiceList> {
                               serviceId: data.serviceId,
                               service_name: data.service_name,
                               description: data.description,
-                              links: data.links,
+                              virtual_meeting_link: data.virtual_meeting_link,
                               service_charge_in_person: data.service_charge_in_person,
                               service_charge_virtual: data.service_charge_virtual,
                               duration: data.duration,
                               date: data.date,
                               time: data.time,
-                              available_days: data.available_days
+                              available_days: ''
                             );
                           },
                           child: Icon(
@@ -180,7 +181,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.service_timeline,
+                          '',
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -207,7 +208,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                         SizedBox(width: 10.w,),
                         Expanded(
                           child: Text(
-                            "${data.service_recurrence} (${data.timeline_days})",  //${data.timeline_days[index]}
+                            "${data.service_recurrence}",  //${data.timeline_days[index]}
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -354,7 +355,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                         ),
                         //timeline again
                         Text(
-                          'for ${data.service_timeline} timeline',
+                          '',
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 10.sp,

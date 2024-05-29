@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/retainer/edit_service/step_tabs/step_1/textfields/amount_textfield_edit.dart';
 
 
 
@@ -12,7 +12,9 @@ import 'package:luround/views/account_owner/services/widget/one-off/add_service/
 
 
 class AccessFeeWidgetEdit extends StatelessWidget {
-  AccessFeeWidgetEdit({super.key});
+  AccessFeeWidgetEdit({super.key, required this.inPersonFee, required this.virtualFee});
+  final String inPersonFee;
+  final String virtualFee;
 
   final controller = Get.put(EventsController());
 
@@ -47,12 +49,14 @@ class AccessFeeWidgetEdit extends StatelessWidget {
             ),
             //SizedBox(width: 30.w),
             Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
+              child: AmountTextFieldEdit(  
+                onChanged: (val) {
+                  controller.inPersonPriceControllerEdit.text = val;
+                },
                 hintText: "00:00",
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
-                textController: controller.inPersonPriceControllerEdit
+                initialValue: inPersonFee,
               ),
             )
           ],
@@ -74,12 +78,14 @@ class AccessFeeWidgetEdit extends StatelessWidget {
             ),
             //SizedBox(width: 30.w),
             Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
+              child: AmountTextFieldEdit(  
+                onChanged: (val) {
+                  controller.virtualPriceControllerEdit.text = val;
+                },
                 hintText: "00:00",
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
-                textController: controller.virtualPriceControllerEdit
+                initialValue: virtualFee,
               ),
             )
           ],

@@ -25,25 +25,17 @@ class Step3PageEdit extends StatefulWidget{
     required this.serviceId, 
     required this.service_name, 
     required this.description, 
-    required this.links, 
+    required this.virtual_meeting_link, 
     required this.service_charge_in_person, 
     required this.service_charge_virtual, 
-    required this.duration, 
-    required this.time, 
-    required this.date, 
-    required this.available_days
   });
 
   final String serviceId;
   final String service_name;
   final String description;
-  final List<dynamic> links;
+  final String virtual_meeting_link;
   final String service_charge_in_person;
   final String service_charge_virtual;
-  final String duration;
-  final String time;
-  final String date;
-  final String available_days;
 
 
   @override
@@ -258,23 +250,15 @@ class _Step3PageEditState extends State<Step3PageEdit> {
               text: "Done", 
               onPressed: mainController.isCheckBoxActiveEdit.value ? 
               () {
-                servicesService.updateRegularService(
+                servicesService.updateOneOffService(
                   context: context,
                   serviceId: widget.serviceId,
                   service_name: mainController.serviceNameControllerEdit.text.isEmpty ? widget.service_name : mainController.serviceNameControllerEdit.text, 
                   description: mainController.descriptionControllerEdit.text.isEmpty ? widget.description : mainController.descriptionControllerEdit.text, 
-                  links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
-                  service_charge_in_person: ''.isEmpty ? widget.service_charge_in_person : '', 
-                  service_charge_virtual: ''.isEmpty ? widget.service_charge_virtual : '', 
-                  duration: '', 
-                  time: "",
+                  virtual_meeting_link: mainController.addLinksControllerEdit.text.isEmpty ? widget.virtual_meeting_link : mainController.addLinksControllerEdit.text,
+                  pricing: mainController.controllersEdit,
+                  availability_schedule: mainController.selectedDaysEdit,
                     
-                  //change the date below to service model field
-                  date: '',             
-                  available_days: '', 
-                  available_time: [],        
-                  service_model: '',
-                  service_timeline: '',
                 ).whenComplete(() {
                   //1
                   setState(() {
@@ -284,6 +268,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   mainController.serviceNameControllerEdit.clear();
                   mainController.descriptionControllerEdit.clear();
                   mainController.addLinksControllerEdit.clear();
+                  mainController.controllersEdit.clear();
+                  mainController.selectedDaysEdit.clear();
                   //3
                   Get.offAll(
                     () => const MainPage(),

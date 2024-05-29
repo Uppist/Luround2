@@ -20,12 +20,11 @@ import 'package:luround/views/account_owner/services/widget/one-off/edit_service
 
 
 class Step1PageEdit extends StatefulWidget {
-  const Step1PageEdit({super.key, required this.onNext, required this.serviceId, required this.service_name, required this.description, required this.links, required this.service_charge_in_person, required this.service_charge_virtual,});
+  const Step1PageEdit({super.key, required this.onNext, required this.serviceId, required this.service_name, required this.description, required this.service_charge_in_person, required this.service_charge_virtual,});
   final VoidCallback onNext;
   final String serviceId;
   final String service_name;
   final String description;
-  final List<dynamic> links;
   final String service_charge_in_person;
   final String service_charge_virtual;
 

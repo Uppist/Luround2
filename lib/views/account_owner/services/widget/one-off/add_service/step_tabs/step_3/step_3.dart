@@ -233,20 +233,13 @@ class _Step3PageState extends State<Step3Page> {
               text: "Done", 
               onPressed: mainController.isCheckBoxActive.value ? 
               () {     
-                servicesService.createRegularService(
+                servicesService.createOneOffService(
                   context: context,
                   service_name: mainController.serviceNameController.text, 
                   description: mainController.descriptionController.text, 
-                  links: [mainController.addLinksController.text], 
-                  service_charge_in_person: '', 
-                  service_charge_virtual: '', 
-                  duration: '', 
-                  time: "",
-                  available_time_list: [],
-                  available_days: "",
-                  date: "",
-                  service_model: '',
-                  service_timeline: ''
+                  virtual_meeting_link: mainController.addLinksController.text,
+                  pricing: mainController.controllers,
+                  availability_schedule: mainController.selectedDays
                 ).whenComplete(() {
                   //1
                   setState(() {
@@ -256,8 +249,8 @@ class _Step3PageState extends State<Step3Page> {
                   mainController.serviceNameController.clear();
                   mainController.descriptionController.clear();
                   mainController.addLinksController.clear();
-                  //mainController.inPersonController.clear();
-                  //mainController.virtualController.clear();
+                  mainController.controllers.clear();
+                  mainController.selectedDays.clear();
                   //3
                   Get.offAll(
                     () => const MainPage(),

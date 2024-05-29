@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,8 +12,6 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/add_service/step_tabs/step_3/new/custom_checkbox_listtile.dart';
-import 'package:luround/views/account_owner/services/widget/retainer/edit_service/step_tabs/step_1/textfields/amount_textfield_edit.dart';
-
 
 
 
@@ -24,14 +21,13 @@ import 'package:luround/views/account_owner/services/widget/retainer/edit_servic
 
 
 class Step3PagePackageServiceEdit extends StatefulWidget{
-  const Step3PagePackageServiceEdit({super.key, required this.service_charge_virtual, required this.service_charge_in_person, required this.service_id, required this.service_name, required this.service_description, required this.links, required this.duration,});
+  const Step3PagePackageServiceEdit({super.key, required this.service_charge_virtual, required this.service_charge_in_person, required this.service_id, required this.service_name, required this.service_description, required this.virtual_meeting_link,});
   final String service_id;
   final String service_name;
   final String service_description;
   final String service_charge_virtual;
   final String service_charge_in_person;
-  final String duration;
-  final List<dynamic> links;
+  final String virtual_meeting_link;
 
   @override
   State<Step3PagePackageServiceEdit> createState() => _Step3PagePackageServiceEditState();
@@ -244,23 +240,15 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
               //widget.onNext
               () {
                     
-                servicesService.updatePackageService(
+                servicesService.updateRetainerService(
                   context: context,
                   serviceId: widget.service_id,
                   service_name: mainController.serviceNameControllerEdit.text.isNotEmpty ? mainController.serviceNameControllerEdit.text : widget.service_name, 
                   description: mainController.descriptionControllerEdit.text.isNotEmpty ? mainController.descriptionControllerEdit.text : widget.service_description, 
-                  links: mainController.addLinksControllerEdit.text.isEmpty ? widget.links : [mainController.addLinksControllerEdit.text], 
-                  service_charge_in_person: ''.isNotEmpty ? '' : widget.service_charge_in_person, 
-                  service_charge_virtual: ''.isNotEmpty ? '' : widget.service_charge_virtual, 
-                  duration: ''.isNotEmpty ? '' : widget.duration, 
-                  //
-                  service_recurrence: '',
-                  service_timeline: '',
-                  timeline_days: [],
-                  start_date: '',
-                  end_date: '',
-                  start_time: '',
-                  end_time: '',
+                  virtual_meeting_link: mainController.addLinksControllerEdit.text.isEmpty ? widget.virtual_meeting_link : mainController.addLinksControllerEdit.text, 
+                  pricing: mainController.controllersEdit,
+                  availability_schedule: mainController.selectedDaysEdit,
+                  coreFeatures: mainController.inputsEdit,        
                 ).whenComplete(() {
                   //1
                   setState(() {
@@ -272,6 +260,8 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
                   mainController.addLinksControllerEdit.clear();
                   mainController.coreFeaturesControllerEdit.clear();
                   mainController.inputsEdit.clear();
+                  mainController.selectedDaysEdit.clear();
+                  mainController.controllersEdit.clear();
                   //3
                   Get.offAll(
                     () => const MainPage(),

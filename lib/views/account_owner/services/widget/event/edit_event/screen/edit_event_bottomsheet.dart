@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/share_profile_link.dart';
-import 'package:luround/views/account_owner/services/widget/program/edit_service/screen/edit_program_service.dart';
+import 'package:luround/views/account_owner/services/widget/event/edit_event/screen/edit_event_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/switch_widget_suspend.dart';
@@ -22,28 +22,25 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/switch
 
 
 ///Alert Dialog
-Future<void> editProgramServiceDialogueBox({
+Future<void> editEventDialogueBox({
   required BuildContext context, 
+  required String meetingLink,
+  required String location,
+  required String inPersonFee,
+  required String virtualFee,
   required String serviceId,
   required String service_name, 
   required String description, 
-  required List<dynamic> links, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
-  //required String service_link,
-  required String duration, 
-  required String time, 
-  required String date, 
-  required String available_days,
-  //service_provider_details below
   required String userId,
   required String email,
   required String displayName,
-  required int max_number_of_participants,
   required AccOwnerServicePageService service,
 }) async {
 
-  var controller = Get.put(ProgramServiceController());
+  var controller = Get.put(EventsController()); //PackageServiceController
+
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -79,18 +76,12 @@ Future<void> editProgramServiceDialogueBox({
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
-                    Get.to(() => EditProgramServiceScreen(
+                    Get.to(() => EditEventScreen(
                       serviceId: serviceId,
-                      service_name: service_name,
-                      description: description,
-                      links: links,
-                      service_charge_in_person: service_charge_in_person,
-                      service_charge_virtual: service_charge_virtual,
-                      duration: duration,
-                      time: time,
-                      date: date,
-                      available_days: available_days,
-                      max_number_of_participants: max_number_of_participants,
+                      meetingLink: meetingLink,
+                      location: location,
+                      inPersonFee: inPersonFee,
+                      virtualFee: virtualFee,
                     ));
                   },
                   child: Row(
@@ -187,7 +178,7 @@ Future<void> editProgramServiceDialogueBox({
                   }
                 ),
                 SizedBox(height: 30.h,),
-
+                
                 //2            
                 InkWell(
                   onTap: () {

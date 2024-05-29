@@ -104,7 +104,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                           onTap: () {
                             editProgramServiceDialogueBox(
                               max_number_of_participants: data.max_number_of_participants,
-                              //service_link: data.service_link,
+                              service: userService,
                               context: context, 
                               userId: data.service_provider_details['userId'],
                               email: data.service_provider_details['email'],
@@ -112,13 +112,13 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               serviceId: data.serviceId,
                               service_name: data.service_name,
                               description: data.description,
-                              links: data.links,
-                              service_charge_in_person: data.service_charge_in_person,
-                              service_charge_virtual: data.service_charge_virtual,
-                              duration: data.duration,
-                              date: data.date,
-                              time: data.time,
-                              available_days: data.available_days
+                              links: data.links ?? [],
+                              service_charge_in_person: data.service_charge_in_person ?? '',
+                              service_charge_virtual: data.service_charge_virtual ?? '',
+                              duration: data.duration ?? '',
+                              date: data.date ?? '',
+                              time: data.time ?? '',
+                              available_days: '',
                             );
                           },
                           child: Icon(
@@ -182,7 +182,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         SizedBox(width: 10.w,),
                         Text(
-                          data.service_timeline,
+                          '',
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 12..sp,
@@ -209,7 +209,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         SizedBox(width: 10.w,),
                         Expanded(
                           child: Text(
-                            "${data.service_recurrence} (${data.timeline_days})",
+                            "${data.service_recurrence}",
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -382,7 +382,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         //timeline again
                         Text(
-                          'for ${data.service_timeline} timeline',
+                          '',
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 10.sp,

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
+import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
@@ -26,7 +27,7 @@ Future<void> editServiceDialogueBox({
   required String serviceId,
   required String service_name, 
   required String description, 
-  required List<dynamic> links, 
+  required String virtual_meeting_link, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
   //required String service_link,
@@ -37,9 +38,12 @@ Future<void> editServiceDialogueBox({
   //service_provider_details below
   required String userId,
   required String email,
-  required String displayName
+  required String displayName,
+  required AccOwnerServicePageService service,
 }) async {
+
   var controller = Get.put(ServicesController());
+
   showModalBottomSheet(
     isScrollControlled: true,
     clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -79,13 +83,9 @@ Future<void> editServiceDialogueBox({
                       serviceId: serviceId,
                       service_name: service_name,
                       description: description,
-                      links: links,
                       service_charge_in_person: service_charge_in_person,
                       service_charge_virtual: service_charge_virtual,
-                      duration: duration,
-                      time: time,
-                      date: date,
-                      available_days: available_days,
+                      virtual_meeting_link: virtual_meeting_link,
                     ));
                   },
                   child: Row(
@@ -163,9 +163,17 @@ Future<void> editServiceDialogueBox({
                               debugPrint("toggled val: $value");
                               if(value){
                                 debugPrint("call the suspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
                               }
                               else{
                                 debugPrint("call the unsuspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
                               }
                             },
                           ),

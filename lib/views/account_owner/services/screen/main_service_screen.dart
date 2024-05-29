@@ -99,11 +99,11 @@ class _ServicesPageState extends State<ServicesPage> {
                 onFieldSubmitted: (val) {
                   if(userService.activeTabIndex == 0) {
                     //one-off
-                    userService.filterRegularServices(val);
+                    userService.filterOneOffServices(val);
                   }
                   else if(userService.activeTabIndex == 1){
                     //retainer
-                    userService.filterPackageServices(val);
+                    userService.filterRetainerServices(val);
                   }
                   else if(userService.activeTabIndex == 2){
                     //program
@@ -111,7 +111,7 @@ class _ServicesPageState extends State<ServicesPage> {
                   }
                   else if(userService.activeTabIndex == 3){
                     //event
-                    //userService.filterEventServices(val);
+                    userService.filterEventServices(val);
                   }
                   else {
                     print('no more func');

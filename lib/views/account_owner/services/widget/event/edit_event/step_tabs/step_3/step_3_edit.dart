@@ -20,9 +20,11 @@ import 'package:luround/views/account_owner/services/widget/event/edit_event/ste
 
 
 class Step3PageEdit extends StatefulWidget {
-  const Step3PageEdit({super.key, required this.location, required this.meetingLink});
+  const Step3PageEdit({super.key, required this.location, required this.meetingLink, required this.inPersonFee, required this.virtualFee});
   final String location;
   final String meetingLink;
+  final String inPersonFee;
+  final String virtualFee;
 
 
   @override
@@ -70,7 +72,10 @@ class _Step3PageEditState extends State<Step3PageEdit> {
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
 
-        AccessFeeWidgetEdit(),
+        AccessFeeWidgetEdit(
+          inPersonFee: widget.inPersonFee,
+          virtualFee: widget.virtualFee,
+        ),
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.12),
 

@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
+import 'package:luround/services/account_owner/services/user_services._service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/edit_service/screen/edit_package_service.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
@@ -25,7 +26,7 @@ Future<void> editPackageServiceDialogueBox({
   required String serviceId,
   required String service_name, 
   required String description, 
-  required List<dynamic> links, 
+  required String virtual_meeting_link, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
   //required String service_link,
@@ -36,7 +37,8 @@ Future<void> editPackageServiceDialogueBox({
   //service_provider_details below
   required String userId,
   required String email,
-  required String displayName
+  required String displayName,
+  required AccOwnerServicePageService service,
 }) async {
 
   var controller = Get.put(PackageServiceController());
@@ -80,7 +82,7 @@ Future<void> editPackageServiceDialogueBox({
                       serviceId: serviceId,
                       service_name: service_name,
                       description: description,
-                      links: links,
+                      virtual_meeting_link: virtual_meeting_link,
                       service_charge_in_person: service_charge_in_person,
                       service_charge_virtual: service_charge_virtual,
                       duration: duration,
@@ -163,9 +165,17 @@ Future<void> editPackageServiceDialogueBox({
                               debugPrint("toggled val: $value");
                               if(value){
                                 debugPrint("call the suspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
                               }
                               else{
                                 debugPrint("call the unsuspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
                               }
                             },
                           ),

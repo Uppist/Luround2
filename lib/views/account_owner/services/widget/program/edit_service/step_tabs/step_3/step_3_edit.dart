@@ -250,29 +250,26 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
                   serviceId: widget.service_id,
                   service_name: mainController.serviceNameControllerEdit.text.isNotEmpty ? mainController.serviceNameControllerEdit.text : widget.service_name, 
                   description: mainController.descriptionControllerEdit.text.isNotEmpty ? mainController.descriptionControllerEdit.text : widget.service_description, 
-                  links: [], 
+                  program_recurrence: mainController.serviceRecurrenceEdit.value,
                   service_charge_in_person: mainController.inPersonPriceControllerEdit.text.isNotEmpty ? mainController.inPersonPriceControllerEdit.text : widget.service_charge_in_person, 
                   service_charge_virtual: mainController.virtualPriceControllerEdit.text.isNotEmpty ? mainController.virtualPriceControllerEdit.text : widget.service_charge_virtual, 
-                  duration: '', 
-                  //
-                  service_recurrence: mainController.serviceRecurrenceEdit.value,
-                  service_timeline: '',
-                  timeline_days: mainController.selectedDaysEdit,
                   start_date: mainController.selectedStartDateEdit.value,
                   end_date: mainController.selectedStopDateEdit.value,
-                  start_time: '',
-                  end_time: '',
                   max_number_of_participants: mainController.countEdit.value == 0 ? widget.max_number_of_participants : mainController.countEdit.value,
+                  availability_schedule: mainController.selectedDaysEdit,
                   ).whenComplete(() {
                     //1
                     setState(() {
                       mainController.curentStepEdit = mainController.curentStepEdit - 2;
+                      mainController.selectedStartDateEdit.value = '';
+                      mainController.selectedStopDateEdit.value = '';
                     });
                     //2
                     mainController.serviceNameControllerEdit.clear();
                     mainController.descriptionControllerEdit.clear();
                     mainController.inPersonPriceControllerEdit.clear();
                     mainController.virtualPriceControllerEdit.clear();
+                    mainController.selectedDaysEdit.clear();
                     //3
                     Get.offAll(
                       () => const MainPage(),

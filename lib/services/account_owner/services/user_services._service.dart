@@ -1,13 +1,18 @@
 import 'dart:convert';
 import 'package:get/get.dart' as getx;
+import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
+import 'package:luround/models/account_owner/ui/dayselection_model.dart';
+import 'package:luround/models/account_owner/user_services/service_insight.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:dio/dio.dart' as dio;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -18,17 +23,19 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
+
 class AccOwnerServicePageService extends getx.GetxController {
 
-  var baseService = getx.Get.put(BaseService());
-  var controller = getx.Get.put(ServicesController());
-  
+  final baseService = getx.Get.put(BaseService());
+  final controller = getx.Get.put(ServicesController());
   var isLoading = false.obs;
   var isServiceCRLoading = false.obs;
   var isServiceEDLoading = false.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
   var token = LocalStorage.getToken();
+
+
 
   //functions for url_launcher (to launch user socials link)
   Future<void> launchUrlLink({required String link}) async{
@@ -64,7 +71,9 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
   //Method to pass in the search textfield
-  Future<void> filterRegularServices(String query) async {
+  //
+  final servicesList = <UserServiceModel>[].obs;
+  Future<void> filterOneOffServices(String query) async {
     if (query.isEmpty) {
       filterSearchServicesList.clear();
       filterSearchServicesList.addAll(servicesList);
@@ -80,12 +89,11 @@ class AccOwnerServicePageService extends getx.GetxController {
       print("when query is not empty: $filterSearchServicesList");
     }
   }
-  //
-  final servicesList = <UserServiceModel>[].obs;
-  Future<List<UserServiceModel>> getUserRegularServices() async {
+
+  Future<List<UserServiceModel>> getUserOneOffServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint:"services/get-services?service_type=Regular",);
+      http.Response res = await baseService.httpGet(endPoint:"services/get-services?service_type=One-Off",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -93,11 +101,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         //decode the response body here
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
-        var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
         servicesList.clear();
         servicesList.addAll(finalResult);
-        print("user regular services list: $finalResult");
+        print("user one-off services list: $finalResult");
 
         return servicesList;
       }
@@ -120,28 +128,29 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   /////[GET LOGGED-IN USER'S PACKAGE SERVICES LIST]//////
   //Method to pass in the search textfield
-  Future<void> filterPackageServices(String query) async {
+  //
+  final servicesListRetainer = <UserServiceModel>[].obs;
+  Future<void> filterRetainerServices(String query) async {
     if (query.isEmpty) {
       filterSearchServicesList.clear();
-      filterSearchServicesList.addAll(servicesListPackage);
+      filterSearchServicesList.addAll(servicesListRetainer);
       print("when query is empty: $filterSearchServicesList");
     } 
     else {
       filterSearchServicesList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
       filterSearchServicesList.addAll(
-        servicesListPackage
+        servicesListRetainer
         .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
       print("when query is not empty: $filterSearchServicesList");
     }
   }
-  //
-  final servicesListPackage = <UserServiceModel>[].obs;
-  Future<List<UserServiceModel>> getUserPackageServices() async {
+
+  Future<List<UserServiceModel>> getUserRetainerServices() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "services/get-services?service_type=Package",);
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?service_type=Retainer",);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
@@ -151,11 +160,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
-        servicesListPackage.clear();
-        servicesListPackage.addAll(finalResult);
+        servicesListRetainer.clear();
+        servicesListRetainer.addAll(finalResult);
         print("user package services list: $finalResult");
 
-        return servicesListPackage;
+        return servicesListRetainer;
       }
       else {
         isLoading.value = false;
@@ -175,6 +184,8 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   /////[GET LOGGED-IN USER'S PACKAGE SERVICES LIST]//////
   //Method to pass in the search textfield
+  //
+  final servicesListProgram = <UserServiceModel>[].obs;
   Future<void> filterProgramServices(String query) async {
     if (query.isEmpty) {
       filterSearchServicesList.clear();
@@ -191,8 +202,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       print("when query is not empty: $filterSearchServicesList");
     }
   }
-  //
-  final servicesListProgram = <UserServiceModel>[].obs;
+  
   Future<List<UserServiceModel>> getUserProgramServices() async {
     isLoading.value = true;
     try {
@@ -211,6 +221,62 @@ class AccOwnerServicePageService extends getx.GetxController {
         print("user program services list: $finalResult");
 
         return servicesListProgram;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load user services data');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("error: $e");
+    
+    }
+  }
+
+  /////[GET LOGGED-IN USER'S EVENT SERVICES LIST]//////
+  //Method to pass in the search textfield
+  //
+  final servicesListEvent = <UserServiceModel>[].obs;
+  Future<void> filterEventServices(String query) async {
+    if (query.isEmpty) {
+      filterSearchServicesList.clear();
+      filterSearchServicesList.addAll(servicesListEvent);
+      print("when query is empty: $filterSearchServicesList");
+    } 
+    else {
+      filterSearchServicesList.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filterSearchServicesList.addAll(
+        servicesListEvent
+        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .toList());
+      print("when query is not empty: $filterSearchServicesList");
+    }
+  }
+  
+  Future<List<UserServiceModel>> getUserEventServices() async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(endPoint: "services/get-services?service_type=Event",);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint("user services fetched successfully!!");
+        //decode the response body here
+        final List<dynamic> response = jsonDecode(res.body);
+        debugPrint("$response");
+        final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
+        finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        servicesListEvent.clear();
+        servicesListEvent.addAll(finalResult);
+        print("user program services list: $finalResult");
+
+        return servicesListEvent;
       }
       else {
         isLoading.value = false;
@@ -308,55 +374,308 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
+  /////[GET A SERVICE INSIGHT]////// I.E, FOR FETCHING DATA ANALYTICS ABOUT A PARTICULAR SERVICE
+  final serviceInsightList = <UserServiceInsightModel>[].obs;
+  final filterServiceInsightList = <UserServiceInsightModel>[].obs;
+
+  //FILTER FUNCTIONALITIES////////
+  Future<void> filterTrxByPastDate() async{
+    // Clear the filteredList so new values can come i n 
+    filterServiceInsightList.clear();
+
+    // Use the search query to filter the items
+    filterServiceInsightList.addAll(
+      serviceInsightList.where((item) {
+        String server_date = convertServerTimeToDate(0);  //item.bookings_list[index]['createdAt']
+        DateTime convertedDate = convertStringToDateTime(server_date);
+        print('Converted Date: $convertedDate');
+        // Check if the date is in the past
+        if (isDateInPast(convertedDate)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );  
+    print("All time Service Insight List: $filterServiceInsightList");
+  }
+
+  Future<void> filterListByToday() async{
+    DateTime today = DateTime.now();
+    //DateTime todayAgo = today.subtract(Duration(days: 0));
+
+    // Clear the filteredList so new values can come i n 
+    filterServiceInsightList.clear();
+
+    // Use the search query to filter the items
+    filterServiceInsightList.addAll(
+  
+      serviceInsightList.where((item) {
+        String serverDate = convertServerTimeToDate(0); //item.serviceDetails.createdAt
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is today
+        if (convertedDate.isAfter(today.subtract(Duration(days: 1)))) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("booking List from today: $filterServiceInsightList");
+  }
+
+  Future<void> filterListByYesterday() async{
+    DateTime today = DateTime.now();
+    DateTime yesterday = today.subtract(Duration(days: 1));
+
+    // Clear the filteredList so new values can come i n 
+    filterServiceInsightList.clear();
+
+    // Use the search query to filter the items
+    filterServiceInsightList.addAll(
+  
+      serviceInsightList.where((item) {
+        String serverDate = convertServerTimeToDate(0); //item.serviceDetails.createdAt
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is exactly equal to yesterday
+        // return convertedDate.isAtSameMomentAs(yesterday);
+        // Check if the date is within yesterday
+        return convertedDate.year == yesterday.year &&
+          convertedDate.month == yesterday.month &&
+          convertedDate.day == yesterday.day;
+        }),
+      );
+
+    print("Bookings List from yesterday: $filterServiceInsightList");
+  }
+
+
+  Future<void> filterListByLastSevenDays() async{
+    DateTime today = DateTime.now();
+    DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
+
+    // Clear the filteredList so new values can come i n 
+    filterServiceInsightList.clear();
+
+    // Use the search query to filter the items
+    filterServiceInsightList.addAll(
+      serviceInsightList.where((item) {
+        String serverDate = convertServerTimeToDate(0); //item.serviceDetails.createdAt
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(sevenDaysAgo)) {
+          return true; // Include the item in the filtered list
+        }
+
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("bookings List from the last seven days: $serviceInsightList");
+  }
+
+  Future<void> filterListByLastThirtyDays() async{
+    DateTime today = DateTime.now();
+    DateTime thirtyDaysAgo = today.subtract(Duration(days: 30));
+
+    // Clear the filteredList so new values can come i n 
+    filterServiceInsightList.clear();
+
+    // Use the search query to filter the items
+    filterServiceInsightList.addAll(
+      serviceInsightList.where((item) {
+        String serverDate = convertServerTimeToDate(0);  //item.serviceDetails.createdAt
+        DateTime convertedDate = convertStringToDateTime(serverDate);
+
+        // Check if the date is within the last seven days
+        if (convertedDate.isAfter(thirtyDaysAgo)) {
+          return true; // Include the item in the filtered list
+        }
+        return false; // If not found in any detail, exclude the item
+      }),
+    );
+
+    print("booking List from the last thirty days: $filterServiceInsightList");
+  }
+  ////////////////////////////////////
+
+  Future<UserServiceInsightModel> getServiceInsight({
+    required String serviceId,
+    required RxInt booking_count,
+  }) async {
+    isLoading.value = true;
+    try {
+      http.Response res = await baseService.httpGet(
+        endPoint: "insights/get?service_id=$serviceId",
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
+        debugPrint("user service insight fetched by id successfully!!");
+        
+        final List<dynamic> response = jsonDecode(res.body);
+
+        int result = response[0]['booking_count'];
+        booking_count.value = result;
+
+        List<dynamic> result2 = response[1]['bookings'];
+        final finalResult = result2.map((e) => UserServiceInsightModel.fromJson(e)).toList();
+        //finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        serviceInsightList.clear();
+        serviceInsightList.addAll(finalResult);
+
+        //decode the response body here
+        UserServiceInsightModel userServiceInsightModel = UserServiceInsightModel.fromJson(jsonDecode(res.body));
+        return userServiceInsightModel;
+      }
+      else {
+        isLoading.value = false;
+        debugPrint('Response status code: ${res.statusCode}');
+        debugPrint('this is response reason ==>${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.body}');
+        throw Exception('Failed to load this service insight');
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      //debugPrint("Error net: $e");
+      throw Exception("$e");
+    
+    }
+  }
+
+  
+  /////[SUSPEND A SERVICE OF A LOGGED-IN USER]//////
+  Future<void> suspendUserService({
+    required BuildContext context,
+    required String serviceId,
+  }) async {
+
+    isLoading.value = true;
+
+    var body = {};
+    //acts as both a suspension and unsuspension api
+    try {
+      http.Response res = await baseService.httpPut(endPoint: "services/suspend-user-service?service_Id=$serviceId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("user service suspended by id succesfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "service suspended"
+        );
+      } 
+      else {
+        isLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to suspend service: ${res.statusCode} || ${res.body}"
+        );
+      }
+    } 
+    catch (e) {
+      isLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong");
+    }
+  }
+
 
   /////[CREATE A SERVICE FOR LOGGED-IN USER]//////
-  Future<void> createRegularService({
+  Future<void> createOneOffService({
     required BuildContext context,
     required String service_name,
     required String description,
-    required String service_charge_in_person,
-    required String service_charge_virtual,
-    required String duration,
-    required String time,
-    required String available_days,
-    required List<dynamic> links,
-    required List<dynamic> available_time_list,
-    required String date,
-
-    //NEW UPDATE
-    required String service_model,
-    required String service_timeline,
+    required String virtual_meeting_link,
+    required List<ServiceControllerSett> pricing,
+    required List<DaySelectionModel> availability_schedule,
     
     }) async {
 
     isServiceCRLoading.value = true;
 
-    var body = {
-      "email": email,
-      "service_name": service_name,
-      "description": description,
-      "links": links,
-      "service_charge_in_person": service_charge_in_person,
-      "service_charge_virtual": service_charge_virtual,
-      "duration": duration,
-      "time": time,
-      'available_days': available_days,
-      "date": date,
-      "available_time": available_time_list,
-
-      //NEW UPDATE
-      "service_type": 'Regular',
-      "service_model": service_model,
-      "service_timeline": service_timeline
-    };
-
     try {
+      
+      //PRICING LOOP
+      final List<dynamic> pricingList = [];
+      for (ServiceControllerSett data in pricing) {
+        final String time_allocation = data.durationController.text;
+        final String virtual = data.virtualPriceController.text;
+        final String in_person = data.inpersonPriceController.text;
+
+        // Check if required fields are not empty or undefined
+        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "time_allocation": time_allocation,
+            "virtual": virtual,
+            "in_person": in_person,
+          };
+          pricingList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "One-Off",
+        "virtual_meeting_link": virtual_meeting_link,
+        "pricing": pricingList,
+        "availability_schedule": availability_scheduleList
+      };
+
       http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
+      
       if (res.statusCode == 200 || res.statusCode == 201) {
         isServiceCRLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        debugPrint("user service created successfully");
+        debugPrint("One-Off service created successfully");
         //success snackbar
         showMySnackBar(
           context: context,
@@ -384,49 +703,85 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
-  Future<void> createPackageService({
+  Future<void> createRetainerService({
     required BuildContext context,
     required String service_name,
     required String description,
-    required String service_charge_in_person,
-    required String service_charge_virtual,
-    required String duration,
-    required List<dynamic> links,
-
-    //NEW UPDATE
-    required String service_recurrence,
-    required String service_timeline,
-    required List<dynamic> timeline_days,
-    required String start_date,
-    required String end_date,
-    required String start_time,
-    required String end_time
+    required String virtual_meeting_link,
+    required List<ServiceControllerSett> pricing,
+    required List<DaySelectionModel> availability_schedule,
+    required List<String> coreFeatures,
+  
     
     }) async {
 
     isServiceCRLoading.value = true;
 
-    var body = {
-      "email": email,
-      "service_name": service_name,
-      "description": description,
-      "links": links,
-      "service_charge_in_person": service_charge_in_person,
-      "service_charge_virtual": service_charge_virtual,
-      "duration": duration,
-
-      //NEW UPDATE
-      "service_type": 'Package',
-      "service_recurrence": service_recurrence,
-      "service_timeline": service_timeline,
-      "timeline_days": timeline_days,
-      "start_date": start_date,
-      "end_date": end_date,
-      "start_time": start_time,
-      "end_time": end_time
-    };
-
     try {
+
+      //PRICING LOOP
+      final List<dynamic> pricingList = [];
+      for (ServiceControllerSett data in pricing) {
+        final String time_allocation = data.durationController.text;
+        final String virtual = data.virtualPriceController.text;
+        final String in_person = data.inpersonPriceController.text;
+
+        // Check if required fields are not empty or undefined
+        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "time_allocation": time_allocation,
+            "virtual": virtual,
+            "in_person": in_person,
+          };
+          pricingList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "Retainer",
+        "virtual_meeting_link": virtual_meeting_link,
+        "pricing": pricingList,
+        "availability_schedule": availability_scheduleList,
+        "core_features": coreFeatures,
+      };
+
+
       http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isServiceCRLoading.value = false;
@@ -464,48 +819,173 @@ class AccOwnerServicePageService extends getx.GetxController {
     required BuildContext context,
     required String service_name,
     required String description,
-    required String service_charge_in_person,
-    required String service_charge_virtual,
-    required String duration,
-    required List<dynamic> links,
-
-    //NEW UPDATE
-    required String service_recurrence,
-    required String service_timeline,
-    required List<dynamic> timeline_days,
     required String start_date,
     required String end_date,
+    required String program_recurrence,
+    required int max_number_of_participants,
+    required String service_charge_in_person,
+    required String service_charge_virtual,
+    required List<DaySelectionModel> availability_schedule,
+    }) async {
+
+    isServiceCRLoading.value = true;
+
+    try {
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "start_date": start_date,
+        "end_date": end_date,
+        "service_recurrence": program_recurrence,
+        "max_number_of_participants": max_number_of_participants,
+        "service_charge_in_person": service_charge_in_person,
+        "service_charge_virtual": service_charge_virtual,
+        "availability_schedule": availability_scheduleList,
+      };
+
+
+      http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("user service created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "Your service has been created successfully"
+        );
+      } 
+      else {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create service: ${res.statusCode} || ${res.body}"
+        );
+      }
+    } 
+    catch (e) {
+      isServiceCRLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong: $e");
+    }
+  }
+
+  Future<void> createEventService({
+    required BuildContext context,
+    required String service_name,
+    required String description,
+    required String virtual_meeting_link,
+    required String physical_location,
+    required String event_schedule,
+    required String date,
     required String start_time,
     required String end_time,
-    required int max_number_of_participants,
+    required String inpersonFee,
+    required String virtualFee,
+    required List<ServiceControllerSett> pricing,
+
     
     }) async {
 
     isServiceCRLoading.value = true;
 
-    var body = {
-      "email": email,
-      "service_name": service_name,
-      "description": description,
-      "links": links,
-      "service_charge_in_person": service_charge_in_person,
-      "service_charge_virtual": service_charge_virtual,
-      "duration": duration,
-
-      //NEW UPDATE
-      "service_type": 'Program',
-      "service_recurrence": service_recurrence,
-      "service_timeline": service_timeline,
-      "timeline_days": timeline_days,
-      "start_date": start_date,
-      "end_date": end_date,
-      "start_time": start_time,
-      "end_time": end_time,
-      "max_number_of_participants": max_number_of_participants
-    };
-
     try {
-      http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
+
+      //PRICING LOOP
+      final List<dynamic> pricingList = [];
+      for (ServiceControllerSett data in pricing) {
+        final String time_allocation = data.durationController.text;
+        final String virtual = data.virtualPriceController.text;
+        final String in_person = data.inpersonPriceController.text;
+
+        // Check if required fields are not empty or undefined
+        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "time_allocation": time_allocation,
+            "virtual": virtual,
+            "in_person": in_person,
+          };
+          pricingList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      
+      
+      var body1 = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "Event",
+        "virtual_meeting_link": virtual_meeting_link,
+        "physical_location": physical_location,
+        "event_type": event_schedule,
+
+        "date": date,
+        "start_time": start_time,
+        "end_time": end_time,
+        "service_charge_in_person": inpersonFee,
+        "service_charge_virtual": virtualFee,
+      };
+
+      var body2 = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "Event",
+        "virtual_meeting_link": virtual_meeting_link,
+        "physical_location": physical_location,
+        "event_type": event_schedule,
+        "service_charge_in_person": inpersonFee,
+        "service_charge_virtual": virtualFee,
+        "pricing": pricingList,
+      };
+
+
+      http.Response res = await baseService.httpPost(
+        endPoint: "services/create", 
+        body: event_schedule == "Single date" ? body1 : body2
+      );
       if (res.statusCode == 200 || res.statusCode == 201) {
         isServiceCRLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -540,49 +1020,83 @@ class AccOwnerServicePageService extends getx.GetxController {
   
 
   /////[UPDATE/EDIT AN EXISTING SERVICE OF LOGGED-IN USER]//////
-  Future<void> updateRegularService({
+  Future<void> updateOneOffService({
     required BuildContext context,
     required String serviceId,
     required String service_name,
     required String description,
-    required List<dynamic> links,
-    required String service_charge_in_person,
-    required String service_charge_virtual,
-    required String duration,
-    required String time,
-    required String date,
-    required String available_days,
-    required List<dynamic> available_time,
-
-    //NEW UPDATE
-    required String service_model,
-    required String service_timeline,
+    required String virtual_meeting_link,
+    required List<ServiceControllerSett> pricing,
+    required List<DaySelectionModel> availability_schedule,
 
     
     }) async {
 
     isServiceEDLoading.value = true;
 
-    var body = {
-      "email": email,
-      "service_name": service_name,
-      "description": description,
-      "links": links,
-      "service_charge_in_person": service_charge_in_person,
-      "service_charge_virtual": service_charge_virtual,
-      "duration": duration,
-      "time": time,
-      "date": date,
-      'available_days': available_days,
-      "available_time": available_time,
-
-      //NEW UPDATE
-      "service_type": 'Regular',
-      "service_model": service_model,
-      "service_timeline": service_timeline,
-    };
-
     try {
+
+      //PRICING LOOP
+      final List<dynamic> pricingList = [];
+      for (ServiceControllerSett data in pricing) {
+        final String time_allocation = data.durationController.text;
+        final String virtual = data.virtualPriceController.text;
+        final String in_person = data.inpersonPriceController.text;
+
+        // Check if required fields are not empty or undefined
+        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "time_allocation": time_allocation,
+            "virtual": virtual,
+            "in_person": in_person,
+          };
+          pricingList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "One-Off",
+        "virtual_meeting_link": virtual_meeting_link,
+        "pricing": pricingList,
+        "availability_schedule": availability_scheduleList
+      };
+
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isServiceEDLoading.value = false;
@@ -615,51 +1129,85 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
-  Future<void> updatePackageService({
+  Future<void> updateRetainerService({
     required BuildContext context,
     required String serviceId,
     required String service_name,
     required String description,
-    required String service_charge_in_person,
-    required String service_charge_virtual,
-    required String duration,
-    required List<dynamic> links,
-
-    //NEW UPDATE
-    required String service_recurrence,
-    required String service_timeline,
-    required List<dynamic> timeline_days,
-    required String start_date,
-    required String end_date,
-    required String start_time,
-    required String end_time
+    required String virtual_meeting_link,
+    required List<ServiceControllerSett> pricing,
+    required List<DaySelectionModel> availability_schedule,
+    required List<String> coreFeatures,
 
     
     }) async {
 
     isServiceEDLoading.value = true;
 
-    var body = {
-      "email": email,
-      "service_name": service_name,
-      "description": description,
-      "links": links,
-      "service_charge_in_person": service_charge_in_person,
-      "service_charge_virtual": service_charge_virtual,
-      "duration": duration,
-
-      //NEW UPDATE
-      "service_type": 'Package',
-      "service_recurrence": service_recurrence,
-      "service_timeline": service_timeline,
-      "timeline_days": timeline_days,
-      "start_date": start_date,
-      "end_date": end_date,
-      "start_time": start_time,
-      "end_time": end_time
-    };
-
     try {
+
+      //PRICING LOOP
+      final List<dynamic> pricingList = [];
+      for (ServiceControllerSett data in pricing) {
+        final String time_allocation = data.durationController.text;
+        final String virtual = data.virtualPriceController.text;
+        final String in_person = data.inpersonPriceController.text;
+
+        // Check if required fields are not empty or undefined
+        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "time_allocation": time_allocation,
+            "virtual": virtual,
+            "in_person": in_person,
+          };
+          pricingList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "Retainer",
+        "virtual_meeting_link": virtual_meeting_link,
+        "pricing": pricingList,
+        "availability_schedule": availability_scheduleList,
+        "core_features": coreFeatures,
+      };
+
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isServiceEDLoading.value = false;
@@ -697,48 +1245,59 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String serviceId,
     required String service_name,
     required String description,
-    required String service_charge_in_person,
-    required String service_charge_virtual,
-    required String duration,
-    required List<dynamic> links,
-
-    //NEW UPDATE
-    required String service_recurrence,
-    required String service_timeline,
-    required List<dynamic> timeline_days,
     required String start_date,
     required String end_date,
-    required String start_time,
-    required String end_time,
+    required String program_recurrence,
     required int max_number_of_participants,
-
+    required String service_charge_in_person,
+    required String service_charge_virtual,
+    required List<DaySelectionModel> availability_schedule,
     
     }) async {
 
     isServiceEDLoading.value = true;
 
-    var body = {
-      "email": email,
-      "service_name": service_name,
-      "description": description,
-      "links": links,
-      "service_charge_in_person": service_charge_in_person,
-      "service_charge_virtual": service_charge_virtual,
-      "duration": duration,
-
-      //NEW UPDATE
-      "service_type": 'Program',
-      "service_recurrence": service_recurrence,
-      "service_timeline": service_timeline,
-      "timeline_days": timeline_days,
-      "start_date": start_date,
-      "end_date": end_date,
-      "start_time": start_time,
-      "end_time": end_time,
-      "max_number_of_participants": max_number_of_participants
-    };
-
     try {
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      var body = {
+        //"email": email,
+        "service_type": "Program",
+        "service_name": service_name,
+        "description": description,
+        "start_date": start_date,
+        "end_date": end_date,
+        "service_recurrence": program_recurrence,
+        "max_number_of_participants": max_number_of_participants,
+        "service_charge_in_person": service_charge_in_person,
+        "service_charge_virtual": service_charge_virtual,
+        "availability_schedule": availability_scheduleList,
+      };
+
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isServiceEDLoading.value = false;
@@ -768,6 +1327,121 @@ class AccOwnerServicePageService extends getx.GetxController {
       isServiceEDLoading.value = false;
       debugPrint("$e");
       throw Exception("Something went wrong $e");
+    }
+  }
+
+  Future<void> updateEventService({
+    required BuildContext context,
+    required String serviceId,
+    required String service_name,
+    required String description,
+    required String virtual_meeting_link,
+    required String physical_location,
+    required String event_schedule,
+    required String date,
+    required String start_time,
+    required String end_time,
+    required String inpersonFee,
+    required String virtualFee,
+    required List<ServiceControllerSett> pricing,
+
+    
+    }) async {
+
+    isServiceEDLoading.value = true;
+
+    try {
+
+      //PRICING LOOP
+      final List<dynamic> pricingList = [];
+      for (ServiceControllerSett data in pricing) {
+        final String time_allocation = data.durationController.text;
+        final String virtual = data.virtualPriceController.text;
+        final String in_person = data.inpersonPriceController.text;
+
+        // Check if required fields are not empty or undefined
+        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "time_allocation": time_allocation,
+            "virtual": virtual,
+            "in_person": in_person,
+          };
+          pricingList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+      
+      
+      var body1 = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "Event",
+        "virtual_meeting_link": virtual_meeting_link,
+        "physical_location": physical_location,
+        "event_type": event_schedule,
+
+        "date": date,
+        "start_time": start_time,
+        "end_time": end_time,
+        "service_charge_in_person": inpersonFee,
+        "service_charge_virtual": virtualFee,
+      };
+
+      var body2 = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "service_type": "Event",
+        "virtual_meeting_link": virtual_meeting_link,
+        "physical_location": physical_location,
+        "event_type": event_schedule,
+        "service_charge_in_person": inpersonFee,
+        "service_charge_virtual": virtualFee,
+        "pricing": pricingList,
+      };
+
+
+      http.Response res = await baseService.httpPut(
+        endPoint: "services/edit?serviceId=$serviceId", 
+        body: event_schedule == "Single date" ? body1 : body2
+      );
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("user service created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "Your service has been created successfully"
+        );
+      } 
+      else {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create service: ${res.statusCode} || ${res.body}"
+        );
+      }
+    } 
+    catch (e) {
+      isServiceEDLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong: $e");
     }
   }
   

@@ -632,6 +632,7 @@ class AccOwnerServicePageService extends getx.GetxController {
           isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
+          //log("empty list");
         }
       }
 
@@ -657,6 +658,7 @@ class AccOwnerServicePageService extends getx.GetxController {
           isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
+          //log('empty list');
         }
       }
 
@@ -940,18 +942,19 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual": virtual,
-            "in_person": in_person,
+            "date": time_allocation,
+            "start_time": virtual,
+            "end_time": in_person,
           };
           pricingList.add(map);
 
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceCRLoading.value = false;
+          /*isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
+          return; // Stop processing this request*/
+          log('empty list');
         }
       }
 
@@ -983,7 +986,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "event_type": event_schedule,
         "service_charge_in_person": inpersonFee,
         "service_charge_virtual": virtualFee,
-        "pricing": pricingList,
+        "event_schedule": pricingList,
       };
 
 
@@ -1369,18 +1372,19 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual": virtual,
-            "in_person": in_person,
+            "date": time_allocation,
+            "start_time": virtual,
+            "end_time": in_person,
           };
           pricingList.add(map);
 
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceEDLoading.value = false;
+          /*isServiceEDLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
+          return; // Stop processing this request*/
+          log('empty list');
         }
       }
 
@@ -1412,7 +1416,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "event_type": event_schedule,
         "service_charge_in_person": inpersonFee,
         "service_charge_virtual": virtualFee,
-        "pricing": pricingList,
+        "event_schedule": pricingList,
       };
 
 

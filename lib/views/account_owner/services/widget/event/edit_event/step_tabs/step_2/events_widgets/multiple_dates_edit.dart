@@ -95,7 +95,7 @@ class _MultipleDatesWidgetEditState extends State<MultipleDatesWidgetEdit> {
                   child: buildAdditionalTextField(
                     '', 
                     controllerSet.durationController, 
-                    TextInputType.number, 
+                    TextInputType.datetime, 
                     Icon(CupertinoIcons.calendar_today, size: 22.r, color: AppColor.textGreyColor,), 
                     0.w,
                     Text(
@@ -115,17 +115,12 @@ class _MultipleDatesWidgetEditState extends State<MultipleDatesWidgetEdit> {
                   child: buildAdditionalTextField(
                     '', 
                     controllerSet.virtualPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    TextInputType.datetime, 
+                    Icon(
+                      CupertinoIcons.clock, 
+                      size: 22.r, 
+                      color: AppColor.textGreyColor,
+                    ), 
                     //SvgPicture.asset("assets/svg/naira.svg"),
                     150.w
                   ),
@@ -135,17 +130,12 @@ class _MultipleDatesWidgetEditState extends State<MultipleDatesWidgetEdit> {
                   child: buildAdditionalTextField(
                     '', 
                     controllerSet.inpersonPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    TextInputType.datetime, 
+                    Icon(
+                      CupertinoIcons.clock, 
+                      size: 22.r, 
+                      color: AppColor.textGreyColor,
+                    ), 
                     //SvgPicture.asset("assets/svg/naira.svg"),
                     150.w
                   ),

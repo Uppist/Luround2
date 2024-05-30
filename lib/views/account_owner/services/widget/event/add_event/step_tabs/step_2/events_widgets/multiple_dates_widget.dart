@@ -51,7 +51,7 @@ class _MultipleDatesWidgetState extends State<MultipleDatesWidget> {
             SizedBox(width: 10.w,),
             Expanded(
               child: Text(
-                "Virtual",
+                "Start time",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -62,7 +62,7 @@ class _MultipleDatesWidgetState extends State<MultipleDatesWidget> {
             SizedBox(width: 10.w,),
             Expanded(
               child: Text(
-                "In-person",
+                "End time",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -95,7 +95,7 @@ class _MultipleDatesWidgetState extends State<MultipleDatesWidget> {
                   child: buildAdditionalTextField(
                     '', 
                     controllerSet.durationController, 
-                    TextInputType.number, 
+                    TextInputType.datetime, 
                     Icon(CupertinoIcons.calendar_today, size: 22.r, color: AppColor.textGreyColor,), 
                     0.w,
                     Text(
@@ -115,17 +115,12 @@ class _MultipleDatesWidgetState extends State<MultipleDatesWidget> {
                   child: buildAdditionalTextField(
                     '', 
                     controllerSet.virtualPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                    TextInputType.datetime, 
+                    Icon(
+                      CupertinoIcons.clock, 
+                      size: 22.r, 
+                      color: AppColor.textGreyColor,
+                    ), 
                     //SvgPicture.asset("assets/svg/naira.svg"),
                     150.w
                   ),
@@ -135,16 +130,11 @@ class _MultipleDatesWidgetState extends State<MultipleDatesWidget> {
                   child: buildAdditionalTextField(
                     '', 
                     controllerSet.inpersonPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    TextInputType.datetime, 
+                    Icon(
+                      CupertinoIcons.clock, 
+                      size: 22.r, 
+                      color: AppColor.textGreyColor,
                     ),
                     //SvgPicture.asset("assets/svg/naira.svg"),
                     150.w

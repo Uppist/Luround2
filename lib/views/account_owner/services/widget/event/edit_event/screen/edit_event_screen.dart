@@ -156,6 +156,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
             isActive: controller.curentStepEdit.value >= 2,
             content: Step3PageEdit(
               location: widget.location,
+              serviceId: widget.serviceId,
               meetingLink: widget.meetingLink,
               inPersonFee: widget.inPersonFee,
               virtualFee: widget.virtualFee,

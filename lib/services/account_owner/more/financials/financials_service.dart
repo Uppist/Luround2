@@ -53,7 +53,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = true;
 
       final List<UserServiceModel> products = await getUserServices();
-      products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+      products.sort((a, b) => a.serviceName.toLowerCase().compareTo(b.serviceName.toLowerCase()));
       isLoading.value = false;
       //filteredList.value = List.from(products);
       //Populate filteredQoutebslist using map
@@ -548,7 +548,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = true;
 
       final List<UserServiceModel> products = await getUserServices();
-      products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+      products.sort((a, b) => a.serviceName.toLowerCase().compareTo(b.serviceName.toLowerCase()));
       isLoading.value = false;
       //filteredList.value = List.from(products);
       //Populate filteredQoutebslist using map
@@ -1114,7 +1114,7 @@ class FinancialsService extends getx.GetxController {
       isLoading.value = true;
 
       final List<UserServiceModel> products = await getUserServices();
-      products.sort((a, b) => a.service_name.toLowerCase().compareTo(b.service_name.toLowerCase()));
+      products.sort((a, b) => a.serviceName.toLowerCase().compareTo(b.serviceName.toLowerCase()));
       isLoading.value = false;
       //filteredList.value = List.from(products);
       //Populate the receipt list using map

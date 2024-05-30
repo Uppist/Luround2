@@ -54,7 +54,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
         // Update the UI with the new data
         userService.filterSearchServicesList.clear();
         userService.filterSearchServicesList.addAll(value);
-        print('updated package service list: ${userService.filterSearchServicesList}');
+        print('updated retainer service list: ${userService.filterSearchServicesList}');
       }
     );
   }

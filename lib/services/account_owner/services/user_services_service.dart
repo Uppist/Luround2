@@ -25,6 +25,9 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
 
+
+
+
 class AccOwnerServicePageService extends getx.GetxController {
 
   final baseService = getx.Get.put(BaseService());
@@ -85,7 +88,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filterSearchServicesList.addAll(
         servicesList
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
       print("when query is not empty: $filterSearchServicesList");
     }
@@ -103,7 +106,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
+        finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         log('$servicesList');
         servicesList.clear();
         servicesList.addAll(finalResult);
@@ -143,7 +146,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filterSearchServicesList.addAll(
         servicesListRetainer
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
       print("when query is not empty: $filterSearchServicesList");
     }
@@ -161,7 +164,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
+        finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         servicesListRetainer.clear();
         servicesListRetainer.addAll(finalResult);
         print("user retainer services list: $finalResult");
@@ -199,7 +202,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filterSearchServicesList.addAll(
         servicesListProgram
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
       print("when query is not empty: $filterSearchServicesList");
     }
@@ -217,7 +220,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         var finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
+        finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         servicesListProgram.clear();
         servicesListProgram.addAll(finalResult);
         print("user program services list: $finalResult");
@@ -255,7 +258,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       // Use addAll to add the filtered items to the list
       filterSearchServicesList.addAll(
         servicesListEvent
-        .where((user) => user.service_name.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
+        .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
       print("when query is not empty: $filterSearchServicesList");
     }
@@ -273,7 +276,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         final List<dynamic> response = jsonDecode(res.body);
         debugPrint("$response");
         final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.service_name.toString().compareTo(b.service_name.toString()));
+        finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         servicesListEvent.clear();
         servicesListEvent.addAll(finalResult);
         print("user event services list: $finalResult");
@@ -621,10 +624,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
             "time_allocation": time_allocation,
-            "virtual": virtual,
-            "in_person": in_person,
+            "virtual_pricing": virtual,
+            "in_person_pricing": in_person,
           };
           pricingList.add(map);
+          log("pricing_list: $pricingList");
 
         } 
         else {
@@ -646,7 +650,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "day": day,
+            "availability_day": day,
             "from_time": from_time,
             "to_time": to_time,
           };
@@ -734,8 +738,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
             "time_allocation": time_allocation,
-            "virtual": virtual,
-            "in_person": in_person,
+            "virtual_pricing": virtual,
+            "in_person_pricing": in_person,
           };
           pricingList.add(map);
 
@@ -758,7 +762,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "day": day,
+            "availability_day": day,
             "from_time": from_time,
             "to_time": to_time,
           };
@@ -847,7 +851,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "day": day,
+            "availability_day": day,
             "from_time": from_time,
             "to_time": to_time,
           };
@@ -943,7 +947,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
             "date": time_allocation,
-            "start_time": virtual,
+            "time": virtual,
             "end_time": in_person,
           };
           pricingList.add(map);
@@ -1055,8 +1059,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
             "time_allocation": time_allocation,
-            "virtual": virtual,
-            "in_person": in_person,
+            "virtual_pricing": virtual,
+            "in_person_pricing": in_person,
           };
           pricingList.add(map);
 
@@ -1079,7 +1083,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "day": day,
+            "availability_day": day,
             "from_time": from_time,
             "to_time": to_time,
           };
@@ -1165,8 +1169,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
             "time_allocation": time_allocation,
-            "virtual": virtual,
-            "in_person": in_person,
+            "virtual_pricing": virtual,
+            "in_person_pricing": in_person,
           };
           pricingList.add(map);
 
@@ -1189,7 +1193,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "day": day,
+            "availability_day": day,
             "from_time": from_time,
             "to_time": to_time,
           };
@@ -1278,7 +1282,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "day": day,
+            "availability_day": day,
             "from_time": from_time,
             "to_time": to_time,
           };
@@ -1372,9 +1376,9 @@ class AccOwnerServicePageService extends getx.GetxController {
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "date": time_allocation,
-            "start_time": virtual,
-            "end_time": in_person,
+            "time_allocation": time_allocation,
+            "virtual_pricing": virtual,
+            "in_person_pricing": in_person,
           };
           pricingList.add(map);
 

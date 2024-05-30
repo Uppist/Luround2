@@ -101,7 +101,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
               
               //run even and odd checks for dynamism
 
-              final data = userService.filterSearchServicesList[index];
+              var data = userService.filterSearchServicesList[index];
               selectedPriceType.value =  data.pricing[index].virtual_pricing;
           
               return Container(
@@ -154,7 +154,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           child: Icon(
                             Icons.more_vert_rounded,
                             color: AppColor.bgColor,
-                            size: 30.r,
+                            size: 20.r,
                           ),
                         ),                                   
                       ],
@@ -292,7 +292,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             //pop up menu button for toggling in-between price,          
                             PopupMenuFilterStr(
                               //hint: Text('Select Price Type'),
-                              index: selectedDurationIndex.value,
+                              index: index, //selectedDurationIndex.value,
                               selectedValue: selectedPriceType,
                               onChanged: (String? priceType) {
                                 setState(() {
@@ -301,7 +301,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                               },
                               items: [
                                 DropdownMenuItem<String>(
-                                  value: 'virtual_price',
+                                  value: data.pricing[index].virtual_pricing,
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
@@ -312,7 +312,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                                   ),
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'inperson_price',
+                                  value: data.pricing[index].in_person_pricing,
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(

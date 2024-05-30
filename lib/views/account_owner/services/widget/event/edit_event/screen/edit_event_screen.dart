@@ -58,7 +58,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
             color: AppColor.blackColor,
           )
         ),
-        title: CustomAppBarTitle(text: 'Add service',),
+        title: CustomAppBarTitle(text: 'Edit service',),
       ),
       body: Stepper(
         physics: BouncingScrollPhysics(),

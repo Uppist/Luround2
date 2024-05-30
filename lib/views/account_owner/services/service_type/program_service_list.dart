@@ -387,7 +387,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               },
                               items: [
                                 DropdownMenuItem<String>(
-                                  value: 'virtual_price',
+                                  value: data.pricing[index].virtual_pricing,
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
@@ -398,7 +398,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                   ),
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'inperson_price',
+                                  value: data.pricing[index].in_person_pricing,
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(
@@ -416,8 +416,9 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             //wrap with obx
                             //if (selectedDurationIndex != null)
                             Text(
-                              key: Key('price_text_$index'),
-                              "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex.value].virtual_pricing}",
+                              //key: Key('price_text_$index'),
+                              selectedDurationIndex.value == index ?
+                              "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex.value].virtual_pricing}" : 'FREE',
                               
                               //key: Key('price_text_$index'),
                               //controller.isVirtual.value && controller.selectedIndex.value == index 

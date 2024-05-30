@@ -339,7 +339,7 @@ class _EventServiceListState extends State<EventServiceList> {
                               items: [
                                 //data.pricing[selectedDurationIndex.value].virtual_pricing
                                 DropdownMenuItem<String>(
-                                  value: 'virtual_price',
+                                  value: data.pricing[index].virtual_pricing,
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
@@ -350,7 +350,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                   ),
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'inperson_price',
+                                  value: data.pricing[index].in_person_pricing,
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(

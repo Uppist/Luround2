@@ -281,7 +281,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                             //pop up menu button for toggling in-between price,          
                             PopupMenuFilterStr(
                               //hint: Text('Select Price Type'),
-                              index: selectedDurationIndex.value,
+                              index: index,
                               selectedValue: selectedPriceType,
                               onChanged: (String? priceType) {
                                 setState(() {
@@ -290,7 +290,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                               },
                               items: [
                                 DropdownMenuItem<String>(
-                                  value: 'virtual_price',
+                                  value: data.pricing[index].virtual_pricing,
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
@@ -301,7 +301,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                                   ),
                                 ),
                                 DropdownMenuItem<String>(
-                                  value: 'inperson_price',
+                                  value: data.pricing[index].in_person_pricing,
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(

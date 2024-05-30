@@ -109,7 +109,7 @@ class MorePage extends StatelessWidget {
                   SizedBox(height: 20.h,),
                   MoreSelector(
                     text: 'Calendar',
-                    svgAsset: 'assets/svg/settings_new.svg',
+                    svgAsset: 'assets/svg/calendar_more.svg',
                     onTap: () {
                       Get.to(() => SyncFusionCalendar());
                     },

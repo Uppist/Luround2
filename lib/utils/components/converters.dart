@@ -165,10 +165,12 @@ String convertUTCTimestampToDate(int timestamp) {
 
 String convertServerTimeToDate(int timestamp) {
   // Convert the timestamp to a DateTime object
-  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
 
   // Format the DateTime object to the desired format
-  String formattedDate = DateFormat.yMMMMd().format(dateTime);
+  //String formattedDate = DateFormat.yMMMd().format(dateTime);
+  // Format the DateTime to a readable string
+  String formattedDate = DateFormat('dd MMM, yyyy').format(dateTime);
 
   return formattedDate;
 }

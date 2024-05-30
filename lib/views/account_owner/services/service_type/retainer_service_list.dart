@@ -61,7 +61,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
   
   //PUT IN THE CONTROLLER
   RxInt selectedDurationIndex = 0.obs;
-  RxString selectedPriceType = 'virtual_price'.obs;
+  RxInt selectedPriceType = 0.obs;
 
 
   @override
@@ -94,7 +94,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
               
               //run even and odd checks for dynamism
               final data = userService.filterSearchServicesList[index];
-              selectedPriceType.value =  data.pricing[index].virtual_pricing;
+              //selectedPriceType.value =  data.pricing[index].virtual_pricing;
           
               return Container(
                 //height: 500,
@@ -283,14 +283,14 @@ class _PackageServiceListState extends State<PackageServiceList> {
                               //hint: Text('Select Price Type'),
                               index: index,
                               selectedValue: selectedPriceType,
-                              onChanged: (String? priceType) {
+                              onChanged: (int? priceType) {
                                 setState(() {
                                   selectedPriceType.value = priceType!;
                                 });
                               },
                               items: [
-                                DropdownMenuItem<String>(
-                                  value: data.pricing[index].virtual_pricing,
+                                DropdownMenuItem<int>(
+                                  value: index, //data.pricing[index].virtual_pricing,
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
@@ -300,8 +300,8 @@ class _PackageServiceListState extends State<PackageServiceList> {
                                     ),
                                   ),
                                 ),
-                                DropdownMenuItem<String>(
-                                  value: data.pricing[index].in_person_pricing,
+                                DropdownMenuItem<int>(
+                                  value: index, //data.pricing[index].in_person_pricing,
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(

@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/services/widget/event/add_event/step_tabs/step_2/events_widgets/access_fee_widget.dart';
@@ -75,7 +76,7 @@ class _Step3PageState extends State<Step3Page> {
 
         Obx(
           () {
-            return RebrandedReusableButton(
+            return service.isServiceCRLoading.value ? Loader2() : RebrandedReusableButton(
               textColor: controller.priceType.value.isNotEmpty ? AppColor.bgColor : AppColor.darkGreyColor,
               color: controller.priceType.value.isNotEmpty ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 

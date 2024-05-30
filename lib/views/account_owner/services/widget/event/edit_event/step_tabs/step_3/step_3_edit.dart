@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/services/widget/event/edit_event/step_tabs/step_2/events_widgets/access_fee_widget_edit.dart';
@@ -85,7 +86,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
 
         Obx(
           () {
-            return RebrandedReusableButton(
+            return service.isServiceEDLoading.value ? Loader2() : RebrandedReusableButton(
               textColor: controller.priceTypeEdit.value.isNotEmpty ? AppColor.bgColor : AppColor.darkGreyColor,
               color: controller.priceTypeEdit.value.isNotEmpty ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 

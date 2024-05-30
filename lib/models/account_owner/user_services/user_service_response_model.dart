@@ -1,3 +1,6 @@
+
+
+
 class UserServiceModel {
   final String serviceId;
   final String email;
@@ -8,10 +11,10 @@ class UserServiceModel {
   final String serviceChargeVirtual;
   final String duration;
   final String time;
-  final Map<String, dynamic> serviceProviderDetails;
+  final ServiceProviderInfo serviceProviderDetails;
   final String date;
-  final Map<String, dynamic> serviceLink;
-  final List<dynamic> pricing;
+  final ServiceLinkDetails serviceLink;
+  final List<PricingInfo> pricing;
   final String serviceType;
   final String serviceRecurrence;
   final int maxNumberOfParticipants;
@@ -22,8 +25,9 @@ class UserServiceModel {
   final String endTime;
   final String virtualMeetingLink;
   final String physicalLocationAddress;
-  final List<dynamic> availabilitySchedule;
-  final List<dynamic> eventSchedule;
+  final List<AvailabilityScheduleInfo> availabilitySchedule;
+  final List<EventScheduleInfo> eventSchedule;
+  final List<String> coreFeatures;
   final Map<String, dynamic> programFee;
   final String serviceStatus;
 
@@ -53,6 +57,7 @@ class UserServiceModel {
     required this.physicalLocationAddress,
     required this.availabilitySchedule,
     required this.eventSchedule,
+    required this.coreFeatures,
     required this.programFee,
     required this.serviceStatus,
   });
@@ -68,10 +73,9 @@ class UserServiceModel {
       serviceChargeVirtual: json['in_person_event_fee'] ?? 'non',
       duration: json['duration'] ?? 'duration',
       time: json['time'] ?? '',
-      serviceProviderDetails: json['service_provider_details'] ?? {}, //"userId", "email", "displayName",
+      serviceProviderDetails: ServiceProviderInfo.fromJson(json['service_provider_info'] ?? {}),
       date: json['date'] ?? 'date-null',
-      serviceLink: json['service_link'] ?? {}, //"longURL", "shortURL" 
-      pricing: json['pricing'] ?? [], //"time_allocation", "virtual_pricing", "in_person_pricing",
+      serviceLink: ServiceLinkDetails.fromJson(json['service_link'] ?? {}),
       serviceType: json['service_type'] ?? 'service_type',
       serviceRecurrence: json['service_recurrence'] ?? 'service_recurrence',
       maxNumberOfParticipants: json['max_number_of_participants'] ?? 0,
@@ -82,9 +86,11 @@ class UserServiceModel {
       eventType: json['event_type'] ?? 'event_type',
       virtualMeetingLink: json['virtual_meeting_link'] ?? '',
       physicalLocationAddress: json['physical_location'] ?? '',
-      availabilitySchedule: json['availability_schedule'] ?? [],  //"availability_day", "from_time", "to_time"
-      eventSchedule: json['event_schedule'] ?? [], //"date", "time", "end_time",
+      pricing: (json['pricing'] as List<dynamic>?)?.map((detailsJson) => PricingInfo.fromJson(detailsJson)).toList() ?? [],
+      availabilitySchedule: (json['availability_schedule'] as List<dynamic>?)?.map((detailsJson) => AvailabilityScheduleInfo.fromJson(detailsJson)).toList() ?? [],
+      eventSchedule: (json['event_schedule'] as List<dynamic>?)?.map((detailsJson) => EventScheduleInfo.fromJson(detailsJson)).toList() ?? [],
       programFee: json['program_fee'] ?? {},
+      coreFeatures: json['core_features'] ?? [],
       serviceStatus: json['service_status'] ?? '',
     );
   }
@@ -130,5 +136,103 @@ class UserServiceModel {
     _data['phone_number'] = '';
 
     return _data;
+  }
+}
+
+
+
+
+class EventScheduleInfo {
+  final String date;
+  final String time;
+  final String end_time;
+  EventScheduleInfo({
+    required this.date,
+    required this.time,
+    required this.end_time,
+  });
+
+  factory EventScheduleInfo.fromJson(Map<String, dynamic> json) {
+    return EventScheduleInfo(
+      date: json['date'] ?? '',
+      time: json['time'] ?? '',
+      end_time: json['end_time:'] ?? '',
+    );
+  }
+}
+
+
+class AvailabilityScheduleInfo {
+  final String availability_day;
+  final String from_time;
+  final String to_time;
+  AvailabilityScheduleInfo({
+    required this.availability_day,
+    required this.from_time,
+    required this.to_time,
+  });
+
+  factory AvailabilityScheduleInfo.fromJson(Map<String, dynamic> json) {
+    return AvailabilityScheduleInfo(
+      availability_day: json['availability_day'] ?? '',
+      from_time: json['from_time'] ?? '',
+      to_time: json['to_time'] ?? '',
+    );
+  }
+}
+
+class PricingInfo {
+  final String time_allocation;
+  final String virtual_pricing;
+  final String in_person_pricing;
+  PricingInfo({
+    required this.time_allocation,
+    required this.virtual_pricing,
+    required this.in_person_pricing,
+  });
+
+  factory PricingInfo.fromJson(Map<String, dynamic> json) {
+    return PricingInfo(
+      time_allocation: json['time_allocation'] ?? '',
+      virtual_pricing: json['virtual_pricing'] ?? '',
+      in_person_pricing: json['in_person_pricing'] ?? '',
+    );
+  }
+}
+
+
+class ServiceProviderInfo {
+  final String userId;
+  final String email;
+  final String displayName;
+  ServiceProviderInfo({
+    required this.userId,
+    required this.email,
+    required this.displayName,
+  });
+
+  factory ServiceProviderInfo.fromJson(Map<String, dynamic> json) {
+    return ServiceProviderInfo(
+      userId: json['userId'] ?? '',
+      email: json['email'] ?? '',
+      displayName: json['displayName'] ?? '',
+    );
+  }
+}
+
+class ServiceLinkDetails {
+  final String longURL;
+  final String shortURL;
+  //"longURL", "shortURL" 
+  ServiceLinkDetails({
+    required this.longURL,
+    required this.shortURL,
+  });
+
+  factory ServiceLinkDetails.fromJson(Map<String, dynamic> json) {
+    return ServiceLinkDetails(
+      longURL: json['longURL'] ?? '',
+      shortURL: json['shortURL'] ?? '',
+    );
   }
 }

@@ -59,24 +59,6 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
     );
   }
 
-  //ztester
-  final List<Map<String, dynamic>> popuplist = [
-    {
-      "duration": "30 mins",
-      "virtual_price": "20000",
-      "inperson_price": "30000"
-    },
-    {
-      "duration": "10 mins",
-      "virtual_price": "2000",
-      "inperson_price": "40000"
-    },
-    {
-      "duration": "20 mins",
-      "virtual_price": "70000",
-      "inperson_price": "40000"
-    },
-  ];
   
   //PUT IN THE CONTROLLER
   RxInt selectedDurationIndex = 0.obs;
@@ -84,16 +66,16 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
+    return Obx(
+      () {
         return 
 
-        /*userService.filterSearchServicesList.isEmpty
+        userService.filterSearchServicesList.isEmpty
         ?ServiceEmptyState(
           onPressed: () {
-            Get.to(() => AddProgramServiceScreen());
+            Get.to(() => const AddProgramServiceScreen());
           },
-        ):*/
+        ):
         
         RefreshIndicator.adaptive(
           color: AppColor.greyColor,
@@ -107,12 +89,13 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-            itemCount: 3, //userService.filterSearchServicesList.length,
+            itemCount: userService.filterSearchServicesList.length,
             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
             itemBuilder: (context, index) {
               
               //run even and odd checks for dynamism
-              //final data = userService.filterSearchServicesList[index];
+              final data = userService.filterSearchServicesList[index];
+              selectedPriceType.value =  data.pricing[index].virtual_pricing;
           
               return Container(
                 //height: 500,
@@ -134,7 +117,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         //check if the account owner selected in-person or virtual
                         
                         Text(
-                          'Personal Training', //data.service_name,
+                          data.serviceName,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 20.sp,
@@ -143,24 +126,24 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         ),
                         InkWell(
                           onTap: () {
-                            /*editProgramServiceDialogueBox(
-                              max_number_of_participants: data.max_number_of_participants,
+                            editProgramServiceDialogueBox(
+                              max_number_of_participants: data.maxNumberOfParticipants,
                               service: userService,
                               context: context, 
-                              userId: data.service_provider_details['userId'],
-                              email: data.service_provider_details['email'],
-                              displayName: data.service_provider_details['displayName'],
+                              userId: data.serviceProviderDetails.userId,
+                              email: data.serviceProviderDetails.email,
+                              displayName: data.serviceProviderDetails.displayName,
                               serviceId: data.serviceId,
-                              service_name: data.service_name,
+                              service_name: data.serviceName,
                               description: data.description,
-                              links: data.links ?? [],
-                              service_charge_in_person: data.service_charge_in_person ?? '',
-                              service_charge_virtual: data.service_charge_virtual ?? '',
-                              duration: data.duration ?? '',
-                              date: data.date ?? '',
-                              time: data.time ?? '',
+                              links: data.links,
+                              service_charge_in_person: data.serviceChargeInPerson,
+                              service_charge_virtual: data.serviceChargeVirtual,
+                              duration: data.duration,
+                              date: data.date,
+                              time: data.time,
                               available_days: '',
-                            );*/
+                            );
                           },
                           child: Icon(
                             Icons.more_vert_rounded,
@@ -186,7 +169,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: 'program',
+                            text: data.serviceType.capitalizeFirst,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -211,7 +194,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: '6 weeks',
+                            text: data.duration,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -236,7 +219,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: 'Twice a week',
+                            text: data.serviceRecurrence,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -261,7 +244,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: '30',
+                            text: data.maxNumberOfParticipants.toString(),
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -286,7 +269,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: '12 May, 2024',
+                            text: data.startDate,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -311,7 +294,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: '12 July, 2024',
+                            text: data.endDate,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -352,14 +335,16 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                 scrollDirection: Axis.vertical,
                                 physics: const NeverScrollableScrollPhysics(),
                                 //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
-                                itemCount: 2, //data.available_schedule.length,
+                                itemCount: data.availabilitySchedule.length,
                                 separatorBuilder: (context, index) => SizedBox(height: 10.h,),
                                 itemBuilder: (context, index) {
+
+                                  final availData = data.availabilitySchedule[index];
                                   return RichText(
                                     text: TextSpan(
                                       children: [
                                         TextSpan(
-                                          text: 'Monday:  ',
+                                          text: '${availData.availability_day}:  ',
                                           style: GoogleFonts.inter(
                                             color: AppColor.bgColor,
                                             fontSize: 12..sp,
@@ -367,7 +352,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: '10:00 AM  - 12:00 PM',
+                                          text: '${availData.from_time}  - ${availData.to_time}',
                                           style: GoogleFonts.inter(
                                             color: AppColor.bgColor,
                                             fontSize: 12..sp,
@@ -393,12 +378,11 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             //pop up menu button for toggling in-between price,          
                             PopupMenuFilterStr(
                               //hint: Text('Select Price Type'),
-                              index: index, //selectedDurationIndex.value,
+                              index: index,
                               selectedValue: selectedPriceType,
                               onChanged: (String? priceType) {
                                 setState(() {
                                   selectedPriceType.value = priceType!;
-                                  //selectedPriceTypes[index] = priceType!;
                                 });
                               },
                               items: [
@@ -407,7 +391,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
-                                      color: AppColor.blueColor,
+                                      color: AppColor.bgColor,
                                       fontSize: 14.sp,
                                       //fontWeight: FontWeight.w500
                                     ),
@@ -418,7 +402,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(
-                                      color: AppColor.blueColor,
+                                      color: AppColor.bgColor,
                                       fontSize: 14.sp,
                                       //fontWeight: FontWeight.w500
                                     ),
@@ -433,7 +417,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             //if (selectedDurationIndex != null)
                             Text(
                               key: Key('price_text_$index'),
-                              "${currency(context).currencySymbol}${popuplist[selectedDurationIndex.value][selectedPriceType]}",
+                              "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex.value].virtual_pricing}",
                               
                               //key: Key('price_text_$index'),
                               //controller.isVirtual.value && controller.selectedIndex.value == index 
@@ -448,7 +432,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             ),
                             SizedBox(height: 5.h,),
                             Text(
-                              "for 6 weeks session",
+                              "for ${data.duration} session",
                               style: GoogleFonts.inter(
                                 color: AppColor.whiteTextColor,
                                 fontSize: 10.sp,
@@ -463,7 +447,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                     SizedBox(height: 40.h,),
           
                     Text(
-                      'ggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg', //data.description,
+                      data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,

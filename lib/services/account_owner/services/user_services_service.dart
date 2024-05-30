@@ -380,8 +380,8 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
   /////[GET A SERVICE INSIGHT]////// I.E, FOR FETCHING DATA ANALYTICS ABOUT A PARTICULAR SERVICE
-  final serviceInsightList = <UserServiceInsightModel>[].obs;
-  final filterServiceInsightList = <UserServiceInsightModel>[].obs;
+  final serviceInsightList = <InsightInfo>[].obs;
+  final filterServiceInsightList = <InsightInfo>[].obs;
 
   //FILTER FUNCTIONALITIES////////
   Future<void> filterInsightByPastDate() async{
@@ -506,7 +506,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
   ////////////////////////////////////
 
-  Future<UserServiceInsightModel> getServiceInsight({
+  Future<List<InsightInfo>> getServiceInsight({
     required String serviceId,
     required RxInt booking_count,
   }) async {
@@ -527,14 +527,14 @@ class AccOwnerServicePageService extends getx.GetxController {
         booking_count.value = result;
 
         List<dynamic> result2 = response[1]['bookings'];
-        final finalResult = result2.map((e) => UserServiceInsightModel.fromJson(e)).toList();
-        //finalResult.sort((a, b) => a.service_provider_details['service_name'].toString().compareTo(b.service_provider_details['service_name'].toString()));
+        final finalResult = result2.map((e) => InsightInfo.fromJson(e)).toList();
+        //finalResult.sort((a, b) => a.bookings_list[index].customer_name .toString().compareTo(b.bookings_list[index].customer_name.toString()));
         serviceInsightList.clear();
         serviceInsightList.addAll(finalResult);
 
         //decode the response body here
-        UserServiceInsightModel userServiceInsightModel = UserServiceInsightModel.fromJson(jsonDecode(res.body));
-        return userServiceInsightModel;
+        //UserServiceInsightModel userServiceInsightModel = UserServiceInsightModel.fromJson(jsonDecode(res.body));
+        return serviceInsightList;
       }
       else {
         isLoading.value = false;

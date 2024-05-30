@@ -115,7 +115,7 @@ Future<void> editPackageServiceDialogueBox({
                 InkWell(
                   onTap: () {
                     Get.back();
-                    Get.to(() => const ServiceInsightPage());
+                    Get.to(() => ServiceInsightPage(serviceId: serviceId,));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

@@ -43,28 +43,10 @@ class _EventServiceListState extends State<EventServiceList> {
     // Update the UI with the new data
     userService.filterSearchServicesList.clear();
     userService.filterSearchServicesList.addAll(newData);
-    print('refreshed program service list: ${userService.filterSearchServicesList}');
+    print('refreshed event service list: ${userService.filterSearchServicesList}');
   }
 
   
-  //ztester
-  final List<Map<String, dynamic>> popuplist = [
-    {
-      "duration": "30 mins",
-      "virtual_price": "20000",
-      "inperson_price": "30000"
-    },
-    {
-      "duration": "10 mins",
-      "virtual_price": "2000",
-      "inperson_price": "40000"
-    },
-    {
-      "duration": "20 mins",
-      "virtual_price": "70000",
-      "inperson_price": "40000"
-    },
-  ];
   
   //PUT IN THE CONTROLLER
   RxInt selectedDurationIndex = 0.obs;
@@ -87,16 +69,16 @@ class _EventServiceListState extends State<EventServiceList> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
+    return Obx(
+      () {
         return 
         
-        /*userService.filterSearchServicesList.isEmpty
+        userService.filterSearchServicesList.isEmpty
         ?ServiceEmptyState(
           onPressed: () {
             Get.to(() => AddEventScreen());
           },
-        ):*/
+        ):
         
         RefreshIndicator.adaptive(
           color: AppColor.greyColor,
@@ -110,12 +92,13 @@ class _EventServiceListState extends State<EventServiceList> {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-            itemCount: 1, //userService.filterSearchServicesList.length,
+            itemCount: userService.filterSearchServicesList.length,
             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
             itemBuilder: (context, index) {
               
               //run even and odd checks for dynamism
-              //final data = userService.filterSearchServicesList[index];
+              final data = userService.filterSearchServicesList[index];
+              selectedPriceType.value =  data.pricing[index].virtual_pricing;
           
               return Container(
                 //height: 500,
@@ -136,7 +119,7 @@ class _EventServiceListState extends State<EventServiceList> {
                       children: [
                         //check if the account owner selected in-person or virtual
                         Text(
-                          'Personal Training', //data.service_name,
+                          data.serviceName,
                           style: GoogleFonts.inter(
                             color: AppColor.bgColor,
                             fontSize: 20.sp,
@@ -145,24 +128,23 @@ class _EventServiceListState extends State<EventServiceList> {
                         ),
                         InkWell(
                           onTap: () {
-                            /*editEventDialogueBox(
+                            editEventDialogueBox(
                               //service_link: data.service_link,
                               service: userService,
                               context: context, 
-                              userId: data.service_provider_details['userId'],
-                              email: data.service_provider_details['email'],
-                              displayName: data.service_provider_details['displayName'],
+                              userId: data.serviceProviderDetails.userId,
+                              email: data.serviceProviderDetails.email,
+                              displayName: data.serviceProviderDetails.displayName,
                               serviceId: data.serviceId,
-                              service_name: data.service_name,
+                              service_name: data.serviceName,
                               description: data.description,
-                              meetingLink: data.virtual_meeting_link,
-                              location: data.physical_location_address,
-                              inPersonFee: data.service_charge_in_person,
-                              virtualFee: data.service_charge_virtual,
-                              service_charge_in_person: data.service_charge_in_person,
-                              service_charge_virtual: data.service_charge_virtual,
-                              
-                            );*/
+                              meetingLink: data.virtualMeetingLink,
+                              location: data.physicalLocationAddress,
+                              inPersonFee: data.serviceChargeInPerson,
+                              virtualFee: data.serviceChargeVirtual,
+                              service_charge_in_person: data.serviceChargeInPerson,
+                              service_charge_virtual: data.serviceChargeVirtual,            
+                            );
                           },
                           child: Icon(
                             Icons.more_vert_rounded,
@@ -188,7 +170,7 @@ class _EventServiceListState extends State<EventServiceList> {
                             ),
                           ),
                           TextSpan(
-                            text: 'event',
+                            text: data.serviceType.capitalizeFirst,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
@@ -208,9 +190,11 @@ class _EventServiceListState extends State<EventServiceList> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //event_type == "Multiple dates"
+
+                        data.eventType == "Single date"
+
                         //Single date widget
-                        Column(
+                        ?Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
@@ -224,7 +208,7 @@ class _EventServiceListState extends State<EventServiceList> {
                             ), 
                             SizedBox(height: 10.h),
                             Text(
-                              "19 June, 2024",
+                              data.date,
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
                                 fontSize: 12.sp,
@@ -244,7 +228,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: '10:30 AM',
+                                    text: data.startTime,
                                     style: GoogleFonts.inter(
                                       color: AppColor.bgColor,
                                       fontSize: 12..sp,
@@ -267,7 +251,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: '11:30 AM',
+                                    text: data.endDate,
                                     style: GoogleFonts.inter(
                                       color: AppColor.bgColor,
                                       fontSize: 12..sp,
@@ -278,10 +262,10 @@ class _EventServiceListState extends State<EventServiceList> {
                               )
                             ),
                           ],
-                        ),
+                        )
                         
-                        
-                        /*Expanded(
+                        //Multiple date widget
+                        :Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             //mainAxisAlignment: MainAxisAlignment.start,
@@ -301,14 +285,17 @@ class _EventServiceListState extends State<EventServiceList> {
                                   scrollDirection: Axis.vertical,
                                   physics: const NeverScrollableScrollPhysics(),
                                   //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
-                                  itemCount: 2, //data.available_schedule.length,
+                                  itemCount: data.eventSchedule.length,
                                   separatorBuilder: (context, index) => SizedBox(height: 10.h,),
                                   itemBuilder: (context, index) {
+
+                                    final eventData = data.eventSchedule[index];
+
                                     return RichText(
                                       text: TextSpan(
                                         children: [
                                           TextSpan(
-                                            text: '20/05/2023:  ',
+                                            text: '${eventData.date}:  ',
                                             style: GoogleFonts.inter(
                                               color: AppColor.bgColor,
                                               fontSize: 12..sp,
@@ -316,7 +303,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                             ),
                                           ),
                                           TextSpan(
-                                            text: '10:00 AM  - 12:00 PM',
+                                            text: '${eventData.time}  - ${eventData.end_time}',
                                             style: GoogleFonts.inter(
                                               color: AppColor.bgColor,
                                               fontSize: 12..sp,
@@ -330,29 +317,9 @@ class _EventServiceListState extends State<EventServiceList> {
                                 ),
                             ]
                           ),
-                        ),*/
+                        ),
 
 
-
-
-
-                        //price
-                        /*Obx(
-                          () {
-                            return Text(
-                              //key: Key('price_text_$index'),
-                              controller.isVirtual.value && controller.selectedIndex.value == index 
-                              ? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                              : data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
-                              style: GoogleFonts.inter(
-                                color: AppColor.bgColor,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            );
-                          }
-                        )*/
                         //pop up menu button
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,21 +329,21 @@ class _EventServiceListState extends State<EventServiceList> {
                             //pop up menu button for toggling in-between price,          
                             PopupMenuFilterStr(
                               //hint: Text('Select Price Type'),
-                              index: index, //selectedDurationIndex.value,
+                              index: index,
                               selectedValue: selectedPriceType,
                               onChanged: (String? priceType) {
                                 setState(() {
                                   selectedPriceType.value = priceType!;
-                                  //selectedPriceTypes[index] = priceType!;
                                 });
                               },
                               items: [
+                                //data.pricing[selectedDurationIndex.value].virtual_pricing
                                 DropdownMenuItem<String>(
                                   value: 'virtual_price',
                                   child: Text(
                                     'virtual',
                                     style: GoogleFonts.inter(
-                                      color: AppColor.blueColor,
+                                      color: AppColor.bgColor,
                                       fontSize: 14.sp,
                                       //fontWeight: FontWeight.w500
                                     ),
@@ -387,7 +354,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                   child: Text(
                                     'in-person',
                                     style: GoogleFonts.inter(
-                                      color: AppColor.blueColor,
+                                      color: AppColor.bgColor,
                                       fontSize: 14.sp,
                                       //fontWeight: FontWeight.w500
                                     ),
@@ -402,7 +369,7 @@ class _EventServiceListState extends State<EventServiceList> {
                             if (selectedDurationIndex != null)
                             Text(
                               key: Key('price_text_$index'),
-                              "${currency(context).currencySymbol}${popuplist[selectedDurationIndex.value][selectedPriceType]}",
+                              "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex.value].virtual_pricing}",
                               
                               //key: Key('price_text_$index'),
                               //controller.isVirtual.value && controller.selectedIndex.value == index 
@@ -426,7 +393,7 @@ class _EventServiceListState extends State<EventServiceList> {
                     SizedBox(height: 40.h,),
           
                     Text(
-                      'fffffffffffffyjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', //data.description,
+                      data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,

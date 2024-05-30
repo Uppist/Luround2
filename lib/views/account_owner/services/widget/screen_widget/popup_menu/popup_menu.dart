@@ -37,7 +37,7 @@ class PopupMenuFilterInt extends StatelessWidget {
           ),
           child: DropdownButton<int>(
             style: GoogleFonts.inter(
-              color: AppColor.blackColor,
+              color: AppColor.bgColor,
               fontSize: 13.sp,
               fontWeight: FontWeight.w500
             ),
@@ -49,7 +49,7 @@ class PopupMenuFilterInt extends StatelessWidget {
               ];
             },*/
             elevation: 3,
-            dropdownColor: AppColor.bgColor,
+            dropdownColor: AppColor.blackColor,
             underline: Divider(color: AppColor.bgColor, thickness: 1.0,),
             borderRadius: BorderRadius.circular(5.r),
             iconEnabledColor: AppColor.bgColor,
@@ -95,12 +95,12 @@ class PopupMenuFilterStr extends StatelessWidget {
           ),
           child: DropdownButton<String>(
             style: GoogleFonts.inter(
-              color: AppColor.blackColor,
+              color: AppColor.bgColor,
               fontSize: 13.sp,
               fontWeight: FontWeight.w500
             ),
             elevation: 3,
-            dropdownColor: AppColor.bgColor,
+            dropdownColor: AppColor.blackColor,
             underline: Divider(color: AppColor.bgColor, thickness: 1.0,),
             borderRadius: BorderRadius.circular(5.r),
             iconEnabledColor: AppColor.bgColor,

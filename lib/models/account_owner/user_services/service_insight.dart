@@ -7,7 +7,7 @@ class UserServiceInsightModel {
   });
   late final int booking_count;
   late final int booking_clicks;
-  late final List<dynamic> bookings_list;
+  late final List<InsightInfo> bookings_list;
 
 
   //[FOR GET REQUEST]

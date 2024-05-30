@@ -11,6 +11,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/event/add_event/screen/add_event_screen.dart';
 import 'package:luround/views/account_owner/services/widget/event/edit_event/screen/edit_event_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/toggle_service_price_container/toggle_price_program.dart';
 
 
@@ -45,6 +46,31 @@ class _EventServiceListState extends State<EventServiceList> {
     print('refreshed program service list: ${userService.filterSearchServicesList}');
   }
 
+  
+  //ztester
+  final List<Map<String, dynamic>> popuplist = [
+    {
+      "duration": "30 mins",
+      "virtual_price": "20000",
+      "inperson_price": "30000"
+    },
+    {
+      "duration": "10 mins",
+      "virtual_price": "2000",
+      "inperson_price": "40000"
+    },
+    {
+      "duration": "20 mins",
+      "virtual_price": "70000",
+      "inperson_price": "40000"
+    },
+  ];
+  
+  //PUT IN THE CONTROLLER
+  RxInt selectedDurationIndex = 0.obs;
+  RxString selectedPriceType = 'virtual_price'.obs;
+
+
   @override
   void initState() {
     super.initState();
@@ -61,9 +87,18 @@ class _EventServiceListState extends State<EventServiceList> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return userService.filterSearchServicesList.isNotEmpty ? RefreshIndicator.adaptive(
+    return Builder(
+      builder: (context) {
+        return 
+        
+        /*userService.filterSearchServicesList.isEmpty
+        ?ServiceEmptyState(
+          onPressed: () {
+            Get.to(() => AddEventScreen());
+          },
+        ):*/
+        
+        RefreshIndicator.adaptive(
           color: AppColor.greyColor,
           backgroundColor: AppColor.mainColor,
           key: _refreshKey,
@@ -75,12 +110,12 @@ class _EventServiceListState extends State<EventServiceList> {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-            itemCount: userService.filterSearchServicesList.length,
+            itemCount: 1, //userService.filterSearchServicesList.length,
             separatorBuilder: (context, index) => SizedBox(height: 25.h,),
             itemBuilder: (context, index) {
               
               //run even and odd checks for dynamism
-              final data = userService.filterSearchServicesList[index];
+              //final data = userService.filterSearchServicesList[index];
           
               return Container(
                 //height: 500,
@@ -100,10 +135,17 @@ class _EventServiceListState extends State<EventServiceList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //check if the account owner selected in-person or virtual
-                        TogglePriceContainerProgramService(index: index,),
+                        Text(
+                          'Personal Training', //data.service_name,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800
+                          ),
+                        ),
                         InkWell(
                           onTap: () {
-                            editEventDialogueBox(
+                            /*editEventDialogueBox(
                               //service_link: data.service_link,
                               service: userService,
                               context: context, 
@@ -120,7 +162,7 @@ class _EventServiceListState extends State<EventServiceList> {
                               service_charge_in_person: data.service_charge_in_person,
                               service_charge_virtual: data.service_charge_virtual,
                               
-                            );
+                            );*/
                           },
                           child: Icon(
                             Icons.more_vert_rounded,
@@ -131,212 +173,171 @@ class _EventServiceListState extends State<EventServiceList> {
                       ],
                     ),
           
-                    SizedBox(height: 30.h,),
+                    SizedBox(height: 20.h,),
                     
                     //ALL SUBSEQUENT INFORMATION COMES HERE
-                    Text(
-                      data.service_name,
-                      style: GoogleFonts.inter(
-                        color: AppColor.bgColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    SizedBox(height: 20.h,),
-                    //1
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Service type:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Service type: ',
+                            style: GoogleFonts.inter(
+                              color: AppColor.whiteTextColor,
+                              fontSize: 12..sp,
+                              fontWeight: FontWeight.w500
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          data.service_type,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
-                    ),
-          
-                    SizedBox(height: 5.h,),
-          
-                    //2
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Timeline:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          '',
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
-                    ),
-          
-                    SizedBox(height: 5.h,),
-          
-                    //3
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Recurrence:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Expanded(
-                          child: Text(
-                            "${data.service_recurrence}",
+                          TextSpan(
+                            text: 'event',
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 12..sp,
                               fontWeight: FontWeight.w500
                             ),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ),
-                      ],
-                    ),
-          
-                    SizedBox(height: 5.h,),
-          
-                    //4
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Duration:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          "${data.duration} per session",
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
-                    ),
-          
-                    SizedBox(height: 5.h,),
-          
-                    //5
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Max no. of participants:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          "${data.max_number_of_participants}",
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
+                          )
+                        ]
+                      )
                     ),
           
                     SizedBox(height: 20.h,),
+
+                    //SizedBox(height: 10.h,),
           
-                    Text(
-                      "Available from",
-                      style: GoogleFonts.inter(
-                        color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500
-                      ),
-                    ),  
-                    SizedBox(height: 20.h,),
-                    //1
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Start date:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          data.start_date,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 5.h,),
+                    
                     //2
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        //event_type == "Multiple dates"
+                        //Single date widget
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              "End date:",
+                              "Event schedule",
                               style: GoogleFonts.inter(
-                                color: AppColor.whiteTextColor,
-                                fontSize: 10..sp,
+                                color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500
                               ),
-                            ),
-                            SizedBox(width: 10.w,),
+                            ), 
+                            SizedBox(height: 10.h),
                             Text(
-                              data.end_date,
+                              "19 June, 2024",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
-                                fontSize: 12..sp,
+                                fontSize: 12.sp,
                                 fontWeight: FontWeight.w500
                               ),
+                            ), 
+                            SizedBox(height: 10.h,),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Start time:  ',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.whiteTextColor,
+                                      fontSize: 10..sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '10:30 AM',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.bgColor,
+                                      fontSize: 12..sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  )
+                                ]
+                              )
+                            ),
+                            SizedBox(height: 5.h,),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: 'Stop time:  ',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.whiteTextColor,
+                                      fontSize: 10..sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: '11:30 AM',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.bgColor,
+                                      fontSize: 12..sp,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                  )
+                                ]
+                              )
                             ),
                           ],
                         ),
+                        
+                        
+                        /*Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            //mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Event schedule",
+                                style: GoogleFonts.inter(
+                                  color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ), 
+                              SizedBox(height: 10.h),
+                              //available schedule list
+                                ListView.separated(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
+                                  itemCount: 2, //data.available_schedule.length,
+                                  separatorBuilder: (context, index) => SizedBox(height: 10.h,),
+                                  itemBuilder: (context, index) {
+                                    return RichText(
+                                      text: TextSpan(
+                                        children: [
+                                          TextSpan(
+                                            text: '20/05/2023:  ',
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.bgColor,
+                                              fontSize: 12..sp,
+                                              fontWeight: FontWeight.w500
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text: '10:00 AM  - 12:00 PM',
+                                            style: GoogleFonts.inter(
+                                              color: AppColor.bgColor,
+                                              fontSize: 12..sp,
+                                              fontWeight: FontWeight.w500
+                                            ),
+                                          )
+                                        ]
+                                      )
+                                    );
+                                  }
+                                ),
+                            ]
+                          ),
+                        ),*/
+
+
+
+
+
                         //price
-                        Obx(
+                        /*Obx(
                           () {
                             return Text(
                               //key: Key('price_text_$index'),
@@ -351,54 +352,81 @@ class _EventServiceListState extends State<EventServiceList> {
                               overflow: TextOverflow.ellipsis,
                             );
                           }
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 5.h,),
-                    //3
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
+                        )*/
+                        //pop up menu button
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              "Time:",
-                              style: GoogleFonts.inter(
-                                color: AppColor.whiteTextColor,
-                                fontSize: 10..sp,
-                                fontWeight: FontWeight.w500
-                              ),
+
+                            //pop up menu button for toggling in-between price,          
+                            PopupMenuFilterStr(
+                              //hint: Text('Select Price Type'),
+                              index: index, //selectedDurationIndex.value,
+                              selectedValue: selectedPriceType,
+                              onChanged: (String? priceType) {
+                                setState(() {
+                                  selectedPriceType.value = priceType!;
+                                  //selectedPriceTypes[index] = priceType!;
+                                });
+                              },
+                              items: [
+                                DropdownMenuItem<String>(
+                                  value: 'virtual_price',
+                                  child: Text(
+                                    'virtual',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.blueColor,
+                                      fontSize: 14.sp,
+                                      //fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'inperson_price',
+                                  child: Text(
+                                    'in-person',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.blueColor,
+                                      fontSize: 14.sp,
+                                      //fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            SizedBox(width: 10.w,),
+
+                            //SizedBox(height: 10.h,),
+
+                            //wrap with obx
+                            if (selectedDurationIndex != null)
                             Text(
-                              "${data.start_time} - ${data.end_time}",
+                              key: Key('price_text_$index'),
+                              "${currency(context).currencySymbol}${popuplist[selectedDurationIndex.value][selectedPriceType]}",
+                              
+                              //key: Key('price_text_$index'),
+                              //controller.isVirtual.value && controller.selectedIndex.value == index 
+                              //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
+                              //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
                               style: GoogleFonts.inter(
                                 color: AppColor.bgColor,
-                                fontSize: 12..sp,
-                                fontWeight: FontWeight.w500
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600
                               ),
+                              overflow: TextOverflow.ellipsis,
                             ),
+        
                           ],
-                        ),
-                        //timeline again
-                        Text(
-                          '',
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 10.sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-          
+                        )
+
                       ],
                     ),
-          
-                    SizedBox(height: 20.h,),
+                    
+                         
+                    SizedBox(height: 40.h,),
           
                     Text(
-                      data.description,
+                      'fffffffffffffyjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj', //data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
@@ -411,12 +439,8 @@ class _EventServiceListState extends State<EventServiceList> {
               );
             }
           ),
-        )
-        :ServiceEmptyState(
-          onPressed: () {
-            Get.to(() => AddEventScreen());
-          },
         );
+      
       }
     );
   }

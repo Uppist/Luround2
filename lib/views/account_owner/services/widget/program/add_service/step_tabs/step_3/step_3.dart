@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
@@ -245,6 +246,7 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                   service_charge_virtual: mainController.virtualPriceController.text, 
                   start_date: mainController.selectedStartDate.value,
                   end_date: mainController.selectedStopDate.value,
+                  duration: calculateDurationBetweenDates(mainController.selectedStartDate.value, mainController.selectedStopDate.value),
                   max_number_of_participants: mainController.count.value,
                   availability_schedule: mainController.selectedDays,
                     

@@ -25,6 +25,7 @@ class UserServiceModel {
     required this.end_date,
     required this.start_time,
     required this.end_time,
+    required this.event_type,
     required this.pricing,
     required this.virtual_meeting_link,
     required this.physical_location_address,
@@ -54,6 +55,7 @@ class UserServiceModel {
   late final String start_date;
   late final String end_date;
   late final String start_time;
+  late final String event_type;
   late final String end_time;
   late final String virtual_meeting_link;
   late final String physical_location_address;
@@ -94,6 +96,7 @@ class UserServiceModel {
       end_date: json['end_date'] ?? "end_date",
       start_time: json['start_time'] ?? "start_time",
       end_time: json['end_time'] ?? "end_time",
+      event_type: json['event_type'] ?? "event_type",
       availability_schedule: json['availability_schedule'] ?? [], //"day", "from_time", "to_time"
       program_fee: json['program_fee'] ?? {}, //"virtual", "in_person",
       event_schedule: json['event_schedule'] ?? [], //"date", "start_time", "end_time"
@@ -127,6 +130,7 @@ class UserServiceModel {
     _data['end_date'] = end_date;
     _data['start_time'] = start_time;
     _data['end_time'] = end_time;
+    _data['event_type'] = event_type;
 
     //CUSTOM ADD BY ME(FOR FINANCIALS)
     _data["discount"] = "0.0";

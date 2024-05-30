@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +10,10 @@ import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/screen/add_service_screen.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/edit_service/screen/edit_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/toggle_service_price_container/toggle_price_regular.dart';
+
+
 
 
 
@@ -60,12 +62,44 @@ class _RegularServiceListState extends State<RegularServiceList> {
     
   }
 
+  //ztester
+  final List<Map<String, dynamic>> popuplist = [
+    {
+      "duration": "30 mins",
+      "virtual_price": "20000",
+      "inperson_price": "30000"
+    },
+    {
+      "duration": "10 mins",
+      "virtual_price": "2000",
+      "inperson_price": "40000"
+    },
+    {
+      "duration": "20 mins",
+      "virtual_price": "70000",
+      "inperson_price": "40000"
+    },
+  ];
+  
+  //PUT IN THE CONTROLLER
+  RxInt selectedDurationIndex = 0.obs;
+  RxString selectedPriceType = 'virtual_price'.obs;
+
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return userService.filterSearchServicesList.isNotEmpty ? RefreshIndicator.adaptive(
+    return Builder(
+      builder: (context) {
+        return 
+
+        /*userService.filterSearchServicesList.isEmpty
+        ?ServiceEmptyState(
+          onPressed: () {
+            Get.to(() => AddServiceScreen());
+          },
+        ):*/
+
+        RefreshIndicator.adaptive(
           color: AppColor.greyColor,
           backgroundColor: AppColor.mainColor,
           key: _refreshKey,
@@ -83,7 +117,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
               
               //run even and odd checks for dynamism
 
-              final data = userService.filterSearchServicesList[index];
+              //final data = userService.filterSearchServicesList[index];
           
               return Container(
                 //height: 500,
@@ -103,7 +137,14 @@ class _RegularServiceListState extends State<RegularServiceList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //check if the account owner selected in-person or virtual
-                        TogglePriceContainer(index: index,),
+                        Text(
+                          'Personal Training', //data.service_name,
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 20.sp,
+                            fontWeight: FontWeight.w800
+                          ),
+                        ),
                         InkWell(
                           onTap: () {
                             /*editServiceDialogueBox(
@@ -134,95 +175,36 @@ class _RegularServiceListState extends State<RegularServiceList> {
                       ],
                     ),
           
-                    SizedBox(height: 30.h,),
+                    SizedBox(height: 20.h,),
                     
                     //ALL SUBSEQUENT INFORMATION COMES HERE
-                    Text(
-                      '', //data.service_name,
-                      style: GoogleFonts.inter(
-                        color: AppColor.bgColor,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    SizedBox(height: 20.h,),
-                    //1
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Service type:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Service type:  ',
+                            style: GoogleFonts.inter(
+                              color: AppColor.whiteTextColor,
+                              fontSize: 12..sp,
+                              fontWeight: FontWeight.w500
+                            ),
                           ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          '', //"${data.service_type}",  //Retainer //One-off
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
+                          TextSpan(
+                            text: 'one-off',
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor,
+                              fontSize: 12..sp,
+                              fontWeight: FontWeight.w500
+                            ),
+                          )
+                        ]
+                      )
                     ),
           
-                    SizedBox(height: 5.h,),
-          
-                    //2
-                    /*data.duration.isNotEmpty ?
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Duration:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          '',//data.duration,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
-                    )
-                    :Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Timeline:",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 10..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          "",
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 12..sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                        ),
-                      ],
-                    ),*/
-          
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 25.h,),
           
                     Text(
-                      "Available from",
+                      "Available on",
                       style: GoogleFonts.inter(
                         color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
                         fontSize: 12.sp,
@@ -230,26 +212,138 @@ class _RegularServiceListState extends State<RegularServiceList> {
                       ),
                     ),  
                     SizedBox(height: 20.h,),
+
+                    //available schedule list
+                    ListView.separated(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      physics: const NeverScrollableScrollPhysics(),
+                      //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
+                      itemCount: 2, //data.available_schedule.length,
+                      separatorBuilder: (context, index) => SizedBox(height: 10.h,),
+                      itemBuilder: (context, index) {
+                        return RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Monday:  ',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.bgColor,
+                                  fontSize: 12..sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              TextSpan(
+                                text: '10:00 AM  - 12:00 PM',
+                                style: GoogleFonts.inter(
+                                  color: AppColor.bgColor,
+                                  fontSize: 12..sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              )
+                            ]
+                          )
+                        );
+                      }
+                    ),
+
+                    SizedBox(height: 30.h,),
                     
-                    //1
+                    //PRICING SECTION
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          '',
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                        //time allocation pop_up_menu
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Pricing:',
+                              style: GoogleFonts.inter(
+                                color: AppColor.whiteTextColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(width: 3.w,),
+                            PopupMenuFilterInt(
+                              index: index, //selectedDurationIndex.value,
+                              selectedValue: selectedDurationIndex,
+                              onChanged: (p0) {
+                                setState(() {
+                                  selectedDurationIndex.value = p0!;                       
+                                });
+                              },
+                              items: List.generate(
+                                popuplist.length, 
+                                (index) {
+                                  return DropdownMenuItem<int>(
+                                    value: index,
+                                    child: Text(
+                                      popuplist[index]['duration'],
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.blueColor,
+                                        fontSize: 14.sp,
+                                        //fontWeight: FontWeight.w500
+                                      ),
+                                    ),
+                                  );
+                                }
+                              )
+                            )
+                          ],
                         ),
                         
-                        //price
-                        /*Obx(
-                          () {
-                            return Text(
-                              '',
+                        //pop up menu button
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            //pop up menu button for toggling in-between price,          
+                            PopupMenuFilterStr(
+                              //hint: Text('Select Price Type'),
+                              index: selectedDurationIndex.value,
+                              selectedValue: selectedPriceType,
+                              onChanged: (String? priceType) {
+                                setState(() {
+                                  selectedPriceType.value = priceType!;
+                                });
+                              },
+                              items: [
+                                DropdownMenuItem<String>(
+                                  value: 'virtual_price',
+                                  child: Text(
+                                    'virtual',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.blueColor,
+                                      fontSize: 14.sp,
+                                      //fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ),
+                                DropdownMenuItem<String>(
+                                  value: 'inperson_price',
+                                  child: Text(
+                                    'in-person',
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.blueColor,
+                                      fontSize: 14.sp,
+                                      //fontWeight: FontWeight.w500
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            //SizedBox(height: 10.h,),
+
+                            //wrap with obx
+                            //if (selectedDurationIndex != null)
+                            Text(
+                              "${currency(context).currencySymbol}${popuplist[selectedDurationIndex.value][selectedPriceType]}",
+                              
                               //key: Key('price_text_$index'),
                               //controller.isVirtual.value && controller.selectedIndex.value == index 
                               //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
@@ -260,53 +354,33 @@ class _RegularServiceListState extends State<RegularServiceList> {
                                 fontWeight: FontWeight.w600
                               ),
                               overflow: TextOverflow.ellipsis,
-                            );
-                          }
-                        )*/
-                      ],
-                    ),
-                    SizedBox(height: 5.h,),
-                    //3
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          '', //data.time,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w400
-                          ),
-                        ),
-    
-                        //time
-                        /*data.duration.isEmpty ?
-                        Text(
-                          "",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                            ),
+                            SizedBox(height: 5.h,),
+                            Text(
+                              "for ${popuplist[selectedDurationIndex.value]['duration']} session",
+                              style: GoogleFonts.inter(
+                                color: AppColor.whiteTextColor,
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                                    ),
+                            /*Text(
+                              'for 15 mins session', 
+                              style: GoogleFonts.inter(
+                                color: AppColor.whiteTextColor,
+                                fontSize: 10.sp,
+                                fontWeight: FontWeight.w500
+                              ),
+                            ),*/
+                          ],
                         )
-                        :Text(
-                          '', //"for ${data.duration} session",
-                          style: GoogleFonts.inter(
-                            color: AppColor.whiteTextColor,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w500
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),*/
-          
                       ],
                     ),
           
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 40.h,),
           
                     Text(
-                      '',//data.description,
+                      'hfghfghfgchcgjghjhjkvhjvhjkhcjhjxhcgghjgggggggggggggggggggggggggggggggggg',//data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
@@ -320,12 +394,8 @@ class _RegularServiceListState extends State<RegularServiceList> {
               );
             }
           ),
-        ) 
-        :ServiceEmptyState(
-          onPressed: () {
-            Get.to(() => AddServiceScreen());
-          },
         );
+      
       }
     );
   }

@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
@@ -255,6 +256,7 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
                   service_charge_virtual: mainController.virtualPriceControllerEdit.text.isNotEmpty ? mainController.virtualPriceControllerEdit.text : widget.service_charge_virtual, 
                   start_date: mainController.selectedStartDateEdit.value,
                   end_date: mainController.selectedStopDateEdit.value,
+                  duration: calculateDurationBetweenDates(mainController.selectedStartDateEdit.value, mainController.selectedStopDateEdit.value),
                   max_number_of_participants: mainController.countEdit.value == 0 ? widget.max_number_of_participants : mainController.countEdit.value,
                   availability_schedule: mainController.selectedDaysEdit,
                   ).whenComplete(() {

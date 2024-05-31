@@ -25,7 +25,7 @@ class _SettingsSelectorState extends State<SettingsSelector> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: widget.onFlip,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,7 +72,7 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: widget.onFlip,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +93,8 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
                   ),
                   /////////COMING SOON//////////////
                   SizedBox(width: 20.w,),
-                  Container(
+                  Image.asset("assets/images/c_s.png", filterQuality: FilterQuality.high,)
+                  /*Container(
                     //padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 1.h),
                     alignment: Alignment.center,
                     height: 30.h,
@@ -112,7 +113,7 @@ class _SettingsSelector2State extends State<SettingsSelector2> {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ),
+                  ),*/
                   ////////////////////////////////////////
                   
                 ],

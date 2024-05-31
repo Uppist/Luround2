@@ -204,7 +204,7 @@ class _DeleteAccountScreen2State extends State<DeleteAccountScreen2> {
                         ),
                       ),
                       
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.02), //0.26
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.03), //0.26
                           
                       Container(
                         alignment: Alignment.center,

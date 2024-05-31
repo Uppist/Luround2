@@ -73,81 +73,85 @@ class MorePage extends StatelessWidget {
             Container(
               color: AppColor.greyColor,
               width: double.infinity,
-              height: 20.h, //7.h
+              height: 10.h, //20.h
             ),
 
             ////ROWS HERE//
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 30.h,),
-                  MoreSelector2(
-                    text: 'Storefront',
-                    svgAsset: 'assets/svg/storefront_new.svg',
-                    onTap: () {
-                      //Get.to(() => SyncFusionCalendar());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Calendar',
-                    svgAsset: 'assets/svg/calendar_new.svg',
-                    onTap: () {
-                      Get.to(() => SyncFusionCalendar());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Transactions',
-                    svgAsset: 'assets/svg/transaction_new.svg',
-                    onTap: () {
-                      Get.to(() => TransactionPage());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Financials',
-                    svgAsset: 'assets/svg/financials_new.svg',
-                    onTap: () {
-                      Get.to(() => FirstScreenForFinancials());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Contacts',
-                    svgAsset: 'assets/svg/crm_new.svg',
-                    onTap: () {
-                      Get.to(() => ContactScreen());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Notifications',
-                    svgAsset: 'assets/svg/notifications_new.svg',
-                    onTap: () {
-                      Get.to(() => NotificationSettingScreen());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Feedback',
-                    svgAsset: 'assets/svg/feedback_new.svg',
-                    onTap: () {
-                      Get.to(() => FeedbackPage());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Settings',
-                    svgAsset: 'assets/svg/settings_new.svg',
-                    onTap: () {
-                      Get.to(() => SettingsScreen());
-                    },
-                  ),  
-                              
-                ],
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 5.h),
+                scrollDirection: Axis.vertical,
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 30.h,),
+                    MoreSelector2(
+                      text: 'Storefront',
+                      svgAsset: 'assets/svg/storefront_new.svg',
+                      onTap: () {
+                        //Get.to(() => SyncFusionCalendar());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Calendar',
+                      svgAsset: 'assets/svg/calendar_new.svg',
+                      onTap: () {
+                        Get.to(() => SyncFusionCalendar());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Transactions',
+                      svgAsset: 'assets/svg/transaction_new.svg',
+                      onTap: () {
+                        Get.to(() => TransactionPage());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Financials',
+                      svgAsset: 'assets/svg/financials_new.svg',
+                      onTap: () {
+                        Get.to(() => FirstScreenForFinancials());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Contacts',
+                      svgAsset: 'assets/svg/crm_new.svg',
+                      onTap: () {
+                        Get.to(() => ContactScreen());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Notifications',
+                      svgAsset: 'assets/svg/notifications_new.svg',
+                      onTap: () {
+                        Get.to(() => NotificationSettingScreen());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Feedback',
+                      svgAsset: 'assets/svg/feedback_new.svg',
+                      onTap: () {
+                        Get.to(() => FeedbackPage());
+                      },
+                    ),
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Settings',
+                      svgAsset: 'assets/svg/settings_new.svg',
+                      onTap: () {
+                        Get.to(() => SettingsScreen());
+                      },
+                    ),  
+                                
+                  ],
+                ),
               ),
             )
 

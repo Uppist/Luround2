@@ -91,7 +91,7 @@ class DeleteAccountScreen1 extends StatelessWidget {
                       ),
                       
         
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.64),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.66),
                           
                       RebrandedReusableButton(
                         textColor: AppColor.bgColor,

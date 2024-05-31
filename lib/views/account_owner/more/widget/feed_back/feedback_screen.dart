@@ -138,7 +138,7 @@ class _FeedbackPageState extends State<FeedbackPage> {
                             controller: controller.descriptionController,
                           ),
             
-                          SizedBox(height: MediaQuery.of(context).size.height * 0.49),
+                          SizedBox(height: MediaQuery.of(context).size.height * 0.53),
                           
                           RebrandedReusableButton(
                             textColor: AppColor.bgColor,

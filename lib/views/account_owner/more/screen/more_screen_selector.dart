@@ -113,7 +113,7 @@ class _MoreSelector2State extends State<MoreSelector2> {
                           ),
                         ),
                         SizedBox(width: 10.w,),
-                        Image.asset("assets/images/c_s.png")
+                        Image.asset("assets/images/c_s.png", filterQuality: FilterQuality.high,)
                         /*Container(
                           //height: 15.h,
                           decoration: BoxDecoration(

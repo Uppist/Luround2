@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +14,6 @@ import 'package:luround/views/account_owner/services/screen/service_empty_state.
 import 'package:luround/views/account_owner/services/widget/event/add_event/screen/add_event_screen.dart';
 import 'package:luround/views/account_owner/services/widget/event/edit_event/screen/edit_event_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
-import 'package:luround/views/account_owner/services/widget/screen_widget/toggle_service_price_container/toggle_price_program.dart';
 
 
 
@@ -46,11 +47,7 @@ class _EventServiceListState extends State<EventServiceList> {
     print('refreshed event service list: ${userService.filterSearchServicesList}');
   }
 
-  
-  
-  //PUT IN THE CONTROLLER
-  RxInt selectedDurationIndex = 0.obs;
-  RxInt selectedPriceType = 0.obs;
+
 
 
   @override
@@ -280,41 +277,41 @@ class _EventServiceListState extends State<EventServiceList> {
                               ), 
                               SizedBox(height: 10.h),
                               //available schedule list
-                                ListView.separated(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
-                                  itemCount: data.eventSchedule.length,
-                                  separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                  itemBuilder: (context, index) {
+                              ListView.separated(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                physics: const NeverScrollableScrollPhysics(),
+                                //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
+                                itemCount: data.eventSchedule.length,
+                                separatorBuilder: (context, index) => SizedBox(height: 10.h,),
+                                itemBuilder: (context, index) {
 
-                                    final eventData = data.eventSchedule[index];
+                                  final eventData = data.eventSchedule[index];
 
-                                    return RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: '${eventData.date}:  ',
-                                            style: GoogleFonts.inter(
-                                              color: AppColor.bgColor,
-                                              fontSize: 12..sp,
-                                              fontWeight: FontWeight.w500
-                                            ),
+                                  return RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: '${eventData.date}:  ',
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.bgColor,
+                                            fontSize: 12..sp,
+                                            fontWeight: FontWeight.w500
                                           ),
-                                          TextSpan(
-                                            text: '${eventData.time}  - ${eventData.end_time}',
-                                            style: GoogleFonts.inter(
-                                              color: AppColor.bgColor,
-                                              fontSize: 12..sp,
-                                              fontWeight: FontWeight.w500
-                                            ),
-                                          )
-                                        ]
-                                      )
-                                    );
-                                  }
-                                ),
+                                        ),
+                                        TextSpan(
+                                          text: '${eventData.time}  - ${eventData.end_time}',
+                                          style: GoogleFonts.inter(
+                                            color: AppColor.bgColor,
+                                            fontSize: 12..sp,
+                                            fontWeight: FontWeight.w500
+                                          ),
+                                        )
+                                      ]
+                                    )
+                                  );
+                                }
+                              ),
                             ]
                           ),
                         ),
@@ -328,59 +325,52 @@ class _EventServiceListState extends State<EventServiceList> {
 
                             //pop up menu button for toggling in-between price,          
                             PopupMenuFilterStr(
-                              //hint: Text('Select Price Type'),
                               index: index,
-                              selectedValue: selectedPriceType,
-                              onChanged: (int? priceType) {
+                              selectedValue: controller.selectedFieldIndex,
+                              onChanged: (p0) {
                                 setState(() {
-                                  selectedPriceType.value = priceType!;
+                                  controller.selectedFieldIndex.value = p0!;  
+                                  controller.selectedDurationIndex.value = index;  
+                                  log(controller.selectedDurationIndex.value.toString()); 
+                                  log(controller.selectedFieldIndex.value);            
                                 });
                               },
-                              items: [
-                                //data.pricing[selectedDurationIndex.value].virtual_pricing
-                                DropdownMenuItem<int>(
-                                  value: index, //data.pricing[index].virtual_pricing,
-                                  child: Text(
-                                    'virtual',
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 14.sp,
-                                      //fontWeight: FontWeight.w500
+                              items: <String>['Virtual', 'In-person']
+                                .map<DropdownMenuItem<String>> ((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.bgColor,
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                      )
                                     ),
-                                  ),
-                                ),
-                                DropdownMenuItem<int>(
-                                  value: index, //data.pricing[index].in_person_pricing,
-                                  child: Text(
-                                    'in-person',
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 14.sp,
-                                      //fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                  );
+                                }
+                              ).toList(),      
                             ),
-
-                            //SizedBox(height: 10.h,),
-
+                            
                             //wrap with obx
-                            if (selectedDurationIndex != null)
-                            Text(
-                              key: Key('price_text_$index'),
-                              "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex.value].virtual_pricing}",
-                              
-                              //key: Key('price_text_$index'),
-                              //controller.isVirtual.value && controller.selectedIndex.value == index 
-                              //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                              //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
-                              style: GoogleFonts.inter(
-                                color: AppColor.bgColor,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                            Obx(
+                              () {
+                                //&& controller.selectedDurationIndex.value == index
+                                return Text(
+                                  controller.selectedFieldIndex.value == 'Virtual' ?
+                                  "${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
+                                  :"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
+                                  
+                                  //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
+                                  //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.bgColor,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                );
+                              }
                             ),
         
                           ],
@@ -388,7 +378,6 @@ class _EventServiceListState extends State<EventServiceList> {
 
                       ],
                     ),
-                    
                          
                     SizedBox(height: 40.h,),
           

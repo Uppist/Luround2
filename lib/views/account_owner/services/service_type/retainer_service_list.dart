@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,8 +14,6 @@ import 'package:luround/views/account_owner/services/screen/service_empty_state.
 import 'package:luround/views/account_owner/services/widget/retainer/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/edit_service/screen/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
-import 'package:luround/views/account_owner/services/widget/screen_widget/toggle_service_price_container/toggle_price_package.dart';
-
 
 
 
@@ -59,9 +59,6 @@ class _PackageServiceListState extends State<PackageServiceList> {
     );
   }
   
-  //PUT IN THE CONTROLLER
-  RxInt selectedDurationIndex = 0.obs;
-  RxInt selectedPriceType = 0.obs;
 
 
   @override
@@ -247,10 +244,11 @@ class _PackageServiceListState extends State<PackageServiceList> {
                             SizedBox(width: 3.w,),
                             PopupMenuFilterInt(
                               index: index, //selectedDurationIndex.value,
-                              selectedValue: selectedDurationIndex,
+                              selectedValue: controller.selectedDurationIndex,
                               onChanged: (p0) {
                                 setState(() {
-                                  selectedDurationIndex.value = p0!;                       
+                                  controller.selectedDurationIndex.value = p0!;    
+                                  log(controller.selectedDurationIndex.value.toString());                
                                 });
                               },
                               items: List.generate(
@@ -280,67 +278,62 @@ class _PackageServiceListState extends State<PackageServiceList> {
 
                             //pop up menu button for toggling in-between price,          
                             PopupMenuFilterStr(
-                              //hint: Text('Select Price Type'),
                               index: index,
-                              selectedValue: selectedPriceType,
-                              onChanged: (int? priceType) {
+                              selectedValue: controller.selectedFieldIndex,
+                              onChanged: (p0) {
                                 setState(() {
-                                  selectedPriceType.value = priceType!;
+                                  controller.selectedFieldIndex.value = p0!;    
+                                  log(controller.selectedFieldIndex.value);            
                                 });
                               },
-                              items: [
-                                DropdownMenuItem<int>(
-                                  value: index, //data.pricing[index].virtual_pricing,
-                                  child: Text(
-                                    'virtual',
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 14.sp,
-                                      //fontWeight: FontWeight.w500
+                              items: <String>['Virtual', 'In-person']
+                                .map<DropdownMenuItem<String>> ((String value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(
+                                      value,
+                                      style: GoogleFonts.inter(
+                                        color: AppColor.bgColor,
+                                        fontSize: 10.sp,
+                                        fontWeight: FontWeight.w500,
+                                      )
                                     ),
-                                  ),
-                                ),
-                                DropdownMenuItem<int>(
-                                  value: index, //data.pricing[index].in_person_pricing,
-                                  child: Text(
-                                    'in-person',
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 14.sp,
-                                      //fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                ),
-                              ],
+                                  );
+                                }
+                              ).toList(),      
                             ),
-
-                            //SizedBox(height: 10.h,),
 
                             //wrap with obx
-                            //if (selectedDurationIndex != null)
-                            Text(
-                              key: Key('price_text_$index'),
-                              "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex.value].virtual_pricing}",
-                              
-                              //key: Key('price_text_$index'),
-                              //controller.isVirtual.value && controller.selectedIndex.value == index 
-                              //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                              //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
-                              style: GoogleFonts.inter(
-                                color: AppColor.bgColor,
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w600
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                            Obx(
+                              () {
+                                return Text(
+                                  controller.selectedFieldIndex.value == 'Virtual' ?
+                                  "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].virtual_pricing}"
+                                  :"${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].in_person_pricing}",
+                                  
+                                  //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
+                                  //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.bgColor,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                );
+                              }
                             ),
                             SizedBox(height: 5.h,),
-                            Text(
-                              "for ${data.pricing[selectedDurationIndex.value].time_allocation} session",
-                              style: GoogleFonts.inter(
-                                color: AppColor.whiteTextColor,
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w500
-                              ),
+                            Obx(
+                              () {
+                                return Text(
+                                  "for ${data.pricing[controller.selectedDurationIndex.value].time_allocation} duration",
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.whiteTextColor,
+                                    fontSize: 10.sp,
+                                    fontWeight: FontWeight.w500
+                                  ),
+                                );
+                              }
                             ),
                           ],
                         )

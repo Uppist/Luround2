@@ -116,16 +116,9 @@ class EventsController extends getx.GetxController {
   
 
   ///service_screen list/// 
-  var selectedIndex = 0.obs; //for toggling price of the services list,
-  final isVirtual = true.obs;  //boolean to switch between prices in the services list
-
-
-  void handleTabTap(int index) {
-    isVirtual.value = !isVirtual.value;
-    selectedIndex.value = index;
-    print("price switch check: ${isVirtual.value}");
-    update();
-  }
+  //PUT IN THE CONTROLLER
+  getx.RxInt selectedDurationIndex = 0.obs;
+  getx.RxString selectedFieldIndex = 'Virtual'.obs;
   
 
 

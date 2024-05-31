@@ -83,6 +83,22 @@ class MorePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 30.h,),
+                  MoreSelector2(
+                    text: 'Storefront',
+                    svgAsset: 'assets/svg/storefront_new.svg',
+                    onTap: () {
+                      //Get.to(() => SyncFusionCalendar());
+                    },
+                  ),
+                  SizedBox(height: 20.h,),
+                  MoreSelector(
+                    text: 'Calendar',
+                    svgAsset: 'assets/svg/calendar_new.svg',
+                    onTap: () {
+                      Get.to(() => SyncFusionCalendar());
+                    },
+                  ),
+                  SizedBox(height: 20.h,),
                   MoreSelector(
                     text: 'Transactions',
                     svgAsset: 'assets/svg/transaction_new.svg',
@@ -100,18 +116,10 @@ class MorePage extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h,),
                   MoreSelector(
-                    text: 'CRM',
+                    text: 'Contacts',
                     svgAsset: 'assets/svg/crm_new.svg',
                     onTap: () {
                       Get.to(() => ContactScreen());
-                    },
-                  ),
-                  SizedBox(height: 20.h,),
-                  MoreSelector(
-                    text: 'Calendar',
-                    svgAsset: 'assets/svg/calendar_more.svg',
-                    onTap: () {
-                      Get.to(() => SyncFusionCalendar());
                     },
                   ),
                   SizedBox(height: 20.h,),

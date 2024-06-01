@@ -182,9 +182,9 @@ class AvailabilityScheduleInfo {
 }
 
 class PricingInfo {
-  final String time_allocation;
-  final String virtual_pricing;
-  final String in_person_pricing;
+  String time_allocation;
+  String virtual_pricing;
+  String in_person_pricing;
   PricingInfo({
     required this.time_allocation,
     required this.virtual_pricing,
@@ -197,6 +197,14 @@ class PricingInfo {
       virtual_pricing: json['virtual_pricing'] ?? '',
       in_person_pricing: json['in_person_pricing'] ?? '',
     );
+  }
+  // Convert a DaySelectionModel object to a JSON object
+  Map<String, dynamic> toJson() {
+    return {
+      'time_allocation': time_allocation,
+      'virtual_pricing': virtual_pricing,
+      'in_person_pricing': in_person_pricing,
+    };
   }
 }
 

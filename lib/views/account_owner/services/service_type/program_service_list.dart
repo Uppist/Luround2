@@ -125,6 +125,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         InkWell(
                           onTap: () {
                             editProgramServiceDialogueBox(
+                              service_status: data.serviceStatus,
                               max_number_of_participants: data.maxNumberOfParticipants,
                               service: userService,
                               context: context, 
@@ -407,8 +408,9 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                 //&& controller.selectedDurationIndex.value == index
                                 return Text(
                                   controller.selectedFieldIndex.value == 'Virtual' ?
-                                  "${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
-                                  :"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
+                                  'ff': 'gg',
+                                  //"${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
+                                  //:"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
                                   
                                   //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
                                   //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",

@@ -5,9 +5,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/models/account_owner/ui/multiple_event_model.dart';
+import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
-
+import 'package:luround/views/account_owner/services/widget/event/add_event/step_tabs/step_2/events_widgets/row_widget.dart';
 
 
 
@@ -15,6 +16,8 @@ import 'package:luround/views/account_owner/services/widget/one-off/add_service/
 
 
 class EventsController extends getx.GetxController {
+
+  
   //SUSPEND SERVICE
   getx.RxBool isToggled = false.obs;
   getx.RxBool toggleLink = false.obs;
@@ -109,16 +112,83 @@ class EventsController extends getx.GetxController {
 
 
   /////////////////////////////////////////////////////
-  //ADD ONE-OFF SERVICE CREATION//
-  //STEP 2 (save to db)//
-  List<ServiceControllerSett> controllers = [ServiceControllerSett(), ServiceControllerSett()]; //(save to db)
-
-  
-
   ///service_screen list/// 
   //PUT IN THE CONTROLLER
   getx.RxInt selectedDurationIndex = 0.obs;
   getx.RxString selectedFieldIndex = 'Virtual'.obs;
+
+
+
+
+  //ADD EVENT SERVICE CREATION//
+  //STEP 2 (save to db)////
+  // List to hold the dynamically added widgets
+  getx.RxList<Widget> widgetList = <Widget>[].obs;
+  
+  // List to hold the data for backend(save)
+  getx.RxList<Map<String, dynamic>> dataListForBackend = <Map<String, dynamic>>[].obs;
+
+  // Counter to provide unique keys for each row
+  getx.RxInt rowKeyCounter = 0.obs;
+
+  // Function to add a new row of widgets
+  void addRow() {
+    //increment the rowkeycounter
+    getx.RxInt currentRowKey = rowKeyCounter++;
+    
+    //remove from the widget list w.r.t index
+    widgetList.add(RowWidget(
+      key: ValueKey(currentRowKey),
+      onDelete: () => removeRow(currentRowKey.value),
+      onDateSelected: (date) {
+        setDate(currentRowKey.value, date);
+      },
+      onStartTimeSelected: (startTime) {
+        setStartTime(currentRowKey.value, startTime);
+      },
+      onStopTimeSelected: (stopTime) {
+        setStopTime(currentRowKey.value, stopTime);
+      },
+    ));
+
+    //remove from the backend list w.r.t index
+    dataListForBackend.add({
+      'key': currentRowKey.value,
+      'date': null,
+      'start_time': null,
+      'stop_time': null,
+    });
+    update();
+  }
+
+  // Function to remove a row of widgets
+  void removeRow(int key) {
+    widgetList.removeWhere((widget) => (widget.key as ValueKey).value == key);
+    dataListForBackend.removeWhere((data) => data['key'] == key);
+    log("$widgetList");
+    log("$dataListForBackend");
+    update();
+  }
+
+  // Function to set the date in dataListForBackend
+  void setDate(int key, String date) {
+    dataListForBackend.firstWhere((data) => data['key'] == key)['date'] = date;
+    log("$dataListForBackend");
+  }
+
+  // Function to set the start time in dataListForBackend
+  void setStartTime(int key, String startTime) {
+    dataListForBackend.firstWhere((data) => data['key'] == key)['start_time'] = startTime;
+    log("$dataListForBackend");
+    update();
+  }
+
+  // Function to set the stop time in dataListForBackend
+  void setStopTime(int key, String stopTime) {
+    dataListForBackend.firstWhere((data) => data['key'] == key)['stop_time'] = stopTime;
+    log("$dataListForBackend");
+    update();
+  }
   
 
 
@@ -212,9 +282,77 @@ class EventsController extends getx.GetxController {
    );
   }
 
-  //save to db
-  List<ServiceControllerSett> controllersEdit = [ServiceControllerSett(), ServiceControllerSett()];
-  /////////////////////////////////////////////////////
+
+
+  //EDIT EVENT SERVICE CREATION//
+  //STEP 2 (save to db)////
+  // List to hold the dynamically added widgets
+  getx.RxList<Widget> widgetListEdit = <Widget>[].obs;
+  
+  // List to hold the data for backend(save)
+  getx.RxList<Map<String, dynamic>> dataListForBackendEdit = <Map<String, dynamic>>[].obs;
+
+  // Counter to provide unique keys for each row
+  getx.RxInt rowKeyCounterEdit = 0.obs;
+
+  // Function to add a new row of widgets
+  void addRowEdit() {
+    //increment the rowkeycounter
+    getx.RxInt currentRowKey = rowKeyCounterEdit++;
+    
+    //remove from the widget list w.r.t index
+    widgetListEdit.add(RowWidget(
+      key: ValueKey(currentRowKey),
+      onDelete: () => removeRow(currentRowKey.value),
+      onDateSelected: (date) {
+        setDate(currentRowKey.value, date);
+      },
+      onStartTimeSelected: (startTime) {
+        setStartTime(currentRowKey.value, startTime);
+      },
+      onStopTimeSelected: (stopTime) {
+        setStopTime(currentRowKey.value, stopTime);
+      },
+    ));
+
+    //remove from the backend list w.r.t index
+    dataListForBackendEdit.add({
+      'key': currentRowKey.value,
+      'date': null,
+      'start_time': null,
+      'stop_time': null,
+    });
+    update();
+  }
+
+  // Function to remove a row of widgets
+  void removeRowEdit(int key) {
+    widgetListEdit.removeWhere((widget) => (widget.key as ValueKey).value == key);
+    dataListForBackendEdit.removeWhere((data) => data['key'] == key);
+    log("$widgetListEdit");
+    log("$dataListForBackendEdit");
+    update();
+  }
+
+  // Function to set the date in dataListForBackend
+  void setDateEdit(int key, String date) {
+    dataListForBackendEdit.firstWhere((data) => data['key'] == key)['date'] = date;
+    log("$dataListForBackendEdit");
+  }
+
+  // Function to set the start time in dataListForBackend
+  void setStartTimeEdit(int key, String startTime) {
+    dataListForBackendEdit.firstWhere((data) => data['key'] == key)['start_time'] = startTime;
+    log("$dataListForBackendEdit");
+    update();
+  }
+
+  // Function to set the stop time in dataListForBackend
+  void setStopTimeEdit(int key, String stopTime) {
+    dataListForBackendEdit.firstWhere((data) => data['key'] == key)['stop_time'] = stopTime;
+    log("$dataListForBackendEdit");
+    update();
+  }
 
 
 

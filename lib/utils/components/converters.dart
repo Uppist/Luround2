@@ -5,7 +5,8 @@ import 'package:intl/intl.dart';
 
 String formatDate(DateTime date) {
   // Create a DateFormat instance with the desired format
-  final DateFormat formatter = DateFormat('d MMMM, yyyy');
+  //final DateFormat formatter = DateFormat('d MMMM, yyyy');
+  final DateFormat formatter = DateFormat.yMMMd();
   // Use the formatter to format the DateTime object
   return formatter.format(date);
 }
@@ -39,7 +40,8 @@ DateTime convertNodeJSServerTimestampToDateObject({
 
 String calculateDurationBetweenDates(String startDateStr, String endDateStr) {
   // Define the date format
-  DateFormat dateFormat = DateFormat('dd MMM, yyyy');
+  //DateFormat dateFormat = DateFormat('dd MMM, yyyy');
+  DateFormat dateFormat = DateFormat.yMMMd();
 
   // Parse the date strings into DateTime objects
   DateTime startDate = dateFormat.parse(startDateStr);

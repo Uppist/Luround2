@@ -29,6 +29,7 @@ Future<void> editPackageServiceDialogueBox({
   required String virtual_meeting_link, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
+  required String service_status,
   //required String service_link,
   required String duration, 
   required String time, 
@@ -42,6 +43,14 @@ Future<void> editPackageServiceDialogueBox({
 }) async {
 
   var controller = Get.put(PackageServiceController());
+  bool isServiceActive(){
+    if(service_status == "ACTIVE"){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 
   showModalBottomSheet(
     isScrollControlled: true,
@@ -136,7 +145,7 @@ Future<void> editPackageServiceDialogueBox({
                   ),
                 ),
                 SizedBox(height: 30.h,),
-                
+
                 //SUSPEND/UNSUSPEND SERVICE
                 Obx(
                   () {
@@ -161,24 +170,25 @@ Future<void> editPackageServiceDialogueBox({
                             isToggled: controller.isToggled.value,
                             onChanged: (value) {           
                               controller.isToggled.value = value;
+                              //controller.isToggled.value = isServiceActive();
                               debugPrint("toggled: ${controller.isToggled.value}");
-                              debugPrint("toggled val: $value");
+                              //debugPrint("toggled val: $value");
                               if(value){
-                                debugPrint("call the suspend api");
-                                service.suspendUserService(
-                                  context: context, 
-                                  serviceId: serviceId
-                                );
-                              }
-                              else{
                                 debugPrint("call the unsuspend api");
                                 service.suspendUserService(
                                   context: context, 
                                   serviceId: serviceId
                                 );
                               }
+                              else{
+                                debugPrint("call the suspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
+                              }
                             },
-                          ),
+                          )
                         ],
                       ),
                     );

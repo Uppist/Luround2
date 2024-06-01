@@ -25,6 +25,7 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/switch
 Future<void> editServiceDialogueBox({
   required BuildContext context, 
   required String serviceId,
+  required String service_status,
   required String service_name, 
   required String description, 
   required String virtual_meeting_link, 
@@ -43,6 +44,15 @@ Future<void> editServiceDialogueBox({
 }) async {
 
   var controller = Get.put(ServicesController());
+
+  bool isServiceActive(){
+    if(service_status == "ACTIVE"){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 
   showModalBottomSheet(
     isScrollControlled: true,
@@ -159,29 +169,31 @@ Future<void> editServiceDialogueBox({
                             isToggled: controller.isToggled.value,
                             onChanged: (value) {           
                               controller.isToggled.value = value;
+                              //controller.isToggled.value = isServiceActive();
                               debugPrint("toggled: ${controller.isToggled.value}");
-                              debugPrint("toggled val: $value");
+                              //debugPrint("toggled val: $value");
                               if(value){
-                                debugPrint("call the suspend api");
-                                service.suspendUserService(
-                                  context: context, 
-                                  serviceId: serviceId
-                                );
-                              }
-                              else{
                                 debugPrint("call the unsuspend api");
                                 service.suspendUserService(
                                   context: context, 
                                   serviceId: serviceId
                                 );
                               }
+                              else{
+                                debugPrint("call the suspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
+                              }
                             },
-                          ),
+                          )
                         ],
                       ),
                     );
                   }
                 ),
+
                 SizedBox(height: 30.h,),
 
                 //2            

@@ -105,9 +105,9 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                 //
                 bool isSelected = mainController.days[index]['isSelected'];
                 //
-                String startTime = mainController.getDaySelection(day)?.startTime ?? "start time";
+                String startTime = mainController.getDaySelection(day)?.startTime ?? "";
                 //
-                String stopTime = mainController.getDaySelection(day)?.stopTime ?? "stop time";
+                String stopTime = mainController.getDaySelection(day)?.stopTime ?? "";
                 
                 return CustomCheckBoxListTile(
                   checkbox: Checkbox.adaptive(
@@ -240,7 +240,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                   service_name: mainController.serviceNameController.text, 
                   description: mainController.descriptionController.text, 
                   virtual_meeting_link: mainController.addLinksController.text,
-                  pricing: mainController.controllers,
+                  pricing: mainController.selectedTimeSlot,
                   availability_schedule: mainController.selectedDays,
                   coreFeatures: mainController.inputs,
                 ).whenComplete(() {

@@ -7,9 +7,8 @@ import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:luround/models/account_owner/ui/dayselection_model.dart';
+import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
-
 
 
 
@@ -34,7 +33,7 @@ class ProgramServiceController extends getx.GetxController {
   getx.RxInt countEdit = 0.obs;
 
   void increaseCount() {
-    if(count.value >= 0 && count.value <= 49) {
+    if(count.value >= 0 && count.value <= 20000) {
       count.value++;
       debugPrint("participants: ${count.value}");
     }
@@ -50,7 +49,7 @@ class ProgramServiceController extends getx.GetxController {
   
   //edit service package
   void increaseCountEdit() {
-    if(countEdit.value >= 0 && countEdit.value <= 49) {
+    if(countEdit.value >= 0 && countEdit.value <= 20000) {
       countEdit.value++;
       debugPrint("participants: ${countEdit.value}");
     }

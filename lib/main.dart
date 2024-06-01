@@ -39,8 +39,8 @@ Future<void> backgroundHandler(RemoteMessage message) async {
     //if(Platform.isAndroid)
     Locale locale = Localizations.localeOf(context);
     var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "NGN");
-    print("CURRENCY SYMBOL: ${format.currencySymbol}");
-    print("CURRENCY NAME: ${format.currencyName}");
+    //print("CURRENCY SYMBOL: ${format.currencySymbol}");
+    //print("CURRENCY NAME: ${format.currencyName}");
     return format;
   }
 
@@ -152,6 +152,7 @@ class _MainAppState extends State<MainApp> {
         ),
         
         defaultTransition: Transition.rightToLeft,
+        //home: DynamicWidgetScreen(),
         
         home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       

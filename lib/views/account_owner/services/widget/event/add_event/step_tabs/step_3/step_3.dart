@@ -94,7 +94,7 @@ class _Step3PageState extends State<Step3Page> {
                   end_time: controller.selectedStopTime.value, 
                   inpersonFee: controller.inPersonPriceController.text, 
                   virtualFee: controller.virtualPriceController.text, 
-                  pricing: controller.controllers
+                  schedule: controller.dataListForBackend
                 ).whenComplete(() {
                   //1
                   setState(() {
@@ -108,7 +108,7 @@ class _Step3PageState extends State<Step3Page> {
                   controller.descriptionController.clear();
                   controller.addLinkController.clear();
                   controller.addLocationController.clear();
-                  controller.controllers.clear();
+                  controller.dataListForBackend.clear();
                   controller.inPersonPriceController.clear();
                   controller.virtualPriceController.clear();
                   //3

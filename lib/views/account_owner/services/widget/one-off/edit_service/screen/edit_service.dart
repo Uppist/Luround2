@@ -163,6 +163,7 @@ class _EditServiceScreenState extends State<EditServiceScreen> {
                       print("current step: ${controller.curentStepEdit.value}");
                     }
                   },
+                  virtual_meeting_link: widget.virtual_meeting_link,
                 )
               ),
               Step(

@@ -129,6 +129,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             editServiceDialogueBox(
                               //service_link: data.service_link,
                               service: userService,
+                              service_status: data.serviceStatus,
                               context: context, 
                               userId: data.serviceProviderDetails.userId,
                               email: data.serviceProviderDetails.email,

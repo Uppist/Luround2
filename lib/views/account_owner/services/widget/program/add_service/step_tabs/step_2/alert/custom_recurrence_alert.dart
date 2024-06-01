@@ -108,49 +108,53 @@ Future<void> customRecurenceAlert({
                     ),
                     SizedBox(width: 60.w,),
                     Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          selectedValue.value = controller.customServiceRecurenceController.text;
-                          if(controller.customServiceRecurenceController.text.isNotEmpty){
-                            controller.listOfServiceRecurrence.add(selectedValue.value);
-                            controller.customServiceRecurenceController.clear();
-                            log("${controller.listOfServiceRecurrence}"); 
-                            log(selectedValue.value);
-                          }
-                          else{
-                            //set the selected val back to custom
-                            //selectedValue.value = 'Custom';
-                            log('empty ctrller');
-                          }
-
-                          Get.back();
-                        },
-                        child: Container(
-                          //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                          alignment: Alignment.center,
-                          height: 50.h,
-                          width: 150.w,
-                          decoration: BoxDecoration(
-                            color: AppColor.mainColor,
-                            borderRadius: BorderRadius.circular(15.r),
-                            border: Border.all(
-                              color: AppColor.mainColor,
-                              width: 2.0,
-                            )
-                          ),
-                          child: Text(
-                            "Confirm",
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.bgColor,
-                                fontSize: 16.sp,
-                                //fontWeight: FontWeight.w500
-                              )
+                          child: InkWell(
+                            onTap: () {
+                              selectedValue.value = controller.customServiceRecurenceController.text;
+                              if(controller.customServiceRecurenceController.text.isNotEmpty){
+                                controller.listOfServiceRecurrence.add(controller.customServiceRecurenceController.text);
+                                controller.customServiceRecurenceController.clear();
+                                log("${controller.listOfServiceRecurrence}"); 
+                                log(selectedValue.value);
+                              }
+                              else{
+                                //set the selected val back to custom
+                                //selectedValue.value = 'Custom';
+                                log('empty ctrller');
+                                selectedValue.value = 'Custom';
+                                log(selectedValue.value);
+                              }
+                        
+                              Get.back();
+                            },
+                            child: Container(
+                              //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              alignment: Alignment.center,
+                              height: 50.h,
+                              width: 150.w,
+                              decoration: BoxDecoration(
+                                color: AppColor.mainColor,
+                                borderRadius: BorderRadius.circular(15.r),
+                                border: Border.all(
+                                  color: AppColor.mainColor,
+                                  width: 2.0,
+                                )
+                              ),
+                              child: Text(
+                                "Confirm",
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    color: AppColor.bgColor,
+                                    fontSize: 16.sp,
+                                    //fontWeight: FontWeight.w500
+                                  )
+                                )
+                              ),
                             )
                           ),
                         )
-                      ),
-                    ),
+                    
+                    
                   ],
                 ),
 
@@ -266,49 +270,51 @@ Future<void> customRecurenceAlertEdit({
                     ),
                     SizedBox(width: 60.w,),
                     Expanded(
-                      child: InkWell(
-                        onTap: () {
-                          selectedValue.value = controller.customServiceRecurenceControllerEdit.text;
-                          if(controller.customServiceRecurenceControllerEdit.text.isNotEmpty){
-                            controller.listOfServiceRecurrenceEdit.add(selectedValue.value);
-                            controller.customServiceRecurenceControllerEdit.clear();
-                            log("${controller.listOfServiceRecurrenceEdit}"); 
-                            log(selectedValue.value);
-                          }
-                          else{
-                            //set the selected val back to custom
-                            //selectedValue.value = "Custom";
-                            log('empty ctrller');
-                          }
-
-                          Get.back();
-                        },
-                        child: Container(
-                          //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-                          alignment: Alignment.center,
-                          height: 50.h,
-                          width: 150.w,
-                          decoration: BoxDecoration(
-                            color: AppColor.mainColor,
-                            borderRadius: BorderRadius.circular(15.r),
-                            border: Border.all(
-                              color: AppColor.mainColor,
-                              width: 2.0,
-                            )
-                          ),
-                          child: Text(
-                            "Confirm",
-                            style: GoogleFonts.inter(
-                              textStyle: TextStyle(
-                                color: AppColor.bgColor,
-                                fontSize: 16.sp,
-                                //fontWeight: FontWeight.w500
-                              )
+                          child: InkWell(
+                            onTap: () {
+                              selectedValue.value = controller.customServiceRecurenceControllerEdit.text;
+                              if(controller.customServiceRecurenceControllerEdit.text.isNotEmpty){
+                                controller.listOfServiceRecurrenceEdit.add(controller.customServiceRecurenceControllerEdit.text);
+                                controller.customServiceRecurenceControllerEdit.clear();
+                                log("${controller.listOfServiceRecurrenceEdit}"); 
+                                log(selectedValue.value);
+                              }
+                              else{
+                                //set the selected val back to custom
+                                selectedValue.value = "Custom";
+                                log('empty ctrller');
+                              }
+                        
+                              Get.back();
+                            },
+                            child: Container(
+                              //padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                              alignment: Alignment.center,
+                              height: 50.h,
+                              width: 150.w,
+                              decoration: BoxDecoration(
+                                color: AppColor.mainColor,
+                                borderRadius: BorderRadius.circular(15.r),
+                                border: Border.all(
+                                  color: AppColor.mainColor,
+                                  width: 2.0,
+                                )
+                              ),
+                              child: Text(
+                                "Confirm",
+                                style: GoogleFonts.inter(
+                                  textStyle: TextStyle(
+                                    color: AppColor.bgColor,
+                                    fontSize: 16.sp,
+                                    //fontWeight: FontWeight.w500
+                                  )
+                                )
+                              ),
                             )
                           ),
                         )
-                      ),
-                    ),
+                      
+                    
                   ],
                 ),
 

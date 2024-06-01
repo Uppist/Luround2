@@ -4,6 +4,7 @@ import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/models/account_owner/ui/dayselection_model.dart';
+import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/models/account_owner/user_services/service_insight.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -13,7 +14,6 @@ import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import 'package:dio/dio.dart' as dio;
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -604,7 +604,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String service_name,
     required String description,
     required String virtual_meeting_link,
-    required List<ServiceControllerSett> pricing,
+    required List<PricingInfo> pricing,
     required List<DaySelectionModel> availability_schedule,
     
     }) async {
@@ -615,10 +615,10 @@ class AccOwnerServicePageService extends getx.GetxController {
       
       //PRICING LOOP
       final List<dynamic> pricingList = [];
-      for (ServiceControllerSett data in pricing) {
-        final String time_allocation = data.durationController.text;
-        final String virtual = data.virtualPriceController.text;
-        final String in_person = data.inpersonPriceController.text;
+      for (PricingInfo data in pricing) {
+        final String time_allocation = data.time_allocation;
+        final String virtual = data.virtual_pricing;
+        final String in_person = data.in_person_pricing;
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -716,7 +716,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String service_name,
     required String description,
     required String virtual_meeting_link,
-    required List<ServiceControllerSett> pricing,
+    required List<PricingInfo> pricing,
     required List<DaySelectionModel> availability_schedule,
     required List<String> coreFeatures,
   
@@ -729,10 +729,10 @@ class AccOwnerServicePageService extends getx.GetxController {
 
       //PRICING LOOP
       final List<dynamic> pricingList = [];
-      for (ServiceControllerSett data in pricing) {
-        final String time_allocation = data.durationController.text;
-        final String virtual = data.virtualPriceController.text;
-        final String in_person = data.inpersonPriceController.text;
+      for (PricingInfo data in pricing) {
+        final String time_allocation = data.time_allocation;
+        final String virtual = data.virtual_pricing;
+        final String in_person = data.in_person_pricing;
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -927,7 +927,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String end_time,
     required String inpersonFee,
     required String virtualFee,
-    required List<ServiceControllerSett> pricing,
+    required List<Map<String, dynamic>> schedule,
 
     
     }) async {
@@ -936,21 +936,21 @@ class AccOwnerServicePageService extends getx.GetxController {
 
     try {
 
-      //PRICING LOOP
-      final List<dynamic> pricingList = [];
-      for (ServiceControllerSett data in pricing) {
-        final String time_allocation = data.durationController.text;
-        final String virtual = data.virtualPriceController.text;
-        final String in_person = data.inpersonPriceController.text;
+      //EVENT DATA LOOP
+      final List<dynamic> eventScheduleList = [];
+      for (Map<String, dynamic> data in schedule) {
+        final String date = data['date'];
+        final String start_time = data['start_time'];
+        final String stop_time = data['stop_time'];
 
         // Check if required fields are not empty or undefined
-        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+        if (date.isNotEmpty && start_time.isNotEmpty && stop_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "date": time_allocation,
-            "time": virtual,
-            "end_time": in_person,
+            "date": date,
+            "time": start_time,
+            "end_time": stop_time,
           };
-          pricingList.add(map);
+          eventScheduleList.add(map);
 
         } 
         else {
@@ -990,7 +990,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "event_type": event_schedule,
         "service_charge_in_person": inpersonFee,
         "service_charge_virtual": virtualFee,
-        "event_schedule": pricingList,
+        "event_schedule": eventScheduleList,
       };
 
 
@@ -1038,7 +1038,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String service_name,
     required String description,
     required String virtual_meeting_link,
-    required List<ServiceControllerSett> pricing,
+    required List<PricingInfo> pricing,
     required List<DaySelectionModel> availability_schedule,
 
     
@@ -1050,10 +1050,10 @@ class AccOwnerServicePageService extends getx.GetxController {
 
       //PRICING LOOP
       final List<dynamic> pricingList = [];
-      for (ServiceControllerSett data in pricing) {
-        final String time_allocation = data.durationController.text;
-        final String virtual = data.virtualPriceController.text;
-        final String in_person = data.inpersonPriceController.text;
+      for (PricingInfo data in pricing) {
+        final String time_allocation = data.time_allocation;
+        final String virtual = data.virtual_pricing;
+        final String in_person = data.in_person_pricing;
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -1147,7 +1147,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String service_name,
     required String description,
     required String virtual_meeting_link,
-    required List<ServiceControllerSett> pricing,
+    required List<PricingInfo> pricing,
     required List<DaySelectionModel> availability_schedule,
     required List<String> coreFeatures,
 
@@ -1160,10 +1160,10 @@ class AccOwnerServicePageService extends getx.GetxController {
 
       //PRICING LOOP
       final List<dynamic> pricingList = [];
-      for (ServiceControllerSett data in pricing) {
-        final String time_allocation = data.durationController.text;
-        final String virtual = data.virtualPriceController.text;
-        final String in_person = data.inpersonPriceController.text;
+      for (PricingInfo data in pricing) {
+        final String time_allocation = data.time_allocation;
+        final String virtual = data.virtual_pricing;
+        final String in_person = data.in_person_pricing;
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -1357,7 +1357,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String end_time,
     required String inpersonFee,
     required String virtualFee,
-    required List<ServiceControllerSett> pricing,
+    required List<Map<String, dynamic>> schedule,
 
     
     }) async {
@@ -1366,26 +1366,26 @@ class AccOwnerServicePageService extends getx.GetxController {
 
     try {
 
-      //PRICING LOOP
-      final List<dynamic> pricingList = [];
-      for (ServiceControllerSett data in pricing) {
-        final String time_allocation = data.durationController.text;
-        final String virtual = data.virtualPriceController.text;
-        final String in_person = data.inpersonPriceController.text;
+      //EVENT DATA LOOP
+      final List<dynamic> eventScheduleList = [];
+      for (Map<String, dynamic> data in schedule) {
+        final String date = data['date'];
+        final String start_time = data['start_time'];
+        final String stop_time = data['stop_time'];
 
         // Check if required fields are not empty or undefined
-        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
+        if (date.isNotEmpty && start_time.isNotEmpty && stop_time.isNotEmpty) {
           final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual_pricing": virtual,
-            "in_person_pricing": in_person,
+            "date": date,
+            "time": start_time,
+            "end_time": stop_time,
           };
-          pricingList.add(map);
+          eventScheduleList.add(map);
 
         } 
         else {
           // Handle case where required fields are empty or undefined
-          /*isServiceEDLoading.value = false;
+          /*isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request*/
           log('empty list');
@@ -1420,7 +1420,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "event_type": event_schedule,
         "service_charge_in_person": inpersonFee,
         "service_charge_virtual": virtualFee,
-        "event_schedule": pricingList,
+        "event_schedule": eventScheduleList,
       };
 
 

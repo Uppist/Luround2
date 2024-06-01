@@ -36,10 +36,20 @@ Future<void> editEventDialogueBox({
   required String userId,
   required String email,
   required String displayName,
+  required String service_status,
   required AccOwnerServicePageService service,
 }) async {
 
-  var controller = Get.put(EventsController()); //PackageServiceController
+  var controller = Get.put(EventsController()); 
+
+  bool isServiceActive(){
+    if(service_status == "ACTIVE"){
+      return false;
+    }
+    else {
+      return true;
+    }
+  }
 
   showModalBottomSheet(
     isScrollControlled: true,
@@ -130,6 +140,7 @@ Future<void> editEventDialogueBox({
                 ),
                 SizedBox(height: 30.h,),
                 
+
                 //SUSPEND/UNSUSPEND SERVICE
                 Obx(
                   () {
@@ -154,29 +165,31 @@ Future<void> editEventDialogueBox({
                             isToggled: controller.isToggled.value,
                             onChanged: (value) {           
                               controller.isToggled.value = value;
+                              //controller.isToggled.value = isServiceActive();
                               debugPrint("toggled: ${controller.isToggled.value}");
-                              debugPrint("toggled val: $value");
+                              //debugPrint("toggled val: $value");
                               if(value){
-                                debugPrint("call the suspend api");
-                                service.suspendUserService(
-                                  context: context, 
-                                  serviceId: serviceId
-                                );
-                              }
-                              else{
                                 debugPrint("call the unsuspend api");
                                 service.suspendUserService(
                                   context: context, 
                                   serviceId: serviceId
                                 );
                               }
+                              else{
+                                debugPrint("call the suspend api");
+                                service.suspendUserService(
+                                  context: context, 
+                                  serviceId: serviceId
+                                );
+                              }
                             },
-                          ),
+                          )
                         ],
                       ),
                     );
                   }
                 ),
+                
                 SizedBox(height: 30.h,),
                 
                 //2            

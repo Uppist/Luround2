@@ -124,6 +124,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                             editPackageServiceDialogueBox(
                               service: userService,
                               context: context, 
+                              service_status: data.serviceStatus,
                               userId: data.serviceProviderDetails.userId,
                               email: data.serviceProviderDetails.email,
                               displayName: data.serviceProviderDetails.displayName,

@@ -123,7 +123,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
         SizedBox(height: 40.h),
 
         Text(
-          "Services included in Retainer",
+          "Features included in Retainer",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,
             fontSize: 14.sp,

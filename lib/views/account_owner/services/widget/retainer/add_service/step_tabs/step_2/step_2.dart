@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
 import 'package:luround/main.dart';
+import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
+import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textfield.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
 
 
 
@@ -50,7 +54,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              child: SizedBox(width: 10.w,),
+              child: SizedBox(width: 150.w)
             ),
             SizedBox(width: 10.w,),
             Expanded(
@@ -76,7 +80,9 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
             ),
           ],
         ),
-        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+        
+        
+        /*SizedBox(height: MediaQuery.of(context).size.height * 0.03),
 
         //2           
         //growable list that displays textfields that was added
@@ -171,10 +177,133 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
                         
           },
         
+        ),*/
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+        //available days list
+        ListView.separated(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => SizedBox(height: 20.h,),
+          itemCount: controller.priceSlot.length,
+          itemBuilder: (context, index) {
+    
+            return Obx(
+              () {
+                //
+                ServiceControllerSett controllerSet = controller.controllers[index];
+                //
+                String time = controller.priceSlot[index]['time'];
+                //
+                bool isSelected = controller.priceSlot[index]['isSelected'];
+                //
+                String virtualPrice = controller.getTimeSelection(time)?.virtual_pricing ?? "";
+                //
+                String inpersonPrice = controller.getTimeSelection(time)?.in_person_pricing ?? "";
+                
+                return CustomCheckBoxListTile(
+                  checkbox: Checkbox.adaptive(
+                    checkColor: AppColor.bgColor,
+                    activeColor: AppColor.mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4.r)
+                    ),
+                    value: isSelected,
+                    onChanged: (value) {   
+                      // Toggle checkbox and update selection in the list
+                      setState(() {
+                        
+                        controller.isCheckBoxActiveForPricing.value = true;
+                        isSelected = value!;
+                        //
+                        controller.toggleTimeSlotSelection(
+                          index, 
+                          time, 
+                          value, 
+                          virtualPrice, 
+                          inpersonPrice,
+                        );
+                        //checks for custom selection for mins
+                        if(time == "Custom") {
+                          controller.isCustomTextFieldActivated.value = !controller.isCustomTextFieldActivated.value;
+                        } 
+
+                      });
+                    },
+                  ),              
+                  
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Text(
+                          time,
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(width: 5.w,),
+
+                      //Virtual Price TextField
+                      Expanded(
+                        child: UtilsTextField4(
+                          onChanged: (val) {
+                            controllerSet.virtualPriceController.text = val;
+                          },
+                          onFieldSubmitted: (val) {
+                            controller.updateVirtualPrice(time, val)
+                            .whenComplete(() {
+                              log("${controller.selectedTimeSlot}");
+                              log(controllerSet.virtualPriceController.text);
+                            });
+                          },
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.done,
+                          textController: controllerSet.virtualPriceController,
+                          //initialValue: virtualPrice,
+                          hintText: '${currency(context).currencySymbol} 0.00',
+                        ),
+                      ),
+
+                      SizedBox(width: 10.w,),
+
+                      //Inperson Price TextField
+                      Expanded(
+                        child: UtilsTextField4(
+                          onChanged: (val) {
+                            controllerSet.inpersonPriceController.text = val;
+                          },
+                          onFieldSubmitted: (val) {
+                            controller.updateInpersonPrice(time, val)
+                            .whenComplete(() {
+                              log("${controller.selectedTimeSlot}");
+                              log(controllerSet.inpersonPriceController.text);
+                            });
+                          },
+                          keyboardType: TextInputType.number,
+                          textInputAction: TextInputAction.done,
+                          textController: controllerSet.inpersonPriceController,
+                          //initialValue: inpersonPrice,
+                          hintText: '${currency(context).currencySymbol} 0.00',
+                        ),
+                      ),
+                
+                    ],
+                  ),
+                  subtitle: controller.isCheckBoxActiveForPricing.value ? const SizedBox() : const SizedBox()
+                );
+              }
+            );
+            
+          }, 
         ),
             
-        SizedBox(height: MediaQuery.of(context).size.height * 0.23),
-    
+        /*SizedBox(height: MediaQuery.of(context).size.height * 0.23),
         InkWell(
           onTap: () {           
             setState(() {
@@ -212,10 +341,10 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
               
             ],
           ),
-        ),
+        ),*/
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.04,),
-        //SizedBox(height: MediaQuery.of(context).size.height * 0.42),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
+  
 
         Text(
           "Add meeting link for virtual bookings",
@@ -225,7 +354,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
             fontWeight: FontWeight.w500
           ),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 20.h),
         //textfield
         ReusableTextField(  
           onChanged: (val) {},
@@ -236,33 +365,24 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
         ),
 
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.04),
     
       
-        RebrandedReusableButton(
-          textColor: AppColor.bgColor,
-          color: AppColor.mainColor,
-          text: "Next", 
-          onPressed: //controller.selectServiceModel.value.isNotEmpty ? 
-          widget.onNext,
-          /*: () {
-            print('nothing');
-
-            //controller.textFields.clear();//remove(field);
-            controller.controllers.clear();
-
-            ////////////
-            /*profileService.updateCertificateData(
-              context: context,
-              controllerSets: profileController.controllers
-            ).whenComplete(() {
-              profileController.textFields.clear();//remove(field);
-              profileController.controllers.clear();
-              print("textfield_list: ${profileController.textFields}");
-              print("controller_list_length: ${profileController.controllers.length}");      
-            });*/
-          },*/
-        )
+         Obx(
+          () {
+            return RebrandedReusableButton(
+              textColor: controller.isCheckBoxActiveForPricing.value ? AppColor.bgColor : AppColor.darkGreyColor,
+              color: controller.isCheckBoxActiveForPricing.value ? AppColor.mainColor : AppColor.lightPurple,
+              text: "Next", 
+              onPressed: controller.isCheckBoxActiveForPricing.value ? 
+              widget.onNext
+              : () {
+                print('nothing');
+                //controller.controllers.clear();
+              },
+            );
+          }
+        ),
       ]
     );
         

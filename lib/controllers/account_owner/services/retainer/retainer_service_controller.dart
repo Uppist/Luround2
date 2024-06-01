@@ -6,8 +6,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/ui/dayselection_model.dart';
+import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/one-off_widgets/textcontroller_set.dart';
 
 
 
@@ -194,7 +195,7 @@ class PackageServiceController extends getx.GetxController {
         titleTextStyle: GoogleFonts.inter(
           color: AppColor.blackColor,
           fontSize: 16.sp,
-          fontWeight: FontWeight.w500
+          fontWeight: FontWeight.w500,
         ),
         currencySignTextStyle: GoogleFonts.inter(
           color: AppColor.blackColor,
@@ -226,10 +227,157 @@ class PackageServiceController extends getx.GetxController {
    );
   }
 
+
+
+
+
   /////////////////////////////////////////////////////
-  //ADD ONE-OFF SERVICE CREATION//
-  //STEP 2 (save to db)//
-  List<ServiceControllerSett> controllers = [ServiceControllerSett(), ServiceControllerSett()]; //(save to db)
+  //STEP 2////
+  List<ServiceControllerSett> controllers = List.generate(
+    6,
+    (index) => ServiceControllerSett(),
+  );
+
+  final TextEditingController customTimeSlotController = TextEditingController();
+  final isCheckBoxActiveForPricing = false.obs;
+  final isCustomTextFieldActivated = false.obs;
+  // List of time slots with selection status
+  var priceSlot = <Map<String, dynamic>>[
+    {'time': '1 month', 'isSelected': false},
+    {'time': '3 months', 'isSelected': false},
+    {'time': '6 months', 'isSelected': false},
+    {'time': '12 months', 'isSelected': false},
+    {'time': '18 months', 'isSelected': false},
+    {'time': '24 months', 'isSelected': false},
+    //{'time': 'Custom', 'isSelected': false},
+  ];  //.obs;
+
+  // List of selected timeslots with their virtual and in-person price
+  //save to db
+  final selectedTimeSlot = <PricingInfo>[].obs;
+
+  // Toggles the selection status of a day, adding or removing it from the selectedDays list
+  void toggleTimeSlotSelection(
+    int index,
+    String time, 
+    bool? isSelected,
+    String virtual,
+    String inperson,
+  ) {
+    final index2 = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    priceSlot[index]['isSelected'] = isSelected;
+    //priceSlot[index]['time'] = time;
+    ServiceControllerSett controllerSet = controllers[index];
+    if (isSelected!) {
+      //log("$isSelected");
+      log(time);
+      addTime(time, virtual, inperson);
+    } else {
+      //log("$isSelected");
+      log(time);
+      controllerSet.virtualPriceController.clear();
+      controllerSet.inpersonPriceController.clear();
+      removeTime(index: index2);
+    }
+    update();
+  }
+
+  //Retrieves the Price Info for a specific time
+  PricingInfo? getTimeSelection(String time) {
+    return selectedTimeSlot.firstWhereOrNull((element) => element.time_allocation == time);
+  }
+
+  // Adds a day with its start and stop times to the selectedDays list
+  Future<void> addTime(String time, String virtualPrice, String inpersonPrice) async {
+    selectedTimeSlot.add(PricingInfo(time_allocation: time, virtual_pricing: virtualPrice, in_person_pricing: inpersonPrice));
+    log("list: $selectedTimeSlot");
+  }
+
+  // Removes a day from the selectedDays list based on its index
+  Future<void> removeTime({required int index}) async {
+    if (index >= 0 && index < selectedTimeSlot.length) {
+      log("Item ${selectedTimeSlot[index]} removed at index $index");
+
+      //clear the textfield controller
+      /*ServiceControllerSett controllerSet = controllers[index];
+      controllerSet.inpersonPriceController.clear();
+      controllerSet.virtualPriceController.clear();
+      controllerSet.durationController.clear();
+
+      if(priceSlot[index]['time'] == 'Custom') {
+        customTimeSlotController.clear();
+        selectedTimeSlot.removeAt(index);
+      }
+      else{
+        selectedTimeSlot.removeAt(index);
+      }*/
+      selectedTimeSlot.removeAt(index);
+
+      selectedTimeSlot.refresh();
+      log("updated list: $selectedTimeSlot");
+    } 
+    else {
+      print("Invalid index: $index");
+    }
+  }
+
+  // Updates the duration of a specific timeSlot in the selectedTimeSlot list
+  Future<void> updateCustomDuration(String time) async {
+    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == "Custom");
+    if (index != -1) {
+      selectedTimeSlot[index].time_allocation = time;
+      selectedTimeSlot.refresh();
+      log("updated list: $selectedTimeSlot");
+      update(); // Notify UI
+    }
+  }
+
+  // Updates the virtualPrice of a specific timeSlot in the selectedTimeSlot list
+  Future<void> updateVirtualPrice(String time, String virtualPrice,) async {
+    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    if (index != -1) {
+      selectedTimeSlot[index].virtual_pricing = virtualPrice;
+      selectedTimeSlot.refresh();
+      log("updated list: $selectedTimeSlot");
+      update(); // Notify UI
+    }
+  }
+
+  // Updates the inpersonPrice of a specific timeSlot in the selectedTimeSlot list
+  Future<void> updateInpersonPrice(String time, String inpersonPrice) async {
+    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    if (index != -1) {
+      selectedTimeSlot[index].in_person_pricing = inpersonPrice;
+      selectedTimeSlot.refresh();
+      log("updated list: $selectedTimeSlot");
+      update(); // Notify UI
+    }
+  }
+
+  // Reorders the selectedDays list based on the order of days in the week
+  Future<List<PricingInfo>> reorderTimeSlot(List<PricingInfo> selectedTimeSlot) async {
+    // Define the order of days in the week
+    const List<String> weekDaysOrder = [
+      '30 mins',
+      '45 mins',
+      '60 mins',
+      '90 mins',
+      '120 mins',
+      '150 mins',
+      //'Custom',
+    ];
+
+    // Create a map to define the order index of each time/duration
+    Map<String, int> dayOrderMap = {
+      for (int i = 0; i < weekDaysOrder.length; i++) weekDaysOrder[i]: i
+    };
+
+    // Sort the selectedTimeslot list based on the time order defined in timeOrderMap
+    selectedTimeSlot.sort((a, b) => dayOrderMap[a.time_allocation]!.compareTo(dayOrderMap[b.time_allocation]!));
+
+    // Return the sorted list
+    return selectedTimeSlot;
+  }
 
   
 
@@ -446,11 +594,133 @@ class PackageServiceController extends getx.GetxController {
     // Return the sorted list
     return selectedDaysEdit;
   }
+
+
+
+
   /////////////////////////////////////////////////////
   //ADD RETAINER SERVICE CREATION//
-  //STEP 2 (save to db)//
-  List<ServiceControllerSett> controllersEdit = [ServiceControllerSett(), ServiceControllerSett()]; //(save to db)
+  ////STEP 2 EDIT////
+  List<ServiceControllerSett> controllersEdit = List.generate(6, (int index) => ServiceControllerSett());
+  final TextEditingController customTimeSlotControllerEdit = TextEditingController();
+  final isCheckBoxActiveForPricingEdit = false.obs;
+  final isCustomTextFieldActivatedEdit = false.obs;
+  // List of time slots with selection status
+  var priceSlotEdit = <Map<String, dynamic>>[
+    {'time': '1 month', 'isSelected': false},
+    {'time': '3 months', 'isSelected': false},
+    {'time': '6 months', 'isSelected': false},
+    {'time': '12 months', 'isSelected': false},
+    {'time': '18 months', 'isSelected': false},
+    {'time': '24 months', 'isSelected': false},
+  ];  //.obs;
 
+  // List of selected timeslots with their virtual and in-person price
+  //save to db
+  var selectedTimeSlotEdit = <PricingInfo>[].obs;
+
+  // Toggles the selection status of a day, adding or removing it from the selectedDays list
+  void toggleTimeSlotSelectionEdit(
+    int index,
+    String time, 
+    bool? isSelected,
+    String virtual,
+    String inperson,
+  ) {
+    final index2 = selectedTimeSlotEdit.indexWhere((element) => element.time_allocation == time);
+    priceSlotEdit[index]['isSelected'] = isSelected;
+    ServiceControllerSett controllerSet = controllersEdit[index];
+    //priceSlotEdit[index]['time'] = time;
+    if (isSelected!) {
+      log("$isSelected");
+      addTimeEdit(time, virtual, inperson);
+    } else {
+      log("$isSelected");
+      controllerSet.inpersonPriceController.clear();
+      controllerSet.virtualPriceController.clear();
+      removeTimeEdit(index: index2);
+    }
+    update();
+  }
+
+  //Retrieves the Price Info for a specific time
+  PricingInfo? getTimeSelectionEdit(String time) {
+    return selectedTimeSlotEdit.firstWhereOrNull((element) => element.time_allocation == time);
+  }
+
+  // Adds a day with its start and stop times to the selectedDays list
+  Future<void> addTimeEdit(String time, String virtualPrice, String inpersonPrice) async {
+    selectedTimeSlotEdit.add(PricingInfo(time_allocation: time, virtual_pricing: virtualPrice, in_person_pricing: inpersonPrice));
+    log("list: $selectedTimeSlotEdit");
+  }
+
+  // Removes a day from the selectedDays list based on its index
+  Future<void> removeTimeEdit({required int index}) async {
+    if (index >= 0 && index < selectedTimeSlotEdit.length) {
+      log("Item ${selectedTimeSlotEdit[index]} removed at index $index");
+      selectedTimeSlotEdit.removeAt(index);
+      selectedTimeSlotEdit.refresh();
+      log("updated list: $selectedTimeSlotEdit");
+    } 
+    else {
+      print("Invalid index: $index");
+    }
+  }
+
+  // Updates the duration of a specific timeSlot in the selectedTimeSlot list
+  Future<void> updateCustomDurationEdit(String time) async {
+    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    if (index != -1) {
+      selectedTimeSlot[index].time_allocation = time;
+      selectedTimeSlot.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Updates the virtualPrice of a specific timeSlot in the selectedTimeSlot list
+  Future<void> updateVirtualPriceEdit(String time, String virtualPrice) async {
+    final index = selectedTimeSlotEdit.indexWhere((element) => element.time_allocation == time);
+    if (index != -1) {
+      selectedTimeSlotEdit[index].virtual_pricing = virtualPrice;
+      selectedTimeSlotEdit.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Updates the inpersonPrice of a specific timeSlot in the selectedTimeSlot list
+  Future<void> updateInpersonPriceEdit(String time, String inpersonPrice) async {
+    final index = selectedTimeSlotEdit.indexWhere((element) => element.time_allocation == time);
+    if (index != -1) {
+      selectedTimeSlotEdit[index].in_person_pricing = inpersonPrice;
+      selectedTimeSlotEdit.refresh();
+      update(); // Notify UI
+    }
+  }
+
+  // Reorders the selected time slot list based on the order of days in the week
+  Future<List<PricingInfo>> reorderTimeSlotEdit(List<PricingInfo> selectedTimeSlot) async {
+    // Define the order of days in the week
+    const List<String> weekDaysOrder = [
+      '30 mins',
+      '45 mins',
+      '60 mins',
+      '90 mins',
+      '120 mins',
+      '150 mins',
+      //'Custom',
+    ];
+
+    // Create a map to define the order index of each time/duration
+    Map<String, int> dayOrderMap = {
+      for (int i = 0; i < weekDaysOrder.length; i++) weekDaysOrder[i]: i
+    };
+
+    // Sort the selectedTimeslot list based on the time order defined in timeOrderMap
+    selectedTimeSlotEdit.sort((a, b) => dayOrderMap[a.time_allocation]!.compareTo(dayOrderMap[b.time_allocation]!));
+
+    // Return the sorted list
+    return selectedTimeSlotEdit;
+  }
   
 
   /////////////////////////////////////////////////////

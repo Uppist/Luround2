@@ -127,6 +127,7 @@ class _EventServiceListState extends State<EventServiceList> {
                           onTap: () {
                             editEventDialogueBox(
                               //service_link: data.service_link,
+                              service_status: data.serviceStatus,
                               service: userService,
                               context: context, 
                               userId: data.serviceProviderDetails.userId,

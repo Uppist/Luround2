@@ -105,7 +105,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   end_time: controller.selectedStopTimeEdit.value, 
                   inpersonFee: controller.inPersonPriceControllerEdit.text, 
                   virtualFee: controller.virtualPriceControllerEdit.text, 
-                  pricing: controller.controllersEdit
+                  schedule: controller.dataListForBackendEdit
                 ).whenComplete(() {
                   //1
                   setState(() {
@@ -119,7 +119,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   controller.descriptionControllerEdit.clear();
                   controller.addLinkControllerEdit.clear();
                   controller.addLocationControllerEdit.clear();
-                  controller.controllersEdit.clear();
+                  controller.dataListForBackendEdit.clear();
                   controller.inPersonPriceControllerEdit.clear();
                   controller.virtualPriceControllerEdit.clear();
                   //3

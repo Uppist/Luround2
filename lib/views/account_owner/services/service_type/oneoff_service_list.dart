@@ -73,7 +73,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
         userService.filterSearchServicesList.isEmpty
         ?ServiceEmptyState(
           onPressed: () {
-            Get.to(() => AddServiceScreen());
+            Get.to(() => const AddServiceScreen());
           },
         ):
 
@@ -152,7 +152,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           child: Icon(
                             Icons.more_vert_rounded,
                             color: AppColor.bgColor,
-                            size: 20.r,
+                            size: 30.r,
                           ),
                         ),                                   
                       ],
@@ -203,16 +203,16 @@ class _RegularServiceListState extends State<RegularServiceList> {
                       physics: const NeverScrollableScrollPhysics(),
                       //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
                       itemCount: data.availabilitySchedule.length,
-                      separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                      itemBuilder: (context, index) {
+                      separatorBuilder: (context, indexAV) => SizedBox(height: 10.h,),
+                      itemBuilder: (context, indexAV) {
 
-                        final availData = data.availabilitySchedule[index];
+                        final availData = data.availabilitySchedule[indexAV];
 
                         return RichText(
                           text: TextSpan(
                             children: [
                               TextSpan(
-                                text: 'Monday:  ',
+                                text: '${availData.availability_day}:  ',
                                 style: GoogleFonts.inter(
                                   color: AppColor.bgColor,
                                   fontSize: 12..sp,
@@ -220,7 +220,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                                 ),
                               ),
                               TextSpan(
-                                text: '${availData.from_time}  - ${availData.to_time}',
+                                text: '${availData.from_time} - ${availData.to_time}',
                                 style: GoogleFonts.inter(
                                   color: AppColor.bgColor,
                                   fontSize: 12..sp,

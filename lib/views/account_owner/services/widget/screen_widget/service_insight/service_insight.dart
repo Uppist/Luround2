@@ -10,6 +10,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/extractors.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/services/screen/insight_empty_state..dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/filter_button.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/filter_date_bottomsheet.dart';
 
@@ -108,7 +109,7 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                 Expanded(
                   child: Obx(
                     () {
-                      return userService.filterServiceInsightList.isEmpty ? Loader2() :
+                      return userService.filterServiceInsightList.isEmpty ? InsightEmptyState(onPressed: () => _refresh,) :
                         RefreshIndicator.adaptive(
                           color: AppColor.greyColor,
                           backgroundColor: AppColor.mainColor,
@@ -276,7 +277,7 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 //physics: const BouncingScrollPhysics(),
-                                physics: NeverScrollableScrollPhysics(),
+                                physics: const NeverScrollableScrollPhysics(),
                                 //padding: EdgeInsets.symmetric(horizontal: 20.w),
                                 separatorBuilder: (context, index) => Divider(color: AppColor.textGreyColor, thickness: 0.3,),
                                 itemCount: userService.filterServiceInsightList.length,

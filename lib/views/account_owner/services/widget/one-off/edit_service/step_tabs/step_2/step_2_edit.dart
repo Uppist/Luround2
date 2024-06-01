@@ -250,13 +250,14 @@ class _Step2PageEditState extends State<Step2PageEdit> {
                         child: UtilsTextField4(
                           onChanged: (val) {
                             controllerSet.virtualPriceController.text = val;
-                          },
-                          onFieldSubmitted: (val) {
                             controller.updateVirtualPriceEdit(time, val)
                             .whenComplete(() {
                               log("${controller.selectedTimeSlotEdit}");
                               log(controllerSet.virtualPriceController.text);
                             });
+                          },
+                          onFieldSubmitted: (val) {
+                            
                           },
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.done,
@@ -273,13 +274,14 @@ class _Step2PageEditState extends State<Step2PageEdit> {
                         child: UtilsTextField4(
                           onChanged: (val) {
                             controllerSet.inpersonPriceController.text = val;
-                          },
-                          onFieldSubmitted: (val) {
                             controller.updateInpersonPriceEdit(time, val)
                             .whenComplete(() {
                               log("${controller.selectedTimeSlotEdit}");
                               log(controllerSet.inpersonPriceController.text);
                             });
+                          },
+                          onFieldSubmitted: (val) {
+                            
                           },
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.done,

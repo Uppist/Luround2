@@ -198,8 +198,8 @@ class _PackageServiceListState extends State<PackageServiceList> {
                       //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
                       itemCount: data.availabilitySchedule.length,
                       separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                      itemBuilder: (context, index) {
-                        final availData = data.availabilitySchedule[index];
+                      itemBuilder: (context, indexAV) {
+                        final availData = data.availabilitySchedule[indexAV];
                         return RichText(
                           text: TextSpan(
                             children: [
@@ -212,7 +212,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                                 ),
                               ),
                               TextSpan(
-                                text: '${availData.from_time}  - ${availData.to_time}',
+                                text: '${availData.from_time} - ${availData.to_time}',
                                 style: GoogleFonts.inter(
                                   color: AppColor.bgColor,
                                   fontSize: 12..sp,

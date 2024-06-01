@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -287,10 +286,10 @@ class _EventServiceListState extends State<EventServiceList> {
                                 physics: const NeverScrollableScrollPhysics(),
                                 //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
                                 itemCount: data.eventSchedule.length,
-                                separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                itemBuilder: (context, index) {
+                                separatorBuilder: (context, indexES) => SizedBox(height: 10.h,),
+                                itemBuilder: (context, indexES) {
 
-                                  final eventData = data.eventSchedule[index];
+                                  final eventData = data.eventSchedule[indexES];
 
                                   return RichText(
                                     text: TextSpan(
@@ -304,7 +303,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                           ),
                                         ),
                                         TextSpan(
-                                          text: '${eventData.time}  - ${eventData.end_time}',
+                                          text: '${eventData.time} - ${eventData.end_time}',
                                           style: GoogleFonts.inter(
                                             color: AppColor.bgColor,
                                             fontSize: 12..sp,

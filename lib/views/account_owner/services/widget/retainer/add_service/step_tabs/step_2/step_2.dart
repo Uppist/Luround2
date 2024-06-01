@@ -254,13 +254,14 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
                         child: UtilsTextField4(
                           onChanged: (val) {
                             controllerSet.virtualPriceController.text = val;
-                          },
-                          onFieldSubmitted: (val) {
                             controller.updateVirtualPrice(time, val)
                             .whenComplete(() {
                               log("${controller.selectedTimeSlot}");
                               log(controllerSet.virtualPriceController.text);
                             });
+                          },
+                          onFieldSubmitted: (val) {
+                            
                           },
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.done,
@@ -277,13 +278,14 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
                         child: UtilsTextField4(
                           onChanged: (val) {
                             controllerSet.inpersonPriceController.text = val;
-                          },
-                          onFieldSubmitted: (val) {
                             controller.updateInpersonPrice(time, val)
                             .whenComplete(() {
                               log("${controller.selectedTimeSlot}");
                               log(controllerSet.inpersonPriceController.text);
                             });
+                          },
+                          onFieldSubmitted: (val) {
+                            
                           },
                           keyboardType: TextInputType.number,
                           textInputAction: TextInputAction.done,

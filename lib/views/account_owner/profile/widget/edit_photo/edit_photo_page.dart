@@ -140,7 +140,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                           //filterQuality: FilterQuality.high,
                                            //fit: BoxFit.cover, //.contain,                                
                                         ),
-                                        fit: BoxFit.cover
+                                        fit: BoxFit.contain
                                       )
                                     ),
                                     child: InkWell(
@@ -159,7 +159,7 @@ class _EditPhotoPageState extends State<EditPhotoPage> {
                                       color: controller.isEmpty ? AppColor.emptyPic : AppColor.greyColor,
                                       image: DecorationImage(
                                         image: NetworkImage(widget.photoUrl),  //controller.isEmpty ? AssetImage('assets/images/empty_pic.png',)
-                                        fit: BoxFit.cover
+                                        fit: BoxFit.contain
                                       )
                                     ),
                                     child: InkWell(

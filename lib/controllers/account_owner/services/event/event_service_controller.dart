@@ -5,8 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/models/account_owner/ui/multiple_event_model.dart';
-import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/widget/event/add_event/step_tabs/step_2/events_widgets/row_widget.dart';
 
@@ -159,6 +157,7 @@ class EventsController extends getx.GetxController {
       'start_time': null,
       'stop_time': null,
     });
+    log("$dataListForBackendEdit");
     update();
   }
 
@@ -305,15 +304,15 @@ class EventsController extends getx.GetxController {
     widgetListEdit.add(
       RowWidget(
       key: ValueKey(currentRowKey),
-      onDelete: () => removeRow(currentRowKey),
+      onDelete: () => removeRowEdit(currentRowKey),
       onDateSelected: (date) {
-        setDate(currentRowKey, date);
+        setDateEdit(currentRowKey, date);
       },
       onStartTimeSelected: (startTime) {
-        setStartTime(currentRowKey, startTime);
+        setStartTimeEdit(currentRowKey, startTime);
       },
       onStopTimeSelected: (stopTime) {
-        setStopTime(currentRowKey, stopTime);
+        setStopTimeEdit(currentRowKey, stopTime);
       },
     ));
 
@@ -324,6 +323,7 @@ class EventsController extends getx.GetxController {
       'start_time': null,
       'stop_time': null,
     });
+    log("$dataListForBackendEdit");
     update();
   }
 

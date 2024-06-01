@@ -103,12 +103,12 @@ class SettingsScreen extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 20.h,),
-                  SettingsSelector2(
+                  /*SettingsSelector2(
                     text: "Customize your URL",
                     onFlip: () {
                       //Get.to(() => CustomizeYourURLPage());
                     },
-                  ),
+                  ),*/
                   SizedBox(height: 20.h,),
                   SettingsSelector(
                     text: "Delete your Luround account",

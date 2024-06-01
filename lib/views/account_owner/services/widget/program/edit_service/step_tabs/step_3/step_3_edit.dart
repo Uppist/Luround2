@@ -202,7 +202,7 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
                   service_charge_virtual: mainController.virtualPriceControllerEdit.text.isNotEmpty ? mainController.virtualPriceControllerEdit.text : widget.service_charge_virtual, 
                   start_date: mainController.selectedStartDateEdit.value,
                   end_date: mainController.selectedStopDateEdit.value,
-                  duration: '', //calculateDurationBetweenDates(mainController.selectedStartDateEdit.value, mainController.selectedStopDateEdit.value),
+                  duration: calculateDurationBetweenDates(mainController.selectedStartDateEdit.value, mainController.selectedStopDateEdit.value) ?? "",
                   max_number_of_participants: mainController.countEdit.value == 0 ? widget.max_number_of_participants : mainController.countEdit.value,
                   availability_schedule: mainController.selectedDaysEdit,
                   ).whenComplete(() {

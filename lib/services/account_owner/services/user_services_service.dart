@@ -876,8 +876,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         'duration': duration,
         "service_recurrence": program_recurrence,
         "max_number_of_participants": max_number_of_participants,
-        "service_charge_in_person": service_charge_in_person,
-        "service_charge_virtual": service_charge_virtual,
+        "in_person_event_fee": service_charge_in_person,
+        "virtual_event_fee": service_charge_virtual,
         "availability_schedule": availability_scheduleList,
       };
 
@@ -963,7 +963,6 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
 
       
-      
       var body1 = {
         //"email": email,
         "service_name": service_name,
@@ -976,8 +975,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "date": date,
         "start_time": start_time,
         "end_time": end_time,
-        "service_charge_in_person": inpersonFee,
-        "service_charge_virtual": virtualFee,
+        "in_person_event_fee": inpersonFee,
+        "virtual_event_fee": virtualFee,
       };
 
       var body2 = {
@@ -988,8 +987,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
         "event_type": event_schedule,
-        "service_charge_in_person": inpersonFee,
-        "service_charge_virtual": virtualFee,
+        "in_person_event_fee": inpersonFee,
+        "virtual_event_fee": virtualFee,
         "event_schedule": eventScheduleList,
       };
 
@@ -1307,8 +1306,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         'duration': duration,
         "service_recurrence": program_recurrence,
         "max_number_of_participants": max_number_of_participants,
-        "service_charge_in_person": service_charge_in_person,
-        "service_charge_virtual": service_charge_virtual,
+        "in_person_event_fee": service_charge_in_person,
+        "virtual_event_fee": service_charge_virtual,
         "availability_schedule": availability_scheduleList,
       };
 
@@ -1402,12 +1401,11 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
         "event_type": event_schedule,
-
         "date": date,
         "start_time": start_time,
         "end_time": end_time,
-        "service_charge_in_person": inpersonFee,
-        "service_charge_virtual": virtualFee,
+        "in_person_event_fee": inpersonFee,
+        "virtual_event_fee": virtualFee,
       };
 
       var body2 = {
@@ -1418,8 +1416,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
         "event_type": event_schedule,
-        "service_charge_in_person": inpersonFee,
-        "service_charge_virtual": virtualFee,
+        "in_person_event_fee": inpersonFee,
+        "virtual_event_fee": virtualFee,
         "event_schedule": eventScheduleList,
       };
 
@@ -1488,6 +1486,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
         debugPrint("user service deleted by id succesfully");
         //success snackbar
         showMySnackBar(

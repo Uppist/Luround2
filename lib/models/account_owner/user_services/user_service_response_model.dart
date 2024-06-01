@@ -102,8 +102,8 @@ class UserServiceModel {
     _data['service_name'] = serviceName;
     _data['description'] = description;
     _data['links'] = links;
-    _data['service_charge_in_person'] = serviceChargeInPerson;
-    _data['service_charge_virtual'] = serviceChargeVirtual;
+    _data['in_person_event_fee'] = serviceChargeInPerson;
+    _data['virtual_event_fee'] = serviceChargeVirtual;
     _data['duration'] = duration;
     _data['time'] = time;
     _data['service_provider_details'] = serviceProviderDetails;
@@ -119,7 +119,7 @@ class UserServiceModel {
     _data['end_time'] = endTime;
     _data['event_type'] = eventType;
     _data['virtual_meeting_link'] = virtualMeetingLink;
-    _data['physical_location_address'] = physicalLocationAddress;
+    _data['physical_location'] = physicalLocationAddress;
     _data['availability_schedule'] = availabilitySchedule;
     _data['event_schedule'] = eventSchedule;
     _data['program_fee'] = programFee;
@@ -156,7 +156,7 @@ class EventScheduleInfo {
     return EventScheduleInfo(
       date: json['date'] ?? '',
       time: json['time'] ?? '',
-      end_time: json['end_time:'] ?? '',
+      end_time: json['end_time'] ?? '',
     );
   }
 }

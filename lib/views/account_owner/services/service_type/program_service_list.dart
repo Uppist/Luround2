@@ -46,6 +46,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
     print('refreshed program service list: ${userService.filterSearchServicesList}');
   }
 
+
   @override
   void initState() {
     super.initState();
@@ -93,7 +94,6 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
               
               //run even and odd checks for dynamism
               final data = userService.filterSearchServicesList[index];
-              //selectedPriceType.value =  data.pricing[index].virtual_pricing;
           
               return Container(
                 //height: 500,
@@ -114,12 +114,15 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                       children: [
                         //check if the account owner selected in-person or virtual
                         
-                        Text(
-                          data.serviceName,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w800
+                        Expanded(
+                          child: Text(
+                            data.serviceName,
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w800
+                            ),
+                            overflow: TextOverflow.clip,
                           ),
                         ),
                         InkWell(
@@ -370,7 +373,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                         
                         //pop up menu button
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
 
@@ -381,7 +384,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               onChanged: (p0) {
                                 setState(() {
                                   controller.selectedFieldIndex.value = p0!;  
-                                  controller.selectedDurationIndex.value = index;  
+                                  //controller.selectedDurationIndex.value = index;  
                                   log(controller.selectedFieldIndex.value);            
                                 });
                               },
@@ -402,18 +405,14 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               ).toList(),      
                             ),
 
-                            //wrap with obx
+                            SizedBox(height: 5.h,),
+
                             Obx(
                               () {
-                                //&& controller.selectedDurationIndex.value == index
                                 return Text(
-                                  controller.selectedFieldIndex.value == 'Virtual' ?
-                                  'ff': 'gg',
+                                  controller.selectedFieldIndex.value == 'Virtual' ? data.serviceChargeVirtual.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeVirtual : 'FREE' : data.serviceChargeInPerson.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeInPerson : 'FREE',
                                   //"${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
                                   //:"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
-                                  
-                                  //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                                  //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 20.sp,
@@ -423,7 +422,10 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                 );
                               }
                             ),
+
+                          
                             SizedBox(height: 5.h,),
+
                             Text(
                               "for ${data.duration} duration",
                               style: GoogleFonts.inter(
@@ -433,7 +435,8 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               ),
                             ),
                           ],
-                        )
+                        ),
+
                       ],
                     ),
           

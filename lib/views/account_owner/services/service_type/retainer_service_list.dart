@@ -111,12 +111,15 @@ class _PackageServiceListState extends State<PackageServiceList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //check if the account owner selected in-person or virtual
-                        Text(
-                          data.serviceName,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w800
+                        Expanded(
+                          child: Text(
+                            data.serviceName,
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w800
+                            ),
+                            overflow: TextOverflow.clip,
                           ),
                         ),
                         InkWell(
@@ -274,7 +277,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                         
                         //pop up menu button
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
 
                             //pop up menu button for toggling in-between price,          
@@ -303,6 +306,8 @@ class _PackageServiceListState extends State<PackageServiceList> {
                                 }
                               ).toList(),      
                             ),
+
+                            SizedBox(height: 5.h,),
 
                             //wrap with obx
                             Obx(

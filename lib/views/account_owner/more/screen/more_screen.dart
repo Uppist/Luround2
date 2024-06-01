@@ -86,14 +86,14 @@ class MorePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 30.h,),
-                    MoreSelector2(
+                    /*MoreSelector2(
                       text: 'Storefront',
                       svgAsset: 'assets/svg/storefront_new.svg',
                       onTap: () {
                         //Get.to(() => SyncFusionCalendar());
                       },
                     ),
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 20.h,),*/
                     MoreSelector(
                       text: 'Calendar',
                       svgAsset: 'assets/svg/calendar_new.svg',

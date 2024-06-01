@@ -115,12 +115,15 @@ class _EventServiceListState extends State<EventServiceList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         //check if the account owner selected in-person or virtual
-                        Text(
-                          data.serviceName,
-                          style: GoogleFonts.inter(
-                            color: AppColor.bgColor,
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w800
+                        Expanded(
+                          child: Text(
+                            data.serviceName,
+                            style: GoogleFonts.inter(
+                              color: AppColor.bgColor,
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w800
+                            ),
+                            overflow: TextOverflow.clip,
                           ),
                         ),
                         InkWell(
@@ -320,50 +323,43 @@ class _EventServiceListState extends State<EventServiceList> {
 
                         //pop up menu button
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           //mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-
-                            //pop up menu button for toggling in-between price,          
+                          
+                            ////////////////////
                             PopupMenuFilterStr(
                               index: index,
                               selectedValue: controller.selectedFieldIndex,
                               onChanged: (p0) {
-                                setState(() {
-                                  controller.selectedFieldIndex.value = p0!;  
-                                  controller.selectedDurationIndex.value = index;  
-                                  log(controller.selectedDurationIndex.value.toString()); 
-                                  log(controller.selectedFieldIndex.value);            
-                                });
+                                controller.selectedFieldIndex.value = p0!;
+                                log(controller.selectedDurationIndex.value.toString());
+                                log(controller.selectedFieldIndex.value);
                               },
                               items: <String>['Virtual', 'In-person']
                                 .map<DropdownMenuItem<String>> ((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.bgColor,
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500,
-                                      )
-                                    ),
-                                  );
-                                }
-                              ).toList(),      
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(
+                                    value,
+                                    style: GoogleFonts.inter(
+                                      color: AppColor.bgColor,
+                                      fontSize: 10.sp,
+                                      fontWeight: FontWeight.w500,
+                                    )
+                                  ),
+                                );
+                              }).toList(),
                             ),
-                            
-                            //wrap with obx
+
+                            SizedBox(height: 5.h,),
+
                             Obx(
                               () {
-                                //&& controller.selectedDurationIndex.value == index
                                 return Text(
-                                  controller.selectedFieldIndex.value == 'Virtual' ?
-                                  "${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
-                                  :"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
-                                  
-                                  //? data.service_charge_virtual.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_virtual}" : "FREE"
-                                  //: data.service_charge_in_person.isNotEmpty ? "${currency(context).currencySymbol}${data.service_charge_in_person}" : "FREE",
+                                  controller.selectedFieldIndex.value == 'Virtual' ? data.serviceChargeVirtual.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeVirtual : 'FREE' : data.serviceChargeInPerson.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeInPerson : 'FREE',
+                                  //"${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
+                                  //:"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
                                   style: GoogleFonts.inter(
                                     color: AppColor.bgColor,
                                     fontSize: 20.sp,
@@ -373,6 +369,9 @@ class _EventServiceListState extends State<EventServiceList> {
                                 );
                               }
                             ),
+                            ///////////////////
+
+
         
                           ],
                         )

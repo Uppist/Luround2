@@ -92,10 +92,11 @@ class PopupMenuFilterInt extends StatelessWidget {
 
 
 class PopupMenuFilterStr extends StatelessWidget {
-  const PopupMenuFilterStr({super.key, this.onTap, required this.selectedValue, this.onChanged, this.items, required this.index,});
+  const PopupMenuFilterStr({super.key, this.onTap, required this.selectedValue, required this.onChanged, this.items, required this.index,});
   final void Function()? onTap;
   final RxString selectedValue;
-  final void Function(String?)? onChanged;
+  //final void Function(String?)? onChanged;
+  final ValueChanged<String?> onChanged;
   final List<DropdownMenuItem<String>>? items;
   final int index;
 

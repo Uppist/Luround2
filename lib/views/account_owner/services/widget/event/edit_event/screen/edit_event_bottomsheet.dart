@@ -88,6 +88,8 @@ Future<void> editEventDialogueBox({
                     Navigator.pop(context);
                     Get.to(() => EditEventScreen(
                       serviceId: serviceId,
+                      serviceName: service_name,
+                      description: description,
                       meetingLink: meetingLink,
                       location: location,
                       inPersonFee: inPersonFee,

@@ -59,7 +59,7 @@ class _Step2PageState extends State<Step2PageEdit> {
           () {
             return controller.eventScheduleEdit.value == "Single date" 
             ? SizedBox(height: MediaQuery.of(context).size.height * 0.23)
-            : SizedBox(height: MediaQuery.of(context).size.height * 0.11);
+            : SizedBox(height: MediaQuery.of(context).size.height * 0.40);
           }
         ),
 

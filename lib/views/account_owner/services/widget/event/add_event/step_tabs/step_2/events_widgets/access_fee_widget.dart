@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 
@@ -49,7 +50,7 @@ class AccessFeeWidget extends StatelessWidget {
             Expanded(
               child: AmountTextField(  
                 onChanged: (val) {},
-                hintText: "00:00",
+                hintText: "${currency(context).currencySymbol} 00:00",
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 textController: controller.inPersonPriceController
@@ -76,7 +77,7 @@ class AccessFeeWidget extends StatelessWidget {
             Expanded(
               child: AmountTextField(  
                 onChanged: (val) {},
-                hintText: "00:00",
+                hintText: "${currency(context).currencySymbol} 00:00",
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 textController: controller.virtualPriceController

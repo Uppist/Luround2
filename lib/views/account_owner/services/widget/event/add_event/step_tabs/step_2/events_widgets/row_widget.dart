@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 
 
@@ -35,7 +38,7 @@ class _RowWidgetState extends State<RowWidget> {
       padding: EdgeInsets.all(8.0.r),
       child: Row(
         children: [
-          // First container for date picker
+          //First container for date picker
           Expanded(
             child: GestureDetector(
               onTap: () async {
@@ -54,18 +57,26 @@ class _RowWidgetState extends State<RowWidget> {
                 }
               },
               child: Container(
-                height: 50,
-                color: Colors.blue[100],
+                height: 50.h,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.textGreyColor, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: AppColor.bgColor
+                ),
                 child: Center(
                   child: Text(
-                    selectedDate ?? 'Select Date',
-                    style: TextStyle(color: Colors.black),
+                    selectedDate ?? '',
+                    style: GoogleFonts.inter(
+                      color: AppColor.textGreyColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          SizedBox(width: 8),
+          SizedBox(width: 8.w),
           // Second container for start time picker
           Expanded(
             child: GestureDetector(
@@ -93,18 +104,28 @@ class _RowWidgetState extends State<RowWidget> {
                 }
               },
               child: Container(
-                height: 50,
-                color: Colors.green[100],
+                height: 50.h,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.textGreyColor, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: AppColor.bgColor
+                ),
                 child: Center(
                   child: Text(
-                    selectedStartTime ?? 'Select Start Time',
-                    style: TextStyle(color: Colors.black),
+                    selectedStartTime ?? '',
+                    style: GoogleFonts.inter(
+                      color: AppColor.textGreyColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400
+                    ),
                   ),
                 ),
               ),
             ),
           ),
-          SizedBox(width: 8),
+
+          SizedBox(width: 8.w),
+
           // Third container for stop time picker
           Expanded(
             child: GestureDetector(
@@ -122,12 +143,20 @@ class _RowWidgetState extends State<RowWidget> {
                 }
               },
               child: Container(
-                height: 50,
-                color: Colors.red[100],
+                height: 50.h,
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColor.textGreyColor, width: 1.0),
+                  borderRadius: BorderRadius.circular(10.r),
+                  color: AppColor.bgColor
+                ),
                 child: Center(
                   child: Text(
-                    selectedStopTime ?? 'Select Stop Time',
-                    style: TextStyle(color: Colors.black),
+                    selectedStopTime ?? '',
+                    style: GoogleFonts.inter(
+                      color: AppColor.textGreyColor,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w400
+                    ),
                   ),
                 ),
               ),
@@ -135,9 +164,13 @@ class _RowWidgetState extends State<RowWidget> {
           ),
           SizedBox(width: 8),
           // Delete icon to remove the row
-          IconButton(
-            icon: Icon(Icons.delete, color: Colors.red),
-            onPressed: widget.onDelete,
+          InkWell(
+            onTap: widget.onDelete,
+            child: Icon(
+              CupertinoIcons.delete, 
+              size: 24.r,
+              color: AppColor.textGreyColor,
+            ),
           ),
         ],
       ),

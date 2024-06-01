@@ -76,7 +76,7 @@ class _Step3PageState extends State<Step3Page> {
 
         Obx(
           () {
-            return service.isServiceCRLoading.value ? Loader2() : RebrandedReusableButton(
+            return service.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
               textColor: controller.priceType.value.isNotEmpty ? AppColor.bgColor : AppColor.darkGreyColor,
               color: controller.priceType.value.isNotEmpty ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 

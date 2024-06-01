@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/services/widget/event/add_event/step_tabs/step_1/step_1.dart';
-import 'package:luround/views/account_owner/services/widget/event/add_event/step_tabs/step_2/step_2.dart';
+import 'package:luround/views/account_owner/services/widget/event/edit_event/step_tabs/step_1/step_1_edit.dart';
+import 'package:luround/views/account_owner/services/widget/event/edit_event/step_tabs/step_2/step_2_edit.dart';
 import 'package:luround/views/account_owner/services/widget/event/edit_event/step_tabs/step_3/step_3_edit.dart';
 
 
@@ -18,12 +18,14 @@ import 'package:luround/views/account_owner/services/widget/event/edit_event/ste
 
 
 class EditEventScreen extends StatefulWidget {
-  const EditEventScreen({super.key, required this.meetingLink, required this.location, required this.inPersonFee, required this.virtualFee, required this.serviceId});
+  const EditEventScreen({super.key, required this.meetingLink, required this.location, required this.inPersonFee, required this.virtualFee, required this.serviceId, required this.serviceName, required this.description});
   final String meetingLink;
   final String location;
   final String inPersonFee;
   final String virtualFee;
   final String serviceId;
+  final String serviceName;
+  final String description;
 
   @override
   State<EditEventScreen> createState() => _EditEventScreenState();
@@ -125,7 +127,10 @@ class _EditEventScreenState extends State<EditEventScreen> {
         steps: [
           Step(
             title: Text(""), 
-            content: Step1Page(
+            content: Step1PageEdit(
+              serviceId: widget.serviceId,
+              service_name: widget.serviceName,
+              description: widget.description,
               onNext: () {
                 if(controller.curentStepEdit.value < 2) {
                   setState(() {
@@ -140,7 +145,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
           Step(
             title: Text(""), 
             isActive: controller.curentStepEdit.value >= 1,
-            content: Step2Page(
+            content: Step2PageEdit(
               onNext: () {
                 if(controller.curentStepEdit.value < 2) {
                   setState(() {

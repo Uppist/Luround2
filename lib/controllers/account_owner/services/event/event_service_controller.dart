@@ -129,31 +129,32 @@ class EventsController extends getx.GetxController {
   getx.RxList<Map<String, dynamic>> dataListForBackend = <Map<String, dynamic>>[].obs;
 
   // Counter to provide unique keys for each row
-  getx.RxInt rowKeyCounter = 0.obs;
+  int rowKeyCounter = 0;
 
   // Function to add a new row of widgets
   void addRow() {
     //increment the rowkeycounter
-    getx.RxInt currentRowKey = rowKeyCounter++;
+    int currentRowKey = rowKeyCounter++;
     
     //remove from the widget list w.r.t index
-    widgetList.add(RowWidget(
+    widgetList.add(
+      RowWidget(
       key: ValueKey(currentRowKey),
-      onDelete: () => removeRow(currentRowKey.value),
+      onDelete: () => removeRow(currentRowKey),
       onDateSelected: (date) {
-        setDate(currentRowKey.value, date);
+        setDate(currentRowKey, date);
       },
       onStartTimeSelected: (startTime) {
-        setStartTime(currentRowKey.value, startTime);
+        setStartTime(currentRowKey, startTime);
       },
       onStopTimeSelected: (stopTime) {
-        setStopTime(currentRowKey.value, stopTime);
+        setStopTime(currentRowKey, stopTime);
       },
     ));
 
     //remove from the backend list w.r.t index
     dataListForBackend.add({
-      'key': currentRowKey.value,
+      'key': currentRowKey,
       'date': null,
       'start_time': null,
       'stop_time': null,
@@ -293,31 +294,32 @@ class EventsController extends getx.GetxController {
   getx.RxList<Map<String, dynamic>> dataListForBackendEdit = <Map<String, dynamic>>[].obs;
 
   // Counter to provide unique keys for each row
-  getx.RxInt rowKeyCounterEdit = 0.obs;
+  int rowKeyCounterEdit = 0;
 
   // Function to add a new row of widgets
   void addRowEdit() {
     //increment the rowkeycounter
-    getx.RxInt currentRowKey = rowKeyCounterEdit++;
+    int currentRowKey = rowKeyCounterEdit++;
     
     //remove from the widget list w.r.t index
-    widgetListEdit.add(RowWidget(
+    widgetListEdit.add(
+      RowWidget(
       key: ValueKey(currentRowKey),
-      onDelete: () => removeRow(currentRowKey.value),
+      onDelete: () => removeRow(currentRowKey),
       onDateSelected: (date) {
-        setDate(currentRowKey.value, date);
+        setDate(currentRowKey, date);
       },
       onStartTimeSelected: (startTime) {
-        setStartTime(currentRowKey.value, startTime);
+        setStartTime(currentRowKey, startTime);
       },
       onStopTimeSelected: (stopTime) {
-        setStopTime(currentRowKey.value, stopTime);
+        setStopTime(currentRowKey, stopTime);
       },
     ));
 
     //remove from the backend list w.r.t index
     dataListForBackendEdit.add({
-      'key': currentRowKey.value,
+      'key': currentRowKey,
       'date': null,
       'start_time': null,
       'stop_time': null,

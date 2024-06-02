@@ -17,7 +17,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class TrxDashBoard extends StatefulWidget {
-  TrxDashBoard({super.key,});
+  const TrxDashBoard({super.key,});
 
   @override
   State<TrxDashBoard> createState() => _TrxDashBoardState();

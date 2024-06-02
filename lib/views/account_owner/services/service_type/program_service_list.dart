@@ -10,6 +10,7 @@ import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/screen/edit_service_bottomsheet.dart';
@@ -68,9 +69,10 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
     return Obx(
       () {
         return 
-
+        userService.isServiceCRLoading.value ? Loader() :
         userService.filterSearchServicesList.isEmpty
-        ?ServiceEmptyState(
+        ? //Loader()
+        ServiceEmptyState(
           onPressed: () {
             Get.to(() => const AddProgramServiceScreen());
           },

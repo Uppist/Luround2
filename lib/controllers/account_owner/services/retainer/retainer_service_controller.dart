@@ -358,6 +358,7 @@ class PackageServiceController extends getx.GetxController {
   Future<List<PricingInfo>> reorderTimeSlot(List<PricingInfo> selectedTimeSlot) async {
     // Define the order of days in the week
     const List<String> weekDaysOrder = [
+      '15 mins',
       '30 mins',
       '45 mins',
       '60 mins',
@@ -701,6 +702,7 @@ class PackageServiceController extends getx.GetxController {
   Future<List<PricingInfo>> reorderTimeSlotEdit(List<PricingInfo> selectedTimeSlot) async {
     // Define the order of days in the week
     const List<String> weekDaysOrder = [
+      '15 mins', 
       '30 mins',
       '45 mins',
       '60 mins',

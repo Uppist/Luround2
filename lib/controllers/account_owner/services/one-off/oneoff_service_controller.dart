@@ -56,7 +56,7 @@ class ServicesController extends getx.GetxController {
   //////STEP 2//////
 
   List<ServiceControllerSett> controllers = List.generate(
-    6,
+    7,
     (index) => ServiceControllerSett(),
   );
 
@@ -65,6 +65,7 @@ class ServicesController extends getx.GetxController {
   final isCustomTextFieldActivated = false.obs;
   // List of time slots with selection status
   var priceSlot = <Map<String, dynamic>>[
+    {'time': '15 mins', 'isSelected': false},
     {'time': '30 mins', 'isSelected': false},
     {'time': '45 mins', 'isSelected': false},
     {'time': '60 mins', 'isSelected': false},
@@ -166,6 +167,7 @@ class ServicesController extends getx.GetxController {
   Future<List<PricingInfo>> reorderTimeSlot(List<PricingInfo> selectedTimeSlot) async {
     // Define the order of days in the week
     const List<String> weekDaysOrder = [
+      '15 mins',
       '30 mins',
       '45 mins',
       '60 mins',
@@ -555,12 +557,13 @@ class ServicesController extends getx.GetxController {
 
 
   ////STEP 2 EDIT////
-  List<ServiceControllerSett> controllersEdit = List.generate(6, (int index) => ServiceControllerSett());
+  List<ServiceControllerSett> controllersEdit = List.generate(7, (int index) => ServiceControllerSett());
   final TextEditingController customTimeSlotControllerEdit = TextEditingController();
   final isCheckBoxActiveForPricingEdit = false.obs;
   final isCustomTextFieldActivatedEdit = false.obs;
   // List of time slots with selection status
   var priceSlotEdit = <Map<String, dynamic>>[
+    {'time': '15 mins', 'isSelected': false},
     {'time': '30 mins', 'isSelected': false},
     {'time': '45 mins', 'isSelected': false},
     {'time': '60 mins', 'isSelected': false},
@@ -656,6 +659,7 @@ class ServicesController extends getx.GetxController {
   Future<List<PricingInfo>> reorderTimeSlotEdit(List<PricingInfo> selectedTimeSlot) async {
     // Define the order of days in the week
     const List<String> weekDaysOrder = [
+      '15 mins',
       '30 mins',
       '45 mins',
       '60 mins',

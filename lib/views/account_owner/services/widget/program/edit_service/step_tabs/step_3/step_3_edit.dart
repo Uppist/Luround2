@@ -142,7 +142,7 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
                 },
                 hintText: "${currency(context).currencySymbol} 00.00",
                 keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 initialValue: widget.service_charge_in_person,
 
               ),

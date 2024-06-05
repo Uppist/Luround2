@@ -83,142 +83,8 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
             ),
           ],
         ),
+
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-
-        //2           
-        //growable list that displays textfields that was added
-        /*ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(), //const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: controller.controllersEdit.length, //certified (working)
-          //padding: EdgeInsets.symmetric(vertical: 10.h),
-          separatorBuilder: (context, index) => SizedBox(height: 20.h,),
-          itemBuilder: (context, index) {  //certified (working)
-                  
-            ServiceControllerSett controllerSet = controller.controllersEdit[index];
-        
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: buildAdditionalTextField(
-                    '', 
-                    controllerSet.durationController, 
-                    TextInputType.number, 
-                    Icon(CupertinoIcons.calendar_today, size: 22.r, color: AppColor.textGreyColor,), 
-                    0.w,
-                    Text(
-                      "Mon.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 10.sp, //12.sp
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ), 
-                  ),
-                ),
-                SizedBox(width: 10.w,),
-                Expanded(
-                  child: buildAdditionalTextField(
-                    '', 
-                    controllerSet.virtualPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    //SvgPicture.asset("assets/svg/naira.svg"),
-                    150.w
-                  ),
-                ),
-                SizedBox(width: 10.w,),
-                Expanded(
-                  child: buildAdditionalTextField(
-                    '', 
-                    controllerSet.inpersonPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    //SvgPicture.asset("assets/svg/naira.svg"),
-                    150.w
-                  ),
-                ),
-                SizedBox(width: 10.w),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      //profileController.textFields.removeAt(index);
-                      controller.controllersEdit.removeAt(index);
-                      print("controller_list: ${controller.controllersEdit}");
-                      print("controller_list_length: ${controller.controllersEdit.length}");
-                    });
-                  },
-                  child: Icon(CupertinoIcons.delete, size: 24.r, color: AppColor.textGreyColor,),
-                )
-                
-              ],
-            );
-                        
-          },
-        
-        ),*/
-            
-        /*SizedBox(height: MediaQuery.of(context).size.height * 0.23),
-        InkWell(
-          onTap: () {           
-            setState(() {
-              ServiceControllerSett controllerSet = ServiceControllerSett();
-              //controller.textFields.add(buildTextField(controllerSet));
-              controller.controllers.add(controllerSet);
-              print("controller_list: ${controller.controllersEdit}");
-              print("controller_list_length: ${controller.controllersEdit.length}");
-              // Access your controllers through the list of ControllerSet instances
-              for (ServiceControllerSett controllerSet in controller.controllersEdit) {
-                print("duration: ${controllerSet.durationController.text}");
-                print("virtual price: ${controllerSet.virtualPriceController.text}");
-                print("in-person price: ${controllerSet.inpersonPriceController.text}");
-              }
-
-            });    
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                CupertinoIcons.add_circled, 
-                size: 24.r, 
-                color: AppColor.textGreyColor,
-              ),
-              SizedBox(width: 10.w,),
-              Text(
-                'Add date slot',
-                style: GoogleFonts.inter(
-                  color: AppColor.textGreyColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400
-                )
-              ),
-              
-            ],
-          ),
-        ),*/
 
         //available days list
         ListView.separated(
@@ -304,7 +170,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
                             
                           },
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.none,
+                          textInputAction: TextInputAction.done,
                           textController: controllerSet.virtualPriceController,
                           //initialValue: virtualPrice,
                           hintText: '${currency(context).currencySymbol} 0.00',
@@ -328,7 +194,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
                             
                           },
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.none,
+                          textInputAction: TextInputAction.done,
                           textController: controllerSet.inpersonPriceController,
                           //initialValue: inpersonPrice,
                           hintText: '${currency(context).currencySymbol} 0.00',
@@ -364,7 +230,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
           },
           hintText: "Meeting link",
           keyboardType: TextInputType.url,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.done,
           initialValue: widget.virtual_meeting_link,
           //textController: controller.addLinksControllerEdit
         ),

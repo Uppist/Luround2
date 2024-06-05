@@ -95,8 +95,8 @@ class _Step1PageEditState extends State<Step1PageEdit> {
             });
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.none,
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.newline,
           initialValue: widget.description,
         ),
         SizedBox(height: 10.h,),

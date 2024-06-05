@@ -91,8 +91,8 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
             
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.none,
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.newline,
           textController: controller.descriptionController,
         ),
         SizedBox(height: 20.h,),

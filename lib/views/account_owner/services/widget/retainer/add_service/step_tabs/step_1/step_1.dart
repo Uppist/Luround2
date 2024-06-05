@@ -93,8 +93,8 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
             
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.none,
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.newline,
           textController: controller.descriptionController,
         ),
         SizedBox(height: 10.h,),
@@ -136,7 +136,7 @@ class _Step1PagePackageServiceState extends State<Step1PagePackageService> {
               },
               hintText: "List out the core features of this service",
               keyboardType: TextInputType.name,
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               textController: controller.coreFeaturesController,
               isTapped: controller.isFeaturesTapped.value,
               suffixIcon: InkWell(

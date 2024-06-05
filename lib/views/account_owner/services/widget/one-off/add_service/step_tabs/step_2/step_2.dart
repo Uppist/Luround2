@@ -80,104 +80,10 @@ class _Step2PageState extends State<Step2Page> {
               ),
             ),
           ],
-        ),
-
-        //2           
-        //growable list that displays textfields that was added
-        /*ListView.separated(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(), //const BouncingScrollPhysics(),
-          scrollDirection: Axis.vertical,
-          itemCount: controller.controllers.length, //certified (working)
-          //padding: EdgeInsets.symmetric(vertical: 10.h),
-          separatorBuilder: (context, index) => SizedBox(height: 20.h,),
-          itemBuilder: (context, index) {  //certified (working)
-                  
-            ServiceControllerSett controllerSet = controller.controllers[index];
-        
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: buildAdditionalTextField(
-                    '', 
-                    controllerSet.durationController, 
-                    TextInputType.number, 
-                    Icon(CupertinoIcons.clock, size: 22.r, color: AppColor.textGreyColor,), 
-                    0.w,
-                    Text(
-                      "Min.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 10.sp, //12.sp
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ), 
-                  ),
-                ),
-                SizedBox(width: 10.w,),
-                Expanded(
-                  child: buildAdditionalTextField(
-                    '', 
-                    controllerSet.virtualPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    //SvgPicture.asset("assets/svg/naira.svg"),
-                    150.w
-                  ),
-                ),
-                SizedBox(width: 10.w,),
-                Expanded(
-                  child: buildAdditionalTextField(
-                    '', 
-                    controllerSet.inpersonPriceController, 
-                    TextInputType.number, 
-                    Text(
-                      currency(context).currencySymbol,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        color: AppColor.textGreyColor,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w400
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    //SvgPicture.asset("assets/svg/naira.svg"),
-                    150.w
-                  ),
-                ),
-                SizedBox(width: 10.w),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      //profileController.textFields.removeAt(index);
-                      controller.controllers.removeAt(index);
-                      print("controller_list: ${controller.controllers}");
-                      print("controller_list_length: ${controller.controllers.length}");
-                    });
-                  },
-                  child: Icon(CupertinoIcons.delete, size: 24.r, color: AppColor.textGreyColor,),
-                )
-                
-              ],
-            );
-                        
-          },
-        
-        ),*/
+        ), 
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+
         //available days list
         ListView.separated(
           scrollDirection: Axis.vertical,
@@ -264,7 +170,7 @@ class _Step2PageState extends State<Step2Page> {
                             
                           },
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.none,
+                          textInputAction: TextInputAction.done,
                           textController: controllerSet.virtualPriceController,
                           //initialValue: virtualPrice,
                           hintText: '${currency(context).currencySymbol} 0.00',
@@ -289,7 +195,7 @@ class _Step2PageState extends State<Step2Page> {
                             
                           },
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.none,
+                          textInputAction: TextInputAction.done,
                           textController: controllerSet.inpersonPriceController,
                           //initialValue: inpersonPrice,
                           hintText: '${currency(context).currencySymbol} 0.00',

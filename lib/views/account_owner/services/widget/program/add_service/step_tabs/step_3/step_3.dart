@@ -133,7 +133,7 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                 },
                 hintText: "${currency(context).currencySymbol} 00.00",
                 keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 textController: mainController.inPersonPriceController,
 
               ),

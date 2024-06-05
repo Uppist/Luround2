@@ -79,7 +79,7 @@ class AccessFeeWidget extends StatelessWidget {
                 onChanged: (val) {},
                 hintText: "${currency(context).currencySymbol} 00:00",
                 keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 textController: controller.virtualPriceController
               ),
             )

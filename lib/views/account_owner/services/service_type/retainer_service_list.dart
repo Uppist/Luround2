@@ -53,6 +53,9 @@ class _PackageServiceListState extends State<PackageServiceList> {
       log("Error fetching data: $error");
       //controller.setError(true);
     }
+    finally {
+      log("done");
+    }
   }
 
   Future<void> _refresh() async {

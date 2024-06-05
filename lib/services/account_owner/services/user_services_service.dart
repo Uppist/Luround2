@@ -72,7 +72,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   void updateServiceList(List<UserServiceModel> data) {
     filterServicesList.clear();
     filterServicesList.addAll(data);
-    filterServicesList.refresh();
+    //filterServicesList.refresh();
     update();
   }
 
@@ -100,7 +100,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterServicesList");
     }
-    update();
+    //update();
   }
 
   Future<List<UserServiceModel>> getUserOneOffServices() async {
@@ -161,7 +161,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterServicesList");
     }
-    update();
+    //update();
   }
 
   Future<List<UserServiceModel>> getUserRetainerServices() async {
@@ -196,8 +196,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       isLoading.value = false;
       hasError.value = true;
       //debugPrint("Error net: $e");
-      throw Exception("error: $e");
-    
+      throw Exception("error: $e"); 
     }
   }
 
@@ -220,7 +219,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterServicesList");
     }
-    update();
+    //update();
   }
   
   Future<List<UserServiceModel>> getUserProgramServices() async {
@@ -278,7 +277,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterServicesList");
     }
-    update();
+    //update();
   }
   
   Future<List<UserServiceModel>> getUserEventServices() async {
@@ -314,7 +313,6 @@ class AccOwnerServicePageService extends getx.GetxController {
       hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("error: $e");
-    
     }
   }
 

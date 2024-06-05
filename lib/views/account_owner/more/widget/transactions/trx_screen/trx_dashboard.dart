@@ -36,18 +36,18 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
 
   @override
   Widget build(BuildContext context) {
-          return Container(
-            alignment: Alignment.center,
-            //height: 300,
-            width: double.infinity,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.w, 
-              vertical: 30.h, 
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15.r),
-              color: AppColor.mainGreen,
+    return Container(
+      alignment: Alignment.center,
+      //height: 300,
+      width: double.infinity,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      padding: EdgeInsets.symmetric(
+        horizontal: 20.w, 
+        vertical: 30.h, 
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.r),
+        color: AppColor.mainGreen,
               /*boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5) ,//withOpacity(0.2),

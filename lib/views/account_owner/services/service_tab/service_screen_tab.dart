@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -82,33 +84,37 @@ class _ServiceScreenTabState extends State<ServiceScreenTab> with SingleTickerPr
                 service.activeTabIndex = index;
                 //run checks
                 if (index == 0) {
+                  log("$index");
                   //one-off service
-                  service.filterSearchServicesList.clear();
-                  service.filterSearchServicesList.addAll(service.servicesList);
+                  //service.filterSearchServicesList.clear();
+                  //service.filterSearchServicesList.addAll(service.servicesList);
                 } 
                 else if (index == 1) {
+                  log("$index");
                   //retainer service
-                  service.filterSearchServicesList.clear();
-                  service.filterSearchServicesList.addAll(service.servicesListRetainer);
+                  //service.filterSearchServicesList.clear();
+                  //service.filterSearchServicesList.addAll(service.servicesListRetainer);
                 } 
                 else if(index == 2) {
+                  log("$index");
                   //program service
-                  service.filterSearchServicesList.clear();
-                  service.filterSearchServicesList.addAll(service.servicesListProgram);
+                  //service.filterSearchServicesList.clear();
+                  //service.filterSearchServicesList.addAll(service.servicesListProgram);
                 }
                 else if(index == 3) {
+                  log("$index");
                   //event service
-                  service.filterSearchServicesList.clear();
-                  service.filterSearchServicesList.addAll(service.servicesListEvent);
+                  //service.filterSearchServicesList.clear();
+                  //service.filterSearchServicesList.addAll(service.servicesListEvent);
                 }
                 else {
-                  print('no more indices to check');
+                  log('no more indices to check');
                 }
                 // Apply search filter
                 //service.filterItems(service.searchServicesList);
               }
-            );
-          },
+              );
+            },
           ),
       
           SizedBox(height: 20.h,),

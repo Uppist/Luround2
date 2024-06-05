@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,6 +22,7 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/popup_
 
 
 
+
 class ProgramServiceList extends StatefulWidget {
   const ProgramServiceList({super.key});
 
@@ -31,54 +31,57 @@ class ProgramServiceList extends StatefulWidget {
 }
 
 class _ProgramServiceListState extends State<ProgramServiceList> {
-
   final controller = Get.put(ProgramServiceController());
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
-  //GlobalKey for RefreshIndicator
+  // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refresh() async {
-    await Future.delayed(const Duration(seconds: 1));
-    // Fetch new data here
-    final List<UserServiceModel>  newData = await userService.getUserProgramServices();
-    // Update the UI with the new data
-    userService.filterSearchServicesList.clear();
-    userService.filterSearchServicesList.addAll(newData);
-    print('refreshed program service list: ${userService.filterSearchServicesList}');
-  }
-
 
   @override
   void initState() {
     super.initState();
-    //regular services
-    userService.getUserProgramServices().then(
-      (value) {
-        // Update the UI with the new data
-        userService.filterSearchServicesList.clear();
-        userService.filterSearchServicesList.addAll(value);
-        print('updated program service list: ${userService.filterSearchServicesList}');
-      }
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      fetchData();
+    });
   }
 
+  Future<void> fetchData() async {
+    try {
+      await userService.getUserProgramServices()
+      .then((value) => userService.updateServiceList(value));
+    } catch (error) {
+      log("Error fetching data: $error");
+    }
+  }
 
+  Future<void> _refresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    await fetchData();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return 
-        userService.isServiceCRLoading.value ? Loader() :
-        userService.filterSearchServicesList.isEmpty
-        ? //Loader()
-        ServiceEmptyState(
-          onPressed: () {
-            Get.to(() => const AddProgramServiceScreen());
-          },
-        ):
-        
-        RefreshIndicator.adaptive(
+        if (userService.isLoading.value) {
+          return Loader();
+        }
+        if (userService.hasError.value) {
+          return ServiceEmptyState(
+            onPressed: () {
+              Get.to(() => const AddProgramServiceScreen());
+            },
+          );
+        }
+        if (userService.filterServicesList.isEmpty) {
+          return ServiceEmptyState(
+            onPressed: () {
+              Get.to(() => const AddProgramServiceScreen());
+            },
+          );
+        }
+
+        return RefreshIndicator.adaptive(
           color: AppColor.greyColor,
           backgroundColor: AppColor.mainColor,
           key: _refreshKey,
@@ -90,15 +93,13 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-            itemCount: userService.filterSearchServicesList.length,
-            separatorBuilder: (context, index) => SizedBox(height: 25.h,),
+            itemCount: userService.filterServicesList.length,
+            separatorBuilder: (context, index) => SizedBox(height: 25.h),
             itemBuilder: (context, index) {
               
-              //run even and odd checks for dynamism
-              final data = userService.filterSearchServicesList[index];
-          
+              final data = userService.filterServicesList[index];
+
               return Container(
-                //height: 500,
                 width: double.infinity,
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
@@ -109,20 +110,16 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //SizedBox(height: 10.h),
-                    //toggle price button
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //check if the account owner selected in-person or virtual
-                        
                         Expanded(
                           child: Text(
                             data.serviceName,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 20.sp,
-                              fontWeight: FontWeight.w800
+                              fontWeight: FontWeight.w800,
                             ),
                             overflow: TextOverflow.clip,
                           ),
@@ -133,7 +130,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               service_status: data.serviceStatus,
                               max_number_of_participants: data.maxNumberOfParticipants,
                               service: userService,
-                              context: context, 
+                              context: context,
                               userId: data.serviceProviderDetails.userId,
                               email: data.serviceProviderDetails.email,
                               displayName: data.serviceProviderDetails.displayName,
@@ -154,313 +151,161 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                             color: AppColor.bgColor,
                             size: 30.r,
                           ),
-                        ),                                   
+                        ),
                       ],
                     ),
-          
-                    SizedBox(height: 20.h,),
-                    
-                    //ALL SUBSEQUENT INFORMATION COMES HERE
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Service type:  ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.serviceType.capitalizeFirst,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-          
-                    SizedBox(height: 10.h,),
-          
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Duration:  ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.duration,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-
-                    SizedBox(height: 10.h,),
-          
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Recurrence:  ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.serviceRecurrence,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-          
-                    SizedBox(height: 10.h,),
-          
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Max no. of participants:  ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.maxNumberOfParticipants.toString(),
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-          
-                    SizedBox(height: 10.h,),
-          
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Start date:  ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.startDate,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-          
-                    SizedBox(height: 10.h,),
-          
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'End date:  ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.endDate,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-          
-                    SizedBox(height: 40.h,),
-          
-                    //PRICING SECTION
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        //time allocation pop_up_menu
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Available on",
-                                style: GoogleFonts.inter(
-                                  color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ), 
-                          
-                              SizedBox(height: 20.h,),
-                          
-                              //available schedule list
-                              ListView.separated(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                physics: const NeverScrollableScrollPhysics(),
-                                //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
-                                itemCount: data.availabilitySchedule.length,
-                                separatorBuilder: (context, index) => SizedBox(height: 10.h,),
-                                itemBuilder: (context, indexAV) {
-
-                                  final availData = data.availabilitySchedule[indexAV];
-                                  return RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: '${availData.availability_day}:  ',
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.bgColor,
-                                            fontSize: 12..sp,
-                                            fontWeight: FontWeight.w500
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: '${availData.from_time} - ${availData.to_time}',
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.bgColor,
-                                            fontSize: 12..sp,
-                                            fontWeight: FontWeight.w500
-                                          ),
-                                        )
-                                      ]
-                                    )
-                                  );
-                                }
-                              ),
-                          
-                            ],
-                          ),
-                        ),
-                        
-                        //pop up menu button
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-
-                            //pop up menu button for toggling in-between price,          
-                            PopupMenuFilterStr(
-                              index: index,
-                              selectedValue: controller.selectedFieldIndex,
-                              onChanged: (p0) {
-                                setState(() {
-                                  controller.selectedFieldIndex.value = p0!;  
-                                  //controller.selectedDurationIndex.value = index;  
-                                  log(controller.selectedFieldIndex.value);            
-                                });
-                              },
-                              items: <String>['Virtual', 'In-person']
-                                .map<DropdownMenuItem<String>> ((String value) {
-                                  return DropdownMenuItem<String>(
-                                    value: value,
-                                    child: Text(
-                                      value,
-                                      style: GoogleFonts.inter(
-                                        color: AppColor.bgColor,
-                                        fontSize: 10.sp,
-                                        fontWeight: FontWeight.w500,
-                                      )
-                                    ),
-                                  );
-                                }
-                              ).toList(),      
-                            ),
-
-                            SizedBox(height: 5.h,),
-
-                            Obx(
-                              () {
-                                return Text(
-                                  controller.selectedFieldIndex.value == 'Virtual' ? data.serviceChargeVirtual.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeVirtual : 'FREE' : data.serviceChargeInPerson.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeInPerson : 'FREE',
-                                  //"${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
-                                  //:"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.bgColor,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                );
-                              }
-                            ),
-
-                          
-                            SizedBox(height: 5.h,),
-
-                            Text(
-                              "for ${data.duration} duration",
-                              style: GoogleFonts.inter(
-                                color: AppColor.whiteTextColor,
-                                fontSize: 10.sp,
-                                fontWeight: FontWeight.w500
-                              ),
-                            ),
-                          ],
-                        ),
-
-                      ],
-                    ),
-          
-                    SizedBox(height: 40.h,),
-          
+                    SizedBox(height: 20.h),
+                    _buildRichText('Service type:  ', data.serviceType.capitalizeFirst!),
+                    SizedBox(height: 10.h),
+                    _buildRichText('Duration:  ', data.duration),
+                    SizedBox(height: 10.h),
+                    _buildRichText('Recurrence:  ', data.serviceRecurrence),
+                    SizedBox(height: 10.h),
+                    _buildRichText('Max no. of participants:  ', data.maxNumberOfParticipants.toString()),
+                    SizedBox(height: 10.h),
+                    _buildRichText('Start date:  ', data.startDate),
+                    SizedBox(height: 10.h),
+                    _buildRichText('End date:  ', data.endDate),
+                    SizedBox(height: 40.h),
+                    _buildPricingSection(data, index),
+                    SizedBox(height: 40.h),
                     Text(
                       data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-          
-                  ]
-                )
+                  ],
+                ),
               );
-            }
+            },
           ),
         );
+      },
+    );
+  }
 
-      }
+  RichText _buildRichText(String label, String value) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: label,
+            style: GoogleFonts.inter(
+              color: AppColor.whiteTextColor,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          TextSpan(
+            text: value,
+            style: GoogleFonts.inter(
+              color: AppColor.bgColor,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPricingSection(UserServiceModel data, int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Available on",
+                style: GoogleFonts.inter(
+                  color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
+                  fontSize: 12.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              SizedBox(height: 20.h),
+              ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.vertical,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: data.availabilitySchedule.length,
+                separatorBuilder: (context, index) => SizedBox(height: 10.h),
+                itemBuilder: (context, indexAV) {
+                  final availData = data.availabilitySchedule[indexAV];
+                  return _buildRichText('${availData.availability_day}:  ', '${availData.from_time} - ${availData.to_time}');
+                },
+              ),
+            ],
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            PopupMenuFilterStr(
+              index: index,
+              selectedValue: controller.selectedFieldIndex,
+              onChanged: (p0) {
+                controller.selectedFieldIndex.value = p0!;
+                log(controller.selectedFieldIndex.value);
+              },
+              items: <String>['Virtual', 'In-person'].map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style: GoogleFonts.inter(
+                      color: AppColor.bgColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 5.h),
+            Obx(
+              () {
+                return Text(
+                  controller.selectedFieldIndex.value == 'Virtual'
+                      ? data.serviceChargeVirtual.isNotEmpty
+                          ? currency(context).currencySymbol + data.serviceChargeVirtual
+                          : 'FREE'
+                      : data.serviceChargeInPerson.isNotEmpty
+                          ? currency(context).currencySymbol + data.serviceChargeInPerson
+                          : 'FREE',
+                  style: GoogleFonts.inter(
+                    color: AppColor.bgColor,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                );
+              }
+            ),
+            SizedBox(height: 5.h),
+            Text(
+              "for ${data.duration} duration",
+              style: GoogleFonts.inter(
+                color: AppColor.whiteTextColor,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
+
+
+
+
+
+

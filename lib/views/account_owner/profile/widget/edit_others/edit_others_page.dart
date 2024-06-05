@@ -94,9 +94,9 @@ class _EditOthersPageState extends State<EditOthersPage> {
       ),*/
       body: Obx(
         () {
-          return profileService.isLoading.value ? Loader() : SafeArea(
+          return profileService.isLoading.value ? const Loader() : SafeArea(
             child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -204,7 +204,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           //onReorder: (oldIndex, newIndex) => controller.reorderList(oldIndex, newIndex) ,
                           itemCount: controller.viewTextfields.length,
                           scrollDirection: Axis.vertical,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                         
@@ -244,7 +244,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                           )
                         ),
 
-                        SizedBox(height: 40),
+                        const SizedBox(height: 40),
 
 
                         //tap an icon custom row grid here///////////////////////////
@@ -273,7 +273,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.text,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("locay"),
+                                    key: const ValueKey("locay"),
                                   ),
                                   viewModel
                                 );
@@ -303,7 +303,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.phone,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("mobile"),
+                                    key: const ValueKey("mobile"),
                                   ),
                                   viewModel
                                 );
@@ -333,7 +333,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.emailAddress,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("email"),
+                                    key: const ValueKey("email"),
                                   ),
                                   viewModel
                                 );
@@ -370,7 +370,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("web"),
+                                    key: const ValueKey("web"),
                                   ),
                                   viewModel
                                 );
@@ -400,7 +400,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("linkedIn"),
+                                    key: const ValueKey("linkedIn"),
                                   ),
                                   viewModel
                                 );
@@ -430,7 +430,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("github"),
+                                    key: const ValueKey("github"),
                                   ),
                                   viewModel
                                 );
@@ -467,7 +467,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("twitter"),
+                                    key: const ValueKey("twitter"),
                                   ),
                                   viewModel
                                 );
@@ -497,7 +497,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("instagram"),
+                                    key: const ValueKey("instagram"),
                                   ),
                                   viewModel
                                 );
@@ -527,7 +527,7 @@ class _EditOthersPageState extends State<EditOthersPage> {
                                     keyboardType: TextInputType.url,
                                     textController: viewModel.linkController,
                                     controller: controller,
-                                    key: ValueKey("facebook"),
+                                    key: const ValueKey("facebook"),
                                   ),
                                   viewModel
                                 );

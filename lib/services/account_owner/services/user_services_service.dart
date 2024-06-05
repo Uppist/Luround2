@@ -33,6 +33,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   final baseService = getx.Get.put(BaseService());
   final controller = getx.Get.put(ServicesController());
   var isLoading = false.obs;
+  var hasError = false.obs;
   var isServiceCRLoading = false.obs;
   var isServiceEDLoading = false.obs;
   var userId = LocalStorage.getUserID();
@@ -65,33 +66,41 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   //for main service screen and the service screen tab
   final TextEditingController searchServiceController = TextEditingController();
-  //final searchServicesList = <UserServiceModel>[].obs;
-  final filterSearchServicesList = <UserServiceModel>[].obs;
+  final filterServicesList = <UserServiceModel>[].obs;
   int activeTabIndex = 0;
+
+  void updateServiceList(List<UserServiceModel> data) {
+    filterServicesList.clear();
+    filterServicesList.addAll(data);
+    filterServicesList.refresh();
+    update();
+  }
+
   
 
    
 
 
-  /////[GET LOGGED-IN USER'S REGULAR SERVICES LIST]//////
+  /////[GET LOGGED-IN USER'S ONE-OFF SERVICES LIST]//////
   //Method to pass in the search textfield
   //
   final servicesList = <UserServiceModel>[].obs;
   Future<void> filterOneOffServices(String query) async {
     if (query.isEmpty) {
-      filterSearchServicesList.clear();
-      filterSearchServicesList.addAll(servicesList);
-      print("when query is empty: $filterSearchServicesList");
+      filterServicesList.clear();
+      filterServicesList.addAll(servicesList);
+      print("when query is empty: $filterServicesList");
     } 
     else {
-      filterSearchServicesList.clear(); // Clear the previous filtered list
+      filterServicesList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterSearchServicesList.addAll(
+      filterServicesList.addAll(
         servicesList
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterSearchServicesList");
+      print("when query is not empty: $filterServicesList");
     }
+    update();
   }
 
   Future<List<UserServiceModel>> getUserOneOffServices() async {
@@ -116,6 +125,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
       else {
         isLoading.value = false;
+        hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
@@ -124,6 +134,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
+      hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("error: $e");
     
@@ -131,25 +142,26 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
 
-  /////[GET LOGGED-IN USER'S PACKAGE SERVICES LIST]//////
+  /////[GET LOGGED-IN USER'S RETAINER SERVICES LIST]//////
   //Method to pass in the search textfield
   //
   final servicesListRetainer = <UserServiceModel>[].obs;
   Future<void> filterRetainerServices(String query) async {
     if (query.isEmpty) {
-      filterSearchServicesList.clear();
-      filterSearchServicesList.addAll(servicesListRetainer);
-      print("when query is empty: $filterSearchServicesList");
+      filterServicesList.clear();
+      filterServicesList.addAll(servicesListRetainer);
+      print("when query is empty: $filterServicesList");
     } 
     else {
-      filterSearchServicesList.clear(); // Clear the previous filtered list
+      filterServicesList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterSearchServicesList.addAll(
+      filterServicesList.addAll(
         servicesListRetainer
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterSearchServicesList");
+      print("when query is not empty: $filterServicesList");
     }
+    update();
   }
 
   Future<List<UserServiceModel>> getUserRetainerServices() async {
@@ -173,6 +185,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
       else {
         isLoading.value = false;
+        hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
@@ -181,31 +194,33 @@ class AccOwnerServicePageService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
+      hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("error: $e");
     
     }
   }
 
-  /////[GET LOGGED-IN USER'S PACKAGE SERVICES LIST]//////
+  /////[GET LOGGED-IN USER'S PROGRAM SERVICES LIST]//////
   //Method to pass in the search textfield
   //
   final servicesListProgram = <UserServiceModel>[].obs;
   Future<void> filterProgramServices(String query) async {
     if (query.isEmpty) {
-      filterSearchServicesList.clear();
-      filterSearchServicesList.addAll(servicesListProgram);
-      print("when query is empty: $filterSearchServicesList");
+      filterServicesList.clear();
+      filterServicesList.addAll(servicesListProgram);
+      print("when query is empty: $filterServicesList");
     } 
     else {
-      filterSearchServicesList.clear(); // Clear the previous filtered list
+      filterServicesList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterSearchServicesList.addAll(
+      filterServicesList.addAll(
         servicesListProgram
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterSearchServicesList");
+      print("when query is not empty: $filterServicesList");
     }
+    update();
   }
   
   Future<List<UserServiceModel>> getUserProgramServices() async {
@@ -229,6 +244,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
       else {
         isLoading.value = false;
+        hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
@@ -237,9 +253,9 @@ class AccOwnerServicePageService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
+      hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("error: $e");
-    
     }
   }
 
@@ -249,19 +265,20 @@ class AccOwnerServicePageService extends getx.GetxController {
   final servicesListEvent = <UserServiceModel>[].obs;
   Future<void> filterEventServices(String query) async {
     if (query.isEmpty) {
-      filterSearchServicesList.clear();
-      filterSearchServicesList.addAll(servicesListEvent);
-      print("when query is empty: $filterSearchServicesList");
+      filterServicesList.clear();
+      filterServicesList.addAll(servicesListEvent);
+      print("when query is empty: $filterServicesList");
     } 
     else {
-      filterSearchServicesList.clear(); // Clear the previous filtered list
+      filterServicesList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterSearchServicesList.addAll(
+      filterServicesList.addAll(
         servicesListEvent
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterSearchServicesList");
+      print("when query is not empty: $filterServicesList");
     }
+    update();
   }
   
   Future<List<UserServiceModel>> getUserEventServices() async {
@@ -285,6 +302,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
       else {
         isLoading.value = false;
+        hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
@@ -293,6 +311,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
+      hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("error: $e");
     
@@ -538,6 +557,7 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
       else {
         isLoading.value = false;
+        hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.body}');
@@ -546,6 +566,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
+      hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("$e");
     
@@ -1537,7 +1558,11 @@ class AccOwnerServicePageService extends getx.GetxController {
   void dispose() {
     // TODO: implement dispose
     //socket!.dispose();
+
     searchServiceController.dispose();
+    /*searchRetainerServiceController.dispose();
+    searchProgramServiceController.dispose();
+    searchEventServiceController.dispose();*/
     super.dispose();
   }
 

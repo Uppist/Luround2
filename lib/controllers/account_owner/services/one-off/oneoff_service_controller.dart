@@ -56,7 +56,7 @@ class ServicesController extends getx.GetxController {
   //////STEP 2//////
 
   List<ServiceControllerSett> controllers = List.generate(
-    7,
+    9,
     (index) => ServiceControllerSett(),
   );
 
@@ -68,10 +68,12 @@ class ServicesController extends getx.GetxController {
     {'time': '15 mins', 'isSelected': false},
     {'time': '30 mins', 'isSelected': false},
     {'time': '45 mins', 'isSelected': false},
-    {'time': '60 mins', 'isSelected': false},
-    {'time': '90 mins', 'isSelected': false},
-    {'time': '120 mins', 'isSelected': false},
-    {'time': '150 mins', 'isSelected': false},
+    {'time': '1 hr', 'isSelected': false},
+    {'time': '1 hr : 30 mins', 'isSelected': false},
+    {'time': '2 hrs', 'isSelected': false},
+    {'time': '4 hrs', 'isSelected': false},
+    {'time': '6 hrs', 'isSelected': false},
+    {'time': '8 hrs', 'isSelected': false},
     //{'time': 'Custom', 'isSelected': false},
   ];  //.obs;
 
@@ -170,10 +172,12 @@ class ServicesController extends getx.GetxController {
       '15 mins',
       '30 mins',
       '45 mins',
-      '60 mins',
-      '90 mins',
-      '120 mins',
-      '150 mins',
+      '1 hr',
+      '1 hr : 30 mins',
+      '2 hrs',
+      '4 hrs',
+      '6 hrs',
+      '8 hrs',
       //'Custom',
     ];
 
@@ -557,7 +561,7 @@ class ServicesController extends getx.GetxController {
 
 
   ////STEP 2 EDIT////
-  List<ServiceControllerSett> controllersEdit = List.generate(7, (int index) => ServiceControllerSett());
+  List<ServiceControllerSett> controllersEdit = List.generate(9, (int index) => ServiceControllerSett());
   final TextEditingController customTimeSlotControllerEdit = TextEditingController();
   final isCheckBoxActiveForPricingEdit = false.obs;
   final isCustomTextFieldActivatedEdit = false.obs;
@@ -566,10 +570,12 @@ class ServicesController extends getx.GetxController {
     {'time': '15 mins', 'isSelected': false},
     {'time': '30 mins', 'isSelected': false},
     {'time': '45 mins', 'isSelected': false},
-    {'time': '60 mins', 'isSelected': false},
-    {'time': '90 mins', 'isSelected': false},
-    {'time': '120 mins', 'isSelected': false},
-    {'time': '150 mins', 'isSelected': false},
+    {'time': '1 hr', 'isSelected': false},
+    {'time': '1 hr : 30 mins', 'isSelected': false},
+    {'time': '2 hrs', 'isSelected': false},
+    {'time': '4 hrs', 'isSelected': false},
+    {'time': '6 hrs', 'isSelected': false},
+    {'time': '8 hrs', 'isSelected': false},
     //{'time': 'Custom', 'isSelected': false},
   ];  //.obs;
 
@@ -662,10 +668,12 @@ class ServicesController extends getx.GetxController {
       '15 mins',
       '30 mins',
       '45 mins',
-      '60 mins',
-      '90 mins',
-      '120 mins',
-      '150 mins',
+      '1 hr',
+      '1 hr : 30 mins',
+      '2 hrs',
+      '4 hrs',
+      '6 hrs',
+      '8 hrs',
       //'Custom',
     ];
 

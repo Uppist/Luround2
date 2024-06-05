@@ -224,7 +224,7 @@ class PackageServiceController extends getx.GetxController {
         addServiceCurrency.value = currency.symbol;
         print('Select currency: ${addServiceCurrency.value}');
       },
-   );
+    );
   }
 
 
@@ -234,7 +234,7 @@ class PackageServiceController extends getx.GetxController {
   /////////////////////////////////////////////////////
   //STEP 2////
   List<ServiceControllerSett> controllers = List.generate(
-    6,
+    7,
     (index) => ServiceControllerSett(),
   );
 
@@ -243,6 +243,7 @@ class PackageServiceController extends getx.GetxController {
   final isCustomTextFieldActivated = false.obs;
   // List of time slots with selection status
   var priceSlot = <Map<String, dynamic>>[
+    {'time': '2 weeks', 'isSelected': false},
     {'time': '1 month', 'isSelected': false},
     {'time': '3 months', 'isSelected': false},
     {'time': '6 months', 'isSelected': false},
@@ -361,10 +362,12 @@ class PackageServiceController extends getx.GetxController {
       '15 mins',
       '30 mins',
       '45 mins',
-      '60 mins',
-      '90 mins',
-      '120 mins',
-      '150 mins',
+      '1 hr',
+      '1 hr : 30 mins',
+      '2 hrs',
+      '4 hrs',
+      '6 hrs',
+      '8 hrs',
       //'Custom',
     ];
 
@@ -602,12 +605,13 @@ class PackageServiceController extends getx.GetxController {
   /////////////////////////////////////////////////////
   //ADD RETAINER SERVICE CREATION//
   ////STEP 2 EDIT////
-  List<ServiceControllerSett> controllersEdit = List.generate(6, (int index) => ServiceControllerSett());
+  List<ServiceControllerSett> controllersEdit = List.generate(7, (int index) => ServiceControllerSett());
   final TextEditingController customTimeSlotControllerEdit = TextEditingController();
   final isCheckBoxActiveForPricingEdit = false.obs;
   final isCustomTextFieldActivatedEdit = false.obs;
   // List of time slots with selection status
   var priceSlotEdit = <Map<String, dynamic>>[
+    {'time': '2 weeks', 'isSelected': false},
     {'time': '1 month', 'isSelected': false},
     {'time': '3 months', 'isSelected': false},
     {'time': '6 months', 'isSelected': false},
@@ -705,10 +709,12 @@ class PackageServiceController extends getx.GetxController {
       '15 mins', 
       '30 mins',
       '45 mins',
-      '60 mins',
-      '90 mins',
-      '120 mins',
-      '150 mins',
+      '1 hr',
+      '1 hr : 30 mins',
+      '2 hrs',
+      '4 hrs',
+      '6 hrs',
+      '8 hrs',
       //'Custom',
     ];
 

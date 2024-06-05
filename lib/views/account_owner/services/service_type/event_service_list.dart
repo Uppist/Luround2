@@ -21,7 +21,6 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/popup_
 
 
 
-
 class EventServiceList extends StatefulWidget {
   const EventServiceList({super.key});
 
@@ -30,55 +29,58 @@ class EventServiceList extends StatefulWidget {
 }
 
 class _EventServiceListState extends State<EventServiceList> {
-
-
   final controller = Get.put(ProgramServiceController());
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
-  //GlobalKey for RefreshIndicator
+  // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refresh() async {
-    await Future.delayed(const Duration(seconds: 1));
-    // Fetch new data here
-    final List<UserServiceModel>  newData = await userService.getUserEventServices();
-    // Update the UI with the new data
-    userService.filterSearchServicesList.clear();
-    userService.filterSearchServicesList.addAll(newData);
-    print('refreshed event service list: ${userService.filterSearchServicesList}');
-  }
-
-
-
 
   @override
   void initState() {
     super.initState();
-    //regular services
-    userService.getUserEventServices().then(
-      (value) {
-        // Update the UI with the new data
-        userService.filterSearchServicesList.clear();
-        userService.filterSearchServicesList.addAll(value);
-        print('updated event service list: ${userService.filterSearchServicesList}');
-      }
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      fetchData();
+    });
+  }
+
+  Future<void> fetchData() async {
+    try {
+      await userService.getUserEventServices()
+      .then((value) => userService.updateServiceList(value));
+    } catch (error) {
+      log("Error fetching data: $error");
+      //controller.setError(true);
+    }
+  }
+
+  Future<void> _refresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    await fetchData();
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
-        return 
-        userService.isServiceCRLoading.value ? Loader() :
-        userService.filterSearchServicesList.isEmpty
-        ? //Loader()
-        ServiceEmptyState(
-          onPressed: () {
-            Get.to(() => AddEventScreen());
-          },
-        ):
-        
-        RefreshIndicator.adaptive(
+        if (userService.isLoading.value) {
+          return Loader();
+        }
+        if (userService.hasError.value) {
+          return ServiceEmptyState(
+            onPressed: () {
+              Get.to(() => const AddEventScreen());
+            },
+          );
+        }
+        if (userService.filterServicesList.isEmpty) {
+          return ServiceEmptyState(
+            onPressed: () {
+              Get.to(() => const AddEventScreen());
+            },
+          );
+        }
+
+        return RefreshIndicator.adaptive(
           color: AppColor.greyColor,
           backgroundColor: AppColor.mainColor,
           key: _refreshKey,
@@ -89,17 +91,13 @@ class _EventServiceListState extends State<EventServiceList> {
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
             physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-            itemCount: userService.filterSearchServicesList.length,
-            separatorBuilder: (context, index) => SizedBox(height: 25.h,),
+            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+            itemCount: userService.filterServicesList.length,
+            separatorBuilder: (context, index) => SizedBox(height: 25.h),
             itemBuilder: (context, index) {
-              
-              //run even and odd checks for dynamism
-              final data = userService.filterSearchServicesList[index];
-              //selectedPriceType.value =  data.pricing[index].virtual_pricing;
-          
+              final data = userService.filterServicesList[index];
+
               return Container(
-                //height: 500,
                 width: double.infinity,
                 alignment: Alignment.center,
                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
@@ -110,19 +108,16 @@ class _EventServiceListState extends State<EventServiceList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    //SizedBox(height: 10.h),
-                    //toggle price button
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //check if the account owner selected in-person or virtual
                         Expanded(
                           child: Text(
                             data.serviceName,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
                               fontSize: 20.sp,
-                              fontWeight: FontWeight.w800
+                              fontWeight: FontWeight.w800,
                             ),
                             overflow: TextOverflow.clip,
                           ),
@@ -130,10 +125,9 @@ class _EventServiceListState extends State<EventServiceList> {
                         InkWell(
                           onTap: () {
                             editEventDialogueBox(
-                              //service_link: data.service_link,
                               service_status: data.serviceStatus,
                               service: userService,
-                              context: context, 
+                              context: context,
                               userId: data.serviceProviderDetails.userId,
                               email: data.serviceProviderDetails.email,
                               displayName: data.serviceProviderDetails.displayName,
@@ -145,7 +139,7 @@ class _EventServiceListState extends State<EventServiceList> {
                               inPersonFee: data.serviceChargeInPerson,
                               virtualFee: data.serviceChargeVirtual,
                               service_charge_in_person: data.serviceChargeInPerson,
-                              service_charge_virtual: data.serviceChargeVirtual,            
+                              service_charge_virtual: data.serviceChargeVirtual,
                             );
                           },
                           child: Icon(
@@ -153,252 +147,171 @@ class _EventServiceListState extends State<EventServiceList> {
                             color: AppColor.bgColor,
                             size: 30.r,
                           ),
-                        ),                                   
+                        ),
                       ],
                     ),
-          
-                    SizedBox(height: 20.h,),
-                    
-                    //ALL SUBSEQUENT INFORMATION COMES HERE
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: 'Service type: ',
-                            style: GoogleFonts.inter(
-                              color: AppColor.whiteTextColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          TextSpan(
-                            text: data.serviceType.capitalizeFirst,
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 12..sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          )
-                        ]
-                      )
-                    ),
-          
-                    SizedBox(height: 20.h,),
-
-                    //SizedBox(height: 10.h,),
-          
-                    
-                    //2
+                    SizedBox(height: 20.h),
+                    _buildRichText('Service type: ', data.serviceType.capitalizeFirst!),
+                    SizedBox(height: 20.h),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-
                         data.eventType == "Single date"
-
-                        //Single date widget
-                        ?Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Event schedule",
-                              style: GoogleFonts.inter(
-                                color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500
-                              ),
-                            ), 
-                            SizedBox(height: 10.h),
-                            Text(
-                              data.date,
-                              style: GoogleFonts.inter(
-                                color: AppColor.bgColor,
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w500
-                              ),
-                            ), 
-                            SizedBox(height: 10.h,),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Start time:  ',
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.whiteTextColor,
-                                      fontSize: 10..sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: data.startTime,
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 12..sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  )
-                                ]
-                              )
-                            ),
-                            SizedBox(height: 5.h,),
-                            RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: 'Stop time:  ',
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.whiteTextColor,
-                                      fontSize: 10..sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: data.endDate,
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 12..sp,
-                                      fontWeight: FontWeight.w500
-                                    ),
-                                  )
-                                ]
-                              )
-                            ),
-                          ],
-                        )
-                        
-                        //Multiple date widget
-                        :Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            //mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Event schedule",
-                                style: GoogleFonts.inter(
-                                  color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,  //AppColor.yellowStar,
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ), 
-                              SizedBox(height: 10.h),
-                              //available schedule list
-                              ListView.separated(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                physics: const NeverScrollableScrollPhysics(),
-                                //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h), //external paddin
-                                itemCount: data.eventSchedule.length,
-                                separatorBuilder: (context, indexES) => SizedBox(height: 10.h,),
-                                itemBuilder: (context, indexES) {
-
-                                  final eventData = data.eventSchedule[indexES];
-
-                                  return RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: '${eventData.date}:  ',
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.bgColor,
-                                            fontSize: 12..sp,
-                                            fontWeight: FontWeight.w500
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: '${eventData.time} - ${eventData.end_time}',
-                                          style: GoogleFonts.inter(
-                                            color: AppColor.bgColor,
-                                            fontSize: 12..sp,
-                                            fontWeight: FontWeight.w500
-                                          ),
-                                        )
-                                      ]
-                                    )
-                                  );
-                                }
-                              ),
-                            ]
-                          ),
-                        ),
-
-
-                        //pop up menu button
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          //mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                          
-                            ////////////////////
-                            PopupMenuFilterStr(
-                              index: index,
-                              selectedValue: controller.selectedFieldIndex,
-                              onChanged: (p0) {
-                                controller.selectedFieldIndex.value = p0!;
-                                log(controller.selectedDurationIndex.value.toString());
-                                log(controller.selectedFieldIndex.value);
-                              },
-                              items: <String>['Virtual', 'In-person']
-                                .map<DropdownMenuItem<String>> ((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                    style: GoogleFonts.inter(
-                                      color: AppColor.bgColor,
-                                      fontSize: 10.sp,
-                                      fontWeight: FontWeight.w500,
-                                    )
-                                  ),
-                                );
-                              }).toList(),
-                            ),
-
-                            SizedBox(height: 5.h,),
-
-                            Obx(
-                              () {
-                                return Text(
-                                  controller.selectedFieldIndex.value == 'Virtual' ? data.serviceChargeVirtual.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeVirtual : 'FREE' : data.serviceChargeInPerson.isNotEmpty ? currency(context).currencySymbol + data.serviceChargeInPerson : 'FREE',
-                                  //"${currency(context).currencySymbol}${data.pricing[index].virtual_pricing}"
-                                  //:"${currency(context).currencySymbol}${data.pricing[index].in_person_pricing}",
-                                  style: GoogleFonts.inter(
-                                    color: AppColor.bgColor,
-                                    fontSize: 20.sp,
-                                    fontWeight: FontWeight.w600
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                );
-                              }
-                            ),
-                            ///////////////////
-
-
-        
-                          ],
-                        )
-
+                            ? _buildSingleDateEvent(data, index)
+                            : _buildMultipleDateEvent(data, index),
+                        _buildPricingSection(data, index),
                       ],
                     ),
-                         
-                    SizedBox(height: 40.h,),
-          
+                    SizedBox(height: 40.h),
                     Text(
                       data.description,
                       style: GoogleFonts.inter(
                         color: AppColor.bgColor,
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
-          
-                  ]
-                )
+                  ],
+                ),
               );
-            }
+            },
           ),
         );
-      
-      }
+      },
+    );
+  }
+
+  RichText _buildRichText(String label, String value) {
+    return RichText(
+      text: TextSpan(
+        children: [
+          TextSpan(
+            text: label,
+            style: GoogleFonts.inter(
+              color: AppColor.whiteTextColor,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          TextSpan(
+            text: value,
+            style: GoogleFonts.inter(
+              color: AppColor.bgColor,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSingleDateEvent(UserServiceModel data, int index) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Event schedule",
+          style: GoogleFonts.inter(
+            color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        Text(
+          data.date,
+          style: GoogleFonts.inter(
+            color: AppColor.bgColor,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        SizedBox(height: 10.h),
+        _buildRichText('Start time: ', data.startTime),
+        SizedBox(height: 5.h),
+        _buildRichText('Stop time: ', data.endDate),
+      ],
+    );
+  }
+
+  Widget _buildMultipleDateEvent(UserServiceModel data, int index) {
+    return Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Event schedule",
+            style: GoogleFonts.inter(
+              color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          SizedBox(height: 10.h),
+          ListView.separated(
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: data.eventSchedule.length,
+            separatorBuilder: (context, index) => SizedBox(height: 10.h),
+            itemBuilder: (context, indexES) {
+              final eventData = data.eventSchedule[indexES];
+              return _buildRichText('${eventData.date}: ', '${eventData.time} - ${eventData.end_time}');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPricingSection(UserServiceModel data, int index) {
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        PopupMenuFilterStr(
+          index: index,
+          selectedValue: controller.selectedFieldIndex,
+          onChanged: (p0) {
+            controller.selectedFieldIndex.value = p0!;
+            log(controller.selectedFieldIndex.value);
+          },
+          items: <String>['Virtual', 'In-person'].map<DropdownMenuItem<String>>((String value) {
+            return DropdownMenuItem<String>(
+              value: value,
+              child: Text(
+                value,
+                style: GoogleFonts.inter(
+                  color: AppColor.bgColor,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+        SizedBox(height: 5.h),
+        Obx(() {
+          return Text(
+            controller.selectedFieldIndex.value == 'Virtual'
+                ? data.serviceChargeVirtual.isNotEmpty
+                    ? currency(context).currencySymbol + data.serviceChargeVirtual
+                    : 'FREE'
+                : data.serviceChargeInPerson.isNotEmpty
+                    ? currency(context).currencySymbol + data.serviceChargeInPerson
+                    : 'FREE',
+            style: GoogleFonts.inter(
+              color: AppColor.bgColor,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            overflow: TextOverflow.ellipsis,
+          );
+        }),
+      ],
     );
   }
 }
+
+

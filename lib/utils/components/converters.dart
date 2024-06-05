@@ -40,7 +40,6 @@ DateTime convertNodeJSServerTimestampToDateObject({
 
 String calculateDurationBetweenDates(String startDateStr, String endDateStr) {
   // Define the date format
-  //DateFormat dateFormat = DateFormat('dd MMM, yyyy');
   DateFormat dateFormat = DateFormat.yMMMd();
 
   // Parse the date strings into DateTime objects
@@ -56,12 +55,16 @@ String calculateDurationBetweenDates(String startDateStr, String endDateStr) {
   int months = (days / 30).floor(); // approximate months by dividing days by 30
 
   // Determine the result string
-  if (weeks < 4) {
+  if (days < 7) {
+    return '$days day${days == 1 ? '' : 's'}';
+  } else if (weeks < 4) {
     return '$weeks week${weeks == 1 ? '' : 's'}';
   } else {
     return '$months month${months == 1 ? '' : 's'}';
   }
 }
+
+
 
 
 //converts a date string of time "2022:03:21:TZ" to 'January 13, 2023'
@@ -172,7 +175,7 @@ String convertServerTimeToDate(int timestamp) {
   // Format the DateTime object to the desired format
   //String formattedDate = DateFormat.yMMMd().format(dateTime);
   // Format the DateTime to a readable string
-  String formattedDate = DateFormat('dd MMM, yyyy').format(dateTime);
+  String formattedDate = DateFormat.yMMMd().format(dateTime); //DateFormat('dd MMM, yyyy').format(dateTime);
 
   return formattedDate;
 }

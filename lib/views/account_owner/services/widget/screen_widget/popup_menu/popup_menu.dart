@@ -25,7 +25,7 @@ class PopupMenuFilterInt extends StatelessWidget {
       () {
         return Container(
           height: 50.h,
-          width: 112.w,
+          width: 135.w,
           alignment: Alignment.center,
           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           decoration: BoxDecoration(

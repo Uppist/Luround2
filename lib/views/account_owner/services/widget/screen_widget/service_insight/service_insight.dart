@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,29 +38,36 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   
   //GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  
+
+  Future<void> fetchData() async {
+    try {
+      // Fetch new data here
+      await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count)
+      .then(
+        (value) {
+          // Update the UI with the new data
+          userService.filterServiceInsightList.clear();
+          userService.filterServiceInsightList.addAll(value);
+          log('updated insight list: ${userService.filterServiceInsightList}');
+        }
+      );
+    }
+    catch (error) {
+      log("Error fetching data: $error");
+    }
+  }
+
   Future<void> _refresh() async {
     await Future.delayed(const Duration(seconds: 1));
-    // Fetch new data here
-    final List<InsightInfo>  newData = await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count);
-    // Update the UI with the new data
-    userService.filterServiceInsightList.clear();
-    userService.filterServiceInsightList.addAll(newData);
-    print('refreshed insight list: ${userService.filterServiceInsightList}');
+    await fetchData();
   }
 
   @override
   void initState() {
     super.initState();
-    //regular services
-    userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count).then(
-      (value) {
-        // Update the UI with the new data
-        userService.filterServiceInsightList.clear();
-        userService.filterServiceInsightList.addAll(value);
-        print('updated insight list: ${userService.filterServiceInsightList}');
-      }
-    );
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      fetchData();
+    });
   }
   
 
@@ -109,7 +118,16 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                 Expanded(
                   child: Obx(
                     () {
-                      return userService.filterServiceInsightList.isEmpty ? InsightEmptyState(onPressed: () => _refresh,) :
+                      if (userService.isLoading.value) {
+                        return Loader();
+                      }
+                      if (userService.hasError.value) {
+                        return InsightEmptyState(onPressed: () => _refresh,);
+                      }
+                      if (userService.filterServiceInsightList.isEmpty) {
+                        return InsightEmptyState(onPressed: () => _refresh,);
+                      }
+                      return 
                         RefreshIndicator.adaptive(
                           color: AppColor.greyColor,
                           backgroundColor: AppColor.mainColor,

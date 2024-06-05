@@ -89,7 +89,7 @@ class _Step1PageState extends State<Step1Page> {
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
           keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.none,
           textController: controller.descriptionController,
         ),
         SizedBox(height: 10.h,),

@@ -102,7 +102,7 @@ class _Step1PagePackageServiceEditState extends State<Step1PagePackageServiceEdi
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
           keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.none,
           initialValue: widget.description,
         ),
         SizedBox(height: 10.h,),

@@ -260,7 +260,7 @@ class _Step2PageEditState extends State<Step2PageEdit> {
                             
                           },
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.none,
                           textController: controllerSet.virtualPriceController,
                           //initialValue: virtualPrice,
                           hintText: '${currency(context).currencySymbol} 0.00',
@@ -284,7 +284,7 @@ class _Step2PageEditState extends State<Step2PageEdit> {
                             
                           },
                           keyboardType: TextInputType.number,
-                          textInputAction: TextInputAction.done,
+                          textInputAction: TextInputAction.none,
                           textController: controllerSet.inpersonPriceController,
                           //initialValue: inpersonPrice,
                           hintText: '${currency(context).currencySymbol} 0.00',

@@ -47,7 +47,7 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
         enableSuggestions: true,
         enableInteractiveSelection: true,
         cursorColor: AppColor.blackColor,
-        style: GoogleFonts.inter(color: AppColor.blackColor),
+        style: GoogleFonts.inter(color: AppColor.blackColor, fontSize: 14.sp, fontWeight: FontWeight.w400),
         textCapitalization: TextCapitalization.sentences,
         textInputAction: widget.textInputAction,          
         scrollPhysics: const BouncingScrollPhysics(),
@@ -61,8 +61,8 @@ class _ReusableTextFieldState extends State<ReusableTextField> {
           focusedBorder: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColor.blackColor), // Set the color you prefer
           ),     
-          labelText: widget.hintText,
-          labelStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
+          hintText: widget.hintText,
+          hintStyle: GoogleFonts.inter(color: AppColor.textGreyColor, fontSize: 14.sp, fontWeight: FontWeight.w400),              
           //filled: true,
           //fillColor: swapSpaceWhiteColor,
           //suffixIcon: Icon(CupertinoIcons.chevron_down, color: AppColor.textGreyColor, size: 20,)

@@ -113,24 +113,19 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Image.asset('assets/images/luround_logo.png'),
           //SvgPicture.asset('assets/svg/logo_new.svg'),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              InkWell(
-                onTap: () {
-                  Get.to(() => NotificationsPage());
-                  //service.saveAndShareQuotePDF(context: context);
-                },
-                child: SvgPicture.asset('assets/svg/notify_active.svg'),
-              ),
-              SizedBox(width: 20.w),
-              _buildEditProfileButton(),
-            ],
+          InkWell(
+            onTap: () {
+              Get.to(() => NotificationsPage());
+              //service.saveAndShareQuotePDF(context: context);
+            },
+            child: SvgPicture.asset('assets/svg/notify_active.svg'),
           ),
         ],
       ),
     );
   }
+
+  //_buildEditProfileButton(),
   
   //valid
   Widget _buildShareProfileButton() {
@@ -342,15 +337,16 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: 25.h),
+              
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     //SEE ALL REVIEWS
-                    TextButton(
-                      onPressed: () {
+                    InkWell(
+                      onTap: () {
                         ////EXPIRY CHECK///
                         //data.payment_details['expiry_date']
                         controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
@@ -371,18 +367,21 @@ class _ProfilePageState extends State<ProfilePage> {
                         'See all reviews',
                         style: GoogleFonts.inter(
                           textStyle: TextStyle(
-                            color: AppColor.darkGreyColor,
-                            decoration: TextDecoration.underline,
+                            color: AppColor.textGreyColor, //darkGreyColor,
+                            //decoration: TextDecoration.underline,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500
                           )
                         )
                       )
                     ),
+                    _buildEditProfileButton(),
                   ],
                 ),
               ),
-              SizedBox(height: 10.h,),
+
+              SizedBox(height: 25.h,),
+
               InkWell(
                 onTap: () {
                   //userProfileService.pickImageFromGallery(context: context);
@@ -402,7 +401,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       )
                       :DecorationImage(
                         image: NetworkImage(data.photoUrl),
-                        fit: BoxFit.cover
+                        //fit: BoxFit.cover,
+                        fit: BoxFit.contain
                       )
                     ),
                   ),

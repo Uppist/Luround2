@@ -39,11 +39,11 @@ class _Step1PageEditState extends State<Step1PageEdit> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.serviceNameControllerEdit.addListener(() {
+    /*controller.serviceNameControllerEdit.addListener(() {
       setState(() {
         controller.isServiceNameTappedEdit.value = controller.serviceNameControllerEdit.text.isNotEmpty;
       });
-    });
+    });*/
     super.initState();
   }
 
@@ -96,7 +96,7 @@ class _Step1PageEditState extends State<Step1PageEdit> {
           },
           hintText: "Write a brief descriptive summary of the service you provide.",
           keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
+          textInputAction: TextInputAction.none,
           initialValue: widget.description,
         ),
         SizedBox(height: 10.h,),
@@ -118,14 +118,10 @@ class _Step1PageEditState extends State<Step1PageEdit> {
         SizedBox(height: MediaQuery.of(context).size.height * 0.39),
         
         RebrandedReusableButton(
-          textColor: controller.isServiceNameTappedEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
-          color: controller.isServiceNameTappedEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
+          textColor:AppColor.bgColor,
+          color: AppColor.mainColor, 
           text: "Next", 
-          onPressed: controller.isServiceNameTappedEdit.value ? 
-          widget.onNext
-          : () {
-            print('nothing');
-          },
+          onPressed: widget.onNext,
         ),
         //SizedBox(height: 20.h,),
 

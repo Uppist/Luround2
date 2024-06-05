@@ -28,7 +28,7 @@ class InsightEmptyState extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 20.h,),
+            SizedBox(height: 80.h,), //20.h
             SvgPicture.asset('assets/svg/no_bookings.svg'),
             SizedBox(height: 30.h,),
             Text(

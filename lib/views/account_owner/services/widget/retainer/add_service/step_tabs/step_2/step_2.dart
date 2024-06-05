@@ -56,7 +56,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
             Expanded(
               child: SizedBox(width: 150.w)
             ),
-            SizedBox(width: 10.w,),
+            SizedBox(width: 60.w,),
             Expanded(
               child: Text(
                 "Virtual",

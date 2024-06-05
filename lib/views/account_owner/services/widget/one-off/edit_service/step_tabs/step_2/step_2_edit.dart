@@ -56,7 +56,7 @@ class _Step2PageEditState extends State<Step2PageEdit> {
             Expanded(
               child: SizedBox(width: 10.w,),
             ),
-            SizedBox(width: 10.w,),
+            SizedBox(width: 60.w,),
             Expanded(
               child: Text(
                 "Virtual",

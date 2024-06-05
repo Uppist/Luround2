@@ -78,7 +78,7 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
                 ),
               ),
             ),
-            SizedBox(width: 40.w,),
+            SizedBox(width: 60.w,),
             Expanded(
               child: Text(
                 "From",

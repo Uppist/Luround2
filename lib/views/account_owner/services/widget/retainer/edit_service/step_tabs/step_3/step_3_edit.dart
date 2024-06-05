@@ -67,7 +67,7 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
                 ),
               ),
             ),
-            SizedBox(width: 40.w,),
+            SizedBox(width: 60.w,),
             Expanded(
               child: Text(
                 "From",

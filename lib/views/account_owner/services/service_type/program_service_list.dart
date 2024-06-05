@@ -51,6 +51,8 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
       .then((value) => userService.updateServiceList(value));
     } catch (error) {
       log("Error fetching data: $error");
+    } finally {
+      log("done");
     }
   }
 

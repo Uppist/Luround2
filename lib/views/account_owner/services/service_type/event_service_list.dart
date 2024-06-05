@@ -50,6 +50,8 @@ class _EventServiceListState extends State<EventServiceList> {
     } catch (error) {
       log("Error fetching data: $error");
       //controller.setError(true);
+    } finally {
+      log("done");
     }
   }
 

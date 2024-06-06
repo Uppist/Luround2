@@ -88,14 +88,14 @@ class _EventServiceListState extends State<EventServiceList> {
           () {
             /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
-            }
+            }*/
             if (userService.hasError.value) {
               return ServiceEmptyState(
                 onPressed: () {
                   Get.to(() => const AddEventScreen());
                 },
               );
-            }*/
+            }
             if (userService.filterEventsList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

@@ -127,11 +127,10 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint("$response");
         final finalResult = response.map((e) => UserServiceModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
-        log('$servicesList');
+        //log('$servicesList');
         servicesList.clear();
         servicesList.addAll(finalResult);
-        //filterOneoffList.clear();
-        //filterOneoffList.addAll(finalResult);
+        log('$servicesList');
         print("user one-off services list: $finalResult");
 
         return servicesList;
@@ -756,7 +755,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String virtual_meeting_link,
     required List<PricingInfo> pricing,
     required List<DaySelectionModel> availability_schedule,
-    required List<String> coreFeatures,
+    required List<dynamic> coreFeatures,
   
     
     }) async {
@@ -1566,10 +1565,6 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   @override
   void onInit() {
-    //getUserOneOffServices();
-    //getUserProgramServices();
-    //getUserRetainerServices();
-    //getUserEventServices();
     super.onInit();
   }
 
@@ -1579,8 +1574,6 @@ class AccOwnerServicePageService extends getx.GetxController {
   void dispose() {
     // TODO: implement dispose
     //socket!.dispose();
-
-    //searchServiceController.dispose();
 
     searchOneoffController.dispose();
     searchRetainerController.dispose();

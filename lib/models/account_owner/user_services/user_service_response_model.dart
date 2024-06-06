@@ -27,7 +27,7 @@ class UserServiceModel {
   final String physicalLocationAddress;
   final List<AvailabilityScheduleInfo> availabilitySchedule;
   final List<EventScheduleInfo> eventSchedule;
-  final List<String> coreFeatures;
+  final List<dynamic> coreFeatures;
   final Map<String, dynamic> programFee;
   final String serviceStatus;
 

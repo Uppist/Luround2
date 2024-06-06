@@ -254,7 +254,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                   mainController.addLinksController.clear();
                   mainController.coreFeaturesController.clear();
                   mainController.inputs.clear();
-                  mainController.controllers.clear();
+                  mainController.controllersInput.clear();
                   mainController.selectedDays.clear();
                   //3
                   Get.offAll(

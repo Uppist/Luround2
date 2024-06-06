@@ -60,7 +60,7 @@ class _Step2PageState extends State<Step2Page> {
             SizedBox(width: 60.w,),
             Expanded(
               child: Text(
-                "Virtual",
+                "Virtual (${currency(context).currencySymbol})",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -71,7 +71,7 @@ class _Step2PageState extends State<Step2Page> {
             SizedBox(width: 10.w,),
             Expanded(
               child: Text(
-                "In-person",
+                "In-person (${currency(context).currencySymbol})",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -173,7 +173,7 @@ class _Step2PageState extends State<Step2Page> {
                           textInputAction: TextInputAction.done,
                           textController: controllerSet.virtualPriceController,
                           //initialValue: virtualPrice,
-                          hintText: '${currency(context).currencySymbol} 0.00',
+                          hintText: '0.00',
                         ),
                       ),
 
@@ -198,7 +198,7 @@ class _Step2PageState extends State<Step2Page> {
                           textInputAction: TextInputAction.done,
                           textController: controllerSet.inpersonPriceController,
                           //initialValue: inpersonPrice,
-                          hintText: '${currency(context).currencySymbol} 0.00',
+                          hintText: '0.00',
                         ),
                       ),
                 

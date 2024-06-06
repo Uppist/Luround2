@@ -90,14 +90,26 @@ class _PackageServiceListState extends State<PackageServiceList> {
           () {
             /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
-            }
+            }*/
             if (userService.hasError.value) {
-              return ServiceEmptyState(
+              return Center(
+                child: Text(
+                  'something went wrong',
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.clip,
+                ),
+              );
+              /*ServiceEmptyState(
                 onPressed: () {
                   Get.to(() => const AddPackageServiceScreen());
                 },
-              );
-            }*/
+              );*/
+            }
             if (userService.filterRetainerList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

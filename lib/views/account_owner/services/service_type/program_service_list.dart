@@ -89,14 +89,14 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
           () {
             /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
-            }
+            }*/
             if (userService.hasError.value) {
               return ServiceEmptyState(
                 onPressed: () {
                   Get.to(() => const AddProgramServiceScreen());
                 },
               );
-            }*/
+            }
             if (userService.filterProgramList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

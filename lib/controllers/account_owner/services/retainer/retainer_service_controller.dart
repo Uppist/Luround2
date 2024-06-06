@@ -233,7 +233,7 @@ class PackageServiceController extends getx.GetxController {
 
   /////////////////////////////////////////////////////
   //STEP 2////
-  List<ServiceControllerSett> controllers = List.generate(
+  List<ServiceControllerSett> controllersInput = List.generate(
     7,
     (index) => ServiceControllerSett(),
   );
@@ -250,8 +250,7 @@ class PackageServiceController extends getx.GetxController {
     {'time': '12 months', 'isSelected': false},
     {'time': '18 months', 'isSelected': false},
     {'time': '24 months', 'isSelected': false},
-    //{'time': 'Custom', 'isSelected': false},
-  ];  //.obs;
+  ];
 
   // List of selected timeslots with their virtual and in-person price
   //save to db
@@ -268,7 +267,7 @@ class PackageServiceController extends getx.GetxController {
     final index2 = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
     priceSlot[index]['isSelected'] = isSelected;
     //priceSlot[index]['time'] = time;
-    ServiceControllerSett controllerSet = controllers[index];
+    ServiceControllerSett controllerSet = controllersInput[index];
     if (isSelected!) {
       //log("$isSelected");
       log(time);
@@ -298,20 +297,6 @@ class PackageServiceController extends getx.GetxController {
   Future<void> removeTime({required int index}) async {
     if (index >= 0 && index < selectedTimeSlot.length) {
       log("Item ${selectedTimeSlot[index]} removed at index $index");
-
-      //clear the textfield controller
-      /*ServiceControllerSett controllerSet = controllers[index];
-      controllerSet.inpersonPriceController.clear();
-      controllerSet.virtualPriceController.clear();
-      controllerSet.durationController.clear();
-
-      if(priceSlot[index]['time'] == 'Custom') {
-        customTimeSlotController.clear();
-        selectedTimeSlot.removeAt(index);
-      }
-      else{
-        selectedTimeSlot.removeAt(index);
-      }*/
       selectedTimeSlot.removeAt(index);
 
       selectedTimeSlot.refresh();

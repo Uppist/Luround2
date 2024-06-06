@@ -59,7 +59,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
             SizedBox(width: 60.w,),
             Expanded(
               child: Text(
-                "Virtual",
+                "Virtual (${currency(context).currencySymbol})",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -70,7 +70,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
             SizedBox(width: 10.w,),
             Expanded(
               child: Text(
-                "In-person",
+                "In-person (${currency(context).currencySymbol})",
                 style: GoogleFonts.inter(
                   color: AppColor.darkGreyColor,
                   fontSize: 12.sp,
@@ -92,20 +92,21 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
           separatorBuilder: (context, index) => SizedBox(height: 20.h,),
           itemCount: controller.priceSlot.length,
           itemBuilder: (context, index) {
-    
+            
+            //
+            ServiceControllerSett controllerSet = controller.controllersInput[index];
+            //
+            String time = controller.priceSlot[index]['time'];
+            //
+            bool isSelected = controller.priceSlot[index]['isSelected'];
+            //
+            String virtualPrice = controller.getTimeSelection(time)?.virtual_pricing ?? "";
+            //
+            String inpersonPrice = controller.getTimeSelection(time)?.in_person_pricing ?? "";
+
             return Obx(
               () {
-                //
-                ServiceControllerSett controllerSet = controller.controllers[index];
-                //
-                String time = controller.priceSlot[index]['time'];
-                //
-                bool isSelected = controller.priceSlot[index]['isSelected'];
-                //
-                String virtualPrice = controller.getTimeSelection(time)?.virtual_pricing ?? "";
-                //
-                String inpersonPrice = controller.getTimeSelection(time)?.in_person_pricing ?? "";
-                
+        
                 return CustomCheckBoxListTile(
                   checkbox: Checkbox.adaptive(
                     checkColor: AppColor.bgColor,
@@ -171,7 +172,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
                           textInputAction: TextInputAction.done,
                           textController: controllerSet.virtualPriceController,
                           //initialValue: virtualPrice,
-                          hintText: '${currency(context).currencySymbol} 0.00',
+                          hintText: '0.00',
                         ),
                       ),
 
@@ -195,7 +196,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
                           textInputAction: TextInputAction.done,
                           textController: controllerSet.inpersonPriceController,
                           //initialValue: inpersonPrice,
-                          hintText: '${currency(context).currencySymbol} 0.00',
+                          hintText: '0.00',
                         ),
                       ),
                 

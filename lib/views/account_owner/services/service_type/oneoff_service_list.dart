@@ -96,14 +96,27 @@ class _RegularServiceListState extends State<RegularServiceList> {
           () {
             /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
-            }
+            }*/
             if (userService.hasError.value) {
-              return ServiceEmptyState(
+              return Center(
+                child: Text(
+                  'something went wrong',
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.clip,
+                ),
+              );
+              
+              /*ServiceEmptyState(
                 onPressed: () {
                   Get.to(() => const AddServiceScreen());
                 },
-              );
-            }*/
+              );*/
+            }
             if (userService.filterOneoffList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {
@@ -278,14 +291,16 @@ class _RegularServiceListState extends State<RegularServiceList> {
               index: index,
               selectedValue: controller.selectedDurationIndex,
               onChanged: (p0) {
-                controller.selectedDurationIndex.value = p0!;
-                log(controller.selectedDurationIndex.value.toString());
+                //setState(() {
+                  controller.selectedDurationIndex.value = p0!;
+                  log(controller.selectedDurationIndex.value.toString());
+                //});
               },
-              items: List.generate(data.pricing.length, (index) {
+              items: List.generate(data.pricing.length, (indexs) {
                 return DropdownMenuItem<int>(
-                  value: index,
+                  value: indexs,
                   child: Text(
-                    data.pricing[index].time_allocation,
+                    data.pricing[indexs].time_allocation,
                     style: GoogleFonts.inter(
                       color: AppColor.bgColor,
                       fontSize: 14.sp,

@@ -20,7 +20,7 @@ class ServiceEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        height: MediaQuery.of(context).size.height - 240.h, //-240.h
+        height: MediaQuery.of(context).size.height * 0.6, //-240.h
         color: AppColor.bgColor,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

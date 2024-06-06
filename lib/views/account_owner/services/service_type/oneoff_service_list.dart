@@ -94,7 +94,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
         //list
         Obx(
           () {
-            if (userService.isLoading.value) {
+            /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
             }
             if (userService.hasError.value) {
@@ -103,7 +103,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                   Get.to(() => const AddServiceScreen());
                 },
               );
-            }
+            }*/
             if (userService.filterOneoffList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

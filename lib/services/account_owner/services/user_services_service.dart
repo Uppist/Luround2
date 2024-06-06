@@ -111,7 +111,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterOneoffList");
     }
-    //update();
+    update();
   }
 
   Future<List<UserServiceModel>> getUserOneOffServices() async {
@@ -130,6 +130,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         log('$servicesList');
         servicesList.clear();
         servicesList.addAll(finalResult);
+        //filterOneoffList.clear();
+        //filterOneoffList.addAll(finalResult);
         print("user one-off services list: $finalResult");
 
         return servicesList;
@@ -172,7 +174,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterRetainerList");
     }
-    //update();
+    update();
   }
 
   Future<List<UserServiceModel>> getUserRetainerServices() async {
@@ -190,6 +192,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         servicesListRetainer.clear();
         servicesListRetainer.addAll(finalResult);
+        //filterRetainerList.clear();
+        //filterRetainerList.addAll(finalResult);
         print("user retainer services list: $finalResult");
 
         return servicesListRetainer;
@@ -230,7 +234,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterProgramList");
     }
-    //update();
+    update();
   }
   
   Future<List<UserServiceModel>> getUserProgramServices() async {
@@ -248,6 +252,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         servicesListProgram.clear();
         servicesListProgram.addAll(finalResult);
+        //filterProgramList.clear();
+        //filterProgramList.addAll(finalResult);
         print("user program services list: $finalResult");
 
         return servicesListProgram;
@@ -288,7 +294,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         .toList());
       print("when query is not empty: $filterEventsList");
     }
-    //update();
+    update();
   }
   
   Future<List<UserServiceModel>> getUserEventServices() async {
@@ -306,6 +312,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         finalResult.sort((a, b) => a.serviceName.toString().compareTo(b.serviceName.toString()));
         servicesListEvent.clear();
         servicesListEvent.addAll(finalResult);
+        //filterEventsList.clear();
+        //filterEventsList.addAll(finalResult);
         print("user event services list: $finalResult");
 
         return servicesListEvent;
@@ -1558,6 +1566,10 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   @override
   void onInit() {
+    //getUserOneOffServices();
+    //getUserProgramServices();
+    //getUserRetainerServices();
+    //getUserEventServices();
     super.onInit();
   }
 

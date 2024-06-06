@@ -88,7 +88,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
         //SizedBox(height: 20.h,),
         Obx(
           () {
-            if (userService.isLoading.value) {
+            /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
             }
             if (userService.hasError.value) {
@@ -97,7 +97,7 @@ class _PackageServiceListState extends State<PackageServiceList> {
                   Get.to(() => const AddPackageServiceScreen());
                 },
               );
-            }
+            }*/
             if (userService.filterRetainerList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

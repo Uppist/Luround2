@@ -87,7 +87,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
         //SizedBox(height: 20.h,),
         Obx(
           () {
-            if (userService.isLoading.value) {
+            /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
             }
             if (userService.hasError.value) {
@@ -96,7 +96,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                   Get.to(() => const AddProgramServiceScreen());
                 },
               );
-            }
+            }*/
             if (userService.filterProgramList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

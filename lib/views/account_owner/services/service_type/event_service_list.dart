@@ -86,7 +86,7 @@ class _EventServiceListState extends State<EventServiceList> {
         //SizedBox(height: 20.h,),
         Obx(
           () {
-            if (userService.isLoading.value) {
+            /*if (userService.isLoading.value) {
               return Expanded(child: Loader());
             }
             if (userService.hasError.value) {
@@ -95,7 +95,7 @@ class _EventServiceListState extends State<EventServiceList> {
                   Get.to(() => const AddEventScreen());
                 },
               );
-            }
+            }*/
             if (userService.filterEventsList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {

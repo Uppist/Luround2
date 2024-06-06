@@ -10,6 +10,7 @@ import 'package:luround/models/account_owner/user_services/user_service_response
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
+import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/edit_service/screen/edit_service_bottomsheet.dart';
@@ -43,15 +44,16 @@ class _RegularServiceListState extends State<RegularServiceList> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    //WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchData();
-    });
+    //});
   }
 
   Future<void> fetchData() async {
     try {
-      await userService.getUserOneOffServices()
-      .then((value) => userService.updateServiceList(value));
+      List<UserServiceModel> data = await userService.getUserOneOffServices();
+      userService.filterOneoffList.clear();
+      userService.filterOneoffList.addAll(data);
     } catch (error) {
       log("Error fetching data: $error");
     } finally {
@@ -66,138 +68,166 @@ class _RegularServiceListState extends State<RegularServiceList> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        if (userService.isLoading.value) {
-          return Loader();
-        }
-        if (userService.hasError.value) {
-          return ServiceEmptyState(
-            onPressed: () {
-              Get.to(() => const AddServiceScreen());
+    //wrap with column then put app the search functionality textformfield
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        //search textfield
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          child: SearchTextField(
+            onFocusChanged: (val) {},
+            onFieldSubmitted: (val) {},
+            onChanged: (val) {
+              userService.filterOneOffServices(val);          
             },
-          );
-        }
-        if (userService.filterServicesList.isEmpty) {
-          return ServiceEmptyState(
-            onPressed: () {
-              Get.to(() => const AddServiceScreen());
-            },
-          );
-        }
+            hintText: "Search",
+            keyboardType: TextInputType.name,
+            textInputAction: TextInputAction.done,
+            textController: userService.searchOneoffController,
+            onTap: () {},
+          ),
+        ),
 
-        return RefreshIndicator.adaptive(
-          color: AppColor.greyColor,
-          backgroundColor: AppColor.mainColor,
-          key: _refreshKey,
-          onRefresh: () {
-            return _refresh();
-          },
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
-            itemCount: userService.filterServicesList.length,
-            separatorBuilder: (context, index) => SizedBox(height: 25.h),
-            itemBuilder: (context, index) {
-              final data = userService.filterServicesList[index];
+        //SizedBox(height: 20.h,),
 
-              return Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-                decoration: BoxDecoration(
-                  color: index.isEven ? AppColor.navyBlue : AppColor.darkMainColor,
-                  borderRadius: BorderRadius.circular(20.r),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            data.serviceName,
+        //list
+        Obx(
+          () {
+            if (userService.isLoading.value) {
+              return Expanded(child: Loader());
+            }
+            if (userService.hasError.value) {
+              return ServiceEmptyState(
+                onPressed: () {
+                  Get.to(() => const AddServiceScreen());
+                },
+              );
+            }
+            if (userService.filterOneoffList.isEmpty) {
+              return ServiceEmptyState(
+                onPressed: () {
+                  Get.to(() => const AddServiceScreen());
+                },
+              );
+            }
+        
+            return Expanded(
+              child: RefreshIndicator.adaptive(
+                color: AppColor.greyColor,
+                backgroundColor: AppColor.mainColor,
+                key: _refreshKey,
+                onRefresh: () {
+                  return _refresh();
+                },
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0.h),
+                  itemCount: userService.filterOneoffList.length,
+                  separatorBuilder: (context, index) => SizedBox(height: 25.h),
+                  itemBuilder: (context, index) {
+                    final data = userService.filterOneoffList[index];
+              
+                    return Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+                      decoration: BoxDecoration(
+                        color: index.isEven ? AppColor.navyBlue : AppColor.darkMainColor,
+                        borderRadius: BorderRadius.circular(20.r),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  data.serviceName,
+                                  style: GoogleFonts.inter(
+                                    color: AppColor.bgColor,
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                  overflow: TextOverflow.clip,
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  editServiceDialogueBox(
+                                    service: userService,
+                                    service_status: data.serviceStatus,
+                                    context: context,
+                                    userId: data.serviceProviderDetails.userId,
+                                    email: data.serviceProviderDetails.email,
+                                    displayName: data.serviceProviderDetails.displayName,
+                                    serviceId: data.serviceId,
+                                    service_name: data.serviceName,
+                                    description: data.description,
+                                    virtual_meeting_link: data.virtualMeetingLink,
+                                    service_charge_in_person: data.serviceChargeInPerson,
+                                    service_charge_virtual: data.serviceChargeVirtual,
+                                    duration: data.duration,
+                                    date: data.date,
+                                    time: data.time,
+                                    available_days: '',
+                                  );
+                                },
+                                child: Icon(
+                                  Icons.more_vert_rounded,
+                                  color: AppColor.bgColor,
+                                  size: 30.r,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 20.h),
+                          _buildRichText('Service type:  ', data.serviceType.capitalizeFirst!),
+                          SizedBox(height: 25.h),
+                          Text(
+                            "Available on",
+                            style: GoogleFonts.inter(
+                              color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                          ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: data.availabilitySchedule.length,
+                            separatorBuilder: (context, index) => SizedBox(height: 10.h),
+                            itemBuilder: (context, indexAV) {
+                              final availData = data.availabilitySchedule[indexAV];
+                              return _buildRichText('${availData.availability_day}:  ', '${availData.from_time} - ${availData.to_time}');
+                            },
+                          ),
+                          SizedBox(height: 30.h),
+                          _buildPricingSection(data, index),
+                          SizedBox(height: 40.h),
+                          Text(
+                            data.description,
                             style: GoogleFonts.inter(
                               color: AppColor.bgColor,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.w800,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400,
                             ),
-                            overflow: TextOverflow.clip,
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            editServiceDialogueBox(
-                              service: userService,
-                              service_status: data.serviceStatus,
-                              context: context,
-                              userId: data.serviceProviderDetails.userId,
-                              email: data.serviceProviderDetails.email,
-                              displayName: data.serviceProviderDetails.displayName,
-                              serviceId: data.serviceId,
-                              service_name: data.serviceName,
-                              description: data.description,
-                              virtual_meeting_link: data.virtualMeetingLink,
-                              service_charge_in_person: data.serviceChargeInPerson,
-                              service_charge_virtual: data.serviceChargeVirtual,
-                              duration: data.duration,
-                              date: data.date,
-                              time: data.time,
-                              available_days: '',
-                            );
-                          },
-                          child: Icon(
-                            Icons.more_vert_rounded,
-                            color: AppColor.bgColor,
-                            size: 30.r,
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20.h),
-                    _buildRichText('Service type:  ', data.serviceType.capitalizeFirst!),
-                    SizedBox(height: 25.h),
-                    Text(
-                      "Available on",
-                      style: GoogleFonts.inter(
-                        color: index.isEven ? AppColor.yellowStar : AppColor.limeGreen,
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 20.h),
-                    ListView.separated(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data.availabilitySchedule.length,
-                      separatorBuilder: (context, index) => SizedBox(height: 10.h),
-                      itemBuilder: (context, indexAV) {
-                        final availData = data.availabilitySchedule[indexAV];
-                        return _buildRichText('${availData.availability_day}:  ', '${availData.from_time} - ${availData.to_time}');
-                      },
-                    ),
-                    SizedBox(height: 30.h),
-                    _buildPricingSection(data, index),
-                    SizedBox(height: 40.h),
-                    Text(
-                      data.description,
-                      style: GoogleFonts.inter(
-                        color: AppColor.bgColor,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        );
-      },
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 

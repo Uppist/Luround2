@@ -65,19 +65,30 @@ class AccOwnerServicePageService extends getx.GetxController {
 
 
   //for main service screen and the service screen tab
-  final TextEditingController searchServiceController = TextEditingController();
-  final filterServicesList = <UserServiceModel>[].obs;
+  //final TextEditingController searchServiceController = TextEditingController();
+
+  final TextEditingController searchOneoffController = TextEditingController();
+  final TextEditingController searchRetainerController = TextEditingController();
+  final TextEditingController searchProgramController = TextEditingController();
+  final TextEditingController searchEventController = TextEditingController();
+  
+  //final filterServicesList = <UserServiceModel>[].obs;
+  final filterOneoffList = <UserServiceModel>[].obs;
+  final filterRetainerList = <UserServiceModel>[].obs;
+  final filterProgramList = <UserServiceModel>[].obs;
+  final filterEventsList = <UserServiceModel>[].obs;
+
   int activeTabIndex = 0;
 
-  void updateServiceList(List<UserServiceModel> data) {
+  /*void updateServiceList(List<UserServiceModel> data) {
     filterServicesList.clear();
     filterServicesList.addAll(data);
     //filterServicesList.refresh();
     update();
-  }
+  }*/
 
   
-
+ 
    
 
 
@@ -87,18 +98,18 @@ class AccOwnerServicePageService extends getx.GetxController {
   final servicesList = <UserServiceModel>[].obs;
   Future<void> filterOneOffServices(String query) async {
     if (query.isEmpty) {
-      filterServicesList.clear();
-      filterServicesList.addAll(servicesList);
-      print("when query is empty: $filterServicesList");
+      filterOneoffList.clear();
+      filterOneoffList.addAll(servicesList);
+      print("when query is empty: $filterOneoffList");
     } 
     else {
-      filterServicesList.clear(); // Clear the previous filtered list
+      filterOneoffList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterServicesList.addAll(
+      filterOneoffList.addAll(
         servicesList
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterServicesList");
+      print("when query is not empty: $filterOneoffList");
     }
     //update();
   }
@@ -148,18 +159,18 @@ class AccOwnerServicePageService extends getx.GetxController {
   final servicesListRetainer = <UserServiceModel>[].obs;
   Future<void> filterRetainerServices(String query) async {
     if (query.isEmpty) {
-      filterServicesList.clear();
-      filterServicesList.addAll(servicesListRetainer);
-      print("when query is empty: $filterServicesList");
+      filterRetainerList.clear();
+      filterRetainerList.addAll(servicesListRetainer);
+      print("when query is empty: $filterRetainerList");
     } 
     else {
-      filterServicesList.clear(); // Clear the previous filtered list
+      filterRetainerList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterServicesList.addAll(
+      filterRetainerList.addAll(
         servicesListRetainer
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterServicesList");
+      print("when query is not empty: $filterRetainerList");
     }
     //update();
   }
@@ -206,18 +217,18 @@ class AccOwnerServicePageService extends getx.GetxController {
   final servicesListProgram = <UserServiceModel>[].obs;
   Future<void> filterProgramServices(String query) async {
     if (query.isEmpty) {
-      filterServicesList.clear();
-      filterServicesList.addAll(servicesListProgram);
-      print("when query is empty: $filterServicesList");
+      filterProgramList.clear();
+      filterProgramList.addAll(servicesListProgram);
+      print("when query is empty: $filterProgramList");
     } 
     else {
-      filterServicesList.clear(); // Clear the previous filtered list
+      filterProgramList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterServicesList.addAll(
+      filterProgramList.addAll(
         servicesListProgram
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterServicesList");
+      print("when query is not empty: $filterProgramList");
     }
     //update();
   }
@@ -264,18 +275,18 @@ class AccOwnerServicePageService extends getx.GetxController {
   final servicesListEvent = <UserServiceModel>[].obs;
   Future<void> filterEventServices(String query) async {
     if (query.isEmpty) {
-      filterServicesList.clear();
-      filterServicesList.addAll(servicesListEvent);
-      print("when query is empty: $filterServicesList");
+      filterEventsList.clear();
+      filterEventsList.addAll(servicesListEvent);
+      print("when query is empty: $filterEventsList");
     } 
     else {
-      filterServicesList.clear(); // Clear the previous filtered list
+      filterEventsList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
-      filterServicesList.addAll(
+      filterEventsList.addAll(
         servicesListEvent
         .where((user) => user.serviceName.toLowerCase().contains(query.toLowerCase())) // == query //.contains(query)
         .toList());
-      print("when query is not empty: $filterServicesList");
+      print("when query is not empty: $filterEventsList");
     }
     //update();
   }
@@ -1557,10 +1568,13 @@ class AccOwnerServicePageService extends getx.GetxController {
     // TODO: implement dispose
     //socket!.dispose();
 
-    searchServiceController.dispose();
-    /*searchRetainerServiceController.dispose();
-    searchProgramServiceController.dispose();
-    searchEventServiceController.dispose();*/
+    //searchServiceController.dispose();
+
+    searchOneoffController.dispose();
+    searchRetainerController.dispose();
+    searchProgramController.dispose();
+    searchEventController.dispose();
+   
     super.dispose();
   }
 

@@ -92,7 +92,7 @@ class _ServicesPageState extends State<ServicesPage> {
             //SizedBox(height: 15.h,),      
             
             //search textfield
-            Padding(
+            /*Padding(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               child: SearchTextField(
                 onFocusChanged: (val) {},
@@ -130,9 +130,9 @@ class _ServicesPageState extends State<ServicesPage> {
                   //service.searchContactController.clear();
                 },
               ),
-            ),
+            ),*/
             
-            //SizedBox(height: 10.h,), 
+            SizedBox(height: 10.h,), 
       
             //service tab here
             const ServiceScreenTab()

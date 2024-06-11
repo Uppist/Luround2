@@ -90,11 +90,23 @@ class _EventServiceListState extends State<EventServiceList> {
               return Expanded(child: Loader());
             }*/
             if (userService.hasError.value) {
-              return ServiceEmptyState(
+              return Center(
+                child: Text(
+                  'something went wrong',
+                  style: GoogleFonts.inter(
+                    color: AppColor.blackColor,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.clip,
+                ),
+              );
+              /*return ServiceEmptyState(
                 onPressed: () {
                   Get.to(() => const AddEventScreen());
                 },
-              );
+              );*/
             }
             if (userService.filterEventsList.isEmpty) {
               return ServiceEmptyState(

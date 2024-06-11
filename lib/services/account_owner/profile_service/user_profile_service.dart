@@ -372,6 +372,7 @@ class AccOwnerProfileService extends getx.GetxController {
   }
 
   
+  
   /////[COMPANY LOGO SECTION]//////
   //picked image/logo from gallery {pass it to cloudinary}
   getx.Rx<File?> logoFromGallery = getx.Rx<File?>(null);

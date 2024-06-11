@@ -143,7 +143,7 @@ class SyncFusionCalendar extends StatelessWidget {
                                   shape: BoxShape.rectangle,
                                 ),
                                 //onViewChanged: (viewChangedDetails) {},
-                                onLongPress: (calendarTapDetails) {
+                                onTap: (calendarTapDetails) {
                                   controller.setDate(calendarTapDetails.date!);
                                   controller.showAppointmentDetailBottomsheet(context: context);
                                 },

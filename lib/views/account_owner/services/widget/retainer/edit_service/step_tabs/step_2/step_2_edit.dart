@@ -10,6 +10,7 @@ import 'package:luround/controllers/account_owner/services/retainer/retainer_ser
 import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
@@ -26,8 +27,8 @@ import 'package:luround/views/account_owner/services/widget/retainer/edit_servic
 
 
 class Step2PagePackageServiceEdit  extends StatefulWidget {
-  const Step2PagePackageServiceEdit({super.key, required this.onNext, required this.virtual_meeting_link});
-  final VoidCallback onNext;
+  const Step2PagePackageServiceEdit({super.key, required this.virtual_meeting_link});
+  //final VoidCallback onNext;
   final String virtual_meeting_link;
 
   @override
@@ -36,7 +37,8 @@ class Step2PagePackageServiceEdit  extends StatefulWidget {
 
 class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdit> {
   
-  var controller = Get.put(PackageServiceController());
+  final controller = Get.put(PackageServiceController());
+  int controllerIndex = 0;
   
   @override
   Widget build(BuildContext context) {
@@ -97,6 +99,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
     
             return Obx(
               () {
+                controllerIndex = index;
                 //
                 ServiceControllerSett controllerSet = controller.controllersEdit[index];
                 //
@@ -245,7 +248,26 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
               color: controller.isCheckBoxActiveForPricingEdit.value ? AppColor.mainColor : AppColor.lightPurple,
               text: "Next", 
               onPressed: controller.isCheckBoxActiveForPricingEdit.value ? 
-              widget.onNext
+              //widget.onNext
+              () {
+                ServiceControllerSett controllerSet = controller.controllersEdit[controllerIndex];
+                if(controllerSet.durationController.text.isNotEmpty && controllerSet.inpersonPriceController.text.isNotEmpty && controllerSet.virtualPriceController.text.isNotEmpty) {
+                  if(controller.curentStepEdit < 2) {
+                    setState(() {
+                      controller.curentStepEdit = controller.curentStepEdit + 1;
+                    });
+                    print("current step: ${controller.curentStepEdit}");
+                  }
+                }
+                else {
+                  showMySnackBar(
+                    context: context, 
+                    message: 'fields must not be empty', 
+                    backgroundColor: AppColor.redColor
+                  );
+                }
+
+              }
               : () {
                 print('nothing');
                 //controller.controllers.clear();

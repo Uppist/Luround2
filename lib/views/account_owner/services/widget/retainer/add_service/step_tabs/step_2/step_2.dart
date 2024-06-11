@@ -10,6 +10,7 @@ import 'package:luround/controllers/account_owner/services/retainer/retainer_ser
 import 'package:luround/main.dart';
 import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
@@ -25,8 +26,8 @@ import 'package:luround/views/account_owner/services/widget/program/add_service/
 
 
 class Step2PagePackageService  extends StatefulWidget {
-  const Step2PagePackageService({super.key, required this.onNext});
-  final VoidCallback onNext;
+  const Step2PagePackageService({super.key,});
+  //final VoidCallback onNext;
 
   @override
   State<Step2PagePackageService> createState() => _Step2PagePackageServiceState();
@@ -34,7 +35,9 @@ class Step2PagePackageService  extends StatefulWidget {
 
 class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
   
-  var controller = Get.put(PackageServiceController());
+  final controller = Get.put(PackageServiceController());
+
+  int controllerIndex = 0;
   
   @override
   Widget build(BuildContext context) {
@@ -93,8 +96,11 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
           itemCount: controller.priceSlot.length,
           itemBuilder: (context, index) {
             
-            //
+            //set the index
+            controllerIndex = index;
+
             ServiceControllerSett controllerSet = controller.controllersInput[index];
+
             //
             String time = controller.priceSlot[index]['time'];
             //
@@ -282,7 +288,26 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
               color: controller.isCheckBoxActiveForPricing.value ? AppColor.mainColor : AppColor.lightPurple,
               text: "Next", 
               onPressed: controller.isCheckBoxActiveForPricing.value ? 
-              widget.onNext
+              //widget.onNext
+              () {
+                ServiceControllerSett controllerSet = controller.controllersInput[controllerIndex];
+                if(controllerSet.durationController.text.isNotEmpty && controllerSet.inpersonPriceController.text.isNotEmpty && controllerSet.virtualPriceController.text.isNotEmpty) {
+                  if(controller.curentStep < 2) {
+                    setState(() {
+                      controller.curentStep = controller.curentStep + 1;
+                    });
+                    print("current step: ${controller.curentStep}");
+                  }
+                }
+                else {
+                  showMySnackBar(
+                    context: context, 
+                    message: 'fields must not be empty', 
+                    backgroundColor: AppColor.redColor
+                  );
+                }
+
+              }
               : () {
                 print('nothing');
                 //controller.controllers.clear();

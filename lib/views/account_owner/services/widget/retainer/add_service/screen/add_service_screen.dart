@@ -126,14 +126,14 @@ class _AddPackageServiceScreenState extends State<AddPackageServiceScreen> {
             title: Text(""), 
             isActive: controller.curentStep >= 1,
             content: Step2PagePackageService (
-              onNext: () {
+              /*onNext: () {
                 if(controller.curentStep < 2) {
                   setState(() {
                     controller.curentStep = controller.curentStep + 1;
                   });
                   print("current step: ${controller.curentStep}");
                 }
-              },
+              },*/
             )
           ),
           Step(

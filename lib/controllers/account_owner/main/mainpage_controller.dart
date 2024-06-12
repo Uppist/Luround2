@@ -240,17 +240,19 @@ class MainPageController extends getx.GetxController {
 
   //widget options
   final List<Widget> widgetOptions = <Widget>[
-    ProfilePage(),
-    ServicesPage(),
-    BookingsPage(),
+    const ProfilePage(),
+    const ServicesPage(),
+    const BookingsPage(),
     MorePage(),
     //EditCertDetails()
   ];
 
 
   dynamic setIndex(int setindex) {
-    selectedIndex.value = setindex;
-    log("index: $setindex");
+    if (setindex >= 0 && setindex < widgetOptions.length) {
+      selectedIndex.value = setindex;
+      log("index: $setindex");
+    }
     update();
   }
 
@@ -259,7 +261,7 @@ class MainPageController extends getx.GetxController {
   Future<void> navigateToMainpageAtIndex({required Widget page, required int index}) async{
     // Use Navigator to push to onto the navigation stack
     setIndex(index);
-    navigatorKey.currentState!.pushReplacement(
+    navigatorKey.currentState?.pushReplacement(
       MaterialPageRoute(
         builder: (context) => page,
       )

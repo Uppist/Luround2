@@ -23,7 +23,8 @@ import 'firebase_options.dart';
 
 
 
-
+// Define a GlobalKey<NavigatorState> for functional navigation
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 //to display EURO currency
 NumberFormat currency(context) {
@@ -36,9 +37,6 @@ NumberFormat currency(context) {
   return format;
 }
 
-
-// Define a GlobalKey<NavigatorState> for functional navigation
-GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 
 //Top level non-anonymous function for FCM push notifications for background mode

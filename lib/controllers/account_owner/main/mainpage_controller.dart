@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 //import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -7,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart' as getx;
 import 'package:http/http.dart' as http;
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/bookings/screen/bookings_screen.dart';
@@ -234,7 +236,7 @@ class MainPageController extends getx.GetxController {
 
   
   //selected index
-  int selectedIndex = 0;
+  getx.RxInt selectedIndex = 0.obs;
 
   //widget options
   final List<Widget> widgetOptions = <Widget>[
@@ -245,9 +247,24 @@ class MainPageController extends getx.GetxController {
     //EditCertDetails()
   ];
 
-  void setIndex(int index) {
-    selectedIndex = index;
-    update(); // This triggers a rebuild when the index changes
+
+  dynamic setIndex(int setindex) {
+    selectedIndex.value = setindex;
+    log("index: $setindex");
+    update();
+  }
+
+
+
+  Future<void> navigateToMainpageAtIndex({required Widget page, required int index}) async{
+    // Use Navigator to push to onto the navigation stack
+    setIndex(index);
+    navigatorKey.currentState!.pushReplacement(
+      MaterialPageRoute(
+        builder: (context) => page,
+      )
+    );
+
   }
 
   //navbar items

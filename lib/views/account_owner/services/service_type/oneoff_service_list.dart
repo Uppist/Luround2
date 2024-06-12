@@ -312,62 +312,64 @@ class _RegularServiceListState extends State<RegularServiceList> {
             ),
           ],
         ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            PopupMenuFilterStr(
-              index: index,
-              selectedValue: controller.selectedFieldIndex,
-              onChanged: (p0) {
-                controller.selectedFieldIndex.value = p0!;
-                log(controller.selectedFieldIndex.value);
-              },
-              items: <String>['Virtual', 'In-person'].map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              PopupMenuFilterStr(
+                index: index,
+                selectedValue: controller.selectedFieldIndex,
+                onChanged: (p0) {
+                  controller.selectedFieldIndex.value = p0!;
+                  log(controller.selectedFieldIndex.value);
+                },
+                items: <String>['Virtual', 'In-person'].map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(
+                      value,
+                      style: GoogleFonts.inter(
+                        color: AppColor.bgColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              SizedBox(height: 5.h),
+              Obx(() {
+                return Text(
+                  controller.selectedFieldIndex.value == 'Virtual'
+                      ? data.pricing[controller.selectedDurationIndex.value].virtual_pricing.isNotEmpty
+                          ? "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].virtual_pricing}"
+                          : "FREE"
+                      : data.pricing[controller.selectedDurationIndex.value].in_person_pricing.isNotEmpty
+                          ? "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].in_person_pricing}"
+                          : "FREE",
+                  style: GoogleFonts.inter(
+                    color: AppColor.bgColor,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                );
+              }),
+              SizedBox(height: 5.h),
+              Obx(
+                () {
+                  return Text(
+                    "for ${data.pricing[controller.selectedDurationIndex.value].time_allocation} session",
                     style: GoogleFonts.inter(
-                      color: AppColor.bgColor,
-                      fontSize: 14.sp,
+                      color: AppColor.whiteTextColor,
+                      fontSize: 10.sp,
                       fontWeight: FontWeight.w500,
                     ),
-                  ),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 5.h),
-            Obx(() {
-              return Text(
-                controller.selectedFieldIndex.value == 'Virtual'
-                    ? data.pricing[controller.selectedDurationIndex.value].virtual_pricing.isNotEmpty
-                        ? "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].virtual_pricing}"
-                        : "FREE"
-                    : data.pricing[controller.selectedDurationIndex.value].in_person_pricing.isNotEmpty
-                        ? "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].in_person_pricing}"
-                        : "FREE",
-                style: GoogleFonts.inter(
-                  color: AppColor.bgColor,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-                overflow: TextOverflow.ellipsis,
-              );
-            }),
-            SizedBox(height: 5.h),
-            Obx(
-              () {
-                return Text(
-                  "for ${data.pricing[controller.selectedDurationIndex.value].time_allocation} session",
-                  style: GoogleFonts.inter(
-                    color: AppColor.whiteTextColor,
-                    fontSize: 10.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                );
-              }
-            ),
-          ],
+                  );
+                }
+              ),
+            ],
+          ),
         ),
       ],
     );

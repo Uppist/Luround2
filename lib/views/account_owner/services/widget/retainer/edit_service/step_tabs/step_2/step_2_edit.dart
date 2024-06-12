@@ -38,7 +38,6 @@ class Step2PagePackageServiceEdit  extends StatefulWidget {
 class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdit> {
   
   final controller = Get.put(PackageServiceController());
-  int controllerIndex = 0;
   
   @override
   Widget build(BuildContext context) {
@@ -99,8 +98,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
     
             return Obx(
               () {
-                controllerIndex = index;
-                //
+      
                 ServiceControllerSett controllerSet = controller.controllersEdit[index];
                 //
                 String time = controller.priceSlotEdit[index]['time'];
@@ -250,21 +248,11 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
               onPressed: controller.isCheckBoxActiveForPricingEdit.value ? 
               //widget.onNext
               () {
-                ServiceControllerSett controllerSet = controller.controllersEdit[controllerIndex];
-                if(controllerSet.durationController.text.isNotEmpty && controllerSet.inpersonPriceController.text.isNotEmpty && controllerSet.virtualPriceController.text.isNotEmpty) {
-                  if(controller.curentStepEdit < 2) {
-                    setState(() {
-                      controller.curentStepEdit = controller.curentStepEdit + 1;
-                    });
-                    print("current step: ${controller.curentStepEdit}");
-                  }
-                }
-                else {
-                  showMySnackBar(
-                    context: context, 
-                    message: 'fields must not be empty', 
-                    backgroundColor: AppColor.redColor
-                  );
+                if(controller.curentStepEdit < 2) {
+                  setState(() {
+                    controller.curentStepEdit = controller.curentStepEdit + 1;
+                  });
+                  print("current step: ${controller.curentStepEdit}");
                 }
 
               }

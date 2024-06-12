@@ -12,6 +12,7 @@ import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/add_service/step_tabs/step_3/new/custom_checkbox_listtile.dart';
+import '../../../../../../../../controllers/account_owner/main/mainpage_controller.dart';
 
 
 
@@ -35,8 +36,9 @@ class Step3PagePackageServiceEdit extends StatefulWidget{
 
 class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdit> {
 
-  var mainController = Get.put(PackageServiceController());
-  var servicesService = Get.put(AccOwnerServicePageService());
+  final mainController = Get.put(PackageServiceController());
+  final servicesService = Get.put(AccOwnerServicePageService());
+  final MainPageController controllerMp = Get.put(MainPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -263,10 +265,7 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
                   mainController.selectedDaysEdit.clear();
                   mainController.controllersEdit.clear();
                   //3
-                  Get.offAll(
-                    () => const MainPage(),
-                    transition: Transition.rightToLeft
-                  );
+                  controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
                 });       
                          
               }

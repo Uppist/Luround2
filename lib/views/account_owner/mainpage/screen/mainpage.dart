@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../controllers/account_owner/main/mainpage_controller.dart';
 import '../widget/bottom_bar_widget.dart';
+
+
 
 
 
@@ -15,29 +18,26 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  final MainPageController controller = MainPageController();
-
-  void _onItemTapped(int index) {
-    setState(() {
-      controller.selectedIndex = index;
-    });
-  }
-  
-  /*dynamic _onItemTapped(int index) {
-    setState(() {
-      controller.setIndex(index);
-    });
-  }*/
+  final MainPageController controller = Get.put(MainPageController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: controller.widgetOptions.elementAt(controller.selectedIndex),
+      body: Obx(
+        () {
+          return Center(
+            child: controller.widgetOptions.elementAt(controller.selectedIndex.value),
+          );
+        }
       ),
-      bottomNavigationBar: BottomNavBar(
-        selectedIndex: controller.selectedIndex,
-        onItemTapped: _onItemTapped,
+      bottomNavigationBar: Obx(
+        () {
+          return BottomNavBar(
+            selectedIndex: controller.selectedIndex.value,
+            onItemTapped: controller.setIndex,
+            items: controller.navBarsItems(),
+          );
+        }
       ),
     );
   }

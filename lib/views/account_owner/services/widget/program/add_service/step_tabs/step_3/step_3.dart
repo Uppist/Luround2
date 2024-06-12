@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
@@ -30,8 +31,9 @@ class Step3PageProgramService extends StatefulWidget{
 
 class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
 
-  var mainController = Get.put(ProgramServiceController());
-  var servicesService = Get.put(AccOwnerServicePageService());
+  final mainController = Get.put(ProgramServiceController());
+  final servicesService = Get.put(AccOwnerServicePageService());
+  final MainPageController controllerMp = Get.put(MainPageController());
 
   @override
   Widget build(BuildContext context) {
@@ -211,10 +213,7 @@ class _Step3PageProgramServiceState extends State<Step3PageProgramService> {
                   mainController.virtualPriceController.clear();
                   mainController.selectedDays.clear();
                   //3
-                  Get.offAll(
-                    () => const MainPage(),
-                    transition: Transition.rightToLeft
-                  );
+                  controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
                 });       
                       
               }

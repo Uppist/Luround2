@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -37,8 +38,11 @@ class Step3PageEdit extends StatefulWidget {
 
 class _Step3PageEditState extends State<Step3PageEdit> {
 
+
   final controller = Get.put(EventsController());
   final service = Get.put(AccOwnerServicePageService());
+  final MainPageController controllerMp = Get.put(MainPageController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -123,10 +127,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   controller.inPersonPriceControllerEdit.clear();
                   controller.virtualPriceControllerEdit.clear();
                   //3
-                  Get.offAll(
-                    () => const MainPage(),
-                    transition: Transition.rightToLeft
-                  );
+                  controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
                 });
               }
               : () {

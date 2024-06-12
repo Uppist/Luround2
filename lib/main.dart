@@ -25,24 +25,30 @@ import 'firebase_options.dart';
 
 
 
+//to display EURO currency
+NumberFormat currency(context) {
+  //String os = Platform.operatingSystem;
+  //if(Platform.isAndroid)
+  Locale locale = Localizations.localeOf(context);
+  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "EUR");
+  //print("CURRENCY SYMBOL: ${format.currencySymbol}");
+  //print("CURRENCY NAME: ${format.currencyName}");
+  return format;
+}
 
-var controller = Get.put(MainPageController());
+
+// Define a GlobalKey<NavigatorState> for functional navigation
+GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+
+
 //Top level non-anonymous function for FCM push notifications for background mode
+var controller = Get.put(MainPageController());
 Future<void> backgroundHandler(RemoteMessage message) async {
   debugPrint('Handling a background message ${message.data}');
   controller.displayNotification(message);
 }
 
-  //to display naira currency
-  NumberFormat currency(context) {
-    //String os = Platform.operatingSystem;
-    //if(Platform.isAndroid)
-    Locale locale = Localizations.localeOf(context);
-    var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "NGN");
-    //print("CURRENCY SYMBOL: ${format.currencySymbol}");
-    //print("CURRENCY NAME: ${format.currencyName}");
-    return format;
-  }
+  
 
 void main() async{
   
@@ -134,7 +140,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     
     //Access a query parameter from the web url using "Get.parameters['']"
-    String userName = Get.parameters['user'] ?? 'DefaultUserName';
+    //String userName = Get.parameters['user'] ?? 'DefaultUserName';
  
     return ScreenUtilInit(
       designSize: const Size(414, 896),
@@ -152,7 +158,6 @@ class _MainAppState extends State<MainApp> {
         ),
         
         defaultTransition: Transition.rightToLeft,
-        //home: DynamicWidgetScreen(),
         
         home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       

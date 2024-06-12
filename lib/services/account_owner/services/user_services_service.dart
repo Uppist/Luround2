@@ -80,12 +80,6 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   int activeTabIndex = 0;
 
-  /*void updateServiceList(List<UserServiceModel> data) {
-    filterServicesList.clear();
-    filterServicesList.addAll(data);
-    //filterServicesList.refresh();
-    update();
-  }*/
 
   
  
@@ -335,6 +329,14 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
 
+
+
+
+
+
+
+
+
   /*IO.Socket? socket;
   Stream<List<UserServiceModel>> getUserServicesSocket() async* {
     try {
@@ -381,6 +383,17 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
 
   }*/
+
+
+
+
+
+
+
+
+
+
+
 
 
   /////[GET A SINGLE SERVICE]////// I.E, FOR SEARCHING OR FILTERING
@@ -670,7 +683,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceCRLoading.value = false;
+          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
           //log("empty list");
@@ -696,7 +709,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceCRLoading.value = false;
+          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
           //log('empty list');
@@ -783,7 +796,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceCRLoading.value = false;
+          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -808,7 +821,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceCRLoading.value = false;
+          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -897,7 +910,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceCRLoading.value = false;
+          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -1103,7 +1116,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceEDLoading.value = false;
+          //isServiceEDLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -1128,7 +1141,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceEDLoading.value = false;
+          //isServiceEDLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -1213,7 +1226,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceEDLoading.value = false;
+          //isServiceEDLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -1238,7 +1251,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceEDLoading.value = false;
+          //isServiceEDLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }
@@ -1327,7 +1340,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         } 
         else {
           // Handle case where required fields are empty or undefined
-          isServiceEDLoading.value = false;
+          //isServiceEDLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
         }

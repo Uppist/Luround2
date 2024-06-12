@@ -88,49 +88,6 @@ class _ServicesPageState extends State<ServicesPage> {
                 ],
               ),
             ),         
-                 
-            //SizedBox(height: 15.h,),      
-            
-            //search textfield
-            /*Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: SearchTextField(
-                onFocusChanged: (val) {},
-                onFieldSubmitted: (val) {},
-                onChanged: (val) {
-                  setState(() {
-                    
-                
-                    if(userService.activeTabIndex == 0) {
-                      //one-off
-                      userService.filterOneOffServices(val);
-                    }
-                    else if(userService.activeTabIndex == 1){
-                      //retainer
-                      userService.filterRetainerServices(val);
-                    }
-                    else if(userService.activeTabIndex == 2){
-                      //program
-                      userService.filterProgramServices(val);
-                    }
-                    else if(userService.activeTabIndex == 3){
-                      //event
-                      userService.filterEventServices(val);
-                    }
-                    else {
-                      print('no more func');
-                    }
-                  });
-                },
-                hintText: "Search",
-                keyboardType: TextInputType.name,
-                textInputAction: TextInputAction.done,
-                textController: userService.searchServiceController,
-                onTap: () {
-                  //service.searchContactController.clear();
-                },
-              ),
-            ),*/
             
             SizedBox(height: 10.h,), 
       

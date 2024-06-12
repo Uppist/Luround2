@@ -65,7 +65,6 @@ class AccOwnerServicePageService extends getx.GetxController {
 
 
   //for main service screen and the service screen tab
-
   final TextEditingController searchOneoffController = TextEditingController();
   final TextEditingController searchRetainerController = TextEditingController();
   final TextEditingController searchProgramController = TextEditingController();

@@ -266,8 +266,8 @@ class MainPageController extends getx.GetxController {
         builder: (context) => page,
       )
     );
-
   }
+  
 
   //navbar items
   List<BottomNavigationBarItem> navBarsItems() {

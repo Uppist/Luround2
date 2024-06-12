@@ -30,7 +30,7 @@ NumberFormat currency(context) {
   //String os = Platform.operatingSystem;
   //if(Platform.isAndroid)
   Locale locale = Localizations.localeOf(context);
-  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "EUR");
+  var format = NumberFormat.simpleCurrency(locale: Platform.localeName, name: "NGN");
   //print("CURRENCY SYMBOL: ${format.currencySymbol}");
   //print("CURRENCY NAME: ${format.currencyName}");
   return format;

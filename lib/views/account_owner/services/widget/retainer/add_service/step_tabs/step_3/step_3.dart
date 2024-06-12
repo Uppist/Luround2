@@ -259,7 +259,8 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                   mainController.controllersInput.clear();
                   mainController.selectedDays.clear();
                   //3
-                  controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                  //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                  Get.offAll(() => MainPage());
                 });       
                 
                     

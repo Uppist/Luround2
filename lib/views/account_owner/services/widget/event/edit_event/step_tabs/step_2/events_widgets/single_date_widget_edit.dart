@@ -128,7 +128,7 @@ class _SingleDateWidgetEditState extends State<SingleDateWidgetEdit> {
               child: Container(
                 alignment: Alignment.center,
                 height: 50.h,
-                width: 115.w,
+                width: 120.w,
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,
@@ -175,7 +175,7 @@ class _SingleDateWidgetEditState extends State<SingleDateWidgetEdit> {
               child: Container(
                 alignment: Alignment.center,
                 height: 50.h,
-                width: 115.w,
+                width: 120.w,
                 padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 5.h),
                 decoration: BoxDecoration(
                   color: AppColor.bgColor,

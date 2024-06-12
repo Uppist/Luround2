@@ -8,9 +8,7 @@ import '../widget/bottom_bar_widget.dart';
 
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key, this.initialIndex = 0}) : super(key: key);
-
-  final int initialIndex;
+  const MainPage({Key? key,}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -19,12 +17,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   
   final MainPageController controller = Get.put(MainPageController());
-
-  @override
-  void initState() {
-    super.initState();
-    controller.setIndex(widget.initialIndex);
-  }
 
   @override
   Widget build(BuildContext context) {

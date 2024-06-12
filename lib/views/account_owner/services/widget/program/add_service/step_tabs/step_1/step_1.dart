@@ -32,7 +32,7 @@ class Step1PageProgramService extends StatefulWidget {
 class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
 
 
-  var controller = Get.put(ProgramServiceController());
+  final controller = Get.put(ProgramServiceController());
 
   @override
   void initState() {

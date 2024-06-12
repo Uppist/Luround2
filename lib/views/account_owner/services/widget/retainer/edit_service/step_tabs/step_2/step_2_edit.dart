@@ -27,8 +27,8 @@ import 'package:luround/views/account_owner/services/widget/retainer/edit_servic
 
 
 class Step2PagePackageServiceEdit  extends StatefulWidget {
-  const Step2PagePackageServiceEdit({super.key, required this.virtual_meeting_link});
-  //final VoidCallback onNext;
+  const Step2PagePackageServiceEdit({super.key, required this.virtual_meeting_link, required this.onNext});
+  final VoidCallback onNext;
   final String virtual_meeting_link;
 
   @override
@@ -246,16 +246,7 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
               color: controller.isCheckBoxActiveForPricingEdit.value ? AppColor.mainColor : AppColor.lightPurple,
               text: "Next", 
               onPressed: controller.isCheckBoxActiveForPricingEdit.value ? 
-              //widget.onNext
-              () {
-                if(controller.curentStepEdit < 2) {
-                  setState(() {
-                    controller.curentStepEdit = controller.curentStepEdit + 1;
-                  });
-                  print("current step: ${controller.curentStepEdit}");
-                }
-
-              }
+              widget.onNext
               : () {
                 print('nothing');
                 //controller.controllers.clear();

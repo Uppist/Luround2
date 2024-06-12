@@ -127,7 +127,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   controller.inPersonPriceControllerEdit.clear();
                   controller.virtualPriceControllerEdit.clear();
                   //3
-                  controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                  //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                  Get.offAll(() => MainPage());
                 });
               }
               : () {

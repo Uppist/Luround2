@@ -257,7 +257,7 @@ class _Step3PageState extends State<Step3Page> {
                   mainController.selectedTimeSlot.clear();
                   mainController.selectedDays.clear();
                   //3
-                  controller.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                  Get.offAll(() => MainPage());
                   
                 }); 
                      

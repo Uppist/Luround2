@@ -26,8 +26,8 @@ import 'package:luround/views/account_owner/services/widget/program/add_service/
 
 
 class Step2PagePackageService  extends StatefulWidget {
-  const Step2PagePackageService({super.key,});
-  //final VoidCallback onNext;
+  const Step2PagePackageService({super.key, required this.onNext,});
+  final VoidCallback onNext;
 
   @override
   State<Step2PagePackageService> createState() => _Step2PagePackageServiceState();
@@ -211,45 +211,6 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
           }, 
         ),
             
-        /*SizedBox(height: MediaQuery.of(context).size.height * 0.23),
-        InkWell(
-          onTap: () {           
-            setState(() {
-              ServiceControllerSett controllerSet = ServiceControllerSett();
-              //controller.textFields.add(buildTextField(controllerSet));
-              controller.controllers.add(controllerSet);
-              print("controller_list: ${controller.controllers}");
-              print("controller_list_length: ${controller.controllers.length}");
-              // Access your controllers through the list of ControllerSet instances
-              for (ServiceControllerSett controllerSet in controller.controllers) {
-                print("duration: ${controllerSet.durationController.text}");
-                print("virtual price: ${controllerSet.virtualPriceController.text}");
-                print("in-person price: ${controllerSet.inpersonPriceController.text}");
-              }
-
-            });    
-          },
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Icon(
-                CupertinoIcons.add_circled, 
-                size: 24.r, 
-                color: AppColor.textGreyColor,
-              ),
-              SizedBox(width: 10.w,),
-              Text(
-                'Add date slot',
-                style: GoogleFonts.inter(
-                  color: AppColor.textGreyColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w400
-                )
-              ),
-              
-            ],
-          ),
-        ),*/
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
   
@@ -283,16 +244,7 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
               color: controller.isCheckBoxActiveForPricing.value ? AppColor.mainColor : AppColor.lightPurple,
               text: "Next", 
               onPressed: controller.isCheckBoxActiveForPricing.value ? 
-              //widget.onNext
-              () {
-                if(controller.curentStep < 2) {
-                  setState(() {
-                    controller.curentStep = controller.curentStep + 1;
-                  });
-                  print("current step: ${controller.curentStep}");
-                }
-
-              }
+              widget.onNext
               : () {
                 print('nothing');
                 //controller.controllers.clear();

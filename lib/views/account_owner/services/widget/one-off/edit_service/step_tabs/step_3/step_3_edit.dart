@@ -274,6 +274,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   mainController.selectedDaysEdit.clear();
                   //3
                   controller.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                  Get.offAll(() => MainPage());
                 });        
               }
               :() {

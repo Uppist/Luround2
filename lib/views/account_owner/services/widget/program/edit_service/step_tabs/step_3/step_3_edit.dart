@@ -222,7 +222,8 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
                     mainController.virtualPriceControllerEdit.clear();
                     mainController.selectedDaysEdit.clear();
                     //3
-                    controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                    //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
+                    Get.offAll(() => MainPage());
                   });       
                         
                 }

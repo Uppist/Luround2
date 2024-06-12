@@ -165,12 +165,12 @@ class _EditPackageServiceScreenState extends State<EditPackageServiceScreen> {
                 title: Text(""), 
                 isActive: controller.curentStepEdit.value >= 1,
                 content: Step2PagePackageServiceEdit(
-                  /*onNext: () {
+                  onNext: () {
                     if(controller.curentStepEdit.value < 2) {             
                       controller.curentStepEdit.value = controller.curentStepEdit.value + 1;
                       print("current step: ${controller.curentStepEdit.value}");
                     }
-                  },*/
+                  },
                   virtual_meeting_link: widget.virtual_meeting_link,
                 )
               ),

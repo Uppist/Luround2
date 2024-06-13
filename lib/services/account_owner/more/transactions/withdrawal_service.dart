@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 class WithdrawalService extends getx.GetxController {
   
+
   var controller = getx.Get.put(TransactionsController());
   var baseService = getx.Get.put(BaseService());
   var isLoading = false.obs;
@@ -434,6 +436,9 @@ class WithdrawalService extends getx.GetxController {
   }
 
 
+
+
+
   ///[WITHDRAW FUNDS]//
   Future<void> withdrawFunds({
     required BuildContext context,
@@ -509,6 +514,16 @@ class WithdrawalService extends getx.GetxController {
       throw Exception("Something went wrong");
     }
   }
+
+
+
+
+
+
+
+
+
+
 
 
   /////[GET LOGGED-IN USER'S LIST OF TRANSACTIONS]//////
@@ -841,7 +856,7 @@ class WithdrawalService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to fetch user wallet balance');
       }
     } 

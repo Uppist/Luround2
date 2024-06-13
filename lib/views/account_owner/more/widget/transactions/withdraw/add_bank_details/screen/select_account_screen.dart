@@ -5,24 +5,22 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/empty_states/no_saved_accounts.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/screen/add_account_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_1/screen/show_saved_banks.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/accounts_tab/tabs/tab_2/screen/new_account_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/add_bank_account/add_new_bank.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/show_bank_page/show_saved_banks.dart';
 
 
 
 
 
-class SelectAccountPage extends StatefulWidget {
-  const SelectAccountPage({super.key, required this.wallet_balance});
+class SelectAccountPageTrx extends StatefulWidget {
+  const SelectAccountPageTrx({super.key, required this.wallet_balance});
   final int wallet_balance;
 
   @override
-  State<SelectAccountPage> createState() => _SelectAccountPageState();
+  State<SelectAccountPageTrx> createState() => _SelectAccountPageTrxState();
 }
  
-class _SelectAccountPageState extends State<SelectAccountPage> with SingleTickerProviderStateMixin {
+class _SelectAccountPageTrxState extends State<SelectAccountPageTrx> with SingleTickerProviderStateMixin {
 
   late TabController tabController;
   late Color firstTabBackground;
@@ -138,18 +136,12 @@ class _SelectAccountPageState extends State<SelectAccountPage> with SingleTicker
                     controller: tabController,
                     physics: const BouncingScrollPhysics(),
                     children: [
-                      //empty state
-                      /*NoSavedAccounts(
-                        onPressed: () {
-                          Get.to(() => AddAccountPageFromButton());
-                        },
-                      ),*/
-                      ShowSavedBanks(
+                      ShowBanksForTrx(
                         wallet_balance: widget.wallet_balance,
                       ),
-                      AddNewAccount(
+                      AddAccountForTrx(
                         wallet_balance: widget.wallet_balance,
-                      )     
+                      )    
                     ]
                   ),
                 )

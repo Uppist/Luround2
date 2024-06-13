@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:luround/controllers/account_owner/profile/profile_page_controller.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
@@ -25,7 +24,7 @@ class CountryFieldFlipper extends StatefulWidget {
 
 class _CountryFieldFlipperState extends State<CountryFieldFlipper> {
 
-  var controller = Get.put(TransactionsController());
+  final controller = Get.put(TransactionsController());
 
   @override
   Widget build(BuildContext context) {

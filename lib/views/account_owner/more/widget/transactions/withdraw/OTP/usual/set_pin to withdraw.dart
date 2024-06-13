@@ -5,11 +5,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_success_screen.dart';
 
 
 
@@ -32,8 +32,8 @@ class SetPinToWithdrawPage extends StatefulWidget {
 
 class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
   
-  var controller = Get.put(TransactionsController());
-  var service = Get.put(WithdrawalService());
+  final controller = Get.put(TransactionsController());
+  final service = Get.put(WithdrawalService());
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +41,10 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
       backgroundColor: AppColor.bgColor,
       body: Obx(
         () {
-          return service.isLoading.value ? Loader() : SafeArea(
+          return service.isLoading.value ? const Loader() : SafeArea(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -87,7 +87,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                           )
                         ),
                         TextSpan(
-                          text: "N${widget.amount} ",
+                          text: "${currency(context).currencySymbol}${widget.amount} ",
                           style: GoogleFonts.inter(
                             color: AppColor.mainColor,
                             fontSize: 15.sp,

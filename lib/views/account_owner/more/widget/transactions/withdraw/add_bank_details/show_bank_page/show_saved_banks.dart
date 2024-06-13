@@ -4,11 +4,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
-import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/add_bank_functionalities/add_new_bank_from_button.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/empty_states/no_saved_accounts.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/add_bank_account/add_new_bank.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/add_bank_account/add_new_bank_fbutton.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/search_bank_textfield_2.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/empty_states/no_saved_accounts.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_screen.dart';
 
 
 
@@ -16,14 +17,16 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ad
 
 
 
-class ShowBanks extends StatefulWidget {
-  const ShowBanks({super.key,});
+class ShowBanksForTrx extends StatefulWidget {
+  const ShowBanksForTrx({super.key, required this.wallet_balance,});
+  final int wallet_balance;
+
 
   @override
-  State<ShowBanks> createState() => _ShowBanksState();
+  State<ShowBanksForTrx> createState() => _ShowBanksForTrxState();
 }
 
-class _ShowBanksState extends State<ShowBanks> {
+class _ShowBanksForTrxState extends State<ShowBanksForTrx> {
 
   var service = Get.put(SettingsService());
   final TextEditingController searchBankTextController = TextEditingController();
@@ -84,8 +87,8 @@ class _ShowBanksState extends State<ShowBanks> {
                         if(service.filteredSavedAccounts.isEmpty) {
                           return NoSavedAccounts(
                             onPressed: () {
-                              Get.to(() => AddAccountForSettings2());
-                            },
+                              Get.to(() => AddAccountForTrxFromButton(wallet_balance: widget.wallet_balance,));
+                            }
                           );
                         }
                 
@@ -113,7 +116,15 @@ class _ShowBanksState extends State<ShowBanks> {
                               ],
                             ),
                             child: InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(() => TransferScreen(
+                                  wallet_balance: widget.wallet_balance,
+                                  bankName: item.bank_name,
+                                  bankCode: item.bank_code,
+                                  accountName: item.account_name,
+                                  accountNumber: item.account_number,
+                                ));
+                              },
                               child: AnimatedContainer(
                                 duration: Duration(milliseconds: 500),
                                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
@@ -159,22 +170,21 @@ class _ShowBanksState extends State<ShowBanks> {
                         }          
                         return NoSavedAccounts(
                           onPressed: () {
-                            Get.to(() => AddAccountForSettings2(), transition: Transition.rightToLeft); //AddAccountForSettings
+                            Get.to(() => AddAccountForTrxFromButton(wallet_balance: widget.wallet_balance,));
                           },
                         ); 
                       }
                     ),
                   ):NoSavedAccounts(
                    onPressed: () {
-                    Get.to(() => AddAccountForSettings2(), transition: Transition.rightToLeft);
+                     Get.to(() => AddAccountForTrxFromButton(wallet_balance: widget.wallet_balance,));
                   },
                 );
               }
             )
           ]
         ),
-      )
-      
+      )    
       
     );
   }

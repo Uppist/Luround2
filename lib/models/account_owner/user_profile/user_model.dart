@@ -25,7 +25,8 @@ class UserModel {
   late final String about;
   late final String phone_number;
   late final String address;
-  late final URLModel luround_url;
+  //late final URLModel luround_url;
+  late final String luround_url;
   late final String company;
   late final String logo_url;
   late final String account_status;
@@ -45,7 +46,8 @@ class UserModel {
     about = json['about'] ?? "about";
     phone_number = json['phone_number'] ?? "phone_number";
     address = json['address'] ?? "address";
-    luround_url = URLModel.fromJson(json['luround_url'] ?? {});
+    //luround_url = URLModel.fromJson(json['luround_url'] ?? {});
+    luround_url = json['luround_url'];
     logo_url = json["logo_url"] ?? "logo_url";
     account_status = json["account_status"] ?? "account_status";
     company = json["company"] ?? "company-null";

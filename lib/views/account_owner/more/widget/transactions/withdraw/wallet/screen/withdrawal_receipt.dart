@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/transactions/transaction_pdf_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
+
+
 
 
 
@@ -25,8 +27,8 @@ class WithdrawalReceipt extends StatelessWidget {
   final int transaction_time;
   final String amount;
 
-  var pdfService = Get.put(TransactionPdfService());
-  var localStorage = LocalStorage.getUsername();
+  final pdfService = Get.put(TransactionPdfService());
+  String localStorage = LocalStorage.getUsername();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class WithdrawalReceipt extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           scrollDirection: Axis.vertical,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -210,7 +212,7 @@ class WithdrawalReceipt extends StatelessWidget {
                     //Amount
                     Center(
                       child: Text(
-                        "N$amount",
+                        "${currency(context).currencySymbol}$amount",
                         style: GoogleFonts.inter(
                           color: AppColor.darkMainColor,
                           fontSize: 36.sp,
@@ -244,7 +246,7 @@ class WithdrawalReceipt extends StatelessWidget {
               SizedBox(height: 20.h,),
               TextButton(
                 onPressed: () {
-                  Get.offUntil(GetPageRoute(page: () => MainPage()), (route) => true);
+                  Get.offUntil(GetPageRoute(page: () => const MainPage()), (route) => true);
                 }, 
                 child: Text(
                   'Exit page',

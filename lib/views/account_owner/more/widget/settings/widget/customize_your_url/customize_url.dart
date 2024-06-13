@@ -132,7 +132,7 @@ class CustomizeYourURLPage extends StatelessWidget {
                                 controller.customizeURLTextController.text = val;
                                 print(controller.customizeURLTextController.text);
                               },
-                              initialValue: data.luround_url.longURL,
+                              initialValue: data.luround_url,  //.longURL,
                               hintText: 'Enter your profile url',
                               keyboardType: TextInputType.url,
                               textInputAction: TextInputAction.done,                   

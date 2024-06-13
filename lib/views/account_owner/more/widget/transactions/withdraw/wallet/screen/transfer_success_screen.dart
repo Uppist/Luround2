@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/reusable_white_button.dart';
@@ -27,7 +28,7 @@ class TransferFundsSuccessScreen extends StatelessWidget {
 
 
   final MainPageController mainPageController = MainPageController();
-  var trxController = Get.put(TransactionsController());
+  final trxController = Get.put(TransactionsController());
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class TransferFundsSuccessScreen extends StatelessWidget {
                       )
                     ),
                     TextSpan(
-                      text: "$amount ",
+                      text: "${currency(context).currencySymbol}$amount ",
                       style: GoogleFonts.inter(
                         color: AppColor.mainColor,
                         fontSize: 15.sp,

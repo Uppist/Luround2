@@ -1,12 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
-import 'package:luround/models/account_owner/more/transactions/bank_response.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
-import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/search_bank_textfield_2.dart';
@@ -16,12 +16,11 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ad
 
 
 
+class SelectBankScreenForTrx extends StatelessWidget{
+  SelectBankScreenForTrx({super.key});
 
-class SelectBankScreenForSettings extends StatelessWidget{
-  SelectBankScreenForSettings({super.key});
-
-  //var controller = Get.put(TransactionsController());
-  var service = Get.put(SettingsService());
+  final controller = Get.put(TransactionsController());
+  final service = Get.put(SettingsService());
 
 
   @override
@@ -49,7 +48,6 @@ class SelectBankScreenForSettings extends StatelessWidget{
                   ),
                   InkWell(
                     onTap: () {
-                      service.searchBankController.clear();
                       Get.back();
                     },
                     child: Icon(
@@ -67,7 +65,8 @@ class SelectBankScreenForSettings extends StatelessWidget{
               SearchBankTextField2(
                 onFieldSubmitted: (p0) {
                   service.searchBankController.text = p0;
-                  print("searched bank: ${service.searchBankController.text}");
+                  controller.selectedBank.value = p0;
+                  print("searched bank: ${controller.selectedBank.value}");
                   service.filterForSelectBankScreen(service.searchBankController.text);
                 },
                 hintText: 'Search',
@@ -101,10 +100,11 @@ class SelectBankScreenForSettings extends StatelessWidget{
                                     onTap: () {                               
                                       // Update the selected index
                                       service.selectedIndex.value = index;
-                                      service.selectedBank.value = item['name'];
-                                      service.enterBankCodeController.text = item['code'];
+                                      controller.selectedBank.value = item['name'];
+                                      controller.enterBankCodeController.text = item['code'];
                                       // Print the selected item
-                                      print('Selected Bank Info: ${service.selectedBank.value}/${service.enterBankCodeController.text}');
+                                      log('Selected Bank Info: ${ controller.selectedBank.value}/${controller.enterBankCodeController.text}');
+                                      service.searchBankController.clear();
                                     },
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,7 +128,7 @@ class SelectBankScreenForSettings extends StatelessWidget{
                                               ?Icon(
                                                 CupertinoIcons.check_mark,
                                                 color: AppColor.blackColor,
-                                              ) : SizedBox(),
+                                              ) : SizedBox.shrink(),
                                             ],
                                           ),
                                           SizedBox(height: 15.h,)
@@ -139,10 +139,10 @@ class SelectBankScreenForSettings extends StatelessWidget{
                           );
                           
                           
-                          }
+                        }
                       }
                     ),
-                  ) : Text(
+                    ) : Text(
                     "Couldn't Fetch Bank",
                     style: GoogleFonts.inter(
                       color: AppColor.darkGreyColor,

@@ -65,9 +65,9 @@ Future<void> toggleAccountBalance({
                     ],
                   ),
                 ),
-                SizedBox(height: 10.h,),
+                SizedBox(height: 30.h,),
                 //2
-                /*InkWell(
+                InkWell(
                   onTap: onAmountPaidBalance,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -100,7 +100,7 @@ Future<void> toggleAccountBalance({
                       ),
                     ],
                   ),
-                ),*/
+                ),
                 //SizedBox(height: 30.h,),
                 /////
               ],

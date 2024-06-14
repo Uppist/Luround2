@@ -105,7 +105,7 @@ class BookingUserInfo {
 class ServiceDetails {
   final String serviceId;
   final String serviceName;
-  final dynamic serviceFee;
+  final String serviceFee;
   final String appointmentType;
   final String date;
   final String time;

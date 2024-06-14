@@ -42,7 +42,7 @@ class TrxDisplay extends StatelessWidget {
             ),
             SizedBox(width: 20.w,),
             Text(
-              "${currency(context).currencySymbol}${double.parse(amount)}",
+              "${currency(context).currencySymbol}$amount",
               style: GoogleFonts.inter(
                 color: transaction_status == "RECEIVED"
                 ?AppColor.darkGreen

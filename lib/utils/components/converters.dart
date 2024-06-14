@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:developer';
 import 'package:intl/intl.dart';
 
 
@@ -15,7 +16,7 @@ String formatDate(DateTime date) {
 //for the web
 DateTime parseDateTime({required String dateString, required String timeString}) {
   // Parse date string
-  DateTime date = DateFormat("yyyy-MM-dd").parse(dateString);
+  DateTime date = DateFormat.yMMMd().parse(dateString);
 
   // Parse time string
   DateFormat timeFormat = DateFormat("h:mm a");
@@ -86,19 +87,39 @@ String transformDateString(String dateString) {
 // Function 1: Convert string to DateTime
 DateTime convertStringToDateTime(String dateString) {
   try {
-    // Assuming the input string is in the format yyyy-mm-dd
-    List<String> dateParts = dateString.split('-');
-    int year = int.parse(dateParts[0]);
-    int month = int.parse(dateParts[1]);
-    int day = int.parse(dateParts[2]);
+    // Define a map to convert month names to their numeric representations
+    Map<String, int> monthMap = {
+      'Jan': DateTime.january,
+      'Feb': DateTime.february,
+      'Mar': DateTime.march,
+      'Apr': DateTime.april,
+      'May': DateTime.may,
+      'Jun': DateTime.june,
+      'Jul': DateTime.july,
+      'Aug': DateTime.august,
+      'Sep': DateTime.september,
+      'Oct': DateTime.october,
+      'Nov': DateTime.november,
+      'Dec': DateTime.december,
+    };
+    
+    // Split the date string by comma and space
+    List<String> dateParts = dateString.split(', ');
+    // Extract the month, day, and year
+    List<String> date = dateParts[0].split(' ');
+    String monthName = date[0];
+    int month = monthMap[monthName]!;
+    int day = int.parse(date[1]);
+    int year = int.parse(dateParts[1]);
     
     return DateTime(year, month, day);
   } catch (e) {
     // Handle parsing errors, e.g., invalid format
-    print('Error converting string to DateTime: $e');
+    log('Error converting string to DateTime: $e');
     throw Exception("$e");
   }
 }
+
 
 // Function 2: Display today's date as a DateTime object
 DateTime getTodayDateTime() {

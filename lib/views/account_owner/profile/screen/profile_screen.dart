@@ -306,9 +306,11 @@ class _ProfilePageState extends State<ProfilePage> {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              data.account_status == "TRIAL" 
+
+              /*data.account_status == "TRIAL" 
               ? FreeTrialBanner() 
-              : const SizedBox(),
+              : const SizedBox(),*/
+              
               //QRCODE Widget
               Container(
                 padding: EdgeInsets.symmetric(

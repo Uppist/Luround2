@@ -103,8 +103,9 @@ class SelectBankScreenForTrx extends StatelessWidget{
                                       controller.selectedBank.value = item['name'];
                                       controller.enterBankCodeController.text = item['code'];
                                       // Print the selected item
-                                      log('Selected Bank Info: ${ controller.selectedBank.value}/${controller.enterBankCodeController.text}');
+                                      log('Selected Bank Info: ${controller.selectedBank.value}/${controller.enterBankCodeController.text}');
                                       service.searchBankController.clear();
+                                      Get.back();
                                     },
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

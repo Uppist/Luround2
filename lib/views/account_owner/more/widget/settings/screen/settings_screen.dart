@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
+import 'package:luround/views/account_owner/more/widget/feed_back/feedback_screen.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/delete_account/delete_account_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/more_screen_widgets/logout_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/PIN_settings/pin_management_options.dart';
@@ -91,18 +92,24 @@ class SettingsScreen extends StatelessWidget {
                   SettingsSelector(
                     text: "Your bank account details",
                     onFlip: () {
-                      Get.to(() => BankDetailsPage());
+                      Get.to(() => const BankDetailsPage());
                     },
                   ),
                   SizedBox(height: 20.h,),
                   SettingsSelector(
+                    text: 'Feedback', 
+                    onFlip: () {
+                      Get.to(() => const FeedbackPage());
+                    }
+                  ),
+                  /*SettingsSelector(
                     text: "Pricing",
                     onFlip: () {
                       //Get.to(() => const SubscriptionScreenInApp());
                       Get.to(() => ShowSubscriptionPage());
                     },
                   ),
-                  SizedBox(height: 20.h,),
+                  SizedBox(height: 20.h,),*/
                   /*SettingsSelector2(
                     text: "Customize your URL",
                     onFlip: () {
@@ -113,7 +120,7 @@ class SettingsScreen extends StatelessWidget {
                   SettingsSelector(
                     text: "Delete your Luround account",
                     onFlip: () {
-                      Get.to(() => DeleteAccountScreen1());
+                      Get.to(() => const DeleteAccountScreen1());
                       //deleteAccountBottomsheet(context: context);
                     },
                   ),

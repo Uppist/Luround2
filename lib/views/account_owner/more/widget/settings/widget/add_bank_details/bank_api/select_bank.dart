@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -104,7 +106,8 @@ class SelectBankScreenForSettings extends StatelessWidget{
                                       service.selectedBank.value = item['name'];
                                       service.enterBankCodeController.text = item['code'];
                                       // Print the selected item
-                                      print('Selected Bank Info: ${service.selectedBank.value}/${service.enterBankCodeController.text}');
+                                      log('Selected Bank Info: ${service.selectedBank.value}/${service.enterBankCodeController.text}');
+                                      Get.back();
                                     },
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,

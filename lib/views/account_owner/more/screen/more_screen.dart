@@ -126,7 +126,7 @@ class MorePage extends StatelessWidget {
                       },
                     ),
                     SizedBox(height: 20.h,),
-                    MoreSelector(
+                    /*MoreSelector(
                       text: 'Notifications',
                       svgAsset: 'assets/svg/notifications_new.svg',
                       onTap: () {
@@ -141,7 +141,7 @@ class MorePage extends StatelessWidget {
                         Get.to(() => FeedbackPage());
                       },
                     ),
-                    SizedBox(height: 20.h,),
+                    SizedBox(height: 20.h,),*/
                     MoreSelector(
                       text: 'Settings',
                       svgAsset: 'assets/svg/settings_new.svg',

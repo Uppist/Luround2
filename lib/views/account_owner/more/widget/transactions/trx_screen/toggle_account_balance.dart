@@ -14,7 +14,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 Future<void> toggleAccountBalance({
   required BuildContext context,
   required VoidCallback onWalletBalance,
-  required VoidCallback onAmountPaidBalance,
+  //required VoidCallback onAmountPaidBalance,
   required VoidCallback onAmountReceivedBalance,
 }) async {
   showModalBottomSheet(
@@ -65,7 +65,7 @@ Future<void> toggleAccountBalance({
                     ],
                   ),
                 ),
-                SizedBox(height: 30.h,),
+                /*SizedBox(height: 30.h,),
                 //2
                 InkWell(
                   onTap: onAmountPaidBalance,
@@ -82,7 +82,7 @@ Future<void> toggleAccountBalance({
                       ),
                     ],
                   ),
-                ),
+                ),*/
                 SizedBox(height: 30.h,),
                 //3
                 InkWell(

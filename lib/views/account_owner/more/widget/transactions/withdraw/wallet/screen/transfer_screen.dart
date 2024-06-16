@@ -17,11 +17,12 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 class TransferScreen extends StatefulWidget {
-  const TransferScreen({super.key, required this.accountNumber, required this.accountName, required this.bankName, required this.bankCode, required this.wallet_balance});
+  const TransferScreen({super.key, required this.accountNumber, required this.accountName, required this.bankName, required this.bankCode, required this.wallet_balance, required this.receipientCode});
   final String accountNumber;
   final String accountName;
   final String bankName;
   final String bankCode;
+  final String receipientCode;
   final int wallet_balance;
 
   @override
@@ -162,6 +163,7 @@ class _TransferScreenState extends State<TransferScreen> {
                       onPressed: controller.isTrxNextButtoReady.value ? 
                       () {
                         Get.to(() => SetPinToWithdrawPage(
+                          receipientCode: widget.receipientCode,
                           wallet_balance: widget.wallet_balance,
                           bankCode: widget.bankCode,
                           amount: controller.enterAmountController.text,

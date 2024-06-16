@@ -18,12 +18,13 @@ import 'package:luround/utils/components/reusable_button.dart';
 
 
 class SetPinToWithdrawPage extends StatefulWidget {
-  const SetPinToWithdrawPage({super.key, required this.amount, required this.bank, required this.accountName, required this.accountNumber, required this.bankCode, required this.wallet_balance});
+  const SetPinToWithdrawPage({super.key, required this.amount, required this.bank, required this.accountName, required this.accountNumber, required this.bankCode, required this.wallet_balance, required this.receipientCode});
   final String amount;
   final String bank;
   final String bankCode;
   final String accountName;
   final String accountNumber;
+  final String receipientCode;
   final int wallet_balance;
 
   @override
@@ -164,6 +165,7 @@ class _SetPinToWithdrawPageState extends State<SetPinToWithdrawPage> {
                     text: 'Withdraw',
                     onPressed: () {
                       service.withdrawFunds(
+                        receipient_code: widget.receipientCode,
                         wallet_balance: widget.wallet_balance,
                         context: context, 
                         bank_code: widget.bankCode, 

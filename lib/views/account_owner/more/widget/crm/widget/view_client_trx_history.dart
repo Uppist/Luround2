@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,7 +32,7 @@ class CRMClientTransactionHistory extends StatefulWidget {
 
 class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistory> {
 
-  var service = Get.put(CRMService());
+  final service = Get.put(CRMService());
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -41,7 +43,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
     // Update the UI with the new data
     service.filteredclientTrxList.clear();
     service.filteredclientTrxList.addAll(newData);
-    print('updated trx list: ${service.filteredclientTrxList}');
+    print('refreshed trx list: ${service.filteredclientTrxList}');
   }
 
   @override
@@ -49,8 +51,8 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
     // TODO: implement initState
     super.initState();
     service.getClientTrxHistory(client_email: widget.client_email).then((value) {
-      service.filteredclientTrxList.value = value;
-      print("filtered trx history list: ${service.filteredclientTrxList}");
+      service.filteredclientTrxList.addAll(value);
+      log("fetched trx history list: ${service.filteredclientTrxList}");
     });
   }
 

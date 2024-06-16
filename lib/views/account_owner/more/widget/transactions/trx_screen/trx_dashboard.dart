@@ -72,7 +72,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 onTap: () {
                   toggleAccountBalance(
                     context: context,
-                    onAmountPaidBalance: () {
+                    /*onAmountPaidBalance: () {
                       controller.filterMoneyTypeList('Total amount paid')
                       .whenComplete(() {
                         service.isTotalAmountPaidCalculated.value 
@@ -80,7 +80,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                         : service.calculateTotalAmountPaid(); //.whenComplete(() => Get.back());
                         Get.back();
                       });
-                    },
+                    },*/
                     onAmountReceivedBalance: () {
                       controller.filterMoneyTypeList('Total amount received')
                       .whenComplete(() {
@@ -116,7 +116,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                     Obx(
                       () {
                         return Text(
-                          controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" : "Wallet", //wallet
+                          controller.selectedMoneyType.value == "Total amount received" ?  "Total amount received" : "Wallet", //: controller.selectedMoneyType.value == "Total amount paid" ? "Total amount paid" :
                           style: GoogleFonts.inter(
                             textStyle: TextStyle(
                               color: AppColor.whiteTextColor,
@@ -176,43 +176,19 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   InkWell(
-                    onTap: () {
-                      /*setState(() {
-                        isTapped = !isTapped;
-                      })*/
-                            
-                      /*if(isTapped) {
-                        controller.filterMoneyTypeList('Total amount received')
-                        .whenComplete(() {
-                          service.isTotalAmountReceivedCalculated.value
-                          ? log("already calculated")
-                          : service.calculateTotalAmountReceived(); //.whenComplete(() => Get.back());
-                        });
-                      }*/
-                    },
-                    child:
-                      /*isTapped 
-                      ?Text(
-                        "*****",
-                        style: GoogleFonts.inter(
-                          color: AppColor.bgColor,
-                          fontSize: 19.sp,
-                          fontWeight: FontWeight.bold
-                        ),
-                      ):*/
-
-                      Obx(
-                        () {
-                          return Text(
-                            controller.selectedMoneyType.value == "Total amount received" ?  "${currency(context).currencySymbol}${double.parse("${service.totalAmountReceived}")}" : controller.selectedMoneyType.value == "Total amount paid" ? "${currency(context).currencySymbol}${double.parse("${service.totalAmountPaid}")}" : '${currency(context).currencySymbol}${double.parse("${data.wallet_balance}")}', //"${currency(context).currencySymbol}${double.parse("${data.wallet_balance}")}",
-                            style: GoogleFonts.inter(
-                              color: AppColor.bgColor,
-                              fontSize: 19.sp,
-                              fontWeight: FontWeight.bold
-                            ),
-                          );
-                        }
-                      )
+                    onTap: () {},
+                    child: Obx(
+                      () {
+                        return Text(
+                          controller.selectedMoneyType.value == "Total amount received" ?  "${currency(context).currencySymbol}${double.parse("${service.totalAmountReceived}")}" : '${currency(context).currencySymbol}${double.parse("${data.wallet_balance}")}', //"${currency(context).currencySymbol}${double.parse("${data.wallet_balance}")}",
+                          style: GoogleFonts.inter(
+                            color: AppColor.bgColor,
+                            fontSize: 19.sp,
+                            fontWeight: FontWeight.bold
+                          ),
+                        );
+                      }
+                    )
                     
                     
                   ),

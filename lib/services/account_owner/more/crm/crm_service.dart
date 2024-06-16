@@ -38,8 +38,8 @@ class CRMService extends getx.GetxController {
   final TextEditingController contactPhoneNumberController = TextEditingController();
   
   /////[GET LOGGED-IN USER'S CONTACT LIST]//////
-  var contactList = <ContactResponse>[].obs;
-  var filteredContactList = <ContactResponse>[].obs;
+  final contactList = <ContactResponse>[].obs;
+  final filteredContactList = <ContactResponse>[].obs;
 
   //working well
   Future<void> filterContacts(String query) async {
@@ -76,14 +76,14 @@ class CRMService extends getx.GetxController {
         List<dynamic> response = json.decode(res.body);
   
 
-        var finalResult = response.map((e) => ContactResponse.fromJson(e)).toList();
+        final finalResult = response.map((e) => ContactResponse.fromJson(e)).toList();
         
         contactList.clear();
         contactList.addAll(finalResult);
         print("contactList: $contactList");
         
         //return data list
-        return finalResult;
+        return contactList;
         
 
       } 

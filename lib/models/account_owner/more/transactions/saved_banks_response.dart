@@ -7,6 +7,7 @@ class SavedBanks {
     required this.bank_name,
     required this.bank_code,
     required this.country,
+    required this.receipient_code,
     required this.id
   });
 
@@ -14,6 +15,7 @@ class SavedBanks {
   late final String account_number;
   late final String bank_name;
   late final String bank_code;
+  late final String receipient_code;
   late final String country;
   late final String id;
 
@@ -25,5 +27,6 @@ class SavedBanks {
     bank_name = json['bank_name'] ?? 'bank_name';
     bank_code = json['bank_code'] ?? 'bank_code';
     country = json['country'] ?? 'country';
+    receipient_code = json['receipient_code'] ?? 'no rc';
   }
 }

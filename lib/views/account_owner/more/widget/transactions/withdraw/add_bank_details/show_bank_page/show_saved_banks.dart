@@ -123,6 +123,7 @@ class _ShowBanksForTrxState extends State<ShowBanksForTrx> {
                                   bankCode: item.bank_code,
                                   accountName: item.account_name,
                                   accountNumber: item.account_number,
+                                  receipientCode: item.receipient_code,
                                 ));
                               },
                               child: AnimatedContainer(

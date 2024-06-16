@@ -137,6 +137,7 @@ class WithdrawalService extends getx.GetxController {
 
 
   ///[CREATE NEW BANK DETAILS]//
+  final getx.RxString receipientCode = ''.obs;
   Future<void> createBankDetailsFromAddDetailsButton({
     required BuildContext context,
     required String account_name,
@@ -162,6 +163,10 @@ class WithdrawalService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user bank details created successfully");
+        // If the server returns a 200 OK response, parse the JSON
+        final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        receipientCode.value = jsonResponse['receipient_code'];
+        debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
           context: context,
@@ -216,6 +221,10 @@ class WithdrawalService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user bank details created successfully");
+        // If the server returns a 200 OK response, parse the JSON
+        final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        receipientCode.value = jsonResponse['receipient_code'];
+        debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
           context: context,
@@ -223,6 +232,7 @@ class WithdrawalService extends getx.GetxController {
           message: "bank details created successfully"
         ).whenComplete(() {
           getx.Get.to(() => TransferScreen(
+            receipientCode: receipientCode.value,
             wallet_balance: wallet_balance,
             bankCode: bank_code,
             accountNumber: account_number,
@@ -279,6 +289,10 @@ class WithdrawalService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user bank details created successfully");
+        // If the server returns a 200 OK response, parse the JSON
+        final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        receipientCode.value = jsonResponse['receipient_code'];
+        debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
           context: context,
@@ -448,6 +462,7 @@ class WithdrawalService extends getx.GetxController {
     required String wallet_pin,
     required String account_name,
     required String bank_name,
+    required String receipient_code,
     required int wallet_balance
     }) async {
 
@@ -457,7 +472,8 @@ class WithdrawalService extends getx.GetxController {
       "account_bank": bank_code,
       "account_number": account_number,
       "amount": amount,
-      "wallet_pin": wallet_pin
+      "wallet_pin": wallet_pin,
+      "receipient_code": receipient_code
     };
 
     try {
@@ -777,14 +793,14 @@ class WithdrawalService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        //debugPrint('this is response body ==>${res.body}');
+        debugPrint('this is response body ==>${res.body}');
         debugPrint("user saved accounts fetched successfully!!");
         //decode the response body here
         // Check if the response body is not null
         if (res.body != null) {
+          // If the server returns a 200 OK response, parse the JSON
           final List<dynamic> response = jsonDecode(res.body);
           final List<SavedBanks> finalResult = response.map((e) => SavedBanks.fromJson(e)).toList();
-
           savedAccounts.clear();
           savedAccounts.addAll(finalResult);
           debugPrint("$savedAccounts");

@@ -20,7 +20,7 @@ import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 class PaystackClientService extends getx.GetxController {
 
 
-  var baseService = getx.Get.put(BaseService());
+  final baseService = getx.Get.put(BaseService());
 
   String _messageAuth = '';
   String _messageApp = '';

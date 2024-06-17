@@ -231,7 +231,7 @@ class _ProfilePageState extends State<ProfilePage> {
               
               ////EXPIRY CHECK///
               //data.payment_details['expiry_date']
-              controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
+              /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
               freeTrialEndsReminder(
                 context: context,
                 userName: data.displayName,
@@ -241,7 +241,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 onSelectPlan: () {
                   Get.off(() => const SubscriptionScreenInApp());
                 },
-              ):
+              ):*/
 
               //navigate to this page regardless of the reminder dialog
               Get.to(() => EditPhotoPage(
@@ -350,8 +350,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     InkWell(
                       onTap: () {
                         ////EXPIRY CHECK///
-                        //data.payment_details['expiry_date']
-                        controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
+                      
+                        /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
                         freeTrialEndsReminder(
                           context: context,
                           userName: data.displayName,
@@ -361,7 +361,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           onSelectPlan: () {
                             Get.off(() => const SubscriptionScreenInApp());
                           },
-                        ):
+                        ):*/
 
                         Get.to(() => ReviewsPage());
                       }, 
@@ -542,8 +542,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: AboutSection(
                           onPressed: () {
                             ////EXPIRY CHECK///
-                            //data.payment_details['expiry_date']
-                            controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
+                        
+                            /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
                             freeTrialEndsReminder(
                               context: context,
                               userName: data.displayName,
@@ -553,7 +553,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onSelectPlan: () {
                                 Get.off(() => const SubscriptionScreenInApp());
                               },
-                            ):
+                            ):*/
                             
                             //
                             Get.to(() => EditAboutPage(
@@ -598,8 +598,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           media_links: data.media_links,
                           onPressedEdit: () {
                             ////EXPIRY CHECK///
-                            //data.payment_details['expiry_date']
-                            controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
+                            
+                            /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
                             freeTrialEndsReminder(
                               context: context,
                               userName: data.displayName,
@@ -609,7 +609,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               onSelectPlan: () {
                                 Get.off(() => const SubscriptionScreenInApp());
                               },
-                            ):
+                            ):*/
                             
                             Get.to(() => EditOthersPage());
                           },
@@ -673,7 +673,8 @@ class _ProfilePageState extends State<ProfilePage> {
               color: AppColor.darkGreyColor,
               fontSize: 13.sp,
               fontWeight: FontWeight.normal
-            )
+            ),
+            textAlign: TextAlign.center,
           )
         );
       }

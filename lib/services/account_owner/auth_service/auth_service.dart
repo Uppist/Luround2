@@ -33,6 +33,12 @@ import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscree
 
 
 
+
+
+
+
+
+
 class AuthService extends getx.GetxController {
 
 
@@ -163,7 +169,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode}"
+          message: "failed to register: ${res.statusCode}"
         );
       }
     } 
@@ -305,7 +311,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode}"
+          message: "failed to login: ${res.statusCode}"
         );
       }
     } 
@@ -615,7 +621,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode}"
+          message: "failed to sign in => ${res.statusCode}"
         );
         getx.Get.offAll(() => RegisterPage1());
       }
@@ -725,7 +731,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode}"
+          message: "failed to sign up => ${res.statusCode}"
         );
       }
 

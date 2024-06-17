@@ -39,7 +39,7 @@ class AddedServicesTile extends StatelessWidget {
                       fontWeight: FontWeight.w500
                     )
                   ),
-                  SizedBox(height: 10.h,),
+                  /*SizedBox(height: 10.h,),
                   //rich text
                   RichText(
                     text: TextSpan(
@@ -73,7 +73,7 @@ class AddedServicesTile extends StatelessWidget {
                       )
                     ]
                   ),
-                )
+                )*/
               ],
             ),
             Icon(

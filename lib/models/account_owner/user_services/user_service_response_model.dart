@@ -13,7 +13,10 @@ class UserServiceModel {
   final String time;
   final ServiceProviderInfo serviceProviderDetails;
   final String date;
-  final ServiceLinkDetails serviceLink;
+  
+  //final ServiceLinkDetails serviceLink;
+  final String serviceLink;
+
   final List<PricingInfo> pricing;
   final String serviceType;
   final String serviceRecurrence;
@@ -72,10 +75,10 @@ class UserServiceModel {
       serviceChargeInPerson: json['in_person_event_fee'] ?? 'non',
       serviceChargeVirtual: json['virtual_event_fee'] ?? 'non',
       duration: json['duration'] ?? 'duration',
-      time: json['time'] ?? '',
-      serviceProviderDetails: ServiceProviderInfo.fromJson(json['service_provider_info'] ?? {}),
-      date: json['date'] ?? 'date-null',
-      serviceLink: ServiceLinkDetails.fromJson(json['service_link'] ?? {}),
+      time: json['time'] ?? 'time',
+      serviceProviderDetails: ServiceProviderInfo.fromJson(json['service_provider_details'] ?? {}),
+      date: json['date'] ?? 'date',
+      serviceLink: json['service_link'] ?? "service_link",//ServiceLinkDetails.fromJson(json['service_link'] ?? "service_link"),
       serviceType: json['service_type'] ?? 'service_type',
       serviceRecurrence: json['service_recurrence'] ?? 'service_recurrence',
       maxNumberOfParticipants: json['max_number_of_participants'] ?? 0,

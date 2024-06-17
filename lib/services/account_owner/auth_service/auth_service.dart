@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -121,10 +122,10 @@ class AuthService extends getx.GetxController {
           Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
           // Access the payload
           if (decodedToken != null) {
-            print("Token payload: $decodedToken");
+            log("Token payload: $decodedToken");
             // Access specific claims
             // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['sub'];
+            String userId = decodedToken['userId'];
             String email = decodedToken['email'];
             String displayName = decodedToken['displayName'];
             int expDate = decodedToken['exp'];
@@ -272,7 +273,7 @@ class AuthService extends getx.GetxController {
             print("Token payload: $decodedToken");
             // Access specific claims
             // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['sub'];
+            String userId = decodedToken['userId'];
             String email = decodedToken['email'];
             String displayName = decodedToken['displayName'];
             int expDate = decodedToken['exp'];

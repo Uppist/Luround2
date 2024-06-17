@@ -424,6 +424,7 @@ class SettingsService extends getx.GetxController {
       // Handle error as needed, e.g., show an error message to the user
     }
   }*/
+  //{"bank_details":{"authorization_code":null,"account_number":"7040571471","account_name":"JAPHET CHUKWUELOKA EBELECHUKWU","bank_code":"999992","bank_name":"OPay Digital Services Limited (OPay)"},"recipient_code":"RCP_uaauyubaej5zcxk"}
   
 
   ///[CREATE NEW BANK DETAILS]///

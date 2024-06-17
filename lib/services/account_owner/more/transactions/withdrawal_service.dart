@@ -9,6 +9,7 @@ import 'package:luround/models/account_owner/more/transactions/bank_response.dar
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/more/transactions/transaction_model.dart';
 import 'package:luround/models/account_owner/more/transactions/wallet_balance.dart';
+import 'package:luround/models/account_owner/user_services/create_bank_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:http/http.dart' as http;
@@ -165,8 +166,8 @@ class WithdrawalService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user bank details created successfully");
         // If the server returns a 200 OK response, parse the JSON
-        final Map<String, dynamic> jsonResponse = json.decode(res.body);
-        receipientCode.value = jsonResponse['recipient_code'];
+        final CreateBankResponse jsonResponse = CreateBankResponse.fromJson(jsonDecode(res.body));
+        receipientCode.value = jsonResponse.recipient_code;
         debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
@@ -223,8 +224,8 @@ class WithdrawalService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user bank details created successfully");
         // If the server returns a 200 OK response, parse the JSON
-        final Map<String, dynamic> jsonResponse = json.decode(res.body);
-        receipientCode.value = jsonResponse['recipient_code'];
+        final CreateBankResponse jsonResponse = CreateBankResponse.fromJson(jsonDecode(res.body));
+        receipientCode.value = jsonResponse.recipient_code;
         debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
@@ -291,8 +292,8 @@ class WithdrawalService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user bank details created successfully");
         // If the server returns a 200 OK response, parse the JSON
-        final Map<String, dynamic> jsonResponse = json.decode(res.body);
-        receipientCode.value = jsonResponse['recipient_code'];
+        final CreateBankResponse jsonResponse = CreateBankResponse.fromJson(jsonDecode(res.body));
+        receipientCode.value = jsonResponse.recipient_code;
         debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +15,8 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 
+
+
 class DueInvoiceList extends StatelessWidget {
   DueInvoiceList({super.key});
   
@@ -20,15 +24,19 @@ class DueInvoiceList extends StatelessWidget {
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
-    // Fetch new data here
-    final List<InvoiceResponse>  newData = await service.getUserUnpaidInvoice();
-    // Update the UI with the new data
+  //check if an invoice is due
+  Future<void> _refresh() async{
+    await Future.delayed(const Duration(seconds: 1));
+    // Loop through the user list and check if each object is due
+    for (InvoiceResponse invoice in  service.unpaidInvoiceList) {
+      if (service.isDueInThreeDays(invoice)) {
+        service.filteredDueInvoiceList.clear();
+        service.filteredDueInvoiceList.add(invoice);
+      }
+    }
 
-    newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-    service.filteredUnpaidInvoiceList.clear();
-    service.filteredUnpaidInvoiceList.addAll(newData); 
+    // Print the due list
+    log("Due List: ${service.filteredDueInvoiceList}");
   }
 
   @override
@@ -45,7 +53,7 @@ class DueInvoiceList extends StatelessWidget {
           child: Expanded(
             child: ListView.separated( 
               shrinkWrap: true,
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               scrollDirection: Axis.vertical,
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
               separatorBuilder: (context, index) => SizedBox(height: 20.h),
@@ -81,7 +89,7 @@ class DueInvoiceList extends StatelessWidget {
               }
             ),
           ),
-        ) : FinancialsEmptyState(
+        ) : const FinancialsEmptyState(
           titleText: 'No invoice yet',
           subtitleText: 'an invoice',
         );

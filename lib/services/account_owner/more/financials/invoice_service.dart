@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 
@@ -138,24 +140,33 @@ class InvoicesService extends getx.GetxController {
   
 
   //check if today's date is exactly 3 days before the unpaid invoice
+
   bool isDueInThreeDays(InvoiceResponse invoice) {
-    // Get the current date
-    DateTime currentDate = DateTime.now();
+    try {
+      // Get the current date
+      DateTime currentDate = DateTime.now();
 
-    // Convert the the due date string to a DateTime object
-    DateTime dateTime = DateTime.parse(invoice.due_date);
+      // Convert the due date string to a DateTime object
+      DateTime dueDate = DateTime.parse(invoice.due_date);
 
-    // Calculate the difference in days
-    int differenceInDays = dateTime.difference(currentDate).inDays;
+      // Calculate the difference in days
+      int differenceInDays = dueDate.difference(currentDate).inDays;
 
-    // Check if the difference is exactly 3 days to the due date
-    return differenceInDays == 3; //>=
+      // Check if today is exactly 3 days before the due date
+      return differenceInDays == 3;
+    } 
+    catch (e, stackTrace) {
+      // Handle if invoice.due_date is not in the expected format
+      log('Error parsing due date format: $e - $stackTrace');
+      return false;
+    }
   }
+
 
   //check if an invoice is due
   Future<void> hasDueItems() async{
     // Loop through the user list and check if each object is due
-    for (InvoiceResponse invoice in filteredUnpaidInvoiceList) {
+    for (InvoiceResponse invoice in unpaidInvoiceList) {
       if (isDueInThreeDays(invoice)) {
         filteredDueInvoiceList.clear();
         filteredDueInvoiceList.add(invoice);
@@ -163,7 +174,7 @@ class InvoicesService extends getx.GetxController {
     }
 
     // Print the due list
-    print("Due List: $filteredDueInvoiceList");
+    log("Due List: $filteredDueInvoiceList");
     update();
   }
 
@@ -294,7 +305,7 @@ class InvoicesService extends getx.GetxController {
   void onInit() {
     hasDueItems().then(
       (value) {
-        print("Due Invoices List Loaded into the Widget Tree: ${filteredDueInvoiceList}");
+        print("Due Invoices List Loaded into the Widget Tree: $filteredDueInvoiceList");
       }
     );
     super.onInit();

@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -25,21 +28,37 @@ class ShowBanks extends StatefulWidget {
 
 class _ShowBanksState extends State<ShowBanks> {
 
-  var service = Get.put(SettingsService());
+  final service = Get.put(SettingsService());
   final TextEditingController searchBankTextController = TextEditingController();
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    searchBankTextController.dispose();
-    super.dispose();
+  Future<void> fetchData() async {
+    try {
+      List<SavedBanks> data = await service.getUserSavedAccounts();
+      data.sort((a, b) => a.account_name.toLowerCase().compareTo(b.account_name.toLowerCase()));
+      service.filteredSavedAccounts.clear();
+      service.filteredSavedAccounts.addAll(data);
+    } catch (error) {
+      log("Error fetching data: $error");
+    } finally {
+      log("done");
+    }
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    service.loadSavedBanksData();
+    WidgetsBinding.instance.addPostFrameCallback((val) {
+      fetchData();
+    });
+    //fetchData();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    searchBankTextController.dispose();
+    super.dispose();
   }
 
 

@@ -151,11 +151,11 @@ class WithdrawalService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "account_name" : account_name,
+      //"account_name" : account_name,
       "account_number": account_number,
       "bank_name": bank_name,
       "bank_code": bank_code,
-      "country": country,
+      //"country": country,
     };
 
     try {
@@ -209,11 +209,11 @@ class WithdrawalService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "account_name" : account_name,
+      //"account_name" : account_name,
       "account_number": account_number,
       "bank_name": bank_name,
       "bank_code": bank_code,
-      "country": country
+      //"country": country
     };
 
     try {
@@ -277,11 +277,11 @@ class WithdrawalService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "account_name" : account_name,
+      //"account_name" : account_name,
       "account_number": account_number,
       "bank_name": bank_name,
       "bank_code": bank_code,
-      "country": country
+      //"country": country
     };
 
     try {

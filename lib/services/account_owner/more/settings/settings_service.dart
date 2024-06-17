@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
@@ -367,7 +368,7 @@ class SettingsService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
-        //debugPrint('this is response body ==>${res.body}');
+        debugPrint('this is response body ==>${res.body}');
         debugPrint("user saved accounts fetched successfully!!");
         //decode the response body here
         // Check if the response body is not null
@@ -402,7 +403,7 @@ class SettingsService extends getx.GetxController {
   }
 
   ///[TO LAZY LOAD THE USER LIST OF SAVED BANKS IN THE FUTURE BUILDER FOR WITHDRAWAL SCREEN]///
-  Future<List<SavedBanks>> loadSavedBanksData() async {
+  /*Future<List<SavedBanks>> loadSavedBanksData() async {
     try {
       isLoading.value = true;
       final List<SavedBanks> banks = await getUserSavedAccounts();
@@ -411,21 +412,21 @@ class SettingsService extends getx.GetxController {
       isLoading.value = false;
       filteredSavedAccounts.clear();
       filteredSavedAccounts.addAll(banks);
-      print("loaded: ${filteredSavedAccounts}");
+      log("loaded: ${filteredSavedAccounts}");
       return filteredSavedAccounts;
   
     } 
     catch (error, stackTrace) {
       isLoading.value = false;
-      print("Error loading data: $error");
+      log("Error loading data: $error");
       //print("Error loading data: $error");
       throw Exception("$error => $stackTrace");
       // Handle error as needed, e.g., show an error message to the user
     }
-  }
+  }*/
   
 
-  ///[CREATE NEW BANK DETAILS]//
+  ///[CREATE NEW BANK DETAILS]///
   Future<void> createBankDetails({
     required BuildContext context,
     required String account_name,
@@ -438,15 +439,15 @@ class SettingsService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
-      "account_name" : account_name,
+      //"account_name" : account_name,
       "account_number": account_number,
       "bank_name": bank_name,
       "bank_code": bank_code,
-      "country": country,
+      //"country": country,
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "wallet/add-bank-details", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "payments/create-user-bank-detail", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

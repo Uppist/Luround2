@@ -29,6 +29,7 @@ class SettingsService extends getx.GetxController {
 
   var baseService = getx.Get.put(BaseService());
   var isLoading = false.obs;
+  final selectedIndex = 0.obs;
   var userId = LocalStorage.getUserID();
   var email = LocalStorage.getUseremail();
   var controller = getx.Get.put(MoreController());
@@ -336,98 +337,6 @@ class SettingsService extends getx.GetxController {
 
   
 
-
-
-
-
-
-
-
-
-
-  //filter list for select_bank_screen2
-  var bankList = [].obs;
-  var filteredBankList = [].obs;
-  var selectedIndex = 0.obs; // Initialize with the default selected index
-
-  //GET REQUEST TO CALL THE LIST OF BANKS API
-  Future<List<dynamic>> getBanksApi() async {
-    isLoading.value = true;
-    try {
-      http.Response res = await baseService.httpGet(endPoint: "wallet/get-banks",);
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        // Update loading state within the success block
-        isLoading.value = false;
-
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('List of banks fetched successfully!');
-        // If the server returns a 200 OK response, parse the JSON
-        final Map<String, dynamic> jsonResponse = json.decode(res.body);
-
-        // Access the "data" key and assume its value is a list
-        List<dynamic> dataList = jsonResponse['data'];
-
-        bankList.clear();
-        bankList.addAll(dataList);
-        print("list of banks fetched: $bankList");
-        
-        //return data list
-        return bankList;
-      }
-      else {
-        isLoading.value = false;
-        debugPrint('Response status code: ${res.statusCode}');
-        debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
-        throw Exception('Failed to load available banks');
-      }
-    } 
-    catch (e) {
-      isLoading.value = false;
-      //debugPrint("Error net: $e");
-      throw Exception("$e");
-    
-    }
-  }
-  //search functionality for searching through the "FETCH BANKS API"
-  Future<void> filterForSelectBankScreen(String query) async {
-    if (query.isEmpty) {
-      filteredBankList.clear();
-      filteredBankList.addAll(bankList);
-      print("when query is empty: $bankList");
-    } 
-    else {
-      filteredBankList.clear(); // Clear the previous filtered list
-      // Use addAll to add the filtered items to the list
-      filteredBankList.addAll(
-        bankList.where((user) => user['name'].toString().toLowerCase().contains(query.toLowerCase()))  //.contains(query)
-      .toList());
-      print("when query is not empty: $filteredBankList");
-    }
-  }
-
-
-  ///[TO LAZY LOAD THE LIST OF BANKS API ]///
-  Future<List<dynamic>> loadFetchedBank() async {
-    try {
-      isLoading.value = true;
-      final List<dynamic> banks = await getBanksApi();
-      banks.sort((a, b) => a["name"].toString().toLowerCase().compareTo(b["name"].toString().toLowerCase()));
-
-      isLoading.value = false;
-      filteredBankList.value = List.from(banks);
-      print("loaded fetched banks: ${filteredBankList}");
-      return filteredBankList;
-  
-    } 
-    catch (error, stackTrace) {
-      isLoading.value = false;
-      print("Error loading data: $error");
-      //print("Error loading data: $error");
-      throw Exception("$error => $stackTrace");
-      // Handle error as needed, e.g., show an error message to the user
-    }
-  }
   
 
   /////[GET LOGGED-IN USER'S LIST OF Saved Banks]//////
@@ -559,7 +468,7 @@ class SettingsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create bank details"
+          message: "failed to create bank details: ${res.statusCode}"
         );
       }
     } 
@@ -615,7 +524,7 @@ class SettingsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to delete bank detail"
+          message: "failed to delete bank detail: ${res.statusCode}"
         );
       }
     } 
@@ -724,9 +633,6 @@ class SettingsService extends getx.GetxController {
   
   @override
   void onInit() {
-    // TODO: implement onInit
-    //loadSavedBanksData();
-    loadFetchedBank();
     super.onInit();
   }
 

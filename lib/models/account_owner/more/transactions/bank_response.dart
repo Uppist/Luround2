@@ -7,14 +7,15 @@ class BankModel {
     required this.message,
     required this.data,
   });
-  late final String status;
+  late final bool status;
   late final String message;
   late final List<BankDetails> data;
   
   BankModel.fromJson(Map<String, dynamic> json,){
-    status = json['status'] ?? "status";
+    status = json['status'] ?? false;
     message = json['message'] ?? "message";
-    data = json['data'] as List<BankDetails>;
+    //data = json['data'] as List<BankDetails>;
+    data = (json['data'] as List<dynamic>?)?.map((detailsJson) => BankDetails.fromJson(detailsJson)).toList() ?? [];
   }
 }
 

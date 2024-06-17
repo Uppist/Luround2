@@ -125,15 +125,19 @@ class UserServiceModel {
     _data['program_fee'] = programFee;
     _data['service_status'] = serviceStatus;
 
+
     // Additional fields for financials
     _data['discount'] = '0.0';
     _data['appointment_type'] = 'Virtual';
     _data['meeting_type'] = 'Virtual';
-    _data['vat'] = '0';
     _data['message'] = 'no message';
     _data['location'] = 'no location';
     _data['displayName'] = 'client name';
     _data['phone_number'] = '';
+    _data['due_date'] = '';
+    _data['vat'] = '0';
+    _data['rate']='0';
+    _data['total']='0';
 
     return _data;
   }

@@ -1,12 +1,10 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
-import 'package:luround/models/account_owner/more/transactions/bank_response.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -18,13 +16,24 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/ad
 
 
 
+class SelectBankScreenForSettings extends StatefulWidget{
+  const SelectBankScreenForSettings({super.key});
 
-class SelectBankScreenForSettings extends StatelessWidget{
-  SelectBankScreenForSettings({super.key});
+  @override
+  State<SelectBankScreenForSettings> createState() => _SelectBankScreenForSettingsState();
+}
 
-  //var controller = Get.put(TransactionsController());
-  var service = Get.put(SettingsService());
+class _SelectBankScreenForSettingsState extends State<SelectBankScreenForSettings> {
+  //final controller = Get.put(TransactionsController());
 
+  final service = Get.put(SettingsService());
+
+  final withdrawalService = Get.put(WithdrawalService());
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +60,6 @@ class SelectBankScreenForSettings extends StatelessWidget{
                   ),
                   InkWell(
                     onTap: () {
-                      service.searchBankController.clear();
                       Get.back();
                     },
                     child: Icon(
@@ -69,8 +77,8 @@ class SelectBankScreenForSettings extends StatelessWidget{
               SearchBankTextField2(
                 onFieldSubmitted: (p0) {
                   service.searchBankController.text = p0;
-                  print("searched bank: ${service.searchBankController.text}");
-                  service.filterForSelectBankScreen(service.searchBankController.text);
+                  //print("searched bank: ${controller.selectedBank.value}");
+                  withdrawalService.filterForSelectBankScreen(p0);
                 },
                 hintText: 'Search',
                 keyboardType: TextInputType.text,
@@ -82,77 +90,74 @@ class SelectBankScreenForSettings extends StatelessWidget{
               
               Obx(
                 () {
-                  return service.filteredBankList.isNotEmpty ? Expanded(
+                  return withdrawalService .filteredBankList.isNotEmpty ? Expanded(
                     child: ListView.separated(
                       shrinkWrap: true,
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.1,),
-                      itemCount: service.filteredBankList.length, //data.length,
+                      itemCount: withdrawalService .filteredBankList.length, //data.length,
                       padding: EdgeInsets.symmetric(vertical: 10.h),
                       itemBuilder: (context, index) {
-                        final item = service.filteredBankList[index];
-                        if(service.filteredBankList.isEmpty) {
+                        final item = withdrawalService .filteredBankList[index];
+                        if(withdrawalService.filteredBankList.isEmpty) {
                           return const Loader();
                         }
                         else{
                           // Update the selected index
-                          return Obx(
-                            () {
-                              return InkWell(
-                                    onTap: () {                               
-                                      // Update the selected index
-                                      service.selectedIndex.value = index;
-                                      service.selectedBank.value = item['name'];
-                                      service.enterBankCodeController.text = item['code'];
-                                      // Print the selected item
-                                      log('Selected Bank Info: ${service.selectedBank.value}/${service.enterBankCodeController.text}');
-                                      Get.back();
-                                    },
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: 15.h,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  item['name'],
-                                                  //data[index]['name'],
-                                                  style: GoogleFonts.inter(
-                                                    color: AppColor.darkGreyColor,
-                                                    fontSize: 14.sp,
-                                                    fontWeight: FontWeight.w500
-                                                  ),
-                                                ),
-                                              ),
-                                              service.selectedIndex.value == index 
-                                              ?Icon(
-                                                CupertinoIcons.check_mark,
-                                                color: AppColor.blackColor,
-                                              ) : SizedBox(),
-                                            ],
-                                          ),
-                                          SizedBox(height: 15.h,)
-                                        ],
+                          return InkWell(
+                            onTap: () {                               
+                              // Update the selected index
+                              service.selectedIndex.value = index;
+                              service.selectedBank.value = item.name;
+                              service.enterBankCodeController.text = item.code;
+                              // Print the selected item
+                              log('Selected Bank Info: ${service.selectedBank.value}/${service.enterBankCodeController.text}');
+                              Get.back();
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 15.h,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        item.name,
+                                        //data[index]['name'],
+                                        style: GoogleFonts.inter(
+                                          color: AppColor.darkGreyColor,
+                                          fontSize: 14.sp,
+                                          fontWeight: FontWeight.w500
+                                        ),
                                       ),
-                                    );
-                            }
+                                    ),
+                                    service.selectedIndex.value == index 
+                                    ?Icon(
+                                      CupertinoIcons.check_mark,
+                                      color: AppColor.blackColor,
+                                    ) : SizedBox.shrink(),
+                                  ],
+                                ),
+                                SizedBox(height: 15.h,)
+                              ],
+                            ),
                           );
+              
                           
-                          
-                          }
+                        }
                       }
                     ),
-                  ) : Text(
+                    ) : Expanded(child: Loader());
+                    /*Text(
                     "Couldn't Fetch Bank",
                     style: GoogleFonts.inter(
                       color: AppColor.darkGreyColor,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600
-                    ),
-                  );
+                    ),*/
+                  
                 }
               )  
             ],

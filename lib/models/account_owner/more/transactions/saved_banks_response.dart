@@ -27,6 +27,6 @@ class SavedBanks {
     bank_name = json['bank_name'] ?? 'bank_name';
     bank_code = json['bank_code'] ?? 'bank_code';
     country = json['country'] ?? 'country';
-    receipient_code = json['receipient_code'] ?? 'no rc';
+    receipient_code = json['recipient_code'] ?? 'no rc';
   }
 }

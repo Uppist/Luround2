@@ -51,6 +51,7 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
     // TODO: implement initState
     super.initState();
     service.getClientTrxHistory(client_email: widget.client_email).then((value) {
+      service.filteredclientTrxList.clear();
       service.filteredclientTrxList.addAll(value);
       log("fetched trx history list: ${service.filteredclientTrxList}");
     });
@@ -64,20 +65,6 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColor.bgColor,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: AppColor.blackColor,
-          )
-        ),
-        title: CustomAppBarTitle(text: 'Transaction history',),
-      ),
       body: SafeArea(
         child: Padding(
           //physics: BouncingScrollPhysics(),
@@ -85,12 +72,32 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[ 
-              //SizedBox(height: 10.h,),         
-              /*Container(
-                color: AppColor.greyColor,
-                width: double.infinity,
-                height: 7,
-              ),*/
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Icon(
+                      Icons.arrow_back_rounded,
+                      color: AppColor.blackColor,
+                    )
+                  ),
+                  SizedBox(width: 10.w,),
+                  Text(
+                    'Transaction history',
+                    style: GoogleFonts.inter(
+                      color: AppColor.blackColor,
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 20.h),
         
               //search textfield
               SearchTextField(

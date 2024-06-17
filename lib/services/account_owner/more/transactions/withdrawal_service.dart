@@ -14,6 +14,7 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:http/http.dart' as http;
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
+import 'package:luround/utils/components/generate_random_string.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/confirm_otp_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
@@ -74,7 +75,7 @@ class WithdrawalService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create wallet pin"
+          message: "failed to create wallet pin: ${res.statusCode}"
         );
       }
     } 
@@ -124,7 +125,7 @@ class WithdrawalService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to verify wallet pin"
+          message: "failed to verify wallet pin: ${res.statusCode}"
         );
       }
     } 
@@ -165,7 +166,7 @@ class WithdrawalService extends getx.GetxController {
         debugPrint("user bank details created successfully");
         // If the server returns a 200 OK response, parse the JSON
         final Map<String, dynamic> jsonResponse = json.decode(res.body);
-        receipientCode.value = jsonResponse['receipient_code'];
+        receipientCode.value = jsonResponse['recipient_code'];
         debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
@@ -183,7 +184,7 @@ class WithdrawalService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create bank details"
+          message: "failed to create bank details: ${res.statusCode}"
         );
       }
     } 
@@ -223,7 +224,7 @@ class WithdrawalService extends getx.GetxController {
         debugPrint("user bank details created successfully");
         // If the server returns a 200 OK response, parse the JSON
         final Map<String, dynamic> jsonResponse = json.decode(res.body);
-        receipientCode.value = jsonResponse['receipient_code'];
+        receipientCode.value = jsonResponse['recipient_code'];
         debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
@@ -251,7 +252,7 @@ class WithdrawalService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create bank details"
+          message: "failed to create bank details: ${res.statusCode}"
         );
       }
     } 
@@ -291,7 +292,7 @@ class WithdrawalService extends getx.GetxController {
         debugPrint("user bank details created successfully");
         // If the server returns a 200 OK response, parse the JSON
         final Map<String, dynamic> jsonResponse = json.decode(res.body);
-        receipientCode.value = jsonResponse['receipient_code'];
+        receipientCode.value = jsonResponse['recipient_code'];
         debugPrint(receipientCode.value);
         //success snackbar
         showMySnackBar(
@@ -312,7 +313,7 @@ class WithdrawalService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create bank details"
+          message: "failed to create bank details: ${res.statusCode}"
         );
       }
     } 
@@ -326,35 +327,17 @@ class WithdrawalService extends getx.GetxController {
   
   /////[GET USER PROFILE DETAILS]/////
   //filter list for select_bank_screen from add button
-  var bankList2 = [].obs;
-  var filteredBankList2 = [].obs;
-  var selectedIndex2 = 0.obs; // Initialize with the default selected index
+  final bankList2 = <BankDetails>[].obs;
+  final filteredBankList2 = <BankDetails>[].obs;
+  final selectedIndex2 = 0.obs; // Initialize with the default selected index
 
   //filter list for select_bank_screen2
-  var bankList = [].obs;
-  var filteredBankList = [].obs;
-  var selectedIndex = 0.obs; // Initialize with the default selected index
+  final bankList = <BankDetails>[].obs;
+  final filteredBankList = <BankDetails>[].obs;
+  final selectedIndex = 0.obs; // Initialize with the default selected index
 
   //working well
   Future<void> filterForSelectBankScreen(String query) async {
-    if (query.isEmpty) {
-      filteredBankList2.clear();
-      filteredBankList2.addAll(bankList2);
-      print("when query is empty: $bankList2");
-    } 
-    else {
-      filteredBankList2.clear(); // Clear the previous filtered list
-      // Use addAll to add the filtered items to the list
-      filteredBankList2.addAll(
-      bankList2.where((user) =>
-          user['name'].toLowerCase().contains(query.toLowerCase()))
-      .toList());
-      print("when query is not empty: $filteredBankList2");
-    }
-  }
-  
-  //working well
-  Future<void> filterForSelectBankScreen2(String query) async {
     if (query.isEmpty) {
       filteredBankList.clear();
       filteredBankList.addAll(bankList);
@@ -364,16 +347,37 @@ class WithdrawalService extends getx.GetxController {
       filteredBankList.clear(); // Clear the previous filtered list
       // Use addAll to add the filtered items to the list
       filteredBankList.addAll(
-        bankList.where((user) => user['name'].toLowerCase().contains(query.toLowerCase()))  //.contains(query)
+      bankList.where((user) =>
+          user.name .toLowerCase().contains(query.toLowerCase()))
       .toList());
       print("when query is not empty: $filteredBankList");
     }
   }
+  
   //working well
-  Future<List<dynamic>> getBanksApi() async {
+  Future<void> filterForSelectBankScreen2(String query) async {
+    if (query.isEmpty) {
+      filteredBankList2.clear();
+      filteredBankList2.addAll(bankList2);
+      print("when query is empty: $bankList2");
+    } 
+    else {
+      filteredBankList2.clear(); // Clear the previous filtered list
+      // Use addAll to add the filtered items to the list
+      filteredBankList2.addAll(
+        bankList2.where((user) => user.name.toLowerCase().contains(query.toLowerCase()))  //.contains(query)
+      .toList());
+      print("when query is not empty: $filteredBankList2");
+    }
+  }
+  //working well
+  Future<List<BankDetails>> getBanksApi() async {
     isLoading.value = true;
     try {
-      http.Response res = await baseService.httpGet(endPoint: "wallet/get-banks",);
+      //api.paystack.co/bank
+      //http.Response res = await baseService.httpGet(endPoint: "wallet/get-banks",);
+      Uri paystackuri = Uri.parse('https://api.paystack.co/bank');
+      final res = await http.get(paystackuri);
       if (res.statusCode == 200 || res.statusCode == 201) {
         // Update loading state within the success block
         isLoading.value = false;
@@ -381,10 +385,11 @@ class WithdrawalService extends getx.GetxController {
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('List of banks fetched successfully!');
         // If the server returns a 200 OK response, parse the JSON
-        final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        //final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        final BankModel jsonResponse = BankModel.fromJson(jsonDecode(res.body));
 
         // Access the "data" key and assume its value is a list
-        List<dynamic> dataList = jsonResponse['data'];
+        List<BankDetails> dataList = jsonResponse.data;
 
         bankList.clear();
         bankList.addAll(dataList);
@@ -410,7 +415,7 @@ class WithdrawalService extends getx.GetxController {
   }
 
   //working well
-  Future<List<dynamic>> getBanksApi2() async {
+  Future<List<BankDetails>> getBanksApi2() async {
     isLoading.value = true;
     try {
       http.Response res = await baseService.httpGet(endPoint: "wallet/get-banks",);
@@ -421,14 +426,15 @@ class WithdrawalService extends getx.GetxController {
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('List of banks fetched successfully!');
         // If the server returns a 200 OK response, parse the JSON
-        final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        //final Map<String, dynamic> jsonResponse = json.decode(res.body);
+        final BankModel jsonResponse = BankModel.fromJson(jsonDecode(res.body));
 
         // Access the "data" key and assume its value is a list
-        List<dynamic> dataList = jsonResponse['data'];
+        List<BankDetails> dataList = jsonResponse.data;
 
         bankList2.clear();
         bankList2.addAll(dataList);
-        print("bankList2: $bankList");
+        print("bankList2: $bankList2");
         
         //return data list
         return bankList2;
@@ -473,7 +479,8 @@ class WithdrawalService extends getx.GetxController {
       "account_number": account_number,
       "amount": amount,
       "wallet_pin": wallet_pin,
-      "receipient_code": receipient_code
+      "recipient_code": receipient_code,
+      "reference": 'WITHDRAW-${DateTime.now().millisecondsSinceEpoch}-${generateRandomString()}'
     };
 
     try {
@@ -505,9 +512,9 @@ class WithdrawalService extends getx.GetxController {
             account_number: account_number,
             bank_name: bank_name,
             //get all these below from the response body
-            transaction_ref: "${Random().nextInt(2000000)}",  //get all these below from the response body
-            transaction_date: 1960,
-            transaction_time: 10,
+            transaction_ref: response['transaction_ref'] ?? 'null',
+            transaction_date: response['transaction_date'] ?? 0,
+            transaction_time: response['transaction_time'] ?? 0,
           )));
         }
       } 
@@ -520,7 +527,7 @@ class WithdrawalService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to process transaction"
+          message: "failed to process transaction: ${res.statusCode}"
         );
       }
     } 
@@ -567,7 +574,7 @@ class WithdrawalService extends getx.GetxController {
     if (!isTotalAmountReceivedCalculated.value) {
       for (var user in filteredTrxList) {
         if (user.transaction_status == "RECEIVED") {
-          totalAmountReceived.value += double.parse(user.amount);
+          totalAmountReceived.value += double.parse(user.amount) ?? 0.0;
         }
       }
       print("amount received: ${totalAmountReceived.value}");
@@ -898,6 +905,10 @@ class WithdrawalService extends getx.GetxController {
   void onInit() {
     super.onInit();
     loadTransactionData();
+    // TODO: implement initState
+    getBanksApi().then((val){
+      filteredBankList.addAll(val);
+    });
   }
 
   @override

@@ -52,7 +52,8 @@ class _ContactScreenState extends State<ContactScreen> {
     // TODO: implement initState
     super.initState();
     service.getUserContacts().then((value) {
-      service.filteredContactList.value = value;
+      service.filteredContactList.clear();
+      service.filteredContactList.addAll(value);
       print("filtered contacts list: ${service.filteredContactList}");
     });
   }
@@ -61,41 +62,6 @@ class _ContactScreenState extends State<ContactScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColor.bgColor,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: AppColor.blackColor,
-          )
-        ),
-        title: CustomAppBarTitle(text: 'Contacts',),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.to(() => AddContactScreen(refresh: _refresh(),));
-            }, 
-            child: Text(
-              "+ Add new",
-              style: GoogleFonts.inter(
-                textStyle: TextStyle(
-                  overflow: TextOverflow.ellipsis,
-                  color: AppColor.mainColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12.sp,
-                ),
-                decoration: TextDecoration.underline,
-                decorationColor: AppColor.mainColor
-              ),
-            ),
-          ),
-          SizedBox(width: 12.w,)
-        ],
-      ),
       body: SafeArea(
         child: Padding(
           //physics: BouncingScrollPhysics(),
@@ -103,17 +69,64 @@ class _ContactScreenState extends State<ContactScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[ 
-              //SizedBox(height: 10.h,),         
-              /*Container(
-                color: AppColor.greyColor,
-                width: double.infinity,
-                height: 7,
-              ),*/
+              /////////////
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Icon(
+                          Icons.arrow_back_rounded,
+                          color: AppColor.blackColor,
+                        )
+                      ),
+                      SizedBox(width: 10.w,),
+                      Text(
+                        "Contacts",
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  ),
+                  //actions
+                  InkWell(
+                    onTap: () {
+                      Get.to(() => AddContactScreen(refresh: _refresh(),));
+                    }, 
+                    child: Text(
+                      "+ Add new",
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          overflow: TextOverflow.ellipsis,
+                          color: AppColor.mainColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 12.sp,
+                        ),
+                        decoration: TextDecoration.underline,
+                        decorationColor: AppColor.mainColor
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              SizedBox(height: 20.h),
 
               //search textfield
               SearchTextField(
                 onFocusChanged: (val) {},
                 onFieldSubmitted: (val) {
+                  //service.filterContacts(val);
+                },
+                onChanged: (val) {
                   service.filterContacts(val);
                 },
                 hintText: "Search",

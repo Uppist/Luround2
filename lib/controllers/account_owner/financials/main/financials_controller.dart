@@ -1,7 +1,8 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/models/account_owner/more/transactions/bank_response.dart';
+import 'package:luround/utils/components/converters.dart';
 //import 'dart:convert';
 //import 'dart:io';
 //import 'package:http/http.dart' as http;
@@ -46,10 +47,12 @@ class FinancialsController extends getx.GetxController {
   //(save to db) this is the selected date 
   String updatedQuoteDate ({required String initialDate}) {
     if(quoteDate.isNotEmpty) {
-      var result = quoteDate[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
+      var result = quoteDate[0]; //.toString();
+      String formattedDate = formatDate(result!);
+      //var refinedStr = result.substring(0, 10);
+      //print(refinedStr);
+      log(formattedDate);
+      return formattedDate;
     }
     return initialDate;
   }
@@ -69,12 +72,12 @@ class FinancialsController extends getx.GetxController {
   //getx.RxString isoDateForQuote = ''.obs;
   String updatedDueDate ({required String initialDate}) {
     if(dueDate.isNotEmpty) {
-      //isoDateForQuote.value = dueDate[0]!.toUtc().toIso8601String();
-      //print(isoDateForInvoice.value);
-      var result = dueDate[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
+      var result = dueDate[0]; //.toString();
+      //var refinedStr = result.substring(0, 10);
+      //print(refinedStr);
+      String formattedDate = formatDate(result!);
+      log(formattedDate);
+      return formattedDate;
     }
     return initialDate;
   }
@@ -125,10 +128,13 @@ class FinancialsController extends getx.GetxController {
   //(save to db) this is the selected date 
   String updatedInvoiceDate ({required String initialDate}) {
     if(invoiceDate.isNotEmpty) {
-      var result = invoiceDate[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
+      var result = invoiceDate[0]; //.toString();
+      //var refinedStr = result.substring(0, 10);
+      //print(refinedStr);
+      //return refinedStr;
+      String formattedDate = formatDate(result!);
+      log(formattedDate);
+      return formattedDate;
     }
     return initialDate;
   }
@@ -150,10 +156,12 @@ class FinancialsController extends getx.GetxController {
     if(dueDateForInvoice.isNotEmpty) {
       //isoDateForInvoice.value = dueDateForInvoice[0]!.toUtc().toIso8601String();
       //print(isoDateForInvoice.value);
-      var result = dueDateForInvoice[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
+      var result = dueDateForInvoice[0]; //.toString();
+      //var refinedStr = result.substring(0, 10);
+      //print(refinedStr);
+      String formattedDate = formatDate(result!);
+      log(formattedDate);
+      return formattedDate;
     }
     return initialDate;
   }
@@ -203,10 +211,12 @@ class FinancialsController extends getx.GetxController {
   //(save to db) this is the selected date 
   String updatedReceiptDate ({required String initialDate}) {
     if(receiptDate.isNotEmpty) {
-      var result = receiptDate[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
+      var result = receiptDate[0]; //.toString();
+      //var refinedStr = result.substring(0, 10);
+      //print(refinedStr);
+      String formattedDate = formatDate(result!);
+      log(formattedDate);
+      return formattedDate;
     }
     return initialDate;
   }

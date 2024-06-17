@@ -8,6 +8,7 @@ import 'package:luround/controllers/account_owner/more/transactions_controller.d
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
@@ -116,56 +117,60 @@ class _AddAccountForTrxState extends State<AddAccountForTrx> {
 
             SizedBox(height: MediaQuery.of(context).size.height * 0.22),
 
-            RebrandedReusableButton(
-              textColor: AppColor.bgColor,
-              color: AppColor.mainColor, 
-              text: "Next",  //"Save"
-              onPressed:() {
-                if(service.filteredSavedAccounts.length > 2) {
-                  showMySnackBar(
-                    context: context,
-                    backgroundColor: AppColor.redColor,
-                    message: "you can only create a maximum of two bank accounts"
-                  ).whenComplete(() {
-                    controller.enterAccountNameController.clear();
-                    controller.enterAccountNumberController.clear();
-                    controller.enterBankCodeController.clear();
-                    controller.selectedBank.value = "";
-                  });
-                }
-                else{
-                  if(controller.selectedBank.value.isNotEmpty && controller.enterAccountNumberController.text.isNotEmpty && controller.enterAccountNameController.text.isNotEmpty) {
-                    withdrawalService.createBankDetailsFromAddAccountTab(
-                      wallet_balance: widget.wallet_balance,
-                      context: context, 
-                      account_name: controller.enterAccountNameController.text, 
-                      account_number: controller.enterAccountNumberController.text.trim(), 
-                      bank_name: controller.selectedBank.value, 
-                      country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "No Country",
-                      bank_code: controller.enterBankCodeController.text, //controller.bankCode.value
-                    ).whenComplete(() {
-                      controller.enterAccountNameController.clear();
-                      controller.enterAccountNumberController.clear();
-                      controller.enterBankController.clear(); 
-                      controller.selectedCountryController.clear();
-                      controller.enterBankCodeController.clear();
-                      controller.selectedBank.value = '';
-                      log("this function will create the bank details lowkey.");
-
-                    });
+            Obx(
+              () {
+                return withdrawalService.isLoading.value ? Loader2() : RebrandedReusableButton(
+                  textColor: AppColor.bgColor,
+                  color: AppColor.mainColor, 
+                  text: "Next",  //"Save"
+                  onPressed:() {
+                    if(service.filteredSavedAccounts.length > 2) {
+                      showMySnackBar(
+                        context: context,
+                        backgroundColor: AppColor.redColor,
+                        message: "you can only create a maximum of two bank accounts"
+                      ).whenComplete(() {
+                        controller.enterAccountNameController.clear();
+                        controller.enterAccountNumberController.clear();
+                        controller.enterBankCodeController.clear();
+                        controller.selectedBank.value = "";
+                      });
+                    }
+                    else{
+                      if(controller.selectedBank.value.isNotEmpty && controller.enterAccountNumberController.text.isNotEmpty && controller.enterAccountNameController.text.isNotEmpty) {
+                        withdrawalService.createBankDetailsFromAddAccountTab(
+                          wallet_balance: widget.wallet_balance,
+                          context: context, 
+                          account_name: controller.enterAccountNameController.text, 
+                          account_number: controller.enterAccountNumberController.text.trim(), 
+                          bank_name: controller.selectedBank.value, 
+                          country: controller.selectedCountryController.text.isNotEmpty ? controller.selectedCountryController.text : "No Country",
+                          bank_code: controller.enterBankCodeController.text, //controller.bankCode.value
+                        ).whenComplete(() {
+                          controller.enterAccountNameController.clear();
+                          controller.enterAccountNumberController.clear();
+                          controller.enterBankController.clear(); 
+                          controller.selectedCountryController.clear();
+                          controller.enterBankCodeController.clear();
+                          controller.selectedBank.value = '';
+                          log("this function will create the bank details lowkey.");
+                
+                        });
+                      }
+                      else {
+                        showMySnackBar(
+                          context: context,
+                          backgroundColor: AppColor.redColor,
+                          message: "fields must not be empty"
+                        );
+                      }
+                    }
+                    
                   }
-                  else {
-                    showMySnackBar(
-                      context: context,
-                      backgroundColor: AppColor.redColor,
-                      message: "fields must not be empty"
-                    );
-                  }
-                }
-    
+                          
+                
+                );
               }
-          
-
             ),
             SizedBox(height: 20.h,),
           ]

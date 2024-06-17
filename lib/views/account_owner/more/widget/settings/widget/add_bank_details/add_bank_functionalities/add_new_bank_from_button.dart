@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
+import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/title_text.dart';
@@ -27,7 +31,8 @@ class AddAccountForSettings2 extends StatefulWidget {
 class _AddAccountForSettings2State extends State<AddAccountForSettings2> {
 
   //var controller = Get.put(TransactionsController());
-  var service = Get.put(SettingsService());
+  final withdrawalService = Get.put(WithdrawalService());
+  final service = Get.put(SettingsService());
 
 
   @override
@@ -88,7 +93,7 @@ class _AddAccountForSettings2State extends State<AddAccountForSettings2> {
               UtilsTextField(
                 onChanged: (p0) {
                   service.enterAccountNumberController.text = p0;
-                  print("acc number ${service.enterAccountNumberController.text}");
+                  log("acc number ${service.enterAccountNumberController.text}");
                 },
                 hintText: "",
                 keyboardType: TextInputType.number,
@@ -108,7 +113,7 @@ class _AddAccountForSettings2State extends State<AddAccountForSettings2> {
               UtilsTextField(
                 onChanged: (p0) {
                   service.enterAccountNameController.text = p0;
-                  print("acc name ${service.enterAccountNameController.text}");
+                  log("acc name ${service.enterAccountNameController.text}");
                 },
                 hintText: "",
                 keyboardType: TextInputType.name,
@@ -118,50 +123,54 @@ class _AddAccountForSettings2State extends State<AddAccountForSettings2> {
         
               SizedBox(height: MediaQuery.of(context).size.height * 0.3),
               
-              RebrandedReusableButton(
-                textColor: AppColor.bgColor,
-                color: AppColor.mainColor,
-                text: "Save",  //"Save"
-                onPressed: () {
-                  
-                  if(service.filteredSavedAccounts.length >= 2) {
-                    showMySnackBar(
-                      context: context,
-                      backgroundColor: AppColor.redColor,
-                      message: "you can only create a maximum of two bank accounts"
-                    ).whenComplete(() {
-                      service.enterAccountNameController.clear();
-                      service.enterAccountNumberController.clear();
-                      service.enterBankCodeController.clear();
-                      service.selectedBank.value = "";
-                    });
-                  }
-                  else {
-                    if(service.selectedBank.value.isNotEmpty && service.enterAccountNumberController.text.isNotEmpty && service.enterAccountNameController.text.isNotEmpty) {
-                      service.createBankDetails(
-                        context: context, 
-                        account_name: service.enterAccountNameController.text, 
-                        account_number: service.enterAccountNumberController.text.trim(), 
-                        bank_name: service.selectedBank.value, 
-                        country: "No Country",
-                        bank_code: service.enterBankCodeController.text,
-                      ).whenComplete(() {
-                        service.enterAccountNameController.clear();
-                        service.enterAccountNumberController.clear();
-                        service.enterBankCodeController.clear();
-                        service.selectedBank.value = "";
-                      });
-                    }
-                    else {
-                      showMySnackBar(
-                        context: context,
-                        backgroundColor: AppColor.redColor,
-                        message: "fields must not be empty"
-                      );
-                    }
-                  }
-        
-                },
+              Obx(
+                () {
+                  return service.isLoading.value ? Loader2() : RebrandedReusableButton(
+                    textColor: AppColor.bgColor,
+                    color: AppColor.mainColor,
+                    text: "Save",  //"Save"
+                    onPressed: () {
+                      
+                      if(service.filteredSavedAccounts.length >= 2) {
+                        showMySnackBar(
+                          context: context,
+                          backgroundColor: AppColor.redColor,
+                          message: "you can only create a maximum of two bank accounts"
+                        ).whenComplete(() {
+                          service.enterAccountNameController.clear();
+                          service.enterAccountNumberController.clear();
+                          service.enterBankCodeController.clear();
+                          service.selectedBank.value = "";
+                        });
+                      }
+                      else {
+                        if(service.selectedBank.value.isNotEmpty && service.enterAccountNumberController.text.isNotEmpty && service.enterAccountNameController.text.isNotEmpty) {
+                          service.createBankDetails(
+                            context: context, 
+                            account_name: service.enterAccountNameController.text, 
+                            account_number: service.enterAccountNumberController.text.trim(), 
+                            bank_name: service.selectedBank.value, 
+                            country: "No Country",
+                            bank_code: service.enterBankCodeController.text,
+                          ).whenComplete(() {
+                            service.enterAccountNameController.clear();
+                            service.enterAccountNumberController.clear();
+                            service.enterBankCodeController.clear();
+                            service.selectedBank.value = "";
+                          });
+                        }
+                        else {
+                          showMySnackBar(
+                            context: context,
+                            backgroundColor: AppColor.redColor,
+                            message: "fields must not be empty"
+                          );
+                        }
+                      }
+                          
+                    },
+                  );
+                }
               ),
               SizedBox(height: 20.h,),
             ]

@@ -155,7 +155,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                         textInputAction: TextInputAction.done,                   
                       ),
         
-                      SizedBox(height: 320.h,),
+                      SizedBox(height: MediaQuery.of(context).size.height * 0.38,),
                       
                       Obx(
                         () {

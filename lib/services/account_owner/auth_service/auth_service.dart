@@ -110,55 +110,7 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response body ==>${res.body}');
         RegisterResponse response = RegisterResponse.fromJson(json.decode(res.body));
         
-        //CHECK IF THE USER HAS PAID
-        if(response.account_status == "TRIAL") {
-          //save access token
-          await LocalStorage.saveToken(response.tokenData);
-          await FlutterSessionJwt.saveToken(response.tokenData);
-          //check for existing token
-          var token = await LocalStorage.getToken();
-          //show the saved token
-          debugPrint("my token: $token");
-          // Decode the JWT token
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-          // Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId'];
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-
-            //await generateQrLink(urlSlug: email);
-
-            //isLoading.value = false;
-            getx.Get.offAll(() => const MainPage(), transition: getx.Transition.rightToLeft);
-            showMySnackBar(
-              context: context,
-              backgroundColor: AppColor.darkGreen,
-              message: "account created successfully"
-            ).whenComplete(() => sendPushNotification(
-                noti_title: "Account created successfuly", 
-                noti_body: "Hey $displayName, welcome to luround.",
-                fcm_token: FCMToken,
-                userID: userId
-              )
-            );
-
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-  
-        }
-        else if(response.account_status == "ACTIVE") {
-          //save access token
+        //save access token
           await LocalStorage.saveToken(response.tokenData);
           await FlutterSessionJwt.saveToken(response.tokenData);
           //check for existing token
@@ -201,44 +153,6 @@ class AuthService extends getx.GetxController {
           else {
             print("Failed to decode JWT token.");
           }
-          //
-          /*isLoading.value = false;
-          getx.Get.offAll(() => MainPage());
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-           message: "account created successfully"
-          );*/
-        }
-        else{
-          ////INACTIVE////
-          await LocalStorage.saveToken(response.tokenData);
-          await FlutterSessionJwt.saveToken(response.tokenData);
-          var token = await LocalStorage.getToken();
-          print(token);
-
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-        }
         
       } 
       else {
@@ -248,7 +162,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode} - ${res.body}"
+          message: "status: ${res.statusCode}"
         );
       }
     } 
@@ -345,46 +259,7 @@ class AuthService extends getx.GetxController {
         debugPrint('this is response body ==>${res.body}');
         LoginResponse response = LoginResponse.fromJson(json.decode(res.body));
         
-        //CHECK IF THE USER HAS PAID
-        if(response.account_status == "TRIAL") {
-          await LocalStorage.saveToken(response.tokenData);
-          await FlutterSessionJwt.saveToken(response.tokenData);
-          //LocalStorage.saveEmail(email);
-          debugPrint("my token: ${LocalStorage.getToken()}");
-          //check for existing token
-          var token = await LocalStorage.getToken();
-          // Decode the JWT token
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-          // Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId'];
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-          //
-          //await generateQrLink(urlSlug: email);
-          //
-          isLoading.value = false;
-          getx.Get.offAll(() => const MainPage(), transition: getx.Transition.rightToLeft);
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "login successful",
-          );
-        }
-        else if(response.account_status == "ACTIVE") {
-          await LocalStorage.saveToken(response.tokenData);
+        await LocalStorage.saveToken(response.tokenData);
           await FlutterSessionJwt.saveToken(response.tokenData);
           //LocalStorage.saveEmail(email);
           debugPrint("my token: ${LocalStorage.getToken()}");
@@ -419,37 +294,6 @@ class AuthService extends getx.GetxController {
             backgroundColor: AppColor.darkGreen,
             message: "login successful",
           );
-        }
-        else {
-          ////INACTIVE////
-          await LocalStorage.saveToken(response.tokenData);
-          await FlutterSessionJwt.saveToken(response.tokenData);
-          var token = await LocalStorage.getToken();
-          print(token);
-
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-        
-        }
 
       } 
       else {
@@ -460,7 +304,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode} - ${res.body}"
+          message: "status: ${res.statusCode}"
         );
       }
     } 
@@ -729,45 +573,7 @@ class AuthService extends getx.GetxController {
         String account_status = jsonResponse.account_status;
         await LocalStorage.saveToken(accessToken);
     
-        //CHECK IF THE USER HAS PAID
-        if(account_status == "TRIAL") {
-          print(account_status);
-          await FlutterSessionJwt.saveToken(accessToken);
-        
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-            
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-          //generate grlink
-          //await generateQrLink(urlSlug: email);
-          //move with agility to the next page
-          getx.Get.offAll(() =>  const MainPage(), transition: getx.Transition.rightToLeft);  //MainPage()  MainPageAccViewer()
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "sign in successful"
-          );
-
-        }
-        else if(account_status == "ACTIVE") {
-          print(account_status);
-          await FlutterSessionJwt.saveToken(accessToken);
+        await FlutterSessionJwt.saveToken(accessToken);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -798,38 +604,6 @@ class AuthService extends getx.GetxController {
             backgroundColor: AppColor.darkGreen,
             message: "sign in successful"
           );
-        }
-        
-      
-        else {
-          ////INACTIVE////
-          print(account_status);
-          await FlutterSessionJwt.saveToken(accessToken);
-
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-
-            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-        }
-        //////////////
 
       } 
       else {
@@ -840,7 +614,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode}-${res.body}"
+          message: "failed => ${res.statusCode}"
         );
         getx.Get.offAll(() => RegisterPage1());
       }
@@ -908,52 +682,7 @@ class AuthService extends getx.GetxController {
         String account_status = jsonResponse.account_status;
         await LocalStorage.saveToken(accessToken);
     
-        //CHECK IF THE USER HAS PAID
-        if(account_status == "TRIAL") {
-          print(account_status);
-          await FlutterSessionJwt.saveToken(accessToken);
-        
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-            
-            //this push notification is a problem
-            await sendPushNotification(
-              noti_title: "Account created successfully", 
-              noti_body: "Hey $displayName, welcome to luround.",
-              fcm_token: FCMToken ?? "no token",
-              userID: userId
-            );
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-          //generate grlink
-          //await generateQrLink(urlSlug: email);
-          //move with agility to the next page
-          getx.Get.offAll(() =>  const MainPage(), transition: getx.Transition.rightToLeft); 
-          showMySnackBar(
-            context: context,
-            backgroundColor: AppColor.darkGreen,
-            message: "sign up successful"
-          );
-
-        }
-        else if(account_status == "ACTIVE") {
-          print(account_status);
-          await FlutterSessionJwt.saveToken(accessToken);
+        await FlutterSessionJwt.saveToken(accessToken);
         
           // Decode the JWT token with the awesome package {JWT Decoder}
           Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
@@ -984,36 +713,6 @@ class AuthService extends getx.GetxController {
             backgroundColor: AppColor.darkGreen,
             message: "sign up successful"
           );
-        }
-        
-      
-        else {
-          ////INACTIVE////
-          print(account_status);
-          await FlutterSessionJwt.saveToken(accessToken);
-
-          // Decode the JWT token with the awesome package {JWT Decoder}
-          Map<String, dynamic> decodedToken = JwtDecoder.decode(accessToken);
-
-          //Access the payload
-          if (decodedToken != null) {
-            print("Token payload: $decodedToken");
-            // Access specific claims
-            // Replace 'sub' with the actual claim you want
-            String userId = decodedToken['userId']; //?? "user_id";
-            String email = decodedToken['email'];
-            String displayName = decodedToken['displayName'];
-            int expDate = decodedToken['exp'];
-            await LocalStorage.saveTokenExpDate(expDate);
-            await LocalStorage.saveUserID(userId);
-            await LocalStorage.saveEmail(email);
-            await LocalStorage.saveUsername(displayName);
-            getx.Get.offAll(() =>  const SubscriptionScreenAuth(), transition: getx.Transition.rightToLeft);
-          } 
-          else {
-            print("Failed to decode JWT token.");
-          }
-        }
         //////////////
 
       } 
@@ -1025,7 +724,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed => ${res.statusCode}-${res.body}"
+          message: "failed => ${res.statusCode}"
         );
       }
 
@@ -1112,7 +811,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode} - ${res.body}"
+          message: "status: ${res.statusCode}"
         );
       }
     } 
@@ -1156,7 +855,7 @@ class AuthService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "status: ${res.statusCode} - ${res.body}"
+          message: "status: ${res.statusCode}"
         );
       }
     } 

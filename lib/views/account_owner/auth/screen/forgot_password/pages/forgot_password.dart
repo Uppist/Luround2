@@ -133,8 +133,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 450.h,), //480.h
-                        //SizedBox(height: MediaQuery.of(context).size.height /1.8.h,),
+                      
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.56,),
                         RebrandedReusableButton(
                           textColor: controller.isfpButtonActivated ? AppColor.bgColor : AppColor.darkGreyColor,
                           color: controller.isfpButtonActivated ? AppColor.mainColor : AppColor.lightPurple, 

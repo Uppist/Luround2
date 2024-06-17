@@ -159,7 +159,7 @@ class WithdrawalService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "wallet/add-bank-details", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "payments/create-user-bank-detail", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -217,7 +217,7 @@ class WithdrawalService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "wallet/add-bank-details", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "payments/create-user-bank-detail", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
@@ -285,7 +285,7 @@ class WithdrawalService extends getx.GetxController {
     };
 
     try {
-      http.Response res = await baseService.httpPost(endPoint: "wallet/add-bank-details", body: body);
+      http.Response res = await baseService.httpPost(endPoint: "payments/create-user-bank-detail", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');

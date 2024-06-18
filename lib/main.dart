@@ -8,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
+import 'package:luround/routes/web_routes.dart';
 import 'package:luround/services/account_owner/auth_service/auth_service.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/payment_service.dart/paystack_constant.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:luround/views/404page/unknown_route.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -140,7 +142,7 @@ class _MainAppState extends State<MainApp> {
     //Access a query parameter from the web url using "Get.parameters['']"
     //String userName = Get.parameters['user'] ?? 'DefaultUserName';
  
-    return ScreenUtilInit(
+    /*return ScreenUtilInit(
       designSize: const Size(414, 896),
       builder: (_, child) {
         return child!;
@@ -160,7 +162,82 @@ class _MainAppState extends State<MainApp> {
         home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       
       ),
+    );*/
+
+    return ScreenUtilInit(
+      designSize: const Size(414, 896),
+      builder: (_, child) {
+        return child!;
+      },
+      child: GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Luround',
+        
+        //try this
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColor.mainColor),
+          useMaterial3: true,
+        ),
+        defaultTransition: Transition.rightToLeft,
+        
+        //unknown route
+        unknownRoute: GetPage(
+          name: '/', 
+          page: () => UnknownPage(
+            onPressed: () {}     
+          )
+        ),
+        
+        //traditional way of registering routes without getx
+        /*routes: {
+          '/': (context) => HomeScreen(),
+          '/destination': (context) => DestinationScreen(argument: ''),
+        },*/
+
+        initialRoute: SplashPageRoute,
+        
+        //register all routes for the web app here
+        getPages: [
+          
+          GetPage(
+            name: SplashPageRoute,
+            page: () => const SplashScreen1(),
+            curve: Curves.bounceInOut,
+            transition: Transition.rightToLeft
+          ),
+
+
+          /*GetPage(
+            name: ReviewsRoute,
+            page: () => AccViewerReviewsPage(),
+            curve: Curves.bounceInOut,
+            transition: Transition.rightToLeft
+          ),
+          GetPage(
+            name: BookingsRoute,
+            page: () => RequestQuoteScreen(),
+            curve: Curves.easeInOut,
+            transition: Transition.rightToLeft
+          ),
+          GetPage(
+            name: BookingsRoute,
+            page: () => BookAppointmentScreen(),
+            curve: Curves.easeInOut,
+            transition: Transition.rightToLeft
+          ),
+          GetPage(
+            name: WriteReviewRoute,
+            page: () => WriteReviewsPage(),
+            curve: Curves.easeOutSine,
+            transition: Transition.rightToLeft
+          ),*/
+
+        ],
+
+      
+      ),
     );
+
   }
 }
 

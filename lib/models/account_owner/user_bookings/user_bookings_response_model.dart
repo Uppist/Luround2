@@ -3,9 +3,6 @@
 
 
 
-
-
-
 class UserBookingModel {
   final bool userBooked;
   final List<DetailsModel> details;
@@ -118,6 +115,7 @@ class ServiceDetails {
   final String bookedStatus;
   final int createdAt;
   final List<dynamic> available_time;
+  final String service_type;
 
   ServiceDetails({
     required this.serviceId,
@@ -135,6 +133,7 @@ class ServiceDetails {
     required this.available_time,
     required this.start_time,
     required this.end_time,
+    required this.service_type,
   });
 
   factory ServiceDetails.fromJson(Map<String, dynamic> json) {
@@ -142,10 +141,11 @@ class ServiceDetails {
       available_time: json['available_time'] ?? [],
       serviceId: json['service_id'] ?? '',
       serviceName: json['service_name'] ?? '',
-      serviceFee: json['service_fee'] ?? '',
+      serviceFee: json['service_fee'] ?? 'service_fee',
+      service_type: json['service_type'] ?? [],
       appointmentType: json['appointment_type'] ?? '',
       date: json['date'] ?? '',
-      time: json['time'] ?? '',
+      time: json['time'] ?? 'time',
       start_time: json['star_time'] ?? '9:00 AM',
       end_time: json['end_time'] ?? '10:00 AM',
       duration: json['duration'] ?? '',

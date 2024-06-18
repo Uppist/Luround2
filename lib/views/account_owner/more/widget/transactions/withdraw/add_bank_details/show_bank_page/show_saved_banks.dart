@@ -67,9 +67,6 @@ class _ShowBanksForTrxState extends State<ShowBanksForTrx> {
   }
 
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -99,7 +96,7 @@ class _ShowBanksForTrxState extends State<ShowBanksForTrx> {
                   Expanded(
                     child: ListView.separated(
                       shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       scrollDirection: Axis.vertical,
                       separatorBuilder: (context, index) => SizedBox(height: 30.h),
                       itemCount: service.filteredSavedAccounts.length,
@@ -150,7 +147,7 @@ class _ShowBanksForTrxState extends State<ShowBanksForTrx> {
                                 ));
                               },
                               child: AnimatedContainer(
-                                duration: Duration(milliseconds: 500),
+                                duration: const Duration(milliseconds: 500),
                                 padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                                 alignment: Alignment.center,
                                 width: double.infinity,

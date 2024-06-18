@@ -329,10 +329,10 @@ class _BookingsPageState extends State<BookingsPage> {
       
                                                     //more vert icon
                                                     Row(
-                                                      mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                                      mainAxisAlignment: MainAxisAlignment.end,
                                                       children: [
                                                             //confirm bookings button
-                                                            item.booked_status == "PENDING CONFIRMATION" ?
+                                                            /*item.booked_status == "PENDING CONFIRMATION" ?
                                                             
                                                             Obx(
                                                               () {
@@ -364,7 +364,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                   ),
                                                                 );
                                                               }
-                                                            ) : const SizedBox(),
+                                                            ) : const SizedBox(),*/
                                         
                                                             //more vert button
                                                             IconButton(
@@ -436,20 +436,20 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               )
                                                             ),
                                         
-                                                            Text(
+                                                            /*Text(
                                                               item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
                                                               style: GoogleFonts.inter(
                                                                 color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
                                                                 fontSize: 12.sp,
                                                                 fontWeight: FontWeight.w500
                                                               ),
-                                                            ),
+                                                            ),*/
                                         
                                                           ],
                                                         ),
                                                         SizedBox(height: 10.h,),
                                                         Divider(color: AppColor.textGreyColor, thickness: 0.3,),                  
-                                                        SizedBox(height: 10.h,),
+                                                        /*SizedBox(height: 10.h,),
                                         
                                                         //see proof of payment
                                                         Row(
@@ -474,18 +474,32 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               ),
                                                             ),
                                                           ]
-                                                        ),
+                                                        ),*/
                                         
                                                         SizedBox(height: 30.h,),
                                         
                                                         //service name
-                                                        Text(
-                                                          item.serviceDetails.serviceName,
-                                                          style: GoogleFonts.inter(
-                                                            color: AppColor.blackColor,
-                                                            fontSize: 16.sp,
-                                                            fontWeight: FontWeight.w600
-                                                          ),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text: "${item.serviceDetails.serviceName} ",
+                                                                style: GoogleFonts.inter(
+                                                                  color: AppColor.blackColor,
+                                                                  fontSize: 16.sp,
+                                                                  fontWeight: FontWeight.w600
+                                                                ),
+                                                              ),
+                                                              TextSpan(
+                                                                text: "${item.serviceDetails.service_type} ",
+                                                                style: GoogleFonts.inter(
+                                                                  color: AppColor.darkGreyColor,
+                                                                  fontSize: 14.sp,
+                                                                  fontWeight: FontWeight.w500
+                                                                ),
+                                                              ),
+                                                            ]
+                                                          )
                                                         ),
                                         
                                                         SizedBox(height: 30.h,),
@@ -789,10 +803,10 @@ class _BookingsPageState extends State<BookingsPage> {
                                                     SizedBox(height: 5.h),
                                                     //more vert icon
                                                     Row(
-                                                      mainAxisAlignment: item.booked_status == "PENDING CONFIRMATION" ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+                                                      mainAxisAlignment:MainAxisAlignment.end,
                                                       children: [
                                                         //confirm bookings button
-                                                        item.booked_status == "PENDING CONFIRMATION" ?
+                                                        /*item.booked_status == "PENDING CONFIRMATION" ?
                                                         Obx(
                                                           () {
                                                             return service.isConfirmBooking.value ? const Loader2() : InkWell(
@@ -823,7 +837,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               ),
                                                             );
                                                           }
-                                                        ) : const SizedBox(),
+                                                        ) : const SizedBox(),*/
                                         
                                                         //more vert button
                                                         IconButton(
@@ -894,14 +908,14 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               )
                                                             ),
                                         
-                                                            Text(
+                                                            /*Text(
                                                               item.booked_status == "PENDING CONFIRMATION" ? "pending" : item.booked_status == "CANCELLED" ? "cancelled" : "confirmed",
                                                               style: GoogleFonts.inter(
                                                                 color: item.booked_status == "PENDING CONFIRMATION" ? AppColor.yellowStar : item.booked_status == "CANCELLED" ? AppColor.redColor : AppColor.darkGreen ,
                                                                 fontSize: 12.sp,
                                                                 fontWeight: FontWeight.w500
                                                               ),
-                                                            ),
+                                                            ),*/
                                         
                                                           ],
                                                         ),
@@ -929,14 +943,29 @@ class _BookingsPageState extends State<BookingsPage> {
                                                           ],
                                                         ),
                                                         SizedBox(height: 30.h,),
+
                                                         //service name
-                                                        Text(
-                                                          item.serviceDetails.serviceName,
-                                                          style: GoogleFonts.inter(
-                                                            color: AppColor.blackColor,
-                                                            fontSize: 16.sp,
-                                                            fontWeight: FontWeight.w600
-                                                          ),
+                                                        RichText(
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text: "${item.serviceDetails.serviceName} ",
+                                                                style: GoogleFonts.inter(
+                                                                  color: AppColor.blackColor,
+                                                                  fontSize: 16.sp,
+                                                                  fontWeight: FontWeight.w600
+                                                                ),
+                                                              ),
+                                                              TextSpan(
+                                                                text: "${item.serviceDetails.service_type} ",
+                                                                style: GoogleFonts.inter(
+                                                                  color: AppColor.darkGreyColor,
+                                                                  fontSize: 14.sp,
+                                                                  fontWeight: FontWeight.w500
+                                                                ),
+                                                              ),
+                                                            ]
+                                                          )
                                                         ),
                                                         SizedBox(height: 30.h,),
                                                         //service time and duration
@@ -971,7 +1000,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         SizedBox(height: 30.h,),
                                         
                                                     //see proof of payment
-                                                    Row(
+                                                    /*Row(
                                                       mainAxisAlignment: MainAxisAlignment.start,
                                                       children: [
                                                         InkWell(
@@ -993,7 +1022,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                           ),
                                                         ),
                                                       ]
-                                                    ),
+                                                    ),*/
                                         
                                                   ]
                                                 )

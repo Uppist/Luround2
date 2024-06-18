@@ -17,6 +17,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/generate_random_string.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
+import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/confirm_otp_screen.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_screen.dart';
@@ -458,7 +459,7 @@ class WithdrawalService extends getx.GetxController {
 
 
 
-
+ 
 
   ///[WITHDRAW FUNDS]//
   Future<void> withdrawFunds({
@@ -490,7 +491,7 @@ class WithdrawalService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        final Map<String, dynamic> response = json.decode(res.body);
+        final dynamic response = json.decode(res.body);
         if(response["message"] == "Your wallet balance is low" || wallet_balance == 0 || amount == 0 || wallet_balance < amount) {
           debugPrint("insufficient funds");
           //failure snackbar
@@ -507,7 +508,10 @@ class WithdrawalService extends getx.GetxController {
             context: context,
             backgroundColor: AppColor.darkGreen,
             message: "transaction successful"
-          ).whenComplete(() => getx.Get.to(() => TransferFundsSuccessScreen(
+          )
+
+          .whenComplete(() => getx.Get.offAll(() => const MainPage()));
+            /*getx.Get.to(() => TransferFundsSuccessScreen(
             amount: "$amount",
             account_name: account_name,
             account_number: account_number,
@@ -516,7 +520,10 @@ class WithdrawalService extends getx.GetxController {
             transaction_ref: response['transaction_ref'] ?? 'null',
             transaction_date: response['transaction_date'] ?? 0,
             transaction_time: response['transaction_time'] ?? 0,
-          )));
+          )
+          )*/
+        
+
         }
       } 
       else {

@@ -15,6 +15,7 @@ import 'package:luround/services/account_owner/payment_service.dart/paystack_con
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:luround/views/404page/unknown_route.dart';
+import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -142,7 +143,7 @@ class _MainAppState extends State<MainApp> {
     //Access a query parameter from the web url using "Get.parameters['']"
     //String userName = Get.parameters['user'] ?? 'DefaultUserName';
  
-    /*return ScreenUtilInit(
+    return ScreenUtilInit(
       designSize: const Size(414, 896),
       builder: (_, child) {
         return child!;
@@ -162,9 +163,9 @@ class _MainAppState extends State<MainApp> {
         home: token == null ? const SplashScreen1() : isExpiredVal ? const SplashScreenTokenExpired() : authService.checkForUserInactive(token: token) ? const SplashScreenTokenExpired() : const SplashScreenXtra(),
       
       ),
-    );*/
+    );
 
-    return ScreenUtilInit(
+    /*return ScreenUtilInit(
       designSize: const Size(414, 896),
       builder: (_, child) {
         return child!;
@@ -200,8 +201,8 @@ class _MainAppState extends State<MainApp> {
         getPages: [
           
           GetPage(
-            name: SplashPageRoute,
-            page: () => const SplashScreen1(),
+            name: LoginPageRoute,
+            page: () => LoginPage(),
             curve: Curves.bounceInOut,
             transition: Transition.rightToLeft
           ),
@@ -236,7 +237,7 @@ class _MainAppState extends State<MainApp> {
 
       
       ),
-    );
+    );*/
 
   }
 }

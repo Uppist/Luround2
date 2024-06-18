@@ -269,7 +269,12 @@ class _RegularServiceListState extends State<RegularServiceList> {
     );
   }
 
-  Widget _buildPricingSection(UserServiceModel data, int index) {
+
+
+  Widget _buildPricingSection(UserServiceModel data, int serviceIndex) {
+    // Ensure you have a unique identifier for each service, like data.serviceId
+    int selectedDurationIndex = controller.selectedDurationIndexes[data.serviceId] ?? 0; // Default to 0 if not set
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -288,19 +293,26 @@ class _RegularServiceListState extends State<RegularServiceList> {
             ),
             SizedBox(width: 3.w),
             PopupMenuFilterInt(
-              index: index,
-              selectedValue: controller.selectedDurationIndex,
+              index: serviceIndex, // Use serviceIndex here
+              selectedValue: selectedDurationIndex,
               onChanged: (p0) {
-                //setState(() {
-                  controller.selectedDurationIndex.value = p0!;
-                  log(controller.selectedDurationIndex.value.toString());
-                //});
+                // Update selected index for this service
+                controller.selectedDurationIndexes[data.serviceId] = p0!;
+                log(controller.selectedDurationIndexes.toString());
+
+                // Optionally, you can update state here if needed
+                setState(() {
+                  selectedDurationIndex = p0;
+                  controller.selectedDurationString.value = data.pricing[selectedDurationIndex].time_allocation;
+                  log(controller.selectedDurationString.value);
+                });
+            
               },
-              items: List.generate(data.pricing.length, (indexs) {
+              items: List.generate(data.pricing.length, (index) {
                 return DropdownMenuItem<int>(
-                  value: indexs,
+                  value: index, // Ensure index is unique for each item
                   child: Text(
-                    data.pricing[indexs].time_allocation,
+                    data.pricing[index].time_allocation,
                     style: GoogleFonts.inter(
                       color: AppColor.bgColor,
                       fontSize: 14.sp,
@@ -317,7 +329,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PopupMenuFilterStr(
-                index: index,
+                index: serviceIndex,
                 selectedValue: controller.selectedFieldIndex,
                 onChanged: (p0) {
                   controller.selectedFieldIndex.value = p0!;
@@ -341,12 +353,12 @@ class _RegularServiceListState extends State<RegularServiceList> {
               Obx(() {
                 return Text(
                   controller.selectedFieldIndex.value == 'Virtual'
-                      ? data.pricing[controller.selectedDurationIndex.value].virtual_pricing.isNotEmpty
-                          ? "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].virtual_pricing}"
-                          : "FREE"
-                      : data.pricing[controller.selectedDurationIndex.value].in_person_pricing.isNotEmpty
-                          ? "${currency(context).currencySymbol}${data.pricing[controller.selectedDurationIndex.value].in_person_pricing}"
-                          : "FREE",
+                  ? data.pricing[selectedDurationIndex].virtual_pricing.isNotEmpty
+                  ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].virtual_pricing}"
+                  : "FREE"
+                  : data.pricing[selectedDurationIndex].in_person_pricing.isNotEmpty
+                  ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].in_person_pricing}"
+                  : "FREE",
                   style: GoogleFonts.inter(
                     color: AppColor.bgColor,
                     fontSize: 20.sp,
@@ -354,26 +366,28 @@ class _RegularServiceListState extends State<RegularServiceList> {
                   ),
                   overflow: TextOverflow.ellipsis,
                 );
-              }),
-              SizedBox(height: 5.h),
-              Obx(
-                () {
-                  return Text(
-                    "for ${data.pricing[controller.selectedDurationIndex.value].time_allocation} session",
-                    style: GoogleFonts.inter(
-                      color: AppColor.whiteTextColor,
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  );
-                }
+              }
+            ),
+            SizedBox(height: 5.h),
+          
+            Text(
+              "for ${data.pricing[selectedDurationIndex].time_allocation} session",
+              style: GoogleFonts.inter(
+                color: AppColor.whiteTextColor,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w500,
               ),
-            ],
-          ),
+            )
+            
+      
+          ],
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
+  
 }
 
 

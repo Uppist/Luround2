@@ -13,7 +13,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 class PopupMenuFilterInt extends StatelessWidget {
   const PopupMenuFilterInt({super.key, this.onTap, required this.selectedValue, this.onChanged, this.items, required this.index,});
   final void Function()? onTap;
-  final RxInt selectedValue;
+  final int selectedValue;
   final void Function(int?)? onChanged;
   final List<DropdownMenuItem<int>>? items;
   final int index;
@@ -21,9 +21,7 @@ class PopupMenuFilterInt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return Container(
+    return Container(
           height: 50.h,
           width: 145.w, //135.w
           alignment: Alignment.center,
@@ -80,14 +78,14 @@ class PopupMenuFilterInt extends StatelessWidget {
             //iconSize: 16.r,
             enableFeedback: true,
             padding: EdgeInsets.symmetric(horizontal: 10.w),
-            value: selectedValue.value,
+            value: selectedValue,
             onChanged: onChanged,
             items: items
           ),
         );
       }
-    ); 
-  }
+  
+
 }
 
 
@@ -103,9 +101,7 @@ class PopupMenuFilterStr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return Container(
+    return Container(
           height: 50.h,
           width: 135.w,
           alignment: Alignment.center,
@@ -160,8 +156,6 @@ class PopupMenuFilterStr extends StatelessWidget {
           ),
         );
       }
-    );
-  }
 }
 
 

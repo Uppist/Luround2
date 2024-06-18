@@ -368,7 +368,8 @@ class ServicesController extends getx.GetxController {
   //PUT IN THE CONTROLLER
   getx.RxInt selectedDurationIndex = 0.obs;
   getx.RxString selectedFieldIndex = 'Virtual'.obs;
-  
+  Map<String, int> selectedDurationIndexes = {}; // This will hold selected indexes for each service
+  getx.RxString selectedDurationString = ''.obs;
 
 
 

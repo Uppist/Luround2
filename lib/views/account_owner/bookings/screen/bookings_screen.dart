@@ -957,7 +957,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                 ),
                                                               ),
                                                               TextSpan(
-                                                                text: "${item.serviceDetails.service_type} ",
+                                                                text: "(${item.serviceDetails.service_type})",
                                                                 style: GoogleFonts.inter(
                                                                   color: AppColor.darkGreyColor,
                                                                   fontSize: 14.sp,

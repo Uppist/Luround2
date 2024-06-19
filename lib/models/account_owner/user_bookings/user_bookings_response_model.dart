@@ -59,8 +59,8 @@ class DetailsModel {
       payment_reference_id: json['payment_reference_id'] ?? "non",
       proof_of_payment: json['payment_proof'] ?? "no proof",
       booking_generated_from_invoice: json['booking_generated_from_invoice'] ?? "False",
-      start_time: json['start_time'] ?? 'start_time',
-      end_time: json['end_time'] ?? 'end_time',
+      start_time: json['start_time'] ?? 'non',
+      end_time: json['end_time'] ?? 'non',
       duration: json['duration'] ?? 'duration',
     );
   }

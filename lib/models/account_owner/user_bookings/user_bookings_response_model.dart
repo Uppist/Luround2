@@ -28,6 +28,10 @@ class DetailsModel {
   final String proof_of_payment;
   final String payment_reference_id;
   final String booking_generated_from_invoice;
+  final String start_time;
+  final String end_time;
+  final String duration;
+
 
   DetailsModel({
     required this.id,
@@ -38,6 +42,9 @@ class DetailsModel {
     required this.payment_reference_id,
     required this.proof_of_payment,
     required this.booking_generated_from_invoice,
+    required this.start_time,
+    required this.end_time,
+    required this.duration,
   });
 
   factory DetailsModel.fromJson(Map<String, dynamic> json) {
@@ -51,7 +58,10 @@ class DetailsModel {
       booked_status: json["booked_status"] ?? 'non',
       payment_reference_id: json['payment_reference_id'] ?? "non",
       proof_of_payment: json['payment_proof'] ?? "no proof",
-      booking_generated_from_invoice: json['booking_generated_from_invoice'] ?? "False"
+      booking_generated_from_invoice: json['booking_generated_from_invoice'] ?? "False",
+      start_time: json['start_time'] ?? 'start_time',
+      end_time: json['end_time'] ?? 'end_time',
+      duration: json['duration'] ?? 'duration',
     );
   }
 }
@@ -106,15 +116,15 @@ class ServiceDetails {
   final String appointmentType;
   final String date;
   final String time;
-  final String start_time;
-  final String end_time;
-  final String duration;
+  //final String start_time;
+  //final String end_time;
+  //final String duration;
+  //final String bookedStatus;
+  //final String available_time;
   final String message;
   final dynamic file;
   final String location;
-  final String bookedStatus;
   final int createdAt;
-  final List<dynamic> available_time;
   final String service_type;
 
   ServiceDetails({
@@ -124,35 +134,35 @@ class ServiceDetails {
     required this.appointmentType,
     required this.date,
     required this.time,
-    required this.duration,
     required this.message,
     required this.file,
     required this.location,
-    required this.bookedStatus,
     required this.createdAt,
-    required this.available_time,
-    required this.start_time,
-    required this.end_time,
     required this.service_type,
+    //required this.available_time,
+    //required this.start_time,
+    //required this.end_time,
+    //required this.bookedStatus,
+    //required this.duration,
   });
 
   factory ServiceDetails.fromJson(Map<String, dynamic> json) {
     return ServiceDetails(
-      available_time: json['available_time'] ?? [],
-      serviceId: json['service_id'] ?? '',
-      serviceName: json['service_name'] ?? '',
+      //available_time: json['available_time'] ?? 'non',
+      serviceId: json['service_id'] ?? 'non',
+      serviceName: json['service_name'] ?? 'non',
       serviceFee: json['service_fee'] ?? 'service_fee',
-      service_type: json['service_type'] ?? [],
-      appointmentType: json['appointment_type'] ?? '',
-      date: json['date'] ?? '',
+      service_type: json['service_type'] ?? 'service_type',
+      appointmentType: json['appointment_type'] ?? 'non',
+      date: json['date'] ?? 'date',
       time: json['time'] ?? 'time',
-      start_time: json['star_time'] ?? '9:00 AM',
-      end_time: json['end_time'] ?? '10:00 AM',
-      duration: json['duration'] ?? '',
+      //start_time: json['start_time'] ?? '9:00 AM',
+      //end_time: json['end_time'] ?? '10:00 AM',
+      //duration: json['duration'] ?? '',
       message: json['message'] ?? '',
       file: json['file'] ?? '',
       location: json['location'] ?? '',
-      bookedStatus: json['booked_status'] ?? '',
+      //bookedStatus: json['booked_status'] ?? '',
       createdAt: json['created_at'] ?? 0,
     );
   }

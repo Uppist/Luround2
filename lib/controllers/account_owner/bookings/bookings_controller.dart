@@ -5,6 +5,7 @@ import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 
 
 
@@ -41,10 +42,11 @@ class BookingsController extends getx.GetxController {
   //(save to db) this is the selected date 
   String updatedDate ({required String initialDate}) {
     if(dates.isNotEmpty) {
-      var result = dates[0].toString();
-      var refinedStr = result.substring(0, 10);
-      print(refinedStr);
-      return refinedStr;
+      //var result = dates[0].toString();
+      final String formattedResult = formatDate(dates[0]!);
+      //var refinedStr = result.substring(0, 10);
+      debugPrint(formattedResult);
+      return formattedResult;
     }
     return initialDate;
   }

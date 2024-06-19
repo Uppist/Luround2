@@ -77,13 +77,13 @@ class CalendarService extends getx.GetxController {
             from: //DateTime(2024, 5, 6, 09, 30, 0),
             parseDateTime(
               dateString: data.serviceDetails.date, 
-              timeString: data.serviceDetails.start_time
+              timeString: data.start_time
             ),
 
             to: //DateTime(2024, 5, 6, 10, 30, 0),
             parseDateTime(
               dateString: data.serviceDetails.date, 
-              timeString: data.serviceDetails.end_time
+              timeString: data.end_time
             ),
 
             background: _colorCollection[random.nextInt(10)],

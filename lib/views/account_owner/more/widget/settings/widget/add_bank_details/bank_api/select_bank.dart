@@ -75,7 +75,8 @@ class _SelectBankScreenForSettingsState extends State<SelectBankScreenForSetting
 
               //Search textfield//
               SearchBankTextField2(
-                onFieldSubmitted: (p0) {
+                onFieldSubmitted: (p0) {},
+                onChanged: (p0) {
                   service.searchBankController.text = p0;
                   //print("searched bank: ${controller.selectedBank.value}");
                   withdrawalService.filterForSelectBankScreen(p0);
@@ -101,7 +102,7 @@ class _SelectBankScreenForSettingsState extends State<SelectBankScreenForSetting
                       itemBuilder: (context, index) {
                         final item = withdrawalService .filteredBankList[index];
                         if(withdrawalService.filteredBankList.isEmpty) {
-                          return const Loader();
+                          return SizedBox.shrink();
                         }
                         else{
                           // Update the selected index
@@ -149,14 +150,17 @@ class _SelectBankScreenForSettingsState extends State<SelectBankScreenForSetting
                         }
                       }
                     ),
-                    ) : Expanded(child: Loader());
-                    /*Text(
-                    "Couldn't Fetch Bank",
-                    style: GoogleFonts.inter(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600
-                    ),*/
+                    ) : //Expanded(child: Loader());
+                    Expanded(
+                      child: Text(
+                      "Couldn't Fetch Bank",
+                      style: GoogleFonts.inter(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600
+                      ),
+                      ),
+                    );
                   
                 }
               )  

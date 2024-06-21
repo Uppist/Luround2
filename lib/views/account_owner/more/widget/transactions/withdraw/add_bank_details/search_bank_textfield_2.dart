@@ -13,11 +13,12 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class SearchBankTextField2 extends StatefulWidget {
-  const SearchBankTextField2({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, this.onTap,});
+  const SearchBankTextField2({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, required this.textController, this.onFocusChanged, this.onTap, this.onChanged,});
   final TextEditingController textController;
   final TextInputType keyboardType;
   final String hintText;
   final TextInputAction textInputAction;
+  final void Function(String)? onChanged;
   final void Function(String)? onFieldSubmitted;
   final void Function(bool)? onFocusChanged;
   final void Function()? onTap;
@@ -39,7 +40,7 @@ class _SearchBankTextField2State extends State<SearchBankTextField2> {
         onFocusChange: widget.onFocusChanged,
         child: TextFormField(
           onFieldSubmitted: widget.onFieldSubmitted,
-          //onChanged: widget.onChanged,
+          onChanged: widget.onChanged,
           onTap: widget.onTap,
           controller: widget.textController,
           keyboardType: widget.keyboardType,

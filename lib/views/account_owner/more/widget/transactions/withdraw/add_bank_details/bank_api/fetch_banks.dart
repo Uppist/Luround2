@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -152,14 +151,17 @@ class _SelectBankScreenForTrxState extends State<SelectBankScreenForTrx> {
                         }
                       }
                     ),
-                    ) : Expanded(child: Loader());
-                    /*Text(
-                    "Couldn't Fetch Bank",
-                    style: GoogleFonts.inter(
-                      color: AppColor.darkGreyColor,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w600
-                    ),*/
+                    ) :  //: Expanded(child: Loader());
+                    Expanded(
+                      child: Text(
+                      "Couldn't Fetch Bank",
+                      style: GoogleFonts.inter(
+                        color: AppColor.darkGreyColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600
+                      ),
+                      ),
+                    );
                   
                 }
               )  

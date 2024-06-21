@@ -15,6 +15,10 @@ import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wa
 
 
 
+
+
+
+
 class TransferFundsSuccessScreen extends StatelessWidget {
   TransferFundsSuccessScreen({super.key, required this.amount, required this.account_name, required this.account_number, required this.bank_name, required this.transaction_ref, required this.transaction_date, required this.transaction_time});
 

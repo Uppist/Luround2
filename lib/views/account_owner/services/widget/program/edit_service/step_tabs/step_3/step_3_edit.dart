@@ -186,7 +186,7 @@ class _Step3PageProgramServiceEditState extends State<Step3PageProgramServiceEdi
         //button
         Obx(
           () {
-            return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
+            return servicesService.isServiceEDLoading.value ? Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
               color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 

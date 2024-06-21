@@ -973,6 +973,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String date,
     required String start_time,
     required String end_time,
+    required String duration,
     required String inpersonFee,
     required String virtualFee,
     required List<Map<String, dynamic>> schedule,
@@ -1019,6 +1020,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
         "event_type": event_schedule,
+        'duration': duration,
 
         "date": date,
         "start_time": start_time,
@@ -1035,6 +1037,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
         "event_type": event_schedule,
+        'duration': 'multiple event',
         "in_person_event_fee": inpersonFee,
         "virtual_event_fee": virtualFee,
         "event_schedule": eventScheduleList,
@@ -1404,6 +1407,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     required String end_time,
     required String inpersonFee,
     required String virtualFee,
+    required String duration,
     required List<Map<String, dynamic>> schedule,
 
     
@@ -1449,6 +1453,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
         "event_type": event_schedule,
+        'duration': duration,
         "date": date,
         "start_time": start_time,
         "end_time": end_time,
@@ -1463,6 +1468,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "service_type": "Event",
         "virtual_meeting_link": virtual_meeting_link,
         "physical_location": physical_location,
+        'duration': 'multiple event',
         "event_type": event_schedule,
         "in_person_event_fee": inpersonFee,
         "virtual_event_fee": virtualFee,

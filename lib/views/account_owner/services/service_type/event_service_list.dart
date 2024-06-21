@@ -270,7 +270,7 @@ class _EventServiceListState extends State<EventServiceList> {
         SizedBox(height: 10.h),
         _buildRichText('Start time: ', data.startTime),
         SizedBox(height: 5.h),
-        _buildRichText('Stop time: ', data.endDate),
+        _buildRichText('Stop time: ', data.endTime),
       ],
     );
   }

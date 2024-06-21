@@ -7,6 +7,7 @@ import 'package:luround/controllers/account_owner/main/mainpage_controller.dart'
 import 'package:luround/controllers/account_owner/services/event/event_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
@@ -96,9 +97,14 @@ class _Step3PageEditState extends State<Step3PageEdit> {
               text: "Done", 
               onPressed: controller.priceTypeEdit.value.isNotEmpty 
               ? () {
+                final String duration = getTimeDurationString(
+                  startTime: controller.selectedStartTimeEdit.value.isNotEmpty ? controller.selectedStartTimeEdit.value : '10:00 AM',
+                  stopTime: controller.selectedStopTimeEdit.value.isNotEmpty ? controller.selectedStopTimeEdit.value : '12:00 PM'
+                );
                 service.updateEventService(
                   context: context, 
                   serviceId: widget.serviceId,
+                  duration: duration,
                   service_name: controller.serviceNameControllerEdit.text, 
                   description: controller.descriptionControllerEdit.text, 
                   virtual_meeting_link: controller.addLinkControllerEdit.text, 

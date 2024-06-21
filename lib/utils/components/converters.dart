@@ -4,6 +4,59 @@ import 'package:intl/intl.dart';
 
 
 
+
+
+
+String getTimeDurationString({required String startTime, required String stopTime}) {
+  DateFormat dateFormat = DateFormat('h:mm a'); // Format for parsing times like '10:30 AM'
+
+  // Parse the start and stop times
+  DateTime startDateTime = dateFormat.parse(startTime);
+  DateTime stopDateTime = dateFormat.parse(stopTime);
+
+  // Check if stopTime is earlier than startTime, adjust the stopDateTime to the next day
+  if (stopDateTime.isBefore(startDateTime)) {
+    stopDateTime = stopDateTime.add(Duration(days: 1));
+  }
+
+  // Calculate the difference
+  Duration duration = stopDateTime.difference(startDateTime);
+
+  // Get hours and minutes
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes % 60;
+
+  // Build the formatted string
+  String hoursString;
+  if (hours == 1) {
+    hoursString = '1 hour';
+  } else if (hours > 1) {
+    hoursString = '$hours hours';
+  } else {
+    hoursString = '';
+  }
+
+  String minutesString;
+  if (minutes == 1) {
+    minutesString = '1 minute';
+  } else if (minutes > 1) {
+    minutesString = '$minutes minutes';
+  } else {
+    minutesString = '';
+  }
+
+  if (hoursString.isNotEmpty && minutesString.isNotEmpty) {
+    log("$hoursString and $minutesString");
+    return '$hoursString and $minutesString';
+  } else if (hoursString.isNotEmpty) {
+    log(hoursString);
+    return hoursString;
+  } else {
+    log(minutesString);
+    return minutesString;
+  }
+}
+
 String formatDate(DateTime date) {
   // Create a DateFormat instance with the desired format
   //final DateFormat formatter = DateFormat('d MMMM, yyyy');

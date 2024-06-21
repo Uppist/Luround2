@@ -374,7 +374,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                   service: service,
                                                                   serviceDate: item.serviceDetails.date,
                                                                   serviceTime: item.serviceDetails.time,
-                                                                  serviceDuration: item.duration,
+                                                                  serviceDuration: item.serviceDetails.duration,
                                                                   bookingId: item.id,
                                                                   context: context, 
                                                                   serviceName: item.serviceDetails.serviceName,
@@ -572,7 +572,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         ),
                                                         SizedBox(height: 10.h),
                                                         Text(
-                                                          item.duration,
+                                                          item.serviceDetails.duration,
                                                           style: GoogleFonts.inter(
                                                             color: AppColor.blackColor,
                                                             fontSize: 14.sp,
@@ -847,7 +847,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                               service: service,
                                                               serviceDate: item.serviceDetails.date,
                                                               serviceTime: item.serviceDetails.time,
-                                                              serviceDuration: item.duration,
+                                                              serviceDuration: item.serviceDetails.duration,
                                                               bookingId: item.id,
                                                               context: context, 
                                                               serviceName: item.serviceDetails.serviceName,
@@ -986,7 +986,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                 SvgPicture.asset("assets/svg/time_icon.svg"),
                                                                 SizedBox(width: 10.w,),
                                                                 Text(
-                                                                  item.duration,
+                                                                  item.serviceDetails.duration,
                                                                   style: GoogleFonts.inter(
                                                                     color: AppColor.textGreyColor,
                                                                     fontSize: 12.sp,

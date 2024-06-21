@@ -118,7 +118,7 @@ class ServiceDetails {
   final String time;
   //final String start_time;
   //final String end_time;
-  //final String duration;
+  final String duration;
   //final String bookedStatus;
   //final String available_time;
   final String message;
@@ -143,12 +143,11 @@ class ServiceDetails {
     //required this.start_time,
     //required this.end_time,
     //required this.bookedStatus,
-    //required this.duration,
+    required this.duration,
   });
 
   factory ServiceDetails.fromJson(Map<String, dynamic> json) {
     return ServiceDetails(
-      //available_time: json['available_time'] ?? 'non',
       serviceId: json['service_id'] ?? 'non',
       serviceName: json['service_name'] ?? 'non',
       serviceFee: json['service_fee'] ?? 'service_fee',
@@ -158,7 +157,7 @@ class ServiceDetails {
       time: json['time'] ?? 'time',
       //start_time: json['start_time'] ?? '9:00 AM',
       //end_time: json['end_time'] ?? '10:00 AM',
-      //duration: json['duration'] ?? '',
+      duration: json['duration'] ?? '',
       message: json['message'] ?? '',
       file: json['file'] ?? '',
       location: json['location'] ?? '',

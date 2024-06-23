@@ -30,26 +30,40 @@ class ForgotPINScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.bgColor,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColor.bgColor,
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: AppColor.blackColor,
-          )
-        ),
-        title: CustomAppBarTitle(text: 'Forgot withdrawal PIN',),
-      ),
       body: Obx(
         () {
           return service.isLoading.value ? Loader() : SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                SizedBox(height: 10.h,),
+                /////////////
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 7.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: Icon(
+                          Icons.arrow_back_rounded,
+                          color: AppColor.blackColor,
+                        )
+                      ),
+                      SizedBox(width: 3.w,),
+                      Text(
+                        "Forgot withdrawal PIN",
+                        style: GoogleFonts.inter(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 10.h),
                 Container(
                   color: AppColor.greyColor,
@@ -98,7 +112,7 @@ class ForgotPINScreen extends StatelessWidget {
                           textController: controller.confirmNewWithdrawalPINController,
                           isObscured: false,
                         ),   
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.35),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.54),
                         ReusableButton(
                           color: AppColor.mainColor,
                           text: 'Next',

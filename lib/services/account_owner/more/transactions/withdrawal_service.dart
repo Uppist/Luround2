@@ -877,8 +877,9 @@ class WithdrawalService extends getx.GetxController {
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==>${res.statusCode}');
+        debugPrint('this is response body ==>${res.body}');
         //decode the response body here
-        WalletBalance response = WalletBalance.fromJson(jsonDecode(res.body));
+        final WalletBalance response = WalletBalance.fromJson(jsonDecode(res.body));
         print(response);
         /////////////
         return response;

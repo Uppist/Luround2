@@ -152,8 +152,9 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 return Loader2();
               }
               if(snapshot.hasError) {
+                log('error ${snapshot.error}',);
                 return Text(
-                  '${snapshot.hasError}',
+                  'error',
                   style: GoogleFonts.inter(
                     color: AppColor.bgColor,
                     fontSize: 19.sp,
@@ -177,7 +178,8 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                 children: [
                   InkWell(
                     onTap: () {},
-                    child: Obx(
+                    child: 
+                    Obx(
                       () {
                         return Text(
                           controller.selectedMoneyType.value == "Total amount received" ?  "${currency(context).currencySymbol}${double.parse("${service.totalAmountReceived}")}" : '${currency(context).currencySymbol}${double.parse("${data.wallet_balance}")}', //"${currency(context).currencySymbol}${double.parse("${data.wallet_balance}")}",
@@ -188,8 +190,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                           ),
                         );
                       }
-                    )
-                    
+                    )       
                     
                   ),
               
@@ -199,10 +200,10 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
                       //TODO: Boolean check//      
                       data.has_wallet_pin 
                       ?Get.to(() => SelectCountryPage(
-                        wallet_balance: data.wallet_balance,
+                        wallet_balance: data.wallet_balance.toInt(),
                       ))
                       :Get.to(() => InputPinPage(
-                        wallet_balance: data.wallet_balance,
+                        wallet_balance: data.wallet_balance.toInt(),
                       ));
               
                     },

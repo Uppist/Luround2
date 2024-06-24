@@ -8,6 +8,7 @@ import 'package:luround/controllers/account_owner/services/one-off/oneoff_servic
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/project_based/edit_service/screen/edit_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/screen/edit_service.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
@@ -31,7 +32,8 @@ Future<void> editServiceDialogueBox({
   required String virtual_meeting_link, 
   required String service_charge_in_person, 
   required String service_charge_virtual, 
-  //required String service_link,
+  required String oneoffType,
+  required String price,
   required String duration, 
   required String time, 
   required String date, 
@@ -43,16 +45,8 @@ Future<void> editServiceDialogueBox({
   required AccOwnerServicePageService service,
 }) async {
 
-  var controller = Get.put(ServicesController());
+  final controller = Get.put(ServicesController());
 
-  bool isServiceActive(){
-    if(service_status == "ACTIVE"){
-      return false;
-    }
-    else {
-      return true;
-    }
-  }
 
   showModalBottomSheet(
     isScrollControlled: true,
@@ -89,7 +83,14 @@ Future<void> editServiceDialogueBox({
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
-                    Get.to(() => EditServiceScreen(
+                    oneoffType == 'project based'
+                    ?Get.to(() => EditProjectBasedOneOffServiceScreen(
+                      serviceId: serviceId,
+                      serviceName: service_name,
+                      description: description,
+                      price: price,
+                    ))
+                    :Get.to(() => EditServiceScreen(
                       serviceId: serviceId,
                       service_name: service_name,
                       description: description,

@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
 import 'package:luround/views/account_owner/services/widget/event/add_event/screen/add_event_screen.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/project_based/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/screen/add_service_screen.dart';
@@ -141,9 +142,9 @@ class ChooseOneOffServiceTypePage extends StatelessWidget {
             ),
             SizedBox(height: 30.h,),
             ServiceTypeContainer(
-              text: 'Project based',
+              text: 'Project-based',
               onTap: () {
-                //Get.to(() => const AddProjectBasedOneoffServiceScreen());
+                Get.to(() =>  const AddProjectBasedOneOffServiceScreen());
               },
             ),
 

@@ -25,6 +25,8 @@ class UserServiceModel {
   final String endDate;
   final String startTime;
   final String eventType;
+  final String oneoffType;
+  final String price;
   final String endTime;
   final String virtualMeetingLink;
   final String physicalLocationAddress;
@@ -55,6 +57,8 @@ class UserServiceModel {
     required this.endDate,
     required this.startTime,
     required this.eventType,
+    required this.oneoffType,
+    required this.price,
     required this.endTime,
     required this.virtualMeetingLink,
     required this.physicalLocationAddress,
@@ -87,6 +91,8 @@ class UserServiceModel {
       startTime: json['start_time'] ?? 'start_time',
       endTime: json['end_time'] ?? 'end_time',
       eventType: json['event_type'] ?? 'event_type',
+      oneoffType: json['oneoff_type'] ?? 'oneoff_type',
+      price: json['price'] ?? 'price',
       virtualMeetingLink: json['virtual_meeting_link'] ?? '',
       physicalLocationAddress: json['physical_location'] ?? '',
       pricing: (json['pricing'] as List<dynamic>?)?.map((detailsJson) => PricingInfo.fromJson(detailsJson)).toList() ?? [],
@@ -113,6 +119,7 @@ class UserServiceModel {
     _data['date'] = date;
     _data['service_link'] = serviceLink;
     _data['pricing'] = pricing;
+
     _data['service_type'] = serviceType;
     _data['service_recurrence'] = serviceRecurrence;
     _data['max_number_of_participants'] = maxNumberOfParticipants;
@@ -121,6 +128,8 @@ class UserServiceModel {
     _data['start_time'] = startTime;
     _data['end_time'] = endTime;
     _data['event_type'] = eventType;
+    _data['oneoff_type'] = oneoffType;
+    _data['price'] = price;
     _data['virtual_meeting_link'] = virtualMeetingLink;
     _data['physical_location'] = physicalLocationAddress;
     _data['availability_schedule'] = availabilitySchedule;

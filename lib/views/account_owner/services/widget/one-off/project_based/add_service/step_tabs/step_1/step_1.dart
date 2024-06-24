@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/project_based/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import '../../../../../../../../../utils/components/reusable_custom_textfield.dart';
 
@@ -18,30 +20,28 @@ import '../../../../../../../../../utils/components/reusable_custom_textfield.da
 
 
 
-class Step1Page extends StatefulWidget {
-  const Step1Page({super.key, required this.onNext});
+class Step1PageOPB extends StatefulWidget {
+  const Step1PageOPB({super.key, required this.onNext});
   final VoidCallback onNext;
 
   @override
-  State<Step1Page> createState() => _Step1PageState();
+  State<Step1PageOPB> createState() => _Step1PageOPBState();
 }
 
-class _Step1PageState extends State<Step1Page> {
+class _Step1PageOPBState extends State<Step1PageOPB> {
 
 
-  var controller = Get.put(ServicesController());
+  final controller = Get.put(ServicesController());
 
   @override
   void initState() {
     // TODO: implement initState
     controller.serviceNameController.addListener(() {
-      
       if(mounted) {
         setState(() {
           controller.isServiceNameTapped.value = controller.serviceNameController.text.isNotEmpty;
         });
       }
-  
     });
     super.initState();
   }
@@ -63,7 +63,7 @@ class _Step1PageState extends State<Step1Page> {
         SizedBox(height: 20.h),
         ReusableTextField(  
           onChanged: (val) {},
-          hintText: "Service name",
+          hintText: "Ex: CV Writing",
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           textController: controller.serviceNameController
@@ -111,8 +111,31 @@ class _Step1PageState extends State<Step1Page> {
             ),
           ],
         ),
+
+        SizedBox(height: 40.h),
+
+        Text(
+          "Pricing",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 20.h),
+
+        AmountTextField(
+          onChanged: (val) {
+            controller.priceController.text = val;
+          },
+          hintText: "${currency(context).currencySymbol} 00.00",
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.done,
+          textController: controller.priceController,
+
+        ),
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.39),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.21),
         
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,

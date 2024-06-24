@@ -12,8 +12,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/screen/add_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/screen/edit_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/channel/choose_service_type_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
 
 
@@ -111,16 +111,11 @@ class _RegularServiceListState extends State<RegularServiceList> {
                 ),
               );
               
-              /*ServiceEmptyState(
-                onPressed: () {
-                  Get.to(() => const AddServiceScreen());
-                },
-              );*/
             }
             if (userService.filterOneoffList.isEmpty) {
               return ServiceEmptyState(
                 onPressed: () {
-                  Get.to(() => const AddServiceScreen());
+                  Get.to(() => const ChooseOneOffServiceTypePage());
                 },
               );
             }
@@ -187,6 +182,8 @@ class _RegularServiceListState extends State<RegularServiceList> {
                                     date: data.date,
                                     time: data.time,
                                     available_days: '',
+                                    oneoffType: data.oneoffType,
+                                    price: data.price
                                   );
                                 },
                                 child: Icon(
@@ -280,7 +277,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: data.oneoffType == 'project based' ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
           children: [
             Text(
               'Pricing:',
@@ -292,7 +289,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(width: 3.w),
-            PopupMenuFilterInt(
+            data.oneoffType == 'project based' ? SizedBox.shrink() :  PopupMenuFilterInt(
               index: serviceIndex, // Use serviceIndex here
               selectedValue: selectedDurationIndex,
               onChanged: (p0) {
@@ -325,7 +322,17 @@ class _RegularServiceListState extends State<RegularServiceList> {
           ],
         ),
         Expanded(
-          child: Column(
+          child: data.oneoffType == 'project based' 
+          ?Text(
+            "${currency(context).currencySymbol}${data.price}",
+            style: GoogleFonts.inter(
+              color: AppColor.bgColor,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w600,
+            ),
+            overflow: TextOverflow.ellipsis,
+          )
+          :Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PopupMenuFilterStr(

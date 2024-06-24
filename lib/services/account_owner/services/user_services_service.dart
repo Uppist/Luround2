@@ -645,6 +645,93 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
 
+  Future<void> createOneOffServicePB({
+    required BuildContext context,
+    required String service_name,
+    required String description,
+    required String price,
+    required List<DaySelectionModel> availability_schedule,
+    
+    }) async {
+
+    isServiceCRLoading.value = true;
+
+    try {
+      
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "availability_day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          //isServiceCRLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+          //log('empty list');
+        }
+      }
+
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "price": price,
+        "service_type": "One-Off",
+        "oneoff_type": "project based",
+        "availability_schedule": availability_scheduleList
+      };
+
+      http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
+      
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        debugPrint("Project Based One-Off service created successfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "Your service has been created successfully"
+        );
+      } 
+      else {
+        isServiceCRLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to create service: ${res.statusCode} || ${res.body}"
+        );
+      }
+    } 
+    catch (e) {
+      isServiceCRLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong: $e");
+    }
+  }
+
+
+
   /////[CREATE A SERVICE FOR LOGGED-IN USER]//////
   Future<void> createOneOffService({
     required BuildContext context,
@@ -719,6 +806,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "service_name": service_name,
         "description": description,
         "service_type": "One-Off",
+        "oneoff_type": "time based",
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
         "availability_schedule": availability_scheduleList
@@ -1081,6 +1169,93 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
   
 
+  Future<void> updateOneOffServicePB({
+    required BuildContext context,
+    required String serviceId,
+    required String service_name,
+    required String description,
+    required String price,
+    required List<DaySelectionModel> availability_schedule,
+
+    
+    }) async {
+
+    isServiceEDLoading.value = true;
+
+    try {
+
+
+      //DaySelectionModel LOOP
+      final List<dynamic> availability_scheduleList = [];
+      for (DaySelectionModel data in availability_schedule) {
+        final String day = data.day;
+        final String from_time = data.startTime!;
+        final String to_time = data.stopTime!;
+
+        // Check if required fields are not empty or undefined
+        if (day.isNotEmpty && from_time.isNotEmpty && to_time.isNotEmpty) {
+          final Map<String, dynamic> map = {
+            "availability_day": day,
+            "from_time": from_time,
+            "to_time": to_time,
+          };
+          availability_scheduleList.add(map);
+
+        } 
+        else {
+          // Handle case where required fields are empty or undefined
+          //isServiceEDLoading.value = false;
+          debugPrint("Error: Required fields are empty or undefined");
+          return; // Stop processing this request
+        }
+      }
+
+
+      var body = {
+        //"email": email,
+        "service_name": service_name,
+        "description": description,
+        "price": price,
+        "service_type": "One-Off",
+        ///"oneoff_type": "project based",
+        "availability_schedule": availability_scheduleList
+      };
+
+      http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint("user service updated by id succesfully");
+        //success snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.darkGreen,
+          message: "service updated successfully"
+        );
+      } 
+      else {
+        isServiceEDLoading.value = false;
+        debugPrint('this is response reason ==> ${res.reasonPhrase}');
+        debugPrint('this is response status ==> ${res.statusCode}');
+        debugPrint('this is response body ==> ${res.body}');
+        //failure snackbar
+        showMySnackBar(
+          context: context,
+          backgroundColor: AppColor.redColor,
+          message: "failed to update service: ${res.statusCode} || ${res.body} "
+        );
+      }
+    } 
+    catch (e) {
+      isServiceEDLoading.value = false;
+      debugPrint("$e");
+      throw Exception("Something went wrong $e");
+    }
+  }
+
+
+
+
   /////[UPDATE/EDIT AN EXISTING SERVICE OF LOGGED-IN USER]//////
   Future<void> updateOneOffService({
     required BuildContext context,
@@ -1157,7 +1332,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "service_type": "One-Off",
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
-        "availability_schedule": availability_scheduleList
+        "availability_schedule": availability_scheduleList,
+        //"oneoff_type": "time based",
       };
 
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);

@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
-import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -22,18 +22,22 @@ import 'package:luround/views/account_owner/services/widget/retainer/add_service
 
 
 
-class Step3PagePackageService extends StatefulWidget{
-  const Step3PagePackageService({super.key,});
+
+class Step3PageOPBEdit extends StatefulWidget{
+  const Step3PageOPBEdit({super.key, required this.serviceId,});
+  final String serviceId;
 
   @override
-  State<Step3PagePackageService> createState() => _Step3PagePackageServiceState();
+  State<Step3PageOPBEdit> createState() => _Step3PageOPBState();
 }
 
-class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
+class _Step3PageOPBState extends State<Step3PageOPBEdit> {
 
-  final mainController = Get.put(PackageServiceController());
+
+  final mainController = Get.put(ServicesController());
   final servicesService = Get.put(AccOwnerServicePageService());
-  final MainPageController controllerMp = Get.put(MainPageController());
+  final MainPageController controller = Get.put(MainPageController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -94,19 +98,19 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           separatorBuilder: (context, index) => SizedBox(height: 20.h,),
-          itemCount: mainController.days.length,
+          itemCount: mainController.daysEdit.length,
           itemBuilder: (context, index) {
     
             return Obx(
               () {
                 //
-                String day = mainController.days[index]['day'];
+                String day = mainController.daysEdit[index]['day'];
                 //
-                bool isSelected = mainController.days[index]['isSelected'];
+                bool isSelected = mainController.daysEdit[index]['isSelected'];
                 //
-                String startTime = mainController.getDaySelection(day)?.startTime ?? "";
+                String startTime = mainController.getDaySelectionEdit(day)?.startTime ?? "";
                 //
-                String stopTime = mainController.getDaySelection(day)?.stopTime ?? "";
+                String stopTime = mainController.getDaySelectionEdit(day)?.stopTime ?? "";
                 
                 return CustomCheckBoxListTile(
                   checkbox: Checkbox.adaptive(
@@ -122,7 +126,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                         //
                         isSelected = value!;
                         //
-                        mainController.toggleDaySelection(
+                        mainController.toggleDaySelectionEdit(
                           index, 
                           day, 
                           value, 
@@ -130,7 +134,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                           stopTime,
                         );
                         //
-                        mainController.isCheckBoxActive.value = true;
+                        mainController.isCheckBoxActiveEdit.value = true;
                       });
                     },
                   ),              
@@ -213,7 +217,7 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
                 
                     ],
                   ),
-                  subtitle: mainController.isCheckBoxActive.value ? const SizedBox() : const SizedBox()
+                  subtitle: mainController.isCheckBoxActiveEdit.value ? const SizedBox() : const SizedBox()
                 );
               }
             );
@@ -223,44 +227,37 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.065),
 
-        //button
         Obx(
           () {
-            return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
-              textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
-              color: mainController.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
+            return servicesService.isServiceEDLoading.value ? const Loader() : RebrandedReusableButton(
+              textColor: mainController.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
+              color: mainController.isCheckBoxActiveEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 
-              onPressed: mainController.isCheckBoxActive.value ? 
-              //widget.onNext
-              () {
-  
-                servicesService.createRetainerService(
+              onPressed: mainController.isCheckBoxActiveEdit.value ? 
+              () {     
+                servicesService.updateOneOffServicePB(
                   context: context,
-                  service_name: mainController.serviceNameController.text, 
-                  description: mainController.descriptionController.text, 
-                  virtual_meeting_link: mainController.addLinksController.text,
-                  pricing: mainController.selectedTimeSlot,
-                  availability_schedule: mainController.selectedDays,
-                  coreFeatures: mainController.inputs,
+                  serviceId: widget.serviceId,
+                  service_name: mainController.serviceNameControllerEdit.text, 
+                  description: mainController.descriptionControllerEdit.text, 
+                  price: mainController.priceControllerEdit.text,
+                  availability_schedule: mainController.selectedDaysEdit
                 ).whenComplete(() {
                   //1
                   setState(() {
-                    mainController.curentStep = mainController.curentStep - 2;
+                    mainController.curentStepEdit.value = mainController.curentStepEdit.value - 1;
                   });
                   //2
-                  mainController.serviceNameController.clear();
-                  mainController.descriptionController.clear();
-                  mainController.addLinksController.clear();
-                  mainController.coreFeaturesController.clear();
-                  mainController.inputs.clear();
-                  mainController.controllersInput.clear();
-                  mainController.selectedDays.clear();
+                  mainController.serviceNameControllerEdit.clear();
+                  mainController.descriptionControllerEdit.clear();
+                  mainController.priceControllerEdit.clear();
+                  mainController.controllersEdit.clear();
+                  mainController.selectedDaysEdit.clear();
                   //3
-                  //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
                   Get.offAll(() => MainPage());
-                });       
-                
-                    
+                  
+                }); 
+                     
               }
               : () {
                 print('nothing');
@@ -273,13 +270,10 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
     );
   }
 
+  
+
   // Function to show the time picker and set the selected time
   void _selectTime(BuildContext context, String timeType, int dayIndex) async {
-    // Ensure the dayIndex is within the valid range
-    /*if (dayIndex < 0 || dayIndex >= controller.days.length) {
-      log('Invalid day index: $dayIndex');
-      return;
-    }*/
 
     // Determine if the user prefers 24-hour format
     bool use24HourFormat = MediaQuery.of(context).alwaysUse24HourFormat;
@@ -298,15 +292,15 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
     if (picked != null) {
       setState(() {
         String formattedTime = picked.format(context);
-        var day = mainController.days[dayIndex]['day'];
+        var day = mainController.daysEdit[dayIndex]['day'];
 
         if (timeType == 'start') {
           // Update the start time for the selected day
           if(day != null) {
             log(formattedTime);
-            mainController.updateStartTime(day, formattedTime,)
+            mainController.updateStartTimeEdit(day, formattedTime,)
             .whenComplete(() {
-              log("${mainController.selectedDays}");
+              log("${mainController.selectedDaysEdit}");
             });
           }
           else{
@@ -317,10 +311,10 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
           // Update the stop time for the selected day
           if(day != null) {
             log(formattedTime);
-            mainController.updateStopTime(day, formattedTime,)
+            mainController.updateStopTimeEdit(day, formattedTime,)
             .whenComplete(() {
               //controller.addDay(day, controller.startTime.text, controller.stopTime.text);
-              log("${mainController.selectedDays}");
+              log("${mainController.selectedDaysEdit}");
             });
           }
           else{
@@ -331,5 +325,6 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
       });
     }
   }
+  
 
 }

@@ -27,6 +27,7 @@ class ServicesController extends getx.GetxController {
   final TextEditingController serviceNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
   final TextEditingController addLinksController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
   
 
   //description textcontroller count
@@ -393,6 +394,7 @@ class ServicesController extends getx.GetxController {
   final TextEditingController serviceNameControllerEdit = TextEditingController();
   final TextEditingController descriptionControllerEdit = TextEditingController();
   final TextEditingController addLinksControllerEdit = TextEditingController();
+  final TextEditingController priceControllerEdit = TextEditingController();
   
   //checks if the user has inputed their prices in order to enable the button
   final isServiceNameTappedEdit = false.obs;
@@ -715,7 +717,9 @@ class ServicesController extends getx.GetxController {
     descriptionController.dispose();
     addLinksController.dispose();
     customTimeSlotController.dispose();
+   priceController.dispose();
 
+    priceControllerEdit.dispose();
     serviceNameControllerEdit.dispose();
     descriptionControllerEdit.dispose();
     addLinksControllerEdit.dispose();

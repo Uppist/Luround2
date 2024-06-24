@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/main/mainpage_controller.dart';
-import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
+import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
@@ -22,18 +22,21 @@ import 'package:luround/views/account_owner/services/widget/retainer/add_service
 
 
 
-class Step3PagePackageService extends StatefulWidget{
-  const Step3PagePackageService({super.key,});
+
+class Step3PageOPB extends StatefulWidget{
+  const Step3PageOPB({super.key,});
 
   @override
-  State<Step3PagePackageService> createState() => _Step3PagePackageServiceState();
+  State<Step3PageOPB> createState() => _Step3PageOPBState();
 }
 
-class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
+class _Step3PageOPBState extends State<Step3PageOPB> {
 
-  final mainController = Get.put(PackageServiceController());
+
+  final mainController = Get.put(ServicesController());
   final servicesService = Get.put(AccOwnerServicePageService());
-  final MainPageController controllerMp = Get.put(MainPageController());
+  final MainPageController controller = Get.put(MainPageController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -223,44 +226,36 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.065),
 
-        //button
         Obx(
           () {
-            return servicesService.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
+            return servicesService.isServiceCRLoading.value ? const Loader() : RebrandedReusableButton(
               textColor: mainController.isCheckBoxActive.value ? AppColor.bgColor : AppColor.darkGreyColor,
               color: mainController.isCheckBoxActive.value ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 
               onPressed: mainController.isCheckBoxActive.value ? 
-              //widget.onNext
-              () {
-  
-                servicesService.createRetainerService(
+              () {     
+                servicesService.createOneOffServicePB(
                   context: context,
                   service_name: mainController.serviceNameController.text, 
                   description: mainController.descriptionController.text, 
-                  virtual_meeting_link: mainController.addLinksController.text,
-                  pricing: mainController.selectedTimeSlot,
-                  availability_schedule: mainController.selectedDays,
-                  coreFeatures: mainController.inputs,
+                  price: mainController.priceController.text,
+                  availability_schedule: mainController.selectedDays
                 ).whenComplete(() {
                   //1
                   setState(() {
-                    mainController.curentStep = mainController.curentStep - 2;
+                    mainController.curentStep = mainController.curentStep - 1;
                   });
                   //2
                   mainController.serviceNameController.clear();
                   mainController.descriptionController.clear();
-                  mainController.addLinksController.clear();
-                  mainController.coreFeaturesController.clear();
-                  mainController.inputs.clear();
-                  mainController.controllersInput.clear();
+                  mainController.priceController.clear();
+                  mainController.controllers.clear();
                   mainController.selectedDays.clear();
                   //3
-                  //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
                   Get.offAll(() => MainPage());
-                });       
-                
-                    
+                  
+                }); 
+                     
               }
               : () {
                 print('nothing');
@@ -272,6 +267,8 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
       ]
     );
   }
+
+  
 
   // Function to show the time picker and set the selected time
   void _selectTime(BuildContext context, String timeType, int dayIndex) async {
@@ -331,5 +328,6 @@ class _Step3PagePackageServiceState extends State<Step3PagePackageService> {
       });
     }
   }
+  
 
 }

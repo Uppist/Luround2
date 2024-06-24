@@ -55,7 +55,11 @@ class _Step2PagePackageServiceState extends State<Step2PagePackageService > {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              child: SizedBox(width: 150.w)
+              child: Icon(
+                CupertinoIcons.check_mark,
+                color: AppColor.darkGreyColor,
+                size: 24.r,
+              ),
             ),
             SizedBox(width: 60.w,),
             Expanded(

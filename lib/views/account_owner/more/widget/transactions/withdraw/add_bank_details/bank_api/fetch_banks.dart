@@ -75,12 +75,13 @@ class _SelectBankScreenForTrxState extends State<SelectBankScreenForTrx> {
 
               //Search textfield//
               SearchBankTextField2(
-                onFieldSubmitted: (p0) {
+                onChanged: (p0) {
                   service.searchBankController.text = p0;
                   controller.selectedBank.value = p0;
                   print("searched bank: ${controller.selectedBank.value}");
                   withdrawalService.filterForSelectBankScreen(p0);
                 },
+                onFieldSubmitted: (p0) {},
                 hintText: 'Search',
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.go,

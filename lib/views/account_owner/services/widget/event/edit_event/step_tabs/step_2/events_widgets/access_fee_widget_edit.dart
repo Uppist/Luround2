@@ -75,7 +75,7 @@ class AccessFeeWidgetEdit extends StatelessWidget {
         //Virtual Field
         Obx(
           () {
-            return priceType.value == 'In-person' || priceType.value == 'Both' ?
+            return priceType.value == 'Virtual' || priceType.value == 'Both' ?
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

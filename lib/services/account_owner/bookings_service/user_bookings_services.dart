@@ -34,10 +34,34 @@ class AccOwnerBookingService extends getx.GetxController {
   var token = LocalStorage.getToken();
 
 
+  //functions for url_launcher (to launch user socials link)
+  Future<void> launchUrlLink({required String link}) async{
+    //String myPhoneNumber = "+234 07040571471";
+    //Uri uri = Uri.parse(myPhoneNumber);
+    Uri linkUri = Uri(
+      scheme: 'https',
+      path: link.replaceFirst("https://", "")
+    );
+    if(await launcher.canLaunchUrl(linkUri)) {
+      launcher.launchUrl(
+        linkUri,
+        mode: launcher.LaunchMode.inAppWebView
+      );
+    }
+    else {
+      throw Exception('Can not launch uri: $linkUri');
+    }
+  }
+
+
+
+
+
 
   /////[GET LOGGED-IN USER'S BOOKINGS LIST]//////
   var dataList = <DetailsModel>[].obs;
   var filteredList = <DetailsModel>[].obs;
+
 
   //FILTER FUNCTIONALITIES////////
   Future<void> filterTrxByPastDate() async{

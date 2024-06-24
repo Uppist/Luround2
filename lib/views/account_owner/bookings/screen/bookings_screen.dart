@@ -141,9 +141,10 @@ class _BookingsPageState extends State<BookingsPage> {
                   //search textfield
                   SearchTextField(
                     onFocusChanged: (val) {},
-                    onFieldSubmitted: (val) {
+                    onChanged: (val) {
                       service.filterBookings(val);
                     },
+                    onFieldSubmitted: (val) {},
                     hintText: "Search",
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.done,  //.search,
@@ -609,13 +610,29 @@ class _BookingsPageState extends State<BookingsPage> {
                                                           ),
                                                         ),
                                                         SizedBox(height: 10.h),
-                                                        Text(
+                                                        item.serviceDetails.appointmentType == "In-Person"
+                                                        ?Text(
                                                           item.serviceDetails.location,
                                                           style: GoogleFonts.inter(
                                                             color: AppColor.blackColor,
                                                             fontSize: 14.sp,
                                                             fontWeight: FontWeight.w500
                                                           ),
+                                                        )
+                                                        :InkWell(
+                                                          onTap: () {
+                                                            service.launchUrlLink(link: item.serviceDetails.location);
+                                                          },
+                                                          child: Text(
+                                                            item.serviceDetails.location,
+                                                            style: GoogleFonts.inter(
+                                                              color: AppColor.blackColor,
+                                                              fontSize: 14.sp,
+                                                              fontWeight: FontWeight.w500,
+                                                              decoration: TextDecoration.underline,
+                                                              decorationColor: AppColor.blackColor
+                                                            ),                                                         
+                                                          )
                                                         ),
                                         
                                         

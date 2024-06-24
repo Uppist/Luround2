@@ -3,7 +3,7 @@ class WalletBalance{
     required this.wallet_balance,
     required this.has_wallet_pin,
   });
-  late final double wallet_balance;
+  late final num wallet_balance;
   late final bool has_wallet_pin;
   
   WalletBalance.fromJson(Map<String, dynamic> json,){

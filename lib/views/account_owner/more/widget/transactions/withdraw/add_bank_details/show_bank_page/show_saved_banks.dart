@@ -78,10 +78,9 @@ class _ShowBanksForTrxState extends State<ShowBanksForTrx> {
           children: [
             SizedBox(height: 30.h),
             SearchBankTextField2(
-              onFieldSubmitted: (p0) {
-                //setState(() {
-                  service.filterSavedBank(p0);
-                //});
+              onFieldSubmitted: (p0) {},
+              onChanged: (p0) {
+                service.filterSavedBank(p0);
               },
               hintText: 'Search',
               keyboardType: TextInputType.name,

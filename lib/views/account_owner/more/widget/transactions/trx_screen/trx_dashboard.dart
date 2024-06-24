@@ -38,14 +38,36 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
 
   late Future<WalletBalance> walletFuture;
 
+  
+  Future<void> refresh() async {
+    await Future.delayed(const Duration(seconds: 1));
+    await fetchData();
+  }
+
+  Future<WalletBalance> fetchData() async {
+    try {
+      WalletBalance data = await service.getUserWalletBalance();
+      log('refreshed wallet balance: $data');
+      return data;
+    } 
+    catch (error) {
+      log("Error fetching data: $error");
+      throw Exception('failed to fetch wallet balance');
+    } 
+    finally {
+      log("done");
+    }
+  }
+
   @override
-  void initState(){
-    walletFuture = service.getUserWalletBalance();
-    WidgetsBinding.instance.addPostFrameCallback((val) {
+  void initState() {
+    walletFuture = fetchData();
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       walletFuture;
     });
-    super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +178,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
             future: walletFuture,
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting) {
-                return Loader2();
+                return const Loader2();
               }
               if(snapshot.hasError) {
                 log('error ${snapshot.error}',);

@@ -38,8 +38,6 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   //GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
-  //late Future<void> fetchDataFuture;
-
   Future<void> fetchData() async {
     try {
       List<InsightInfo> data = await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count);
@@ -63,7 +61,6 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   @override
   void initState() {
     super.initState();
-    //fetchDataFuture = fetchData();
     
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchData();

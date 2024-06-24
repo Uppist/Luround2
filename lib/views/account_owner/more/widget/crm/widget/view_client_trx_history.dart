@@ -102,9 +102,10 @@ class _CRMClientTransactionHistoryState extends State<CRMClientTransactionHistor
               //search textfield
               SearchTextField(
                 onFocusChanged: (val) {},
-                onFieldSubmitted: (val) {
+                onChanged: (val) {
                   service.filterClientTrxHistory(val);
                 },
+                onFieldSubmitted: (val) {},
                 hintText: "Search",
                 keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.done,

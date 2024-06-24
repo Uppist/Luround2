@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -39,25 +38,24 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   //GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
+  //late Future<void> fetchDataFuture;
+
   Future<void> fetchData() async {
     try {
-      // Fetch new data here
-      await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count)
-      .then(
-        (value) {
-          // Update the UI with the new data
-          userService.filterServiceInsightList.clear();
-          userService.filterServiceInsightList.addAll(value);
-          log('updated insight list: ${userService.filterServiceInsightList}');
-        }
-      );
-    }
-    catch (error) {
+      List<InsightInfo> data = await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count);
+      userService.filterServiceInsightList.clear();
+      userService.filterServiceInsightList.addAll(data);
+      log('refreshed insight list: ${userService.filterServiceInsightList}');
+
+    } catch (error) {
       log("Error fetching data: $error");
+    } finally {
+      log("done");
     }
   }
 
-  Future<void> _refresh() async {
+
+  Future<void> refresh() async {
     await Future.delayed(const Duration(seconds: 1));
     await fetchData();
   }
@@ -65,6 +63,8 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   @override
   void initState() {
     super.initState();
+    //fetchDataFuture = fetchData();
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       fetchData();
     });
@@ -119,13 +119,22 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                   child: Obx(
                     () {
                       if (userService.isLoading.value) {
-                        return Loader();
+                        return const Loader();
                       }
                       if (userService.hasError.value) {
-                        return InsightEmptyState(onPressed: () => _refresh,);
+                        log("error ? : ${userService.hasError.value}");
+                        return InsightEmptyState(
+                          onPressed: () {
+                            refresh();
+                          },
+                        );
                       }
                       if (userService.filterServiceInsightList.isEmpty) {
-                        return InsightEmptyState(onPressed: () => _refresh,);
+                        return InsightEmptyState(
+                          onPressed: () {
+                            refresh();
+                          },
+                        );
                       }
                       return 
                         RefreshIndicator.adaptive(
@@ -133,9 +142,10 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                           backgroundColor: AppColor.mainColor,
                           key: _refreshKey,
                           onRefresh: () {
-                            return _refresh();
+                            return refresh();
                           },
                           child: SingleChildScrollView(
+                          scrollDirection: Axis.vertical,
                           physics: const BouncingScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,6 +312,14 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                                 itemBuilder: (context, index){
 
                                   final data = userService.filterServiceInsightList[index];
+
+                                  if (userService.filterServiceInsightList.isEmpty) {
+                                    return InsightEmptyState(
+                                      onPressed: () {
+                                        refresh();
+                                      },
+                                    );
+                                  }
                                   
                                   return Padding(
                                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),

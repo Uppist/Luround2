@@ -80,6 +80,34 @@ class _PriceTypeRadioWidgetState extends State<PriceTypeRadioWidget> {
             ),
           ],
         ),
+        SizedBox(height: 10.h,),
+        //3
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Radio<String>(
+              activeColor: AppColor.mainColor,
+              //toggleable: true,
+              value: "Both",
+              groupValue: widget.selectedValue!.value,
+              onChanged: (String? value) {
+                setState(() {
+                  widget.selectedValue!.value = value!;
+                  log("${widget.selectedValue}");
+                });
+              },
+            ),
+            SizedBox(width: 10.w,),
+            Text(
+              "Both",
+              style: GoogleFonts.inter(
+                color: AppColor.blackColor,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w500
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }

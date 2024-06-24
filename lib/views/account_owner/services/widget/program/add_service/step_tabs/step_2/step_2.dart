@@ -9,7 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/step_tabs/step_1/textfields/amount_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
 
@@ -69,13 +68,10 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              child: Text(
-                "",
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400
-                ),
+              child: Icon(
+                CupertinoIcons.check_mark,
+                color: AppColor.darkGreyColor,
+                size: 24.r,
               ),
             ),
             SizedBox(width: 60.w,),

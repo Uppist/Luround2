@@ -13,7 +13,8 @@ import 'package:luround/views/account_owner/services/widget/retainer/edit_servic
 
 
 class AccessFeeWidgetEdit extends StatelessWidget {
-  AccessFeeWidgetEdit({super.key, required this.inPersonFee, required this.virtualFee});
+  AccessFeeWidgetEdit({super.key, required this.inPersonFee, required this.virtualFee, required this.priceType});
+  final RxString priceType;
   final String inPersonFee;
   final String virtualFee;
 
@@ -32,64 +33,77 @@ class AccessFeeWidgetEdit extends StatelessWidget {
             fontWeight: FontWeight.w500
           ),
         ),
+        
         SizedBox(height: 30.h),
 
         //In-person Field
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                "In-person",
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500
+        Obx(
+          () {
+            return priceType.value == 'In-person' || priceType.value == 'Both' ?
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "In-person",
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            //SizedBox(width: 30.w),
-            Expanded(
-              child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  controller.inPersonPriceControllerEdit.text = val;
-                },
-                hintText: "${currency(context).currencySymbol} 00:00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                initialValue: inPersonFee,
-              ),
-            )
-          ],
+                //SizedBox(width: 30.w),
+                Expanded(
+                  child: AmountTextFieldEdit(  
+                    onChanged: (val) {
+                      controller.inPersonPriceControllerEdit.text = val;
+                    },
+                    hintText: "${currency(context).currencySymbol} 00:00",
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    initialValue: inPersonFee,
+                  ),
+                )
+              ],
+            ) : const SizedBox.shrink();
+          }
         ),
+
         SizedBox(height: 20.h),
+
         //Virtual Field
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                "Virtual",
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500
+        Obx(
+          () {
+            return priceType.value == 'In-person' || priceType.value == 'Both' ?
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "Virtual",
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            //SizedBox(width: 30.w),
-            Expanded(
-              child: AmountTextFieldEdit(  
-                onChanged: (val) {
-                  controller.virtualPriceControllerEdit.text = val;
-                },
-                hintText: "${currency(context).currencySymbol} 00:00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                initialValue: virtualFee,
-              ),
-            )
-          ],
+                //SizedBox(width: 30.w),
+                Expanded(
+                  child: AmountTextFieldEdit(  
+                    onChanged: (val) {
+                      controller.virtualPriceControllerEdit.text = val;
+                    },
+                    hintText: "${currency(context).currencySymbol} 00:00",
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    initialValue: virtualFee,
+                  ),
+                )
+              ],
+            ) : const SizedBox.shrink();
+          }
         ),
       ],
     );

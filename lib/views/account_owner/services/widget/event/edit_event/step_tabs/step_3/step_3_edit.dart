@@ -68,7 +68,16 @@ class _Step3PageEditState extends State<Step3PageEdit> {
           () {
             return controller.priceTypeEdit.value == "Virtual" 
             ? AddLinkWidgetEdit(meetingLink: widget.meetingLink,)
-            : AddLocationWidgetEdit(location: widget.location,);
+            : controller.priceTypeEdit.value == "In-person" 
+            ? AddLocationWidgetEdit(location: widget.location,)
+            :Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AddLinkWidgetEdit(meetingLink: widget.meetingLink,),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                AddLocationWidgetEdit(location: widget.location,)
+              ]
+            );
           }
         ),
 
@@ -83,11 +92,12 @@ class _Step3PageEditState extends State<Step3PageEdit> {
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
 
         AccessFeeWidgetEdit(
+          priceType: controller.priceTypeEdit,
           inPersonFee: widget.inPersonFee,
           virtualFee: widget.virtualFee,
         ),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.12),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
 
         Obx(
           () {
@@ -119,7 +129,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                 ).whenComplete(() {
                   //1
                   setState(() {
-                    controller.curentStepEdit = controller.curentStepEdit - 2;
+                    controller.curentStepEdit.value = controller.curentStepEdit.value - 2;
                     controller.selectedDateEdit.value = '';
                     controller.selectedStartTimeEdit.value = '';
                     controller.selectedStopTimeEdit.value = '';

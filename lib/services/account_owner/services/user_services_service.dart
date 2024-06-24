@@ -436,7 +436,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     // Use the search query to filter the items
     filterServiceInsightList.addAll(
       serviceInsightList.where((item) {
-        String server_date = convertServerTimeToDate(0);  //item.bookings_list[index]['createdAt']
+        String server_date = convertServerTimeToDate(item.date_booked); 
         DateTime convertedDate = convertStringToDateTime(server_date);
         print('Converted Date: $convertedDate');
         // Check if the date is in the past
@@ -460,11 +460,11 @@ class AccOwnerServicePageService extends getx.GetxController {
     filterServiceInsightList.addAll(
   
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(0); //item.serviceDetails.createdAt
+        String serverDate = convertServerTimeToDate(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is today
-        if (convertedDate.isAfter(today.subtract(Duration(days: 1)))) {
+        if (convertedDate.isAfter(today.subtract(const Duration(days: 1)))) {
           return true; // Include the item in the filtered list
         }
         return false; // If not found in any detail, exclude the item
@@ -476,7 +476,7 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   Future<void> filterInsightByYesterday() async{
     DateTime today = DateTime.now();
-    DateTime yesterday = today.subtract(Duration(days: 1));
+    DateTime yesterday = today.subtract(const Duration(days: 1));
 
     // Clear the filteredList so new values can come i n 
     filterServiceInsightList.clear();
@@ -485,7 +485,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     filterServiceInsightList.addAll(
   
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(0); //item.serviceDetails.createdAt
+        String serverDate = convertServerTimeToDate(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is exactly equal to yesterday
@@ -503,7 +503,7 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   Future<void> filterInsightByLastSevenDays() async{
     DateTime today = DateTime.now();
-    DateTime sevenDaysAgo = today.subtract(Duration(days: 7));
+    DateTime sevenDaysAgo = today.subtract(const Duration(days: 7));
 
     // Clear the filteredList so new values can come i n 
     filterServiceInsightList.clear();
@@ -511,7 +511,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     // Use the search query to filter the items
     filterServiceInsightList.addAll(
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(0); //item.serviceDetails.createdAt
+        String serverDate = convertServerTimeToDate(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is within the last seven days
@@ -528,7 +528,7 @@ class AccOwnerServicePageService extends getx.GetxController {
 
   Future<void> filterInsightByLastThirtyDays() async{
     DateTime today = DateTime.now();
-    DateTime thirtyDaysAgo = today.subtract(Duration(days: 30));
+    DateTime thirtyDaysAgo = today.subtract(const Duration(days: 30));
 
     // Clear the filteredList so new values can come i n 
     filterServiceInsightList.clear();
@@ -536,7 +536,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     // Use the search query to filter the items
     filterServiceInsightList.addAll(
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(0);  //item.serviceDetails.createdAt
+        String serverDate = convertServerTimeToDate(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is within the last seven days
@@ -573,12 +573,10 @@ class AccOwnerServicePageService extends getx.GetxController {
 
         List<dynamic> result2 = response[1]['bookings'];
         final finalResult = result2.map((e) => InsightInfo.fromJson(e)).toList();
-        //finalResult.sort((a, b) => a.bookings_list[index].customer_name .toString().compareTo(b.bookings_list[index].customer_name.toString()));
+        finalResult.sort((a, b) => a.customer_name .toString().compareTo(b.customer_name.toString()));
         serviceInsightList.clear();
         serviceInsightList.addAll(finalResult);
 
-        //decode the response body here
-        //UserServiceInsightModel userServiceInsightModel = UserServiceInsightModel.fromJson(jsonDecode(res.body));
         return serviceInsightList;
       }
       else {
@@ -586,7 +584,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.body}');
+        debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load this service insight');
       }
     } 

@@ -13,7 +13,8 @@ import 'package:luround/views/account_owner/services/widget/one-off/time_based/a
 
 
 class AccessFeeWidget extends StatelessWidget {
-  AccessFeeWidget({super.key});
+  AccessFeeWidget({super.key, required this.priceType});
+  final RxString priceType;
 
   final controller = Get.put(EventsController());
 
@@ -30,60 +31,73 @@ class AccessFeeWidget extends StatelessWidget {
             fontWeight: FontWeight.w500
           ),
         ),
+        
         SizedBox(height: 30.h),
 
         //In-person Field
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                "In-person",
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500
+        Obx(
+          () {
+            return priceType.value == 'In-person' || priceType.value == 'Both' ?
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "In-person",
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            //SizedBox(width: 30.w),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "${currency(context).currencySymbol} 00:00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                textController: controller.inPersonPriceController
-              ),
-            )
-          ],
+                //SizedBox(width: 30.w),
+                Expanded(
+                  child: AmountTextField(  
+                    onChanged: (val) {},
+                    hintText: "${currency(context).currencySymbol} 00:00",
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    textController: controller.inPersonPriceController
+                  ),
+                )
+              ],
+            ) : const SizedBox.shrink();
+          }
         ),
+
         SizedBox(height: 20.h),
+
         //Virtual Field
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                "Virtual",
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500
+        Obx(
+          () {
+            return priceType.value == 'Virtual' || priceType.value == 'Both' ?
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    "Virtual",
+                    style: GoogleFonts.inter(
+                      color: AppColor.darkGreyColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            //SizedBox(width: 30.w),
-            Expanded(
-              child: AmountTextField(  
-                onChanged: (val) {},
-                hintText: "${currency(context).currencySymbol} 00:00",
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.done,
-                textController: controller.virtualPriceController
-              ),
-            )
-          ],
+                //SizedBox(width: 30.w),
+                Expanded(
+                  child: AmountTextField(  
+                    onChanged: (val) {},
+                    hintText: "${currency(context).currencySymbol} 00:00",
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    textController: controller.virtualPriceController
+                  ),
+                )
+              ],
+            ) : const SizedBox.shrink();
+          }
         ),
       ],
     );

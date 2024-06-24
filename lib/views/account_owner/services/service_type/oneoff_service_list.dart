@@ -211,7 +211,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             scrollDirection: Axis.vertical,
                             physics: const NeverScrollableScrollPhysics(),
                             itemCount: data.availabilitySchedule.length,
-                            separatorBuilder: (context, index) => SizedBox(height: 10.h),
+                            separatorBuilder: (context, indexAV) => SizedBox(height: 10.h),
                             itemBuilder: (context, indexAV) {
                               final availData = data.availabilitySchedule[indexAV];
                               return _buildRichText('${availData.availability_day}:  ', '${availData.from_time} - ${availData.to_time}');
@@ -267,7 +267,6 @@ class _RegularServiceListState extends State<RegularServiceList> {
   }
 
 
-
   Widget _buildPricingSection(UserServiceModel data, int serviceIndex) {
     // Ensure you have a unique identifier for each service, like data.serviceId
     int selectedDurationIndex = controller.selectedDurationIndexes[data.serviceId] ?? 0; // Default to 0 if not set
@@ -277,7 +276,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: data.oneoffType == 'project based' ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
               'Pricing:',
@@ -289,7 +288,10 @@ class _RegularServiceListState extends State<RegularServiceList> {
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(width: 3.w),
-            data.oneoffType == 'project based' ? SizedBox.shrink() :  PopupMenuFilterInt(
+
+            data.oneoffType == 'project based' ? const SizedBox.shrink() :  
+
+            PopupMenuFilterInt(
               index: serviceIndex, // Use serviceIndex here
               selectedValue: selectedDurationIndex,
               onChanged: (p0) {
@@ -322,7 +324,9 @@ class _RegularServiceListState extends State<RegularServiceList> {
           ],
         ),
         Expanded(
-          child: data.oneoffType == 'project based' 
+          child: 
+          
+          data.oneoffType == 'project based' 
           ?Text(
             "${currency(context).currencySymbol}${data.price}",
             style: GoogleFonts.inter(
@@ -331,8 +335,9 @@ class _RegularServiceListState extends State<RegularServiceList> {
               fontWeight: FontWeight.w600,
             ),
             overflow: TextOverflow.ellipsis,
-          )
-          :Column(
+          ):
+
+          Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PopupMenuFilterStr(

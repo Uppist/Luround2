@@ -69,13 +69,10 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Expanded(
-              child: Text(
-                "",
-                style: GoogleFonts.inter(
-                  color: AppColor.darkGreyColor,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400
-                ),
+              child: Icon(
+                CupertinoIcons.check_mark,
+                color: AppColor.darkGreyColor,
+                size: 24.r,
               ),
             ),
             SizedBox(width: 60.w,),

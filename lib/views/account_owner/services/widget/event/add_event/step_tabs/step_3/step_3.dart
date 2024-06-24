@@ -59,7 +59,17 @@ class _Step3PageState extends State<Step3Page> {
           () {
             return controller.priceType.value == "Virtual" 
             ? AddLinkWidget()
-            : AddLocationWidget();
+            : controller.priceType.value == "In-person" 
+            ? AddLocationWidget()
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AddLinkWidget(),
+                  SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                  AddLocationWidget()
+                ]
+            );
+
           }
         ),
 
@@ -73,13 +83,13 @@ class _Step3PageState extends State<Step3Page> {
 
         SizedBox(height: MediaQuery.of(context).size.height * 0.04),
 
-        AccessFeeWidget(),
+        AccessFeeWidget(priceType: controller.priceType),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.12),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.10),
 
         Obx(
           () {
-            return service.isServiceCRLoading.value ? Loader() : RebrandedReusableButton(
+            return service.isServiceCRLoading.value ? const Loader() : RebrandedReusableButton(
               textColor: controller.priceType.value.isNotEmpty ? AppColor.bgColor : AppColor.darkGreyColor,
               color: controller.priceType.value.isNotEmpty ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 
@@ -121,7 +131,7 @@ class _Step3PageState extends State<Step3Page> {
                   controller.virtualPriceController.clear();
                   //3
                   //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
-                  Get.offAll(() => MainPage());
+                  Get.offAll(() => const MainPage());
                 });
 
               }

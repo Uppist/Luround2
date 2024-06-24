@@ -15,7 +15,7 @@ import 'package:luround/views/account_owner/services/widget/retainer/edit_servic
 
 
 class AddLinkWidgetEdit extends StatelessWidget {
-  AddLinkWidgetEdit({super.key, required this.meetingLink});
+  AddLinkWidgetEdit({super.key, required this.meetingLink,});
   final String meetingLink;
 
   final controller = Get.put(EventsController());

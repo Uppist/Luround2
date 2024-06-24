@@ -36,7 +36,14 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
   var service = Get.put(WithdrawalService());
   bool isTapped = false;
 
+  late Future<WalletBalance> walletFuture;
+
+  @override
   void initState(){
+    walletFuture = service.getUserWalletBalance();
+    WidgetsBinding.instance.addPostFrameCallback((val) {
+      walletFuture;
+    });
     super.initState();
   }
 
@@ -146,7 +153,7 @@ class _TrxDashBoardState extends State<TrxDashBoard> {
 
           ////////
           FutureBuilder<WalletBalance>(
-            future: service.getUserWalletBalance(),
+            future: walletFuture,
             builder: (context, snapshot) {
               if(snapshot.connectionState == ConnectionState.waiting) {
                 return Loader2();

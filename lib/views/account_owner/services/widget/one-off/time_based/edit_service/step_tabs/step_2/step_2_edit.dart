@@ -13,8 +13,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/edit_service/step_tabs/step_1/textfields/edit_normal_textfield.dart';
-import '../../../../program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/step_tabs/step_1/textfields/edit_normal_textfield.dart';
+import '../../../../../program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
 
 
 

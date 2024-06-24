@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/title_text.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_2/step_2.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_3/step_3.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/step_tabs/step_2/step_2.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/step_tabs/step_3/step_3.dart';
 import '../step_tabs/step_1/step_1.dart';
 
 

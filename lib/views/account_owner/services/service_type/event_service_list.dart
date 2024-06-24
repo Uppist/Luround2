@@ -337,10 +337,10 @@ class _EventServiceListState extends State<EventServiceList> {
             controller.selectedFieldIndex.value == 'Virtual'
                 ? data.serviceChargeVirtual.isNotEmpty
                     ? currency(context).currencySymbol + data.serviceChargeVirtual
-                    : 'FREE'
+                    : "Unavailable"
                 : data.serviceChargeInPerson.isNotEmpty
                     ? currency(context).currencySymbol + data.serviceChargeInPerson
-                    : 'FREE',
+                    : "Unavailable",
             style: GoogleFonts.inter(
               color: AppColor.bgColor,
               fontSize: 20.sp,

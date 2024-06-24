@@ -376,10 +376,10 @@ class _PackageServiceListState extends State<PackageServiceList> {
                   controller.selectedFieldIndex.value == 'Virtual'
                   ? data.pricing[selectedDurationIndex].virtual_pricing.isNotEmpty
                   ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].virtual_pricing}"
-                  : "FREE"
+                  : "Unavailable"
                   : data.pricing[selectedDurationIndex].in_person_pricing.isNotEmpty
                   ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].in_person_pricing}"
-                  : "FREE",
+                  : "Unavailable",
                   style: GoogleFonts.inter(
                     color: AppColor.bgColor,
                     fontSize: 20.sp,

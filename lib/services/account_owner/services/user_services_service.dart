@@ -4,7 +4,6 @@ import 'package:get/get.dart' as getx;
 import 'package:get/get.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/models/account_owner/ui/dayselection_model.dart';
-import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/models/account_owner/user_services/service_insight.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -664,9 +663,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       //PRICING LOOP
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
-        final String time_allocation = data.time_allocation;
-        final String virtual = data.virtual_pricing;
-        final String in_person = data.in_person_pricing;
+        final String time_allocation = data.time_allocation ;
+        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
+        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -779,8 +778,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
         final String time_allocation = data.time_allocation;
-        final String virtual = data.virtual_pricing;
-        final String in_person = data.in_person_pricing;
+
+        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
+        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -1102,8 +1102,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
         final String time_allocation = data.time_allocation;
-        final String virtual = data.virtual_pricing;
-        final String in_person = data.in_person_pricing;
+
+        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
+        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
@@ -1212,8 +1213,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
         final String time_allocation = data.time_allocation;
-        final String virtual = data.virtual_pricing;
-        final String in_person = data.in_person_pricing;
+
+        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
+        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
         // Check if required fields are not empty or undefined
         if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {

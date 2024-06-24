@@ -12,8 +12,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
 import 'package:luround/views/account_owner/services/screen/service_empty_state.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/screen/add_service_screen.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/edit_service/screen/edit_service_bottomsheet.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/screen/add_service_screen.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/screen/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
 
 
@@ -355,10 +355,10 @@ class _RegularServiceListState extends State<RegularServiceList> {
                   controller.selectedFieldIndex.value == 'Virtual'
                   ? data.pricing[selectedDurationIndex].virtual_pricing.isNotEmpty
                   ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].virtual_pricing}"
-                  : "FREE"
+                  : "Unavailable"
                   : data.pricing[selectedDurationIndex].in_person_pricing.isNotEmpty
                   ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].in_person_pricing}"
-                  : "FREE",
+                  : "Unavailable",
                   style: GoogleFonts.inter(
                     color: AppColor.bgColor,
                     fontSize: 20.sp,

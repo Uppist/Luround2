@@ -9,7 +9,7 @@ import 'package:luround/services/account_owner/services/user_services_service.da
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/edit_service/screen/edit_service.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/screen/edit_service.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/switch_widget_suspend.dart';
 

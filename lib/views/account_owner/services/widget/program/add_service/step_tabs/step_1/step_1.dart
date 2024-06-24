@@ -8,7 +8,7 @@ import 'package:luround/controllers/account_owner/services/program_service/progr
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/add_service/step_tabs/step_1/textfields/description_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/start_date_box.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/stop_date_box.dart';
 

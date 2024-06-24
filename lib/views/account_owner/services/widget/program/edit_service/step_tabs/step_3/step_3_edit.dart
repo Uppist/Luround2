@@ -14,7 +14,7 @@ import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/services/widget/one-off/edit_service/step_tabs/step_1/textfields/amount_textfield_edit.dart';
+import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/step_tabs/step_1/textfields/amount_textfield_edit.dart';
 
 
 

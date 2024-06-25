@@ -69,8 +69,8 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
           children: [
             Expanded(
               child: Icon(
-                CupertinoIcons.check_mark,
-                color: AppColor.darkGreyColor,
+                Icons.check_box,
+                color: AppColor.mainColor,
                 size: 24.r,
               ),
             ),

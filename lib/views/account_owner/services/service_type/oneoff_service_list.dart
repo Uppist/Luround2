@@ -136,6 +136,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                   itemCount: userService.filterOneoffList.length,
                   separatorBuilder: (context, index) => SizedBox(height: 25.h),
                   itemBuilder: (context, index) {
+                    
                     final data = userService.filterOneoffList[index];
               
                     return Container(
@@ -197,6 +198,8 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           SizedBox(height: 20.h),
                           _buildRichText('Service type:  ', data.serviceType.capitalizeFirst!),
                           SizedBox(height: 25.h),
+
+                          data.oneoffType == 'project based' ? const SizedBox.shrink():
                           Text(
                             "Available on",
                             style: GoogleFonts.inter(
@@ -206,6 +209,8 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             ),
                           ),
                           SizedBox(height: 20.h),
+
+                          data.oneoffType == 'project based' ? const SizedBox.shrink():
                           ListView.separated(
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
@@ -218,7 +223,10 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             },
                           ),
                           SizedBox(height: 30.h),
-                          _buildPricingSection(data, index),
+                          
+                          data.oneoffType == 'project based'
+                          ?_buildPricingSectionForPB(data)
+                          :_buildPricingSection(data, index),
                           SizedBox(height: 40.h),
                           Text(
                             data.description,
@@ -267,6 +275,44 @@ class _RegularServiceListState extends State<RegularServiceList> {
   }
 
 
+  Widget _buildPricingSectionForPB(UserServiceModel data) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              'Pricing:',
+              style: GoogleFonts.inter(
+                color: AppColor.whiteTextColor,
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w500,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+            SizedBox(width: 3.w),
+
+            Expanded(
+              child: Text(
+                "${currency(context).currencySymbol}${data.price}",
+                style: GoogleFonts.inter(
+                  color: AppColor.bgColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+                overflow: TextOverflow.ellipsis,
+              )
+            )
+          ]
+        )
+      ]
+    );
+  }
+
+
+
   Widget _buildPricingSection(UserServiceModel data, int serviceIndex) {
     // Ensure you have a unique identifier for each service, like data.serviceId
     int selectedDurationIndex = controller.selectedDurationIndexes[data.serviceId] ?? 0; // Default to 0 if not set
@@ -288,8 +334,6 @@ class _RegularServiceListState extends State<RegularServiceList> {
               overflow: TextOverflow.ellipsis,
             ),
             SizedBox(width: 3.w),
-
-            data.oneoffType == 'project based' ? const SizedBox.shrink() :  
 
             PopupMenuFilterInt(
               index: serviceIndex, // Use serviceIndex here
@@ -324,20 +368,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
           ],
         ),
         Expanded(
-          child: 
-          
-          data.oneoffType == 'project based' 
-          ?Text(
-            "${currency(context).currencySymbol}${data.price}",
-            style: GoogleFonts.inter(
-              color: AppColor.bgColor,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600,
-            ),
-            overflow: TextOverflow.ellipsis,
-          ):
-
-          Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               PopupMenuFilterStr(
@@ -379,26 +410,25 @@ class _RegularServiceListState extends State<RegularServiceList> {
                   overflow: TextOverflow.ellipsis,
                 );
               }
-            ),
-            
-            SizedBox(height: 5.h),
-          
-            Text(
-              "for ${data.pricing[selectedDurationIndex].time_allocation} session",
-              style: GoogleFonts.inter(
-                color: AppColor.whiteTextColor,
-                fontSize: 10.sp,
-                fontWeight: FontWeight.w500,
               ),
-            )
             
-      
-          ],
+              SizedBox(height: 5.h),
+          
+              Text(
+                "for ${data.pricing[selectedDurationIndex].time_allocation} session",
+                style: GoogleFonts.inter(
+                  color: AppColor.whiteTextColor,
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.w500,
+                ),
+              )
+            
+            ],
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
   
 }

@@ -71,8 +71,8 @@ class _Step3PageEditState extends State<Step3PageEdit> {
           children: [
             Expanded(
               child: Icon(
-                CupertinoIcons.check_mark,
-                color: AppColor.darkGreyColor,
+                Icons.check_box,
+                color: AppColor.mainColor,
                 size: 24.r,
               ),
             ),

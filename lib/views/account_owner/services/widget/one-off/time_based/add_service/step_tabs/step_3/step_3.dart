@@ -59,8 +59,8 @@ class _Step3PageState extends State<Step3Page> {
           children: [
             Expanded(
               child: Icon(
-                CupertinoIcons.check_mark,
-                color: AppColor.darkGreyColor,
+                Icons.check_box,
+                color: AppColor.mainColor,
                 size: 24.r,
               ),
             ),

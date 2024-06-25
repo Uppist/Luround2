@@ -55,8 +55,8 @@ class _Step2PageEditState extends State<Step2PageEdit> {
           children: [
             Expanded(
               child: Icon(
-                CupertinoIcons.check_mark,
-                color: AppColor.darkGreyColor,
+                Icons.check_box,
+                color: AppColor.mainColor,
                 size: 24.r,
               ),
             ),

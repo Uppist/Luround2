@@ -60,8 +60,8 @@ class _Step3PageOPBState extends State<Step3PageOPBEdit> {
           children: [
             Expanded(
               child: Icon(
-                CupertinoIcons.check_mark,
-                color: AppColor.darkGreyColor,
+                Icons.check_box,
+                color: AppColor.mainColor,
                 size: 24.r,
               ),
             ),

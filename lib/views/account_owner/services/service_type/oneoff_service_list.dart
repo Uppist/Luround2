@@ -199,7 +199,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           _buildRichText('Service type:  ', data.serviceType.capitalizeFirst!),
                           SizedBox(height: 25.h),
 
-                          data.oneoffType == 'project based' ? const SizedBox.shrink():
+                          //data.oneoffType == 'project based' ? const SizedBox.shrink():
                           Text(
                             "Available on",
                             style: GoogleFonts.inter(
@@ -210,7 +210,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                           ),
                           SizedBox(height: 20.h),
 
-                          data.oneoffType == 'project based' ? const SizedBox.shrink():
+                          //data.oneoffType == 'project based' ? const SizedBox.shrink():
                           ListView.separated(
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
@@ -223,7 +223,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             },
                           ),
                           SizedBox(height: 30.h),
-                          
+
                           data.oneoffType == 'project based'
                           ?_buildPricingSectionForPB(data)
                           :_buildPricingSection(data, index),
@@ -278,34 +278,26 @@ class _RegularServiceListState extends State<RegularServiceList> {
   Widget _buildPricingSectionForPB(UserServiceModel data) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              'Pricing:',
-              style: GoogleFonts.inter(
-                color: AppColor.whiteTextColor,
-                fontSize: 12.sp,
-                fontWeight: FontWeight.w500,
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(width: 3.w),
-
-            Expanded(
-              child: Text(
-                "${currency(context).currencySymbol}${data.price}",
-                style: GoogleFonts.inter(
-                  color: AppColor.bgColor,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                ),
-                overflow: TextOverflow.ellipsis,
-              )
-            )
-          ]
+        Text(
+          'Pricing:',
+          style: GoogleFonts.inter(
+            color: AppColor.whiteTextColor,
+            fontSize: 12.sp,
+            fontWeight: FontWeight.w500,
+          ),
+          overflow: TextOverflow.ellipsis,
+        ),
+        //SizedBox(width: 3.w),
+        Text(
+          "${currency(context).currencySymbol}${data.price}",
+          style: GoogleFonts.inter(
+            color: AppColor.bgColor,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w600,
+          ),
+          overflow: TextOverflow.ellipsis,
         )
       ]
     );

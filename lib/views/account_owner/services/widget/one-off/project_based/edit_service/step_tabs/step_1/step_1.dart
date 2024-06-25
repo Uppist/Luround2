@@ -41,13 +41,13 @@ class _Step1PageOPBEditState extends State<Step1PageOPBEdit> {
   @override
   void initState() {
     // TODO: implement initState
-    controller.serviceNameControllerEdit.addListener(() {
+    /*controller.serviceNameControllerEdit.addListener(() {
       if(mounted) {
         setState(() {
           controller.isServiceNameTappedEdit.value = controller.serviceNameControllerEdit.text.isNotEmpty;
         });
       }
-    });
+    });*/
     super.initState();
   }
 

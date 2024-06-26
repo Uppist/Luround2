@@ -144,14 +144,10 @@ class _Step1PageOPBEditState extends State<Step1PageOPBEdit> {
         SizedBox(height: MediaQuery.of(context).size.height * 0.21),
         
         RebrandedReusableButton(
-          textColor: controller.isServiceNameTappedEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,
-          color: controller.isServiceNameTappedEdit.value ? AppColor.mainColor : AppColor.lightPurple, 
+          textColor: AppColor.bgColor,
+          color: AppColor.mainColor,
           text: "Next", 
-          onPressed: controller.isServiceNameTappedEdit.value ? 
-          widget.onNext
-          : () {
-           log('nothing');
-          },
+          onPressed: widget.onNext
         ),
         //SizedBox(height: 20.h,),
 

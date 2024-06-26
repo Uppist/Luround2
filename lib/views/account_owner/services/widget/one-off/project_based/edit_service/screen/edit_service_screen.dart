@@ -145,6 +145,9 @@ class _EditProjectBasedOneOffServiceScreenState extends State<EditProjectBasedOn
             isActive: controller.curentStepEdit.value >= 1,
             content: Step3PageOPBEdit(
               serviceId: widget.serviceId,
+              serviceName: widget.serviceName,
+              description: widget.description,
+              price: widget.price,
             )
           ),
         ]

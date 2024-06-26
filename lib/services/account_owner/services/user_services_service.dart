@@ -1215,7 +1215,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "description": description,
         "price": price,
         "service_type": "One-Off",
-        ///"oneoff_type": "project based",
+        "oneoff_type": "project based",
         "availability_schedule": availability_scheduleList
       };
 
@@ -1331,7 +1331,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
         "availability_schedule": availability_scheduleList,
-        //"oneoff_type": "time based",
+        "oneoff_type": "time based",
       };
 
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);

@@ -24,8 +24,11 @@ import 'package:luround/views/account_owner/services/widget/retainer/add_service
 
 
 class Step3PageOPBEdit extends StatefulWidget{
-  const Step3PageOPBEdit({super.key, required this.serviceId,});
+  const Step3PageOPBEdit({super.key, required this.serviceId, required this.serviceName, required this.description, required this.price,});
   final String serviceId;
+  final String serviceName;
+  final String description;
+  final String price;
 
   @override
   State<Step3PageOPBEdit> createState() => _Step3PageOPBState();
@@ -238,9 +241,9 @@ class _Step3PageOPBState extends State<Step3PageOPBEdit> {
                 servicesService.updateOneOffServicePB(
                   context: context,
                   serviceId: widget.serviceId,
-                  service_name: mainController.serviceNameControllerEdit.text, 
-                  description: mainController.descriptionControllerEdit.text, 
-                  price: mainController.priceControllerEdit.text,
+                  service_name: mainController.serviceNameControllerEdit.text.isNotEmpty ? mainController.serviceNameControllerEdit.text : widget.serviceName, 
+                  description: mainController.descriptionControllerEdit.text.isNotEmpty ? mainController.descriptionControllerEdit.text : widget.description , 
+                  price: mainController.priceControllerEdit.text.isNotEmpty ? mainController.priceControllerEdit.text : widget.price,
                   availability_schedule: mainController.selectedDaysEdit
                 ).whenComplete(() {
                   //1

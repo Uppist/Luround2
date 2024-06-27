@@ -277,7 +277,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
 
   Widget _buildPricingSectionForPB(UserServiceModel data) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
@@ -289,7 +289,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
           ),
           overflow: TextOverflow.ellipsis,
         ),
-        //SizedBox(width: 3.w),
+        SizedBox(width: 5.w),
         Text(
           "${currency(context).currencySymbol}${data.price}",
           style: GoogleFonts.inter(

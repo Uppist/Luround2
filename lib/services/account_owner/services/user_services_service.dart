@@ -749,27 +749,17 @@ class AccOwnerServicePageService extends getx.GetxController {
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
         final String time_allocation = data.time_allocation ;
-        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
+        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing : '';
         final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
-        // Check if required fields are not empty or undefined
-        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
-          final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual_pricing": virtual,
-            "in_person_pricing": in_person,
-          };
-          pricingList.add(map);
-          log("pricing_list: $pricingList");
+        final Map<String, dynamic> map = {
+          "time_allocation": time_allocation,
+          "virtual_pricing": virtual,
+          "in_person_pricing": in_person,
+        };
+        pricingList.add(map);
+        log("pricing_list: $pricingList");
 
-        } 
-        else {
-          // Handle case where required fields are empty or undefined
-          //isServiceCRLoading.value = false;
-          debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
-          //log("empty list");
-        }
       }
 
       //DaySelectionModel LOOP
@@ -868,22 +858,12 @@ class AccOwnerServicePageService extends getx.GetxController {
         final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
         final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
-        // Check if required fields are not empty or undefined
-        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
-          final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual_pricing": virtual,
-            "in_person_pricing": in_person,
-          };
-          pricingList.add(map);
-
-        } 
-        else {
-          // Handle case where required fields are empty or undefined
-          //isServiceCRLoading.value = false;
-          debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
-        }
+        final Map<String, dynamic> map = {
+          "time_allocation": time_allocation,
+          "virtual_pricing": virtual,
+          "in_person_pricing": in_person,
+        };
+        pricingList.add(map);
       }
 
       //DaySelectionModel LOOP
@@ -1280,21 +1260,12 @@ class AccOwnerServicePageService extends getx.GetxController {
         final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
         // Check if required fields are not empty or undefined
-        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
-          final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual_pricing": virtual,
-            "in_person_pricing": in_person,
-          };
-          pricingList.add(map);
-
-        } 
-        else {
-          // Handle case where required fields are empty or undefined
-          //isServiceEDLoading.value = false;
-          debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
-        }
+        final Map<String, dynamic> map = {
+          "time_allocation": time_allocation,
+          "virtual_pricing": virtual,
+          "in_person_pricing": in_person,
+        };
+        pricingList.add(map);
       }
 
       //DaySelectionModel LOOP
@@ -1388,25 +1359,15 @@ class AccOwnerServicePageService extends getx.GetxController {
       for (PricingInfo data in pricing) {
         final String time_allocation = data.time_allocation;
 
-        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
+        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing : '';
         final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
 
-        // Check if required fields are not empty or undefined
-        if (time_allocation.isNotEmpty && virtual.isNotEmpty && in_person.isNotEmpty) {
-          final Map<String, dynamic> map = {
-            "time_allocation": time_allocation,
-            "virtual_pricing": virtual,
-            "in_person_pricing": in_person,
-          };
-          pricingList.add(map);
-
-        } 
-        else {
-          // Handle case where required fields are empty or undefined
-          //isServiceEDLoading.value = false;
-          debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
-        }
+        final Map<String, dynamic> map = {
+          "time_allocation": time_allocation,
+          "virtual_pricing": virtual,
+          "in_person_pricing": in_person,
+        };
+        pricingList.add(map);
       }
 
       //DaySelectionModel LOOP

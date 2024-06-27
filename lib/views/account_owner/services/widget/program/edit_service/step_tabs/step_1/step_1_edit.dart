@@ -10,6 +10,7 @@ import 'package:luround/views/account_owner/services/widget/program/edit_service
 import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_1/new/stop_date_box.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_1/textfields/description_textfield_edit.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_1/textfields/edit_normal_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/program/edit_service/step_tabs/step_2/dropdows/recurrence_dropdown_edit.dart';
 
 
 
@@ -151,9 +152,21 @@ class _Step1PageProgramServiceEditState extends State<Step1PageProgramServiceEdi
         ),
         SizedBox(height: 30.h),
         StopDateBoxProgramEdit(),
+        
+        SizedBox(height: 30.h),
+        Text(
+          "Set recurrence",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 30.h,),
+        ProgramServiceRecurrenceEdit(),
 
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
 
         RebrandedReusableButton(
           textColor: AppColor.bgColor,

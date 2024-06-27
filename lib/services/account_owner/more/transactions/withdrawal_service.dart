@@ -18,10 +18,10 @@ import 'package:luround/utils/components/converters.dart';
 import 'package:luround/utils/components/generate_random_string.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/mainpage/screen/mainpage.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/confirm_otp_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_success_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/otp/first_timer/confirm_otp_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/select_country/select_country.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/wallet/screen/transfer_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/wallet/screen/transfer_success_screen.dart';
 
 
 

@@ -11,8 +11,8 @@ import 'package:luround/services/account_owner/more/transactions/withdrawal_serv
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/toggle_account_balance.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/first_timer/otp_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/select_country.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/otp/first_timer/otp_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/select_country/select_country.dart';
 
 
 

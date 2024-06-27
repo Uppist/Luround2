@@ -10,8 +10,6 @@ import 'package:luround/controllers/account_owner/services/program_service/progr
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
-import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
-
 
 
 
@@ -31,28 +29,13 @@ class Step2PageProgramService  extends StatefulWidget {
 
 class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
   
-  var controller = Get.put(ProgramServiceController());
+  final controller = Get.put(ProgramServiceController());
   
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-
-        Text(
-          "Set recurrence",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-        SizedBox(height: 30.h,),
-        //SizedBox(height: 20.h),
-        ProgramServiceRecurrence(),
-        
-        SizedBox(height: 40.h),
-
         Text(
           "Day and Time Availability",
           style: GoogleFonts.inter(

@@ -12,7 +12,7 @@ import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/settings/widget/add_bank_details/bank_api/select_bank.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/bank_field_flipper_2.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/bank_field_flipper_2.dart';
 
 
 

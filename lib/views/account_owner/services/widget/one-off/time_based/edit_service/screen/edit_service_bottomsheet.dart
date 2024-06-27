@@ -28,6 +28,7 @@ Future<void> editServiceDialogueBox({
   required String serviceId,
   required String service_status,
   required String service_name, 
+  required String serviceLink,
   required String description, 
   required String virtual_meeting_link, 
   required String service_charge_in_person, 
@@ -200,8 +201,8 @@ Future<void> editServiceDialogueBox({
                 //2            
                 InkWell(
                   onTap: () {
-                    //Navigator.pop(context);
-                    //shareServiceLink(link: service_link);
+                    Navigator.pop(context);
+                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/app/#/'));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -222,7 +223,7 @@ Future<void> editServiceDialogueBox({
                             ),
 
                             /////////COMING SOON//////////////
-                            SizedBox(width: 20.w,),
+                            /*SizedBox(width: 20.w,),
                             Container(
                               //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                               alignment: Alignment.center,
@@ -240,7 +241,7 @@ Future<void> editServiceDialogueBox({
                                   fontWeight: FontWeight.w700
                                 )
                               ),
-                            ),
+                            ),*/
                             ////////////////////////////////////////
                         
                           ],

@@ -9,7 +9,7 @@ import 'package:luround/services/account_owner/more/settings/settings_service.da
 import 'package:luround/services/account_owner/more/transactions/withdrawal_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/loader.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/search_bank_textfield_2.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/search_bank_textfield_2.dart';
 
 
 

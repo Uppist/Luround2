@@ -7,8 +7,8 @@ import 'package:luround/controllers/account_owner/more/transactions_controller.d
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/screen/select_account_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/select_country/country_field_flipper.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/screen/select_account_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/select_country/country_field_flipper.dart';
 import 'package:country_picker/country_picker.dart';
 
 

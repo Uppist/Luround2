@@ -11,7 +11,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/reusable_white_button.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/transactions_screen.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/withdrawal_receipt.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/wallet/screen/withdrawal_receipt.dart';
 
 
 

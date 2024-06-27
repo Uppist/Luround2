@@ -7,9 +7,9 @@ import 'package:luround/controllers/account_owner/more/transactions_controller.d
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/otp/usual/set_pin_to_withdraw.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/widget/black_card.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/widget/green_card.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/otp/usual/set_pin_to_withdraw.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/wallet/widget/black_card.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/wallet/widget/green_card.dart';
 
 
 

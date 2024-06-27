@@ -162,6 +162,7 @@ class _EventServiceListState extends State<EventServiceList> {
                               InkWell(
                                 onTap: () {
                                   editEventDialogueBox(
+                                    serviceLink: data.serviceLink,
                                     service_status: data.serviceStatus,
                                     service: userService,
                                     context: context,

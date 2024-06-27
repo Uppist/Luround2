@@ -24,6 +24,7 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/switch
 ///Alert Dialog
 Future<void> editProgramServiceDialogueBox({
   required BuildContext context, 
+  required String serviceLink,
   required String serviceId,
   required String service_name, 
   required String description, 
@@ -202,8 +203,8 @@ Future<void> editProgramServiceDialogueBox({
                 //2            
                 InkWell(
                   onTap: () {
-                    //Navigator.pop(context);
-                    //shareServiceLink(link: service_link);
+                    Navigator.pop(context);
+                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/app/#/'));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -224,7 +225,7 @@ Future<void> editProgramServiceDialogueBox({
                             ),
 
                             /////////COMING SOON//////////////
-                            SizedBox(width: 20.w,),
+                            /*SizedBox(width: 20.w,),
                             Container(
                               //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                               alignment: Alignment.center,
@@ -242,7 +243,7 @@ Future<void> editProgramServiceDialogueBox({
                                   fontWeight: FontWeight.w700
                                 )
                               ),
-                            ),
+                            ),*/
                             ////////////////////////////////////////
                         
                           ],

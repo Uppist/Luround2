@@ -168,6 +168,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                                 onTap: () {
                                   editServiceDialogueBox(
                                     service: userService,
+                                    serviceLink: data.serviceLink,
                                     service_status: data.serviceStatus,
                                     context: context,
                                     userId: data.serviceProviderDetails.userId,

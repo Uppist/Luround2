@@ -8,11 +8,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/services/account_owner/more/settings/settings_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/add_bank_account/add_new_bank.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/add_bank_account/add_new_bank_fbutton.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/search_bank_textfield_2.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/add_bank_details/empty_states/no_saved_accounts.dart';
-import 'package:luround/views/account_owner/more/widget/transactions/withdraw/wallet/screen/transfer_screen.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/add_bank_account/add_new_bank.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/add_bank_account/add_new_bank_fbutton.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/search_bank_textfield_2.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/add_bank_details/empty_states/no_saved_accounts.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/withdraw/wallet/screen/transfer_screen.dart';
 
 
 

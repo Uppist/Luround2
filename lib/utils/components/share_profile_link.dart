@@ -16,7 +16,7 @@ Future<void> shareProfileLink({required String link}) async{
 
 Future<void> shareServiceLink({required String link}) async{
 
-  final result = await Share.share("Check out my service.😊\n\n$link"); 
+  final result = await Share.share("Please View And Book My Service On Luround Here\n\n$link"); 
   //shareUri(Uri.parse(link));  //('Check out my Luround profile. 😊\n$link');
   //print(result");
   return result;

@@ -40,21 +40,6 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
       children: [
 
         Text(
-          "Set recurrence",
-          style: GoogleFonts.inter(
-            color: AppColor.blackColor,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w500
-          ),
-        ),
-
-        SizedBox(height: 30.h,),
-
-        ProgramServiceRecurrenceEdit(),
-
-        SizedBox(height: 40.h),
-
-        Text(
           "Day and Time Availability",
           style: GoogleFonts.inter(
             color: AppColor.blackColor,

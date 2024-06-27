@@ -11,6 +11,7 @@ import 'package:luround/utils/components/reusable_custom_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/add_service/step_tabs/step_1/textfields/description_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/start_date_box.dart';
 import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_1/new/stop_date_box.dart';
+import 'package:luround/views/account_owner/services/widget/program/add_service/step_tabs/step_2/dropdows/recurrence_dropdown.dart';
 
 
 
@@ -135,8 +136,21 @@ class _Step1PageProgramServiceState extends State<Step1PageProgramService> {
         SizedBox(height: 30.h),
         StopDateBoxProgram(),
 
+        SizedBox(height: 30.h,),
+        Text(
+          "Set recurrence",
+          style: GoogleFonts.inter(
+            color: AppColor.blackColor,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w500
+          ),
+        ),
+        SizedBox(height: 30.h,),
+        //SizedBox(height: 20.h),
+        ProgramServiceRecurrence(),
 
-        SizedBox(height: MediaQuery.of(context).size.height * 0.08),
+
+        SizedBox(height: MediaQuery.of(context).size.height * 0.06),
         RebrandedReusableButton(
           textColor: controller.isServiceNameTapped.value ? AppColor.bgColor : AppColor.darkGreyColor,
           color: controller.isServiceNameTapped.value ? AppColor.mainColor : AppColor.lightPurple, 

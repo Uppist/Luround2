@@ -164,6 +164,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                               InkWell(
                                 onTap: () {
                                   editProgramServiceDialogueBox(
+                                    serviceLink: data.serviceLink,
                                     service_status: data.serviceStatus,
                                     max_number_of_participants: data.maxNumberOfParticipants,
                                     service: userService,

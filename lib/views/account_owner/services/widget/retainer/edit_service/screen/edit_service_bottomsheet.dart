@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/retainer/retainer_service_controller.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/share_profile_link.dart';
 import 'package:luround/views/account_owner/services/widget/retainer/edit_service/screen/edit_package_service.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
@@ -23,6 +24,7 @@ import 'package:luround/views/account_owner/services/widget/screen_widget/switch
 ///Alert Dialog
 Future<void> editPackageServiceDialogueBox({
   required BuildContext context, 
+  required String serviceLink,
   required String serviceId,
   required String service_name, 
   required String description, 
@@ -199,8 +201,8 @@ Future<void> editPackageServiceDialogueBox({
                 //2            
                 InkWell(
                   onTap: () {
-                    //Navigator.pop(context);
-                    //shareServiceLink(link: service_link);
+                    Navigator.pop(context);
+                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/app/#/'));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -221,7 +223,7 @@ Future<void> editPackageServiceDialogueBox({
                             ),
 
                             /////////COMING SOON//////////////
-                            SizedBox(width: 20.w,),
+                            /*SizedBox(width: 20.w,),
                             Container(
                               //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                               alignment: Alignment.center,
@@ -239,7 +241,7 @@ Future<void> editPackageServiceDialogueBox({
                                   fontWeight: FontWeight.w700
                                 )
                               ),
-                            ),
+                            ),*/
                             ////////////////////////////////////////
                         
                           ],

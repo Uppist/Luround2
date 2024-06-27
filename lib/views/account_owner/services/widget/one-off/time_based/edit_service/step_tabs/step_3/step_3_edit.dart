@@ -266,7 +266,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                   mainController.serviceNameControllerEdit.clear();
                   mainController.descriptionControllerEdit.clear();
                   mainController.addLinksControllerEdit.clear();
-                  mainController.controllersEdit.clear();
+                  //mainController.controllersEdit.clear();
                   mainController.selectedTimeSlotEdit.clear();
                   mainController.selectedDaysEdit.clear();
                   //3

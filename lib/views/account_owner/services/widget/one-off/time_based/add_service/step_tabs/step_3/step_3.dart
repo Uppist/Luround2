@@ -250,7 +250,7 @@ class _Step3PageState extends State<Step3Page> {
                   mainController.serviceNameController.clear();
                   mainController.descriptionController.clear();
                   mainController.addLinksController.clear();
-                  mainController.controllers.clear();
+                  //mainController.controllers.clear();
                   mainController.selectedTimeSlot.clear();
                   mainController.selectedDays.clear();
                   //3

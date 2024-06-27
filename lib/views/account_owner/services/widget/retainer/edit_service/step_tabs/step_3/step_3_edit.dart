@@ -260,7 +260,7 @@ class _Step3PagePackageServiceEditState extends State<Step3PagePackageServiceEdi
                   mainController.coreFeaturesControllerEdit.clear();
                   mainController.inputsEdit.clear();
                   mainController.selectedDaysEdit.clear();
-                  mainController.controllersEdit.clear();
+                  //mainController.controllersEdit.clear();
                   //3
                   //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
                   Get.offAll(() => MainPage());

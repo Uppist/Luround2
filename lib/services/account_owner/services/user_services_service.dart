@@ -748,9 +748,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       //PRICING LOOP
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
-        final String time_allocation = data.time_allocation ;
-        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing : '';
-        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
+        final String time_allocation = data.timeAllocation;
+        final String virtual = data.virtualPricing.isNotEmpty ? data.virtualPricing : '';
+        final String in_person = data.inPersonPricing.isNotEmpty ? data.inPersonPricing : '';
 
         final Map<String, dynamic> map = {
           "time_allocation": time_allocation,
@@ -853,10 +853,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       //PRICING LOOP
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
-        final String time_allocation = data.time_allocation;
-
-        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
-        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
+        final String time_allocation = data.timeAllocation;
+        final String virtual = data.virtualPricing.isNotEmpty ? data.virtualPricing : '';
+        final String in_person = data.inPersonPricing.isNotEmpty ? data.inPersonPricing : '';
 
         final Map<String, dynamic> map = {
           "time_allocation": time_allocation,
@@ -1254,10 +1253,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       //PRICING LOOP
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
-        final String time_allocation = data.time_allocation;
-
-        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing :'';
-        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
+        final String time_allocation = data.timeAllocation;
+        final String virtual = data.virtualPricing.isNotEmpty ? data.virtualPricing : '';
+        final String in_person = data.inPersonPricing.isNotEmpty ? data.inPersonPricing : '';
 
         // Check if required fields are not empty or undefined
         final Map<String, dynamic> map = {
@@ -1357,10 +1355,9 @@ class AccOwnerServicePageService extends getx.GetxController {
       //PRICING LOOP
       final List<dynamic> pricingList = [];
       for (PricingInfo data in pricing) {
-        final String time_allocation = data.time_allocation;
-
-        final String virtual = data.virtual_pricing.isNotEmpty ? data.virtual_pricing : '';
-        final String in_person = data.in_person_pricing.isNotEmpty ? data.in_person_pricing : '';
+        final String time_allocation = data.timeAllocation;
+        final String virtual = data.virtualPricing.isNotEmpty ? data.virtualPricing : '';
+        final String in_person = data.inPersonPricing.isNotEmpty ? data.inPersonPricing : '';
 
         final Map<String, dynamic> map = {
           "time_allocation": time_allocation,

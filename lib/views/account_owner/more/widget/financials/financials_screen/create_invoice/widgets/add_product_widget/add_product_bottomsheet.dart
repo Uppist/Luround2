@@ -45,7 +45,7 @@ Future<void> addProductBottomSheetForInvoice({
 
 
 class BodyWidget extends StatefulWidget {
-  BodyWidget({super.key});
+  const BodyWidget({super.key});
 
 
   @override

@@ -102,6 +102,7 @@ class _PaidInvoiceListState extends State<PaidInvoiceList> {
                       return PaidInvoiceDisplay (
                         onPressed: (){},
                         refresh: _refresh(),
+                        paymentLink: item.payment_link,
                         invoice_generated_from_quote: item.invoice_generated_from_quote,
                         service_provider: item.service_provider,
                         tracking_id: item.tracking_id.toString(),

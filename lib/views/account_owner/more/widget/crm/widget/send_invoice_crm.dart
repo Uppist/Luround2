@@ -689,9 +689,10 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                 finPdfService.downloadInvoicePDFToDevice(
                                   sender_address: "",
                                   sender_phone_number: '',
-                                  bank_name: service.selectedBankForInvoice.value,
+                                  /*bank_name: service.selectedBankForInvoice.value,
                                   account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,*/
+                                  paymentLink: '',
                                   context: context, 
                                   tracking_id: invoiceNumber.toString(),
                                   receiver_email: widget.email,

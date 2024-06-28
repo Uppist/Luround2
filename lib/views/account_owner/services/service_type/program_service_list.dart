@@ -279,7 +279,7 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                 separatorBuilder: (context, index) => SizedBox(height: 10.h),
                 itemBuilder: (context, indexAV) {
                   final availData = data.availabilitySchedule[indexAV];
-                  return _buildRichText('${availData.availability_day}:  ', '${availData.from_time} - ${availData.to_time}');
+                  return _buildRichText('${availData.availabilityDay}:  ', '${availData.fromTime} - ${availData.toTime}');
                 },
               ),
             ],

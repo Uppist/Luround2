@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
+import 'package:luround/models/account_owner/more/financials/invoice/invoice_respose_model.dart';
 import 'package:luround/models/account_owner/more/transactions/saved_banks_response.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/data_service/base_service/base_service.dart';
@@ -756,6 +757,7 @@ class FinancialsService extends getx.GetxController {
   }
 
   //5
+  //String payment_link = "";
   ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
   Future<void> createNewInvoiceAndSaveToDB({
     required BuildContext context,
@@ -803,6 +805,16 @@ class FinancialsService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
+        
+        //decode the response body here
+        final dynamic response = jsonDecode(res.body);
+        //InvoiceResponse responseModel = InvoiceResponse.fromJson(jsonDecode(res.body));
+
+        int invoice_id = response['invoice_id'];
+        String address = response['service_provider_address'] ?? "non";
+        String phone_number = response['service_provider_phone_number'] ?? "non";
+        String payment_link = response['payment_link'] ?? "non";
+
         //success snackbar
         showMySnackBar(
           context: context,
@@ -885,14 +897,20 @@ class FinancialsService extends getx.GetxController {
 
         //decode the response body here
         final dynamic response = jsonDecode(res.body);
+        //InvoiceResponse responseModel = InvoiceResponse.fromJson(jsonDecode(res.body));
+
         int invoice_id = response['invoice_id'];
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
+        String payment_link = response['payment_link'] ?? "non";
+
+
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
-          bank_name: bank_name,
+          /*bank_name: bank_name,
           account_name: account_name,
-          account_number: account_number,
+          account_number: account_number,*/
+          paymentLink: payment_link,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -992,16 +1010,19 @@ class FinancialsService extends getx.GetxController {
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("invoice created and saved successfully to database");
 
+
         //decode the response body here
         final dynamic response = jsonDecode(res.body);
         int invoice_id = response['invoice_id'];
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
+        String payment_link = response['payment_link'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
-          bank_name: bank_name,
+          /*bank_name: bank_name,
           account_name: account_name,
-          account_number: account_number,
+          account_number: account_number,*/
+          paymentLink: payment_link,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,

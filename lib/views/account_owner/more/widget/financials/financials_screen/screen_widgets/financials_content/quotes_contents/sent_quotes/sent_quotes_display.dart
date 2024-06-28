@@ -38,7 +38,7 @@ class QuotesDisplay extends StatelessWidget {
     required this.service_provider_address, 
     required this.service_provider_phone_number, 
     required this.tracking_id, 
-    required this.created_at, required this.refresh, 
+    required this.created_at, required this.refresh, required this.paymentLink, 
   });
   final VoidCallback onPressed;
   final String service_provider_address;
@@ -61,6 +61,8 @@ class QuotesDisplay extends StatelessWidget {
   final String tracking_id;
   final int created_at;
   final Future<void> refresh;
+  //paymentlink
+  final String paymentLink;
 
 
 
@@ -105,6 +107,7 @@ class QuotesDisplay extends StatelessWidget {
                 ),
               ),
               QuoteDropDown(
+                paymentLink: paymentLink,
                 refresh: refresh,
                 bank_details: service_provider['bank_details'],
                 tracking_id: tracking_id,

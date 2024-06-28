@@ -622,7 +622,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                         color: AppColor.mainColor,
                         text: 'Send Invoice',
                         onPressed: () {
-                          if(service.selectedBankForInvoice.value.isNotEmpty && controller.invoiceClientNameController.text.isNotEmpty && controller.invoiceClientEmailController.text.isNotEmpty && controller.invoiceClientPhoneNumberController.text.isNotEmpty) {
+                          //service.selectedBankForInvoice.value.isNotEmpty
+                          if(controller.invoiceClientNameController.text.isNotEmpty && controller.invoiceClientEmailController.text.isNotEmpty && controller.invoiceClientPhoneNumberController.text.isNotEmpty) {
                             sendInvoiceBottomSheet(
                               context: context,
                               onShare: () {
@@ -688,9 +689,10 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                 finPdfService.downloadInvoicePDFToDevice(
                                   sender_address: "",
                                   sender_phone_number: '',
-                                  bank_name: service.selectedBankForInvoice.value,
+                                  /*bank_name: service.selectedBankForInvoice.value,
                                   account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,*/
+                                  paymentLink: '',
                                   context: context, 
                                   tracking_id: widget.invoiceNumber.toString(),
                                   receiver_email: controller.invoiceClientEmailController.text,

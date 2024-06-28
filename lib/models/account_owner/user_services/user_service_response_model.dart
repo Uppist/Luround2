@@ -1,6 +1,5 @@
 
 
-
 class UserServiceModel {
   final String serviceId;
   final String email;
@@ -13,10 +12,7 @@ class UserServiceModel {
   final String time;
   final ServiceProviderInfo serviceProviderDetails;
   final String date;
-  
-  //final ServiceLinkDetails serviceLink;
   final String serviceLink;
-
   final List<PricingInfo> pricing;
   final String serviceType;
   final String serviceRecurrence;
@@ -24,10 +20,10 @@ class UserServiceModel {
   final String startDate;
   final String endDate;
   final String startTime;
+  final String endTime;
   final String eventType;
   final String oneoffType;
   final String price;
-  final String endTime;
   final String virtualMeetingLink;
   final String physicalLocationAddress;
   final List<AvailabilityScheduleInfo> availabilitySchedule;
@@ -56,10 +52,10 @@ class UserServiceModel {
     required this.startDate,
     required this.endDate,
     required this.startTime,
+    required this.endTime,
     required this.eventType,
     required this.oneoffType,
     required this.price,
-    required this.endTime,
     required this.virtualMeetingLink,
     required this.physicalLocationAddress,
     required this.availabilitySchedule,
@@ -82,7 +78,7 @@ class UserServiceModel {
       time: json['time'] ?? 'time',
       serviceProviderDetails: ServiceProviderInfo.fromJson(json['service_provider_details'] ?? {}),
       date: json['date'] ?? 'date',
-      serviceLink: json['service_link'] ?? "service_link",//ServiceLinkDetails.fromJson(json['service_link'] ?? "service_link"),
+      serviceLink: json['service_link'] ?? "service_link",
       serviceType: json['service_type'] ?? 'service_type',
       serviceRecurrence: json['service_recurrence'] ?? 'service_recurrence',
       maxNumberOfParticipants: json['max_number_of_participants'] ?? 0,
@@ -105,130 +101,141 @@ class UserServiceModel {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['service_id'] = serviceId;
-    _data['email'] = email;
-    _data['service_name'] = serviceName;
-    _data['description'] = description;
-    _data['links'] = links;
-    _data['in_person_event_fee'] = serviceChargeInPerson;
-    _data['virtual_event_fee'] = serviceChargeVirtual;
-    _data['duration'] = duration;
-    _data['time'] = time;
-    _data['service_provider_details'] = serviceProviderDetails;
-    _data['date'] = date;
-    _data['service_link'] = serviceLink;
-    _data['pricing'] = pricing;
-
-    _data['service_type'] = serviceType;
-    _data['service_recurrence'] = serviceRecurrence;
-    _data['max_number_of_participants'] = maxNumberOfParticipants;
-    _data['start_date'] = startDate;
-    _data['end_date'] = endDate;
-    _data['start_time'] = startTime;
-    _data['end_time'] = endTime;
-    _data['event_type'] = eventType;
-    _data['oneoff_type'] = oneoffType;
-    _data['price'] = price;
-    _data['virtual_meeting_link'] = virtualMeetingLink;
-    _data['physical_location'] = physicalLocationAddress;
-    _data['availability_schedule'] = availabilitySchedule;
-    _data['event_schedule'] = eventSchedule;
-    _data['program_fee'] = programFee;
-    _data['service_status'] = serviceStatus;
-
-
-    // Additional fields for financials
-    _data['discount'] = '0.0';
-    _data['appointment_type'] = 'Virtual';
-    _data['meeting_type'] = 'Virtual';
-    _data['message'] = 'no message';
-    _data['location'] = 'no location';
-    _data['displayName'] = 'client name';
-    _data['phone_number'] = '';
-    _data['due_date'] = '';
-    _data['vat'] = '0';
-    _data['rate']='0';
-    _data['total']='0';
-
-    return _data;
+    return {
+      'service_id': serviceId,
+      'email': email,
+      'service_name': serviceName,
+      'description': description,
+      'links': links,
+      'in_person_event_fee': serviceChargeInPerson,
+      'virtual_event_fee': serviceChargeVirtual,
+      'duration': duration,
+      'time': time,
+      'service_provider_details': serviceProviderDetails.toJson(),
+      'date': date,
+      'service_link': serviceLink,
+      'pricing': pricing.map((e) => e.toJson()).toList(),
+      'service_type': serviceType,
+      'service_recurrence': serviceRecurrence,
+      'max_number_of_participants': maxNumberOfParticipants,
+      'start_date': startDate,
+      'end_date': endDate,
+      'start_time': startTime,
+      'end_time': endTime,
+      'event_type': eventType,
+      'oneoff_type': oneoffType,
+      'price': price,
+      'virtual_meeting_link': virtualMeetingLink,
+      'physical_location': physicalLocationAddress,
+      'availability_schedule': availabilitySchedule.map((e) => e.toJson()).toList(),
+      'event_schedule': eventSchedule.map((e) => e.toJson()).toList(),
+      'program_fee': programFee,
+      'service_status': serviceStatus,
+      'core_features': coreFeatures,
+      'discount': '0.0',
+      'appointment_type': 'Virtual',
+      'meeting_type': 'Virtual',
+      'message': 'no message',
+      'location': 'no location',
+      'displayName': 'client name',
+      'phone_number': '',
+      'due_date': '',
+      'vat': '0',
+      'rate': '0',
+      'total': '0',
+    };
   }
 }
-
-
-
 
 class EventScheduleInfo {
   final String date;
   final String time;
-  final String end_time;
+  final String endTime;
+
   EventScheduleInfo({
     required this.date,
     required this.time,
-    required this.end_time,
+    required this.endTime,
   });
 
   factory EventScheduleInfo.fromJson(Map<String, dynamic> json) {
     return EventScheduleInfo(
       date: json['date'] ?? '',
       time: json['time'] ?? '',
-      end_time: json['end_time'] ?? '',
+      endTime: json['end_time'] ?? '',
     );
   }
-}
 
-
-class AvailabilityScheduleInfo {
-  final String availability_day;
-  final String from_time;
-  final String to_time;
-  AvailabilityScheduleInfo({
-    required this.availability_day,
-    required this.from_time,
-    required this.to_time,
-  });
-
-  factory AvailabilityScheduleInfo.fromJson(Map<String, dynamic> json) {
-    return AvailabilityScheduleInfo(
-      availability_day: json['availability_day'] ?? '',
-      from_time: json['from_time'] ?? '',
-      to_time: json['to_time'] ?? '',
-    );
-  }
-}
-
-class PricingInfo {
-  String time_allocation;
-  String virtual_pricing;
-  String in_person_pricing;
-  PricingInfo({
-    required this.time_allocation,
-    required this.virtual_pricing,
-    required this.in_person_pricing,
-  });
-
-  factory PricingInfo.fromJson(Map<String, dynamic> json) {
-    return PricingInfo(
-      time_allocation: json['time_allocation'] ?? '',
-      virtual_pricing: json['virtual_pricing'] ?? '',
-      in_person_pricing: json['in_person_pricing'] ?? '',
-    );
-  }
-  // Convert a DaySelectionModel object to a JSON object
   Map<String, dynamic> toJson() {
     return {
-      'time_allocation': time_allocation,
-      'virtual_pricing': virtual_pricing,
-      'in_person_pricing': in_person_pricing,
+      'date': date,
+      'time': time,
+      'end_time': endTime,
     };
   }
 }
 
+class AvailabilityScheduleInfo {
+  final String availabilityDay;
+  final String fromTime;
+  final String toTime;
+
+  AvailabilityScheduleInfo({
+    required this.availabilityDay,
+    required this.fromTime,
+    required this.toTime,
+  });
+
+  factory AvailabilityScheduleInfo.fromJson(Map<String, dynamic> json) {
+    return AvailabilityScheduleInfo(
+      availabilityDay: json['availability_day'] ?? '',
+      fromTime: json['from_time'] ?? '',
+      toTime: json['to_time'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'availability_day': availabilityDay,
+      'from_time': fromTime,
+      'to_time': toTime,
+    };
+  }
+}
+
+class PricingInfo {
+  String timeAllocation;
+  String virtualPricing;
+  String inPersonPricing;
+
+  PricingInfo({
+    required this.timeAllocation,
+    required this.virtualPricing,
+    required this.inPersonPricing,
+  });
+
+  factory PricingInfo.fromJson(Map<String, dynamic> json) {
+    return PricingInfo(
+      timeAllocation: json['time_allocation'] ?? '',
+      virtualPricing: json['virtual_pricing'] ?? '',
+      inPersonPricing: json['in_person_pricing'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'time_allocation': timeAllocation,
+      'virtual_pricing': virtualPricing,
+      'in_person_pricing': inPersonPricing,
+    };
+  }
+}
 
 class ServiceProviderInfo {
   final String userId;
   final String email;
   final String displayName;
+
   ServiceProviderInfo({
     required this.userId,
     required this.email,
@@ -241,6 +248,14 @@ class ServiceProviderInfo {
       email: json['email'] ?? '',
       displayName: json['displayName'] ?? '',
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': userId,
+      'email': email,
+      'display_name': displayName,
+    };
   }
 }
 
@@ -259,4 +274,12 @@ class ServiceLinkDetails {
       shortURL: json['shortURL'] ?? '',
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'longURL': longURL,
+      'shortURL': shortURL,
+    };
+  }
 }
+

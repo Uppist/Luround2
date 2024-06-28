@@ -109,9 +109,9 @@ class _Step2PagePackageServiceEditState extends State<Step2PagePackageServiceEdi
                 //
                 bool isSelected = controller.priceSlotEdit[index]['isSelected'];
                 //
-                String virtualPrice = controller.getTimeSelectionEdit(time)?.virtual_pricing ?? "";
+                String virtualPrice = controller.getTimeSelectionEdit(time)?.virtualPricing ?? "";
                 //
-                String inpersonPrice = controller.getTimeSelectionEdit(time)?.in_person_pricing ?? "";
+                String inpersonPrice = controller.getTimeSelectionEdit(time)?.inPersonPricing ?? "";
                 
                 return CustomCheckBoxListTile(
                   checkbox: Checkbox.adaptive(

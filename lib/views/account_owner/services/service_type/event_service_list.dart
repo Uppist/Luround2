@@ -298,7 +298,7 @@ class _EventServiceListState extends State<EventServiceList> {
             separatorBuilder: (context, index) => SizedBox(height: 10.h),
             itemBuilder: (context, indexES) {
               final eventData = data.eventSchedule[indexES];
-              return _buildRichText('${eventData.date}: ', '${eventData.time} - ${eventData.end_time}');
+              return _buildRichText('${eventData.date}: ', '${eventData.time} - ${eventData.endTime}');
             },
           ),
         ],

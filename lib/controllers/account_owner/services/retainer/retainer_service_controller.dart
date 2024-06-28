@@ -266,7 +266,7 @@ class PackageServiceController extends getx.GetxController {
     String virtual,
     String inperson,
   ) {
-    final index2 = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    final index2 = selectedTimeSlot.indexWhere((element) => element.timeAllocation == time);
     priceSlot[index]['isSelected'] = isSelected;
     //priceSlot[index]['time'] = time;
     ServiceControllerSett controllerSet = controllersInput[index];
@@ -286,12 +286,12 @@ class PackageServiceController extends getx.GetxController {
 
   //Retrieves the Price Info for a specific time
   PricingInfo? getTimeSelection(String time) {
-    return selectedTimeSlot.firstWhereOrNull((element) => element.time_allocation == time);
+    return selectedTimeSlot.firstWhereOrNull((element) => element.timeAllocation == time);
   }
 
   // Adds a day with its start and stop times to the selectedDays list
   Future<void> addTime(String time, String virtualPrice, String inpersonPrice) async {
-    selectedTimeSlot.add(PricingInfo(time_allocation: time, virtual_pricing: virtualPrice, in_person_pricing: inpersonPrice));
+    selectedTimeSlot.add(PricingInfo(timeAllocation: time, virtualPricing: virtualPrice, inPersonPricing: inpersonPrice));
     log("list: $selectedTimeSlot");
   }
 
@@ -311,9 +311,9 @@ class PackageServiceController extends getx.GetxController {
 
   // Updates the duration of a specific timeSlot in the selectedTimeSlot list
   Future<void> updateCustomDuration(String time) async {
-    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == "Custom");
+    final index = selectedTimeSlot.indexWhere((element) => element.timeAllocation == "Custom");
     if (index != -1) {
-      selectedTimeSlot[index].time_allocation = time;
+      selectedTimeSlot[index].timeAllocation = time;
       selectedTimeSlot.refresh();
       log("updated list: $selectedTimeSlot");
       update(); // Notify UI
@@ -322,9 +322,9 @@ class PackageServiceController extends getx.GetxController {
 
   // Updates the virtualPrice of a specific timeSlot in the selectedTimeSlot list
   Future<void> updateVirtualPrice(String time, String virtualPrice,) async {
-    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    final index = selectedTimeSlot.indexWhere((element) => element.timeAllocation == time);
     if (index != -1) {
-      selectedTimeSlot[index].virtual_pricing = virtualPrice;
+      selectedTimeSlot[index].virtualPricing = virtualPrice;
       selectedTimeSlot.refresh();
       log("updated list: $selectedTimeSlot");
       update(); // Notify UI
@@ -333,9 +333,9 @@ class PackageServiceController extends getx.GetxController {
 
   // Updates the inpersonPrice of a specific timeSlot in the selectedTimeSlot list
   Future<void> updateInpersonPrice(String time, String inpersonPrice) async {
-    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    final index = selectedTimeSlot.indexWhere((element) => element.timeAllocation == time);
     if (index != -1) {
-      selectedTimeSlot[index].in_person_pricing = inpersonPrice;
+      selectedTimeSlot[index].inPersonPricing = inpersonPrice;
       selectedTimeSlot.refresh();
       log("updated list: $selectedTimeSlot");
       update(); // Notify UI
@@ -364,7 +364,7 @@ class PackageServiceController extends getx.GetxController {
     };
 
     // Sort the selectedTimeslot list based on the time order defined in timeOrderMap
-    selectedTimeSlot.sort((a, b) => dayOrderMap[a.time_allocation]!.compareTo(dayOrderMap[b.time_allocation]!));
+    selectedTimeSlot.sort((a, b) => dayOrderMap[a.timeAllocation]!.compareTo(dayOrderMap[b.timeAllocation]!));
 
     // Return the sorted list
     return selectedTimeSlot;
@@ -619,7 +619,7 @@ class PackageServiceController extends getx.GetxController {
     String virtual,
     String inperson,
   ) {
-    final index2 = selectedTimeSlotEdit.indexWhere((element) => element.time_allocation == time);
+    final index2 = selectedTimeSlotEdit.indexWhere((element) => element.timeAllocation == time);
     priceSlotEdit[index]['isSelected'] = isSelected;
     ServiceControllerSett controllerSet = controllersEdit[index];
     //priceSlotEdit[index]['time'] = time;
@@ -637,12 +637,12 @@ class PackageServiceController extends getx.GetxController {
 
   //Retrieves the Price Info for a specific time
   PricingInfo? getTimeSelectionEdit(String time) {
-    return selectedTimeSlotEdit.firstWhereOrNull((element) => element.time_allocation == time);
+    return selectedTimeSlotEdit.firstWhereOrNull((element) => element.timeAllocation == time);
   }
 
   // Adds a day with its start and stop times to the selectedDays list
   Future<void> addTimeEdit(String time, String virtualPrice, String inpersonPrice) async {
-    selectedTimeSlotEdit.add(PricingInfo(time_allocation: time, virtual_pricing: virtualPrice, in_person_pricing: inpersonPrice));
+    selectedTimeSlotEdit.add(PricingInfo(timeAllocation: time, virtualPricing: virtualPrice, inPersonPricing: inpersonPrice));
     log("list: $selectedTimeSlotEdit");
   }
 
@@ -661,9 +661,9 @@ class PackageServiceController extends getx.GetxController {
 
   // Updates the duration of a specific timeSlot in the selectedTimeSlot list
   Future<void> updateCustomDurationEdit(String time) async {
-    final index = selectedTimeSlot.indexWhere((element) => element.time_allocation == time);
+    final index = selectedTimeSlot.indexWhere((element) => element.timeAllocation == time);
     if (index != -1) {
-      selectedTimeSlot[index].time_allocation = time;
+      selectedTimeSlot[index].timeAllocation = time;
       selectedTimeSlot.refresh();
       update(); // Notify UI
     }
@@ -671,9 +671,9 @@ class PackageServiceController extends getx.GetxController {
 
   // Updates the virtualPrice of a specific timeSlot in the selectedTimeSlot list
   Future<void> updateVirtualPriceEdit(String time, String virtualPrice) async {
-    final index = selectedTimeSlotEdit.indexWhere((element) => element.time_allocation == time);
+    final index = selectedTimeSlotEdit.indexWhere((element) => element.timeAllocation == time);
     if (index != -1) {
-      selectedTimeSlotEdit[index].virtual_pricing = virtualPrice;
+      selectedTimeSlotEdit[index].virtualPricing = virtualPrice;
       selectedTimeSlotEdit.refresh();
       update(); // Notify UI
     }
@@ -681,9 +681,9 @@ class PackageServiceController extends getx.GetxController {
 
   // Updates the inpersonPrice of a specific timeSlot in the selectedTimeSlot list
   Future<void> updateInpersonPriceEdit(String time, String inpersonPrice) async {
-    final index = selectedTimeSlotEdit.indexWhere((element) => element.time_allocation == time);
+    final index = selectedTimeSlotEdit.indexWhere((element) => element.timeAllocation == time);
     if (index != -1) {
-      selectedTimeSlotEdit[index].in_person_pricing = inpersonPrice;
+      selectedTimeSlotEdit[index].inPersonPricing = inpersonPrice;
       selectedTimeSlotEdit.refresh();
       update(); // Notify UI
     }
@@ -711,7 +711,7 @@ class PackageServiceController extends getx.GetxController {
     };
 
     // Sort the selectedTimeslot list based on the time order defined in timeOrderMap
-    selectedTimeSlotEdit.sort((a, b) => dayOrderMap[a.time_allocation]!.compareTo(dayOrderMap[b.time_allocation]!));
+    selectedTimeSlotEdit.sort((a, b) => dayOrderMap[a.timeAllocation]!.compareTo(dayOrderMap[b.timeAllocation]!));
 
     // Return the sorted list
     return selectedTimeSlotEdit;

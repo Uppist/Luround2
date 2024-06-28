@@ -106,9 +106,9 @@ class _Step2PageEditState extends State<Step2PageEdit> {
                 //
                 bool isSelected = controller.priceSlotEdit[index]['isSelected'];
                 //
-                String virtualPrice = controller.getTimeSelectionEdit(time)?.virtual_pricing ?? "";
+                String virtualPrice = controller.getTimeSelectionEdit(time)?.virtualPricing ?? "";
                 //
-                String inpersonPrice = controller.getTimeSelectionEdit(time)?.in_person_pricing ?? "";
+                String inpersonPrice = controller.getTimeSelectionEdit(time)?.inPersonPricing ?? "";
                 
                 return CustomCheckBoxListTile(
                   checkbox: Checkbox.adaptive(

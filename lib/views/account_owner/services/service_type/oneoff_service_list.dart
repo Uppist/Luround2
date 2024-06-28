@@ -220,7 +220,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             separatorBuilder: (context, indexAV) => SizedBox(height: 10.h),
                             itemBuilder: (context, indexAV) {
                               final availData = data.availabilitySchedule[indexAV];
-                              return _buildRichText('${availData.availability_day}:  ', '${availData.from_time} - ${availData.to_time}');
+                              return _buildRichText('${availData.availabilityDay}:  ', '${availData.fromTime} - ${availData.toTime}');
                             },
                           ),
                           SizedBox(height: 30.h),
@@ -339,7 +339,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                 // Optionally, you can update state here if needed
                 setState(() {
                   selectedDurationIndex = p0;
-                  controller.selectedDurationString.value = data.pricing[selectedDurationIndex].time_allocation;
+                  controller.selectedDurationString.value = data.pricing[selectedDurationIndex].timeAllocation;
                   log(controller.selectedDurationString.value);
                 });
             
@@ -348,7 +348,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
                 return DropdownMenuItem<int>(
                   value: index, // Ensure index is unique for each item
                   child: Text(
-                    data.pricing[index].time_allocation,
+                    data.pricing[index].timeAllocation,
                     style: GoogleFonts.inter(
                       color: AppColor.bgColor,
                       fontSize: 14.sp,
@@ -389,11 +389,11 @@ class _RegularServiceListState extends State<RegularServiceList> {
               Obx(() {
                 return Text(
                   controller.selectedFieldIndex.value == 'Virtual'
-                  ? data.pricing[selectedDurationIndex].virtual_pricing.isNotEmpty
-                  ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].virtual_pricing}"
+                  ? data.pricing[selectedDurationIndex].virtualPricing.isNotEmpty
+                  ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].virtualPricing}"
                   : "Unavailable"
-                  : data.pricing[selectedDurationIndex].in_person_pricing.isNotEmpty
-                  ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].in_person_pricing}"
+                  : data.pricing[selectedDurationIndex].inPersonPricing.isNotEmpty
+                  ? "${currency(context).currencySymbol}${data.pricing[selectedDurationIndex].inPersonPricing}"
                   : "Unavailable",
                   style: GoogleFonts.inter(
                     color: AppColor.bgColor,
@@ -408,7 +408,7 @@ class _RegularServiceListState extends State<RegularServiceList> {
               SizedBox(height: 5.h),
           
               Text(
-                "for ${data.pricing[selectedDurationIndex].time_allocation} session",
+                "for ${data.pricing[selectedDurationIndex].timeAllocation} session",
                 style: GoogleFonts.inter(
                   color: AppColor.whiteTextColor,
                   fontSize: 10.sp,

@@ -16,7 +16,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class InvoiceDueDropDown extends StatelessWidget {
-  InvoiceDueDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_details, required this.refresh,});
+  InvoiceDueDropDown({super.key, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_address, required this.service_provider_phone_number, required this.tracking_id, required this.bank_details, required this.refresh, required this.paymentLink,});
   final String invoice_id;
   final String send_to_name;
   final String send_to_email;
@@ -34,6 +34,7 @@ class InvoiceDueDropDown extends StatelessWidget {
   final String tracking_id;
   //service provider bank details here
   final Map<String, dynamic> bank_details;
+  final String paymentLink;
   final Future<void> refresh;
 
 
@@ -98,9 +99,10 @@ class InvoiceDueDropDown extends StatelessWidget {
             onTap: () {
           
               finPdfService.shareInvoicePDF(
-                bank_name: bank_details['bank'],
+                /*bank_name: bank_details['bank'],
                 account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],
+                account_number: bank_details['account_number'],*/
+                paymentLink: paymentLink,
                 context: context, 
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
@@ -131,9 +133,10 @@ class InvoiceDueDropDown extends StatelessWidget {
             onTap: () {
               finPdfService.downloadInvoicePDFToDevice(
                 context: context, 
-                bank_name: bank_details['bank'],
+                /*bank_name: bank_details['bank'],
                 account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],
+                account_number: bank_details['account_number'],*/
+                paymentLink: paymentLink,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
                 tracking_id: tracking_id,

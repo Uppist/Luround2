@@ -21,6 +21,7 @@ class SentQuotesResponse{
   final Map<String, dynamic> service_provider;
   final List<dynamic> product_details;
   //service provider bank details here
+  final String paymentLink;
   final Map<String, dynamic> bank_details;
   
   SentQuotesResponse({
@@ -42,6 +43,7 @@ class SentQuotesResponse{
     required this.tracking_id, 
     required this.created_at, 
     //
+    required this.paymentLink,
     required this.bank_details, 
   });
 
@@ -65,6 +67,7 @@ class SentQuotesResponse{
       service_provider: json['service_provider'] ?? {},
       product_details: json['product_details'] ?? [],
       //
+      paymentLink: json['payment_link'] ?? 'non',
       bank_details: json['bank_details'] ?? {},
     );
   }

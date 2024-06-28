@@ -5,6 +5,7 @@ class InvoiceResponse{
   final String send_to_name;
   final String send_to_email;
   final String phone_number;
+  final String payment_link;
   final String due_date;
   final String sub_total;
   final String discount;
@@ -26,6 +27,7 @@ class InvoiceResponse{
     required this.send_to_name, 
     required this.send_to_email, 
     required this.phone_number, 
+    required this.payment_link,
     required this.due_date,  
     required this.sub_total, 
     required this.discount, 
@@ -52,6 +54,7 @@ class InvoiceResponse{
       send_to_name: json['send_to_name'] ?? "what's happening?",
       send_to_email: json['sent_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "(empty)",
+      payment_link: json['payment_link'] ?? "non",
       due_date: json['due_date'] ?? "nan",
       sub_total: json['sub_total'] ?? "",
       discount: json['discount'] ?? "",

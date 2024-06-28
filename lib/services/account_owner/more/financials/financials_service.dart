@@ -318,9 +318,9 @@ class FinancialsService extends getx.GetxController {
     required String total,
     required List<dynamic> product_detail,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
     }) async {
 
     isLoading.value = true;
@@ -341,9 +341,9 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": product_detail,
       //service provider bank details
-      "bank": bank_name,
+      /*"bank": bank_name,
       "account_name": account_name,
-      "account_number": account_number,
+      "account_number": account_number,*/
     };
 
     try {
@@ -370,7 +370,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save quote ${res.body}"
+          message: "failed to create quote ${res.body}"
         );
         //.whenComplete(() => getx.Get.back());
       }
@@ -398,9 +398,9 @@ class FinancialsService extends getx.GetxController {
     required String total,
     required List<dynamic> product_detail,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
     }) async {
 
     isLoading.value = true;
@@ -421,9 +421,9 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": product_detail,
       //service provider bank details
-      "bank": bank_name,
+      /*"bank": bank_name,
       "account_name": account_name,
-      "account_number": account_number,
+      "account_number": account_number,*/
     };
 
     try {
@@ -439,9 +439,9 @@ class FinancialsService extends getx.GetxController {
         String phone_number = response['service_provider_phone_number'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareQuotePDF(
-          bank_name: bank_name,
+          /*bank_name: bank_name,
           account_name: account_name,
-          account_number: account_number,
+          account_number: account_number,*/
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -481,7 +481,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save quote ${res.body}"
+          message: "failed to create quote ${res.body}"
         );
       }
     } 
@@ -773,9 +773,9 @@ class FinancialsService extends getx.GetxController {
     required String total,
     required List<dynamic> booking_detail,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
     }) async {
 
     isLoading.value = true;
@@ -793,9 +793,9 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": booking_detail,
       //service provider bank details
-      "bank": bank_name,
+      /*"bank": bank_name,
       "account_name": account_name,
-      "account_number": account_number,
+      "account_number": account_number,*/
     };
 
     try {
@@ -861,9 +861,9 @@ class FinancialsService extends getx.GetxController {
     required String total,
     required List<dynamic> booking_detail,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
     }) async {
 
     isLoading.value = true;
@@ -881,10 +881,10 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": booking_detail,
       //service provider bank details
-      "bank": bank_name,
+      /*"bank": bank_name,
       "account_name": account_name,
       "account_number": account_number,
-      "invoice_generated_from_quote": "False",
+      "invoice_generated_from_quote": "False",*/
     };
 
     try {
@@ -976,9 +976,9 @@ class FinancialsService extends getx.GetxController {
     required String total,
     required List<dynamic> booking_detail,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
     }) async {
 
     isLoading.value = true;
@@ -995,11 +995,11 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": booking_detail,
-      //service provider bank details
-      "bank": bank_name,
-      "account_name": account_name,
-      "account_number": account_number,
       "invoice_generated_from_quote": "True",
+      //service provider bank details
+      /*"bank": bank_name,
+      "account_name": account_name,
+      "account_number": account_number,*/
     };
 
     try {

@@ -63,9 +63,9 @@ class FinancialsPdfService extends getx.GetxController {
     required String note,
 
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
     }) async{
     
     //image
@@ -685,15 +685,15 @@ class FinancialsPdfService extends getx.GetxController {
     required String vat,
     required String note,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
   }) async{
     try {
       writeQuotePdf(
-        bank_name: bank_name,
+        /*bank_name: bank_name,
         account_name: account_name,
-        account_number: account_number,
+        account_number: account_number,*/
         tracking_id: tracking_id,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
@@ -767,16 +767,16 @@ class FinancialsPdfService extends getx.GetxController {
     required String vat,
     required String note,
     //service provider bank details here
-    required String bank_name,
+    /*required String bank_name,
     required String account_name,
-    required String account_number,
+    required String account_number,*/
   }) async{
     try {
 
       writeQuotePdf(
-        bank_name: bank_name,
+        /*bank_name: bank_name,
         account_name: account_name,
-        account_number: account_number,
+        account_number: account_number,*/
         tracking_id: tracking_id,
         sender_address: sender_address,
         sender_phone_number: sender_phone_number,
@@ -828,7 +828,6 @@ class FinancialsPdfService extends getx.GetxController {
   }
 
   
-
 
   
 

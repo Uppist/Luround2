@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -16,7 +17,8 @@ import 'package:luround/utils/components/utils_textfield.dart';
 
 Future<void> enterInvoicePaymentBottomSheet({
   required BuildContext context, 
-  required String invoice_id
+  required String invoice_id,
+  required String amount,
 }) async{
   showModalBottomSheet(
     isScrollControlled: true,
@@ -35,6 +37,7 @@ Future<void> enterInvoicePaymentBottomSheet({
     builder: (context) {
       return BodyWidget(
         invoice_id: invoice_id,
+        amount: amount
       );
     }
   );
@@ -43,8 +46,9 @@ Future<void> enterInvoicePaymentBottomSheet({
 
 
 class BodyWidget extends StatefulWidget {
-  BodyWidget({super.key, required this.invoice_id});
+  const BodyWidget({super.key, required this.invoice_id, required this.amount});
   final String invoice_id;
+  final String amount;
 
 
   @override
@@ -53,7 +57,7 @@ class BodyWidget extends StatefulWidget {
 
 class _BodyWidgetState extends State<BodyWidget> {
 
-  var service = Get.put(InvoicePaymentService());
+  final service = Get.put(InvoicePaymentService());
 
   @override
   Widget build(BuildContext context) {
@@ -108,13 +112,11 @@ class _BodyWidgetState extends State<BodyWidget> {
                     SizedBox(height: 20.h,),      
                     //amount textfield
                     UtilsTextField2(
-                      initialValue: '0.00',
+                      initialValue: widget.amount,
                       onFocusChanged: (val) {},
                       onChanged: (val) {
-                        setState(() {
-                          service.amountTextController.text = val;
-                          print(service.amountTextController.text);
-                        });
+                        service.amountTextController.text = val;
+                        log(service.amountTextController.text);
                       },
                       hintText: "Enter amount paid by recepient",
                       keyboardType: TextInputType.number,
@@ -232,11 +234,11 @@ class _BodyWidgetState extends State<BodyWidget> {
                           InkWell(
                             onTap: () {
 
-                              if(service.amountTextController.text.isNotEmpty) {
+                              if(service.amountTextController.text.isNotEmpty || widget.amount.isNotEmpty) {
                                 service.markInvoiceAsPaid(
                                   invoice_id: widget.invoice_id,
                                   context: context, 
-                                  amount_paid: service.amountTextController.text, 
+                                  amount_paid: service.amountTextController.text.isNotEmpty ? service.amountTextController.text : widget.amount, 
                                   mode_of_payment: service.payment_method.value
                                 );
                               }

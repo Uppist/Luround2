@@ -103,7 +103,6 @@ class UserServiceModel {
   Map<String, dynamic> toJson() {
     return {
       'service_id': serviceId,
-      'email': email,
       'service_name': serviceName,
       'description': description,
       'links': links,
@@ -132,6 +131,9 @@ class UserServiceModel {
       'program_fee': programFee,
       'service_status': serviceStatus,
       'core_features': coreFeatures,
+
+      //new field for financials
+      'email': email,
       'discount': '0.0',
       'appointment_type': 'Virtual',
       'meeting_type': 'Virtual',

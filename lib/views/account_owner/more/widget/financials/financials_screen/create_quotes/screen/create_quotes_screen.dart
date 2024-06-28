@@ -591,7 +591,8 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           width: double.infinity,
                           color: AppColor.greyColor,
                         ),
-                        SizedBox(height: 20.h,),
+
+                        /*SizedBox(height: 20.h,),
                         //5 Bank Payment Widget
                         //
                         Padding(
@@ -612,7 +613,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                               PaymentMethodForQuote()
                             ]
                           )
-                        ),
+                        ),*/
 
                         SizedBox(height: 20.h,),
                         //style
@@ -634,9 +635,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   onShare: () {
                                     service.createNewQuoteAndSendToClient(
                                       context: context, 
-                                      bank_name: service.selectedBankForQuote.value,
+                                      /*bank_name: service.selectedBankForQuote.value,
                                       account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,
+                                      account_number: service.selectedAccNumberForQuote.value,*/
                                       client_name: controller.quoteClientNameController.text, 
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
@@ -661,9 +662,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   onSave: () {
                                     service.createNewQuoteAndSendToDB(
                                       context: context, 
-                                      bank_name: service.selectedBankForQuote.value,
+                                      /*bank_name: service.selectedBankForQuote.value,
                                       account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,
+                                      account_number: service.selectedAccNumberForQuote.value,*/
                                       client_name: controller.quoteClientNameController.text, 
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
@@ -694,9 +695,9 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       context: context, 
                                       sender_address: "",
                                       sender_phone_number: '',
-                                      bank_name: service.selectedBankForQuote.value,
+                                      /*bank_name: service.selectedBankForQuote.value,
                                       account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,
+                                      account_number: service.selectedAccNumberForQuote.value,*/
                                       tracking_id: widget.quoteNumber.toString(),
                                       receiver_email: controller.quoteClientEmailController.text,
                                       receiver_name: controller.quoteClientNameController.text,

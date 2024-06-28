@@ -835,9 +835,9 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                           onShare: () {
                           service.createNewInvoiceAndSendToClientMarkTrue(
                             context: context, 
-                            bank_name: widget.bank_details['bank'],
+                            /*bank_name: widget.bank_details['bank'],
                             account_name: widget.bank_details['account_name'],
-                            account_number: widget.bank_details['account_number'],
+                            account_number: widget.bank_details['account_number'],*/
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
                             client_phone_number: widget.phone_number,
@@ -857,9 +857,9 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         },
                         onSave: () {
                           service.createNewInvoiceAndSaveToDB(
-                            bank_name: widget.bank_details['bank'],
+                            /*bank_name: widget.bank_details['bank'],
                             account_name: widget.bank_details['account_name'],
-                            account_number: widget.bank_details['account_number'],
+                            account_number: widget.bank_details['account_number'],*/
                             context: context, 
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,

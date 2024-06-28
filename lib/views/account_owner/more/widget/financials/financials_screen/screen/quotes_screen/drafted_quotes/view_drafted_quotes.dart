@@ -683,8 +683,9 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                     ),
 
                     SizedBox(height: 20.h),
+
                     //PAYMENT CONTAINER//////////////////
-                    Container(
+                    /*Container(
                       //alignment: Alignment.center,
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       width: double.infinity,
@@ -749,7 +750,7 @@ class ViewDraftedQuoteScreen extends StatelessWidget {
                           ),
                         ]
                       )
-                    )
+                    )*/
                     /////////////////////////////////////////////
                               
 

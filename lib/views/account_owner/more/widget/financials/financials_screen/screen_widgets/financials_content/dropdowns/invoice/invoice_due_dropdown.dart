@@ -48,12 +48,13 @@ class InvoiceDueDropDown extends StatelessWidget {
       color: AppColor.bgColor,
       position: PopupMenuPosition.under,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      initialValue: "Quote",
+      initialValue: "Invoice",
       itemBuilder: (context) {
         return [
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewDueInvoiceScreen(
+                payment_link: paymentLink,
                 onPressed: () {},
                 bank_details: bank_details,
                 tracking_id: tracking_id,
@@ -84,7 +85,11 @@ class InvoiceDueDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              enterInvoicePaymentBottomSheet(context: context, invoice_id: invoice_id);
+              enterInvoicePaymentBottomSheet(
+                context: context, 
+                invoice_id: invoice_id,
+                amount: total
+              );
             },
             child: Text(
               "Enter Payment",

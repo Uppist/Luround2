@@ -20,7 +20,7 @@ import 'package:luround/utils/components/copy_to_clipboard.dart';
 
 
 class ViewDueInvoiceScreen extends StatelessWidget {
-  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id, required this.bank_details});
+  ViewDueInvoiceScreen({super.key, required this.onPressed, required this.invoice_id, required this.send_to_name, required this.send_to_email, required this.phone_number, required this.due_date, required this.sub_total, required this.discount, required this.vat, required this.total, required this.note, required this.status, required this.booking_detail, required this.service_provider_phone_number, required this.service_provider_address, required this.tracking_id, required this.bank_details, required this.payment_link});
   final VoidCallback onPressed;
   final String invoice_id;
   final String send_to_name;
@@ -38,6 +38,7 @@ class ViewDueInvoiceScreen extends StatelessWidget {
   final List<dynamic> booking_detail;
   final String tracking_id;
   final Map<String, dynamic> bank_details;
+  final String payment_link;
 
   
 
@@ -710,7 +711,16 @@ class ViewDueInvoiceScreen extends StatelessWidget {
                             )
                           ),
                           SizedBox(height: 10.h,),
-                          Row(
+                          Text(
+                            payment_link,
+                            style: GoogleFonts.inter(
+                              color: AppColor.darkGreyColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                          
+                          /*Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               SvgPicture.asset("assets/svg/bank.svg"),
@@ -755,7 +765,7 @@ class ViewDueInvoiceScreen extends StatelessWidget {
                                 ),
                               )
                             ],
-                          ),
+                          ),*/
                         ]
                       )
                     )

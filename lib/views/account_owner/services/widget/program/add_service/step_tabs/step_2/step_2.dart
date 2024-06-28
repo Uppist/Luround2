@@ -219,7 +219,7 @@ class _Step2PageProgramServiceState extends State<Step2PageProgramService > {
    
 
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.17),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.07),
     
     
         Obx(

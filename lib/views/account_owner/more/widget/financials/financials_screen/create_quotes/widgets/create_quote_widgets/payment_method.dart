@@ -13,6 +13,8 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class PaymentMethodForQuote extends StatefulWidget {
+  const PaymentMethodForQuote({super.key});
+
   @override
   _PaymentMethodForForQuoteState createState() => _PaymentMethodForForQuoteState();
 }

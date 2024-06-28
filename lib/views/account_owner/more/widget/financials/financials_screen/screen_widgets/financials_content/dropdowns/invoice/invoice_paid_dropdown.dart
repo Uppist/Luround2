@@ -55,6 +55,7 @@ class InvoicePaidDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewPaidInvoiceScreen(
+                payment_link: paymentLink,
                 bank_details: bank_details,
                 onPressed: () {},
                 tracking_id: tracking_id,

@@ -626,9 +626,9 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                               onShare: () {
                                 service.createNewInvoiceAndSendToClient(
                                   context: context, 
-                                  bank_name: service.selectedBankForInvoice.value,
+                                  /*bank_name: service.selectedBankForInvoice.value,
                                   account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,*/
                                   client_name: widget.name, 
                                   client_email: widget.email, 
                                   client_phone_number: widget.phone_number, 
@@ -655,9 +655,9 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                               onSave: () {
                                 service.createNewInvoiceAndSaveToDB(
                                   context: context, 
-                                  bank_name: service.selectedBankForInvoice.value,
+                                  /*bank_name: service.selectedBankForInvoice.value,
                                   account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,*/
                                   client_name: widget.name, 
                                   client_email: widget.email, 
                                   client_phone_number: widget.phone_number,

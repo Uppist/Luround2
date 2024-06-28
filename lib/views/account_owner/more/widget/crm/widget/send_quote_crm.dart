@@ -598,7 +598,8 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                           width: double.infinity,
                           color: AppColor.greyColor,
                         ),
-                        SizedBox(height: 20.h,),
+                        
+                        /*SizedBox(height: 20.h,),
                         //5 Bank Payment Widget
                         //
                         Padding(
@@ -619,7 +620,7 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                               PaymentMethodForQuote()
                             ]
                           )
-                        ),
+                        ),*/
 
                         SizedBox(height: 20.h,),
                         //style
@@ -641,9 +642,6 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                                   onShare: () {
                                     service.createNewQuoteAndSendToClient(
                                       context: context, 
-                                      bank_name: service.selectedBankForQuote.value,
-                                      account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,
                                       client_name: widget.name, 
                                       client_email: widget.email, 
                                       client_phone_number: widget.phone_number, 
@@ -669,9 +667,6 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                                   onSave: () {
                                     service.createNewQuoteAndSendToDB(
                                       context: context, 
-                                      bank_name: service.selectedBankForQuote.value,
-                                      account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,
                                       client_name: widget.name, 
                                       client_email: widget.email, 
                                       client_phone_number: widget.phone_number,  
@@ -702,9 +697,6 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                                       context: context, 
                                       sender_address: "",
                                       sender_phone_number: '',
-                                      bank_name: service.selectedBankForQuote.value,
-                                      account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,
                                       tracking_id: quoteNumber.toString(),
                                       receiver_email: widget.email,
                                       receiver_name: widget.name,

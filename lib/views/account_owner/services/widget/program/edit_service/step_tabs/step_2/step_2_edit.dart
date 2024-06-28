@@ -220,7 +220,7 @@ class _Step2PageProgramServiceEditState extends State<Step2PageProgramServiceEdi
           }, 
         ),
         
-        SizedBox(height: MediaQuery.of(context).size.height * 0.17),
+        SizedBox(height: MediaQuery.of(context).size.height * 0.07),
     
         RebrandedReusableButton(
           textColor: controller.isCheckBoxActiveEdit.value ? AppColor.bgColor : AppColor.darkGreyColor,

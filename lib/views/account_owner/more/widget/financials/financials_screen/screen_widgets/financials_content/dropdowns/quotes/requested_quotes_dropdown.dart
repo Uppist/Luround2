@@ -96,9 +96,6 @@ class RequestedQuoteDropDown extends StatelessWidget {
               
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
-                bank_name: bank_name,
-                account_name: account_name,
-                account_number: account_number,
                 tracking_id: tracking_id,
                 sender_address: service_provider['address'] ?? "no address",
                 sender_phone_number: service_provider['phone_number'] ?? "no phone number",

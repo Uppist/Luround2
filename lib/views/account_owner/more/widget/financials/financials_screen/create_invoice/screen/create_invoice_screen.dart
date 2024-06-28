@@ -584,7 +584,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                       width: double.infinity,
                       color: AppColor.greyColor,
                     ),
-                    SizedBox(height: 20.h,),
+                    
+                    /*SizedBox(height: 20.h,),
                     //5 Bank Payment Widget
                     //
                     Padding(
@@ -605,7 +606,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                           PaymentMethodForInvoice()
                         ]
                       )
-                    ),
+                    ),*/
 
                     
                     SizedBox(height: 20.h,),
@@ -629,9 +630,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                               onShare: () {
                                 service.createNewInvoiceAndSendToClient(
                                   context: context, 
-                                  bank_name: service.selectedBankForInvoice.value,
+                                  /*bank_name: service.selectedBankForInvoice.value,
                                   account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,*/
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 
                                   client_phone_number: controller.invoiceClientPhoneNumberController.text, 
@@ -657,9 +658,9 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                               onSave: () {
                                 service.createNewInvoiceAndSaveToDB(
                                   context: context, 
-                                  bank_name: service.selectedBankForInvoice.value,
+                                  /*bank_name: service.selectedBankForInvoice.value,
                                   account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,
+                                  account_number: service.selectedAccNumberForInvoice.value,*/
                                   client_name: controller.invoiceClientNameController.text, 
                                   client_email: controller.invoiceClientEmailController.text, 
                                   client_phone_number: controller.invoiceClientPhoneNumberController.text, 

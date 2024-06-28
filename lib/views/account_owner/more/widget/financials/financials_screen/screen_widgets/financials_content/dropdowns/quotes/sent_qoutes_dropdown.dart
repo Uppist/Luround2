@@ -89,10 +89,7 @@ class QuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               finPdfService.shareQuotePDF(
-                context: context, 
-                bank_name: bank_details['bank'],
-                account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],
+                context: context,
                 tracking_id: tracking_id,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
@@ -121,10 +118,7 @@ class QuoteDropDown extends StatelessWidget {
           PopupMenuItem(
             onTap: () {
               finPdfService.downloadQuotePDFToDevice(
-                context: context, 
-                bank_name: bank_details['bank'],
-                account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],
+                context: context,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,
                 tracking_id: tracking_id,

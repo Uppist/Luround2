@@ -48,13 +48,14 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
       color: AppColor.bgColor,
       position: PopupMenuPosition.under,
       padding: EdgeInsets.symmetric(horizontal: 10.w),
-      initialValue: "Quote",
+      initialValue: "Invoice",
       itemBuilder: (context) {
         return [
           PopupMenuItem(
             onTap: () {
               Get.to(() => ViewUnpaidInvoiceScreen(
                 onPressed: () {},
+                payment_link: paymentLink,
                 bank_details: bank_details,
                 tracking_id: tracking_id,
                 service_provider_address: service_provider_address,
@@ -84,7 +85,11 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
           ),
           PopupMenuItem(
             onTap: () {
-              enterInvoicePaymentBottomSheet(context: context, invoice_id: invoice_id);
+              enterInvoicePaymentBottomSheet(
+                context: context, 
+                invoice_id: invoice_id,
+                amount: total
+              );
             },
             child: Text(
               "Enter Payment",

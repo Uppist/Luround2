@@ -86,9 +86,9 @@ class DraftedQuoteDropDown extends StatelessWidget {
 
               service.createNewQuoteAndSendToClient(
                 context: context, 
-                bank_name: bank_details['bank'],
+                /*bank_name: bank_details['bank'],
                 account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],
+                account_number: bank_details['account_number'],*/
                 client_name: send_to_name, 
                 client_email: send_to_email, 
                 client_phone_number: phone_number, 
@@ -117,9 +117,6 @@ class DraftedQuoteDropDown extends StatelessWidget {
         
               finPdfService.downloadQuotePDFToDevice(
                 context: context, 
-                bank_name: bank_details['bank'],
-                account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],
                 tracking_id: tracking_id,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,

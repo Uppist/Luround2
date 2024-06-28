@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/invoice/unpaid/unpaid_invoice_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/copy_to_clipboard.dart';
 
@@ -37,11 +38,11 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
   final List<dynamic> booking_detail;
   final String tracking_id;
   final Map<String, dynamic> bank_details;
-  
   final String payment_link;
 
 
   final controller = Get.put(UnpaidInvoiceController());
+  final service = Get.put(AccOwnerServicePageService());
   final userName = LocalStorage.getUsername();
   final userEmail = LocalStorage.getUseremail();
 
@@ -318,7 +319,7 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                'N$total',
+                                '${currency(context).currencySymbol}$total',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
@@ -712,12 +713,17 @@ class ViewUnpaidInvoiceScreen extends StatelessWidget {
                             )
                           ),
                           SizedBox(height: 10.h,),
-                          Text(
-                            payment_link,
-                            style: GoogleFonts.inter(
-                              color: AppColor.darkGreyColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w400
+                          InkWell(
+                            onTap: (){
+                              service.launchUrlLink(link: payment_link);
+                            },
+                            child: Text(
+                              payment_link,
+                              style: GoogleFonts.inter(
+                                color: AppColor.darkGreyColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w400
+                              ),
                             ),
                           ),
                           

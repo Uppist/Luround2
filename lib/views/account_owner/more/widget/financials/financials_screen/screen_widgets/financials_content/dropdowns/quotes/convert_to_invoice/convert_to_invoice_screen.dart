@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
@@ -313,7 +314,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                                 print("ctv due date: ${service.ctvdueDateController.text}");
                               },
                               hintText: "Enter due date",
-                              keyboardType: TextInputType.datetime,
+                              keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
                             )
                             /*Text(
@@ -340,7 +341,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                               ),
                             ),
                             Text(
-                              'N${widget.total}',
+                              '${currency(context).currencySymbol}${widget.total}',
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
@@ -452,7 +453,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                                             ),
                                           ),
                                           Text(
-                                            'N${item['rate']}',
+                                            '${currency(context).currencySymbol}${item['rate']}',
                                             style: GoogleFonts.inter(
                                               color: AppColor.darkGreyColor,
                                               fontSize: 14.sp,
@@ -521,7 +522,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                                             ),
                                           ),
                                           Text(
-                                            'N${item['total']}',
+                                            '${currency(context).currencySymbol}${item['total']}',
                                             style: GoogleFonts.inter(
                                               color: AppColor.darkGreyColor,
                                               fontSize: 14.sp,
@@ -566,7 +567,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                               ),
                             ),
                             Text(
-                              'N${widget.sub_total}',
+                              '${currency(context).currencySymbol}${widget.sub_total}',
                               style: GoogleFonts.inter(
                                 color: AppColor.darkGreyColor,
                                 fontSize: 14.sp,
@@ -641,7 +642,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             Obx(
                               () {
                                 return Text(
-                                  service.reactiveCTVVAT.isNotEmpty ? "N${service.reactiveCTVVAT.value}" :'N${widget.vat}',
+                                  service.reactiveCTVVAT.isNotEmpty ? "${currency(context).currencySymbol}${service.reactiveCTVVAT.value}" :'${currency(context).currencySymbol}${widget.vat}',
                                   style: GoogleFonts.inter(
                                     color: AppColor.darkGreyColor,
                                     fontSize: 14.sp,
@@ -669,7 +670,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             Obx(
                               () {
                                 return Text(
-                                  service.reactiveCTVGrandTotal.isNotEmpty ? "N${service.reactiveCTVGrandTotal.value}" : 'N${widget.total}',
+                                  service.reactiveCTVGrandTotal.isNotEmpty ? "${currency(context).currencySymbol}${service.reactiveCTVGrandTotal.value}" : '${currency(context).currencySymbol}${widget.total}',
                                   style: GoogleFonts.inter(
                                     color: AppColor.darkGreyColor,
                                     fontSize: 14.sp,
@@ -756,8 +757,9 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                   ),
 
                   SizedBox(height: 20.h),
+                  
                   //PAYMENT CONTAINER//////////////////
-                  Container(
+                  /*Container(
                     //alignment: Alignment.center,
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                     width: double.infinity,
@@ -822,7 +824,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         ),
                       ]
                     )
-                  ),
+                  ),*/
                   /////////////////////////////////////////////
 
                   SizedBox(height: 30.h,),

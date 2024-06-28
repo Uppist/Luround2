@@ -629,7 +629,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                             color: AppColor.mainColor,
                             text: 'Send Quote',
                             onPressed: () {
-                              if(service.selectedBankForQuote.value.isNotEmpty && controller.quoteClientNameController.text.isNotEmpty && controller.quoteClientEmailController.text.isNotEmpty && controller.quoteClientPhoneNumberController.text.isNotEmpty) {
+                              if(controller.quoteClientNameController.text.isNotEmpty && controller.quoteClientEmailController.text.isNotEmpty && controller.quoteClientPhoneNumberController.text.isNotEmpty) {
                                 sendQuoteBottomSheet(
                                   context: context,
                                   onShare: () {

@@ -112,7 +112,6 @@ class _QuotesListState extends State<QuotesList> {
                         return QuotesDisplay(
                           refresh: _refresh(),
                           onPressed: (){},
-                          paymentLink: item.paymentLink,
                           created_at: item.created_at,
                           tracking_id: item.tracking_id.toString(),
                           quote_id: item.quote_id, //randNum.toString(), 

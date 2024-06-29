@@ -202,7 +202,7 @@ Future<void> editServiceDialogueBox({
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
-                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/app/#/'));
+                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/service/#/'));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -214,7 +214,7 @@ Future<void> editServiceDialogueBox({
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Share service link',
+                              'Share service',
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
                                 fontSize: 16.sp,

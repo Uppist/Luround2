@@ -204,7 +204,7 @@ Future<void> editProgramServiceDialogueBox({
                 InkWell(
                   onTap: () {
                     Navigator.pop(context);
-                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/app/#/'));
+                    shareServiceLink(link: serviceLink.replaceFirst('luround.com/', 'luround.com/service/#/'));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,

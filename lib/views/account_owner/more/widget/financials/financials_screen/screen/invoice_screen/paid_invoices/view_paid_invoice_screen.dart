@@ -704,7 +704,7 @@ class ViewPaidInvoiceScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Payment",
+                            "Payment Link",
                             style: GoogleFonts.inter(
                               color: AppColor.darkGreyColor,
                               fontSize: 14.sp,

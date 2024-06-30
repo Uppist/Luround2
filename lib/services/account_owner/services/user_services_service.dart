@@ -691,7 +691,9 @@ class AccOwnerServicePageService extends getx.GetxController {
         "price": price,
         "service_type": "One-Off",
         "oneoff_type": "project based",
-        "availability_schedule": availability_scheduleList
+        "availability_schedule": availability_scheduleList,
+
+        //'appointment_type': 'Virtual',
       };
 
       http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);

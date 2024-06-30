@@ -705,7 +705,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   subtotal: service.reactiveSubtotalForInvoice.value,
                                   discount: service.reactiveTotalDiscountForInvoice.value,
                                   vat: service.reactiveTotalVATForInvoice.value,
-                                  grand_total: service.reactiveTotalForInvoice.value,
+                                  charge: '${(0.05 * double.parse(service.reactiveTotalForInvoice.value))}',
+                                  grand_total: '${double.parse(service.reactiveTotalForInvoice.value) + (0.05 * double.parse(service.reactiveTotalForInvoice.value))}',
                                   serviceList: service.selectedInvoicebslist,
                                 ).whenComplete(() {
                                   controller.invoiceClientEmailController.clear();

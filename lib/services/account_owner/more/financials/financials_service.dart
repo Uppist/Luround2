@@ -437,11 +437,10 @@ class FinancialsService extends getx.GetxController {
         int quote_id = response['quote_id'];
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
+        String charge = response['charge'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareQuotePDF(
-          /*bank_name: bank_name,
-          account_name: account_name,
-          account_number: account_number,*/
+          charge: charge,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -903,13 +902,13 @@ class FinancialsService extends getx.GetxController {
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
         String payment_link = response['payment_link'] ?? "non";
+        String charge = response['charge'] ?? "non";
+
 
 
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
-          /*bank_name: bank_name,
-          account_name: account_name,
-          account_number: account_number,*/
+          charge: charge,
           paymentLink: payment_link,
           sender_address: address,
           sender_phone_number: phone_number,
@@ -975,10 +974,7 @@ class FinancialsService extends getx.GetxController {
     required String discount,
     required String total,
     required List<dynamic> booking_detail,
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
+   
     }) async {
 
     isLoading.value = true;
@@ -996,10 +992,6 @@ class FinancialsService extends getx.GetxController {
       "total": total,
       "product_detail": booking_detail,
       "invoice_generated_from_quote": "True",
-      //service provider bank details
-      /*"bank": bank_name,
-      "account_name": account_name,
-      "account_number": account_number,*/
     };
 
     try {
@@ -1017,11 +1009,10 @@ class FinancialsService extends getx.GetxController {
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
         String payment_link = response['payment_link'] ?? "non";
+        String charge = response['charge'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
-          /*bank_name: bank_name,
-          account_name: account_name,
-          account_number: account_number,*/
+          charge: charge,
           paymentLink: payment_link,
           sender_address: address,
           sender_phone_number: phone_number,
@@ -1378,8 +1369,10 @@ class FinancialsService extends getx.GetxController {
         int receipt_id = response['receipt_id'];
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
+        String charge = response['charge'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareReceiptPDF(
+          charge: charge,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -1661,6 +1654,16 @@ class FinancialsService extends getx.GetxController {
       throw Exception("$error => $stackTrace");
       // Handle error as needed, e.g., show an error message to the user
     }
+  }
+
+  String chargeFee(String fee) {
+    double result = (0.05 * double.parse(fee));
+    return result.toString();
+  }
+  
+  String grandTotal(String fee) {
+    double result = double.parse(fee) + (0.05 * double.parse(fee));
+    return result.toString();
   }
 
 

@@ -707,7 +707,8 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   discount: service.reactiveTotalDiscountForReceipt.value,
                                   vat: service.reactiveTotalVATForReceipt.value,
                                   note: controller.receiptNoteController.text,
-                                  grand_total: service.reactiveTotalForReceipt.value,
+                                  charge: '${(0.05 * double.parse(service.reactiveTotalForQoute.value))}',
+                                  grand_total: '${double.parse(service.reactiveTotalForQoute.value) + (0.05 * double.parse(service.reactiveTotalForQoute.value))}',
                                   serviceList: service.selectedReceiptbslist,
                                 ).whenComplete(() {
                                     controller.receiptClientEmailController.clear();

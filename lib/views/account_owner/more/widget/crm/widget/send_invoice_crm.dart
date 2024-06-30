@@ -689,9 +689,6 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                 finPdfService.downloadInvoicePDFToDevice(
                                   sender_address: "",
                                   sender_phone_number: '',
-                                  /*bank_name: service.selectedBankForInvoice.value,
-                                  account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,*/
                                   paymentLink: '',
                                   context: context, 
                                   tracking_id: invoiceNumber.toString(),
@@ -704,7 +701,8 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                   subtotal: service.reactiveSubtotalForInvoice.value,
                                   discount: service.reactiveTotalDiscountForInvoice.value,
                                   vat: service.reactiveTotalVATForInvoice.value,
-                                  grand_total: service.reactiveTotalForInvoice.value,
+                                  charge: '${(0.05 * double.parse(service.reactiveTotalForInvoice.value))}',
+                                  grand_total: '${double.parse(service.reactiveTotalForInvoice.value) + (0.05 * double.parse(service.reactiveTotalForInvoice.value))}',
                                   serviceList: service.selectedInvoicebslist,
                                 ).whenComplete(() {
                                   controller.invoiceClientEmailController.clear();

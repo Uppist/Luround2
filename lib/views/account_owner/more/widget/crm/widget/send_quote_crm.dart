@@ -707,7 +707,8 @@ class _SendQuoteCRMState extends State<SendQuoteCRM> {
                                       discount: service.reactiveTotalDiscountForQuote.value,
                                       vat: service.reactiveTotalVATForQuote.value,
                                       note: controller.quoteNoteController.text,
-                                      grand_total: service.reactiveTotalForQoute.value,
+                                      charge: '${(0.05 * double.parse(service.reactiveTotalForQoute.value))}',
+                                      grand_total: '${double.parse(service.reactiveTotalForQoute.value) + (0.05 * double.parse(service.reactiveTotalForQoute.value))}',
                                       serviceList: service.selectedQuotebslist,
                                     ).whenComplete(() {
                                       controller.quoteClientEmailController.clear();

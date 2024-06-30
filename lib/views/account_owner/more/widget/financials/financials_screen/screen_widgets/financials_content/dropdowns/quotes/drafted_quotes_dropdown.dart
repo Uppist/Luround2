@@ -125,7 +125,9 @@ class DraftedQuoteDropDown extends StatelessWidget {
                 receiver_phone_number: phone_number, 
                 quote_status: status,
                 due_date: due_date, 
-                grand_total: total, 
+                
+                charge: service.chargeFee(total),
+                grand_total: service.grandTotal(total), 
                 serviceList: product_details, 
                 subtotal: sub_total, 
                 discount: discount, 

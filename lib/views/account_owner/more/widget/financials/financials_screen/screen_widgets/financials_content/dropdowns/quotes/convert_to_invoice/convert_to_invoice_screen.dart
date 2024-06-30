@@ -885,9 +885,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         },
                         onDownload: () {
                           finPdfService.downloadInvoicePDFToDevice(
-                            /*bank_name: widget.bank_details['bank'],
-                            account_name: widget.bank_details['account_name'],
-                            account_number: widget.bank_details['account_number'],*/
+                            
                             paymentLink: widget.paymentLink,
                             context: context,
                             sender_address: widget.service_provider_address,
@@ -902,7 +900,8 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
                             vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
                             note: service.ctvnoteController.text.isNotEmpty ? service.ctvnoteController.text : widget.note,
-                            grand_total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
+                            charge: service.chargeFee(service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total),
+                            grand_total: service.grandTotal(service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total),
                             serviceList: widget.product_details,
                           ).whenComplete(() {
                             setState(() {

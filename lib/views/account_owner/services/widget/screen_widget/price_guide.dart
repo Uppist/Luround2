@@ -16,10 +16,10 @@ class PriceGuide extends StatelessWidget {
       //height: 200.h,
       width: double.infinity,
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
       decoration: BoxDecoration(
         color: AppColor.navyBlue,
-        borderRadius: BorderRadius.circular(3.r),
+        borderRadius: BorderRadius.circular(5.r),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,18 +32,20 @@ class PriceGuide extends StatelessWidget {
                 color: AppColor.bgColor,
                 CupertinoIcons.info_circle,
               ),
-              SizedBox(width: 5.w,),
-              Text(
-                "Input '0' in the textfield for free virtual or in-person service",
-                style: GoogleFonts.inter(
-                  color: AppColor.bgColor,
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500
+              SizedBox(width: 7.w,),
+              Expanded(
+                child: Text(
+                  "Input '0' in the textfield for free virtual or in-person service",
+                  style: GoogleFonts.inter(
+                    color: AppColor.bgColor,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
               ),
             ],
           ),
-          SizedBox(height: 5.h,),
+          SizedBox(height: 10.h,),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -52,13 +54,15 @@ class PriceGuide extends StatelessWidget {
                 color: AppColor.bgColor,
                 CupertinoIcons.info_circle,
               ),
-              SizedBox(width: 5.w,),
-              Text(
-                "Leave the other field blank if the service is only virtual or in-person",
-                style: GoogleFonts.inter(
-                  color: AppColor.bgColor,
-                  fontSize: 10.sp,
-                  fontWeight: FontWeight.w500
+              SizedBox(width: 7.w,),
+              Expanded(
+                child: Text(
+                  "Leave the other field blank if the service is only virtual or in-person",
+                  style: GoogleFonts.inter(
+                    color: AppColor.bgColor,
+                    fontSize: 10.sp,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
               ),
             ],

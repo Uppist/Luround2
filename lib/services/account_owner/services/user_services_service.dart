@@ -1053,93 +1053,124 @@ class AccOwnerServicePageService extends getx.GetxController {
 
     try {
 
-      //EVENT DATA LOOP
-      final List<dynamic> eventScheduleList = [];
-      for (Map<String, dynamic> data in schedule) {
-        final String date = data['date'];
-        final String start_time = data['start_time'];
-        final String stop_time = data['stop_time'];
+      if(event_schedule == "Multiple dates" ) {
+        //EVENT DATA LOOP
+        final List<dynamic> eventScheduleList = [];
+        for (Map<String, dynamic> data in schedule) {
+          final String date = data['date'];
+          final String start_time = data['start_time'];
+          final String stop_time = data['stop_time'];
 
-        // Check if required fields are not empty or undefined
-        if (date.isNotEmpty && start_time.isNotEmpty && stop_time.isNotEmpty) {
-          final Map<String, dynamic> map = {
-            "date": date,
-            "time": start_time,
-            "end_time": stop_time,
-          };
-          eventScheduleList.add(map);
+          // Check if required fields are not empty or undefined
+          if (date.isNotEmpty && start_time.isNotEmpty && stop_time.isNotEmpty) {
+            final Map<String, dynamic> map = {
+              "date": date,
+              "time": start_time,
+              "end_time": stop_time,
+            };
+            eventScheduleList.add(map);
 
+          } 
+          else {
+            // Handle case where required fields are empty or undefined
+            isServiceCRLoading.value = false;
+            debugPrint("Error: Required fields are empty or undefined");
+            log('empty schedule list');
+          }
+        }
+
+        var body = {
+          "service_name": service_name,
+          "description": description,
+          "service_type": "Event",
+          "virtual_meeting_link": virtual_meeting_link,
+          "physical_location": physical_location,
+          "event_type": event_schedule,
+          'duration': 'multiple event',
+          "in_person_event_fee": inpersonFee,
+          "virtual_event_fee": virtualFee,
+          "event_schedule": eventScheduleList,
+          'start_time': eventScheduleList[0]['time'],
+          'end_time': eventScheduleList[0]['end_time'],
+        };
+
+        http.Response res = await baseService.httpPost(
+          endPoint: "services/create", 
+          body: body
+        );
+        if (res.statusCode == 200 || res.statusCode == 201) {
+          isServiceCRLoading.value = false;
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          debugPrint("user service created successfully");
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "Your service has been created successfully"
+          );
         } 
         else {
-          // Handle case where required fields are empty or undefined
-          /*isServiceCRLoading.value = false;
-          debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request*/
-          log('empty list');
+          isServiceCRLoading.value = false;
+          debugPrint('this is response reason ==> ${res.reasonPhrase}');
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          //failure snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.redColor,
+            message: "failed to create service: ${res.statusCode} || ${res.body}"
+          );
+        }
+
+      }
+      else{
+        var body = {
+          "service_name": service_name,
+          "description": description,
+          "service_type": "Event",
+          "virtual_meeting_link": virtual_meeting_link,
+          "physical_location": physical_location,
+          "event_type": event_schedule,
+          'duration': duration,
+
+          "date": date,
+          "start_time": start_time,
+          "end_time": end_time,
+          "in_person_event_fee": inpersonFee,
+          "virtual_event_fee": virtualFee,
+        };
+
+        http.Response res = await baseService.httpPost(
+          endPoint: "services/create", 
+          body: body
+        );
+        if (res.statusCode == 200 || res.statusCode == 201) {
+          isServiceCRLoading.value = false;
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          debugPrint("user service created successfully");
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "Your service has been created successfully"
+          );
+        } 
+        else {
+          isServiceCRLoading.value = false;
+          debugPrint('this is response reason ==> ${res.reasonPhrase}');
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          //failure snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.redColor,
+            message: "failed to create service: ${res.statusCode} || ${res.body}"
+          );
         }
       }
-
-      
-      var body1 = {
-        "service_name": service_name,
-        "description": description,
-        "service_type": "Event",
-        "virtual_meeting_link": virtual_meeting_link,
-        "physical_location": physical_location,
-        "event_type": event_schedule,
-        'duration': duration,
-
-        "date": date,
-        "start_time": start_time,
-        "end_time": end_time,
-        "in_person_event_fee": inpersonFee,
-        "virtual_event_fee": virtualFee,
-      };
-
-      var body2 = {
-        "service_name": service_name,
-        "description": description,
-        "service_type": "Event",
-        "virtual_meeting_link": virtual_meeting_link,
-        "physical_location": physical_location,
-        "event_type": event_schedule,
-        'duration': 'multiple event',
-        "in_person_event_fee": inpersonFee,
-        "virtual_event_fee": virtualFee,
-        "event_schedule": eventScheduleList,
-        'start_time': eventScheduleList[0]['time'],
-        'end_time': eventScheduleList[0]['end_time'],
-      };
-
-
-      http.Response res = await baseService.httpPost(
-        endPoint: "services/create", 
-        body: event_schedule == "Single date" ? body1 : body2
-      );
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isServiceCRLoading.value = false;
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        debugPrint("user service created successfully");
-        //success snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "Your service has been created successfully"
-        );
-      } 
-      else {
-        isServiceCRLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        //failure snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.redColor,
-          message: "failed to create service: ${res.statusCode} || ${res.body}"
-        );
-      }
+  
     } 
     catch (e) {
       isServiceCRLoading.value = false;
@@ -1538,6 +1569,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
+
   Future<void> updateEventService({
     required BuildContext context,
     required String serviceId,
@@ -1561,95 +1593,125 @@ class AccOwnerServicePageService extends getx.GetxController {
 
     try {
 
-      //EVENT DATA LOOP
-      final List<dynamic> eventScheduleList = [];
-      for (Map<String, dynamic> data in schedule) {
-        final String date = data['date'];
-        final String start_time = data['start_time'];
-        final String stop_time = data['stop_time'];
 
-        // Check if required fields are not empty or undefined
-        if (date.isNotEmpty && start_time.isNotEmpty && stop_time.isNotEmpty) {
-          final Map<String, dynamic> map = {
-            "date": date,
-            "time": start_time,
-            "end_time": stop_time,
-          };
-          eventScheduleList.add(map);
+      if(event_schedule == "Multiple dates" ) {
+        //EVENT DATA LOOP
+        final List<dynamic> eventScheduleList = [];
+        for (Map<String, dynamic> data in schedule) {
+          final String date = data['date'];
+          final String start_time = data['start_time'];
+          final String stop_time = data['stop_time'];
 
+          // Check if required fields are not empty or undefined
+          if (date.isNotEmpty && start_time.isNotEmpty && stop_time.isNotEmpty) {
+            final Map<String, dynamic> map = {
+              "date": date,
+              "time": start_time,
+              "end_time": stop_time,
+            };
+            eventScheduleList.add(map);
+
+          } 
+          else {
+            // Handle case where required fields are empty or undefined
+            isServiceEDLoading.value = false;
+            debugPrint("Error: Required fields are empty or undefined");
+            log('empty schedule list');
+          }
+        }
+
+        var body = {
+          "service_name": service_name,
+          "description": description,
+          "service_type": "Event",
+          "virtual_meeting_link": virtual_meeting_link,
+          "physical_location": physical_location,
+          "event_type": event_schedule,
+          'duration': 'multiple event',
+          "in_person_event_fee": inpersonFee,
+          "virtual_event_fee": virtualFee,
+          "event_schedule": eventScheduleList,
+          'start_time': eventScheduleList[0]['time'],
+          'end_time': eventScheduleList[0]['end_time'],
+        };
+
+        http.Response res = await baseService.httpPut(
+          endPoint: "services/edit?serviceId=$serviceId", 
+          body: body
+        );
+        if (res.statusCode == 200 || res.statusCode == 201) {
+          isServiceEDLoading.value = false;
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          debugPrint("user service updateed successfully");
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "Your service has been updated successfully"
+          );
         } 
         else {
-          // Handle case where required fields are empty or undefined
-          /*isServiceCRLoading.value = false;
-          debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request*/
-          log('empty list');
+          isServiceEDLoading.value = false;
+          debugPrint('this is response reason ==> ${res.reasonPhrase}');
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          //failure snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.redColor,
+            message: "failed to update service: ${res.statusCode} || ${res.body}"
+          );
+        }
+
+      }
+      else{
+        var body = {
+          "service_name": service_name,
+          "description": description,
+          "service_type": "Event",
+          "virtual_meeting_link": virtual_meeting_link,
+          "physical_location": physical_location,
+          "event_type": event_schedule,
+          'duration': duration,
+
+          "date": date,
+          "start_time": start_time,
+          "end_time": end_time,
+          "in_person_event_fee": inpersonFee,
+          "virtual_event_fee": virtualFee,
+        };
+
+        http.Response res = await baseService.httpPut(
+          endPoint: "services/edit?serviceId=$serviceId", 
+          body: body
+        );
+        if (res.statusCode == 200 || res.statusCode == 201) {
+          isServiceEDLoading.value = false;
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          debugPrint("user service updated successfully");
+          //success snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.darkGreen,
+            message: "Your service has been updated successfully"
+          );
+        } 
+        else {
+          isServiceEDLoading.value = false;
+          debugPrint('this is response reason ==> ${res.reasonPhrase}');
+          debugPrint('this is response status ==> ${res.statusCode}');
+          debugPrint('this is response body ==> ${res.body}');
+          //failure snackbar
+          showMySnackBar(
+            context: context,
+            backgroundColor: AppColor.redColor,
+            message: "failed to update service: ${res.statusCode} || ${res.body}"
+          );
         }
       }
-
-      
-      
-      var body1 = {
-        //"email": email,
-        "service_name": service_name,
-        "description": description,
-        "service_type": "Event",
-        "virtual_meeting_link": virtual_meeting_link,
-        "physical_location": physical_location,
-        "event_type": event_schedule,
-        'duration': duration,
-        "date": date,
-        "start_time": start_time,
-        "end_time": end_time,
-        "in_person_event_fee": inpersonFee,
-        "virtual_event_fee": virtualFee,
-      };
-
-      var body2 = {
-        //"email": email,
-        "service_name": service_name,
-        "description": description,
-        "service_type": "Event",
-        "virtual_meeting_link": virtual_meeting_link,
-        "physical_location": physical_location,
-        'duration': 'multiple event',
-        "event_type": event_schedule,
-        "in_person_event_fee": inpersonFee,
-        "virtual_event_fee": virtualFee,
-        "event_schedule": eventScheduleList,
-        'start_time': eventScheduleList[0]['time'],
-        'end_time': eventScheduleList[0]['end_time'],
-      };
-
-
-      http.Response res = await baseService.httpPut(
-        endPoint: "services/edit?serviceId=$serviceId", 
-        body: event_schedule == "Single date" ? body1 : body2
-      );
-      if (res.statusCode == 200 || res.statusCode == 201) {
-        isServiceEDLoading.value = false;
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        debugPrint("user Event service updated successfully");
-        //success snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "Your service has been updated successfully"
-        );
-      } 
-      else {
-        isServiceEDLoading.value = false;
-        debugPrint('this is response reason ==> ${res.reasonPhrase}');
-        debugPrint('this is response status ==> ${res.statusCode}');
-        debugPrint('this is response body ==> ${res.body}');
-        //failure snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.redColor,
-          message: "failed to create service: ${res.statusCode} || ${res.body}"
-        );
-      }
+  
     } 
     catch (e) {
       isServiceEDLoading.value = false;

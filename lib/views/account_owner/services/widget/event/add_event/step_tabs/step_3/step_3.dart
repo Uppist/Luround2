@@ -95,44 +95,80 @@ class _Step3PageState extends State<Step3Page> {
               text: "Done", 
               onPressed: controller.priceType.value.isNotEmpty 
               ? () {
-                final String duration = getTimeDurationString(
-                  startTime: controller.selectedStartTime.value.isNotEmpty ? controller.selectedStartTime.value : '10:00 AM',
-                  stopTime: controller.selectedStopTime.value.isNotEmpty ? controller.selectedStopTime.value : '12:00 PM'
-                );
-                service.createEventService(
-                  context: context, 
-                  duration: duration,
-                  service_name: controller.serviceNameController.text, 
-                  description: controller.descriptionController.text, 
-                  virtual_meeting_link: controller.addLinkController.text, 
-                  physical_location: controller.addLocationController.text, 
-                  event_schedule: controller.eventSchedule.value, 
-                  date: controller.selectedDate.value, 
-                  start_time: controller.selectedStartTime.value, 
-                  end_time: controller.selectedStopTime.value, 
-                  inpersonFee: controller.inPersonPriceController.text, 
-                  virtualFee: controller.virtualPriceController.text, 
-                  schedule: controller.dataListForBackend
-                ).whenComplete(() {
-                  //1
-                  setState(() {
-                    controller.curentStep = controller.curentStep - 2;
-                    controller.selectedDate.value = '';
-                    controller.selectedStartTime.value = '';
-                    controller.selectedStopTime.value = '';
+                if(controller.eventSchedule.value == 'Single date'){
+                  log('${controller.eventSchedule.value}');
+                  service.createEventService(
+                    context: context, 
+                    duration: getTimeDurationString(startTime: controller.selectedStartTime.value, stopTime: controller.selectedStopTime.value), //come back to this
+                    service_name: controller.serviceNameController.text, 
+                    description: controller.descriptionController.text, 
+                    virtual_meeting_link: controller.addLinkController.text, 
+                    physical_location: controller.addLocationController.text, 
+                    event_schedule: controller.eventSchedule.value, 
+                    date: controller.selectedDate.value, 
+                    start_time: controller.selectedStartTime.value, 
+                    end_time: controller.selectedStopTime.value, 
+                    inpersonFee: controller.inPersonPriceController.text, 
+                    virtualFee: controller.virtualPriceController.text, 
+                    schedule: []
+                  ).whenComplete(() {
+                    //1
+                    setState(() {
+                      controller.curentStep = controller.curentStep - 2;
+                      controller.selectedDate.value = '';
+                      controller.selectedStartTime.value = '';
+                      controller.selectedStopTime.value = '';
+                    });
+                    //2
+                    controller.serviceNameController.clear();
+                    controller.descriptionController.clear();
+                    controller.addLinkController.clear();
+                    controller.addLocationController.clear();
+                    controller.dataListForBackend.clear();
+                    controller.inPersonPriceController.clear();
+                    controller.virtualPriceController.clear();
+                    Get.offAll(() => const MainPage());
                   });
-                  //2
-                  controller.serviceNameController.clear();
-                  controller.descriptionController.clear();
-                  controller.addLinkController.clear();
-                  controller.addLocationController.clear();
-                  controller.dataListForBackend.clear();
-                  controller.inPersonPriceController.clear();
-                  controller.virtualPriceController.clear();
-                  //3
-                  //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
-                  Get.offAll(() => const MainPage());
-                });
+                }
+                else{ 
+                  log('${controller.eventSchedule.value}');
+                  final String duration = getTimeDurationString(
+                    startTime: controller.dataListForBackend[0]['start_time'],
+                    stopTime: controller.dataListForBackend[0]['stop_time']
+                  );
+                  service.createEventService(
+                    context: context, 
+                    duration: duration,
+                    service_name: controller.serviceNameController.text, 
+                    description: controller.descriptionController.text, 
+                    virtual_meeting_link: controller.addLinkController.text, 
+                    physical_location: controller.addLocationController.text, 
+                    event_schedule: controller.eventSchedule.value, 
+                    date: '', // controller.dataListForBackend[0]['date'], 
+                    start_time: controller.dataListForBackend[0]['start_time'], 
+                    end_time: controller.dataListForBackend[0]['stop_time'],
+                    inpersonFee: controller.inPersonPriceController.text, 
+                    virtualFee: controller.virtualPriceController.text, 
+                    schedule: controller.dataListForBackend
+                  ).whenComplete(() {
+                    //1
+                    setState(() {
+                      controller.curentStep = controller.curentStep - 2;
+                      controller.selectedDate.value = '';
+                      controller.selectedStartTime.value = '';
+                      controller.selectedStopTime.value = '';
+                    });
+                    //2
+                    controller.serviceNameController.clear();
+                    controller.descriptionController.clear();
+                    controller.addLinkController.clear();
+                    controller.addLocationController.clear();
+                    controller.dataListForBackend.clear();
+                    controller.inPersonPriceController.clear();
+                    controller.virtualPriceController.clear();
+                    Get.offAll(() => const MainPage());
+                  });
+                }
 
               }
               : () {

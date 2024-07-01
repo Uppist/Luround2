@@ -101,51 +101,93 @@ class _Step3PageEditState extends State<Step3PageEdit> {
 
         Obx(
           () {
-            return service.isServiceEDLoading.value ? Loader2() : RebrandedReusableButton(
+            return service.isServiceEDLoading.value ? const Loader2() : RebrandedReusableButton(
               textColor: controller.priceTypeEdit.value.isNotEmpty ? AppColor.bgColor : AppColor.darkGreyColor,
               color: controller.priceTypeEdit.value.isNotEmpty ? AppColor.mainColor : AppColor.lightPurple, 
               text: "Done", 
               onPressed: controller.priceTypeEdit.value.isNotEmpty 
               ? () {
-                final String duration = getTimeDurationString(
-                  startTime: controller.selectedStartTimeEdit.value.isNotEmpty ? controller.selectedStartTimeEdit.value : '10:00 AM',
-                  stopTime: controller.selectedStopTimeEdit.value.isNotEmpty ? controller.selectedStopTimeEdit.value : '12:00 PM'
-                );
-                service.updateEventService(
-                  context: context, 
-                  serviceId: widget.serviceId,
-                  duration: duration,
-                  service_name: controller.serviceNameControllerEdit.text, 
-                  description: controller.descriptionControllerEdit.text, 
-                  virtual_meeting_link: controller.addLinkControllerEdit.text, 
-                  physical_location: controller.addLocationControllerEdit.text, 
-                  event_schedule: controller.eventScheduleEdit.value, 
-                  date: controller.selectedDateEdit.value, 
-                  start_time: controller.selectedStartTimeEdit.value, 
-                  end_time: controller.selectedStopTimeEdit.value, 
-                  inpersonFee: controller.inPersonPriceControllerEdit.text, 
-                  virtualFee: controller.virtualPriceControllerEdit.text, 
-                  schedule: controller.dataListForBackendEdit
-                ).whenComplete(() {
-                  //1
-                  setState(() {
-                    controller.curentStepEdit.value = controller.curentStepEdit.value - 2;
-                    controller.selectedDateEdit.value = '';
-                    controller.selectedStartTimeEdit.value = '';
-                    controller.selectedStopTimeEdit.value = '';
+
+                if(controller.eventScheduleEdit.value == 'Single date'){
+                  final String duration = getTimeDurationString(
+                    startTime: controller.selectedStartTimeEdit.value.isNotEmpty ? controller.selectedStartTimeEdit.value : '10:00 AM',
+                    stopTime: controller.selectedStopTimeEdit.value.isNotEmpty ? controller.selectedStopTimeEdit.value : '12:00 PM'
+                  );
+                  service.updateEventService(
+                    context: context, 
+                    serviceId: widget.serviceId,
+                    duration: duration,
+                    service_name: controller.serviceNameControllerEdit.text, 
+                    description: controller.descriptionControllerEdit.text, 
+                    virtual_meeting_link: controller.addLinkControllerEdit.text, 
+                    physical_location: controller.addLocationControllerEdit.text, 
+                    event_schedule: controller.eventScheduleEdit.value, 
+                    date: controller.selectedDateEdit.value, 
+                    start_time: controller.selectedStartTimeEdit.value, 
+                    end_time: controller.selectedStopTimeEdit.value, 
+                    inpersonFee: controller.inPersonPriceControllerEdit.text, 
+                    virtualFee: controller.virtualPriceControllerEdit.text, 
+                    schedule: []
+                  ).whenComplete(() {
+                    //1
+                    setState(() {
+                      controller.curentStepEdit.value = controller.curentStepEdit.value - 2;
+                      controller.selectedDateEdit.value = '';
+                      controller.selectedStartTimeEdit.value = '';
+                      controller.selectedStopTimeEdit.value = '';
+                    });
+                    //2
+                    controller.serviceNameControllerEdit.clear();
+                    controller.descriptionControllerEdit.clear();
+                    controller.addLinkControllerEdit.clear();
+                    controller.addLocationControllerEdit.clear();
+                    controller.dataListForBackendEdit.clear();
+                    controller.inPersonPriceControllerEdit.clear();
+                    controller.virtualPriceControllerEdit.clear();
+                    Get.offAll(() => const MainPage());
                   });
-                  //2
-                  controller.serviceNameControllerEdit.clear();
-                  controller.descriptionControllerEdit.clear();
-                  controller.addLinkControllerEdit.clear();
-                  controller.addLocationControllerEdit.clear();
-                  controller.dataListForBackendEdit.clear();
-                  controller.inPersonPriceControllerEdit.clear();
-                  controller.virtualPriceControllerEdit.clear();
-                  //3
-                  //controllerMp.navigateToMainpageAtIndex(page: MainPage(), index: 1);
-                  Get.offAll(() => MainPage());
-                });
+                }
+                else{
+                  final String duration = getTimeDurationString(
+                    startTime: controller.dataListForBackendEdit[0]['start_time'],
+                    stopTime: controller.dataListForBackendEdit[0]['stop_time']
+                  );
+                  service.updateEventService(
+                    context: context, 
+                    serviceId: widget.serviceId,
+                    duration: duration,
+                    service_name: controller.serviceNameControllerEdit.text, 
+                    description: controller.descriptionControllerEdit.text, 
+                    virtual_meeting_link: controller.addLinkControllerEdit.text, 
+                    physical_location: controller.addLocationControllerEdit.text, 
+                    event_schedule: controller.eventScheduleEdit.value, 
+                    date: '', // controller.dataListForBackendEdit[0]['date'], 
+                    start_time: controller.dataListForBackendEdit[0]['start_time'], 
+                    end_time: controller.dataListForBackendEdit[0]['stop_time'], 
+                    inpersonFee: controller.inPersonPriceControllerEdit.text, 
+                    virtualFee: controller.virtualPriceControllerEdit.text, 
+                    schedule: []
+                  ).whenComplete(() {
+                    //1
+                    setState(() {
+                      controller.curentStepEdit.value = controller.curentStepEdit.value - 2;
+                      controller.selectedDateEdit.value = '';
+                      controller.selectedStartTimeEdit.value = '';
+                      controller.selectedStopTimeEdit.value = '';
+                    });
+                    //2
+                    controller.serviceNameControllerEdit.clear();
+                    controller.descriptionControllerEdit.clear();
+                    controller.addLinkControllerEdit.clear();
+                    controller.addLocationControllerEdit.clear();
+                    controller.dataListForBackendEdit.clear();
+                    controller.inPersonPriceControllerEdit.clear();
+                    controller.virtualPriceControllerEdit.clear();
+                    Get.offAll(() => const MainPage());
+                  });
+                }
+
+
               }
               : () {
                 print('nothing');

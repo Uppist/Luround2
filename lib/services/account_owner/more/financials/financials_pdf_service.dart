@@ -1,11 +1,12 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+//import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
 import 'dart:math';
 import 'package:luround/utils/components/my_snackbar.dart';
@@ -91,7 +92,7 @@ class FinancialsPdfService extends getx.GetxController {
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
                         horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -160,7 +161,7 @@ class FinancialsPdfService extends getx.GetxController {
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
                         horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -218,7 +219,7 @@ class FinancialsPdfService extends getx.GetxController {
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
                         horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -323,7 +324,7 @@ class FinancialsPdfService extends getx.GetxController {
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(
                           horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
+                      //width: double.infinity,
                       color: PdfColors.white,
                       child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -518,8 +519,8 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                    horizontal: 20.w, vertical: 20.h),
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -646,15 +647,15 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
+                        horizontal: 20.w, vertical: 20.h
+                      ),
+                      //width: double.infinity,
                       color: PdfColors.white,
                       child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                               children: [
                                 pw.Text(
                                   "Note",
@@ -713,11 +714,6 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    //required String charge,
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
   }) async {
     try {
       writeQuotePdf(
@@ -896,7 +892,7 @@ class FinancialsPdfService extends getx.GetxController {
                             //alignment: Alignment.center,
                             padding: pw.EdgeInsets.symmetric(
                                 horizontal: 20.w, vertical: 20.h),
-                            width: double.infinity,
+                            //width: double.infinity,
                             color: PdfColors.white,
                             child: pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -971,7 +967,7 @@ class FinancialsPdfService extends getx.GetxController {
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
                         horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1028,8 +1024,10 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                      horizontal: 20.w, 
+                      vertical: 20.h
+                    ),
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1134,7 +1132,7 @@ class FinancialsPdfService extends getx.GetxController {
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(
                           horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
+                      //width: double.infinity,
                       color: PdfColors.white,
                       child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1327,8 +1325,10 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                      horizontal: 20.w, 
+                      vertical: 20.h
+                    ),
+                    //width: ,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1339,8 +1339,8 @@ class FinancialsPdfService extends getx.GetxController {
                             pw.Text(
                               "Subtotal",
                               style: pw.TextStyle(color: PdfColors.grey
-                                  //fontWeight: FontWeight.w500
-                                  ),
+                                //fontWeight: FontWeight.w500
+                              ),
                             ),
                             pw.Text('N$subtotal',
                                 style: pw.TextStyle(
@@ -1401,7 +1401,7 @@ class FinancialsPdfService extends getx.GetxController {
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text(
-                              "Processing fee(5%)",
+                              "Processing fee (5%)",
                               style: pw.TextStyle(
                                 color: PdfColors.grey, //.withOpacity(0.6),
                                 fontSize: 14.sp,
@@ -1451,7 +1451,7 @@ class FinancialsPdfService extends getx.GetxController {
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text(
-                              "Payment Link:",
+                              "Payment link:",
                               style: pw.TextStyle(
                                 color: PdfColors.grey,
                                 fontSize: 14.sp,
@@ -1481,7 +1481,7 @@ class FinancialsPdfService extends getx.GetxController {
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(
                           horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
+                      //width: double.infinity,
                       color: PdfColors.white,
                       child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1717,8 +1717,10 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                      horizontal: 20.w, 
+                      vertical: 20.h
+                    ),
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1787,7 +1789,7 @@ class FinancialsPdfService extends getx.GetxController {
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
                         horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1844,8 +1846,9 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                      horizontal: 20.w, vertical: 20.h
+                    ),
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -1929,13 +1932,14 @@ class FinancialsPdfService extends getx.GetxController {
                                 //fontWeight: FontWeight.w500
                               ),
                             ),
-                            pw.Text(due_date,
-                                style: pw.TextStyle(
-                                  color:
-                                      PdfColors.green, //AppColor.darkGreyColor,
-                                  fontSize: 14.sp,
-                                  //fontWeight: FontWeight.w500
-                                )),
+                            pw.Text(
+                              due_date,
+                              style: pw.TextStyle(
+                                color: PdfColors.green, //AppColor.darkGreyColor,
+                                fontSize: 14.sp,
+                                //fontWeight: FontWeight.w500
+                              )
+                            ),
                           ],
                         ),
                       ],
@@ -1949,11 +1953,12 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
+                        horizontal: 20.w, vertical: 20.h
+                      ),
+                      //width: double.infinity,
                       color: PdfColors.white,
                       child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Row(
                               mainAxisAlignment:
@@ -2141,8 +2146,10 @@ class FinancialsPdfService extends getx.GetxController {
                   pw.Container(
                     //alignment: Alignment.center,
                     padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    width: double.infinity,
+                      horizontal: 20.w, 
+                      vertical: 20.h
+                    ),
+                    //width: double.infinity,
                     color: PdfColors.white,
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -2181,11 +2188,12 @@ class FinancialsPdfService extends getx.GetxController {
                               ),
                             ),
                             pw.Text('$discount%',
-                                style: pw.TextStyle(
-                                  color: PdfColors.black,
-                                  fontSize: 14.sp,
-                                  //fontWeight: FontWeight.w500
-                                )),
+                              style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 14.sp,
+                                //fontWeight: FontWeight.w500
+                              )
+                            ),
                           ],
                         ),
                         pw.SizedBox(
@@ -2203,11 +2211,12 @@ class FinancialsPdfService extends getx.GetxController {
                               ),
                             ),
                             pw.Text('N$vat',
-                                style: pw.TextStyle(
-                                  color: PdfColors.black,
-                                  fontSize: 15.sp,
-                                  //fontWeight: FontWeight.w500
-                                )),
+                              style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 15.sp,
+                                //fontWeight: FontWeight.w500
+                              )
+                            ),
                           ],
                         ),
                         pw.SizedBox(
@@ -2217,7 +2226,6 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [    
-
                             pw.Text(
                               "Processing fee",
                             style: pw.TextStyle(
@@ -2226,7 +2234,6 @@ class FinancialsPdfService extends getx.GetxController {
                               ),
                             ),
                             pw.Text(
-                              //'N$charges',
                               '5%',
                               style: pw.TextStyle(
                                 color: PdfColors.black,
@@ -2251,13 +2258,15 @@ class FinancialsPdfService extends getx.GetxController {
                                 //fontWeight: FontWeight.w500
                               ),
                             ),
-                            pw.Text('N$grand_total',
-                                style: pw.TextStyle(
-                                  color:
-                                      PdfColors.black, //AppColor.darkGreyColor,
-                                  fontSize: 15.sp,
-                                  //fontWeight: FontWeight.w500
-                                )),
+                            pw.Text(
+                              'N$grand_total',
+                                
+                              style: pw.TextStyle(
+                                color: PdfColors.black, //AppColor.darkGreyColor,
+                                fontSize: 15.sp,
+                                //fontWeight: FontWeight.w500
+                              )
+                            ),
                           ],
                         ),
                       ],
@@ -2271,7 +2280,7 @@ class FinancialsPdfService extends getx.GetxController {
                       //alignment: Alignment.center,
                       padding: pw.EdgeInsets.symmetric(
                           horizontal: 20.w, vertical: 20.h),
-                      width: double.infinity,
+                      //width: double.infinity,
                       color: PdfColors.white,
                       child: pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -2407,7 +2416,6 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    //required String charge,
   }) async {
     try {
       writeReceiptPdf(

@@ -1621,7 +1621,7 @@ class FinancialsService extends getx.GetxController {
   }
 
   String chargeFee(String fee) {
-    double result = (0.05 * double.parse(fee));
+    double result = 0.05 * double.parse(fee);
     return result.toString();
   }
   

@@ -56,7 +56,7 @@ class ReceiptResponse{
       receipt_id: json['_id'] ?? "nan",
       receipt_date: json['receipt_date'] ?? "nan",
       send_to_name: json['send_to_name'] ?? "nan",
-      send_to_email: json['sent_to_email'] ?? "nan",
+      send_to_email: json['send_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "nan",
       sub_total: json['sub_total'] ?? "nan",
       discount: json['discount'] ?? "nan",

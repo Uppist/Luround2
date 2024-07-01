@@ -54,7 +54,7 @@ class InvoiceResponse{
       status: json['payment_status'] ?? "nan",
       invoice_id: json['_id'],
       send_to_name: json['send_to_name'] ?? "what's happening?",
-      send_to_email: json['sent_to_email'] ?? "nan",
+      send_to_email: json['send_to_email'] ?? "nan",
       phone_number: json['phone_number'] ?? "(empty)",
       payment_link: json['payment_link'] ?? "non",
       due_date: json['due_date'] ?? "nan",

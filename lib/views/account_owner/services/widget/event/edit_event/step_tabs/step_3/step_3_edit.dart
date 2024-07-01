@@ -166,7 +166,7 @@ class _Step3PageEditState extends State<Step3PageEdit> {
                     end_time: controller.dataListForBackendEdit[0]['stop_time'], 
                     inpersonFee: controller.inPersonPriceControllerEdit.text, 
                     virtualFee: controller.virtualPriceControllerEdit.text, 
-                    schedule: []
+                    schedule: controller.dataListForBackendEdit
                   ).whenComplete(() {
                     //1
                     setState(() {

@@ -12,6 +12,7 @@ class DraftedQuotesResponse{
   final String sub_total;
   final String discount;
   final String vat;
+  final String charge;
   final String total;
   final String appointment_type;
   final String status;
@@ -31,6 +32,7 @@ class DraftedQuotesResponse{
     required this.quote_date, 
     required this.sub_total, 
     required this.discount, 
+    required this.charge,
     required this.vat, 
     required this.total, 
     required this.appointment_type, 
@@ -58,6 +60,7 @@ class DraftedQuotesResponse{
       sub_total: json['sub_total'] ?? "nan",
       discount: json['discount'] ?? "nan",
       vat: json['vat'] ?? "nan",
+      charge: json['charge'] ?? "nan",
       total: json['total'] ?? "nan",
       appointment_type: json['appointment_type'] ?? "nan",
       status: json['status'] ?? "nan",

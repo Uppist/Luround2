@@ -249,16 +249,16 @@ class MainPageController extends getx.GetxController {
 
 
   dynamic setIndex(int setindex) {
-    if (setindex >= 0 && setindex < widgetOptions.length) {
+    //if (setindex >= 0 && setindex < widgetOptions.length) {
       selectedIndex.value = setindex;
       log("index: $setindex");
-    }
+    //}
     update();
   }
 
 
 
-  Future<void> navigateToMainpageAtIndex({required Widget page, required int index}) async{
+  /*Future<void> navigateToMainpageAtIndex({required Widget page, required int index}) async{
     // Use Navigator to push to onto the navigation stack
     setIndex(index);
     navigatorKey.currentState?.pushReplacement(
@@ -266,7 +266,7 @@ class MainPageController extends getx.GetxController {
         builder: (context) => page,
       )
     );
-  }
+  }*/
   
 
   //navbar items

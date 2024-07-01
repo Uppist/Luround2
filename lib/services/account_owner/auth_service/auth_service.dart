@@ -696,7 +696,7 @@ class AuthService extends getx.GetxController {
 
           //Access the payload
           if (decodedToken != null) {
-            print("Token payload: $decodedToken");
+            log("Token payload: $decodedToken");
             // Access specific claims
             // Replace 'sub' with the actual claim you want
             String userId = decodedToken['userId']; //?? "user_id";

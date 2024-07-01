@@ -14,6 +14,7 @@ class SentQuotesResponse{
   final String sub_total;
   final String discount;
   final String vat;
+  final String charge;
   final String total;
   final String appointment_type;
   final String status;
@@ -33,6 +34,7 @@ class SentQuotesResponse{
     required this.sub_total, 
     required this.discount, 
     required this.vat, 
+    required this.charge,
     required this.total, 
     required this.appointment_type, 
     required this.status, 
@@ -60,6 +62,7 @@ class SentQuotesResponse{
       sub_total: json['sub_total'] ?? "nan",
       discount: json['discount'] ?? "nan",
       vat: json['vat'] ?? "nan",
+      charge: json['charge'] ?? 'nan',
       total: json['total'] ?? "nan",
       appointment_type: json['appointment_type'] ?? "nan",
       status: json['status'] ?? "nan", 

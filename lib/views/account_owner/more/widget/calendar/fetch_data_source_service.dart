@@ -69,7 +69,7 @@ class CalendarService extends getx.GetxController {
         
         for (var data in finalResult) {
           Meeting meetingData = Meeting(
-            eventName: data.serviceDetails.serviceName, //data.bookingUserInfo.displayName,
+            eventName: data.serviceDetails.serviceName,
             clientName: data.bookingUserInfo.displayName,
             time: data.serviceDetails.time,
             date: data.serviceDetails.date,
@@ -80,7 +80,7 @@ class CalendarService extends getx.GetxController {
               timeString: data.start_time
             ),
 
-            to: //DateTime(2024, 5, 6, 10, 30, 0),
+            to: 
             parseDateTime(
               dateString: data.serviceDetails.date, 
               timeString: data.end_time

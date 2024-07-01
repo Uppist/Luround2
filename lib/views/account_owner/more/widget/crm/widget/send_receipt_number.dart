@@ -717,8 +717,6 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                   discount: service.reactiveTotalDiscountForReceipt.value,
                                   vat: service.reactiveTotalVATForReceipt.value,
                                   note: controller.receiptNoteController.text,
-
-                                  charge: '${(0.05 * double.parse(service.reactiveTotalForReceipt.value))}',
                                   grand_total: '${double.parse(service.reactiveTotalForReceipt.value) + (0.05 * double.parse(service.reactiveTotalForReceipt.value))}',
                                   serviceList: service.selectedReceiptbslist,
                                 ).whenComplete(() {

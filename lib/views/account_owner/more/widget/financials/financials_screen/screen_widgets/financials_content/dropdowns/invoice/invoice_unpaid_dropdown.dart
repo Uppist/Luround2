@@ -8,8 +8,6 @@ import 'package:luround/services/account_owner/more/financials/financials_servic
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen/invoice_screen/unpaid_invoices/view_unpaid_invoice_screen.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/delete_invoice/delete_invoice.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/screen_widgets/financials_content/invoice_contents/enter_payment/enter_invoice_payment.dart';
-
 
 
 
@@ -83,7 +81,7 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
               ),
             )
           ),
-          PopupMenuItem(
+          /*PopupMenuItem(
             onTap: () {
               enterInvoicePaymentBottomSheet(
                 context: context, 
@@ -99,14 +97,11 @@ class InvoiceUnpaidDropDown extends StatelessWidget {
                 color: AppColor.blackColor
               ),
             )
-          ),
+          ),*/
           PopupMenuItem(
             onTap: () {
               
               finPdfService.shareInvoicePDF(
-                /*bank_name: bank_details['bank'],
-                account_name: bank_details['account_name'],
-                account_number: bank_details['account_number'],*/
                 paymentLink: paymentLink,
                 sender_address: service_provider_address,
                 sender_phone_number: service_provider_phone_number,

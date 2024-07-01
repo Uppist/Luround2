@@ -643,6 +643,10 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
 
 
+
+  //i have a growable list<map<string, dynamic> availabilitySchedule. the list takes the form: '[{'start_time':'9:00 AM', 'end_time': '10:00 AM'}, {'start_time': '12:00 PM', 'end_time': '3:00 PM'}, ........]. write two string functions that calculates start and stop time based on this list. the start time is calculated by getting the start_time of the first element of the list. the end_time is calculated by getting the end_time of the last element of the list.
+
+
   Future<void> createOneOffServicePB({
     required BuildContext context,
     required String service_name,
@@ -675,25 +679,23 @@ class AccOwnerServicePageService extends getx.GetxController {
 
         } 
         else {
-          // Handle case where required fields are empty or undefined
-          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
-          //log('empty list');
         }
       }
 
 
       var body = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "price": price,
         "service_type": "One-Off",
         "oneoff_type": "project based",
         "availability_schedule": availability_scheduleList,
-
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
         //'appointment_type': 'Virtual',
+
       };
 
       http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
@@ -782,24 +784,22 @@ class AccOwnerServicePageService extends getx.GetxController {
 
         } 
         else {
-          // Handle case where required fields are empty or undefined
-          //isServiceCRLoading.value = false;
           debugPrint("Error: Required fields are empty or undefined");
           return; // Stop processing this request
-          //log('empty list');
         }
       }
 
 
       var body = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "service_type": "One-Off",
         "oneoff_type": "time based",
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
-        "availability_schedule": availability_scheduleList
+        "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
       };
 
       http.Response res = await baseService.httpPost(endPoint: "services/create", body: body);
@@ -885,22 +885,22 @@ class AccOwnerServicePageService extends getx.GetxController {
 
         } 
         else {
-          // Handle case where required fields are empty or undefined
-          //isServiceCRLoading.value = false;
+  
           debugPrint("Error: Required fields are empty or undefined");
-          return; // Stop processing this request
+          return;
         }
       }
 
 
       var body = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "service_type": "Retainer",
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
         "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
         "core_features": coreFeatures,
       };
 
@@ -982,7 +982,6 @@ class AccOwnerServicePageService extends getx.GetxController {
       }
 
       var body = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "service_type": "Program",
@@ -994,6 +993,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "in_person_event_fee": service_charge_in_person,
         "virtual_event_fee": service_charge_virtual,
         "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
       };
 
 
@@ -1080,7 +1081,6 @@ class AccOwnerServicePageService extends getx.GetxController {
 
       
       var body1 = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "service_type": "Event",
@@ -1097,7 +1097,6 @@ class AccOwnerServicePageService extends getx.GetxController {
       };
 
       var body2 = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "service_type": "Event",
@@ -1108,6 +1107,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "in_person_event_fee": inpersonFee,
         "virtual_event_fee": virtualFee,
         "event_schedule": eventScheduleList,
+        'start_time': eventScheduleList[0]['time'],
+        'end_time': eventScheduleList[0]['end_time'],
       };
 
 
@@ -1191,13 +1192,14 @@ class AccOwnerServicePageService extends getx.GetxController {
 
 
       var body = {
-        //"email": email,
         "service_name": service_name,
         "description": description,
         "price": price,
         "service_type": "One-Off",
         "oneoff_type": "project based",
-        "availability_schedule": availability_scheduleList
+        "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
       };
 
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
@@ -1302,6 +1304,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
         "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
         "oneoff_type": "time based",
       };
 
@@ -1403,6 +1407,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "virtual_meeting_link": virtual_meeting_link,
         "pricing": pricingList,
         "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
         "core_features": coreFeatures,
       };
 
@@ -1496,6 +1502,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "in_person_event_fee": service_charge_in_person,
         "virtual_event_fee": service_charge_virtual,
         "availability_schedule": availability_scheduleList,
+        'start_time': availability_scheduleList[0]['from_time'],
+        'end_time': availability_scheduleList[0]['to_time'],
       };
 
       http.Response res = await baseService.httpPut(endPoint: "services/edit?serviceId=$serviceId", body: body);
@@ -1609,6 +1617,8 @@ class AccOwnerServicePageService extends getx.GetxController {
         "in_person_event_fee": inpersonFee,
         "virtual_event_fee": virtualFee,
         "event_schedule": eventScheduleList,
+        'start_time': eventScheduleList[0]['time'],
+        'end_time': eventScheduleList[0]['end_time'],
       };
 
 

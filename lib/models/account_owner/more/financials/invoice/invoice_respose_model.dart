@@ -10,6 +10,7 @@ class InvoiceResponse{
   final String sub_total;
   final String discount;
   final String vat;
+  final String charge;
   final String total;
   final String note;
   final String status;
@@ -32,6 +33,7 @@ class InvoiceResponse{
     required this.sub_total, 
     required this.discount, 
     required this.vat, 
+    required this.charge,
     required this.total,  
     required this.note,  
     required this.status,
@@ -59,6 +61,7 @@ class InvoiceResponse{
       sub_total: json['sub_total'] ?? "",
       discount: json['discount'] ?? "",
       vat: json['vat'] ?? "nan",
+      charge: json['charge'] ?? "nan",
       total: json['total'] ?? "",
       note: json['note'] ?? "nan", 
       booking_detail: json['product_detail'] ?? [],

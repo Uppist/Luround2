@@ -50,12 +50,9 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    required String charges,
+    //required String charges,
 
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
+
   }) async {
     //image
     ByteData _bytes = await rootBundle.load('assets/images/luround_logo.png');
@@ -590,28 +587,32 @@ class FinancialsPdfService extends getx.GetxController {
                                 )),
                           ],
                         ),
+
                         pw.SizedBox(
                           height: 20.h,
                         ),
                         pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: [    
+
                             pw.Text(
-                              "Charge(3%)",
-                              style: pw.TextStyle(
-                                color: PdfColors.grey, //.withOpacity(0.6),
-                                fontSize: 14.sp,
-                                //fontWeight: FontWeight.w500
+                              "Processing fee",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
                               ),
                             ),
-                            pw.Text('N$charges',
-                                style: pw.TextStyle(
-                                  color: PdfColors.black,
-                                  fontSize: 15.sp,
-                                  //fontWeight: FontWeight.w500
-                                )),
+                            pw.Text(
+                              //'N$charges',
+                              '5%',
+                              style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 15.sp,
+                              )
+                            ),
                           ],
                         ),
+
                         pw.SizedBox(
                           height: 20.h,
                         ),
@@ -712,7 +713,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    required String charge,
+    //required String charge,
     //service provider bank details here
     /*required String bank_name,
     required String account_name,
@@ -720,7 +721,7 @@ class FinancialsPdfService extends getx.GetxController {
   }) async {
     try {
       writeQuotePdf(
-          charges: charge,
+          //charges: charge,
           tracking_id: tracking_id,
           sender_address: sender_address,
           sender_phone_number: sender_phone_number,
@@ -734,7 +735,8 @@ class FinancialsPdfService extends getx.GetxController {
           subtotal: subtotal,
           discount: discount,
           vat: vat,
-          note: note);
+          note: note
+        );
 
       Directory documentDirectory = await getApplicationCacheDirectory();
       docPath.value = documentDirectory.path;
@@ -793,7 +795,7 @@ class FinancialsPdfService extends getx.GetxController {
   }) async {
     try {
       writeQuotePdf(
-          charges: charge,
+          //charges: charge,
           tracking_id: tracking_id,
           sender_address: sender_address,
           sender_phone_number: sender_phone_number,
@@ -1399,7 +1401,7 @@ class FinancialsPdfService extends getx.GetxController {
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text(
-                              "Charge(3%)",
+                              "Processing fee(5%)",
                               style: pw.TextStyle(
                                 color: PdfColors.grey, //.withOpacity(0.6),
                                 fontSize: 14.sp,
@@ -1449,7 +1451,7 @@ class FinancialsPdfService extends getx.GetxController {
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text(
-                              "Payment Link",
+                              "Payment Link:",
                               style: pw.TextStyle(
                                 color: PdfColors.grey,
                                 fontSize: 14.sp,
@@ -1685,7 +1687,7 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    required String charge,
+    //required String charge,
     //more to be added
   }) async {
     pdfR.addPage(pw.MultiPage(
@@ -2211,25 +2213,29 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.SizedBox(
                           height: 20.h,
                         ),
+                        
                         pw.Row(
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
+                          children: [    
+
                             pw.Text(
-                              "Charge(3%)",
-                              style: pw.TextStyle(
-                                color: PdfColors.grey, //.withOpacity(0.6),
-                                fontSize: 14.sp,
-                                //fontWeight: FontWeight.w500
+                              "Processing fee",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
                               ),
                             ),
-                            pw.Text('N${charge}',
-                                style: pw.TextStyle(
-                                  color: PdfColors.black,
-                                  fontSize: 15.sp,
-                                  //fontWeight: FontWeight.w500
-                                )),
+                            pw.Text(
+                              //'N$charges',
+                              '5%',
+                              style: pw.TextStyle(
+                                color: PdfColors.black,
+                                fontSize: 15.sp,
+                              )
+                            ),
                           ],
                         ),
+                        
                         pw.SizedBox(
                           height: 20.h,
                         ),
@@ -2330,11 +2336,11 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    required String charge,
+    //required String charge,
   }) async {
     try {
       writeReceiptPdf(
-          charge: charge,
+          //charge: charge,
           sender_address: sender_address,
           sender_phone_number: sender_phone_number,
           tracking_id: tracking_id,
@@ -2401,11 +2407,11 @@ class FinancialsPdfService extends getx.GetxController {
     required String discount,
     required String vat,
     required String note,
-    required String charge,
+    //required String charge,
   }) async {
     try {
       writeReceiptPdf(
-          charge: charge,
+          //charge: charge,
           sender_address: sender_address,
           sender_phone_number: sender_phone_number,
           tracking_id: tracking_id,

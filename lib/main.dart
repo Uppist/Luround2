@@ -14,8 +14,6 @@ import 'package:luround/services/account_owner/data_service/local_storage/local_
 import 'package:luround/services/account_owner/payment_service.dart/paystack_constant.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:luround/views/404page/unknown_route.dart';
-import 'package:luround/views/account_owner/auth/screen/login/page/login_screen.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/splashscreen_1.dart';
 import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_splashscreen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,7 +25,7 @@ import 'firebase_options.dart';
 
 
 // Define a GlobalKey<NavigatorState> for functional navigation
-GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+//GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 //to display EURO currency
 NumberFormat currency(context) {

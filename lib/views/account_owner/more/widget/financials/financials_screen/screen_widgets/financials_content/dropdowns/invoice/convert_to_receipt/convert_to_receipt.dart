@@ -750,7 +750,7 @@ class ConvertInvoiceToReceiptScreen extends StatelessWidget {
                             discount: discount,
                             vat: vat,
                             note: note,
-                            charge: '${(0.05 * double.parse(total))}',
+                            //charge: '${(0.05 * double.parse(total))}',
                             grand_total: '${double.parse(total) + (0.05 * double.parse(total))}',
                             serviceList: booking_details,
                           ).whenComplete(() {

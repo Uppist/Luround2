@@ -172,29 +172,14 @@ class _EditOthersPageState extends State<EditOthersPage> {
                     padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-
-                        //Text
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Others',
-                              style: GoogleFonts.inter(
-                                color: AppColor.blackColor,
-                                fontSize: 18.sp,
-                                fontWeight: FontWeight.w600
-                              )
-                            ),
-                            Text(
-                              'Hold field to re-order',
-                              style: GoogleFonts.inter(
-                                color: AppColor.yellowStar,
-                                //fontWeight: FontWeight.w500,
-                                fontSize: 15.sp
-                              ),
-                            )
-                          ],
+                      children: [ 
+                        Text(
+                          'Others',
+                          style: GoogleFonts.inter(
+                            color: AppColor.blackColor,
+                            fontSize: 18.sp,
+                            fontWeight: FontWeight.w600
+                          )
                         ),
 
                         SizedBox(height: 20.h,),

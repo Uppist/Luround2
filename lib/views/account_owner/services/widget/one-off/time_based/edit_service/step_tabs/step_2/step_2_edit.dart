@@ -14,6 +14,7 @@ import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/reusable_custom_textfield.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/step_tabs/step_1/textfields/edit_normal_textfield.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/price_guide.dart';
 import '../../../../../program/add_service/step_tabs/step_1/new/custom_checkbox_listtile.dart';
 
 
@@ -41,6 +42,8 @@ class _Step2PageEditState extends State<Step2PageEdit> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        PriceGuide(),
+        SizedBox(height: 10.h,),
         Text(
           "Pricing",
           style: GoogleFonts.inter(

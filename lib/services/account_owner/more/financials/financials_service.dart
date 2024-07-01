@@ -317,10 +317,6 @@ class FinancialsService extends getx.GetxController {
     required String discount,
     required String total,
     required List<dynamic> product_detail,
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
     }) async {
 
     isLoading.value = true;
@@ -340,10 +336,7 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": product_detail,
-      //service provider bank details
-      /*"bank": bank_name,
-      "account_name": account_name,
-      "account_number": account_number,*/
+
     };
 
     try {
@@ -397,10 +390,7 @@ class FinancialsService extends getx.GetxController {
     required String discount,
     required String total,
     required List<dynamic> product_detail,
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
+    
     }) async {
 
     isLoading.value = true;
@@ -420,10 +410,6 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": product_detail,
-      //service provider bank details
-      /*"bank": bank_name,
-      "account_name": account_name,
-      "account_number": account_number,*/
     };
 
     try {
@@ -437,10 +423,9 @@ class FinancialsService extends getx.GetxController {
         int quote_id = response['quote_id'];
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
-        String charge = response['charge'] ?? "non";
+      
         // ignore: use_build_context_synchronously
         finPdfService.shareQuotePDF(
-          charge: charge,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -454,7 +439,8 @@ class FinancialsService extends getx.GetxController {
           discount: discount,
           vat: vat,
           note: note,
-          grand_total: total,
+          //charge: chargeFee(total),
+          grand_total: grandTotal(total),
           serviceList: product_detail,
         ).whenComplete(() {
           controller.quoteClientEmailController.clear();
@@ -683,7 +669,6 @@ class FinancialsService extends getx.GetxController {
     subtotalForInvoice.text = newSubtotal.toString();
     
     //updated from here
-    //updated from here
     selectedInvoicebslist[index]["total"] = newSubtotal.toString();
   
     //success snackbar
@@ -712,8 +697,6 @@ class FinancialsService extends getx.GetxController {
     required int index,
     required String booking_user_email,
     required String booking_user_name,
-    //invoice gets converted to bookings according to somto
-    //these below corresponds to bookings
     required String phone_number,  //put client phone number
   }) async{
 
@@ -756,7 +739,6 @@ class FinancialsService extends getx.GetxController {
   }
 
   //5
-  //String payment_link = "";
   ///[CREATE NEW QUOTE AND SAVE IT TO DB]//
   Future<void> createNewInvoiceAndSaveToDB({
     required BuildContext context,
@@ -771,10 +753,7 @@ class FinancialsService extends getx.GetxController {
     required String discount,
     required String total,
     required List<dynamic> booking_detail,
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
+    
     }) async {
 
     isLoading.value = true;
@@ -783,7 +762,6 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      //"tracking_id": "#$tracking_id",
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -791,10 +769,7 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": booking_detail,
-      //service provider bank details
-      /*"bank": bank_name,
-      "account_name": account_name,
-      "account_number": account_number,*/
+  
     };
 
     try {
@@ -859,10 +834,7 @@ class FinancialsService extends getx.GetxController {
     required String discount,
     required String total,
     required List<dynamic> booking_detail,
-    //service provider bank details here
-    /*required String bank_name,
-    required String account_name,
-    required String account_number,*/
+  
     }) async {
 
     isLoading.value = true;
@@ -871,7 +843,6 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      //"tracking_id": "#$tracking_id",
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -879,11 +850,6 @@ class FinancialsService extends getx.GetxController {
       "discount": discount,
       "total": total,
       "product_detail": booking_detail,
-      //service provider bank details
-      /*"bank": bank_name,
-      "account_name": account_name,
-      "account_number": account_number,
-      "invoice_generated_from_quote": "False",*/
     };
 
     try {
@@ -902,13 +868,11 @@ class FinancialsService extends getx.GetxController {
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
         String payment_link = response['payment_link'] ?? "non";
-        String charge = response['charge'] ?? "non";
 
 
 
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
-          charge: charge,
           paymentLink: payment_link,
           sender_address: address,
           sender_phone_number: phone_number,
@@ -923,7 +887,8 @@ class FinancialsService extends getx.GetxController {
           discount: discount,
           vat: vat,
           note: note,
-          grand_total: total,
+          charge: chargeFee(total),
+          grand_total: grandTotal(total),
           serviceList: booking_detail,
         ).whenComplete(() {
           controller.invoiceClientEmailController.clear();
@@ -1009,10 +974,9 @@ class FinancialsService extends getx.GetxController {
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
         String payment_link = response['payment_link'] ?? "non";
-        String charge = response['charge'] ?? "non";
+
         // ignore: use_build_context_synchronously
         finPdfService.shareInvoicePDF(
-          charge: charge,
           paymentLink: payment_link,
           sender_address: address,
           sender_phone_number: phone_number,
@@ -1027,7 +991,8 @@ class FinancialsService extends getx.GetxController {
           discount: discount,
           vat: vat,
           note: note,
-          grand_total: total,
+          charge: chargeFee(total),
+          grand_total: grandTotal(total),
           serviceList: booking_detail,
         ).whenComplete(() {
           controller.invoiceClientEmailController.clear();
@@ -1369,10 +1334,8 @@ class FinancialsService extends getx.GetxController {
         int receipt_id = response['receipt_id'];
         String address = response['service_provider_address'] ?? "non";
         String phone_number = response['service_provider_phone_number'] ?? "non";
-        String charge = response['charge'] ?? "non";
         // ignore: use_build_context_synchronously
         finPdfService.shareReceiptPDF(
-          charge: charge,
           sender_address: address,
           sender_phone_number: phone_number,
           context: context,
@@ -1386,7 +1349,8 @@ class FinancialsService extends getx.GetxController {
           discount: discount,
           vat: vat,
           note: note,
-          grand_total: total,
+          //charge: chargeFee(total),
+          grand_total: grandTotal(total),
           serviceList: service_detail,
         ).whenComplete(() {
           controller.receiptClientEmailController.clear();

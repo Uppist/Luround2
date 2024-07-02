@@ -554,6 +554,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   Future<List<InsightInfo>> getServiceInsight({
     required String serviceId,
     required RxInt booking_count,
+    required RxInt booking_clicks
   }) async {
     isLoading.value = true;
     try {
@@ -568,11 +569,13 @@ class AccOwnerServicePageService extends getx.GetxController {
         
         final List<dynamic> response = jsonDecode(res.body);
 
-        int result = response[0]['booking_count'];
-        booking_count.value = result;
+        int count = response[0]['booking_count'];
+        int clicks = response[0]['clicks'];
+        booking_count.value = count;
+        booking_clicks.value = clicks;
 
-        List<dynamic> result2 = response[1]['bookings'];
-        final finalResult = result2.map((e) => InsightInfo.fromJson(e)).toList();
+        List<dynamic> bookings = response[1]['bookings'];
+        final finalResult = bookings.map((e) => InsightInfo.fromJson(e)).toList();
         finalResult.sort((a, b) => a.customer_name .toString().compareTo(b.customer_name.toString()));
         serviceInsightList.clear();
         serviceInsightList.addAll(finalResult);

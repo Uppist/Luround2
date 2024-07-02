@@ -34,13 +34,14 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
   RxInt booking_count = 0.obs;
+  RxInt booking_clicks = 0.obs;
   
   //GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   Future<void> fetchData() async {
     try {
-      List<InsightInfo> data = await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count);
+      List<InsightInfo> data = await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count, booking_clicks: booking_clicks);
       userService.filterServiceInsightList.clear();
       userService.filterServiceInsightList.addAll(data);
       log('refreshed insight list: ${userService.filterServiceInsightList}');
@@ -208,13 +209,17 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                                         child: Column(
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
-                                            Text(
-                                              '-',
-                                              style: GoogleFonts.inter(
-                                                color: AppColor.blackColor,
-                                                fontSize: 24.sp,
-                                                fontWeight: FontWeight.w700,
-                                              ),
+                                            Obx(
+                                              () {
+                                                return Text(
+                                                  booking_clicks.value.toString(),
+                                                  style: GoogleFonts.inter(
+                                                    color: AppColor.blackColor,
+                                                    fontSize: 24.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                  ),
+                                                );
+                                              }
                                             ),
                                             SizedBox(height: 30.h,),
                                             Text(

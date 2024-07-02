@@ -97,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h,),
                   SettingsSelector(
-                    text: 'Feedback', 
+                    text: 'Support', 
                     onFlip: () {
                       Get.to(() => const FeedbackPage());
                     }

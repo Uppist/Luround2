@@ -13,7 +13,7 @@ class UserServiceInsightModel {
   //[FOR GET REQUEST]
   factory UserServiceInsightModel.fromJson(Map<String, dynamic> json,){
     return UserServiceInsightModel(
-      booking_clicks: json['booking_clicks'] ?? 0,
+      booking_clicks: json['clicks'] ?? 0,
       booking_count: json['booking_count'] ?? 0,
       bookings_list: (json['bookings'] as List<dynamic>?)
           ?.map((detailsJson) => InsightInfo.fromJson(detailsJson))
@@ -24,7 +24,7 @@ class UserServiceInsightModel {
   //To Map
   Map<String, dynamic> toJson() {
     final _data = <String, dynamic>{};
-    _data['booking_clicks'] = booking_clicks;
+    _data['clicks'] = booking_clicks;
     _data['booking_count'] = booking_count;
     _data['bookings'] = bookings_list;
     return _data;

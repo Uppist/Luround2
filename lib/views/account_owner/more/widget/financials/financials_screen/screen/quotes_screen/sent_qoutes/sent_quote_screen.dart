@@ -71,7 +71,6 @@ class _SentQuotesPageState extends State<SentQuotesPage>{
                       //setState(() {
                         service.filterSentQuotes(p0);
                       //});
-                
                     },
                     hintText: "Search",
                     keyboardType: TextInputType.text,

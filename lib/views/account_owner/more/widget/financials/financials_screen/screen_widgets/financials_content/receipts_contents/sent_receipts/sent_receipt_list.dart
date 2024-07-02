@@ -97,6 +97,7 @@ class _SentReceiptListState extends State<SentReceiptList> {
                     itemCount: service.filteredSentReceiptList.length,
                     //padding: EdgeInsets.symmetric(vertical: 10),
                     itemBuilder: (context, index) {
+                      
                       final item = service.filteredSentReceiptList[index]; 
                     
                       return SentReceiptDisplay(

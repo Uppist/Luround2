@@ -2,7 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
-import 'package:luround/utils/components/converters.dart';
 //import 'dart:convert';
 //import 'dart:io';
 //import 'package:http/http.dart' as http;
@@ -14,6 +13,14 @@ import 'package:luround/utils/components/converters.dart';
 
 
 class FinancialsController extends getx.GetxController {
+
+
+  final getx.RxString pickedQuoteDate = ''.obs;
+  final getx.RxString pickedInvoiceDate = ''.obs;
+  final getx.RxString pickedReceiptDate = ''.obs;
+
+  final getx.RxString pickedQuoteDueDate = ''.obs;
+  final getx.RxString pickedInvoiceDueDate = ''.obs;
 
 
   /////[FOR QUOTES]/////////////
@@ -33,54 +40,6 @@ class FinancialsController extends getx.GetxController {
 
   ///CREATE QUOTE SECTION/////
   int maxLength = 500;
-  //quote date
-  var quoteDate = <DateTime?>[].obs;
-  void selectedQuoteDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      quoteDate.clear();
-      // Add the new unique item
-      quoteDate.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  String updatedQuoteDate ({required String initialDate}) {
-    if(quoteDate.isNotEmpty) {
-      var result = quoteDate[0]; //.toString();
-      String formattedDate = formatDate(result!);
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      log(formattedDate);
-      return formattedDate;
-    }
-    return initialDate;
-  }
-
-  //due date
-  var dueDate = <DateTime?>[].obs;
-  void selectedDueDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      dueDate.clear();
-      // Add the new unique item
-      dueDate.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  //getx.RxString isoDateForQuote = ''.obs;
-  String updatedDueDate ({required String initialDate}) {
-    if(dueDate.isNotEmpty) {
-      var result = dueDate[0]; //.toString();
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      String formattedDate = formatDate(result!);
-      log(formattedDate);
-      return formattedDate;
-    }
-    return initialDate;
-  }
 
   //Edit added service screen/////
   final TextEditingController serviceDescController = TextEditingController();
@@ -114,57 +73,6 @@ class FinancialsController extends getx.GetxController {
 
   ///CREATE INVOICE SECTION/////
   int maxLengthForInvoice = 500;
-  //invoice date
-  var invoiceDate = <DateTime?>[].obs;
-  void selectedInvoiceDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      invoiceDate.clear();
-      // Add the new unique item
-      invoiceDate.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  String updatedInvoiceDate ({required String initialDate}) {
-    if(invoiceDate.isNotEmpty) {
-      var result = invoiceDate[0]; //.toString();
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      //return refinedStr;
-      String formattedDate = formatDate(result!);
-      log(formattedDate);
-      return formattedDate;
-    }
-    return initialDate;
-  }
-
-  //due date for invoice
-  var dueDateForInvoice = <DateTime?>[].obs;
-  void selectedDueDateForInvoice(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      dueDateForInvoice.clear();
-      // Add the new unique item
-      dueDateForInvoice.add(dateList[0]);
-    }
-    update();
-  }
-  //(save to db) this is the selected date 
-  //getx.RxString isoDateForInvoice = ''.obs;
-  String updatedDueDateForInvoice ({required String initialDate}) {
-    if(dueDateForInvoice.isNotEmpty) {
-      //isoDateForInvoice.value = dueDateForInvoice[0]!.toUtc().toIso8601String();
-      //print(isoDateForInvoice.value);
-      var result = dueDateForInvoice[0]; //.toString();
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      String formattedDate = formatDate(result!);
-      log(formattedDate);
-      return formattedDate;
-    }
-    return initialDate;
-  }
 
   //EDIT ADDED SERVICE SCREEN FOR INVOICE/////
   final TextEditingController serviceDescControllerForInvoice = TextEditingController();
@@ -197,29 +105,6 @@ class FinancialsController extends getx.GetxController {
   int maxLengthForReceipt = 500;
 
   //receipt date
-  var receiptDate = <DateTime?>[].obs; 
-  void selectedReceiptDate(List<DateTime?> dateList) {
-    if (dateList.isNotEmpty) {
-      // Remove any previous items, if any
-      receiptDate.clear();
-      // Add the new unique item
-      receiptDate.add(dateList[0]);
-    }
-    update();
-  }
-
-  //(save to db) this is the selected date 
-  String updatedReceiptDate ({required String initialDate}) {
-    if(receiptDate.isNotEmpty) {
-      var result = receiptDate[0]; //.toString();
-      //var refinedStr = result.substring(0, 10);
-      //print(refinedStr);
-      String formattedDate = formatDate(result!);
-      log(formattedDate);
-      return formattedDate;
-    }
-    return initialDate;
-  }
 
   
   //EDIT ADDED SERVICE SCREEN FOR RECEIPT/////

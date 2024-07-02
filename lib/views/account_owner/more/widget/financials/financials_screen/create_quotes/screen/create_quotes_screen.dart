@@ -12,17 +12,15 @@ import 'package:luround/services/account_owner/more/financials/financials_servic
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
+import 'package:luround/utils/components/date_picker.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/add_product_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/due_date_selector.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/payment_method.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/send_quote_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/textfield_tool.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/date_selectors/quote_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/view_added_services_details.dart';
 
 
@@ -128,7 +126,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                           return Loader2();   
                                         }
              
-                                        if (snapshot.hasData) {
+                                        //if (snapshot.hasData) {
                                           var data = snapshot.data!;
                                           return Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
@@ -171,8 +169,8 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                               ],
                                             ),
                                           );
-                                        }
-                                        return Loader2();
+                                        //}
+                                        //return Loader2();
                                       }
                                     ),
                                   Divider(color: Colors.grey, thickness: 0.2,),
@@ -266,23 +264,18 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                     () {
                                       return DateContainer(
                                         onTap: () {
-                                          selectQuoteDateBottomSheet(
+                                          selectDate(
                                             context: context,
-                                            onCancel: () {
-                                              Get.back();
-                                            },
-                                            onApply: () {
-                                              controller.updatedQuoteDate(initialDate: "Select Date");
-                                              Get.back();
-                                            },
+                                            selectedDate: controller.pickedQuoteDate
                                           );
                                         },
-                                        date: controller.updatedQuoteDate(initialDate: "Select Date"),
+                                        date: controller.pickedQuoteDate.value,
                                       );
                                     }
                                   ),                  
                                   
                                   SizedBox(height: 30.h,),
+
                                   Text(
                                     "Due Date",
                                     style: GoogleFonts.inter(
@@ -296,18 +289,12 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                     () {
                                       return DateContainer(
                                         onTap: () {
-                                          selectDueDateBottomSheet(
+                                          selectDate(
                                             context: context,
-                                            onCancel: () {
-                                              Get.back();
-                                            },
-                                            onApply: () {
-                                              controller.updatedDueDate(initialDate: "Select Date");
-                                              Get.back();
-                                            },
+                                            selectedDate: controller.pickedQuoteDueDate
                                           );
                                         },
-                                        date: controller.updatedDueDate(initialDate: "Select Date"),
+                                        date: controller.pickedQuoteDueDate.value,
                                       );
                                     }
                                   ),
@@ -583,37 +570,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                           )
                         ),
 
-                        SizedBox(height: 20.h,),  
-
-                        //style
-                        Container(
-                          height: 7.h,
-                          width: double.infinity,
-                          color: AppColor.greyColor,
-                        ),
-
-                        /*SizedBox(height: 20.h,),
-                        //5 Bank Payment Widget
-                        //
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Payment",
-                                style: GoogleFonts.inter(
-                                  color: AppColor.blackColor,
-                                  fontSize: 14.sp,
-                                  fontWeight: FontWeight.w500
-                                ),
-                              ),
-                              SizedBox(height: 20.h,),
-                              //List of banks
-                              PaymentMethodForQuote()
-                            ]
-                          )
-                        ),*/
+                      
 
                         SizedBox(height: 20.h,),
                         //style
@@ -642,35 +599,34 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
-                                      quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
-                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      quote_date: controller.pickedQuoteDate.value, 
+                                      quote_due_date: controller.pickedQuoteDueDate.value,
                                       vat: service.reactiveTotalVATForQuote.value,
                                       sub_total: service.reactiveSubtotalForQuote.value,
                                       discount: service.reactiveTotalDiscountForQuote.value,
                                       total: service.reactiveTotalForQoute.value,
                                       product_detail: service.selectedQuotebslist,
                                     ).whenComplete(() {
-                                      print("sent");
+                                      service.selectedQuotebslist.clear();
                                       setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
+                                        controller.pickedQuoteDate.value = '';
+                                        controller.pickedQuoteDueDate.value = '';
                                       });
                                     });                       
                                   },
                                   onSave: () {
                                     service.createNewQuoteAndSendToDB(
                                       context: context, 
-                                      /*bank_name: service.selectedBankForQuote.value,
-                                      account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,*/
                                       client_name: controller.quoteClientNameController.text, 
                                       client_email: controller.quoteClientEmailController.text, 
                                       client_phone_number: controller.quoteClientPhoneNumberController.text, 
                                       note: controller.quoteNoteController.text,
-                                      quote_date: controller.updatedQuoteDate(initialDate: "(non)"), 
-                                      quote_due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      quote_date: controller.pickedQuoteDate.value, 
+                                      quote_due_date: controller.pickedQuoteDueDate.value,
                                       vat: service.reactiveTotalVATForQuote.value,
                                       sub_total: service.reactiveSubtotalForQuote.value,
                                       discount: service.reactiveTotalDiscountForQuote.value,
@@ -681,11 +637,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       controller.quoteClientNameController.clear();
                                       controller.quoteClientPhoneNumberController.clear();
                                       controller.quoteNoteController.clear();
+                                      service.selectedQuotebslist.clear();
                                       setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
+                                        controller.pickedQuoteDate.value = '';
+                                        controller.pickedQuoteDueDate.value = '';
                                       });
                                       Get.back();
                                     });
@@ -695,15 +654,12 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       context: context, 
                                       sender_address: "",
                                       sender_phone_number: '',
-                                      /*bank_name: service.selectedBankForQuote.value,
-                                      account_name: service.selectedAccNameForQuote.value,
-                                      account_number: service.selectedAccNumberForQuote.value,*/
                                       tracking_id: widget.quoteNumber.toString(),
                                       receiver_email: controller.quoteClientEmailController.text,
                                       receiver_name: controller.quoteClientNameController.text,
                                       receiver_phone_number: controller.quoteClientPhoneNumberController.text,
                                       quote_status: "SENT",
-                                      due_date: controller.updatedDueDate(initialDate: "(non)"),
+                                      due_date: controller.pickedQuoteDueDate.value,
                                       subtotal: service.reactiveSubtotalForQuote.value,
                                       discount: service.reactiveTotalDiscountForQuote.value,
                                       vat: service.reactiveTotalVATForQuote.value,
@@ -716,11 +672,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       controller.quoteClientNameController.clear();
                                       controller.quoteClientPhoneNumberController.clear();
                                       controller.quoteNoteController.clear();
+                                      service.selectedQuotebslist.clear();
                                       setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
+                                        controller.pickedQuoteDate.value = '';
+                                        controller.pickedQuoteDueDate.value = '';
                                       });
                                       Get.back();
                                     });

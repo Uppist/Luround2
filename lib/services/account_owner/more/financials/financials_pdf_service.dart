@@ -67,7 +67,7 @@ class FinancialsPdfService extends getx.GetxController {
         build: (pw.Context context) {
           return [
             pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -88,13 +88,7 @@ class FinancialsPdfService extends getx.GetxController {
 
                   //PARALLEL
                   //SENT FROM
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
@@ -150,20 +144,14 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
+                  
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
                   //RECEIVER'S CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
@@ -208,7 +196,7 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
+                  
 
                   pw.SizedBox(
                     height: 20.h,
@@ -866,7 +854,7 @@ class FinancialsPdfService extends getx.GetxController {
         build: (pw.Context context) {
           return [
             pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -962,58 +950,64 @@ class FinancialsPdfService extends getx.GetxController {
                     height: 20.h,
                   ),
 
-                  //RECEIVER'S CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
+                  pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    children: [
+                      //RECEIVER'S CONTAINER
+                      pw.Container(
+                        //alignment: Alignment.center,
+                        padding: pw.EdgeInsets.symmetric(
                         horizontal: 20.w, vertical: 20.h),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        pw.Text(
-                          "Bill to:",
-                          style: pw.TextStyle(
-                              color: PdfColors.grey,
-                              fontSize: 14.sp,
-                              fontWeight: pw.FontWeight.bold),
+                        //width: double.infinity,
+                        color: PdfColors.white,
+                        child: pw.Column(
+                          crossAxisAlignment: pw.CrossAxisAlignment.start,
+                          children: [
+                            pw.Text(
+                              "Bill to:",
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 14.sp,
+                                fontWeight: pw.FontWeight.bold
+                              ),
+                            ),
+                            pw.SizedBox(
+                              height: 10.h,
+                            ),
+                            pw.Text(
+                              receiver_name,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 13.sp,
+                                //fontWeight: pw.FontWeight.w500
+                              ),
+                            ),
+                            pw.SizedBox(
+                              height: 10.h,
+                            ),
+                            pw.Text(
+                              receiver_email,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 12.sp,
+                               //fontWeight: FontWeight.w400
+                              ),
+                            ),
+                            pw.SizedBox(
+                              height: 10.h,
+                            ),
+                            pw.Text(
+                              receiver_phone_number,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey, //.withOpacity(0.6),
+                                fontSize: 12.sp,
+                                //fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ],
                         ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          receiver_name,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 13.sp,
-                            //fontWeight: pw.FontWeight.w500
-                          ),
-                        ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          receiver_email,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 12.sp,
-                            //fontWeight: FontWeight.w400
-                          ),
-                        ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          receiver_phone_number,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey, //.withOpacity(0.6),
-                            fontSize: 12.sp,
-                            //fontWeight: FontWeight.w400
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ]
                   ),
 
                   pw.SizedBox(
@@ -1035,9 +1029,10 @@ class FinancialsPdfService extends getx.GetxController {
                         pw.Text(
                           "Invoice Details",
                           style: pw.TextStyle(
-                              color: PdfColors.grey,
-                              fontSize: 14.sp,
-                              fontWeight: pw.FontWeight.bold),
+                            color: PdfColors.grey,
+                            fontSize: 14.sp,
+                            fontWeight: pw.FontWeight.bold
+                          ),
                         ),
                         pw.SizedBox(
                           height: 10.h,
@@ -1697,7 +1692,7 @@ class FinancialsPdfService extends getx.GetxController {
         build: (pw.Context context) {
           return [
             pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.center,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Row(
                       mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,

@@ -13,13 +13,13 @@ import 'package:luround/services/account_owner/more/financials/financials_pdf_se
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/date_picker.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/add_product_widget/added_service_widgets/added_services_listtile.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_quotes/widgets/create_quote_widgets/date_container_widget.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/date_selectors/receipt_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/add_product_widget/add_product_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/add_product_widget/added_service_widgets/view_added_services_details_for_receipt.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_receipt/widgets/create_invoice_widgets/send_receipt_bottomsheet.dart';
@@ -131,7 +131,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                 return Loader2();   
                               }
              
-                              if (snapshot.hasData) {
+                              //if (snapshot.hasData) {
                                 var data = snapshot.data!;
                                 return Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
@@ -174,8 +174,8 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                     ],
                                   ),
                                 );
-                              }
-                              return Loader2();
+                              //}
+                              //return Loader2();
                             }
                           ),
                       
@@ -270,20 +270,15 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                             () {
                               return DateContainer(
                                 onTap: () {
-                                  selectReceiptDateBottomSheet(
+                                  selectDate(
                                     context: context,
-                                    onCancel: () {
-                                      Get.back();
-                                    },
-                                    onApply: () {
-                                      Get.back();
-                                    },
+                                    selectedDate: controller.pickedReceiptDate
                                   );
                                 },
-                                date: controller.updatedReceiptDate(initialDate: "Select Date"),
+                                date: controller.pickedReceiptDate.value,
                               );
                             }
-                          ),                  
+                          ),                 
                           
                     
                         ],
@@ -637,9 +632,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                         color: AppColor.mainColor,
                         text: 'Send Receipt',
                         onPressed: () {
-                          if(
-                            widget.name.isNotEmpty
-                          ) {
+                          if(controller.pickedReceiptDate.value.isNotEmpty) {
                             sendReceiptBottomSheet(
                               context: context,
                               onShare: () {
@@ -649,7 +642,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                   client_email: widget.email, 
                                   client_phone_number: widget.phone_number,
                                   note: controller.receiptNoteController.text,
-                                  receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
+                                  receipt_date: controller.pickedReceiptDate.value, 
                                   mode_of_payment: controller.selectedModeOfPayment.value,
                                   
                                   vat: service.reactiveTotalVATForReceipt.value,
@@ -658,8 +651,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                   total: service.reactiveTotalForReceipt.value,
                                   service_detail: service.selectedReceiptbslist,
                                 ).whenComplete(() {
-                                  print("sent");
-
+                                  service.selectedReceiptbslist.clear();
                                   setState(() {
                                     service.reactiveSubtotalForReceipt.value = '';
                                     service.reactiveTotalDiscountForReceipt.value = '';
@@ -678,7 +670,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                   client_email: widget.email, 
                                   client_phone_number: widget.phone_number, 
                                   note: controller.receiptNoteController.text,
-                                  receipt_date: controller.updatedReceiptDate(initialDate: "(non)"), 
+                                  receipt_date: controller.pickedReceiptDate.value, 
                                   mode_of_payment: controller.selectedModeOfPayment.value,
 
                                   vat: service.reactiveTotalVATForReceipt.value,
@@ -691,12 +683,14 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                     controller.receiptClientNameController.clear();
                                     controller.receiptClientPhoneNumberController.clear();
                                     controller.receiptNoteController.clear();
+                                    service.selectedReceiptbslist.clear();
                                     
                                     setState(() {
                                       service.reactiveSubtotalForReceipt.value = '';
                                       service.reactiveTotalDiscountForReceipt.value = '';
                                       service.reactiveTotalVATForReceipt.value = '';
                                       service.reactiveTotalForReceipt.value = '';
+                                      controller.pickedReceiptDate.value = '';
                                     });
                                     
                                     Get.back();
@@ -712,7 +706,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                   receiver_name: widget.name,
                                   receiver_phone_number: widget.phone_number,
                                   receipt_status: "SENT",
-                                  due_date: controller.updatedReceiptDate(initialDate: "(non)"),
+                                  due_date: controller.pickedReceiptDate.value,
                                   subtotal: service.reactiveSubtotalForReceipt.value,
                                   discount: service.reactiveTotalDiscountForReceipt.value,
                                   vat: service.reactiveTotalVATForReceipt.value,
@@ -724,12 +718,14 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                                     controller.receiptClientNameController.clear();
                                     controller.receiptClientPhoneNumberController.clear();
                                     controller.receiptNoteController.clear();
+                                    service.selectedReceiptbslist.clear();
 
                                     setState(() {
                                       service.reactiveSubtotalForReceipt.value = '';
                                       service.reactiveTotalDiscountForReceipt.value = '';
                                       service.reactiveTotalVATForReceipt.value = '';
                                       service.reactiveTotalForReceipt.value = '';
+                                      controller.pickedReceiptDate.value = '';
                                     });
 
                                     Get.back();
@@ -743,7 +739,7 @@ class _SendReceiptCRMState extends State<SendReceiptCRM> {
                             showMySnackBar(
                               context: context,
                               backgroundColor: AppColor.redColor,
-                              message: "fields must not be empty"
+                              message: "please select receipt date"
                             );
                           }
                         },

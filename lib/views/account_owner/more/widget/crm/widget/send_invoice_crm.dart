@@ -12,12 +12,11 @@ import 'package:luround/services/account_owner/more/financials/financials_pdf_se
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
 import 'package:luround/services/account_owner/profile_service/user_profile_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/date_picker.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/utils/components/reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/due_date_selector.dart';
-import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/date_selectors/invocie_date_selector.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/add_product_bottomsheet.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/add_product_widget/added_service_widgets/view_added_services_details.dart';
 import 'package:luround/views/account_owner/more/widget/financials/financials_screen/create_invoice/widgets/create_invoice_widgets/payment_method.dart';
@@ -132,7 +131,7 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                 return Loader2();   
                               }
              
-                              if (snapshot.hasData) {
+                              //if (snapshot.hasData) {
                                 var data = snapshot.data!;
                                 return Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
@@ -175,8 +174,8 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                     ],
                                   ),
                                 );
-                              }
-                              return Loader2();
+                              //}
+                              //return Loader2();
                             }
                           ),
                           Divider(color: Colors.grey, thickness: 0.2,),
@@ -270,21 +269,16 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                             () {
                               return DateContainer(
                                 onTap: () {
-                                  selectInvoiceDateBottomSheet(
+                                  selectDate(
                                     context: context,
-                                    onCancel: () {
-                                      Get.back();
-                                    },
-                                    onApply: () {
-                                      controller.updatedInvoiceDate(initialDate: "Select Date");
-                                      Get.back();
-                                    },
+                                    selectedDate: controller.pickedInvoiceDate
                                   );
                                 },
-                                date: controller.updatedInvoiceDate(initialDate: "Select Date"),
+                                date: controller.pickedInvoiceDate.value,
                               );
                             }
-                          ),                  
+                          ),
+                                         
                           
                           SizedBox(height: 30.h,),
                           
@@ -301,18 +295,12 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                             () {
                               return DateContainer(
                                 onTap: () {
-                                  selectDueDateBottomSheetForInvoice(
+                                  selectDate(
                                     context: context,
-                                    onCancel: () {
-                                      Get.back();
-                                    },
-                                    onApply: () {
-                                      controller.updatedDueDateForInvoice(initialDate: "Select Date");
-                                      Get.back();
-                                    },
+                                    selectedDate: controller.pickedInvoiceDueDate
                                   );
                                 },
-                                date: controller.updatedDueDateForInvoice(initialDate: "Select Date"),
+                                date: controller.pickedInvoiceDueDate.value,
                               );
                             }
                           ),
@@ -575,38 +563,7 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                       )
                     ),
                     SizedBox(height: 20.h,),  
-
-                    //style
-                    Container(
-                      height: 7.h,
-                      width: double.infinity,
-                      color: AppColor.greyColor,
-                    ),
-                    SizedBox(height: 20.h,),
-                    //5 Bank Payment Widget
-                    //
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Payment",
-                            style: GoogleFonts.inter(
-                              color: AppColor.blackColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500
-                            ),
-                          ),
-                          SizedBox(height: 20.h,),
-                          //List of banks
-                          PaymentMethodForInvoice()
-                        ]
-                      )
-                    ),
-
                     
-                    SizedBox(height: 20.h,),
                     //style
                     Container(
                       height: 7.h,
@@ -620,7 +577,7 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                         color: AppColor.mainColor,
                         text: 'Send Invoice',
                         onPressed: () {
-                          if(service.selectedBankForInvoice.value.isNotEmpty) {
+                          if(controller.pickedInvoiceDate.value.isNotEmpty && controller.pickedInvoiceDueDate.value.isNotEmpty) {
                             sendInvoiceBottomSheet(
                               context: context,
                               onShare: () {
@@ -633,20 +590,22 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                   client_email: widget.email, 
                                   client_phone_number: widget.phone_number, 
                                   note: controller.invoiceNoteController.text,
-                                  invoice_date: controller.updatedInvoiceDate(initialDate: "(non)"), 
-                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  invoice_date: controller.pickedInvoiceDate.value, 
+                                  due_date: controller.pickedInvoiceDueDate.value,
                                   vat: service.reactiveTotalVATForInvoice.value,
                                   sub_total: service.reactiveSubtotalForInvoice.value,
                                   discount: service.reactiveTotalDiscountForInvoice.value,
                                   total: service.reactiveTotalForInvoice.value,
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
-                                    print("sent");
+                                    service.selectedInvoicebslist.clear();
                                     setState(() {
                                       service.reactiveSubtotalForInvoice.value = '';
                                       service.reactiveTotalDiscountForInvoice.value = '';
                                       service.reactiveTotalVATForInvoice.value = '';
                                       service.reactiveTotalForInvoice.value = '';
+                                      controller.pickedInvoiceDate.value = '';
+                                      controller.pickedInvoiceDueDate.value = '';
                                     });
                                     Get.back();
                                 });
@@ -654,22 +613,20 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                               },
                               onSave: () {
                                 service.createNewInvoiceAndSaveToDB(
-                                  context: context, 
-                                  /*bank_name: service.selectedBankForInvoice.value,
-                                  account_name: service.selectedAccNameForInvoice.value,
-                                  account_number: service.selectedAccNumberForInvoice.value,*/
+                                  context: context,
                                   client_name: widget.name, 
                                   client_email: widget.email, 
                                   client_phone_number: widget.phone_number,
                                   note: controller.invoiceNoteController.text,
-                                  invoice_date: controller.updatedInvoiceDate(initialDate: "(non)"), 
-                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  invoice_date: controller.pickedInvoiceDate.value, 
+                                  due_date: controller.pickedInvoiceDueDate.value,
                                   vat: service.reactiveTotalVATForInvoice.value,
                                   sub_total: service.reactiveSubtotalForInvoice.value,
                                   discount: service.reactiveTotalDiscountForInvoice.value,
                                   total: service.reactiveTotalForInvoice.value,
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
+                                  service.selectedInvoicebslist.clear();
                                   controller.invoiceClientEmailController.clear();
                                   controller.invoiceClientNameController.clear();
                                   controller.invoiceClientPhoneNumberController.clear();
@@ -680,6 +637,8 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                     service.reactiveTotalDiscountForInvoice.value = '';
                                     service.reactiveTotalVATForInvoice.value = '';
                                     service.reactiveTotalForInvoice.value = '';
+                                    controller.pickedInvoiceDate.value = '';
+                                    controller.pickedInvoiceDueDate.value = '';
                                   });
 
                                   Get.back();
@@ -697,7 +656,7 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                   receiver_phone_number: widget.phone_number,
                                   note: controller.invoiceNoteController.text,
                                   invoice_status: "SENT",
-                                  due_date: controller.updatedDueDateForInvoice(initialDate: "(non)"),
+                                  due_date: controller.pickedInvoiceDueDate.value,
                                   subtotal: service.reactiveSubtotalForInvoice.value,
                                   discount: service.reactiveTotalDiscountForInvoice.value,
                                   vat: service.reactiveTotalVATForInvoice.value,
@@ -709,12 +668,15 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                                   controller.invoiceClientNameController.clear();
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
+                                  service.selectedInvoicebslist.clear();
 
                                   setState(() {
                                     service.reactiveSubtotalForInvoice.value = '';
                                     service.reactiveTotalDiscountForInvoice.value = '';
                                     service.reactiveTotalVATForInvoice.value = '';
                                     service.reactiveTotalForInvoice.value = '';
+                                    controller.pickedInvoiceDate.value = '';
+                                    controller.pickedInvoiceDueDate.value = '';
                                   });
 
                                   Get.back();
@@ -727,7 +689,7 @@ class _SendInvoiceCRMState extends State<SendInvoiceCRM> {
                             showMySnackBar(
                               context: context,
                               backgroundColor: AppColor.redColor,
-                              message: "please select bank account"
+                              message: "please select invoice date"
                             );
                           }
                         },

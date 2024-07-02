@@ -33,7 +33,7 @@ Future<void> addProductBottomSheetForReceipt({
     ),
     context: context,
     builder: (context) {
-      return BodyWidget();
+      return const BodyWidget();
     }
   );
 }
@@ -41,7 +41,7 @@ Future<void> addProductBottomSheetForReceipt({
 
 
 class BodyWidget extends StatefulWidget {
-  BodyWidget({super.key});
+  const BodyWidget({super.key});
 
 
   @override
@@ -72,7 +72,7 @@ class _BodyWidgetState extends State<BodyWidget> {
       color: AppColor.bgColor,
       //padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -100,9 +100,9 @@ class _BodyWidgetState extends State<BodyWidget> {
         
                 Obx(
                   () {
-                    return service.filteredReceiptbslist.isEmpty ? Loader2() : ListView.builder(
+                    return service.filteredReceiptbslist.isEmpty ? const Loader2() : ListView.builder(
                       scrollDirection: Axis.vertical,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
                       shrinkWrap: true,
                       itemCount: service.filteredReceiptbslist.length, //data.length,

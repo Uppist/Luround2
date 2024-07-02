@@ -131,7 +131,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                                   item['vat'] = (double.parse(item['rate']) * 0.075).toString();
                                   item['displayName'] = controller.invoiceClientNameController.text;
                                   item['email'] = controller.invoiceClientEmailController.text;
-                                  item['date'] = controller.updatedDueDateForInvoice(initialDate: "(non)");
+                                  item['date'] = controller.pickedInvoiceDueDate.value;
                                   print("vat here: ${item['vat']}");
                                   service.addServiceI(item)
                                   .whenComplete(() {

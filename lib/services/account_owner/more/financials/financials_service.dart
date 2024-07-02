@@ -324,7 +324,6 @@ class FinancialsService extends getx.GetxController {
     var body = {
       "status": "SAVED",
       "appointment_type": "already in the product detail list",
-      //"tracking_id": "#$tracking_id",
       "note": note,
       "quote_date": quote_date,
       "send_to_name": client_name,
@@ -352,7 +351,6 @@ class FinancialsService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "quote created and saved successfully"
         );
-        //.whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;
@@ -363,9 +361,8 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create quote ${res.body}"
+          message: "failed to create quote ${res.statusCode}"
         );
-        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -443,10 +440,7 @@ class FinancialsService extends getx.GetxController {
           grand_total: grandTotal(total),
           serviceList: product_detail,
         ).whenComplete(() {
-          controller.quoteClientEmailController.clear();
-          controller.quoteClientNameController.clear();
-          controller.quoteClientPhoneNumberController.clear();
-          controller.quoteNoteController.clear();
+          
           //success snackbar
           showMySnackBar(
             context: context,
@@ -466,7 +460,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to create quote ${res.body}"
+          message: "failed to create quote ${res.statusCode}"
         );
       }
     } 
@@ -795,7 +789,6 @@ class FinancialsService extends getx.GetxController {
           backgroundColor: AppColor.darkGreen,
           message: "invoice created and saved successfully"
         );  
-        //.whenComplete(() => getx.Get.back());
       } 
       else {
         isLoading.value = false;
@@ -806,9 +799,8 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save invoice ${res.body}"
+          message: "failed to save invoice ${res.statusCode}"
         );
-        //.whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -862,7 +854,6 @@ class FinancialsService extends getx.GetxController {
 
         //decode the response body here
         final dynamic response = jsonDecode(res.body);
-        //InvoiceResponse responseModel = InvoiceResponse.fromJson(jsonDecode(res.body));
 
         int invoice_id = response['invoice_id'];
         String address = response['service_provider_address'] ?? "non";
@@ -891,10 +882,6 @@ class FinancialsService extends getx.GetxController {
           grand_total: grandTotal(total),
           serviceList: booking_detail,
         ).whenComplete(() {
-          controller.invoiceClientEmailController.clear();
-          controller.invoiceClientNameController.clear();
-          controller.invoiceClientPhoneNumberController.clear();
-          controller.invoiceNoteController.clear();
           //success snackbar
           showMySnackBar(
             context: context,
@@ -913,9 +900,8 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save invoice ${res.body}"
-        );
-        //.whenComplete(() => getx.Get.back());
+          message: "failed to save invoice ${res.statusCode}"
+        ).whenComplete(() => getx.Get.back());
       }
     } 
     catch (e) {
@@ -948,7 +934,6 @@ class FinancialsService extends getx.GetxController {
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
-      //"tracking_id": "#$tracking_id",
       "note": note,
       "due_date": due_date,
       "vat": vat,
@@ -995,10 +980,6 @@ class FinancialsService extends getx.GetxController {
           grand_total: grandTotal(total),
           serviceList: booking_detail,
         ).whenComplete(() {
-          controller.invoiceClientEmailController.clear();
-          controller.invoiceClientNameController.clear();
-          controller.invoiceClientPhoneNumberController.clear();
-          controller.invoiceNoteController.clear();
           //success snackbar
           showMySnackBar(
             context: context,
@@ -1017,7 +998,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save invoice ${res.body}"
+          message: "failed to create invoice ${res.statusCode}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -1375,7 +1356,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save receipt ${res.body}"
+          message: "failed to create receipt ${res.statusCode}"
         ).whenComplete(() => getx.Get.back());
       }
     } 
@@ -1408,8 +1389,6 @@ class FinancialsService extends getx.GetxController {
 
     var body = {
       "receipt_date": receipt_date,
-      //"tracking_id": "#$tracking_id",
-      ////////////////
       "send_to_name": client_name,
       "send_to_email": client_email,
       "phone_number": client_phone_number,
@@ -1447,7 +1426,7 @@ class FinancialsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to save receipt ${res.body}"
+          message: "failed to create receipt ${res.statusCode}"
         ).whenComplete(() => getx.Get.back());
       }
     } 

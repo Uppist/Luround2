@@ -18,7 +18,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class UnpaidInvoiceList extends StatefulWidget {
-  UnpaidInvoiceList({super.key});
+  const UnpaidInvoiceList({super.key});
 
   @override
   State<UnpaidInvoiceList> createState() => _UnpaidInvoiceListState();
@@ -36,8 +36,12 @@ class _UnpaidInvoiceListState extends State<UnpaidInvoiceList> {
     // Update the UI with the new data
 
     newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-    service.filteredUnpaidInvoiceList.clear();
-    service.filteredUnpaidInvoiceList.addAll(newData); 
+    service.filteredUnpaidInvoiceList
+        ..clear()
+        ..addAll(newData);
+
+    //service.filteredUnpaidInvoiceList.clear();
+    //service.filteredUnpaidInvoiceList.addAll(newData); 
   }
 
   late Future<List<InvoiceResponse>> unpaidInvoiceFuture;
@@ -51,7 +55,7 @@ class _UnpaidInvoiceListState extends State<UnpaidInvoiceList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<InvoiceResponse>>(
-      future: service.getUserUnpaidInvoice(),
+      future: unpaidInvoiceFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

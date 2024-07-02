@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/main.dart';
+import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
@@ -45,6 +46,17 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
   var finPdfService = Get.put(FinancialsPdfService());
   var user_email = LocalStorage.getUseremail();
   var userProfileService = Get.put(AccOwnerProfileService());
+
+
+  late Future<UserModel> userProfileFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    userProfileFuture = userProfileService.getUserProfileDetails(email: user_email);
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +123,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                         children: [
                           //Logged in user details
                           FutureBuilder(
-                            future: userProfileService.getUserProfileDetails(email: user_email),
+                            future: userProfileFuture,
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return Loader2();
@@ -125,7 +137,7 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                 return Loader2();   
                               }
              
-                              //if (snapshot.hasData) {
+                              if (snapshot.hasData) {
                                 var data = snapshot.data!;
                                 return Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
@@ -168,8 +180,8 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     ],
                                   ),
                                 );
-                              //}
-                              //return Loader2();
+                              }
+                              return Loader2();
                             }
                           ),
                       
@@ -649,14 +661,18 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                   total: service.reactiveTotalForReceipt.value,
                                   service_detail: service.selectedReceiptbslist,
                                 ).whenComplete(() {
+                                  controller.receiptClientEmailController.clear();
+                                  controller.receiptClientNameController.clear();
+                                  controller.receiptClientPhoneNumberController.clear();
+                                  controller.receiptNoteController.clear();
                                   service.selectedReceiptbslist.clear();
-                                  setState(() {
+                                  //setState(() {
                                     service.reactiveSubtotalForReceipt.value = '';
                                     service.reactiveTotalDiscountForReceipt.value = '';
                                     service.reactiveTotalVATForReceipt.value = '';
                                     service.reactiveTotalForReceipt.value = '';
                                     controller.pickedReceiptDate.value = '';
-                                  });
+                                  //});
                                 });
                               },
                               onSave: () {
@@ -680,13 +696,13 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     controller.receiptClientPhoneNumberController.clear();
                                     controller.receiptNoteController.clear();
                                     service.selectedReceiptbslist.clear();
-                                    setState(() {
+                                    //setState(() {
                                       service.reactiveSubtotalForReceipt.value = '';
                                       service.reactiveTotalDiscountForReceipt.value = '';
                                       service.reactiveTotalVATForReceipt.value = '';
                                       service.reactiveTotalForReceipt.value = '';
                                       controller.pickedReceiptDate.value = '';
-                                    });
+                                    //});
                                     Get.back();
                                   });
                               },
@@ -714,13 +730,13 @@ class _CreateReceiptPageState extends State<CreateReceiptPage> {
                                     controller.receiptClientPhoneNumberController.clear();
                                     controller.receiptNoteController.clear();
                                     service.selectedReceiptbslist.clear();
-                                    setState(() {
+                                    //setState(() {
                                       service.reactiveSubtotalForReceipt.value = '';
                                       service.reactiveTotalDiscountForReceipt.value = '';
                                       service.reactiveTotalVATForReceipt.value = '';
                                       service.reactiveTotalForReceipt.value = '';
                                       controller.pickedReceiptDate.value = '';
-                                    });
+                                    //});
                                     Get.back();
                                   });
                               },

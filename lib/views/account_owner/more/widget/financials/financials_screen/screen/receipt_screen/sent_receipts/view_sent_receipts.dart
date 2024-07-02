@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/receipt/sent/sent_receipt_controller.dart';
 import 'package:luround/main.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
+import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 
 
@@ -40,6 +40,8 @@ class ViewSentReceiptScreen extends StatelessWidget {
   final String tracking_id;
 
 
+
+  final service = Get.put(AccOwnerServicePageService());
   var controller = Get.put(SentReceiptController());
   var userName = LocalStorage.getUsername();
   var userEmail = LocalStorage.getUseremail();
@@ -580,6 +582,29 @@ class ViewSentReceiptScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
+                                "Processing fee",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor.withOpacity(0.6),
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                ),
+                              ),
+                              Text(
+                                "${currency(context).currencySymbol}${service.chargeFee(total)}",
+                                style: GoogleFonts.inter(
+                                  color: AppColor.darkGreyColor,
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w500
+                                )
+                              ),
+                              
+                            ],
+                          ),
+                          SizedBox(height: 20.h,),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
                                 "VAT",
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor.withOpacity(0.6),
@@ -611,13 +636,14 @@ class ViewSentReceiptScreen extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                '${currency(context).currencySymbol}$total',
+                                '${currency(context).currencySymbol}${service.grandTotal(total)}',
                                 style: GoogleFonts.inter(
                                   color: AppColor.darkGreyColor,
                                   fontSize: 14.sp,
                                   fontWeight: FontWeight.w500
                                 )
                               ),
+              
                               
                             ],
                           ),

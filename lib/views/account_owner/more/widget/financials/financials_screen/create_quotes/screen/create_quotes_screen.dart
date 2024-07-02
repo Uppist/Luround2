@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/main.dart';
+import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
@@ -46,6 +47,15 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
+
+  late Future<UserModel> userProfileFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    userProfileFuture = userProfileService.getUserProfileDetails(email: user_email);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +122,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                   children: [
                                     //Logged in user details
                                     FutureBuilder(
-                                      future: userProfileService.getUserProfileDetails(email: user_email),
+                                      future: userProfileFuture,
                                       builder: (context, snapshot) {
                                         if (snapshot.connectionState == ConnectionState.waiting) {
                                           return Loader2();
@@ -126,7 +136,7 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                           return Loader2();   
                                         }
              
-                                        //if (snapshot.hasData) {
+                                        if (snapshot.hasData) {
                                           var data = snapshot.data!;
                                           return Padding(
                                             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
@@ -169,8 +179,8 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                               ],
                                             ),
                                           );
-                                        //}
-                                        //return Loader2();
+                                        }
+                                        return Loader2();
                                       }
                                     ),
                                   Divider(color: Colors.grey, thickness: 0.2,),
@@ -607,15 +617,19 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       total: service.reactiveTotalForQoute.value,
                                       product_detail: service.selectedQuotebslist,
                                     ).whenComplete(() {
+                                      controller.receiptClientEmailController.clear();
+                                      controller.receiptClientNameController.clear();
+                                      controller.receiptClientPhoneNumberController.clear();
+                                      controller.receiptNoteController.clear();
                                       service.selectedQuotebslist.clear();
-                                      setState(() {
+                                      //setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
                                         controller.pickedQuoteDate.value = '';
                                         controller.pickedQuoteDueDate.value = '';
-                                      });
+                                      //});
                                     });                       
                                   },
                                   onSave: () {
@@ -638,14 +652,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       controller.quoteClientPhoneNumberController.clear();
                                       controller.quoteNoteController.clear();
                                       service.selectedQuotebslist.clear();
-                                      setState(() {
+                                      //setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
                                         controller.pickedQuoteDate.value = '';
                                         controller.pickedQuoteDueDate.value = '';
-                                      });
+                                      //});
                                       Get.back();
                                     });
                                   },
@@ -673,14 +687,14 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       controller.quoteClientPhoneNumberController.clear();
                                       controller.quoteNoteController.clear();
                                       service.selectedQuotebslist.clear();
-                                      setState(() {
+                                      //setState(() {
                                         service.reactiveSubtotalForQuote.value = '';
                                         service.reactiveTotalDiscountForQuote.value = '';
                                         service.reactiveTotalVATForQuote.value = '';
                                         service.reactiveTotalForQoute.value = '';
                                         controller.pickedQuoteDate.value = '';
                                         controller.pickedQuoteDueDate.value = '';
-                                      });
+                                      //});
                                       Get.back();
                                     });
                                   },

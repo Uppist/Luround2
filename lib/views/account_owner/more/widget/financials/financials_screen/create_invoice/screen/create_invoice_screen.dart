@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/financials/main/financials_controller.dart';
 import 'package:luround/main.dart';
+import 'package:luround/models/account_owner/user_profile/user_model.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/services/account_owner/more/financials/financials_pdf_service.dart';
 import 'package:luround/services/account_owner/more/financials/financials_service.dart';
@@ -46,6 +47,14 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
   var controller = Get.put(FinancialsController());
   var service = Get.put(FinancialsService());
   var finPdfService = Get.put(FinancialsPdfService());
+  late Future<UserModel> userProfileFuture;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    userProfileFuture = userProfileService.getUserProfileDetails(email: user_email);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +121,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                         children: [
                           //Logged in user details
                           FutureBuilder(
-                            future: userProfileService.getUserProfileDetails(email: user_email),
+                            future: userProfileFuture,
                             builder: (context, snapshot) {
                               if (snapshot.connectionState == ConnectionState.waiting) {
                                 return const Loader2();
@@ -126,7 +135,7 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                 return const Loader2();   
                               }
              
-                              //if (snapshot.hasData) {
+                              if (snapshot.hasData) {
                                 var data = snapshot.data!;
                                 return Padding(
                                   padding: EdgeInsets.symmetric(horizontal: 20.w, vertical:10.h),
@@ -169,8 +178,8 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                     ],
                                   ),
                                 );
-                              //}
-                              //return Loader2();
+                              }
+                              return Loader2();
                             }
                           ),
                           const Divider(color: Colors.grey, thickness: 0.2,),
@@ -603,15 +612,19 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   total: service.reactiveTotalForInvoice.value,
                                   booking_detail: service.selectedInvoicebslist
                                 ).whenComplete(() {
+                                  controller.invoiceClientEmailController.clear();
+                                  controller.invoiceClientNameController.clear();
+                                  controller.invoiceClientPhoneNumberController.clear();
+                                  controller.invoiceNoteController.clear();
                                     service.selectedInvoicebslist.clear();
-                                    setState(() {
+                                    //setState(() {
                                       service.reactiveSubtotalForInvoice.value = '';
                                       service.reactiveTotalDiscountForInvoice.value = '';
                                       service.reactiveTotalVATForInvoice.value = '';
                                       service.reactiveTotalForInvoice.value = '';
                                       controller.pickedInvoiceDate.value = '';
                                       controller.pickedInvoiceDueDate.value = '';
-                                    });
+                                    //});
                                 });
 
                               },
@@ -635,14 +648,14 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
                                   service.selectedInvoicebslist.clear();
-                                  setState(() {
+                                  //setState(() {
                                     service.reactiveSubtotalForInvoice.value = '';
                                     service.reactiveTotalDiscountForInvoice.value = '';
                                     service.reactiveTotalVATForInvoice.value = '';
                                     service.reactiveTotalForInvoice.value = '';
                                     controller.pickedInvoiceDate.value = '';
                                     controller.pickedInvoiceDueDate.value = '';
-                                  });
+                                  //});
                                   Get.back();
                                 });
                               },
@@ -671,14 +684,14 @@ class _CreateInvoicePageState extends State<CreateInvoicePage> {
                                   controller.invoiceClientPhoneNumberController.clear();
                                   controller.invoiceNoteController.clear();
                                   service.selectedInvoicebslist.clear();
-                                  setState(() {
+                                  //setState(() {
                                     service.reactiveSubtotalForInvoice.value = '';
                                     service.reactiveTotalDiscountForInvoice.value = '';
                                     service.reactiveTotalVATForInvoice.value = '';
                                     service.reactiveTotalForInvoice.value = '';
                                     controller.pickedInvoiceDate.value = '';
                                     controller.pickedInvoiceDueDate.value = '';
-                                  });
+                                  //});
                                   Get.back();
                                 });
                               },

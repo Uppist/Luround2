@@ -844,6 +844,7 @@ class FinancialsService extends getx.GetxController {
       "product_detail": booking_detail,
     };
 
+
     try {
       http.Response res = await baseService.httpPost(endPoint: "invoice/generate-invoice", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {

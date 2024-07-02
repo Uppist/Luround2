@@ -1777,7 +1777,15 @@ class AccOwnerServicePageService extends getx.GetxController {
     }
   }
 
-
+  String chargeFee(String fee) {
+    double result = 0.05 * double.parse(fee);
+    return result.toString();
+  }
+  
+  String grandTotal(String fee) {
+    double result = double.parse(fee) + (0.05 * double.parse(fee));
+    return result.toString();
+  }
 
 
 

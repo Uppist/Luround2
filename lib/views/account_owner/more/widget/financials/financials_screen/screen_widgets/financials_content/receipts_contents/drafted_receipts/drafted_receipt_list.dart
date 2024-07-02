@@ -47,7 +47,7 @@ class _DraftedReceiptListState extends State<DraftedReceiptList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<ReceiptResponse>>(
-      future: service.getUserDraftedReceipt(),
+      future: savedReceiptFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

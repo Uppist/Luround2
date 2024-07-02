@@ -28,16 +28,6 @@ class _QuotesListState extends State<QuotesList> {
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
-    // Fetch new data here
-    final List<SentQuotesResponse>  newData = await service.getUserSentQuotes();
-    // Update the UI with the new data
-    newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
-    service.filteredSentQuotesList.clear();
-    service.filteredSentQuotesList.addAll(newData); 
-    print("updated filtered sent qoutes list: ${service.filteredSentQuotesList}");
-  }
 
   late Future<List<SentQuotesResponse>> sentQuoteFuture;
   @override
@@ -45,6 +35,17 @@ class _QuotesListState extends State<QuotesList> {
     super.initState();
     sentQuoteFuture = service.getUserSentQuotes();
     
+  }
+
+  Future<void> _refresh() async {
+    await Future.delayed(Duration(seconds: 1));
+    // Fetch new data here
+    final List<SentQuotesResponse>  newData = await service.getUserSentQuotes();
+    // Update the UI with the new data
+    newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
+    service.filteredSentQuotesList.clear();
+    service.filteredSentQuotesList.addAll(newData);
+    print("updated filtered sent qoutes list: ${service.filteredSentQuotesList}");
   }
 
   @override

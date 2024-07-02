@@ -48,7 +48,7 @@ class _PaidInvoiceListState extends State<PaidInvoiceList> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<InvoiceResponse>>(
-      future: service.getUserPaidInvoice(),
+      future: paidInvoiceFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Expanded(child: Loader(),);

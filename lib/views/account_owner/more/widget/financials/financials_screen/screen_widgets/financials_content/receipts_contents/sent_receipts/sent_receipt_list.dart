@@ -30,12 +30,11 @@ class _SentReceiptListState extends State<SentReceiptList> {
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<ReceiptResponse>  newData = await service.getUserSentReceipt();
+    /*final List<ReceiptResponse>  newData = await service.getUserSentReceipt();
     // Update the UI with the new data
-
     newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
     service.filteredSentReceiptList.clear();
-    service.filteredSentReceiptList.addAll(newData); 
+    service.filteredSentReceiptList.addAll(newData);*/
   }
 
   late Future<List<ReceiptResponse>> sentReceiptFuture;

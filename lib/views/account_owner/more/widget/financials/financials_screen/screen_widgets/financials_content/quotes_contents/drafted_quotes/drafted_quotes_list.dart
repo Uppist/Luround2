@@ -32,11 +32,11 @@ class _DraftedQuotesListState extends State<DraftedQuotesList> {
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<DraftedQuotesResponse>  newData = await service.getUserDraftedQuotes();
+    /*final List<DraftedQuotesResponse>  newData = await service.getUserDraftedQuotes();
     // Update the UI with the new data
     newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
     service.filteredDraftedQuotesList.clear();
-    service.filteredDraftedQuotesList.addAll(newData); 
+    service.filteredDraftedQuotesList.addAll(newData);*/
   }
 
   late Future<List<DraftedQuotesResponse>> draftedQuoteFuture;

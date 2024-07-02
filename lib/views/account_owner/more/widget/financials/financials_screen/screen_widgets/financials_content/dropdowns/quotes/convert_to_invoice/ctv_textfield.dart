@@ -13,12 +13,13 @@ import 'package:luround/utils/colors/app_theme.dart';
 
 
 class CTVDueDateTextField extends StatefulWidget {
-  const CTVDueDateTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, this.onFocusChanged, required this.initialValue,});
+  const CTVDueDateTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, this.onFocusChanged, required this.initialValue, this.onChanged,});
   final TextInputType keyboardType;
   final String hintText;
   final String initialValue;
   final TextInputAction textInputAction;
   final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
   final void Function(bool)? onFocusChanged;
 
   @override
@@ -37,7 +38,7 @@ class _CTVDueDateTextFieldState extends State<CTVDueDateTextField> {
         width: 110.w,
         child: TextFormField(
           onFieldSubmitted: widget.onFieldSubmitted,
-          //onChanged: widget.onChanged
+          onChanged: widget.onChanged,
           initialValue: widget.initialValue,
           keyboardType: widget.keyboardType,
           maxLines: 1,
@@ -81,12 +82,13 @@ class _CTVDueDateTextFieldState extends State<CTVDueDateTextField> {
 
 
 class CTVDiscountTextField extends StatefulWidget {
-  const CTVDiscountTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, this.onFocusChanged, required this.initialValue,});
+  const CTVDiscountTextField({super.key, required this.onFieldSubmitted, required this.hintText, required this.keyboardType, required this.textInputAction, this.onFocusChanged, required this.initialValue, this.onChanged,});
   final TextInputType keyboardType;
   final String hintText;
   final String initialValue;
   final TextInputAction textInputAction;
   final void Function(String)? onFieldSubmitted;
+  final void Function(String)? onChanged;
   final void Function(bool)? onFocusChanged;
 
   @override
@@ -105,7 +107,7 @@ class _CTVDiscountTextFieldState extends State<CTVDiscountTextField> {
         width: 70.w,
         child: TextFormField(
           onFieldSubmitted: widget.onFieldSubmitted,
-          //onChanged: widget.onChanged
+          onChanged: widget.onChanged,
           initialValue: widget.initialValue,
           keyboardType: widget.keyboardType,
           maxLines: 1,
@@ -119,9 +121,6 @@ class _CTVDiscountTextFieldState extends State<CTVDiscountTextField> {
           textInputAction: widget.textInputAction,          
           scrollPhysics: const BouncingScrollPhysics(),
           decoration: InputDecoration(        
-            /*border: OutlineInputBorder(
-              borderSide: BorderSide.none, // Remove the border
-            ),*/
             contentPadding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5.h),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppColor.textGreyColor.withOpacity(0.1)), // Set the color you prefer

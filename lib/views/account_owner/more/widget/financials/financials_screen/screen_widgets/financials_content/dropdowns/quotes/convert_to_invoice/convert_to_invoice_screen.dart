@@ -54,6 +54,7 @@ class ConvertQuoteToInvoiceScreen extends StatefulWidget {
 class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScreen> {
   var service = Get.put(FinancialsService());
 
+
   var finPdfService = Get.put(FinancialsPdfService());
 
   var isServiceTapped = false.obs;
@@ -309,10 +310,11 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             ),
                             CTVDueDateTextField(
                               initialValue: widget.due_date,
-                              onFieldSubmitted: (val) {
+                              onChanged: (val) {
                                 service.ctvdueDateController.text = val;
                                 print("ctv due date: ${service.ctvdueDateController.text}");
                               },
+                              onFieldSubmitted: (val) {},
                               hintText: "Enter due date",
                               keyboardType: TextInputType.text,
                               textInputAction: TextInputAction.next,
@@ -591,6 +593,7 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             ),
                             CTVDueDateTextField(
                               initialValue: widget.discount,
+                              onChanged: (val) {},
                               onFieldSubmitted: (val) {
                                 // Check if the entered text is a valid integer
                                 if (val.isNotEmpty && double.tryParse(val) != null) {
@@ -609,8 +612,8 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                                   initialDiscountValue: widget.discount,
                                   initialSubTotal: widget.sub_total
                                 );
-
                               },
+                              
                               hintText: "Enter Discount",
                               keyboardType: TextInputType.number,
                               textInputAction: TextInputAction.done,
@@ -737,10 +740,10 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                                   UtilsTextField2(
                                     initialValue: widget.note,
                                     onChanged: (val) {
-                                      setState(() {
+                                      //setState(() {
                                         service.ctvnoteController.text = val;
                                         debugPrint(service.ctvnoteController.text);
-                                      });
+                                      //});
                                     },                    
                                     hintText: "Write a short note for the recipient.",
                                     keyboardType: TextInputType.text,
@@ -835,11 +838,8 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                         sendInvoiceBottomSheet(
                           context: context,
                           onShare: () {
-                          service.createNewInvoiceAndSendToClientMarkTrue(
+                          service.createNewInvoiceAndSendToClient(
                             context: context, 
-                            /*bank_name: widget.bank_details['bank'],
-                            account_name: widget.bank_details['account_name'],
-                            account_number: widget.bank_details['account_number'],*/
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
                             client_phone_number: widget.phone_number,
@@ -852,16 +852,10 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
                             total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
                             booking_detail: widget.product_details
-                          ).whenComplete(() {
-                            print("sent");
-                            //Get.back();
-                          });                       
+                          );                       
                         },
                         onSave: () {
                           service.createNewInvoiceAndSaveToDB(
-                            /*bank_name: widget.bank_details['bank'],
-                            account_name: widget.bank_details['account_name'],
-                            account_number: widget.bank_details['account_number'],*/
                             context: context, 
                             client_name: widget.send_to_name, 
                             client_email: widget.send_to_email,
@@ -869,17 +863,16 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             note: service.ctvnoteController.text.isNotEmpty ? service.ctvnoteController.text : widget.note,
                             invoice_date: widget.qoute_date, 
                             due_date: service.ctvdueDateController.text.isNotEmpty ? service.ctvdueDateController.text : widget.due_date,
-
                             vat: service.reactiveCTVVAT.value.isNotEmpty ? service.reactiveCTVVAT.value : widget.vat,
                             sub_total: widget.sub_total,
                             discount: service.ctvdiscountController.text.isNotEmpty ? service.ctvdiscountController.text : widget.discount,
                             total: service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total,
                             booking_detail: widget.product_details
                           ).whenComplete(() { 
-                            setState(() {
+                            //setState(() {
                               service.reactiveCTVVAT.value = "";
                               service.reactiveCTVGrandTotal.value = "";
-                            });
+                            //});
                             Get.back();
                           });
                         },
@@ -904,10 +897,10 @@ class _ConvertQuoteToInvoiceScreenState extends State<ConvertQuoteToInvoiceScree
                             grand_total: service.grandTotal(service.reactiveCTVGrandTotal.isNotEmpty ? service.reactiveCTVGrandTotal.value : widget.total),
                             serviceList: widget.product_details,
                           ).whenComplete(() {
-                            setState(() {
+                            //setState(() {
                               service.reactiveCTVVAT.value = "";
                               service.reactiveCTVGrandTotal.value = "";
-                            });
+                            //});
                             Get.back();
                           });
                         },

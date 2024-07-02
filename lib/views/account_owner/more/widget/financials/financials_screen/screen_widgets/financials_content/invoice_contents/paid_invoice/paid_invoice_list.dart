@@ -30,11 +30,11 @@ class _PaidInvoiceListState extends State<PaidInvoiceList> {
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<InvoiceResponse>  newData = await service.getUserPaidInvoice();
+    /*final List<InvoiceResponse>  newData = await service.getUserPaidInvoice();
     // Update the UI with the new data
     newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
     service.filteredPaidInvoiceList.clear();
-    service.filteredPaidInvoiceList.addAll(newData); 
+    service.filteredPaidInvoiceList.addAll(newData);*/
   }
 
   late Future<List<InvoiceResponse>> paidInvoiceFuture;

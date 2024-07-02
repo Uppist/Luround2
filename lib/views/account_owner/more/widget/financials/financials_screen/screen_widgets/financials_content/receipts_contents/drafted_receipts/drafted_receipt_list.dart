@@ -30,11 +30,11 @@ class _DraftedReceiptListState extends State<DraftedReceiptList> {
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<ReceiptResponse>  newData = await service.getUserDraftedReceipt(); 
+    /*final List<ReceiptResponse>  newData = await service.getUserDraftedReceipt(); 
     // Update the UI with the new data
     newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
     service.filteredDraftedReceiptsList.clear();
-    service.filteredDraftedReceiptsList.addAll(newData);
+    service.filteredDraftedReceiptsList.addAll(newData);*/
   }
 
   late Future<List<ReceiptResponse>> savedReceiptFuture;

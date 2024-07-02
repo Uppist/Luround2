@@ -17,7 +17,7 @@ import 'package:luround/views/account_owner/more/widget/financials/financials_sc
 
 
 class RequestedQuotesList extends StatefulWidget {
-  RequestedQuotesList({super.key});
+  const RequestedQuotesList({super.key});
 
   @override
   State<RequestedQuotesList> createState() => _RequestedQuotesListState();
@@ -31,12 +31,12 @@ class _RequestedQuotesListState extends State<RequestedQuotesList> {
   Future<void> _refresh() async {
     await Future.delayed(Duration(seconds: 1));
     // Fetch new data here
-    final List<ReceivedQuotesResponse>  newData = await service.getUserReceivedQuotes();
+    /*final List<ReceivedQuotesResponse>  newData = await service.getUserReceivedQuotes();
     // Update the UI with the new data
     newData.sort((a, b) => a.send_to_name.toLowerCase().compareTo(b.send_to_name.toLowerCase()));
     service.filteredReceivedQuotesList.clear();
     service.filteredReceivedQuotesList.addAll(newData); 
-    print("updated filtered requested qoutes list: ${service.filteredReceivedQuotesList}");
+    print("updated filtered requested qoutes list: ${service.filteredReceivedQuotesList}");*/
   }
 
   late Future<List<ReceivedQuotesResponse>> receivedQuoteFuture;

@@ -28,9 +28,9 @@ class DueInvoiceList extends StatelessWidget {
   Future<void> _refresh() async{
     await Future.delayed(const Duration(seconds: 1));
     // Loop through the user list and check if each object is due
+    service.filteredDueInvoiceList.clear();
     for (InvoiceResponse invoice in  service.unpaidInvoiceList) {
       if (service.isDueInThreeDays(invoice)) {
-        service.filteredDueInvoiceList.clear();
         service.filteredDueInvoiceList.add(invoice);
       }
     }

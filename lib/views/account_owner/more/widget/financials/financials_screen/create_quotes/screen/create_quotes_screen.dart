@@ -617,10 +617,10 @@ class _CreateQuotePageState extends State<CreateQuotePage> {
                                       total: service.reactiveTotalForQoute.value,
                                       product_detail: service.selectedQuotebslist,
                                     ).whenComplete(() {
-                                      controller.receiptClientEmailController.clear();
-                                      controller.receiptClientNameController.clear();
-                                      controller.receiptClientPhoneNumberController.clear();
-                                      controller.receiptNoteController.clear();
+                                      controller.quoteClientEmailController.clear();
+                                      controller.quoteClientNameController.clear();
+                                      controller.quoteClientPhoneNumberController.clear();
+                                      controller.quoteNoteController.clear();
                                       service.selectedQuotebslist.clear();
                                       //setState(() {
                                         service.reactiveSubtotalForQuote.value = '';

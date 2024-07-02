@@ -446,7 +446,8 @@ class FinancialsService extends getx.GetxController {
             context: context,
             backgroundColor: AppColor.darkGreen,
             message: "quote created and saved successfully"
-          ).whenComplete(() => getx.Get.back());
+          );
+          //.whenComplete(() => getx.Get.back());
   
         });
 
@@ -1344,7 +1345,7 @@ class FinancialsService extends getx.GetxController {
             context: context,
             backgroundColor: AppColor.darkGreen,
             message: "receipt created and saved successfully",
-          ).whenComplete(() => getx.Get.back());
+          ); //.whenComplete(() => getx.Get.back());
 
         });
       } 

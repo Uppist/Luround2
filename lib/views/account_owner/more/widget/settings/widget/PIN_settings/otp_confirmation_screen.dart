@@ -80,7 +80,7 @@ class OTPPINScreen extends StatelessWidget {
                           textController: controller.otpForNewPinController,
                           isObscured: false,
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.5),
+                        SizedBox(height: MediaQuery.of(context).size.height * 0.61),
                         ReusableButton(
                           color: AppColor.mainColor,
                           text: 'Change PIN',

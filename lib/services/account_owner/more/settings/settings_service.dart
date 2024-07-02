@@ -129,7 +129,7 @@ class SettingsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to customize profile url"
+          message: "failed to customize profile url ${res.statusCode}"
         );
       }
     } 
@@ -182,7 +182,7 @@ class SettingsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to update account password"
+          message: "failed to update account password ${res.statusCode}"
         );
       }
     } 
@@ -235,7 +235,7 @@ class SettingsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to reset wallet pin"
+          message: "failed to reset wallet pin ${res.statusCode}"
         );
       }
     } 
@@ -288,7 +288,7 @@ class SettingsService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to change wallet pin"
+          message: "failed to change wallet pin ${res.statusCode}"
         );
       }
     } 

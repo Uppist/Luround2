@@ -40,8 +40,7 @@ class _UnpaidInvoiceListState extends State<UnpaidInvoiceList> {
         ..clear()
         ..addAll(newData);
 
-    //service.filteredUnpaidInvoiceList.clear();
-    //service.filteredUnpaidInvoiceList.addAll(newData); 
+  
   }
 
   late Future<List<InvoiceResponse>> unpaidInvoiceFuture;

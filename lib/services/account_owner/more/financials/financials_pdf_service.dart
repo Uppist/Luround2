@@ -6,8 +6,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-//import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/converters.dart';
 import 'dart:math';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,6 +22,7 @@ import 'package:share_plus/share_plus.dart';
 
 
 class FinancialsPdfService extends getx.GetxController {
+  
   var isLoading = false.obs;
 
   var userName = LocalStorage.getUsername();
@@ -203,13 +202,7 @@ class FinancialsPdfService extends getx.GetxController {
                   ),
 
                   //QUOTES DETAILS CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
@@ -301,32 +294,26 @@ class FinancialsPdfService extends getx.GetxController {
                           ],
                         ),
                       ],
-                    ),
                   ),
+                
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
-                  pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      //width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
+                  pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                               children: [
                                 pw.Text(
                                   "Products/Services",
                                   style: pw.TextStyle(
                                       color: PdfColors.grey,
                                       fontSize: 14.sp,
-                                      fontWeight: pw.FontWeight.bold),
+                                      fontWeight: pw.FontWeight.bold
+                                  ),
                                 ),
                                 /*pw.Icon(
                             Icons.ac_unit,
@@ -497,20 +484,15 @@ class FinancialsPdfService extends getx.GetxController {
                                     ],
                                   );
                                 }),
-                          ])),
+                          ]
+                  ),
+                
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
-                  //QUOTES DISCOUNT AND GRAND TOTAL CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                    horizontal: 20.w, vertical: 20.h),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Row(
@@ -627,58 +609,54 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
+                  
 
                   pw.SizedBox(height: 20.h),
 
                   //VIEW NOTE CONTAINER
-                  pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h
-                      ),
-                      //width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Row(
-                              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                              children: [
-                                pw.Text(
-                                  "Note",
-                                  style: pw.TextStyle(
-                                      color: PdfColors.grey,
-                                      fontSize: 14.sp,
-                                      fontWeight: pw.FontWeight.bold),
-                                ),
-                                /*pw.Icon(
-                          ,
-                          color: PdfColors.black,
-                        )*/
-                              ],
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.Text(
+                            "Note",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: pw.FontWeight.bold
                             ),
-                            //Note text
-                            pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw.SizedBox(
-                                  height: 10.h,
-                                ),
-                                pw.Text(
-                                  note,
-                                  style: pw.TextStyle(
-                                    color: PdfColors.black,
-                                    fontSize: 14.sp,
-                                    //fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                              ],
-                            )
-                          ])),
-                ])
-          ];
-        }));
+                          ),
+                                
+                        ],
+                      ),
+
+                      //Note text
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.SizedBox(
+                            height: 10.h,
+                          ),
+                          pw.Text(
+                            note,
+                            style: pw.TextStyle(
+                              color: PdfColors.black,
+                              fontSize: 14.sp,
+                              //fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                      )
+                    ]
+                  )
+                ]
+              )
+            ];
+          }
+        )
+      );
   }
 
   //SAVE & SHARE CREATED QUOTE PDF
@@ -854,55 +832,50 @@ class FinancialsPdfService extends getx.GetxController {
         build: (pw.Context context) {
           return [
             pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
                 children: [
                   pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.PdfLogo(
-                            color: PdfColors.red, fit: pw.BoxFit.contain),
-                        //pw.FlutterLogo(),
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      pw.PdfLogo(
+                        color: PdfColors.red, 
+                        fit: pw.BoxFit.contain
+                      ),
+                    
+                      pw.Text(
+                        "Invoice",
+                        style: pw.TextStyle(
+                          color: PdfColors.black,
+                          fontSize: 16.sp,
+                          fontWeight: pw.FontWeight.bold
+                        )
+                      ),
+                    ]
+                  ),
 
-                        pw.Text("Invoice",
+                  //SENT FROM
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.Text(
+                            "Bill from:",
                             style: pw.TextStyle(
-                                color: PdfColors.black,
-                                fontSize: 16.sp,
-                                fontWeight: pw.FontWeight.bold)),
-                      ]),
-
-                  //PARALLEL
-                  pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.start,
-                      children: [
-                        //SENT FROM
-                        
-                        pw.Container(
-                            //alignment: Alignment.center,
-                            padding: pw.EdgeInsets.symmetric(
-                                horizontal: 20.w, vertical: 20.h),
-                            //width: double.infinity,
-                            color: PdfColors.white,
-                            child: pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw.Text(
-                                  "Bill from:",
-                                  style: pw.TextStyle(
-                                      color: PdfColors.grey,
-                                      fontSize: 14.sp,
-                                      fontWeight: pw.FontWeight.bold),
-                                ),
-                                pw.SizedBox(
-                                  height: 10.h,
-                                ),
-                                pw.Text(
-                                  userName,
-                                  style: pw.TextStyle(
-                                    color: PdfColors.grey,
-                                    fontSize: 13.sp,
-                                    //fontWeight: pw.FontWeight.w500
-                                  ),
-                                ),
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: pw.FontWeight.bold
+                            ),
+                          ),
+                          pw.SizedBox(
+                            height: 10.h,
+                          ),
+                          pw.Text(
+                            userName,
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 13.sp,
+                              //fontWeight: pw.FontWeight.w500
+                            ),
+                          ),
                                 pw.SizedBox(
                                   height: 10.h,
                                 ),
@@ -938,29 +911,13 @@ class FinancialsPdfService extends getx.GetxController {
                                 ),
                               ],
                             ),
-                          ),
-                        
-
-                    
-                        ///////////////////////////////////////////////
-                      ]
-                    ),
+                          
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
-                  pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.start,
-                    children: [
-                      //RECEIVER'S CONTAINER
-                      pw.Container(
-                        //alignment: Alignment.center,
-                        padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                        //width: double.infinity,
-                        color: PdfColors.white,
-                        child: pw.Column(
+                  pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Text(
@@ -1006,24 +963,13 @@ class FinancialsPdfService extends getx.GetxController {
                             ),
                           ],
                         ),
-                      ),
-                    ]
-                  ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
                   //QUOTES DETAILS CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                      horizontal: 20.w, 
-                      vertical: 20.h
-                    ),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
@@ -1117,19 +1063,12 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
-                  pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      //width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
+                   pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Row(
@@ -1304,28 +1243,23 @@ class FinancialsPdfService extends getx.GetxController {
                                                 color: PdfColors.grey,
                                                 fontSize: 14.sp,
                                                 //fontWeight: FontWeight.w500
-                                              )),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                }),
-                          ])),
+                                    )
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        }
+                      ),
+                    ]
+                  ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
                   //QUOTES DISCOUNT AND GRAND TOTAL CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                      horizontal: 20.w, 
-                      vertical: 20.h
-                    ),
-                    //width: ,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Row(
@@ -1467,58 +1401,51 @@ class FinancialsPdfService extends getx.GetxController {
 
                       ],
                     ),
-                  ),
 
                   pw.SizedBox(height: 20.h),
 
                   //VIEW NOTE CONTAINER
-                  pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      //width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
-                          crossAxisAlignment: pw.CrossAxisAlignment.start,
-                          children: [
-                            pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
-                              children: [
-                                pw.Text(
-                                  "Note",
-                                  style: pw.TextStyle(
-                                      color: PdfColors.grey,
-                                      fontSize: 14.sp,
-                                      fontWeight: pw.FontWeight.bold),
-                                ),
-                                /*pw.Icon(
-                          ,
-                          color: PdfColors.black,
-                        )*/
-                              ],
+                  pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.Text(
+                            "Note",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              fontWeight: pw.FontWeight.bold
                             ),
-                            //Note text
-                            pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw.SizedBox(
-                                  height: 10.h,
-                                ),
-                                pw.Text(
-                                  note,
-                                  style: pw.TextStyle(
-                                    color: PdfColors.grey,
-                                    fontSize: 14.sp,
-                                    //fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                              ],
-                            )
-                          ])),
-                ])
-          ];
-        }));
+                          ),
+                        ],
+                      ),
+                      //Note text
+                      pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        children: [
+                          pw.SizedBox(
+                            height: 10.h,
+                          ),
+                          pw.Text(
+                            note,
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              fontSize: 14.sp,
+                              //fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ],
+                      )
+                    ]
+                  )
+                ]
+              )
+            ];
+          }
+        )
+      );
   }
 
   //SAVE & SHARE CREATED INVOICE PDF
@@ -1692,101 +1619,97 @@ class FinancialsPdfService extends getx.GetxController {
         build: (pw.Context context) {
           return [
             pw.Column(
-                crossAxisAlignment: pw.CrossAxisAlignment.start,
-                children: [
-                  pw.Row(
-                      mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                      children: [
-                        pw.PdfLogo(
-                            color: PdfColors.red, fit: pw.BoxFit.contain),
-                        //pw.FlutterLogo(),
-
-                        pw.Text("Receipt",
-                            style: pw.TextStyle(
-                                color: PdfColors.black,
-                                fontSize: 16.sp,
-                                fontWeight: pw.FontWeight.bold)),
-                      ]),
-
-                  //SENT FROM
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                      horizontal: 20.w, 
-                      vertical: 20.h
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.PdfLogo(
+                      color: PdfColors.red, 
+                      fit: pw.BoxFit.contain
                     ),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
-                      crossAxisAlignment: pw.CrossAxisAlignment.start,
-                      children: [
-                        pw.Text(
-                          "Sent from:",
-                          style: pw.TextStyle(
-                              color: PdfColors.grey,
-                              fontSize: 14.sp,
-                              fontWeight: pw.FontWeight.bold),
-                        ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          userName,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 13.sp,
-                            //fontWeight: pw.FontWeight.w500
-                          ),
-                        ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          userEmail,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey, //.withOpacity(0.6),
-                            fontSize: 12.sp,
-                            //fontWeight: FontWeight.w400
-                          ),
-                        ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          sender_phone_number,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey,
-                            fontSize: 13.sp,
-                            //fontWeight: pw.FontWeight.w500
-                          ),
-                        ),
-                        pw.SizedBox(
-                          height: 10.h,
-                        ),
-                        pw.Text(
-                          sender_address,
-                          style: pw.TextStyle(
-                            color: PdfColors.grey, //.withOpacity(0.6),
-                            fontSize: 12.sp,
-                            //fontWeight: FontWeight.w400
-                          ),
-                        ),
-                      ],
+
+                    //pw.FlutterLogo(),
+
+                    pw.Text(
+                      "Receipt",
+                      style: pw.TextStyle(
+                        color: PdfColors.black,
+                        fontSize: 16.sp,
+                        fontWeight: pw.FontWeight.bold
+                      )
                     ),
-                  ),
+                  ]
+                ),
+                
+                pw.SizedBox(
+                  height: 20.h,
+                ),
+                //SENT FROM
+                pw.Column(
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Text(
+                      "Sent from:",
+                      style: pw.TextStyle(
+                        color: PdfColors.grey,
+                        fontSize: 14.sp,
+                        fontWeight: pw.FontWeight.bold
+                      ),
+                    ),
+                    pw.SizedBox(
+                      height: 10.h,
+                    ),
+                    pw.Text(
+                      userName,
+                      style: pw.TextStyle(
+                        color: PdfColors.grey,
+                        fontSize: 13.sp,
+                        //fontWeight: pw.FontWeight.w500
+                      ),
+                    ),
+                    pw.SizedBox(
+                      height: 10.h,
+                    ),
+                    pw.Text(
+                      userEmail,
+                      style: pw.TextStyle(
+                        color: PdfColors.grey, //.withOpacity(0.6),
+                        fontSize: 12.sp,
+                        //fontWeight: FontWeight.w400
+                      ),
+                    ),
+                    pw.SizedBox(
+                      height: 10.h,
+                    ),
+                    pw.Text(
+                      sender_phone_number,
+                      style: pw.TextStyle(
+                        color: PdfColors.grey,
+                        fontSize: 13.sp,
+                        //fontWeight: pw.FontWeight.w500
+                      ),
+                    ),
+                    pw.SizedBox(
+                      height: 10.h,
+                    ),
+                    pw.Text(
+                      sender_address,
+                      style: pw.TextStyle(
+                        color: PdfColors.grey, //.withOpacity(0.6),
+                        fontSize: 12.sp,
+                        //fontWeight: FontWeight.w400
+                      ),
+                    ),
+                  ],
+                ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
                   //RECEIVER'S CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
@@ -1831,21 +1754,13 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
                   //RECEIPT DETAILS CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                      horizontal: 20.w, vertical: 20.h
-                    ),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Text(
@@ -1939,20 +1854,12 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
-                  pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(
-                        horizontal: 20.w, vertical: 20.h
-                      ),
-                      //width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
+                  pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
                             pw.Row(
@@ -2128,25 +2035,19 @@ class FinancialsPdfService extends getx.GetxController {
                                               )),
                                         ],
                                       ),
-                                    ],
-                                  );
-                                }),
-                          ])),
+                              ],
+                            );
+                          }
+                        ),
+                      ]
+                    ),
 
                   pw.SizedBox(
                     height: 20.h,
                   ),
 
                   //QUOTES DISCOUNT AND GRAND TOTAL CONTAINER
-                  pw.Container(
-                    //alignment: Alignment.center,
-                    padding: pw.EdgeInsets.symmetric(
-                      horizontal: 20.w, 
-                      vertical: 20.h
-                    ),
-                    //width: double.infinity,
-                    color: PdfColors.white,
-                    child: pw.Column(
+                  pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: [
                         pw.Row(
@@ -2266,58 +2167,52 @@ class FinancialsPdfService extends getx.GetxController {
                         ),
                       ],
                     ),
-                  ),
 
                   pw.SizedBox(height: 20.h),
 
                   //VIEW NOTE CONTAINER
-                  pw.Container(
-                      //alignment: Alignment.center,
-                      padding: pw.EdgeInsets.symmetric(
-                          horizontal: 20.w, vertical: 20.h),
-                      //width: double.infinity,
-                      color: PdfColors.white,
-                      child: pw.Column(
+                  pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      children: [
+                        pw.Row(
+                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                          children: [
+                            pw.Text(
+                              "Note",
+                              style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 14.sp,
+                                fontWeight: pw.FontWeight.bold
+                              ),
+                            )
+                          ],
+                        ),
+                        //Note text
+                        pw.Column(
                           crossAxisAlignment: pw.CrossAxisAlignment.start,
                           children: [
-                            pw.Row(
-                              mainAxisAlignment:
-                                  pw.MainAxisAlignment.spaceBetween,
-                              children: [
-                                pw.Text(
-                                  "Note",
-                                  style: pw.TextStyle(
-                                      color: PdfColors.grey,
-                                      fontSize: 14.sp,
-                                      fontWeight: pw.FontWeight.bold),
-                                ),
-                                /*pw.Icon(
-                          ,
-                          color: PdfColors.black,
-                        )*/
-                              ],
+                            pw.SizedBox(
+                              height: 10.h,
                             ),
-                            //Note text
-                            pw.Column(
-                              crossAxisAlignment: pw.CrossAxisAlignment.start,
-                              children: [
-                                pw.SizedBox(
-                                  height: 10.h,
-                                ),
-                                pw.Text(
-                                  note,
-                                  style: pw.TextStyle(
-                                    color: PdfColors.grey500,
-                                    fontSize: 14.sp,
-                                    //fontWeight: FontWeight.w400
-                                  ),
-                                ),
-                              ],
-                            )
-                          ]))
-                ])
-          ];
-        }));
+                            pw.Text(
+                              note,
+                              style: pw.TextStyle(
+                                color: PdfColors.grey500,
+                                fontSize: 14.sp,
+                                //fontWeight: FontWeight.w400
+                              ),
+                            ),
+                          ],
+                        )
+                          
+                      ]
+                    )
+                ]
+              )
+            ];
+          }
+        )
+      );
   }
 
   //SAVE & SHARE CREATED RECEIPT PDF

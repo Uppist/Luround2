@@ -105,6 +105,8 @@ class AccOwnerServicePageService extends getx.GetxController {
     update();
   }
 
+
+
   Future<List<UserServiceModel>> getUserOneOffServices() async {
     isLoading.value = true;
     try {
@@ -551,7 +553,7 @@ class AccOwnerServicePageService extends getx.GetxController {
   }
   ////////////////////////////////////
 
-  Future<List<InsightInfo>> getServiceInsight({
+  Future<UserServiceInsightModel> getServiceInsight({
     required String serviceId,
     required RxInt booking_count,
     required RxInt booking_clicks
@@ -566,25 +568,26 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint('this is response status ==>${res.statusCode}');
         debugPrint('this is response body ==>${res.body}');
         debugPrint("user service insight fetched by id successfully!!");
-        
-        final List<dynamic> response = jsonDecode(res.body);
 
-        int count = response[0]['booking_count'];
-        int clicks = response[0]['clicks'];
+        
+        final UserServiceInsightModel response = UserServiceInsightModel.fromJson(jsonDecode(res.body)); 
+
+        int count = response.booking_count; 
+        int clicks = response.booking_clicks;
+        List<InsightInfo> bookings = response.bookings_list;
+
         booking_count.value = count;
         booking_clicks.value = clicks;
-
-        List<dynamic> bookings = response[1]['bookings'];
-        final finalResult = bookings.map((e) => InsightInfo.fromJson(e)).toList();
-        finalResult.sort((a, b) => a.customer_name .toString().compareTo(b.customer_name.toString()));
+    
+        bookings.sort((a, b) => a.customer_name .toString().compareTo(b.customer_name.toString()));
         serviceInsightList.clear();
-        serviceInsightList.addAll(finalResult);
+        serviceInsightList.addAll(bookings);
 
-        return serviceInsightList;
+        return response;
       }
       else {
         isLoading.value = false;
-        hasError.value = true;
+        //hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==> ${res.body}');
@@ -593,7 +596,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     } 
     catch (e) {
       isLoading.value = false;
-      hasError.value = true;
+      //hasError.value = true;
       //debugPrint("Error net: $e");
       throw Exception("$e");
     

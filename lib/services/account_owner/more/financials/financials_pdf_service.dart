@@ -853,6 +853,10 @@ class FinancialsPdfService extends getx.GetxController {
                     ]
                   ),
 
+                  pw.SizedBox(
+                    height: 20.h,
+                  ),
+
                   //SENT FROM
                       pw.Column(
                         crossAxisAlignment: pw.CrossAxisAlignment.start,

@@ -508,20 +508,20 @@ class WithdrawalService extends getx.GetxController {
             context: context,
             backgroundColor: AppColor.darkGreen,
             message: "transaction successful"
-          )
+          );
 
-          .whenComplete(() => getx.Get.offAll(() => const MainPage()));
-            /*getx.Get.to(() => TransferFundsSuccessScreen(
-            amount: "$amount",
-            account_name: account_name,
-            account_number: account_number,
-            bank_name: bank_name,
-            //get all these below from the response body
-            transaction_ref: response['transaction_ref'] ?? 'null',
-            transaction_date: response['transaction_date'] ?? 0,
-            transaction_time: response['transaction_time'] ?? 0,
-          )
-          )*/
+          //.whenComplete(() => getx.Get.offAll(() => const MainPage()));
+            getx.Get.to(() => TransferFundsSuccessScreen(
+              amount: "$amount",
+              account_name: account_name,
+              account_number: account_number,
+              bank_name: bank_name,
+              //get all these below from the response body
+              transaction_ref: response['transaction_ref'] ?? 'null',
+              transaction_date: response['transaction_date'] ?? 0,
+              transaction_time: response['transaction_time'] ?? 0,
+            )
+          );
         
 
         }

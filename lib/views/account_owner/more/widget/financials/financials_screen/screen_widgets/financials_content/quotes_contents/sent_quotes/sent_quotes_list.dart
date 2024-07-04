@@ -43,6 +43,7 @@ class _QuotesListState extends State<QuotesList> {
   void initState() {
     super.initState();
     sentQuoteFuture = service.getUserSentQuotes();
+    _refresh();
   }
 
   Future<void> _refresh() async {

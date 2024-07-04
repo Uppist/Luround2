@@ -31,7 +31,7 @@ class TransferFundsSuccessScreen extends StatelessWidget {
   final int transaction_time;
 
 
-  final MainPageController mainPageController = MainPageController();
+  //final MainPageController mainPageController = MainPageController();
   final trxController = Get.put(TransactionsController());
 
   @override
@@ -112,7 +112,7 @@ class TransferFundsSuccessScreen extends StatelessWidget {
                 onPressed: () async{
                   Get.offAll(() => WithdrawalReceipt(
                     amount: amount,
-                    remark: trxController.enterRemarkController.text,
+                    remark: trxController.enterRemarkController.text.isNotEmpty ? trxController.enterRemarkController.text : '(non)',
                     account_name: account_name,
                     account_number: account_number,
                     bank_name: bank_name,

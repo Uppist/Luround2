@@ -628,17 +628,18 @@ class AccOwnerServicePageService extends getx.GetxController {
     var body = {};
     //acts as both a suspension and unsuspension api
     try {
-      http.Response res = await baseService.httpPut(endPoint: "services/suspend-user-service?service_Id=$serviceId", body: body);
+      http.Response res = await baseService.httpPut(endPoint: "services/suspend-user-service?service_id=$serviceId", body: body);
       if (res.statusCode == 200 || res.statusCode == 201) {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
         debugPrint("user service suspended by id succesfully");
+        Get.back();
         //success snackbar
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.darkGreen,
-          message: "service suspended"
+          message: "status updated successfully"
         );
       } 
       else {
@@ -650,7 +651,7 @@ class AccOwnerServicePageService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to suspend service: ${res.statusCode} || ${res.body}"
+          message: "failed to update service status: ${res.statusCode} || ${res.body}"
         );
       }
     } 

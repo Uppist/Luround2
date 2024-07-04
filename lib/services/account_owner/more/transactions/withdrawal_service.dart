@@ -491,7 +491,9 @@ class WithdrawalService extends getx.GetxController {
         isLoading.value = false;
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
+
         final dynamic response = json.decode(res.body);
+
         if(response["message"] == "Your wallet balance is low" || wallet_balance == 0 || amount == 0 || wallet_balance < amount) {
           debugPrint("insufficient funds");
           //failure snackbar
@@ -511,15 +513,15 @@ class WithdrawalService extends getx.GetxController {
           );
 
           //.whenComplete(() => getx.Get.offAll(() => const MainPage()));
-            getx.Get.to(() => TransferFundsSuccessScreen(
-              amount: "$amount",
+          getx.Get.to(() => TransferFundsSuccessScreen(
+              amount: amount.toString(),
               account_name: account_name,
               account_number: account_number,
               bank_name: bank_name,
               //get all these below from the response body
               transaction_ref: response['transaction_ref'] ?? 'null',
-              transaction_date: response['transaction_date'] ?? 0,
-              transaction_time: response['transaction_time'] ?? 0,
+              transaction_date: response['transaction_date'] ?? 'null',
+              transaction_time: response['transaction_time'] ?? 'null',
             )
           );
         

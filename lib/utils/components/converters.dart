@@ -119,7 +119,15 @@ String calculateDurationBetweenDates(String startDateStr, String endDateStr) {
 }
 
 
+String extractTimeIn12HourFormat(String timestamp) {
+  // Parse the timestamp string into a DateTime object
+  DateTime dateTime = DateTime.parse(timestamp);
 
+  // Format the DateTime object to a 12-hour format string
+  String formattedTime = DateFormat('hh:mm a').format(dateTime);
+
+  return formattedTime;
+}
 
 //converts a date string of time "2022:03:21:TZ" to 'January 13, 2023'
 String transformDateString(String dateString) {
@@ -127,7 +135,7 @@ String transformDateString(String dateString) {
   DateTime dateTime = DateTime.parse(dateString);
   
   // Define the desired output format
-  DateFormat outputFormat = DateFormat('dd MMM, yyyy');
+  DateFormat outputFormat = DateFormat.yMMMd();
   
   // Format the DateTime object to the desired output format
   String formattedDate = outputFormat.format(dateTime);

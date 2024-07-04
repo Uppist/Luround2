@@ -23,8 +23,8 @@ class WithdrawalReceipt extends StatelessWidget {
   final String bank_name;
   final String remark;
   final String transaction_ref;
-  final int transaction_date;
-  final int transaction_time;
+  final String transaction_date;
+  final String transaction_time;
   final String amount;
 
   final pdfService = Get.put(TransactionPdfService());
@@ -141,7 +141,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          convertServerTimeToDate(transaction_date),
+                          transformDateString(transaction_date),
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -168,7 +168,7 @@ class WithdrawalReceipt extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          convertServerTimeToTime(transaction_time),
+                          extractTimeIn12HourFormat(transaction_time),
                           style: GoogleFonts.inter(
                             color: AppColor.blackColor,
                             fontSize: 14.sp,
@@ -236,8 +236,8 @@ class WithdrawalReceipt extends StatelessWidget {
                     bank_name: bank_name,
                     remark: remark,
                     transaction_ref: transaction_ref,
-                    transaction_date: transaction_date,
-                    transaction_time: transaction_time,
+                    transaction_date: transformDateString(transaction_date),
+                    transaction_time: extractTimeIn12HourFormat(transaction_time),
                     amount: amount
                   )
                   .whenComplete(() => pdfService.saveThePdf(context: context));

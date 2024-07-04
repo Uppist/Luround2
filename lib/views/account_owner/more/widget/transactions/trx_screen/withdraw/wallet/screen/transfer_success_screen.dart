@@ -27,8 +27,8 @@ class TransferFundsSuccessScreen extends StatelessWidget {
   final String account_number;
   final String bank_name;
   final String transaction_ref;
-  final int transaction_date;
-  final int transaction_time;
+  final String transaction_date;
+  final String transaction_time;
 
 
   //final MainPageController mainPageController = MainPageController();

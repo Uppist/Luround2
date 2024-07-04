@@ -6,7 +6,6 @@ import 'package:get/get.dart' as getx;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
-import 'package:luround/utils/components/converters.dart';
 import 'dart:math';
 import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -21,8 +20,9 @@ import "package:pdf/widgets.dart" as pw;
 class TransactionPdfService extends getx.GetxController {
   
   var isLoading = false.obs;
-
-  var userName = LocalStorage.getUsername();
+  
+  //get sender's username
+  String userName = LocalStorage.getUsername();
 
   //INSTANCE OF RANDOM INT(for generating random integers for naming the pdf) 
   Random random = Random();
@@ -37,8 +37,8 @@ class TransactionPdfService extends getx.GetxController {
     required String bank_name,
     required String remark,
     required String transaction_ref,
-    required int transaction_date,
-    required int transaction_time,
+    required String transaction_date,
+    required String transaction_time,
     required String amount,
   }) async{
     pdf.addPage(
@@ -96,7 +96,7 @@ class TransactionPdfService extends getx.GetxController {
               pw.SizedBox(height: 20.h),
               
               pw.Text(
-                "${convertServerTimeToDate(transaction_date)} | ${convertServerTimeToTime(transaction_time)}",
+                "$transaction_date | $transaction_time",
                 style: pw.TextStyle(
                   color: PdfColors.grey500,
                   fontSize: 14.sp,

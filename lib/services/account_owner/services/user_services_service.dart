@@ -551,12 +551,14 @@ class AccOwnerServicePageService extends getx.GetxController {
 
     print("booking List from the last thirty days: $filterServiceInsightList");
   }
-  ////////////////////////////////////
 
+
+  RxInt booking_count_rx = 0.obs;
+  RxInt booking_clicks_rx = 0.obs;
+  
+  ////////////////////////////////////
   Future<UserServiceInsightModel> getServiceInsight({
     required String serviceId,
-    required RxInt booking_count,
-    required RxInt booking_clicks
   }) async {
     isLoading.value = true;
     try {
@@ -569,37 +571,48 @@ class AccOwnerServicePageService extends getx.GetxController {
         debugPrint('this is response body ==>${res.body}');
         debugPrint("user service insight fetched by id successfully!!");
 
+        final List<dynamic> listofMaps = jsonDecode(res.body);
+
+        // Function to merge list of maps into a single map
+        Map<String, dynamic> mergeMaps(List<Map<String, dynamic>> maps) {
+          
+          Map<String, dynamic> result = {};
+          for (var map in maps) {
+            map.forEach((key, value) {
+              result[key] = value;
+            });
+          }
+          return result;
+        }
+
+        // Decode the JSON response directly into a list of maps
+        final List<Map<String, dynamic>> decodedList = List<Map<String, dynamic>>.from(listofMaps.map((e) => Map<String, dynamic>.from(e)));
+
+        // Call the function
+        Map<String, dynamic> singleMap = mergeMaps(decodedList);
+
+        // Print the result
+        log("extracted map: $singleMap");
         
-        final UserServiceInsightModel response = UserServiceInsightModel.fromJson(jsonDecode(res.body)); 
+        // Pass the converted map to this below
+        final UserServiceInsightModel response = UserServiceInsightModel.fromJson(singleMap);
 
-        int count = response.booking_count; 
-        int clicks = response.booking_clicks;
         List<InsightInfo> bookings = response.bookings_list;
-
-        booking_count.value = count;
-        booking_clicks.value = clicks;
-    
-        bookings.sort((a, b) => a.customer_name .toString().compareTo(b.customer_name.toString()));
+        bookings.sort((a, b) => a.customer_name.toString().compareTo(b.customer_name.toString()));
         serviceInsightList.clear();
         serviceInsightList.addAll(bookings);
 
         return response;
-      }
-      else {
+      } else {
         isLoading.value = false;
-        //hasError.value = true;
         debugPrint('Response status code: ${res.statusCode}');
         debugPrint('this is response reason ==>${res.reasonPhrase}');
         debugPrint('this is response body ==> ${res.body}');
         throw Exception('Failed to load this service insight');
       }
-    } 
-    catch (e) {
+    } catch (e) {
       isLoading.value = false;
-      //hasError.value = true;
-      //debugPrint("Error net: $e");
       throw Exception("$e");
-    
     }
   }
 

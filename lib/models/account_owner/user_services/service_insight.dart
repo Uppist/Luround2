@@ -23,11 +23,11 @@ class UserServiceInsightModel {
   
   //To Map
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['clicks'] = booking_clicks;
-    _data['booking_count'] = booking_count;
-    _data['bookings'] = bookings_list;
-    return _data;
+    return {
+      'clicks': booking_clicks,
+      'booking_count': booking_count,
+      'bookings': bookings_list
+    };
   }
   
 }

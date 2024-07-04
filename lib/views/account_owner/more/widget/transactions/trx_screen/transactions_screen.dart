@@ -8,6 +8,7 @@ import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/filter_trx_button.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_dashboard.dart';
 import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_history_list.dart';
+import 'package:luround/views/account_owner/more/widget/transactions/trx_screen/trx_notice.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/filter_date_bottomsheet.dart';
 
 
@@ -72,6 +73,10 @@ class TransactionPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      
+                      TrxNote(),
+
+                      SizedBox(height: 20.h,),
                       //TRX DASHBOARD
                       TrxDashBoard(),
                       

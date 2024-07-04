@@ -33,19 +33,19 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
   
   final AccOwnerServicePageService userService = Get.put(AccOwnerServicePageService());
 
-  RxInt booking_count = 0.obs;
-  RxInt booking_clicks = 0.obs;
+
   
   //GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
 
   Future<void> fetchData() async {
     try {
-      UserServiceInsightModel data = await userService.getServiceInsight(serviceId: widget.serviceId, booking_count: booking_count, booking_clicks: booking_clicks);
+      UserServiceInsightModel data = await userService.getServiceInsight(serviceId: widget.serviceId,);
+      userService.booking_clicks_rx.value = data.booking_clicks;
+      userService.booking_count_rx.value = data.booking_count;
       userService.filterServiceInsightList.clear();
       userService.filterServiceInsightList.addAll(data.bookings_list);
       log('refreshed insight list: ${userService.filterServiceInsightList}');
-
     } catch (error) {
       log("Error fetching data: $error");
     } finally {
@@ -185,7 +185,7 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                                           Obx(
                                             () {
                                               return Text(
-                                                booking_clicks.value.toString(),
+                                                userService.booking_clicks_rx.value.toString(),
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.blackColor,
                                                   fontSize: 24.sp,
@@ -228,7 +228,7 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                                           Obx(
                                             () {
                                               return Text(
-                                                booking_count.value.toString(),
+                                                userService.booking_count_rx.value.toString(),
                                                 style: GoogleFonts.inter(
                                                   color: AppColor.blackColor,
                                                   fontSize: 24.sp,

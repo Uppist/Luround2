@@ -15,6 +15,7 @@ import 'package:luround/views/account_owner/services/screen/service_empty_state.
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/screen/edit_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/channel/choose_service_type_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/popup_menu/popup_menu.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/service_suspended_tag.dart';
 
 
 
@@ -197,7 +198,16 @@ class _RegularServiceListState extends State<RegularServiceList> {
                             ],
                           ),
                           SizedBox(height: 20.h),
-                          _buildRichText('Service type:  ', data.serviceType.capitalizeFirst!),
+                          
+                          //service type and suspension status
+                          Row(
+                            mainAxisAlignment: data.serviceStatus == 'SUSPENDED' ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
+                            children: [
+                              _buildRichText('Service type: ', data.serviceType.capitalizeFirst!),
+                              data.serviceStatus == 'SUSPENDED' ? SuspendedTag(index: index,) : SizedBox.shrink(),
+                            ],
+                          ),
+                         
                           SizedBox(height: 25.h),
 
                           //data.oneoffType == 'project based' ? const SizedBox.shrink():

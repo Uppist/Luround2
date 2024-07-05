@@ -9,6 +9,7 @@ import 'package:luround/models/account_owner/ui/dayselection_model.dart';
 import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/suspension_boolean.dart';
 
 
 
@@ -22,6 +23,18 @@ class ServicesController extends getx.GetxController {
   getx.RxBool isToggled = false.obs;
   getx.RxBool toggleLink = false.obs;
   getx.RxBool isTextGone = false.obs;
+
+  void toggleService({
+    required String serviceId, 
+    required bool newValue, 
+    required List<UserServiceModel> list
+    }) {
+    
+    final service = list.firstWhere((service) => service.serviceId == serviceId);
+    service.isActive = newValue;
+    //newValue = isServiceSuspended(serviceStatus: service.serviceStatus);
+    log('$newValue');
+  }
 
   //(save to db)
   final TextEditingController serviceNameController = TextEditingController();

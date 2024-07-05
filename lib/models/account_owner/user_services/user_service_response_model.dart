@@ -31,6 +31,7 @@ class UserServiceModel {
   final List<dynamic> coreFeatures;
   final Map<String, dynamic> programFee;
   final String serviceStatus;
+  bool isActive;
 
   UserServiceModel({
     required this.serviceId,
@@ -63,6 +64,7 @@ class UserServiceModel {
     required this.coreFeatures,
     required this.programFee,
     required this.serviceStatus,
+    required this.isActive,
   });
 
   factory UserServiceModel.fromJson(Map<String, dynamic> json) {
@@ -97,6 +99,7 @@ class UserServiceModel {
       programFee: json['program_fee'] ?? {},
       coreFeatures: json['core_features'] ?? [],
       serviceStatus: json['service_status'] ?? '',
+      isActive: json['is_active'] ?? false,
     );
   }
 
@@ -130,6 +133,7 @@ class UserServiceModel {
       'event_schedule': eventSchedule.map((e) => e.toJson()).toList(),
       'program_fee': programFee,
       'service_status': serviceStatus,
+      'is_active': isActive,
       'core_features': coreFeatures,
 
       //new field for financials

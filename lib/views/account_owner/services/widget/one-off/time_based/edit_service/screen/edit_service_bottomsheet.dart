@@ -5,9 +5,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
+import 'package:luround/utils/components/suspension_boolean.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/project_based/edit_service/screen/edit_service_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/one-off/time_based/edit_service/screen/edit_service.dart';
@@ -44,6 +46,8 @@ Future<void> editServiceDialogueBox({
   required String email,
   required String displayName,
   required AccOwnerServicePageService service,
+  required List<UserServiceModel> oneoffList,
+  required bool isActive
 }) async {
 
   final controller = Get.put(ServicesController());
@@ -168,10 +172,10 @@ Future<void> editServiceDialogueBox({
                             ),
                           ),
                           SwitchWidgetSuspend(
-                            isToggled: controller.isToggled.value,
-                            onChanged: (value) {           
+                            isToggled: isActive,  //controller.isToggled.value,
+                            onChanged: (value) {  
                               controller.isToggled.value = value;
-                              //controller.isToggled.value = isServiceActive();
+                              controller.toggleService(serviceId: serviceId, newValue: value, list: oneoffList); //controller.isToggled.value      
                               debugPrint("toggled: ${controller.isToggled.value}");
                               //debugPrint("toggled val: $value");
                               if(value){

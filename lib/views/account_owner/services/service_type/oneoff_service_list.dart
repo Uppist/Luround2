@@ -186,7 +186,9 @@ class _RegularServiceListState extends State<RegularServiceList> {
                                     time: data.time,
                                     available_days: '',
                                     oneoffType: data.oneoffType,
-                                    price: data.price
+                                    price: data.price,
+                                    isActive: data.isActive,
+                                    oneoffList: userService.filterOneoffList
                                   );
                                 },
                                 child: Icon(

@@ -8,7 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:luround/models/account_owner/ui/dayselection_model.dart';
 import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/suspension_boolean.dart';
 
 
 
@@ -27,6 +29,17 @@ class ProgramServiceController extends getx.GetxController {
 
   //SUSPEND SERVICE
   getx.RxBool isToggled = false.obs;
+  void toggleService({
+    required String serviceId, 
+    required bool newValue, 
+    required List<UserServiceModel> list
+    }) {
+    
+    final service = list.firstWhere((service) => service.serviceId == serviceId);
+    service.isActive = newValue;
+    //newValue.value = isServiceSuspended(serviceStatus: service.serviceStatus);
+    log('${newValue}');
+  }
 
   //maximum nuber of participants section for add & edit program service section
   getx.RxInt count = 0.obs;

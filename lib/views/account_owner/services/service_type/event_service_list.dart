@@ -179,6 +179,7 @@ class _EventServiceListState extends State<EventServiceList> {
                                     virtualFee: data.serviceChargeVirtual,
                                     service_charge_in_person: data.serviceChargeInPerson,
                                     service_charge_virtual: data.serviceChargeVirtual,
+                                    eventList: userService.filterEventsList
                                   );
                                 },
                                 child: Icon(

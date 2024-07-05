@@ -8,6 +8,7 @@ import 'package:luround/controllers/account_owner/services/program_service/progr
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
+import 'package:luround/utils/components/suspension_boolean.dart';
 import 'package:luround/views/account_owner/services/widget/program/edit_service/screen/edit_program_service.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
@@ -171,10 +172,10 @@ Future<void> editProgramServiceDialogueBox({
                             ),
                           ),
                           SwitchWidgetSuspend(
-                            isToggled: controller.isToggled.value,
-                            onChanged: (value) {           
+                            isToggled: controller.isToggled.value,//isServiceSuspended(serviceStatus: service_status),
+                            onChanged: (value) {         
+                              controller.isToggled.value = isServiceSuspended(serviceStatus: service_status);    
                               controller.isToggled.value = value;
-                              //controller.isToggled.value = isServiceActive();
                               debugPrint("toggled: ${controller.isToggled.value}");
                               //debugPrint("toggled val: $value");
                               if(value){

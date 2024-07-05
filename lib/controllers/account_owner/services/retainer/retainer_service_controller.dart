@@ -9,6 +9,7 @@ import 'package:luround/models/account_owner/ui/dayselection_model.dart';
 import 'package:luround/models/account_owner/ui/textcontroller_model.dart';
 import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/suspension_boolean.dart';
 
 
 
@@ -23,6 +24,17 @@ class PackageServiceController extends getx.GetxController {
   
   //SUSPEND SERVICE
   getx.RxBool isToggled = false.obs;
+  void toggleService({
+    required String serviceId, 
+    required bool newValue, 
+    required List<UserServiceModel> list
+    }) {
+    
+    final service = list.firstWhere((service) => service.serviceId == serviceId);
+    //service.isActive = newValue;
+    newValue = isServiceSuspended(serviceStatus: service.serviceStatus);
+    log('${newValue}');
+  }
 
   //checks if the user has inputed their the service name
   getx.RxBool isServiceNameTapped = false.obs;

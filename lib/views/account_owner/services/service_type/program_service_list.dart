@@ -183,6 +183,8 @@ class _ProgramServiceListState extends State<ProgramServiceList> {
                                     date: data.date,
                                     time: data.time,
                                     available_days: '',
+                                    isActive: data.isActive,
+                                    programList: userService.filterProgramList
                                   );
                                 },
                                 child: Icon(

@@ -182,6 +182,8 @@ class _PackageServiceListState extends State<PackageServiceList> {
                                     date: data.date,
                                     time: data.time,
                                     available_days: '',
+                                    isActive: data.isActive,
+                                    retainerList: userService.filterRetainerList
                                   );
                                 },
                                 child: Icon(

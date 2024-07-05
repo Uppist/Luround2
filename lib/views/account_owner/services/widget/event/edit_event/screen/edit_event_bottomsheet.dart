@@ -43,9 +43,10 @@ Future<void> editEventDialogueBox({
   required String service_status,
   required AccOwnerServicePageService service,
   required List<UserServiceModel> eventList,
+  required bool isActive,
 }) async {
 
-  var controller = Get.put(EventsController()); 
+  final controller = Get.put(EventsController()); 
 
   bool isServiceActive(){
     if(service_status == "ACTIVE"){
@@ -149,18 +150,17 @@ Future<void> editEventDialogueBox({
                 
 
                 //SUSPEND/UNSUSPEND SERVICE
-                Obx(
-                  () {
-                    return InkWell(
+                InkWell(
                       onTap: (){},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          controller.isToggled.value ? SvgPicture.asset('assets/svg/unsuspend_service.svg') : SvgPicture.asset('assets/svg/suspend_service.svg'),
+                          isActive ?  SvgPicture.asset('assets/svg/suspend_service.svg') : SvgPicture.asset('assets/svg/unsuspend_service.svg'),
                           SizedBox(width: 20.w,),
                           Expanded(
                             child: Text(
-                              controller.isToggled.value ? 'Unsuspend service' : 'Suspend service',
+                              //controller.isToggled.value ? 'Unsuspend service' : 'Suspend service',
+                              isActive ? 'Suspend service' : 'Unsuspend service',
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
                                 fontSize: 16.sp,
@@ -169,13 +169,13 @@ Future<void> editEventDialogueBox({
                             ),
                           ),
                           SwitchWidgetSuspend(
-                            isToggled: controller.isToggled.value,  
+                            isToggled: isActive, //controller.isToggled.value,  
                             onChanged: (value) {   
-                              controller.isToggled.value = isServiceSuspended(serviceStatus: service_status);        
+
                               controller.isToggled.value = value;
-              
                               debugPrint("toggled: ${controller.isToggled.value}");
-                              //debugPrint("toggled val: $value");
+                              controller.toggleService(serviceId: serviceId, newValue: value, list: eventList);     
+                        
                               if(value){
                                 debugPrint("call the unsuspend api");
                                 service.suspendUserService(
@@ -194,9 +194,8 @@ Future<void> editEventDialogueBox({
                           )
                         ],
                       ),
-                    );
-                  }
-                ),
+                    ),
+                  
                 
                 SizedBox(height: 30.h,),
                 

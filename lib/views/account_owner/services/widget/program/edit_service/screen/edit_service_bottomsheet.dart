@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/services/program_service/program_service_controller.dart';
+import 'package:luround/models/account_owner/user_services/user_service_response_model.dart';
 import 'package:luround/services/account_owner/services/user_services_service.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/share_profile_link.dart';
@@ -44,9 +45,12 @@ Future<void> editProgramServiceDialogueBox({
   required int max_number_of_participants,
   required String service_status,
   required AccOwnerServicePageService service,
+  required List<UserServiceModel> programList,
+  required bool isActive,
+
 }) async {
 
-  var controller = Get.put(ProgramServiceController());
+  final controller = Get.put(ProgramServiceController());
 
   bool isServiceActive(){
     if(service_status == "ACTIVE"){
@@ -152,18 +156,16 @@ Future<void> editProgramServiceDialogueBox({
                 SizedBox(height: 30.h,),
 
                 //SUSPEND/UNSUSPEND SERVICE
-                Obx(
-                  () {
-                    return InkWell(
+                InkWell(
                       onTap: (){},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          controller.isToggled.value ? SvgPicture.asset('assets/svg/unsuspend_service.svg') : SvgPicture.asset('assets/svg/suspend_service.svg'),
+                          isActive ?  SvgPicture.asset('assets/svg/suspend_service.svg') : SvgPicture.asset('assets/svg/unsuspend_service.svg'),
                           SizedBox(width: 20.w,),
                           Expanded(
                             child: Text(
-                              controller.isToggled.value ? 'Unsuspend service' : 'Suspend service',
+                              isActive ? 'Suspend service' : 'Unsuspend service',
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
                                 fontSize: 16.sp,
@@ -172,12 +174,12 @@ Future<void> editProgramServiceDialogueBox({
                             ),
                           ),
                           SwitchWidgetSuspend(
-                            isToggled: controller.isToggled.value,//isServiceSuspended(serviceStatus: service_status),
-                            onChanged: (value) {         
-                              controller.isToggled.value = isServiceSuspended(serviceStatus: service_status);    
+                            isToggled: isActive, //controller.isToggled.value,
+                            onChanged: (value) {
                               controller.isToggled.value = value;
-                              debugPrint("toggled: ${controller.isToggled.value}");
-                              //debugPrint("toggled val: $value");
+                              debugPrint("toggled: ${controller.isToggled.value}");         
+                              controller.toggleService(serviceId: serviceId, newValue: value, list: programList); //controller.isToggled.value      
+
                               if(value){
                                 debugPrint("call the unsuspend api");
                                 service.suspendUserService(
@@ -196,9 +198,8 @@ Future<void> editProgramServiceDialogueBox({
                           )
                         ],
                       ),
-                    );
-                  }
-                ),
+                    ),
+                 
                 SizedBox(height: 30.h,),
 
                 //2            

@@ -152,18 +152,16 @@ Future<void> editServiceDialogueBox({
                 SizedBox(height: 30.h,),
 
                 //SUSPEND/UNSUSPEND SERVICE
-                Obx(
-                  () {
-                    return InkWell(
+                InkWell(
                       onTap: (){},
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          controller.isToggled.value ? SvgPicture.asset('assets/svg/unsuspend_service.svg') : SvgPicture.asset('assets/svg/suspend_service.svg'),
+                          isActive ?  SvgPicture.asset('assets/svg/suspend_service.svg') : SvgPicture.asset('assets/svg/unsuspend_service.svg'),
                           SizedBox(width: 20.w,),
                           Expanded(
                             child: Text(
-                              controller.isToggled.value ? 'Unsuspend service' : 'Suspend service',
+                              isActive ? 'Suspend service' : 'Unsuspend service',
                               style: GoogleFonts.inter(
                                 color: AppColor.textGreyColor,
                                 fontSize: 16.sp,
@@ -172,12 +170,12 @@ Future<void> editServiceDialogueBox({
                             ),
                           ),
                           SwitchWidgetSuspend(
-                            isToggled: isActive,  //controller.isToggled.value,
-                            onChanged: (value) {  
+                            isToggled: isActive, //controller.isToggled.value,
+                            onChanged: (value) {       
                               controller.isToggled.value = value;
-                              controller.toggleService(serviceId: serviceId, newValue: value, list: oneoffList); //controller.isToggled.value      
                               debugPrint("toggled: ${controller.isToggled.value}");
-                              //debugPrint("toggled val: $value");
+                              controller.toggleService(serviceId: serviceId, newValue: value, list: oneoffList); 
+
                               if(value){
                                 debugPrint("call the unsuspend api");
                                 service.suspendUserService(
@@ -196,9 +194,8 @@ Future<void> editServiceDialogueBox({
                           )
                         ],
                       ),
-                    );
-                  }
-                ),
+                    ),
+                 
 
                 SizedBox(height: 30.h,),
 

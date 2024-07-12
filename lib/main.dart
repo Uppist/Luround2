@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ import 'package:luround/views/account_owner/auth/screen/splashscreen/xtra/extra_
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 //import 'package:flutter_web_plugins/url_strategy.dart';
+
+
 
 
 
@@ -100,7 +103,7 @@ class MainApp extends StatefulWidget {
   State<MainApp> createState() => _MainAppState();
 }
 
-class _MainAppState extends State<MainApp> {
+class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
   
   
   var token = LocalStorage.getToken();
@@ -131,8 +134,42 @@ class _MainAppState extends State<MainApp> {
     print('token exp: $tokenExpDateInt');
     isTokenExpired();
 
+    //observer to check for app inactivity after a while
+    WidgetsBinding.instance.addObserver(this);
+
     super.initState();
   }
+
+  
+  Timer? _inactivityTimer;
+  static const _inactiveDuration = Duration(minutes: 30);
+
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _inactivityTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.paused || state == AppLifecycleState.inactive) {
+      _startInactivityTimer();
+    } else if (state == AppLifecycleState.resumed) {
+      _cancelInactivityTimer();
+    }
+  }
+
+  void _startInactivityTimer() {
+    _inactivityTimer?.cancel();
+    _inactivityTimer = Timer(_inactiveDuration, authService.logoutUser);
+  }
+
+  void _cancelInactivityTimer() {
+    _inactivityTimer?.cancel();
+  }
+ 
 
 
   @override
@@ -162,80 +199,6 @@ class _MainAppState extends State<MainApp> {
       
       ),
     );
-
-    /*return ScreenUtilInit(
-      designSize: const Size(414, 896),
-      builder: (_, child) {
-        return child!;
-      },
-      child: GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Luround',
-        
-        //try this
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColor.mainColor),
-          useMaterial3: true,
-        ),
-        defaultTransition: Transition.rightToLeft,
-        
-        //unknown route
-        unknownRoute: GetPage(
-          name: '/', 
-          page: () => UnknownPage(
-            onPressed: () {}     
-          )
-        ),
-        
-        //traditional way of registering routes without getx
-        /*routes: {
-          '/': (context) => HomeScreen(),
-          '/destination': (context) => DestinationScreen(argument: ''),
-        },*/
-
-        initialRoute: SplashPageRoute,
-        
-        //register all routes for the web app here
-        getPages: [
-          
-          GetPage(
-            name: LoginPageRoute,
-            page: () => LoginPage(),
-            curve: Curves.bounceInOut,
-            transition: Transition.rightToLeft
-          ),
-
-
-          /*GetPage(
-            name: ReviewsRoute,
-            page: () => AccViewerReviewsPage(),
-            curve: Curves.bounceInOut,
-            transition: Transition.rightToLeft
-          ),
-          GetPage(
-            name: BookingsRoute,
-            page: () => RequestQuoteScreen(),
-            curve: Curves.easeInOut,
-            transition: Transition.rightToLeft
-          ),
-          GetPage(
-            name: BookingsRoute,
-            page: () => BookAppointmentScreen(),
-            curve: Curves.easeInOut,
-            transition: Transition.rightToLeft
-          ),
-          GetPage(
-            name: WriteReviewRoute,
-            page: () => WriteReviewsPage(),
-            curve: Curves.easeOutSine,
-            transition: Transition.rightToLeft
-          ),*/
-
-        ],
-
-      
-      ),
-    );*/
 
   }
 }

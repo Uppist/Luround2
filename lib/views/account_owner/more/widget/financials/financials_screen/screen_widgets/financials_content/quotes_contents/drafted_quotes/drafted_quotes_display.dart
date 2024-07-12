@@ -100,7 +100,7 @@ class DraftedQuotesDisplay extends StatelessWidget {
               //drop down 
               DraftedQuoteDropDown(
                 refresh: refresh,
-                bank_details: service_provider['bank_details'],
+                bank_details: {},
                 tracking_id: tracking_id,
                 quote_id: quote_id,
                 service_provider_address: service_provider['address'] ?? "", 

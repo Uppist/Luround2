@@ -647,6 +647,7 @@ class FinancialsService extends getx.GetxController {
   }
 
   Future<void> calculateDiscountForInvoice({required int index, required BuildContext context, required String initialRateValue, required String initialDiscountValue}) async{
+    
     // Convert parameters from string to double data type
     double discountValue = double.tryParse(discountForInvoice.text.isNotEmpty ? discountForInvoice.text : initialDiscountValue) ?? 0;
     double rateValue = double.tryParse(rateForInvoice.text.isNotEmpty ? rateForInvoice.text : initialRateValue) ?? 0;
@@ -1602,12 +1603,12 @@ class FinancialsService extends getx.GetxController {
   }
 
   String chargeFee(String fee) {
-    double result = 0.05 * double.parse(fee);
+    double result = 0.065 * double.parse(fee);
     return result.toString();
   }
   
   String grandTotal(String fee) {
-    double result = double.parse(fee) + (0.05 * double.parse(fee));
+    double result = double.parse(fee) + (0.065 * double.parse(fee));
     return result.toString();
   }
 

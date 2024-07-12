@@ -76,7 +76,7 @@ class _EditAboutPageState extends State<EditAboutPage> {
                       ),
                       SizedBox(width: 3.w,),
                       Text(
-                        'Edit About',
+                        'Back',
                         style: GoogleFonts.inter(
                           color: AppColor.blackColor,
                           fontSize: 16.sp,

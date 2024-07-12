@@ -109,7 +109,7 @@ class QuotesDisplay extends StatelessWidget {
               ),
               QuoteDropDown(
                 refresh: refresh,
-                bank_details: service_provider['bank_details'],
+                bank_details: {},
                 tracking_id: tracking_id,
                 quote_id: quote_id, 
                 send_to_name: send_to_name,

@@ -105,7 +105,7 @@ class UnpaidInvoiceDisplay extends StatelessWidget {
               InvoiceUnpaidDropDown(
                 paymentLink: paymentLink,
                 refresh: refresh,
-                bank_details: service_provider['bank_details'],
+                bank_details: {},
                 tracking_id: tracking_id,
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,

@@ -552,7 +552,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     print("booking List from the last thirty days: $filterServiceInsightList");
   }
 
-
+  //
   RxInt booking_count_rx = 0.obs;
   RxInt booking_clicks_rx = 0.obs;
   

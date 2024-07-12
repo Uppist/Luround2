@@ -108,7 +108,7 @@ class PaidInvoiceDisplay extends StatelessWidget {
               InvoicePaidDropDown(
                 refresh: refresh,
                 paymentLink: paymentLink,
-                bank_details: service_provider['bank_details'],
+                bank_details: {},
                 service_provider_address: service_provider_address,
                 service_provider_phone_number: service_provider_phone_number,
                 invoice_id: invoice_id, //randomNum.toString(),

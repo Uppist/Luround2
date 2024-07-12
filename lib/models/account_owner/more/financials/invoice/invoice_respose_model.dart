@@ -18,7 +18,7 @@ class InvoiceResponse{
   final int tracking_id;
   final int created_at;
   //service provider bank details here
-  final Map<String, dynamic> bank_details;
+  //final Map<String, dynamic> bank_details;
   final String invoice_generated_from_quote;
   
   
@@ -41,7 +41,7 @@ class InvoiceResponse{
     required this.tracking_id, 
     required this.created_at,
     //
-    required this.bank_details,
+    //required this.bank_details,
     required this.invoice_generated_from_quote
   });
 
@@ -66,7 +66,7 @@ class InvoiceResponse{
       note: json['note'] ?? "nan", 
       booking_detail: json['product_detail'] ?? [],
       //
-      bank_details: json['bank_details'] ?? {},
+      //bank_details: json['bank_details'] ?? {},
     );
   }
 }

@@ -103,7 +103,7 @@ class DueInvoiceDisplay extends StatelessWidget {
               InvoiceDueDropDown(
                 paymentLink: paymentLink,
                 refresh: refresh,
-                bank_details: service_provider['bank_details'],
+                bank_details: {},
                 invoice_id: invoice_id,
                 tracking_id: tracking_id,
                 service_provider_address: service_provider_address,

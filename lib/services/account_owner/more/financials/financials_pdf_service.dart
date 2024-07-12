@@ -575,7 +575,7 @@ class FinancialsPdfService extends getx.GetxController {
                             ),
                             pw.Text(
                               //'N$charges',
-                              '5%',
+                              '6.5%',
                               style: pw.TextStyle(
                                 color: PdfColors.black,
                                 fontSize: 15.sp,
@@ -1334,7 +1334,7 @@ class FinancialsPdfService extends getx.GetxController {
                           mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                           children: [
                             pw.Text(
-                              "Processing fee (5%)",
+                              "Processing fee (6.5%)",
                               style: pw.TextStyle(
                                 color: PdfColors.grey, //.withOpacity(0.6),
                                 fontSize: 14.sp,
@@ -2134,7 +2134,7 @@ class FinancialsPdfService extends getx.GetxController {
                               ),
                             ),
                             pw.Text(
-                              '5%',
+                              '6.5%',
                               style: pw.TextStyle(
                                 color: PdfColors.black,
                                 fontSize: 15.sp,

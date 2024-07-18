@@ -35,7 +35,7 @@ class PriceGuide extends StatelessWidget {
               SizedBox(width: 7.w,),
               Expanded(
                 child: Text(
-                  "Input '0' in the textfield for free virtual or in-person service",
+                  "Input '0' in the text field for free virtual or in-person service",
                   style: GoogleFonts.inter(
                     color: AppColor.bgColor,
                     fontSize: 10.sp,

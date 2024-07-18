@@ -135,13 +135,13 @@ class MorePage extends StatelessWidget {
                     ),
                     SizedBox(height: 20.h,),
                     MoreSelector(
-                      text: 'Feedback',
-                      svgAsset: 'assets/svg/feedback_new.svg',
+                      text: 'Support',
+                      svgAsset: 'assets/svg/email_icon.svg',
                       onTap: () {
                         Get.to(() => FeedbackPage());
                       },
-                    ),
-                    SizedBox(height: 20.h,),*/
+                    ),*/
+                    SizedBox(height: 20.h,),
                     MoreSelector(
                       text: 'Settings',
                       svgAsset: 'assets/svg/settings_new.svg',

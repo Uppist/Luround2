@@ -107,7 +107,6 @@ class _ProfilePageState extends State<ProfilePage> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset('assets/images/luround_logo.png'),
-          //SvgPicture.asset('assets/svg/logo_new.svg'),
           InkWell(
             onTap: () {
               Get.to(() => NotificationsPage());
@@ -223,7 +222,7 @@ class _ProfilePageState extends State<ProfilePage> {
           var data = snapshot.data!;
           return InkWell(
             onTap: () {
-              
+                  
               ////EXPIRY CHECK///
               //data.payment_details['expiry_date']
               /*controller.isFreeTrialPlanApproachingSevenDaysToEnd(server_timestamp: data.trial_expiry) ?
@@ -236,20 +235,20 @@ class _ProfilePageState extends State<ProfilePage> {
                 onSelectPlan: () {
                   Get.off(() => const SubscriptionScreenInApp());
                 },
-              ):*/
-
+              }:*/
+              
               //navigate to this page regardless of the reminder dialog
               Get.to(() => EditPhotoPage(
-                  logo_url: data.logo_url,
-                  displayName: data.displayName,
-                  company: data.company,
-                  occupation: data.occupation,
-                  photoUrl: data.photoUrl,
-                )
-              );
-              //
-            },
-            child: SvgPicture.asset('assets/svg/edit.svg'),
+                logo_url: data.logo_url,
+                displayName: data.displayName,
+                company: data.company,
+                occupation: data.occupation,
+                photoUrl: data.photoUrl,
+              )
+            );
+            //
+          },
+          child: SvgPicture.asset('assets/svg/edit.svg'),
           );
         }
         return SvgPicture.asset('assets/svg/edit.svg');
@@ -406,6 +405,46 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               SizedBox(height: 30.h),
+
+              //////////
+              //COMPANY DETAILS
+              //logo and company
+              data.company.isNotEmpty ?
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    data.logo_url.isNotEmpty ?
+                    Container(
+                      alignment: Alignment.center,
+                      height: 45.h,  //40.h
+                      width: 70.w, //60.w
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.r),
+                        color: AppColor.greyColor,
+                        image: DecorationImage(
+                          image: NetworkImage(data.logo_url),
+                          fit: BoxFit.contain
+                        )
+                      ),
+                    ) : const SizedBox.shrink(),
+                    SizedBox(width: 10.w,),
+                    Text(
+                      data.company,
+                      style: GoogleFonts.inter(
+                        textStyle: TextStyle(
+                          color: AppColor.blackColor,
+                          fontSize: 16.sp,  //14.sp
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ) : SizedBox.shrink(),
+              data.company.isNotEmpty ? SizedBox(height: 10.h) : SizedBox.shrink(),
+              //////////
+            
               Center(
                 child: Text(
                   data.displayName,
@@ -419,7 +458,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: 15.h),
+
+              //occupation
+              Center(
+                child: Text(
+                  data.occupation,
+                  style: GoogleFonts.inter(
+                    textStyle: TextStyle(
+                      color: AppColor.blackColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 15.h),
 
               //user profile url
               Padding(
@@ -461,65 +516,6 @@ class _ProfilePageState extends State<ProfilePage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  //logo and company
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        data.logo_url.isNotEmpty ?
-                        Container(
-                          alignment: Alignment.center,
-                          height: 40.h,
-                          width: 60.w,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.r),
-                            color: AppColor.greyColor,
-                            image: DecorationImage(
-                              image: NetworkImage(data.logo_url),
-                              fit: BoxFit.contain
-                            )
-                          ),
-                        ) : const SizedBox(),
-                        SizedBox(width: 10.w,),
-                        Text(
-                          data.company,
-                          style: GoogleFonts.inter(
-                            textStyle: TextStyle(
-                              color: AppColor.blackColor,
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  SizedBox(height: 10.h,),
-                  
-                  //occupation
-                  Center(
-                    child: Text(
-                      data.occupation,
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          color: AppColor.blackColor,
-                          fontSize: 14.sp,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ),
-
-                 
-                  
-                  //////////////////////
-                  /*if(data.occupation.isEmpty || data.about.isEmpty  || data.media_links.isEmpty)
-                  ProfileEmptyState(
-                    onPressed: () {
-                      //userProfileService.getUserProfileDetails(email: userEmail);
-                    },
-                  ),*/
                   
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

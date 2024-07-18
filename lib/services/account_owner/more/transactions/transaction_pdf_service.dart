@@ -11,6 +11,7 @@ import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:path_provider/path_provider.dart';
 import "package:pdf/pdf.dart";
 import "package:pdf/widgets.dart" as pw;
+import 'package:share_plus/share_plus.dart';
 
 
 
@@ -315,6 +316,12 @@ class TransactionPdfService extends getx.GetxController {
           print("pdf doc path on device: $fullPath");
           //getx.Get.to(() => ViewTrxPdfScreen(pathPDF: fullPath,));
         }); 
+
+        //use share_plus to prompt sharing the XFile
+        final result = await Share.shareXFiles([XFile(fullPath)], text: 'Transaction PDF');
+        if (result.status == ShareResultStatus.success) {
+          print('Thank you for sharing this pdf!');
+        }
 
       }
       else {

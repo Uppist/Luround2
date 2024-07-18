@@ -86,12 +86,15 @@ class WithdrawalReceipt extends StatelessWidget {
                             fontWeight: FontWeight.w500
                           ),
                         ),
-                        Text(
-                          account_name,
-                          style: GoogleFonts.inter(
-                            color: AppColor.blackColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
+                        SizedBox(width: 20.w,),
+                        Expanded(
+                          child: Text(
+                            account_name,
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
                           ),
                         ),
                       ],
@@ -194,17 +197,21 @@ class WithdrawalReceipt extends StatelessWidget {
                             fontWeight: FontWeight.w500
                           ),
                         ),
-                        Text(
-                          transaction_ref,
-                          style: GoogleFonts.inter(
-                            color: AppColor.blackColor,
-                            fontSize: 14.sp,
-                            fontWeight: FontWeight.w500
+                        SizedBox(width: 20.w,),
+                        Expanded(
+                          child: Text(
+                            transaction_ref,
+                            style: GoogleFonts.inter(
+                              color: AppColor.blackColor,
+                              fontSize: 14.sp,
+                              fontWeight: FontWeight.w500
+                            ),
                           ),
                         ),
                       ],
                     ),
                     SizedBox(height: 10.h,),
+                    
                     Divider(color: Colors.grey.withOpacity(0.6), thickness: 1,),
 
                     SizedBox(height: 20.h,),
@@ -246,7 +253,7 @@ class WithdrawalReceipt extends StatelessWidget {
               SizedBox(height: 20.h,),
               TextButton(
                 onPressed: () {
-                  Get.offUntil(GetPageRoute(page: () => const MainPage()), (route) => true);
+                  Get.offAll(() => const MainPage());
                 }, 
                 child: Text(
                   'Exit page',

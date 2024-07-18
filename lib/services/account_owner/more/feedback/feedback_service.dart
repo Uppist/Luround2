@@ -37,6 +37,7 @@ class FeedbackService extends getx.GetxController {
     isLoading.value = true;
 
     var body = {
+      'email': email,
       "description": description,
       "subject": subject,
     };

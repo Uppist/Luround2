@@ -37,6 +37,7 @@ class CustomTapIcon extends StatelessWidget {
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500
               ),
+              overflow: TextOverflow.ellipsis,
             ),
           ]
         ),

@@ -8,6 +8,8 @@ import 'package:luround/utils/components/converters.dart';
 
 
 
+
+
 class TrxDisplay extends StatelessWidget {
   const TrxDisplay({super.key, required this.service_id, required this.service_name, required this.amount, required this.affliate_user, required this.transaction_status, required this.transaction_ref, required this.transaction_date, required this.transaction_time});
   final String service_id;

@@ -95,6 +95,7 @@ class WithdrawalReceipt extends StatelessWidget {
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500
                             ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],
@@ -206,6 +207,7 @@ class WithdrawalReceipt extends StatelessWidget {
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500
                             ),
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                       ],

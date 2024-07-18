@@ -253,14 +253,16 @@ class _PackageServiceListState extends State<PackageServiceList> {
                                     size: 15.r,
                                   ),
                                   SizedBox(width: 5.w),
-                                  Text(
-                                    coreFeature,
-                                    style: GoogleFonts.inter(
-                                      color: index.isEven ? AppColor.mainColor : AppColor.bgColor,
-                                      fontSize: 12.sp,
-                                      fontWeight: FontWeight.w500,
+                                  Expanded(
+                                    child: Text(
+                                      coreFeature,
+                                      style: GoogleFonts.inter(
+                                        color: index.isEven ? AppColor.mainColor : AppColor.bgColor,
+                                        fontSize: 12.sp,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                      overflow: TextOverflow.clip,
                                     ),
-                                    overflow: TextOverflow.clip,
                                   ),
                                 ],
                               );

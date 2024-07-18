@@ -116,7 +116,7 @@ class ServiceDetails {
   final String appointmentType;
   final String date;
   final String time;
-  //final String start_time;
+  final String document;
   //final String end_time;
   final String duration;
   //final String bookedStatus;
@@ -139,7 +139,7 @@ class ServiceDetails {
     required this.location,
     required this.createdAt,
     required this.service_type,
-    //required this.available_time,
+    required this.document,
     //required this.start_time,
     //required this.end_time,
     //required this.bookedStatus,
@@ -152,6 +152,7 @@ class ServiceDetails {
       serviceName: json['service_name'] ?? 'non',
       serviceFee: json['service_fee'] ?? 'service_fee',
       service_type: json['service_type'] ?? 'service_type',
+      document: json['document'] ?? 'document',
       appointmentType: json['appointment_type'] ?? 'non',
       date: json['date'] ?? 'date',
       time: json['time'] ?? 'time',

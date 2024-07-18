@@ -693,6 +693,60 @@ class _BookingsPageState extends State<BookingsPage> {
                                                             fontWeight: FontWeight.w500
                                                           ),
                                                         ),
+
+                                                        //TODO: FIND A PDF PACKAGE THAT CAN Display & READ PDF LINK GOTTEN FROM SERVER
+                                                        //E.G CLOUDINARY PDF URL
+                                                        item.serviceDetails.service_type != 'One-Off' ? SizedBox.shrink() :
+                                                        Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            SizedBox(height: 30.h,),
+                                                            Text(
+                                                              "Document",
+                                                              style: GoogleFonts.inter(
+                                                                color: AppColor.darkGreyColor,
+                                                                fontSize: 14.sp,
+                                                                fontWeight: FontWeight.w400
+                                                              ),
+                                                            ),
+                                                            SizedBox(height: 10.h,),
+                                                            InkWell(
+                                                              onTap: (){
+                                                                controller.launchUrlLink(link: item.serviceDetails.document);
+                                                              },
+                                                              child: Container(
+                                                                alignment: Alignment.center,
+                                                                padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+                                                                width: double.infinity,
+                                                                decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(10.r),
+                                                                  color: AppColor.greyColor,
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                                  children: [
+                                                                    Icon(
+                                                                      Icons.picture_as_pdf_outlined,
+                                                                      color: AppColor.redColor,
+                                                                    ),
+                                                                    SizedBox(width: 10.w,),
+                                                                    Expanded(
+                                                                      child: Text(
+                                                                        item.serviceDetails.document,
+                                                                        style: GoogleFonts.inter(
+                                                                          color: AppColor.darkGreyColor,
+                                                                          fontSize: 14.sp,
+                                                                          fontWeight: FontWeight.w500
+                                                                        ),
+                                                                        overflow: TextOverflow.ellipsis,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                         
                                                         SizedBox(height: 30.h),
                                                         Text(

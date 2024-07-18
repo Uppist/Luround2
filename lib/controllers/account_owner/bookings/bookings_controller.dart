@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
-
+import 'package:url_launcher/url_launcher.dart' as launcher;
 
 
 
@@ -17,6 +17,29 @@ import 'package:luround/utils/components/converters.dart';
 
 
 class BookingsController extends getx.GetxController {
+
+
+
+
+  //functions for url_launcher (to launch user socials link)
+  Future<void> launchUrlLink({required String link}) async{
+    //String myPhoneNumber = "+234 07040571471";
+    //Uri uri = Uri.parse(myPhoneNumber);
+    Uri linkUri = Uri(
+      scheme: 'https',
+      path: link.replaceFirst("https://", "")
+    );
+    if(await launcher.canLaunchUrl(linkUri)) {
+      launcher.launchUrl(
+        linkUri,
+        mode: launcher.LaunchMode.inAppWebView
+      );
+    }
+    else {
+      throw Exception('Can not launch uri: $linkUri');
+    }
+  }
+
   
   final TextEditingController searchController = TextEditingController();
   final isFieldTapped = false.obs;

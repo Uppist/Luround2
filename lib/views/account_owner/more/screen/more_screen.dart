@@ -125,8 +125,8 @@ class MorePage extends StatelessWidget {
                         Get.to(() => ContactScreen());
                       },
                     ),
-                    SizedBox(height: 20.h,),
-                    /*MoreSelector(
+                    /*SizedBox(height: 20.h,),
+                    MoreSelector(
                       text: 'Notifications',
                       svgAsset: 'assets/svg/notifications_new.svg',
                       onTap: () {

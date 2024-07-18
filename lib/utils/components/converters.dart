@@ -121,7 +121,7 @@ String calculateDurationBetweenDates(String startDateStr, String endDateStr) {
 
 String extractTimeIn12HourFormat(String timestamp) {
   // Parse the timestamp string into a DateTime object
-  DateTime dateTime = DateTime.parse(timestamp);
+  DateTime dateTime = DateTime.parse(timestamp).toLocal();
 
   // Format the DateTime object to a 12-hour format string
   String formattedTime = DateFormat('hh:mm a').format(dateTime);
@@ -316,7 +316,7 @@ String convertStringServerTimeToDate(String timestamp){
 
 String convertServerTimeToTime(int timestamp) {
   // Convert the timestamp to a DateTime object
-  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(timestamp).toLocal();
 
   // Use the intl package to format the time
   String formattedTime = DateFormat('HH:mm a').format(dateTime);

@@ -88,6 +88,7 @@ class _Step1PageOPBState extends State<Step1PageOPB> {
                 controller.descriptionController.text = val.substring(0, controller.maxLength);
                 debugPrint("you have reached max length");
               } 
+              controller.descriptionController.text = val;
             });
             
           },

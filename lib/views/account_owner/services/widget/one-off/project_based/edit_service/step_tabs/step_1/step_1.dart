@@ -94,6 +94,7 @@ class _Step1PageOPBEditState extends State<Step1PageOPBEdit> {
                 controller.descriptionControllerEdit.text = val.substring(0, controller.maxLengthEdit);
                 debugPrint("you have reached max length");
               } 
+              controller.descriptionControllerEdit.text = val;
             });
             
           },

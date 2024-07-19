@@ -87,7 +87,7 @@ class _Step1PageOPBEditState extends State<Step1PageOPBEdit> {
         SizedBox(height: 20.h),
         DescriptionTextFieldEdit(  
           onChanged: (val) {
-
+            //controller.descriptionControllerEdit.text = val;
             setState(() {
               if (val.length > controller.maxLengthEdit) {
                 //Remove extra characters      

@@ -10,20 +10,21 @@ class UserTransactionsModel {
     required this.transaction_date,
     required this.transaction_time
   });
-  late final String service_id;
-  late final String service_name;
-  late final String amount;
-  late final String affliate_user;
-  late final String transaction_status;
-  late final String transaction_ref;
-  late final int transaction_date;
-  late final String transaction_time;
-
+  late String service_id;
+  late String service_name;
+  late dynamic amount;
+  late String affliate_user;
+  late String transaction_status;
+  late String transaction_ref;
+  late int transaction_date;
+  late String transaction_time;
+  
+  
   
   UserTransactionsModel.fromJson(Map<String, dynamic> json,){
     service_id = json['service_id'] ?? "service_id";
     service_name = json['service_name'] ?? "service_name";
-    amount = json['amount'] ?? "amount";
+    amount = json['amount'].toString();
     affliate_user = json['affliate_user'] ?? "you";
     transaction_status = json['transaction_status'] ?? "transaction_status";
     transaction_ref = json['transaction_ref'] ?? "transaction_ref";

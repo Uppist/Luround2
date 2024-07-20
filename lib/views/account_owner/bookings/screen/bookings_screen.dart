@@ -13,6 +13,7 @@ import 'package:luround/services/account_owner/bookings_service/user_bookings_se
 import 'package:luround/services/account_owner/data_service/local_storage/local_storage.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/converters.dart';
+import 'package:luround/utils/components/copy_to_clipboard.dart';
 import 'package:luround/utils/components/loader.dart';
 import 'package:luround/views/account_owner/bookings/screen/booking_screen_empty_state.dart';
 import 'package:luround/views/account_owner/bookings/screen/see_proof_of_payment_screen.dart';
@@ -619,20 +620,40 @@ class _BookingsPageState extends State<BookingsPage> {
                                                             fontWeight: FontWeight.w500
                                                           ),
                                                         )
-                                                        :InkWell(
-                                                          onTap: () {
-                                                            service.launchUrlLink(link: item.serviceDetails.location);
-                                                          },
-                                                          child: Text(
-                                                            item.serviceDetails.location,
-                                                            style: GoogleFonts.inter(
-                                                              color: AppColor.blackColor,
-                                                              fontSize: 14.sp,
-                                                              fontWeight: FontWeight.w500,
-                                                              decoration: TextDecoration.underline,
-                                                              decorationColor: AppColor.blackColor
-                                                            ),                                                         
-                                                          )
+                                                        :Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Expanded(
+                                                              child: InkWell(
+                                                                onTap: () {
+                                                                  //service.launchUrlLink(link: item.serviceDetails.location);
+                                                                },
+                                                                child: Text(
+                                                                  item.serviceDetails.location,
+                                                                  style: GoogleFonts.inter(
+                                                                    color: AppColor.blackColor,
+                                                                    fontSize: 14.sp,
+                                                                    fontWeight: FontWeight.w500,
+                                                                    decoration: TextDecoration.underline,
+                                                                    decorationColor: AppColor.blackColor
+                                                                  ),  
+                                                                  overflow: TextOverflow.ellipsis,                                                       
+                                                                )
+                                                              ),
+                                                            ),
+                                                            SizedBox(width: 10.w,),
+                                                            InkWell(
+                                                              onTap: () {
+                                                                copyToClipboard(
+                                                                  text: item.serviceDetails.location,
+                                                                  context: context,
+                                                                  snackMessage: "meeting link copied to clipboard"
+                                                                );
+                                                              },
+                                                              child: SvgPicture.asset('assets/svg/copy_link.svg')
+                                                            ),
+                                                            
+                                                          ],
                                                         ),
                                         
                                         

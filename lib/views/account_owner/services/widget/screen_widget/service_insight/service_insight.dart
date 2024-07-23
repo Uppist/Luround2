@@ -358,7 +358,7 @@ class _ServiceInsightPageState extends State<ServiceInsightPage> {
                                                 crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    convertServerTimeToDate(data.date_booked),
+                                                    convertDateString(data.date_booked),
                                                     style: GoogleFonts.inter(
                                                       color: AppColor.textGreyColor,
                                                       fontSize: 12.sp,

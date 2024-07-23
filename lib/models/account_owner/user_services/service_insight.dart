@@ -5,9 +5,9 @@ class UserServiceInsightModel {
     required this.booking_clicks,
     required this.bookings_list,
   });
-  late final int booking_count;
-  late final int booking_clicks;
-  late final List<InsightInfo> bookings_list;
+  final int booking_count;
+  final int booking_clicks;
+  final List<InsightInfo> bookings_list;
 
 
   //[FOR GET REQUEST]
@@ -36,7 +36,7 @@ class InsightInfo {
   final String service_name;
   final String customer_name;
   final String service_amount;
-  final int date_booked;
+  final String date_booked;
 
   InsightInfo({
     required this.service_name,

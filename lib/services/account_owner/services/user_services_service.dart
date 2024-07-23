@@ -438,7 +438,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     // Use the search query to filter the items
     filterServiceInsightList.addAll(
       serviceInsightList.where((item) {
-        String server_date = convertServerTimeToDate(item.date_booked); 
+        String server_date = convertDateString(item.date_booked); 
         DateTime convertedDate = convertStringToDateTime(server_date);
         print('Converted Date: $convertedDate');
         // Check if the date is in the past
@@ -462,7 +462,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     filterServiceInsightList.addAll(
   
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(item.date_booked);
+        String serverDate = convertDateString(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is today
@@ -487,7 +487,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     filterServiceInsightList.addAll(
   
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(item.date_booked);
+        String serverDate = convertDateString(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is exactly equal to yesterday
@@ -513,7 +513,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     // Use the search query to filter the items
     filterServiceInsightList.addAll(
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(item.date_booked);
+        String serverDate = convertDateString(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is within the last seven days
@@ -538,7 +538,7 @@ class AccOwnerServicePageService extends getx.GetxController {
     // Use the search query to filter the items
     filterServiceInsightList.addAll(
       serviceInsightList.where((item) {
-        String serverDate = convertServerTimeToDate(item.date_booked);
+        String serverDate = convertDateString(item.date_booked);
         DateTime convertedDate = convertStringToDateTime(serverDate);
 
         // Check if the date is within the last seven days

@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/controllers/account_owner/more/transactions_controller.dart';
+import 'package:luround/main.dart';
 import 'package:luround/utils/colors/app_theme.dart';
 import 'package:luround/utils/components/rebranded_reusable_button.dart';
 import 'package:luround/utils/components/utils_textfield.dart';
@@ -121,7 +122,7 @@ class _TransferScreenState extends State<TransferScreen> {
                       ),
                     ),
                     SizedBox(height: 10.h,),
-                    GreenCard(walletBalance: 'N${widget.wallet_balance}',),
+                    GreenCard(walletBalance: '${currency(context).currencySymbol}${widget.wallet_balance}',),
                     SizedBox(height: 30.h,),
                     Text(
                       "Enter Amount*",

@@ -145,11 +145,36 @@ String transformDateString(String dateString) {
 
 
 
+String convertDateString(String dateString) {
+  // Parse the input date string
+  DateTime parsedDate = DateFormat('d/M/yyyy').parse(dateString);
+
+  // Format the parsed date to the desired format
+  String formattedDate = DateFormat.yMMMd().format(parsedDate);
+
+  return formattedDate;
+}
+
+
+String convertStringServerTimeToDate(String timestamp){
+
+  // Convert the timestamp to a DateTime object
+  DateTime dateTime = DateTime.parse(timestamp);
+
+  // Use the toString method
+  String formattedDate = dateTime.toString();
+  //String finalResult = formattedDate.substring(0, 10);
+
+  print(formattedDate); // Output: 2023-01-27 20:48:47.960
+  return formattedDate;
+}
+
+
 // Function 1: Convert string to DateTime
 DateTime convertStringToDateTime(String dateString) {
   try {
     // Define a map to convert month names to their numeric representations
-    Map<String, int> monthMap = {
+    /*Map<String, int> monthMap = {
       'Jan': DateTime.january,
       'Feb': DateTime.february,
       'Mar': DateTime.march,
@@ -173,7 +198,11 @@ DateTime convertStringToDateTime(String dateString) {
     int day = int.parse(date[1]);
     int year = int.parse(dateParts[1]);
     
-    return DateTime(year, month, day);
+    return DateTime(year, month, day);*/
+    // Parse the input date string
+    DateTime parsedDate = DateFormat.yMMMd().parse(dateString);
+
+    return DateTime(parsedDate.year, parsedDate.month, parsedDate.day);
   } catch (e) {
     // Handle parsing errors, e.g., invalid format
     log('Error converting string to DateTime: $e');
@@ -288,18 +317,7 @@ String convertDateStringToDate(String dateString) {
   return formattedDate;
 }
 
-String convertStringServerTimeToDate(String timestamp){
 
-  // Convert the timestamp to a DateTime object
-  DateTime dateTime = DateTime.parse(timestamp);
-
-  // Use the toString method
-  String formattedDate = dateTime.toString();
-  //String finalResult = formattedDate.substring(0, 10);
-
-  print(formattedDate); // Output: 2023-01-27 20:48:47.960
-  return formattedDate;
-}
 
 /*String convertServerTimeToDate(int timestamp) {
   // Convert the timestamp to a DateTime object

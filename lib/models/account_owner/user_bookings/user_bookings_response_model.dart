@@ -150,7 +150,7 @@ class ServiceDetails {
       serviceName: json['service_name'] ?? 'non',
       serviceFee: json['service_fee'] ?? 'service_fee',
       service_type: json['service_type'] ?? 'service_type',
-      document: json['document'] ?? 'document',
+      document: json['document'] ?? 'non',
       appointmentType: json['appointment_type'] ?? 'non',
       date: json['date'] ?? 'date',
       time: json['time'] ?? 'time',

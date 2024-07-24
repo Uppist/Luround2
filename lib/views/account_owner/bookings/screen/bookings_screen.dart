@@ -717,7 +717,7 @@ class _BookingsPageState extends State<BookingsPage> {
 
                                                         //TODO: FIND A PDF PACKAGE THAT CAN Display & READ PDF LINK GOTTEN FROM SERVER
                                                         //E.G CLOUDINARY PDF URL
-                                                        item.serviceDetails.service_type != 'One-Off' ? SizedBox.shrink() :
+                                                        item.serviceDetails.service_type != 'One-Off' && item.serviceDetails.oneoff_type == 'time based' ? SizedBox.shrink() :
                                                         Column(
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [

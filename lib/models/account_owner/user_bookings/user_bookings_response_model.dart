@@ -62,6 +62,7 @@ class DetailsModel {
       duration: json['duration'] ?? 'duration',
       start_time: json['start_time'] ?? 'non',
       end_time: json['end_time'] ?? 'non',
+
     );
   }
 }
@@ -117,15 +118,14 @@ class ServiceDetails {
   final String date;
   final String time;
   final String document;
-  //final String end_time;
   final String duration;
-  //final String bookedStatus;
-  //final String available_time;
+
   final String message;
   final dynamic file;
   final String location;
   final int createdAt;
   final String service_type;
+  final String oneoff_type;
 
   ServiceDetails({
     required this.serviceId,
@@ -140,10 +140,8 @@ class ServiceDetails {
     required this.createdAt,
     required this.service_type,
     required this.document,
-    //required this.start_time,
-    //required this.end_time,
-    //required this.bookedStatus,
     required this.duration,
+    required this.oneoff_type,
   });
 
   factory ServiceDetails.fromJson(Map<String, dynamic> json) {
@@ -162,7 +160,7 @@ class ServiceDetails {
       message: json['message'] ?? '',
       file: json['file'] ?? '',
       location: json['location'] ?? '',
-      //bookedStatus: json['booked_status'] ?? '',
+      oneoff_type: json['oneoff_type'] ?? 'project based',
       createdAt: json['created_at'] ?? 0,
     );
   }

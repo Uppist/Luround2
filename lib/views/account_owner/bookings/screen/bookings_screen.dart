@@ -742,7 +742,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                             )
                                                             :InkWell(
                                                               onTap: (){
-                                                                controller.launchUrlLink(link: item.serviceDetails.document);
+                                                                controller.launchUrlLink(link: item.document);
                                                               },
                                                               child: Container(
                                                                 alignment: Alignment.center,
@@ -762,7 +762,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                                     SizedBox(width: 10.w,),
                                                                     Expanded(
                                                                       child: Text(
-                                                                        item.serviceDetails.document,
+                                                                        item.document,
                                                                         style: GoogleFonts.inter(
                                                                           color: AppColor.darkGreyColor,
                                                                           fontSize: 14.sp,

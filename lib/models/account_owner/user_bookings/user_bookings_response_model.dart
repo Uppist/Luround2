@@ -31,6 +31,7 @@ class DetailsModel {
   final String start_time;
   final String end_time;
   final String duration;
+  final String document;
 
 
   DetailsModel({
@@ -45,6 +46,7 @@ class DetailsModel {
     required this.start_time,
     required this.end_time,
     required this.duration,
+    required this.document,
   });
 
   factory DetailsModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class DetailsModel {
       duration: json['duration'] ?? 'duration',
       start_time: json['start_time'] ?? 'non',
       end_time: json['end_time'] ?? 'non',
+      document: json['document'] ?? 'non',
 
     );
   }
@@ -117,7 +120,6 @@ class ServiceDetails {
   final String appointmentType;
   final String date;
   final String time;
-  final String document;
   final String duration;
 
   final String message;
@@ -139,7 +141,6 @@ class ServiceDetails {
     required this.location,
     required this.createdAt,
     required this.service_type,
-    required this.document,
     required this.duration,
     required this.oneoff_type,
   });
@@ -150,7 +151,6 @@ class ServiceDetails {
       serviceName: json['service_name'] ?? 'non',
       serviceFee: json['service_fee'] ?? 'service_fee',
       service_type: json['service_type'] ?? 'service_type',
-      document: json['document'] ?? 'non',
       appointmentType: json['appointment_type'] ?? 'non',
       date: json['date'] ?? 'date',
       time: json['time'] ?? 'time',

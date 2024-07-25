@@ -14,6 +14,7 @@ import 'package:luround/utils/components/suspension_boolean.dart';
 import 'package:luround/views/account_owner/services/widget/event/edit_event/screen/edit_event_screen.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/delete_service/delete_service_bottomsheet.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/service_insight/service_insight.dart';
+import 'package:luround/views/account_owner/services/widget/screen_widget/service_qrcode/service_qrcode.dart';
 import 'package:luround/views/account_owner/services/widget/screen_widget/switch_widget_suspend.dart';
 
 
@@ -251,6 +252,38 @@ Future<void> editEventDialogueBox({
                     ],
                   ),
                 ),
+
+                SizedBox(height: 30.h,),
+                //2            
+                InkWell(
+                  onTap: () {
+                    Get.to(() => ServiceQRCodePage(serviceLink: serviceLink,));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset('assets/svg/service_qrcode.svg'),
+                      SizedBox(width: 20.w,),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Service QR Code',
+                              style: GoogleFonts.inter(
+                                color: AppColor.textGreyColor,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.w500
+                              )
+                            ),
+                        
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 SizedBox(height: 30.h,),
                 //1
                 InkWell(

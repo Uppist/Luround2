@@ -95,14 +95,14 @@ class SettingsScreen extends StatelessWidget {
                       Get.to(() => const BankDetailsPage());
                     },
                   ),
-                  SizedBox(height: 20.h,),
+                  /*SizedBox(height: 20.h,),
                   SettingsSelector(
                     text: 'Support', 
                     onFlip: () {
                       Get.to(() => const FeedbackPage());
                     }
                   ),
-                  /*SettingsSelector(
+                  SettingsSelector(
                     text: "Pricing",
                     onFlip: () {
                       //Get.to(() => const SubscriptionScreenInApp());

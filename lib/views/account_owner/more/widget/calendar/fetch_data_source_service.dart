@@ -66,7 +66,7 @@ class CalendarService extends getx.GetxController {
         var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
         final Random random = Random();
-        
+        appointmentData.clear();
         for (var data in finalResult) {
           Meeting meetingData = Meeting(
             eventName: data.serviceDetails.serviceName,
@@ -77,7 +77,7 @@ class CalendarService extends getx.GetxController {
             from: //DateTime(2024, 5, 6, 09, 30, 0),
             parseDateTime(
               dateString: data.serviceDetails.date, 
-              timeString: data.start_time
+              timeString: data.serviceDetails.time, //data.start_time
             ),
 
             to: 
@@ -89,7 +89,7 @@ class CalendarService extends getx.GetxController {
             background: _colorCollection[random.nextInt(10)],
             isAllDay: false, //true
           );
-          appointmentData.clear();
+          //appointmentData.clear();
           appointmentData.add(meetingData);
         }
         debugPrint("appointment list: $appointmentData");

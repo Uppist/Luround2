@@ -1,7 +1,7 @@
 name: luround
 description: "Luround App"
 publish_to: 'none'
-version: 1.0.2+18
+version: 1.0.2+19
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -86,7 +86,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
 
   #for sharing anything sharable
-  share_plus: ^7.2.1
+  share_plus: ^10.0.0
 
   #firebase apis
   firebase_core: ^2.24.0

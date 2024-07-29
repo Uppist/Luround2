@@ -149,6 +149,14 @@ class MorePage extends StatelessWidget {
                         Get.to(() => SettingsScreen());
                       },
                     ),  
+                    SizedBox(height: 20.h,),
+                    MoreSelector(
+                      text: 'Support',
+                      svgAsset: 'assets/svg/support_icon.svg',
+                      onTap: () {
+                        Get.to(() => FeedbackPage());
+                      },
+                    ),
                                 
                   ],
                 ),

@@ -59,7 +59,8 @@ class FinancialsPdfService extends getx.GetxController {
     Uint8List logobytes = _bytes.buffer.asUint8List();
     //final Uint8List logoImage = (await rootBundle.load('assets/images/luround_logo.png')).buffer.asUint8List();
 
-    pdfQ.addPage(pw.MultiPage(
+    pdfQ.addPage(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),
@@ -825,7 +826,8 @@ class FinancialsPdfService extends getx.GetxController {
     required String paymentLink,
     required String charges,
   }) async {
-    pdfI.addPage(pw.MultiPage(
+    pdfI.addPage(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),
@@ -1616,7 +1618,8 @@ class FinancialsPdfService extends getx.GetxController {
     //required String charge,
     //more to be added
   }) async {
-    pdfR.addPage(pw.MultiPage(
+    pdfR.addPage(
+      pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),

@@ -7,6 +7,34 @@ import 'package:intl/intl.dart';
 
 
 
+
+
+
+
+int milliseconds = DateTime.now().millisecondsSinceEpoch;
+
+//generates automatic date stamp
+String convertToDateFormat() {
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  DateFormat dateFormatter = DateFormat.yMMMd();
+  return dateFormatter.format(dateTime);
+}
+
+//generates automatic timestamp
+String convertToTimeFormat() {
+  DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(milliseconds);
+  DateFormat timeFormatter = DateFormat.jm();
+  return timeFormatter.format(dateTime);
+}
+
+
+
+
+
+
+
+
+
 String getTimeDurationString({required String startTime, required String stopTime}) {
   DateFormat dateFormat = DateFormat('h:mm a'); // Format for parsing times like '10:30 AM'
 
@@ -69,11 +97,11 @@ String formatDate(DateTime date) {
 //for the web
 DateTime parseDateTime({required String dateString, required String timeString}) {
   // Parse date string
-  DateTime date = DateFormat.yMMMd().parse(dateString);
+  DateTime date = DateFormat.yMMMd().parse(dateString).toLocal();
 
   // Parse time string
   DateFormat timeFormat = DateFormat("h:mm a");
-  DateTime time = timeFormat.parse(timeString);
+  DateTime time = timeFormat.parse(timeString).toLocal();
 
   // Combine date and time
   return DateTime(date.year, date.month, date.day, time.hour, time.minute);

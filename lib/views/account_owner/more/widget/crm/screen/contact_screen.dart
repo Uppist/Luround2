@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:luround/controllers/account_owner/more/more_controller.dart';
 import 'package:luround/models/account_owner/more/crm/contact_response_model.dart';
 import 'package:luround/services/account_owner/more/crm/crm_service.dart';
 import 'package:luround/views/account_owner/bookings/widget/search_textfield.dart';
@@ -33,7 +35,9 @@ class ContactScreen extends StatefulWidget {
 
 class _ContactScreenState extends State<ContactScreen> {
 
-  var service = Get.put(CRMService());
+  final service = Get.put(CRMService());
+
+  final moreController = Get.put(MoreController());
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -101,24 +105,32 @@ class _ContactScreenState extends State<ContactScreen> {
                     onTap: () {
                       Get.to(() => AddContactScreen(refresh: _refresh(),));
                     }, 
-                    child: Text(
-                      "+ Add new",
-                      style: GoogleFonts.inter(
-                        textStyle: TextStyle(
-                          overflow: TextOverflow.ellipsis,
-                          color: AppColor.mainColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 12.sp,
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 15.w),
+                      decoration: BoxDecoration(
+                        color: AppColor.mainColor,
+                        borderRadius: BorderRadius.circular(10.r)
+                      ),
+                      child: Text(
+                        "New contact",
+                        style: GoogleFonts.inter(
+                          textStyle: TextStyle(
+                            overflow: TextOverflow.ellipsis,
+                            color: AppColor.bgColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                          ),
+                          //decoration: TextDecoration.underline,
+                          //decorationColor: AppColor.mainColor
                         ),
-                        decoration: TextDecoration.underline,
-                        decorationColor: AppColor.mainColor
                       ),
                     ),
                   ),
                 ],
               ),
 
-              SizedBox(height: 20.h),
+              SizedBox(height: 35.h),
 
               //search textfield
               SearchTextField(
@@ -136,6 +148,49 @@ class _ContactScreenState extends State<ContactScreen> {
                 onTap: () {
                   //service.searchContactController.clear();
                 },
+              ),
+
+              SizedBox(height: 30.h,),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  InkWell(
+                    onTap: () async{
+                      await moreController.saveThePdf(
+                        context: context,
+                        contactList: service.filteredContactList.map((e) => e.toJson() as dynamic).toList()
+                      );
+                      
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        /*Icon(
+                          color: AppColor.blackColorOp,
+                          size: 24.r,
+                          Icons.launch_rounded,
+                        ),*/
+                        SvgPicture.asset('assets/svg/export.svg'),
+                        SizedBox(width: 5.w,),
+                        Text(
+                          'Export contacts',
+                          style: GoogleFonts.inter(
+                            textStyle: TextStyle(
+                              overflow: TextOverflow.ellipsis,
+                              color: AppColor.blackColorOp,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 12.sp,
+                            ),
+                            decorationStyle: TextDecorationStyle.solid,
+                            decoration: TextDecoration.underline,
+                            decorationColor: AppColor.blackColorOp
+                            ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
               ),
 
               SizedBox(height: 30.h,),
@@ -238,7 +293,8 @@ class _ContactScreenState extends State<ContactScreen> {
                                       )
                                     ]
                                   ),
-                                  SizedBox(height: 20.h,),
+
+                                  service.selectedIndex == index ? SizedBox(height: 20.h,) : SizedBox.shrink(),
                                               
                                   //client email and mobile number column (expandable)
                                   service.selectedIndex == index ?

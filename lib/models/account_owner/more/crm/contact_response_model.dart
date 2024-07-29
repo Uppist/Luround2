@@ -18,4 +18,12 @@ class ContactResponse{
     );
   }
 
+  Map<String, dynamic> toJson() {
+    return {
+      'name': client_name,
+      'email': client_email,
+      'phone_number': client_phone_number
+    };
+  }
+
 }

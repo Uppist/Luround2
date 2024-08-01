@@ -330,7 +330,7 @@ class AuthService extends getx.GetxController {
   //to log a user out locally and simultaneously with google
   Future<dynamic> logoutUser() async {
     isLoading.value = true;
-    await LocalStorage.deleteToken();
+    //await LocalStorage.deleteToken();
     await LocalStorage.deleteUserID();
     await LocalStorage.deleteUseremail();
     await LocalStorage.deleteUsername();

@@ -134,7 +134,7 @@ class MoreController extends getx.GetxController {
                 itemBuilder: (context, index) {
                   final item = contactList[index];
                   return pw.Row(
-                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
                       pw.Text(
                         "${index + 1}.",
@@ -144,8 +144,9 @@ class MoreController extends getx.GetxController {
                           //fontWeight: pw.FontWeight.bold
                         )
                       ),
+                      pw.SizedBox(width: 20.h),
                       pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.end,
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
                         children: [
                           pw.Text(
                             item['name'],

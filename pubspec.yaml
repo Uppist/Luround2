@@ -1,7 +1,7 @@
 name: luround
 description: "Luround App"
 publish_to: 'none'
-version: 1.0.2+19
+version: 1.0.2+20
 
 environment:
   sdk: '>=3.0.6 <4.0.0'
@@ -109,9 +109,6 @@ dependencies:
 
   #for syncing google calendar to flutter app
   syncfusion_flutter_calendar: ^25.1.42
-  #for syncing google apis e.g google calendar
-  
-  #syncfusion_flutter_pdfviewer: ^24.1.41
 
 
 

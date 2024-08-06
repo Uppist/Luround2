@@ -67,12 +67,12 @@ class MoreController extends getx.GetxController {
     required List<dynamic> contactList,
   }) async{
     pdf.addPage(
-      pw.MultiPage(
+      pw.Page(  //MultiPage
         pageFormat: PdfPageFormat.a4,
         //pageTheme: pw.PageTheme(),
         margin: pw.EdgeInsets.all(32.sp),
         build: (pw.Context context) {
-          return  [ 
+          return  //[
             pw.Column(
             crossAxisAlignment: pw.CrossAxisAlignment.center,
             children: [
@@ -198,7 +198,8 @@ class MoreController extends getx.GetxController {
 
 
             ]
-          )];
+          );
+          //];
           
         }
       )

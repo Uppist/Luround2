@@ -41,25 +41,27 @@ class _ContactScreenState extends State<ContactScreen> {
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refresh() async {
-    await Future.delayed(Duration(seconds: 1));
+  
+  late Future<List<ContactResponse>> refreshFuture;
+
+  Future<List<ContactResponse>> _refresh() async {
+    await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
-    final List<ContactResponse>  newData = await service.getUserContacts();
-    // Update the UI with the new data
-    service.filteredContactList.clear();
-    service.filteredContactList.addAll(newData);
-    print('updated crm list: ${service.filteredContactList}');
+    final refreshFuture = await service.getUserContacts();
+    return refreshFuture;
+  }
+
+  Future<void> _handleRefresh() async{
+    setState(() {
+      refreshFuture = _refresh();
+    });
   }
 
   @override
   void initState() {
     // TODO: implement initState
+    refreshFuture = _refresh();
     super.initState();
-    service.getUserContacts().then((value) {
-      service.filteredContactList.clear();
-      service.filteredContactList.addAll(value);
-      print("filtered contacts list: ${service.filteredContactList}");
-    });
   }
 
   @override
@@ -205,13 +207,11 @@ class _ContactScreenState extends State<ContactScreen> {
                       color: AppColor.greyColor,
                       backgroundColor: AppColor.mainColor,
                       key: _refreshKey,
-                      onRefresh: () {
-                        return _refresh();
-                      },
+                      onRefresh: () => _handleRefresh(),
                       child: ListView.separated(
                         scrollDirection: Axis.vertical,
                         //shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),//NeverScrollableScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),//NeverScrollableScrollPhysics(),
                         itemCount: service.filteredContactList.length,
                         separatorBuilder: (context, index) => Divider(color: AppColor.darkGreyColor, thickness: 0.5,),
                         itemBuilder: (context, index) {
@@ -294,7 +294,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                     ]
                                   ),
 
-                                  service.selectedIndex == index ? SizedBox(height: 20.h,) : SizedBox.shrink(),
+                                  service.selectedIndex == index ? SizedBox(height: 20.h,) : const SizedBox.shrink(),
                                               
                                   //client email and mobile number column (expandable)
                                   service.selectedIndex == index ?
@@ -432,7 +432,7 @@ class _ContactScreenState extends State<ContactScreen> {
                                       )
                                       //trx history list button
                                     ],
-                                  ) : SizedBox(),
+                                  ) : const SizedBox(),
                                 ]
                               )
                             ),

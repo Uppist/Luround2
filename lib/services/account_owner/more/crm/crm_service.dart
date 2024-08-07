@@ -78,12 +78,17 @@ class CRMService extends getx.GetxController {
 
         final finalResult = response.map((e) => ContactResponse.fromJson(e)).toList();
         
-        contactList.clear();
-        contactList.addAll(finalResult);
+        contactList
+        ..clear()
+        ..addAll(finalResult);
         print("contactList: $contactList");
+
+        filteredContactList
+        ..clear()
+        ..addAll(finalResult);
         
         //return data list
-        return contactList;
+        return filteredContactList;
         
 
       } 

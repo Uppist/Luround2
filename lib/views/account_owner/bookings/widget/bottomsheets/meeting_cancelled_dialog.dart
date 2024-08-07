@@ -72,10 +72,8 @@ Future<void> meetingCancelledBookingDialogueBox({required BuildContext context,}
                 SizedBox(height: 40.h,),
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-
+                    Get.back();
+                    Get.back();
                   },
                   child: Container(
                     //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

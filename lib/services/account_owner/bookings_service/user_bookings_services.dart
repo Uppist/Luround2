@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart' as getx;
 import 'package:luround/controllers/account_owner/services/one-off/oneoff_service_controller.dart';
 import 'package:luround/models/account_owner/user_bookings/user_bookings_response_model.dart';
@@ -336,12 +337,17 @@ class AccOwnerBookingService extends getx.GetxController {
         var finalResult = result.map((e) => DetailsModel.fromJson(e)).toList();
         finalResult.sort((a, b) => a.bookingUserInfo.displayName.toString().toLowerCase().compareTo(b.bookingUserInfo.displayName.toString().toLowerCase()));
         
-        dataList.clear();
-        dataList.addAll(finalResult);
-        print("dataList: $dataList");
+        dataList
+        ..clear()
+        ..addAll(finalResult);
+
+        filteredList
+        ..clear()
+        ..addAll(finalResult);
+        print("filterList: $filteredList");
         
         //return data list
-        return dataList;
+        return filteredList;
 
       } else {
         isLoading.value = false;
@@ -457,7 +463,7 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to confirm booking: ${res.statusCode} | ${res.body}"
+          message: "failed to confirm booking: ${res.statusCode}"
         );
         throw Exception('failed to confirm booking');
       }
@@ -473,6 +479,8 @@ class AccOwnerBookingService extends getx.GetxController {
     required BuildContext context,
     required String bookingId,
     required String client_name,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
   }) async {
     try {
 
@@ -496,10 +504,9 @@ class AccOwnerBookingService extends getx.GetxController {
           context: context,
           backgroundColor: AppColor.darkGreen,
           message: "booking successfully cancelled"
-        ).whenComplete(() {
-          //show meeting cancelled dialog
-          meetingCancelledBookingDialogueBox(context: context);
-        });
+        );
+
+        onSuccess();
         
 
       } 
@@ -512,9 +519,10 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to cancel booking: ${res.statusCode} | ${res.body}"
+          message: "failed to cancel booking: ${res.statusCode}"
         );
-        throw Exception('failed to cancel booking: ${res.statusCode} | ${res.body}');
+        onFailure();
+        throw Exception('failed to cancel booking: ${res.statusCode}');
       }
     }   
     catch (e) {
@@ -528,6 +536,8 @@ class AccOwnerBookingService extends getx.GetxController {
   Future<void> deleteBooking({
     required BuildContext context,
     required String bookingId,
+    required VoidCallback onSuccess,
+    required VoidCallback onFailure,
   }) async {
     
     isLoading.value = true;
@@ -541,23 +551,14 @@ class AccOwnerBookingService extends getx.GetxController {
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint("user booking deleted succesfully");
          //success snackbar
-        await showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.darkGreen,
-          message: "booking deleted successfully"
-        );
+        onSuccess();
       } 
       else {
         isLoading.value = false;
         debugPrint('this is response reason ==> ${res.reasonPhrase}');
         debugPrint('this is response status ==> ${res.statusCode}');
         debugPrint('this is response body ==> ${res.body}');
-        //failure snackbar
-        showMySnackBar(
-          context: context,
-          backgroundColor: AppColor.redColor,
-          message: "failed to delete booking: ${res.statusCode} | ${res.body}"
-        );
+        onFailure();
       }
     } 
     catch (e) {
@@ -610,7 +611,7 @@ class AccOwnerBookingService extends getx.GetxController {
         showMySnackBar(
           context: context,
           backgroundColor: AppColor.redColor,
-          message: "failed to reschedule booking: ${res.statusCode} | ${res.body}"
+          message: "failed to reschedule booking: ${res.statusCode}"
         );
       }
     } 

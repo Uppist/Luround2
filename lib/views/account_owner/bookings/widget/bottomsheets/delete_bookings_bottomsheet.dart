@@ -73,7 +73,6 @@ Future<void> deleteBookingsDialogueBox({required BuildContext context, required 
                       child: InkWell(
                         onTap: () {
                           Navigator.pop(context);
-                          Navigator.pop(context);
                         },
                         child: Container(
                           //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),

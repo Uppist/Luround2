@@ -19,13 +19,13 @@ import 'package:luround/views/account_owner/bookings/widget/bottomsheets/select_
 
 
 class RescheduleBookingPage extends StatefulWidget {
-  const RescheduleBookingPage({super.key, required this.service_date, required this.service_name, required this.service_time, required this.service_duration, required this.bookingId, required this.refresh});
+  const RescheduleBookingPage({super.key, required this.service_date, required this.service_name, required this.service_time, required this.service_duration, required this.bookingId, required this.onRefresh});
   final String service_date;
   final String service_name;
   final String service_time;
   final String service_duration;
   final String bookingId;
-  final Future<void> refresh;
+  final VoidCallback onRefresh;
 
 
   @override
@@ -378,7 +378,7 @@ class _RescheduleBookingPageState extends State<RescheduleBookingPage> {
                                     )
                                   ).whenComplete(() {
                                     Navigator.pop(context);
-                                    widget.refresh;
+                                    widget.onRefresh();
                                   });
                                   //rescheduleDialogueBox(context: context);
                                 },

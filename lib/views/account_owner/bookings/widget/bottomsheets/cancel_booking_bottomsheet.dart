@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/views/account_owner/bookings/widget/bottomsheets/meeting_cancelled_dialog.dart';
 
 
 
@@ -21,7 +22,7 @@ Future<void> cancelBookingDialogueBox({
   required String serviceName,
   required String client_name, 
   required AccOwnerBookingService service,
-  required Future<void> refresh,
+  required VoidCallback onRefresh
 }) async{
   showModalBottomSheet(
     isScrollControlled: true,
@@ -79,7 +80,18 @@ Future<void> cancelBookingDialogueBox({
                       context: context,
                       bookingId: bookingId,
                       client_name: client_name,
-                    ).whenComplete(() => refresh);
+                      onSuccess: () {
+                        //show meeting cancelled dialog
+                        Navigator.pop(context);
+                        onRefresh();
+                        meetingCancelledBookingDialogueBox(context: context);
+                      },
+                      onFailure: () {
+                        //show meeting cancelled dialog
+                        Navigator.pop(context);
+                        onRefresh();
+                      },
+                    );
                   },
                   child: Container(
                     //padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -108,7 +120,6 @@ Future<void> cancelBookingDialogueBox({
                 SizedBox(height: 25.h),
                 InkWell(
                   onTap: () {
-                    Navigator.pop(context);
                     Navigator.pop(context);
                   },
                   child: Container(

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:luround/services/account_owner/bookings_service/user_bookings_services.dart';
 import 'package:luround/utils/colors/app_theme.dart';
+import 'package:luround/utils/components/my_snackbar.dart';
 import 'package:luround/views/account_owner/bookings/screen/reschedule_screen.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/cancel_booking_bottomsheet.dart';
 import 'package:luround/views/account_owner/bookings/widget/bottomsheets/delete_bookings_bottomsheet.dart';
@@ -27,7 +28,7 @@ Future<void> bookingsListDialogueBox({
   required String bookingId,
   required String client_name, 
   required AccOwnerBookingService service,
-  required Future<void> refresh,
+  required VoidCallback onRefresh
 }) async {
   showModalBottomSheet(
     isScrollControlled: true,
@@ -63,8 +64,9 @@ Future<void> bookingsListDialogueBox({
                 //1
                 InkWell(
                   onTap: () {
+                    Navigator.pop(context);
                     Get.off(() => RescheduleBookingPage(
-                      refresh: refresh,
+                      onRefresh: onRefresh,
                       bookingId: bookingId,
                       service_name: serviceName,
                       service_date: serviceDate,
@@ -92,9 +94,9 @@ Future<void> bookingsListDialogueBox({
                 //2
                 InkWell(
                   onTap: () {
-                    //Navigator.pop(context);
+                    Navigator.pop(context);
                     cancelBookingDialogueBox(
-                      refresh: refresh,
+                      onRefresh:  onRefresh,
                       service: service,
                       context: context, 
                       serviceName: serviceName,
@@ -122,19 +124,33 @@ Future<void> bookingsListDialogueBox({
                 //3
                 InkWell(
                   onTap: () {
-
+                    Navigator.pop(context);
                     deleteBookingsDialogueBox(
                       context: context, 
                       titleText: serviceName, 
                       onDelete: () {
                         service.deleteBooking(
                           context: context, 
-                          bookingId: bookingId
-                        ).whenComplete(() {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                          refresh;
-                        });
+                          bookingId: bookingId,
+                          onSuccess: () {
+                            Navigator.pop(context);
+                            onRefresh();
+                            showMySnackBar(
+                              context: context,
+                              backgroundColor: AppColor.darkGreen,
+                              message: "booking deleted successfully"
+                            );
+                          },
+                          onFailure: () {
+                            Navigator.pop(context);
+                            onRefresh();
+                            showMySnackBar(
+                              context: context,
+                              backgroundColor: AppColor.redColor,
+                              message: "failed to delete booking"
+                            );
+                          }
+                        );
                       },
                     );
                     

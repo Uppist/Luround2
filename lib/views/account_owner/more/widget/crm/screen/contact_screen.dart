@@ -41,7 +41,7 @@ class _ContactScreenState extends State<ContactScreen> {
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  
+
   late Future<List<ContactResponse>> refreshFuture;
 
   Future<List<ContactResponse>> _refresh() async {
@@ -105,7 +105,7 @@ class _ContactScreenState extends State<ContactScreen> {
                   //actions
                   InkWell(
                     onTap: () {
-                      Get.to(() => AddContactScreen(refresh: _refresh(),));
+                      Get.to(() => AddContactScreen(onRefresh: () => _handleRefresh(),));
                     }, 
                     child: Container(
                       alignment: Alignment.center,

@@ -23,8 +23,8 @@ import '../../../../../../utils/components/title_text.dart';
 
 
 class AddContactScreen extends StatefulWidget {
-  const AddContactScreen({super.key, required this.refresh,});
-  final Future<void> refresh;
+  const AddContactScreen({super.key, required this.onRefresh,});
+  final VoidCallback onRefresh;
 
   @override
   State<AddContactScreen> createState() => _AddContactScreenState();
@@ -170,7 +170,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
                                   client_name: service.contactNameController.text, 
                                   client_email: service.contactEmailController.text,
                                   client_phone_number: service.contactPhoneNumberController.text,
-                                ).whenComplete(() => widget.refresh);
+                                ).whenComplete(() => widget.onRefresh());
                               }
                               else {
                                 showMySnackBar(

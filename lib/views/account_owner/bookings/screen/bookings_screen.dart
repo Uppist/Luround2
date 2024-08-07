@@ -44,37 +44,26 @@ class _BookingsPageState extends State<BookingsPage> {
 
   // GlobalKey for RefreshIndicator
   final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refresh() async {
+
+  late Future<List<DetailsModel>> refreshFuture;
+
+  Future<List<DetailsModel>> _refresh() async {
     await Future.delayed(const Duration(seconds: 1));
     // Fetch new data here
-    final List<DetailsModel> newData = await service.getUserBookings();
-    // Update the UI with the new data
-    service.filteredList.clear();
-    service.filteredList.addAll(newData);
-    print('updated bookings list: ${service.filteredList}');
+    final refreshFuture = await service.getUserBookings();
+    return refreshFuture;
   }
 
+  Future<void> _handleRefresh() async{
+    setState(() {
+      refreshFuture = _refresh();
+    });
+  }
 
-  /*final GlobalKey<RefreshIndicatorState> _refreshKey = GlobalKey<RefreshIndicatorState>();
-  Future<void> _refreshSS() async {
-    await Future.delayed(Duration(seconds: 1));
-    // Fetch new data here
-    final List<DetailsModel>  newData = (service.getUserBookingsSocket()) as List<DetailsModel>;
-    // Update the UI with the new data
-    // Update the UI with the new data
-    service.filteredList.clear();
-    service.filteredList.addAll(newData);
-    print('updated service list: ${service.filteredList}');
-  }*/
-
-
-  late Future<List<DetailsModel>> userBookingFuture;
-  //late Stream<List<DetailsModel>> userBookingStream;
   @override
   void initState() {
-    super.initState();
- 
-    userBookingFuture = service.getUserBookings();
+    // TODO: implement initState
+    refreshFuture = _refresh();
     //userBookingStream = service.getUserBookingsSocket();
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
@@ -85,7 +74,7 @@ class _BookingsPageState extends State<BookingsPage> {
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
     );
-
+    super.initState();
   }
 
 
@@ -228,14 +217,14 @@ class _BookingsPageState extends State<BookingsPage> {
       
       
               FutureBuilder<List<DetailsModel>>(
-                future: userBookingFuture,
+                future: refreshFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const Expanded(child: Loader(),);
                   }
                   if (snapshot.hasError) {
                     print(snapshot.error);
-                    return BookingScreenEmptyState(onPressed: () {service.getUserBookings();},);
+                    return BookingScreenEmptyState(onPressed: () => _handleRefresh(),);
                   }
                 
                   if (!snapshot.hasData) {
@@ -243,20 +232,17 @@ class _BookingsPageState extends State<BookingsPage> {
                     print("sn-error: ${snapshot.error}");
               
                     return BookingScreenEmptyState(
-                      onPressed: () {
-                        //service.getUserBookings();
-                        _refresh();
-                      },
+                      onPressed: () => _handleRefresh()
                     );
                   }
                      
                   if (snapshot.hasData) {
       
-                    var data = snapshot.data!;
-                    service.filteredList.clear();
+                    final data = snapshot.data!;
+                    /*service.filteredList.clear();
                     service.filteredList.addAll(data); 
                     //print("sorted data booking list: $data");
-                    print("filtered booking list: ${service.filteredList}");
+                    print("filtered booking list: ${service.filteredList}");*/
                 
                     return Obx(
                       () {
@@ -266,9 +252,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                 color: AppColor.greyColor,
                                 backgroundColor: AppColor.mainColor,
                                 key: _refreshKey,
-                                onRefresh: () {
-                                  return _refresh();
-                                },
+                                onRefresh: () => _handleRefresh(),
                                 child: ListView.separated(
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
@@ -372,7 +356,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                             IconButton(
                                                               onPressed: () {
                                                                 bookingsListDialogueBox(
-                                                                  refresh: _refresh(),
+                                                                  onRefresh: () => _handleRefresh(),
                                                                   service: service,
                                                                   serviceDate: item.serviceDetails.date,
                                                                   serviceTime: item.serviceDetails.time,
@@ -944,7 +928,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                                         IconButton(
                                                           onPressed: () {
                                                             bookingsListDialogueBox(
-                                                              refresh: _refresh(),
+                                                              onRefresh: () => _handleRefresh(),
                                                               service: service,
                                                               serviceDate: item.serviceDetails.date,
                                                               serviceTime: item.serviceDetails.time,
@@ -1169,10 +1153,7 @@ class _BookingsPageState extends State<BookingsPage> {
                                     }
                                           
                                     return BookingScreenEmptyState(
-                                      onPressed: () {
-                                        //service.getUserBookings();
-                                        _refresh();
-                                      },
+                                      onPressed: () => _handleRefresh(),
                                     );
                                   }
                                 ),
